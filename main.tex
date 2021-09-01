@@ -1,0 +1,190 @@
+\documentclass{book}
+
+% If your paper is accepted, change the options for the package
+% aistats2020 as follows:
+%
+% \usepackage[accepted]{aistats2020}
+%
+% This option will print headings for the title of your paper and
+% headings for the authors names, plus a copyright note at the end of
+% the first column of the first page.
+
+% If you set papersize explicitly, activate the following three lines:
+%\special{papersize = 8.5in, 11in}
+%\setlength{\pdfpageheight}{11in}
+%\setlength{\pdfpagewidth}{8.5in}
+
+% If you use natbib package, activate the following three lines:
+\usepackage[round]{natbib}
+\renewcommand{\bibname}{References}
+\renewcommand{\bibsection}{\subsubsection*{\bibname}}
+
+% If you use BibTeX in apalike style, activate the following line:
+%\bibliographystyle{apalike}
+
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+% My packages
+
+\usepackage[mathscr]{euscript}
+\usepackage{graphicx}
+\usepackage {tikz}
+\usetikzlibrary {positioning}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{intersections}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{stmaryrd }
+\usepackage{csquotes}
+\usepackage{wasysym}
+\usepackage[]{todonotes}
+\usepackage[shortlabels]{enumitem}
+\usepackage{bm}
+\usepackage{isomath}
+\usepackage{mathtools}
+
+\makeatletter
+\newcommand{\newreptheorem}[2]
+  {\newtheorem*{rep@#1}{\rep@title}\newenvironment{rep#1}[1]
+  {\def\rep@title{#2 \ref*{##1}}\begin{rep@#1}}{\end{rep@#1}}}
+\makeatother
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newreptheorem{theorem}{Theorem}
+
+\newtheorem{innercustomthm}{Theorem}
+\newenvironment{customthm}[1]
+  {\renewcommand\theinnercustomthm{#1}\innercustomthm}
+  {\endinnercustomthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\DeclareMathAlphabet{\mathsfit}{T1}{\sfdefault}{\mddefault}{\sldefault}
+
+\newcommand{\CI}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
+\newcommand{\CII}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp\mkern-10mu\perp$}}}}
+\newcommand{\RV}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\URV}[1]{\ensuremath{\underline{\RV{#1}}}}
+\newcommand{\PA}[2]{\ensuremath{\text{Pa}_{#1}(#2)}}
+\newcommand{\ND}[2]{\ensuremath{\text{ND}_{#1}(#2)}}
+\newcommand{\CH}[2]{\ensuremath{\text{Ch}_{#1}(#2)}}
+\newcommand{\DE}[2]{\ensuremath{\text{De}_{#1}(#2)}}
+\newcommand{\ID}[1]{\ensuremath{\text{Id}_{#1}}}
+\newcommand{\utimes}{\ensuremath{\underline{\otimes}}}
+\newcommand{\prob}[1]{\ensuremath{\mathbb{#1}}}
+\newcommand{\kernel}[1]{\ensuremath{\mathbb{#1}}}
+\newcommand{\seedo}{\ensuremath{\mathbb{T}}}
+\newcommand{\diagram}[1]{\ensuremath{\mathscr{#1}}}
+\newcommand{\sigalg}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\vecRV}[1]{\ensuremath{\mathsfbfit{#1}}}
+\newcommand{\vecVal}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\prodSet}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\indx}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\nod}[1]{\ensuremath{\mathsfit{#1}}}
+
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+\tikzset{
+    triangle/.style = {regular polygon, regular polygon sides=3 },
+    node rotated/.style = {rotate=90},
+    border rotated/.style = {shape border rotate=90},
+    dist/.style = {triangle,draw,border rotated, inner sep=0pt},
+    smalldist/.style = {triangle,draw,border rotated},
+    kernel/.style={rectangle,draw,inner sep = 2pt},
+    expectation/.style = {triangle,draw,inner sep=0pt,shape border rotate=270},
+    copymap/.style = {circle,fill,inner sep=1pt}}
+
+\newcommand\DCI{
+    \begin{tikzpicture}[scale=0.35]
+    \draw[->] (1,0) -- (0,0);
+    \draw (0.6,0) -- (0.6,0.75);
+    \draw (0.4,0) -- (0.4,0.75);
+    \end{tikzpicture}
+}
+
+\newcommand\splitter[1]{%
+\begin{tikzpicture}[scale=#1]
+\draw (0,-1) -- (0,0);
+\draw (0,0) to [bend right] (1,1);
+\draw (0,0) to [bend left] (-1,1);
+\end{tikzpicture}
+}
+
+\newcommand\stopper[1]{%
+\begin{tikzpicture}[scale=#1]
+\draw[-{Rays [n=8]}] (0,-1) -- (0,0);
+\end{tikzpicture}
+}
+
+\newcommand\source[1]{%
+\begin{tikzpicture}[scale=#1]
+\path (0,0) node[prob,fill=gray] (P) {};
+\draw (P) -- ($(P.east) + (1,0)$);
+\end{tikzpicture}
+}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\arginf}{arg\,inf}
+\DeclareMathOperator*{\argsup}{arg\,sup}
+
+\newcommand{\cheng}[1]{ {\color{purple}[{\bf Cheng:~{#1}}]} }
+
+\title{Causal Statistical Decision Theory|What are interventions?}
+\date{\today}
+
+\author{ David Johnston }
+
+\begin{document}
+
+\maketitle
+
+
+% \begin{abstract}
+There are several different approaches to causal inference. Two of the most popular are based on causal Bayesian networks and potential outcomes respectively. \citet{Pearl} has used a three-level hierarchy to discuss the relationship between these model types. Using our own approach that builds on the decision theoretic approch to causality, we clarify the relationship between these model types with reference to Pearl's hierarchy and special attention to separating formal definitions from matters of interpretation. 
+
+This paper clarifies the relationship between the two approaches. We do this building on the decision theoretic approach to causal inference explored by (Dawid, Heckerman, Rohde \& Lattimore), and introduce ``see-do models'', a generalisation of regular statistical models. Potential outcomes and graphical causal models are different approaches to the difficult problem of relating observations (``see'') to consequences (``do''). The potential outcomes approach posits that observations and consequences together form a sequence of identically distributed ``potential outcome functions'' with fixed domain and codomain which are not fully observable, while graphical causal models posits that observations and consequences share a collection of conditional probabilities, but in general the elements of the collection may not be known. The assumption of exchangeable potential outcome functions implies a shared collection of conditional probabilities, but in general potential outcomes models have additional structure besides. In particular, we show how sequences of ``non-deterministic'' potential outcome functions are equivalent to ``see-do-imagine models'', which are see-do models with extra handles, along with the assumption of \emph{functional exchangeability}. As there is generally no requirement to model ``imagine'' handles, it is possible to construct causal models like Causal Bayesian Networks
+
+See-do models themselves are motivated by a decision theoretic approach to causality, and are similar but not identical to previous work in this area. The decision theoretic approach emphasises building models that are suitable for solving problems over adopting particular kinds of causal primitives. Nonetheless, as we show here, it can shed light on the nature of causal primitives that appear in other approaches.
+% \end{abstract}
+\tableofcontents
+
+
+% \input{chapter_1_introduction}
+% \input{chapter_2_technical}
+% \input{chapter_3_twoplayer_statistical_models}
+% \input{chapter_4_statistical_decision_theory}
+% \input{chapter_5_interventions_counterfactuals}
+% \input{chapter_6_imitability_inference}
+% \input{chapter_7_godscomputer}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+\newpage
+\section*{Appendix:}
+
+% \input{appendix_AIstats}
+
+\end{document}
