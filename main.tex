@@ -161,7 +161,7 @@
 
 
 % \begin{abstract}
-Researchers in the field of causal inference will often choose a causal framework as one of the first steps of their investigations, or in some cases, one of the first steps of their careers. One could postulate that ``causal inference'' is what one does when one does work using a causal modelling framework. We argue that ``causal inference'' is better understood by the kind of \emph{questions} people work on rather than the kind of framework people use to answer them. \citet{pearl_book_2018} has proposed a three-level hierarchy for classifying causal questions: at the bottom are ``seeing'' questions followed by ``doing'' questions with ``imagining'' questions at the top. We propose an alternative characterisation: ``ordinary statistical questions'' are questions involving data that are answered by distributions on a given set \todo{or something like that; it could also be functions of a distribution like a maximum likelihood estimate or a p-value} while ``causal statistical questions'' are questions involving data that are answered by stochastic functions with given domain and codomain. Potential outcomes and graphical models are features of modelling frameworks, while interventions and counterfactuals are features of causal problems. We show how both potential outcomes and causal graphical models arise in \emph{see-do models}, a generic modelling framework we introduce that addresses causal questions in general, as we define them. We hypothesise that some confusion about interventions and counterfactuals arises from attempts to understand them as features dictated by the modelling framework rather than by the problem under investigation.
+Researchers in the field of causal inference will often choose a causal framework as one of the first steps of their investigations, or in some cases, one of the first steps of their careers. One could postulate that ``causal inference'' is what one does when one does work using a causal modelling framework. We argue that ``causal inference'' is better understood by the kind of questions people ask on rather than the kind of framework people use to answer them. \citet{pearl_book_2018} has proposed a three-level hierarchy for classifying causal questions: at the bottom are ``seeing'' questions followed by ``doing'' questions with ``imagining'' questions at the top. We propose an alternative characterisation: ``ordinary statistical questions'' are questions involving data that are answered by distributions on a given set \todo{or something like that; it could also be functions of a distribution like a maximum likelihood estimate or a p-value} while ``causal statistical questions'' are questions involving data that are answered by stochastic functions with given domain and codomain. Potential outcomes and graphical models are features of modelling frameworks, while interventions and counterfactuals are features of causal problems. We show how both potential outcomes and causal graphical models arise in \emph{see-do models}, a generic modelling framework we introduce that addresses causal questions in general, as we define them. We hypothesise that some confusion about interventions and counterfactuals arises from assuming they are given by the modelling framework rather than by the problem under investigation.
 
 
 
@@ -170,8 +170,8 @@ Researchers in the field of causal inference will often choose a causal framewor
 \tableofcontents
 
 
-% \input{chapter_1_introduction}
-% \input{chapter_2_technical}
+\input{probability}
+\input{seedo}
 % \input{chapter_3_twoplayer_statistical_models}
 % \input{chapter_4_statistical_decision_theory}
 % \input{chapter_5_interventions_counterfactuals}

@@ -1,0 +1,52 @@
+%!TEX root = main.tex
+
+\section{See-do models}\label{sec:seedo_models}
+
+We will first introduce \emph{see-do models} as a type of model that functions as the basic kind of thing which we will use to examine questions in the decision theoretic, potential outcomes and graphical models appraoch.
+
+See-do models can be understood as generalisations of statistical models. Statistical models are a ubiquitous type of model in statistics and machine learning that consist of a set of \emph{states} $S$, and for each state the model prescribes a single probability distribution on a given set of \emph{outcomes} $O$.
+
+\begin{definition}[Statistical model]\label{def:statistical model}
+A statistical model is a set of states $S$, a set of outcomes $O$ and a Markov kernel $\kernel{T}:S\to \Delta(O)$.
+\end{definition}
+
+For example, a potentially biased coin can be modelled with a statistical model. Suppose the coin has some rate of heads $\theta\in [0,1]$, and we furthermore suppose that for each $\theta$ the result of flipping the coin can be modeled (in some sense) by the probability distribution $\text{Bernoulli}(\theta)$. The statistical model here is the set of states $S=[0,1]$ (corresponding to \emph{rates of heads}), the observation space $O=\{0,1\}^n$ with the discrete sigma-algebra (where $n$ is the number of flips observed) and the stochastic map $\kernel{B}:[0,1]\to \Delta(\mathscr{P}(0,1))$ which is given by $\kernel{B}:\theta\to \text{Bernoulli}(\theta)$.
+
+This example actually goes beyond our formal definitions here in that $\theta$ is real-valued between $0$ and $1$. Extending probability theory to real-valued spaces is well understood, see for example \citet{cinlar_probability_2011}, but in that setting the existence of disintegrations on kernel spaces (section \ref{ssec:disintegration}) is a problem to which we presently only have a partial solution. Discrete sets allow us to discuss see-do models without going into this difficulty. The price we pay is that to properly model the above problem we require $\theta$ to take on discrete values, for example restricting it to the rationals.
+
+A see-do model adds the following structure to a statistical model:
+
+\begin{itemize}
+    \item The state is a pair consisting of a \emph{hypothesis} $h\in H$ and a \emph{decision} $d\in D$; $S=H\times D$
+    \item The outcome is a pair consisting of an \emph{observation} $x\in X$ and a consequence $y\in Y$
+    \item The observation is conditionally independent of the decision given the hypothesis
+\end{itemize}
+
+We can use see-do models to model situations where we have some hypotheses and we have the opportunity to make an observation that takes values in $X$. Depending on what we see, we can select a decision from a set of possibilities $D$, and the ultimate consequence depends probabilistically on the decision we selected as well as whichever hypothesis turns out to best describe the world.
+
+\begin{definition}
+A \emph{see-do model} $(\kernel{T},\RV{H},\RV{D},\RV{X},\RV{Y})$ is a Markov kernel space $(\kernel{T},H\times D, O)$ along with four variables: the \emph{hypothesis} $\RV{H}:H\times D\times O\to H$, the \emph{decision} $\RV{D}:H\times D\times O\to D$, the \emph{observation} $\RV{X}: H\times D\times O\to X$ and the \emph{consequence} $\RV{Y}:H\times D\times O\to Y$, all given by the projections onto the respective spaces. In addition, a see-do model must observe the conditional independence:
+\begin{align}
+\RV{X}\CI_\kernel{T} \RV{D}|\RV{H} \label{eq:see_do_independence_requirement}
+\end{align}
+\end{definition}
+
+See-do models feature variables $\RV{D}$ and $\RV{H}$ that act like Dawid's ``non-stochastic regime indicators'' described by \citet{dawid_influence_2002,dawid_decision-theoretic_2012,dawid_decision-theoretic_2020}. In particular, see-do models induce a collection of probability measures indexed by the elements of $H\times D$, just as regime indicators induce collections of indexed probability measures. Dawid's regime indicators seem to typically do a similar job to a decision variable $\RV{D}$ rather than a decision-hypothesis pair.
+
+The hypothesis set is similar to the parameter set described by \citet{lattimore_replacing_2019} that relates pre- and post-interventional distributions. Lattimore and Rohde consider models with a prior distribution over this parameter set. A similar type of model can be created by taking the prodcut of a prior over the hypothesis set and a see-do model. 
+
+Finally, see-do models are somewhat similar to the models proposed by \citet{savage_foundations_1954} for decision problems if we identify \emph{states} with \emph{hypotheses} and \emph{acts} with \emph{decisions}. Savage's models consider deterministic rather than stochastic functions from acts to outcomes, and did not explicitly distinguish observations from consequences.
+
+\subsection{See-do models are motivated by data-driven decision problems} 
+
+\todo[inline]{I might not have room for this!}
+
+Suppose we have a decision problem that provides us with an observation $x\in X$, and in response to this we can select any decision or stochastic mixture of decisions from a set $D$; that is we can choose a ``strategy'' as any Markov kernel $\kernel{S}:X\to \Delta(D)$. We have a utility function $u:Y\to \mathbb{R}$ that models our preferences over the consequences of our choice. Furthermore, suppose that we maintain a set of hypotheses $H$, and under each hypothesis $h\in H$ we model the result of choosing some strategy $\kernel{S}$ is a joint probability over observations, decisions and consequences $\prob{P}_{h,\kernel{S}}\in \Delta(X\times D\times Y)$.
+
+Holding the hypothesis $h$ fixed we model the observations as having the same distribution under any strategy: $\prob{P}_{h,\kernel{S}}^{\RV{X}}=\prob{P}_{h,\kernel{S}''}^{\RV{X}}$ for all $h,\kernel{S},\kernel{S}'$.
+
+The conditional probability of decisions given observations is equal to the chosen strategy: $\prob{P}_{h,\kernel{S}}^{\RV{D}|\RV{X}}=\kernel{S}$.
+
+Finally, for each $h\in H$ there exists some strategy $\kernel{S}_{(h)}$ such that $\prob{P}_{h,\kernel{S}_{(h)})}^{\RV{D}}$ is strictly positive.
+
+Then there exists a see-do model $(\kernel{T},\RV{H},\RV{D},\RV{X},\RV{Y})$ such that $\prob{P}_{h,\kernel{S}} = \kernel{T}^{\RV{X}}_{h} \kernel{S} \kernel{T}^{\RV{Y}|\RV{DH}}_{h}$.

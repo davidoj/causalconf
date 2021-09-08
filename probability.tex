@@ -1,7 +1,7 @@
 %!TEX root = main.tex
 
 
-\section{Probability}
+\section{Technical prerequesites}
 
 Many people are familiar with probability theory, but some may be less familiar with \emph{Markov kernels}, which play a central role in the work developed in this paper. Markov kernels are measurable functions that map to probability distributions on some measurable set. Expressions like $\prob{P}(\RV{Y}|\RV{X})$ and $x\mapsto \prob{P}(\RV{Y}|do(\RV{X}=x))$ represent Markov kernels that map from the range of the random variable $\RV{X}$ to probability distributions on the range of the random variable $\RV{Y}$. Conditional probabilities like $\prob{P}(\RV{Y}|\RV{X})$ are typically obtained by disintegrating a joint probability $\prob{P}(\RV{Y},\RV{X})$, but Markov kernels can also be things other than conditional probabilities, like ``interventional maps'' $x\mapsto \prob{P}(\RV{Y}|do(\RV{X}=x))$.
 
@@ -71,11 +71,16 @@ Instead, we define the \emph{domain variable} $\RV{D}:D\times F\to D$ by the pro
 
 To save space, we say that the marginal distribution of $(\RV{X},\RV{Y})$ is $\kernel{K}^{\RV{XY}|\RV{D}}_d$, and use a similar shorthand for sequences henceforth.
 
-\subsection{Disintegration}
+\subsection{Disintegration}\label{ssec:disintegration}
 
 Conditional probabilities are \emph{disintegrations} of probability measures. Given a probability space $(\prob{P},E)$ and random variables $\RV{X}:E\to X$ and $\RV{Y}:E\to Y$, the probability of $\RV{X}$ given $\RV{Y}$ is any Markov kernel $\prob{P}^{\RV{Y}|\RV{X}}$ such that $\prob{P}^{\RV{XY}}= (P^{\RV{X}}_i P^{\RV{Y}|\RV{X}}_{ij})_{i\in X, j\in Y}$. Note that this is generally non-unique. However, wherever $P^{\RV{X}}_i>0$, $P^{\RV{Y}|\RV{X}}_{ij}$ must be equal to $\frac{P^{\RV{XY}}_{ij}}{P^{\RV{X}_i}}$.
 
-We define disintegrations of kernels analogously. Given a Markov kernel space $(\kernel{K},D,F)$, domain variable $\RV{D}$ and variables $\RV{X}$, $\RV{Y}$, $\kernel{K}^{\RV{Y}|\RV{X}\RV{D}}$ is any Markov kernel such that $\kernel{K}^{\RV{XY}|\RV{D}} = (\kernel{K}^{\RV{X}|\RV{D}}_{ij} \kernel{K}^{\RV{Y}|\RV{X}\RV{D}}_{ijk})_{i\in D,j\in X,k\in Y}$. If 
+We define disintegrations of kernels analogously. Given a Markov kernel space $(\kernel{K},D,F)$, domain variable $\RV{D}$ and variables $\RV{X}$, $\RV{Y}$, $\kernel{K}^{\RV{Y}|\RV{X}\RV{D}}$ is any Markov kernel such that $\kernel{K}^{\RV{XY}|\RV{D}} = (\kernel{K}^{\RV{X}|\RV{D}}_{ij} \kernel{K}^{\RV{Y}|\RV{X}\RV{D}}_{ijk})_{i\in D,j\in X,k\in Y}$. 
+
+Note that we have at this point offered no definition of expressions like $\kernel{K}^{\RV{X}|\RV{Y}}$ which lack dependence on the domain variable $\RV{D}$. As mentioned, there is in general no unique marginal distribution of $(\RV{X},\RV{Y})$. However, such a distribution might exist if $\RV{X}$ and $\RV{Y}$ are independent of 
 
 \subsection{Conditional independence}
 
+Given a Markov kernel space $(\kernel{K}, D, F)$, and random variables $\RV{X},\RV{Y}, \RV{Z}$ we say $\RV{X}$ is independent of $\RV{Y}$ given $\RV{Z}$, notated $\RV{X}\CI_{\kernel{K}} \RV{Y}|\RV{Z}$ iff a version of $\kernel{K}^{\RV{X}|\RV{YZ}}$ exists such that $\kernel{K}^{\RV{X}|\RV{YZ}}_{(y,z)} = \kernel{K}^{\RV{X}|\RV{YZ}}_{(y',z)}$ for all $y,y'\in Y$.
+
+A version of $\kernel{K}^{\RV{X}|\RV{Z}}$ exists iff $\RV{X}\CI_{\kernel{K}} \RV{D}|\RV{Z}$ and in this case is given by $z\mapsto \kernel{K}^{\RV{X}|\RV{DZ}}_{(d,z)}$ for any version of $\kernel{K}^{\RV{X}|\RV{DZ}}$ and any $d\in D$.

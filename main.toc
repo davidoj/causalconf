@@ -1,0 +1,9 @@
+\contentsline {section}{\numberline {0.1}Technical prerequesites}{3}{section.0.1}%
+\contentsline {subsection}{\numberline {0.1.1}Cartesian and tensor products}{4}{subsection.0.1.1}%
+\contentsline {subsection}{\numberline {0.1.2}Indicator functions, delta measures and function-associated Markov kernels}{4}{subsection.0.1.2}%
+\contentsline {subsection}{\numberline {0.1.3}Copy maps and sequences}{5}{subsection.0.1.3}%
+\contentsline {subsection}{\numberline {0.1.4}Generalised random variables}{5}{subsection.0.1.4}%
+\contentsline {subsection}{\numberline {0.1.5}Disintegration}{5}{subsection.0.1.5}%
+\contentsline {subsection}{\numberline {0.1.6}Conditional independence}{6}{subsection.0.1.6}%
+\contentsline {section}{\numberline {0.2}See-do models}{6}{section.0.2}%
+\contentsline {subsection}{\numberline {0.2.1}See-do models are motivated by data-driven decision problems}{7}{subsection.0.2.1}%
