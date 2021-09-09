@@ -11,76 +11,76 @@ We will consider only discrete sets in this paper, as uncountable sets raise a n
 
 We will take advantage of the fact that we are working with discrete sets and define probability measures as vectors, measurable functions as covectors and Markov kernels as matrices.
 
-Given a set $X$, a probability measure $\prob{P}$ on $X$ is a vector in $\mathbb{R}^{|X|}$; $\prob{P}:=(P_i)_{i\in X}$. We require that
+Given a set $X$, a probability measure $\prob{P}$ on $X$ is a covector in $\mathbb{R}^{|X|}$; $\prob{P}:=(\prob{P}^i)_{i\in X}$. We require that
 \begin{align}
 	0\leq &P_i \leq 1 &\forall i\in X\\
 	\sum_i P_i &= 1 
 \end{align}
 
-An \emph{event} $A$ is a subset of $X$, and we define $\prob{P}(A):=\sum_{i\in A} P_i$.
+An \emph{event} $A$ is a subset of $X$, and we define $\prob{P}(A):=\sum_{i\in A} \prob{P}^i$.
 
-A measurable function $f:X\to Y$ is a covector in $Y^{|X|}$; $f:=(f_i)_{i\in X}$ where $Y$ is a vector space (i.e. it has addition and scalar multiplication). Defining a measurable function by a mapping $f:=x\mapsto f(x)$ is equivalent to defining $f:=(f(x))_{x\in X}$.
+A measurable function $f:X\to Y$ is a vector in $Y^{|X|}$; $f:=(f^i)_{i\in X}$ where $Y$ is a vector space.
 
-Given discrete sets $X$ and $Y$, a Markov kernel $\kernel{K}:X\to \Delta(Y)$ is a matrix in $\mathbb{R}^{|X|\times |Y|}$; $\kernel{K} = (K_{ij})_{i\in X,j\in Y}$ where
+Given discrete sets $X$ and $Y$, a Markov kernel $\kernel{K}:X\to \Delta(Y)$ is a matrix in $\mathbb{R}^{|X|\times |Y|}$; $\kernel{K} = (K_{i}^j)_{i\in X,j\in Y}$ where
 \begin{align}
-	0\leq &K_{ij} \leq 1 &\forall i,j\\
-	\sum_{i\in X} K_{ij} &= 1 & \forall j
+	0\leq &K_{i}^j \leq 1 &\forall i,j\\
+	\sum_{i\in X} K_{i}^j &= 1 & \forall j
 \end{align}
 
-We use subscripts to refer to rows of a Markov kernel $\kernel{K}_x:=(K_{xj})_{j\in Y}$; these are all probability measures.
+We use subscripts to refer to rows of a Markov kernel $\kernel{K}_x:=(K_{x}^j)_{j\in Y}$; these are all probability measures.
 
-We use the usual associative notion of vector and matrix products for expressions like $\prob{P}\kernel{K}$, $\prob{P}f$, $\kernel{K}f$ and so on.
+$\prob{P}\kernel{K}$ refers to a matrix-matrix product in the usual way, and similarly $\prob{P}f$ is a covector-vector product and $\kernel{K}f$ is a matrix-vector product.
 
-A probability measure is a Markov kernel where the domain set $X$ has a single element.
-
-It can be verified that $\prob{P}\kernel{K}$ is a probability measure, $\kernel{K}f$ is a measurable function and $\prob{P}f:=\mathbb{E}_{\prob{P}}[f]$ is a scalar which we define as the expectation of $f$ under \prob{P}. Given another Markov kernel $\kernel{L}:Y\to \Delta(Z)$, the matrix product $\kernel{K}\kernel{Y}$ is also a Markov kernel.
+Products have the following properties: $\prob{P}\kernel{K}$ is a probability measure, $\kernel{K}f$ is a measurable function and $\prob{P}f:=\mathbb{E}_{\prob{P}}[f]$ is a scalar which we define as the expectation of $f$ under \prob{P}. Given another Markov kernel $\kernel{L}:Y\to \Delta(Z)$, the matrix product $\kernel{K}\kernel{L}$ is also a Markov kernel.
 
 \subsection{Cartesian and tensor products}
 
 The cartesian product $X\times Y:=\{(x,y)|x\in X, y\in Y\}$.
 
-Given kernels $\kernel{K}:W\to Y$ and $\kernel{L}:X\to Z$, the tensor product $\kernel{K}\otimes\kernel{L}:W\times X\to \Delta(Y\times Z)$ is given by $\kernel{K}\otimes\kernel{L}:=(K_{wy} L_{xz})_{(w,x)\in X\times W, (y,z)\in Y\times Z)}$. Equivalently, it is given by the mapping $\kernel{K}\otimes\kernel{L}:(w,x,A\times B)\mapsto \kernel{K}_w(A)\kernel{L}_x(B)$ for $w\in W$, $x\in X$, $A\subset Y$ and $B\subset Z$.
+Given kernels $\kernel{K}:W\to Y$ and $\kernel{L}:X\to Z$, the tensor product $\kernel{K}\otimes\kernel{L}:W\times X\to \Delta(Y\times Z)$ is defined by $(\kernel{K}\otimes\kernel{L})_{(w,x)}^{(y,z)}:=K_{w}^y L_{x}^z$.
 
-Given functions $f:W\to Y$ and $g:X\to Z$, the tensor product $f\otimes g:W\times X\to {yz|y\in Y, z\in Z}$ is the covector $((f_w, g_x))_{w\in W, x\in X}$.
+Given functions $f:W\to Y$ and $g:X\to Z$, the tensor product $f\otimes g:W\times X\to Y\times Z$ is defined by $(f\otimes g)_{(w,x)}=(f_w,g_x)$.
 
 \subsection{Indicator functions, delta measures and function-associated Markov kernels}
 
 The iverson bracket $\llbracket \cdot \rrbracket$ evaluates to $1$ if $\cdot$ is true and $0$ otherwise.
 
-For any $X$ and any $A\subset X$, $\mathds{1}_A$ is the function $x\mapsto \llbracket x\in A \rrbracket$. According to the definition above $\prob{P}(A)=\prob{P}\mathds{1}_A$.
+For any $X$ and any $A\subset X$, $\mathds{1}[A]$ is the function defined by $\mathds{1}[A]_x= \llbracket x\in A \rrbracket$. Thus $\prob{P}[A]=\prob{P}\mathds{1}[A]$. We use square brackets to highlight the fact that $\mathds{1}[A]$ is a function rather than a scalar.
 
-For any $X$ and any $x\in X$, $\delta_x$ is the probability measure $(\llbracket x=i \rrbracket)_{i\in X}$.
+For any $X$ and any $x\in X$, $\delta[x]$ is the probability measure defined by $\delta[x]^i = \llbracket x=i \rrbracket$.
 
-We can define the Markov kernel $\kernel{F}_f:X\to \Delta(\sigalg{Y})$ associated with the function $f:X\to Y$ with the matrix that sends $x\mapsto \delta_{f_x}$. Alternatively, we can define it by its rows: $(\delta_{f_x})_{x\in X}$.
+We define the Markov kernel $\underline{f}:X\to \Delta(\sigalg{Y})$ associated with the function $f:X\to Y$ with the matrix that sends $x\mapsto \delta_{f_x}$. Alternatively, we can define it by its rows: $\underline{f}:=(\delta_{f_x})_{x\in X}$.
 
 \subsection{Copy maps and sequences}
 
-The copy map $\splitter{0.2}:X\to \Delta(X\times X)$ is the Markov kernel mapping $x\mapsto \delta_x \otimes \delta_x$. Alternatively, its rows are given by $(\llbracket x=i \And x=i' \rrbracket)_{x,i,i'\in X}$. 
+The copy map $\splitter{0.2}:X\to \Delta(X\times X)$ is the Markov kernel with $\splitter{0.2}_x^{(x',x'')}=\llbracket x=x' \And x=x'' \rrbracket$.
 
-Given $X:E\to X$ and $Y:E\to Y$, the \emph{sequence} random variable $(\RV{X},\RV{Y}):E\to X\times Y$ is defined as $\splitter{0.2}(\RV{X}\otimes \RV{Y})$. This is the function given by $\omega \mapsto (\RV{X}(\omega),\RV{Y}(\omega))$ or equivalently $((\RV{X}(\omega),\RV{Y}(\omega))_{\omega\in E}$.
+Given $X:E\to X$ and $Y:E\to Y$, the \emph{sequence} random variable $(\RV{X},\RV{Y}):E\to X\times Y$ is defined as $\splitter{0.2}(\RV{X}\otimes \RV{Y})$. That is, $(\RV{X},\RV{Y})_i = (\RV{X}_i,\RV{Y}_i)$.
 
 \subsection{Generalised random variables}
 
-It is typical to define a probability space as a probability measure along with its underlying set and its $\sigma$-algebra: $(\prob{P},(E,\sigalg{E}))$. Here where $E$ is sometimes called the sample space and $\sigalg{E}$ is sometimes called the set of events; as we are considering discrete sets, in this paper we always have $\sigalg{E}:=\mathcal{P}(E)$ and we will typically only talk about the set $E$.
+It is typical to define a probability space as a probability measure along with its underlying set and its $\sigma$-algebra: $(\prob{P},(E,\sigalg{E}))$. Here where $E$ is sometimes called the sample space and $\sigalg{E}$ is sometimes called the set of events; as we are considering discrete sets, in this paper we always have $\sigalg{E}$ is the power set of $E$ and we will henceforth only mention the set $E$.
 
-Given a probability space $(\prob{P},E)$, we can define \emph{random variables} as measurable functions $\RV{X}:E\to X$. The \emph{marginal distribution} of $\RV{X}$ is given by $\prob{P}^{\RV{X}}:=\prob{P}\kernel{F}_{\RV{X}}$. 
+Given a probability space $(\prob{P},E)$, we can define \emph{random variables} as measurable functions $\RV{X}:E\to X$. The \emph{marginal distribution} of $\RV{X}$ is given by $\prob{P}[\RV{X}]:=\prob{P}\underline{\RV{X}}$. 
 
-Here we want to consider ``Markov kernel spaces'', which is a Markov kernel along with its domain and underlying set of its codomain: $(\kernel{K},D,F)$. Given such a triple, a \emph{generalised random variable} is a function from $D\times F$ to $\mathbb{R}$. Unlike random variables, generalised random variables don't necessarily have a unique marginal distribution. For brevity, we will simply call them \emph{variables} henceforth.
+Here we want to consider ``Markov kernel spaces'', which is a Markov kernel along with its domain and underlying set of its codomain: $(\kernel{K},D,F)$. Given such a triple, a \emph{random variable} is a function $F\to Y$ for some vector space $Y$ and a \emph{state variable} is a function $D\to Y'$ for some vector space $Y'$. The \emph{complete state variable} $\RV{D}$ is the identity function on $D$. Probabilities and conditional probabilities that we can define on the space $(\kernel{K},D,F)$ usually have to be conditioned on $\RV{D}$, but there are some exceptions.
 
-Instead, we define the \emph{domain variable} $\RV{D}:D\times F\to D$ by the projection $(d,f)\mapsto d$ for all $d\in D$, $f\in F$. For each $d\in D$, any variable $\RV{X}:D\times F\to X$ has a unique marginal distribution $\kernel{K}^{\RV{X}|\RV{D}}_d:=\kernel{K}_d\kernel{F}_{\RV{X}}$. 
+Something that is either a random variable or a state variable is just a \emph{variable}.
 
-To save space, we say that the marginal distribution of $(\RV{X},\RV{Y})$ is $\kernel{K}^{\RV{XY}|\RV{D}}_d$, and use a similar shorthand for sequences henceforth.
+For each $d\in D$, any random variable $\RV{X}:F\to X$ has a unique marginal distribution $\kernel{K}[\RV{X}|\RV{D}]_d:=\kernel{K}_d\underline{\RV{X}}$. 
+
+To save space, we say that the marginal distribution of a sequence like $(\RV{X},\RV{Y})$ is $\kernel{K}[\RV{XY}|\RV{D}]_d$.
 
 \subsection{Disintegration}\label{ssec:disintegration}
 
-Conditional probabilities are \emph{disintegrations} of probability measures. Given a probability space $(\prob{P},E)$ and random variables $\RV{X}:E\to X$ and $\RV{Y}:E\to Y$, the probability of $\RV{X}$ given $\RV{Y}$ is any Markov kernel $\prob{P}^{\RV{Y}|\RV{X}}$ such that $\prob{P}^{\RV{XY}}= (P^{\RV{X}}_i P^{\RV{Y}|\RV{X}}_{ij})_{i\in X, j\in Y}$. Note that this is generally non-unique. However, wherever $P^{\RV{X}}_i>0$, $P^{\RV{Y}|\RV{X}}_{ij}$ must be equal to $\frac{P^{\RV{XY}}_{ij}}{P^{\RV{X}_i}}$.
+Conditional probabilities are \emph{disintegrations} of probability measures. Given a probability space $(\prob{P},E)$ and random variables $\RV{X}:E\to X$ and $\RV{Y}:E\to Y$, the probability of $\RV{X}$ given $\RV{Y}$ is any Markov kernel $\prob{P}[\RV{Y}|\RV{X}]$ such that $\prob{P}[\RV{XY}]^{ij}= P[\RV{X}]^i P[\RV{Y}|\RV{X}]_i^j$. Note that this is generally non-unique. However, wherever $P^{\RV{X}}_i>0$, $P^{\RV{Y}|\RV{X}}_{ij}$ must be equal to $\frac{P^{\RV{XY}}_{ij}}{P^{\RV{X}_i}}$.
 
-We define disintegrations of kernels analogously. Given a Markov kernel space $(\kernel{K},D,F)$, domain variable $\RV{D}$ and variables $\RV{X}$, $\RV{Y}$, $\kernel{K}^{\RV{Y}|\RV{X}\RV{D}}$ is any Markov kernel such that $\kernel{K}^{\RV{XY}|\RV{D}} = (\kernel{K}^{\RV{X}|\RV{D}}_{ij} \kernel{K}^{\RV{Y}|\RV{X}\RV{D}}_{ijk})_{i\in D,j\in X,k\in Y}$. 
+We define disintegrations of kernels analogously. Given a Markov kernel space $(\kernel{K},D,F)$, complete state variable $\RV{D}$ and variables $\RV{X}$, $\RV{Y}$, $\kernel{K}[\RV{Y}|\RV{X}\RV{D}]$ is any Markov kernel such that $\kernel{K}[\RV{XY}|\RV{D}]_i^{jk} = \kernel{K}[\RV{X}|\RV{D}]_{i}^j \kernel{K}[\RV{Y}|\RV{X}\RV{D}]_{ij}^k$. 
 
-Note that we have at this point offered no definition of expressions like $\kernel{K}^{\RV{X}|\RV{Y}}$ which lack dependence on the domain variable $\RV{D}$. As mentioned, there is in general no unique marginal distribution of $(\RV{X},\RV{Y})$. However, such a distribution might exist if $\RV{X}$ and $\RV{Y}$ are independent of 
+As previously mentioned, in the kernel space $(\kernel{K},D,F)$ there is in general no unique marginal distribution of $(\RV{X},\RV{Y})$ and similarly there is generally no unique distribution of $\RV{X}$ conditioned on $\RV{Y}$. However, such a distribution might exist if $\RV{X}$ and $\RV{Y}$ are independent of $\RV{D}$.
 
-\subsection{Conditional independence}
+\subsection{Conditional independence}\label{ssec:cond_indep}
 
-Given a Markov kernel space $(\kernel{K}, D, F)$, and random variables $\RV{X},\RV{Y}, \RV{Z}$ we say $\RV{X}$ is independent of $\RV{Y}$ given $\RV{Z}$, notated $\RV{X}\CI_{\kernel{K}} \RV{Y}|\RV{Z}$ iff a version of $\kernel{K}^{\RV{X}|\RV{YZ}}$ exists such that $\kernel{K}^{\RV{X}|\RV{YZ}}_{(y,z)} = \kernel{K}^{\RV{X}|\RV{YZ}}_{(y',z)}$ for all $y,y'\in Y$.
+Given a Markov kernel space $(\kernel{K}, D, F)$, and variables $\RV{X},\RV{Y}, \RV{Z}$ we say $\RV{X}$ is independent of $\RV{Y}$ given $\RV{Z}$, notated $\RV{X}\CI_{\kernel{K}} \RV{Y}|\RV{Z}$ iff a version of $\kernel{K}[\RV{X}|\RV{YZ}]$ exists and $\kernel{K}[\RV{X}|\RV{YZ}]_i^j = \kernel{K}[\RV{X}|\RV{YZ}]_{i'}^j$ for all $i,i'\in Y$.
 
-A version of $\kernel{K}^{\RV{X}|\RV{Z}}$ exists iff $\RV{X}\CI_{\kernel{K}} \RV{D}|\RV{Z}$ and in this case is given by $z\mapsto \kernel{K}^{\RV{X}|\RV{DZ}}_{(d,z)}$ for any version of $\kernel{K}^{\RV{X}|\RV{DZ}}$ and any $d\in D$.
+A version of $\kernel{K}[\RV{X}|\RV{Z}]$ exists iff $\RV{X}\CI_{\kernel{K}} \RV{D}|\RV{Z}$ or $\RV{Z}=\RV{D}$, and in the former case is given by any kernel satisfying $\kernel{K}[\RV{X}|\RV{Z}]_i^j = \kernel{K}[{\RV{X}|\RV{DZ}}]_{ik}^j$ for any version of $\kernel{K}[\RV{X}|\RV{DZ}]$ and all $k\in D$.

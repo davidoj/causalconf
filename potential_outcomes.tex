@@ -1,0 +1,19 @@
+%!TEX root = main.tex
+
+
+\section{Potential outcomes models}
+
+Potential outcomes is an approach to causal modelling that employs ``potential outcome'' random variables. We have something, call it TAT (``The Actual Thing'') that we want to model, and we have different regimes 0 and 1 under which we want to know something about TAT. In the potential outcomes approach we model it with a set of variables $(\RV{Y}, \RV{Y}(0), \RV{Y}(1))$, with $\RV{Y}(0)$ and $\RV{Y}(1)$ being called ``potential outcomes''. These variables are given the interpretations ``$\RV{Y}$ represents TAT'', ``$\RV{Y}(0)$ represents what TAT would be under regime $0$, whether or not regime $0$ is the actual regime'' and similarly ``$\RV{Y}(1)$ represents what TAT would be under regime $1$, whether or not regime $1$ is the actual regime''. Such interpretations are sometimes called \emph{counterfactual}. To explain why: ``$\RV{Y}(0)$ represents what TTYR would be under regime $0$, whether or not regime $0$ is the actual regime'' is a conjunction of claims - first, if the regime is actually $0$ then $\RV{Y}(0)$ represents TAT; this is reasonably easy to understand. Also, if the regime is actually $1$ then $\RV{Y}(1)$ represents what TAT would be if the regime were $0$. This claim seems to be predicated on two mutually exclusive conditions -- ``if the regime is actually $1$'' and ``if the regime were $0$'', and this is what makes it a counterfactual claim.
+
+It is not our aim to add anything to the discussion of how to understand counterfactual claims, or whether they should or should not play a part in models built for the purpose of causal inference. Rather, we want to clarify two points:
+
+\begin{enumerate}
+    \item Even though they are motivated by the need to answer decision problems rather than a desire to model counterfactuals, see-do models can nonetheless do anything potential outcomes models can do
+    \item What a model builder's model represents is the choice of the model builder; whether or not this includes counterfactual propositions is a matter of choice and is not forced upon them by any approach to causal inference
+\end{enumerate}
+
+The decision problem discussed in subsection \ref{ssec:data_driven_decision} involves hypotheses, observations, decisions and consequences. When describing such problems we could say that $\kernel{T}[\RV{Y}|\RV{HD}]_{ij}$ describes ``the value that $\RV{Y}$ would take if $\RV{H}=i$ and $\RV{D}=j$'', but there does not appear to be an additional need for variables describing ``the value that $\RV{Y}$ would take if $\RV{H}=i$ and $\RV{D}=j$ even if $\RV{H}=i$ and $\RV{D}=j$ does not actually hold''. A number of other authors of decision theoretic approaches have noted that we do not seem to need models of counterfactuals in order to solve data-driven decision problems. \citet{dawid_causal_2000} is actually titled ``Causal Inference without Counterfactuals'', although more recent work by the same author discusses counterfactual assumptions \citep{dawid_decision-theoretic_2020}.
+
+\begin{quote}
+[...] Dawid, in our opinion, incorrectly concludes that an approach to causal inference based on ``decision analysis'' and free of counterfactuals is completely satisfactory for addressing the problem of inference about the effects of causes.
+\end{quote}

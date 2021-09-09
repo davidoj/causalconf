@@ -22,7 +22,7 @@ A see-do model adds the following structure to a statistical model:
     \item The observation is conditionally independent of the decision given the hypothesis
 \end{itemize}
 
-We can use see-do models to model situations where we have some hypotheses and we have the opportunity to make an observation that takes values in $X$. Depending on what we see, we can select a decision from a set of possibilities $D$, and the ultimate consequence depends probabilistically on the decision we selected as well as whichever hypothesis turns out to best describe the world.
+We can use see-do models to model situations where we have some hypotheses and the opportunity to make an observation that takes values in $X$. Depending on what we see, we can select a decision from a set of possibilities $D$, and the ultimate consequence depends probabilistically on the decision we selected as well as whichever hypothesis turns out to best describe the world.
 
 \begin{definition}
 A \emph{see-do model} $(\kernel{T},\RV{H},\RV{D},\RV{X},\RV{Y})$ is a Markov kernel space $(\kernel{T},H\times D, O)$ along with four variables: the \emph{hypothesis} $\RV{H}:H\times D\times O\to H$, the \emph{decision} $\RV{D}:H\times D\times O\to D$, the \emph{observation} $\RV{X}: H\times D\times O\to X$ and the \emph{consequence} $\RV{Y}:H\times D\times O\to Y$, all given by the projections onto the respective spaces. In addition, a see-do model must observe the conditional independence:
@@ -33,20 +33,83 @@ A \emph{see-do model} $(\kernel{T},\RV{H},\RV{D},\RV{X},\RV{Y})$ is a Markov ker
 
 See-do models feature variables $\RV{D}$ and $\RV{H}$ that act like Dawid's ``non-stochastic regime indicators'' described by \citet{dawid_influence_2002,dawid_decision-theoretic_2012,dawid_decision-theoretic_2020}. In particular, see-do models induce a collection of probability measures indexed by the elements of $H\times D$, just as regime indicators induce collections of indexed probability measures. Dawid's regime indicators seem to typically do a similar job to a decision variable $\RV{D}$ rather than a decision-hypothesis pair.
 
-The hypothesis set is similar to the parameter set described by \citet{lattimore_replacing_2019} that relates pre- and post-interventional distributions. Lattimore and Rohde consider models with a prior distribution over this parameter set. A similar type of model can be created by taking the prodcut of a prior over the hypothesis set and a see-do model. 
+The hypothesis set is similar to the parameter set described by \citet{lattimore_replacing_2019} that relates pre- and post-interventional distributions. Lattimore and Rohde consider models with a prior distribution over this parameter set. A similar type of model can be created by taking the prodcut of a prior over the hypothesis set and a see-do model. See-do models are somewhat similar to the models proposed by \citet{savage_foundations_1954} for decision problems if we identify \emph{states} with \emph{hypotheses} and \emph{acts} with \emph{decisions}. Savage's models consider deterministic rather than stochastic functions from acts to outcomes, and did not explicitly distinguish observations from consequences. Savage's models themselves form the basis of the ``decision theoretic'' approach to causal inference set out by \citet{heckerman_decision-theoretic_1995} (where I use quotes to indicate that there are several distinct ``decision theoretic'' approaches in existence).
 
-Finally, see-do models are somewhat similar to the models proposed by \citet{savage_foundations_1954} for decision problems if we identify \emph{states} with \emph{hypotheses} and \emph{acts} with \emph{decisions}. Savage's models consider deterministic rather than stochastic functions from acts to outcomes, and did not explicitly distinguish observations from consequences.
+\subsection{See-do models for data-driven decision problems}\label{ssec:data_driven_decision}
 
-\subsection{See-do models are motivated by data-driven decision problems} 
+We can be more precise about the type of decision problem see-do models are appropriate for. 
+\begin{theorem}[See-do model representation]
+Suppose we have a decision problem that provides us with an observation $x\in X$, and in response to this we can select any decision or stochastic mixture of decisions from a set $D$; that is we can choose a ``strategy'' as any Markov kernel $\kernel{S}:X\to \Delta(D)$. We have a utility function $u:Y\to \mathbb{R}$ that models preferences over the potential consequences of our choice. Furthermore, suppose that we maintain a denumerable set of hypotheses $H$, and under each hypothesis $h\in H$ we model the result of choosing some strategy $\kernel{S}$ as a joint probability over observations, decisions and consequences $\prob{P}_{h,\kernel{S}}\in \Delta(X\times D\times Y)$.
 
-\todo[inline]{I might not have room for this!}
+Define $\RV{X},\RV{Y}$ and $\RV{D}$ such that $\RV{X}_{xdy} = x$, $\RV{Y}_{xdy}=y$ and $\RV{D}_{xdy} = d$. Then making the following additional assumptions:
+\begin{enumerate}
+    \item Holding the hypothesis $h$ fixed the observations as have the same distribution under any strategy: $\prob{P}_{h,\kernel{S}}[\RV{X}]=\prob{P}_{h,\kernel{S}''}[\RV{X}]$ for all $h,\kernel{S},\kernel{S}'$ (observations are given ``before'' our strategy has any effect)
+    \item The chosen strategy is a version of the conditional probability of decisions given observations: $\kernel{S}=\prob{P}_{h,\kernel{S}}[\RV{D}|\RV{X}]$
+    \item There exists some strategy $\kernel{S}$ that is strictly positive
+    \item For any $h\in H$ and any two strategies $\kernel{Q}$ and $\kernel{S}$, we can find versions of each disintegration such that $\prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{D}\RV{X}]=\prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{D}\RV{X}]$ (our strategy tells us nothing about the consequences that we don't already know from the observations and decisions)
+\end{enumerate}
 
-Suppose we have a decision problem that provides us with an observation $x\in X$, and in response to this we can select any decision or stochastic mixture of decisions from a set $D$; that is we can choose a ``strategy'' as any Markov kernel $\kernel{S}:X\to \Delta(D)$. We have a utility function $u:Y\to \mathbb{R}$ that models our preferences over the consequences of our choice. Furthermore, suppose that we maintain a set of hypotheses $H$, and under each hypothesis $h\in H$ we model the result of choosing some strategy $\kernel{S}$ is a joint probability over observations, decisions and consequences $\prob{P}_{h,\kernel{S}}\in \Delta(X\times D\times Y)$.
+Then there exists a unique see-do model $(\kernel{T},\RV{H}',\RV{D}',\RV{X}',\RV{Y}')$ such that $\prob{P}_{h,\kernel{S}}[\RV{XDY}]^{ijk} = \kernel{T}[\RV{X'}|\RV{H'}]_{h}^{i} \kernel{S}_i^j  \kernel{T}[\RV{Y'}|\RV{X'H'D'}]_{ijk}^k$.
+\end{theorem}
 
-Holding the hypothesis $h$ fixed we model the observations as having the same distribution under any strategy: $\prob{P}_{h,\kernel{S}}^{\RV{X}}=\prob{P}_{h,\kernel{S}''}^{\RV{X}}$ for all $h,\kernel{S},\kernel{S}'$.
+One thing that is worth pointing out here is that the property defining observations -- that they are independent of decisions given the hypothesis -- does \emph{not} imply that observations are probabilistically independent of decisions in the decision problem modeled in the manner described above. Instead, it reflects the set of assumptions made above.
 
-The conditional probability of decisions given observations is equal to the chosen strategy: $\prob{P}_{h,\kernel{S}}^{\RV{D}|\RV{X}}=\kernel{S}$.
+\todo[inline]{This will eventually move to an appendix}
 
-Finally, for each $h\in H$ there exists some strategy $\kernel{S}_{(h)}$ such that $\prob{P}_{h,\kernel{S}_{(h)})}^{\RV{D}}$ is strictly positive.
+\begin{proof}
+Consider some probability $\prob{P}\in \Delta(X\times D\times Y)$. By the definition of disintegration (section \ref{ssec:disintegration}), we can write
 
-Then there exists a see-do model $(\kernel{T},\RV{H},\RV{D},\RV{X},\RV{Y})$ such that $\prob{P}_{h,\kernel{S}} = \kernel{T}^{\RV{X}}_{h} \kernel{S} \kernel{T}^{\RV{Y}|\RV{DH}}_{h}$.
+\begin{align}
+ \prob{P}[\RV{XDY}]^{ijk} = \prob{P}[\RV{X}]^i\prob{P}[\RV{D}|\RV{X}]_i^{j} \prob{P}[\RV{Y}|\RV{XD}]_{ij}^{k} \label{eq:disint}
+\end{align}
+
+Fix some $h\in H$ and some strictly positive strategy $\kernel{S}$ and define $\kernel{T}:H\times D\to \Delta(X\times Y)$ by
+\begin{align}
+    \kernel{T}_{hj}^{kl} &= \prob{P}_{h,\kernel{S}}[\RV{X}]^k \prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{X}\RV{D}]^l_{kj} \label{eq:comb_disint}
+\end{align}
+
+Note that because $\kernel{S}$ is strictly positive and by assumption $\kernel{S}=\prob{P}_{h,\kernel{S}}[\RV{D}|\RV{X}]$, $\prob{P}_{h,\kernel{S}}[\RV{D}]$ is also strictly positive. Therefore $\prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{D}]$ is unique and therefore $\kernel{T}$ is also unique.
+
+Define $\RV{X}'$ and $\RV{Y}'$ by $\RV{X}'_{xy}=x$ and $\RV{Y}'_{xy}=y$. Define $\RV{H}'$ and $\RV{D}'$ by $\RV{H}'_{hd} = h$ and $\RV{D}'_{hd} = d$.
+
+We then have
+\begin{align}
+    \kernel{T}[\RV{X'}|\RV{H'D'}]_{hj}^{k} &= \kernel{T}\underline{\RV{X}'}_{hj}^k\\
+                                           &= \sum_l \kernel{T}_{hj}^{kl} \\
+                                           &= \prob{P}_{h,\kernel{S}}[\RV{X}]^k\\
+                                           &= \kernel{T}[\RV{X'}|\RV{H'D'}]_{hj'}^{k}
+\end{align}
+
+Thus $\RV{X}'\CI_{\kernel{T}} \RV{D}'|\RV{H}'$ and so $\kernel{T}[\RV{X}'|\RV{H}']$ exists (section \ref{ssec:cond_indep}) and $(\kernel{T},\RV{H}',\RV{D}',\RV{X}',\RV{Y}')$ is a see-do model.
+
+Applying Equation \ref{eq:disint} to $\prob{P}_{h,\kernel{S}}$:
+
+\begin{align}
+    \prob{P}_{h,\kernel{S}}[\RV{XDY}]^{ijk} &= \prob{P}_{h,\kernel{S}}[\RV{X}]^i\prob{P}_{h,\kernel{S}}[\RV{D}|\RV{X}]_i^{j} \prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{XD}]_{ij}^{k}\label{eq:t_is_comb_disint_start}\\
+     &=  \prob{P}_{h,\kernel{S}}[\RV{X}]^i\prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{XD}]_{ij}^{k}\\
+     &= \prob{P}_{h,\kernel{S}}[\RV{D}|\RV{X}]_i^{j} \kernel{T}[\RV{X'Y'}|\RV{H'D'}]_{hj}^{ik}\\
+     &= \kernel{S}_i^j \kernel{T}[\RV{X'Y'}|\RV{H'D'}]_{hj}^{ik}\\
+     &= \kernel{S}_i^j \kernel{T}[\RV{X'}|\RV{H'D'}]_{hj}^{i} \kernel{T}[\RV{Y'}|\RV{X'H'D'}]_{ihj}^k\\
+     &= \kernel{T}[\RV{X'}|\RV{H'}]_{h}^{i} \kernel{S}_i^j  \kernel{T}[\RV{Y'}|\RV{X'H'D'}]_{ihj}^k\label{eq:t_is_comb_disint_end}
+\end{align}
+
+Consider some arbitrary alternative strategy $\kernel{Q}$. By assumption
+
+\begin{align}
+    \prob{P}_{h,\kernel{S}}[\RV{X}]^{i} &= \prob{P}_{h,\kernel{Q}}[\RV{X}]^{i}\\
+    \prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{XD}]_{ij}^k &= \prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{XD}]_{ij}^k\text{ for some version of }\prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{XD}]
+\end{align}
+
+It follows that, for some version of $\prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{XD}]$,
+\begin{align}
+    \kernel{T}_{hj}^{kl} &= \prob{P}_{h,\kernel{Q}}[\RV{X}]^k \prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{X}\RV{D}]^l_{kj} \label{eq:comb_disint_nonuniq}
+\end{align}
+
+Then by substitution of $\kernel{Q}$ for $\kernel{S}$ in Equation \ref{eq:t_is_comb_disint_start} and working through the same steps
+
+\begin{align}
+    \prob{P}_{h,\kernel{S}}[\RV{XDY}]^{ijk} &= \kernel{T}[\RV{X'}|\RV{H'}]_{h}^{i} \kernel{Q}_i^j  \kernel{T}[\RV{Y'}|\RV{X'H'D'}]_{ihj}^k
+\end{align}
+
+As $\kernel{Q}$ was arbitrary, this holds for all strategies.
+\end{proof}

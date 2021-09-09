@@ -4,45 +4,45 @@ The top-level auxiliary file: main.aux
 The style file: plainnat.bst
 Database file #1: references.bib
 Warning--empty journal in heymann_causal_2021
-You've used 9 entries,
+You've used 10 entries,
             2773 wiz_defined-function locations,
-            654 strings with 6354 characters,
-and the built_in function-call counts, 3397 in all, are:
-= -- 312
-> -- 132
-< -- 9
-+ -- 48
-- -- 39
-* -- 227
-:= -- 546
-add.period$ -- 40
-call.type$ -- 9
-change.case$ -- 38
-chr.to.int$ -- 9
-cite$ -- 19
-duplicate$ -- 189
-empty$ -- 310
-format.name$ -- 52
-if$ -- 715
+            663 strings with 6610 characters,
+and the built_in function-call counts, 3891 in all, are:
+= -- 365
+> -- 153
+< -- 10
++ -- 55
+- -- 45
+* -- 268
+:= -- 623
+add.period$ -- 46
+call.type$ -- 10
+change.case$ -- 43
+chr.to.int$ -- 10
+cite$ -- 21
+duplicate$ -- 209
+empty$ -- 349
+format.name$ -- 61
+if$ -- 819
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 13
-newline$ -- 65
-num.names$ -- 36
-pop$ -- 86
+missing$ -- 14
+newline$ -- 73
+num.names$ -- 40
+pop$ -- 91
 preamble$ -- 1
-purify$ -- 31
+purify$ -- 35
 quote$ -- 0
-skip$ -- 126
+skip$ -- 141
 stack$ -- 0
-substring$ -- 67
-swap$ -- 19
+substring$ -- 94
+swap$ -- 21
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 79
+type$ -- 90
 warning$ -- 1
-while$ -- 32
+while$ -- 37
 width$ -- 0
-write$ -- 144
+write$ -- 163
 (There was 1 warning)

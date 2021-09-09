@@ -6,4 +6,4 @@
 \contentsline {subsection}{\numberline {0.1.5}Disintegration}{5}{subsection.0.1.5}%
 \contentsline {subsection}{\numberline {0.1.6}Conditional independence}{6}{subsection.0.1.6}%
 \contentsline {section}{\numberline {0.2}See-do models}{6}{section.0.2}%
-\contentsline {subsection}{\numberline {0.2.1}See-do models are motivated by data-driven decision problems}{7}{subsection.0.2.1}%
+\contentsline {subsection}{\numberline {0.2.1}See-do models for data-driven decision problems}{7}{subsection.0.2.1}%
