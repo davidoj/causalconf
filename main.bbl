@@ -1,4 +1,4 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{12}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -9,6 +9,18 @@
 Erhan \c{C}inlar.
 \newblock \emph{Probability and Stochastics}.
 \newblock Springer, 2011.
+
+\bibitem[Dawid(2000)]{dawid_causal_2000}
+A.~P. Dawid.
+\newblock Causal {Inference} without {Counterfactuals}.
+\newblock \emph{Journal of the American Statistical Association}, 95\penalty0
+  (450):\penalty0 407--424, June 2000.
+\newblock ISSN 0162-1459.
+\newblock \doi{10.1080/01621459.2000.10474210}.
+\newblock URL
+  \url{https://www.tandfonline.com/doi/abs/10.1080/01621459.2000.10474210}.
+\newblock Publisher: Taylor \& Francis \_eprint:
+  https://www.tandfonline.com/doi/pdf/10.1080/01621459.2000.10474210.
 
 \bibitem[Dawid(2002)]{dawid_influence_2002}
 A.~P. Dawid.
@@ -45,24 +57,12 @@ D.~Heckerman and R.~Shachter.
 \newblock \doi{10.1613/jair.202}.
 \newblock URL \url{https://www.jair.org/index.php/jair/article/view/10151}.
 
-\bibitem[Heymann et~al.(2021)Heymann, de~Lara, and
-  Chancelier]{heymann_causal_2021}
-Benjamin Heymann, Michel de~Lara, and Jean-Philippe Chancelier.
-\newblock Causal {Inference} {Theory} with {Information} {Dependency} {Models}.
-\newblock August 2021.
-\newblock URL \url{https://arxiv.org/abs/2108.03099v2}.
-
 \bibitem[Lattimore and Rohde(2019)]{lattimore_replacing_2019}
 Finnian Lattimore and David Rohde.
 \newblock Replacing the do-calculus with {Bayes} rule.
 \newblock \emph{arXiv:1906.07125 [cs, stat]}, December 2019.
 \newblock URL \url{http://arxiv.org/abs/1906.07125}.
 \newblock arXiv: 1906.07125.
-
-\bibitem[Pearl(2009)]{pearl_causality:_2009}
-Judea Pearl.
-\newblock \emph{Causality: {Models}, {Reasoning} and {Inference}}.
-\newblock Cambridge University Press, 2 edition, 2009.
 
 \bibitem[Pearl and Mackenzie(2018)]{pearl_book_2018}
 Judea Pearl and Dana Mackenzie.
@@ -71,9 +71,37 @@ Judea Pearl and Dana Mackenzie.
 \newblock Basic Books, New York, 1 edition edition, May 2018.
 \newblock ISBN 978-0-465-09760-9.
 
+\bibitem[Robins and Greenland(2000)]{robins_causal_2000}
+James~M. Robins and Sander Greenland.
+\newblock Causal {Inference} {Without} {Counterfactuals}: {Comment}.
+\newblock \emph{Journal of the American Statistical Association}, 95\penalty0
+  (450):\penalty0 431--435, 2000.
+\newblock ISSN 0162-1459.
+\newblock \doi{10.2307/2669381}.
+\newblock URL \url{http://www.jstor.org/stable/2669381}.
+\newblock Publisher: [American Statistical Association, Taylor \& Francis,
+  Ltd.].
+
+\bibitem[Rubin(2005)]{rubin_causal_2005}
+Donald~B. Rubin.
+\newblock Causal {Inference} {Using} {Potential} {Outcomes}.
+\newblock \emph{Journal of the American Statistical Association}, 100\penalty0
+  (469):\penalty0 322--331, March 2005.
+\newblock ISSN 0162-1459.
+\newblock \doi{10.1198/016214504000001880}.
+\newblock URL \url{https://doi.org/10.1198/016214504000001880}.
+
 \bibitem[Savage(1954)]{savage_foundations_1954}
 Leonard~J. Savage.
 \newblock \emph{The {Foundations} of {Statistics}}.
 \newblock Wiley Publications in Statistics, 1954.
+
+\bibitem[Selinger(2010)]{selinger_survey_2010}
+Peter Selinger.
+\newblock A survey of graphical languages for monoidal categories.
+\newblock \emph{arXiv:0908.3347 [math]}, 813:\penalty0 289--355, 2010.
+\newblock \doi{10.1007/978-3-642-12821-9_4}.
+\newblock URL \url{http://arxiv.org/abs/0908.3347}.
+\newblock arXiv: 0908.3347.
 
 \end{thebibliography}

@@ -38,7 +38,7 @@ The hypothesis set is similar to the parameter set described by \citet{lattimore
 \subsection{See-do models for data-driven decision problems}\label{ssec:data_driven_decision}
 
 We can be more precise about the type of decision problem see-do models are appropriate for. 
-\begin{theorem}[See-do model representation]
+\begin{theorem}[See-do model representation]\label{th:see_do_rep}
 Suppose we have a decision problem that provides us with an observation $x\in X$, and in response to this we can select any decision or stochastic mixture of decisions from a set $D$; that is we can choose a ``strategy'' as any Markov kernel $\kernel{S}:X\to \Delta(D)$. We have a utility function $u:Y\to \mathbb{R}$ that models preferences over the potential consequences of our choice. Furthermore, suppose that we maintain a denumerable set of hypotheses $H$, and under each hypothesis $h\in H$ we model the result of choosing some strategy $\kernel{S}$ as a joint probability over observations, decisions and consequences $\prob{P}_{h,\kernel{S}}\in \Delta(X\times D\times Y)$.
 
 Define $\RV{X},\RV{Y}$ and $\RV{D}$ such that $\RV{X}_{xdy} = x$, $\RV{Y}_{xdy}=y$ and $\RV{D}_{xdy} = d$. Then making the following additional assumptions:

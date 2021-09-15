@@ -3,23 +3,24 @@
 
 \section{Technical prerequesites}
 
-Many people are familiar with probability theory, but some may be less familiar with \emph{Markov kernels}, which play a central role in the work developed in this paper. Markov kernels are measurable functions that map to probability distributions on some measurable set. Expressions like $\prob{P}(\RV{Y}|\RV{X})$ and $x\mapsto \prob{P}(\RV{Y}|do(\RV{X}=x))$ represent Markov kernels that map from the range of the random variable $\RV{X}$ to probability distributions on the range of the random variable $\RV{Y}$. Conditional probabilities like $\prob{P}(\RV{Y}|\RV{X})$ are typically obtained by disintegrating a joint probability $\prob{P}(\RV{Y},\RV{X})$, but Markov kernels can also be things other than conditional probabilities, like ``interventional maps'' $x\mapsto \prob{P}(\RV{Y}|do(\RV{X}=x))$.
+Our theory makes heavy use of \emph{Markov kernels} or \emph{stochastic functions}, which are taken from probability theory. However, the manner in which we use them is non-standard. The usual way to apply probability theory to model building is to assume we have a probability space $(\prob{P},\Omega,\sigalg{F})$ with random variables defined as functions with domain $\Omega$, and all aspects of the model of interest are supposed to be captured by this. Under our approach, we instead consider components, represented by Markov kernels $\kernel{K}:E\to \Delta(F)$ along with labeled inputs and outputs.  The labels do the same job that random variables do in the usual formulation. These components can be composed or broken apart, but we do not assume that there is an overarching probability space from which all components can be derived.
 
-We will consider only discrete sets in this paper, as uncountable sets raise a number of difficulties we prefer to avoid in this paper. A discrete set is a set $X$ which is at most countably infinite, equipped with the 
+In addition, we introduce a graphical notation for Markov kernels that is the subject of a coherence theorem: two Markov kernels represented by pictures that differ only by planar deformations are identical \citep{selinger_survey_2010}.
 
-\todo[inline]{Footnote?: These difficulties may be a general phenomenon - for example, letting $X:=\text{Range}(\RV{X})$, if $X$ is real-valued, then for almost every $x\in X$ there are many choices for $\prob{P}(\RV{Y}|do(\RV{X}=x))$ that all satisfy the definition given by \citet{pearl_causality:_2009} because $\prob{P}(\RV{X}=x)$ can be positive for an at most countable subset of $X$. Also, there are examples of theorems that hold for discrete sets only \citet{heymann_causal_2021}}
+\subsection{Markov kernels}
+Markov kernels can be thought of as measurable functions that map to probability distributions. A conditional probability $\prob{P}(\RV{Y}|\RV{X})$, which maps from values of $X$ to probability distributions over $Y$, and an interventional map $x\mapsto \prob{P}(\RV{Y}|do(\RV{X}=x))$ that likewise maps values of $X$ to probability distributions on $Y$, are both Markov kernels.
 
-We will take advantage of the fact that we are working with discrete sets and define probability measures as vectors, measurable functions as covectors and Markov kernels as matrices.
+Our theory is susbtantially simplified by restricting our attention to discrete sets -- that is, sets $X$ with at most a countable number of elements endowed with the $\sigma$-algebra made up of every subset of $X$, also called the discrete $\sigma$-algebra.
 
-Given a set $X$, a probability measure $\prob{P}$ on $X$ is a covector in $\mathbb{R}^{|X|}$; $\prob{P}:=(\prob{P}^i)_{i\in X}$. We require that
+In the discrete setting, we can represent probability distributions as covectors, Markov kernels as matrices and measurable functions as vectors.
+
+Given a set $X$, a probability distribution $\prob{P}$ on $X$ is a covector in $\mathbb{R}^{|X|}$, which we will write $\prob{P}:=(\prob{P}^i)_{i\in X}$. To be a probability distribution we require
 \begin{align}
 	0\leq &P_i \leq 1 &\forall i\in X\\
 	\sum_i P_i &= 1 
 \end{align}
 
-An \emph{event} $A$ is a subset of $X$, and we define $\prob{P}(A):=\sum_{i\in A} \prob{P}^i$.
-
-A measurable function $f:X\to Y$ is a vector in $Y^{|X|}$; $f:=(f^i)_{i\in X}$ where $Y$ is a vector space.
+% A measurable function $f:X\to Y$ is a vector in $Y^{|X|}$ where $Y$ is some vector space. We write $f:=(f^i)_{i\in X}$.
 
 Given discrete sets $X$ and $Y$, a Markov kernel $\kernel{K}:X\to \Delta(Y)$ is a matrix in $\mathbb{R}^{|X|\times |Y|}$; $\kernel{K} = (K_{i}^j)_{i\in X,j\in Y}$ where
 \begin{align}
@@ -27,37 +28,177 @@ Given discrete sets $X$ and $Y$, a Markov kernel $\kernel{K}:X\to \Delta(Y)$ is 
 	\sum_{i\in X} K_{i}^j &= 1 & \forall j
 \end{align}
 
-We use subscripts to refer to rows of a Markov kernel $\kernel{K}_x:=(K_{x}^j)_{j\in Y}$; these are all probability measures.
+Rows of Markov kernel are probability distributions: $\kernel{K}_x:=(K_{x}^j)_{j\in Y}$. Alternatively, we can consider probability distributions to be Markov kernels with one row.
 
-$\prob{P}\kernel{K}$ refers to a matrix-matrix product in the usual way, and similarly $\prob{P}f$ is a covector-vector product and $\kernel{K}f$ is a matrix-vector product.
+Graphically, we represent a Markov kernel as a box and a probability distribution as a triangle:
 
-Products have the following properties: $\prob{P}\kernel{K}$ is a probability measure, $\kernel{K}f$ is a measurable function and $\prob{P}f:=\mathbb{E}_{\prob{P}}[f]$ is a scalar which we define as the expectation of $f$ under \prob{P}. Given another Markov kernel $\kernel{L}:Y\to \Delta(Z)$, the matrix product $\kernel{K}\kernel{L}$ is also a Markov kernel.
+\begin{align}
+\kernel{K}&:=\begin{tikzpicture}
+	\path (0,0) node (A) {}
+	++ (0.5,0) node[kernel] (K) {$\kernel{K}$}
+	++ (0.5,0) node (B) {};
+	\draw (A) -- (K) -- (B);
+\end{tikzpicture}\\
+\prob{P}&:= \begin{tikzpicture}
+	\path (0,0) node[dist] (K) {$\kernel{K}$}
+	++ (0.5,0) node (B) {};
+	\draw (K) -- (B);
+\end{tikzpicture}
+\end{align}
 
 \subsection{Cartesian and tensor products}
 
-The cartesian product $X\times Y:=\{(x,y)|x\in X, y\in Y\}$.
+The Cartesian product $X\times Y:=\{(x,y)|x\in X, y\in Y\}$.
 
 Given kernels $\kernel{K}:W\to Y$ and $\kernel{L}:X\to Z$, the tensor product $\kernel{K}\otimes\kernel{L}:W\times X\to \Delta(Y\times Z)$ is defined by $(\kernel{K}\otimes\kernel{L})_{(w,x)}^{(y,z)}:=K_{w}^y L_{x}^z$.
 
-Given functions $f:W\to Y$ and $g:X\to Z$, the tensor product $f\otimes g:W\times X\to Y\times Z$ is defined by $(f\otimes g)_{(w,x)}=(f_w,g_x)$.
+Graphically, the tensor product is represeted by parallel juxtaposition:
 
-\subsection{Indicator functions, delta measures and function-associated Markov kernels}
+\begin{align}
+	\kernel{K}\otimes \kernel{L}&:=\begin{tikzpicture}
+	\path (0,0) node (A) {}
+	++ (0.5,0) node[kernel] (K) {$\kernel{K}$}
+	++ (0.5,0) node (B) {};
+	\path (0,-0.5) node (C) {}
+	++ (0.5,0) node[kernel] (L) {$\kernel{L}$}
+	++ (0.5,0) node (D) {};
+	\draw (A) -- (K) -- (B);
+	\draw (C) -- (L) -- (D);
+\end{tikzpicture}
+\end{align}
+
+% Given functions $f:W\to Y$ and $g:X\to Z$, the tensor product $f\otimes g:W\times X\to Y\times Z$ is defined by $(f\otimes g)_{(w,x)}=(f_w,g_x)$.
+
+\subsection{Delta measures, erase maps, copy maps}
 
 The iverson bracket $\llbracket \cdot \rrbracket$ evaluates to $1$ if $\cdot$ is true and $0$ otherwise.
 
-For any $X$ and any $A\subset X$, $\mathds{1}[A]$ is the function defined by $\mathds{1}[A]_x= \llbracket x\in A \rrbracket$. Thus $\prob{P}[A]=\prob{P}\mathds{1}[A]$. We use square brackets to highlight the fact that $\mathds{1}[A]$ is a function rather than a scalar.
+% For any $X$ and any $A\subset X$, $\mathds{1}[A]$ is the function defined by $\mathds{1}[A]_x= \llbracket x\in A \rrbracket$. Thus $\prob{P}[A]=\prob{P}\mathds{1}[A]$. We use square brackets to highlight the fact that $\mathds{1}[A]$ is a function rather than a scalar.
 
-For any $X$ and any $x\in X$, $\delta[x]$ is the probability measure defined by $\delta[x]^i = \llbracket x=i \rrbracket$.
+For any $X$ and any $x\in X$, $\delta[x]$ is the probability measure defined by $\delta[x]^i = \llbracket x=i \rrbracket$. The identity map $\mathrm{Id}[X]:X\to \Delta(X)$ is given by $x\mapsto \delta[x]$.
 
-We define the Markov kernel $\underline{f}:X\to \Delta(\sigalg{Y})$ associated with the function $f:X\to Y$ with the matrix that sends $x\mapsto \delta_{f_x}$. Alternatively, we can define it by its rows: $\underline{f}:=(\delta_{f_x})_{x\in X}$.
+Graphically, the identity map is a bare line:
 
-\subsection{Copy maps and sequences}
+\begin{align}
+	\mathrm{Id}[X]&:=\begin{tikzpicture}
+	\path (0,0) ++ (0.5,0) node (B) {};
+	\draw (A) -- (B);
+\end{tikzpicture}
+\end{align}
 
-The copy map $\splitter{0.2}:X\to \Delta(X\times X)$ is the Markov kernel with $\splitter{0.2}_x^{(x',x'')}=\llbracket x=x' \And x=x'' \rrbracket$.
+% We define the Markov kernel $\underline{f}:X\to \Delta(\sigalg{Y})$ associated with the function $f:X\to Y$ with the matrix defined by $\underline{f}_x^i = \delta[f_x]^i$
+
+The erase map $\stopper{0.2}[A]:A\to \{1\}$ is the map $\stopper{0.3}[A]_i = 1$. It is the unique Markov kernel with domain $A$ and only one column.
+
+Graphically, the stopper is a fuse:
+
+\begin{align}
+	\mathrm{Id}[X]&:=\begin{tikzpicture}
+	\path (0,0) ++ (0.5,0) node (B) {};
+	\draw[-{Rays[n=8]}] (A) -- (B);
+\end{tikzpicture}
+\end{align}
+
+The copy map $\splitter{0.15} [X]:X\to \Delta(X\times X)$ is the Markov kernel defined by $\splitter{0.15}_x:= \delta_x \otimes \delta_x$. Graphically it is a fork with a dot at the point where it splits:
+
+\begin{align}
+	\splitter{0.2}[X]&:=\begin{tikzpicture}
+	\path (0,0) node (A) {} 
+	++ (0.3,0) node[copymap] (copy0) {}
+	++ (0.5,0.15) node (B) {}
+	+ (0,-0.3) node (C) {};
+	\draw (A) -- (copy0) to [out=45,in=180] (B) (copy0) to [out=-45, in=180] (C);
+\end{tikzpicture}
+\end{align}
+
+\subsection{Products}
+
+Two Markov kernels $\kernel{L}:X\to \Delta(Y)$ and $\kernel{M}:Y\to \Delta(Z)$ have a product $\kernel{L}\kernel{M}:X\to \Delta(Z)$ given by the usual matrix-matrix product: $\kernel{L}\kernel{M}_x^z = \sum_y \kernel{L}_x^y\kernel{M}_y^z$. Graphically, we write represent products by joining kernel wires together:
+
+\begin{align}
+	\kernel{L}\kernel{M}:= \begin{tikzpicture}
+	\path (0,0) node (A) {}
+	++ (0.5,0) node[kernel] (K) {$\kernel{K}$}
+	++ (0.7,0) node[kernel] (M) {$\kernel{M}$}
+	++ (0.5,0) node (B) {};
+	\draw (A) -- (K) -- (M) -- (B);
+\end{tikzpicture}
+\end{align}
+
+
+\subsection{Labeled Markov kernels, conditional probabilities}
+
+A labeled Markov kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$ is a Markov kernel $\kernel{K}:X\to \Delta(Y)$ along with a sequence of \emph{domain labels} $\RV{A}_C:=(\RV{A}_i)_{i\in C}$ and \emph{codomain labels} $\RV{B}_D:=(\RV{B}_i)_{i\in D}$ such that
+\begin{itemize}
+	\item Each label $\RV{A}_i$ has an associated discrete space $A_i$ (and similarly $\RV{B}_i$ is associated with $B_i$)
+	\item $X=\bigtimes_{i\in C} A_i$ and $Y=\bigtimes_{i\in D} B_i$
+	% \item The labels $\RV{A}_i$ and $\RV{B}_j$ are identical if and only if there is some $\kernel{L}:\bigtimes_{k\in C\setminus \{i\}} A_k\to \Delta(\bigtimes_{l\in D\setminus\{j\}} B_l)$ such that then $\kernel{K} = \delta[a_i]^{b_j} \kernel{L}_{a_1...a_{i-1}a_ia_{i+1}...a_{|C|}}^{b_1...b_{j-1}b_{j+1}...b_{|D|}}$.
+\end{itemize}
+
+A labeled probability distribution $\prob{P}\in\Delta(Y)$ comes with a sequence of codomain labels $(\RV{B}_i)_{i\in D}$ only, satisfying $Y=\bigtimes_{i\in D} B_i$.
+
+A conditional probability $\kernel{L}[\RV{A}_C|\RV{B}_D]$ is a labeled kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$ along with a \emph{background kernel} $\kernel{L}$.
+
+Graphically, we place the labels on the wires of a conditional probability and the name of the ambient kernel in the centre of the box:
+
+\begin{align}
+	\kernel{L}[\RV{B}_1\RV{B}_2|\RV{A}_1\RV{A}_2] := \begin{tikzpicture}
+	\path (0,0) node (A1) {$\RV{A}_1$}
+	+ (0,-0.3) node (A2) {$\RV{A}_2$}
+	++ (0.7,-0.15) node[kernel] (K) {$\kernel{L}$}
+	++ (0.7,0.15) node (B1) {$\RV{B}_1$}
+	+ (0,-0.3) node (B2) {$\RV{B}_2$};
+	\draw (A1) -- ($(K.west) + (0,0.15)$) (A2) -- ($(K.west) + (0,-0.15)$);
+	\draw (B1) -- ($(K.east) + (0,0.15)$) (B2) -- ($(K.east) + (0,-0.15)$);
+\end{tikzpicture}
+\end{align}
+
+
+\subsection{Modelling context, extension}
+
+A \emph{modelling context} $\mathscr{M}$ is a collection of conditional probabilities. It can be thought of as a namespace for the modelling work we do. A \emph{model} is a subset of $\mathscr{M}$.
+
+Given two conditional probabilities from a modelling context, we can extend conditional probabilities by matching labels on inputs of one with the labels on the inputs and outputs of the other. To extend conditional probabilities, we must be able to declare that one conditional probability comes before the other.
+
+Given two conditional probabilities $\kernel{K}[\RV{B}_C|\RV{A}_D]$ and $\kernel{L}[\RV{F}_H|\RV{E}_G]$, we say $\kernel{K}[\RV{B}_C|\RV{A}_D]$ is after $\kernel{K}[\RV{B}_C|\RV{A}_D]$ if there is some label in $\RV{A}_D$ that matches a label in $\RV{F}_H$. $\kernel{K}[\RV{B}_C|\RV{A}_D]$ is before $\kernel{L}[\RV{F}_H|\RV{E}_G]$ iff it is not after $\kernel{L}[\RV{F}_H|\RV{E}_G]$.
+
+For example, $\kernel{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]$ is before $\kernel{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}]$. The extension of $\kernel{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]$ by $\kernel{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}]$ is given by
+
+\begin{align}
+	\kernel{K}[\RV{X}_1|\RV{Y}_1\RV{Q}]\rightrightarrows \kernel{L}[\RV{W}_1|\RV{X}_1\RV{Q}] &= \begin{tikzpicture}
+		\path (0,0) node (Y) {$\RV{Y}$}
+		+ (0,-0.3) node (Q) {$\RV{Q}$}
+		+ (0,-0.8) node (R) {$\RV{R}$}
+		++ (0.5,-0.3) node[copymap] (copy0) {}
+		++ (0.7,0.15) node[kernel] (K) {$\kernel{K}$}
+		++ (0.5,-0.15) node[copymap] (copy1) {}
+		++ (0.7,-0.5) node[kernel] (L) {$\kernel{L}$}
+		++ (0.7, 0.65) node (Z) {$\RV{Z}$}
+		+ (0,-0.3) node (X) {$\RV{X}$}
+		+ (0,-0.65) node (W) {$\RV{W}$};
+		\draw (Y) -- ($(K.west) + (0,0.15)$) (Q) -- ($(K.west) + (0,-0.15)$);
+		\draw (copy0) to [out=-45,in=180] ($(L.west) + (0,0)$) (copy1) to [out=-60,in=180] ($(L.west) + (0,0.15)$);
+		\draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
+		\draw ($(K.east) + (0,-0.15)$) to (copy1);
+		\draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
+	\end{tikzpicture}
+\end{align}
+
+A collection of conditional probabilities from a modelling context can be joined. , let $I\subset C$ be the indices $\{i|\RV{A}_i\in \RV{E}_G\}$ and $J\subset H$ be the indices $\{i|\RV{B}_i\in \RV{F}_H\}$. $\kernel{K}[\RV{B}_C|\RV{A}_D]$ can be joined with $\kernel{L}[\RV{F}_H|\RV{E}_G]$ if and only if either $I=\emptyset$ or $J=\emptyset$. If $I=\emptyset$ then, letting $K = \{i|\RV{B}_i\in \RV{E}_G\}$ the result of joining is
+
+\begin{align}
+	(\kernel{K}[\RV{B}_C|\RV{A}_D]*\kernel{L}[\RV{E}_G|\RV{F}_H])_{b_Jb_{J^C}}
+\end{align}
+
+
+
+A conditional probability $\kernel{K}[\RV{B}_D|\RV{A}_C]$ is a labeled Markov kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$
+
+\subsection{Sequences}
 
 Given $X:E\to X$ and $Y:E\to Y$, the \emph{sequence} random variable $(\RV{X},\RV{Y}):E\to X\times Y$ is defined as $\splitter{0.2}(\RV{X}\otimes \RV{Y})$. That is, $(\RV{X},\RV{Y})_i = (\RV{X}_i,\RV{Y}_i)$.
 
-\subsection{Generalised random variables}
+
 
 It is typical to define a probability space as a probability measure along with its underlying set and its $\sigma$-algebra: $(\prob{P},(E,\sigalg{E}))$. Here where $E$ is sometimes called the sample space and $\sigalg{E}$ is sometimes called the set of events; as we are considering discrete sets, in this paper we always have $\sigalg{E}$ is the power set of $E$ and we will henceforth only mention the set $E$.
 
@@ -66,6 +207,8 @@ Given a probability space $(\prob{P},E)$, we can define \emph{random variables} 
 Here we want to consider ``Markov kernel spaces'', which is a Markov kernel along with its domain and underlying set of its codomain: $(\kernel{K},D,F)$. Given such a triple, a \emph{random variable} is a function $F\to Y$ for some vector space $Y$ and a \emph{state variable} is a function $D\to Y'$ for some vector space $Y'$. The \emph{complete state variable} $\RV{D}$ is the identity function on $D$. Probabilities and conditional probabilities that we can define on the space $(\kernel{K},D,F)$ usually have to be conditioned on $\RV{D}$, but there are some exceptions.
 
 Something that is either a random variable or a state variable is just a \emph{variable}.
+
+\todo[inline]{We can associate a random variable with any state variable by copying it from the input to the output, but I think with low confidence that not doing this is going to be simpler for this paper}
 
 For each $d\in D$, any random variable $\RV{X}:F\to X$ has a unique marginal distribution $\kernel{K}[\RV{X}|\RV{D}]_d:=\kernel{K}_d\underline{\RV{X}}$. 
 
