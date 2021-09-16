@@ -33,13 +33,13 @@ Rows of Markov kernel are probability distributions: $\kernel{K}_x:=(K_{x}^j)_{j
 Graphically, we represent a Markov kernel as a box and a probability distribution as a triangle:
 
 \begin{align}
-\kernel{K}&:=\begin{tikzpicture}
+\kernel{K}&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) node (A) {}
 	++ (0.5,0) node[kernel] (K) {$\kernel{K}$}
 	++ (0.5,0) node (B) {};
 	\draw (A) -- (K) -- (B);
 \end{tikzpicture}\\
-\prob{P}&:= \begin{tikzpicture}
+\prob{P}&:= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) node[dist] (K) {$\kernel{K}$}
 	++ (0.5,0) node (B) {};
 	\draw (K) -- (B);
@@ -55,7 +55,7 @@ Given kernels $\kernel{K}:W\to Y$ and $\kernel{L}:X\to Z$, the tensor product $\
 Graphically, the tensor product is represeted by parallel juxtaposition:
 
 \begin{align}
-	\kernel{K}\otimes \kernel{L}&:=\begin{tikzpicture}
+	\kernel{K}\otimes \kernel{L}&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) node (A) {}
 	++ (0.5,0) node[kernel] (K) {$\kernel{K}$}
 	++ (0.5,0) node (B) {};
@@ -80,7 +80,7 @@ For any $X$ and any $x\in X$, $\delta[x]$ is the probability measure defined by 
 Graphically, the identity map is a bare line:
 
 \begin{align}
-	\mathrm{Id}[X]&:=\begin{tikzpicture}
+	\mathrm{Id}[X]&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) ++ (0.5,0) node (B) {};
 	\draw (A) -- (B);
 \end{tikzpicture}
@@ -93,7 +93,7 @@ The erase map $\stopper{0.2}[A]:A\to \{1\}$ is the map $\stopper{0.3}[A]_i = 1$.
 Graphically, the stopper is a fuse:
 
 \begin{align}
-	\mathrm{Id}[X]&:=\begin{tikzpicture}
+	\mathrm{Id}[X]&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) ++ (0.5,0) node (B) {};
 	\draw[-{Rays[n=8]}] (A) -- (B);
 \end{tikzpicture}
@@ -102,7 +102,7 @@ Graphically, the stopper is a fuse:
 The copy map $\splitter{0.15} [X]:X\to \Delta(X\times X)$ is the Markov kernel defined by $\splitter{0.15}_x:= \delta_x \otimes \delta_x$. Graphically it is a fork with a dot at the point where it splits:
 
 \begin{align}
-	\splitter{0.2}[X]&:=\begin{tikzpicture}
+	\splitter{0.2}[X]&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) node (A) {} 
 	++ (0.3,0) node[copymap] (copy0) {}
 	++ (0.5,0.15) node (B) {}
@@ -116,7 +116,7 @@ The copy map $\splitter{0.15} [X]:X\to \Delta(X\times X)$ is the Markov kernel d
 Two Markov kernels $\kernel{L}:X\to \Delta(Y)$ and $\kernel{M}:Y\to \Delta(Z)$ have a product $\kernel{L}\kernel{M}:X\to \Delta(Z)$ given by the usual matrix-matrix product: $\kernel{L}\kernel{M}_x^z = \sum_y \kernel{L}_x^y\kernel{M}_y^z$. Graphically, we write represent products by joining kernel wires together:
 
 \begin{align}
-	\kernel{L}\kernel{M}:= \begin{tikzpicture}
+	\kernel{L}\kernel{M}:= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) node (A) {}
 	++ (0.5,0) node[kernel] (K) {$\kernel{K}$}
 	++ (0.7,0) node[kernel] (M) {$\kernel{M}$}
@@ -130,22 +130,23 @@ Two Markov kernels $\kernel{L}:X\to \Delta(Y)$ and $\kernel{M}:Y\to \Delta(Z)$ h
 
 A labeled Markov kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$ is a Markov kernel $\kernel{K}:X\to \Delta(Y)$ along with a sequence of \emph{domain labels} $\RV{A}_C:=(\RV{A}_i)_{i\in C}$ and \emph{codomain labels} $\RV{B}_D:=(\RV{B}_i)_{i\in D}$ such that
 \begin{itemize}
-	\item Each label $\RV{A}_i$ has an associated discrete space $A_i$ (and similarly $\RV{B}_i$ is associated with $B_i$)
+	\item Each label $\RV{A}_i$ has an associated discrete set $A_i$ (and similarly $\RV{B}_i$ is associated with $B_i$)
 	\item $X=\bigtimes_{i\in C} A_i$ and $Y=\bigtimes_{i\in D} B_i$
-	% \item The labels $\RV{A}_i$ and $\RV{B}_j$ are identical if and only if there is some $\kernel{L}:\bigtimes_{k\in C\setminus \{i\}} A_k\to \Delta(\bigtimes_{l\in D\setminus\{j\}} B_l)$ such that then $\kernel{K} = \delta[a_i]^{b_j} \kernel{L}_{a_1...a_{i-1}a_ia_{i+1}...a_{|C|}}^{b_1...b_{j-1}b_{j+1}...b_{|D|}}$.
 \end{itemize}
+
+\todo[inline]{Repeated labels are okay only if there's a valid diagrammatic representation of $\kernel{K}$ such that the repeated labels are connected by a wire with no boxes in between (copy map dots are OK)}
 
 A labeled probability distribution $\prob{P}\in\Delta(Y)$ comes with a sequence of codomain labels $(\RV{B}_i)_{i\in D}$ only, satisfying $Y=\bigtimes_{i\in D} B_i$.
 
-A conditional probability $\kernel{L}[\RV{A}_C|\RV{B}_D]$ is a labeled kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$ along with a \emph{background kernel} $\kernel{L}$.
+A conditional probability $\model{L}[\RV{A}_C|\RV{B}_D]$ is a labeled kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$ along with an \emph{ambient conditional probability} (Definition \ref{def:ambient_cp}) $\model{L}$.
 
-Graphically, we place the labels on the wires of a conditional probability and the name of the ambient kernel in the centre of the box:
+Graphically, we place the labels on the wires of a conditional probability and the name of the ambient conditional probability in the centre of the box:
 
 \begin{align}
-	\kernel{L}[\RV{B}_1\RV{B}_2|\RV{A}_1\RV{A}_2] := \begin{tikzpicture}
+	\model{L}[\RV{B}_1\RV{B}_2|\RV{A}_1\RV{A}_2] := \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) node (A1) {$\RV{A}_1$}
 	+ (0,-0.3) node (A2) {$\RV{A}_2$}
-	++ (0.7,-0.15) node[kernel] (K) {$\kernel{L}$}
+	++ (0.7,-0.15) node[kernel] (K) {$\model{L}$}
 	++ (0.7,0.15) node (B1) {$\RV{B}_1$}
 	+ (0,-0.3) node (B2) {$\RV{B}_2$};
 	\draw (A1) -- ($(K.west) + (0,0.15)$) (A2) -- ($(K.west) + (0,-0.15)$);
@@ -153,77 +154,191 @@ Graphically, we place the labels on the wires of a conditional probability and t
 \end{tikzpicture}
 \end{align}
 
-
-\subsection{Modelling context, extension}
-
-A \emph{modelling context} $\mathscr{M}$ is a collection of conditional probabilities. It can be thought of as a namespace for the modelling work we do. A \emph{model} is a subset of $\mathscr{M}$.
-
-Given two conditional probabilities from a modelling context, we can extend conditional probabilities by matching labels on inputs of one with the labels on the inputs and outputs of the other. To extend conditional probabilities, we must be able to declare that one conditional probability comes before the other.
-
-Given two conditional probabilities $\kernel{K}[\RV{B}_C|\RV{A}_D]$ and $\kernel{L}[\RV{F}_H|\RV{E}_G]$, we say $\kernel{K}[\RV{B}_C|\RV{A}_D]$ is after $\kernel{K}[\RV{B}_C|\RV{A}_D]$ if there is some label in $\RV{A}_D$ that matches a label in $\RV{F}_H$. $\kernel{K}[\RV{B}_C|\RV{A}_D]$ is before $\kernel{L}[\RV{F}_H|\RV{E}_G]$ iff it is not after $\kernel{L}[\RV{F}_H|\RV{E}_G]$.
-
-For example, $\kernel{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]$ is before $\kernel{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}]$. The extension of $\kernel{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]$ by $\kernel{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}]$ is given by
+A sequence of labels is itself a label, so we can also bundle wires and their corresponding labels together:
 
 \begin{align}
-	\kernel{K}[\RV{X}_1|\RV{Y}_1\RV{Q}]\rightrightarrows \kernel{L}[\RV{W}_1|\RV{X}_1\RV{Q}] &= \begin{tikzpicture}
+	\model{L}[\RV{B}_1\RV{B}_2|\RV{A}_1\RV{A}_2] = \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\path (0,0) node (A1) {$(\RV{A}_1,\RV{A}_2)$}
+	++ (1.3,0) node[kernel] (K) {$\model{L}$}
+	++ (1.3,0.) node (B1) {$(\RV{B}_1,\RV{B}_2)$};
+	\draw (A1) -- (K) -- (B1);
+\end{tikzpicture}
+\end{align}
+
+Because it saves a lot of space, we will generally hold to the convention that a label $\RV{X}$ is associated with the set X. However, this convention sometimes fails, for example when we have two labels $\RV{X}_1$ and $\RV{X}_2$ that are associated with the same set -- in such cases, we will explicitly define the relationship.
+
+The trivial label $*$ always corresponds to the 1-element set $\{*\}$. Because $\{*\}\times A$ is isomorphic to $A$ for any $A$, we can consider any label sequence to be isomorphic to the same label sequence with any number of copies of the trivial label appended. An trivial sequence of labels is simply a sequence of labels that consists entirely of trivial labels.
+
+If two conditional probabilities $\model{L}[\RV{A}_C|\RV{B}_D]$ and $\model{K}[\RV{A}_C|\RV{B}_D]$ share the same kernel, we will say $\model{L}[\RV{A}_C|\RV{B}_D]\overset{krn}{=}\model{K}[\RV{A}_C|\RV{B}_D]$
+
+\subsection{Modelling context}
+
+A \emph{modelling context} $\mathscr{M}$ is a collection of conditional probabilities. It can be thought of as a namespace. We place the following requirements on elements of $\mathscr{M}$:
+
+\begin{itemize}
+	\item If $\model{K}[\RV{X}\RV{Z}|\RV{Y}]\in \mathscr{M}$ and $\model{L}[\RV{X}\RV{W}|\RV{V}]\in \mathscr{M}$, the label $\RV{X}$ is associated with the same set $X$ both conditional probabilities
+	\item If $\model{K}[\RV{X}|\RV{Y}]\in \mathscr{M}$ and $\model{K}[\RV{Z}\RV{X}|\RV{Y}]\in\mathscr{M}$ then $\model{K}[\RV{X}|\RV{Y}]$ is a marginal (Definition \ref{def:marginal}) of $\model{K}[\RV{Z}\RV{X}|\RV{Y}]$
+	\item If $\model{K}[\RV{X}\RV{Z}|\RV{Y}]\in \mathscr{M}$ and $\model{K}[\RV{X}|\RV{Y}\RV{Z}]\in \mathscr{M}$ then $\model{K}[\RV{X}|\RV{Y}\RV{Z}]$ is a disintegration (Definition \ref{def:disintegration}) of $\model{K}[\RV{X}\RV{Z}|\RV{Y}]$
+	\item If $\model{K}[\RV{X}|\RV{Y}]\in \mathscr{M}$ then all marginals of $\model{K}[\RV{X}|\RV{Y}]$ are also in $\mathscr{M}$
+	\item If $\model{K}[\RV{X}|\RV{Y}]\in \mathscr{M}$ then all disintegrations of $\model{K}[\RV{X}|\RV{Y}]$ are also in $\mathscr{M}$
+	\item If $\model{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]\in \mathscr{M}$ is extendable by $\model{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}]\in \mathscr{M}$ then $\model{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]\rightrightarrows \model{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}] \in \mathscr{M}$
+	\item If $\model{K}[\RV{X}|\RV{Y}]\in \mathscr{M}$ is an ambient conditional probability (Definition \ref{def:ambient_cp}), then $\model{K}[\RV{X}|\RV{Y}]=\model{K}$
+\end{itemize}
+
+Given two conditional probabilities from a modelling context, we can extend conditional probabilities by matching labels on inputs of one with the labels on the inputs and outputs of the other. Roughly speaking, we can extend a conditional probability with a second if the second comes ``after'' the first.
+
+Given two conditional probabilities $\model{K}[\RV{B}_C|\RV{A}_D]$ and $\model{L}[\RV{F}_H|\RV{E}_G]$, we say $\model{K}[\RV{B}_C|\RV{A}_D]$ is extendable by $\model{L}[\RV{B}_C|\RV{A}_D]$ if there is no label in $\RV{A}_D$ that matches a label in $\RV{F}_H$ (so no outputs from the ``after'' conditional probability match inputs from the ``before'' conditional probability) and there is no label in $\RV{F}_H$ that matches a label in $\RV{B}_C$ (so no shared outputs).
+
+\begin{definition}[extension]\label{def:extension}
+Consider two arbitrary conditional probabilities $F$ and $S$ in $\mathscr{M}$ where $F$ is before $S$. Let $\RV{Z}$ as the (possibly trivial) sequence of all labels that appear only in the output of $F$, $\RV{X}$ the sequence of all labels that appear in the output of $F$ and the input of $S$, $\RV{Y}$ the sequence of all labels that appear only in the input of $F$, $\RV{Q}$ the sequence of all labels shared by the inputs of $F$ and $S$, $\RV{R}$ the sequence of all labels that appear only in the input of $S$ and $\RV{W}$ the sequence of all labels that appear only in the output of $S$. Given the assumption that $F$ is before $S$, we can in general write $F=\model{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]$ and $S=\model{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}]$ for some model names $\model{K}$ and $\model{L}$ (the necessary condition for this is that the label sequences are exhaustive).
+
+Then Equations \ref{eq:extn_definition1} and \ref{eq:extn_definition2} are equivalent definitions of extension:
+
+\begin{align}
+	\model{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]\rightrightarrows \model{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}] &:= \model{M}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R}]\\
+	&:= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 		\path (0,0) node (Y) {$\RV{Y}$}
 		+ (0,-0.3) node (Q) {$\RV{Q}$}
 		+ (0,-0.8) node (R) {$\RV{R}$}
 		++ (0.5,-0.3) node[copymap] (copy0) {}
-		++ (0.7,0.15) node[kernel] (K) {$\kernel{K}$}
+		++ (0.7,0.15) node[kernel] (K) {$\model{K}$}
 		++ (0.5,-0.15) node[copymap] (copy1) {}
-		++ (0.7,-0.5) node[kernel] (L) {$\kernel{L}$}
-		++ (0.7, 0.65) node (Z) {$\RV{Z}$}
+		++ (0.7,-0.5) node[kernel] (L) {$\model{L}$}
+		++ (0.7, 0.8) node (Z) {$\RV{Z}$}
 		+ (0,-0.3) node (X) {$\RV{X}$}
-		+ (0,-0.65) node (W) {$\RV{W}$};
+		+ (0,-0.8) node (W) {$\RV{W}$};
 		\draw (Y) -- ($(K.west) + (0,0.15)$) (Q) -- ($(K.west) + (0,-0.15)$);
 		\draw (copy0) to [out=-45,in=180] ($(L.west) + (0,0)$) (copy1) to [out=-60,in=180] ($(L.west) + (0,0.15)$);
 		\draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
 		\draw ($(K.east) + (0,-0.15)$) to (copy1);
 		\draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
-	\end{tikzpicture}
+	\end{tikzpicture}\label{eq:extn_definition1}\\
+	\model{M}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R}]_{yqr}^{zxw} &= \model{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]_{yq}^{zx} \model{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}]_{xqr}^{w}\label{eq:extn_definition2}
 \end{align}
+\end{definition}
 
-A collection of conditional probabilities from a modelling context can be joined. , let $I\subset C$ be the indices $\{i|\RV{A}_i\in \RV{E}_G\}$ and $J\subset H$ be the indices $\{i|\RV{B}_i\in \RV{F}_H\}$. $\kernel{K}[\RV{B}_C|\RV{A}_D]$ can be joined with $\kernel{L}[\RV{F}_H|\RV{E}_G]$ if and only if either $I=\emptyset$ or $J=\emptyset$. If $I=\emptyset$ then, letting $K = \{i|\RV{B}_i\in \RV{E}_G\}$ the result of joining is
+Here we assume that we have some way of choosing the ambient conditional probability $\model{M}$. If the two kernels are appropriate marginals and disintegrations of the same ambient conditional probability $\model{K}$ (see Definition \ref{def:disintegration}), then the extension has ambient conditional probability $\model{K}$ also. Otherwise, we can always consistently choose $\model{M}:=\model{M}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R}]$.
+
+\todo[inline]{I don't know if there are other cases where it would be sensible to make a different choice. The intuition I have is that if two ambient conditional probabilities are equal in kernel and label set then they should be equal, but not other conditional probabilities.}
+
+Equation \ref{eq:extn_definition1} can be broken down to the product of four Markov kernels, each of which is itself a tensor product of a number of other Markov kernels:
 
 \begin{align}
-	(\kernel{K}[\RV{B}_C|\RV{A}_D]*\kernel{L}[\RV{E}_G|\RV{F}_H])_{b_Jb_{J^C}}
+	\model{M}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R}] &= \left[ \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+		\path (0,0) node (Y) {$\RV{Y}$}
+		+ (0,-0.3) node (Q) {$\RV{Q}$}
+		+ (0,-0.75) node (R) {$\RV{R}$}
+		++ (0.5,-0.3) node[copymap] (copy1) {}
+		++ (0.5,0.3) node (Z) {}
+		++ (0,-0.15) node (Q1) {}
+		++ (0,-0.3) node (Q2) {}
+		++ (0,-0.3) node (R2) {};
+		\draw (Y) -- (Z) (Q) -- (copy1) to [out=45,in=180] (Q1);
+		\draw (copy1) to [out=-45,in=180] (Q2);
+		\draw (R) -- (R2); \end{tikzpicture}\right]
+		\left[\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+		\path (0,0)  node (Z) {}
+		++ (0,-0.15) node (Q1) {}
+		++ (0,-0.3) node (Q2) {}
+		++ (0,-0.3) node (R) {}
+		++ (0.5,0.65) node[kernel] (K) {$\model{K}$}
+		++ (0.5,0.1) node (Z1) {}
+		+  (0,-0.15) node (W) {}
+		+ (0,-0.45) node (Q3) {}
+		+ (0,-0.75) node (R2) {};
+		\draw (Z) -- ($(K.west) + (0,0.1)$) (Q1) -- ($(K.west) + (0,-0.05)$);
+		\draw (Q2) -- (Q3) (R) -- (R2) ($(K.east) + (0,0.1)$) -- (Z1); 
+		\draw ($(K.east) + (0,-0.05)$) -- (W);\end{tikzpicture}\right] 
+		\left[ \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+		\path (0,0) node (Z) {}
+		+ (0,-0.15) node (X) {}
+		+ (0,-0.45) node (Q) {}
+		+ (0,-0.75) node (R) {}
+		++ (0.5,-0.3) node[copymap] (copy1) {}
+		++ (0.5,0.3) node (Z1) {}
+		++ (0,-0.15) node (X1) {}
+		++ (0,-0.3) node (X2) {}
+		++ (0,-0.15) node (Q2) {}
+		++ (0,-0.15) node (R2) {};
+		\draw (Z) -- (Z1) (X) to [out=0,in=180] (copy1) to [out=45,in=180] (X1);
+		\draw (copy1) to [out=-45,in=180] (X2);
+		\draw (Q) to [out=0,in=180] (Q2);
+		\draw (R) -- (R2); \end{tikzpicture}\right]
+		\left[\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+		\path (0,0) node (Z) {}
+		++ (0,-0.15) node (X1) {}
+		++ (0,-0.3) node (X2) {}
+		++ (0,-0.15) node (Q) {}
+		++ (0,-0.15) node (R) {}
+		++ (0.5,0.15) node[kernel] (L) {$\model{L}$}
+		++ (0.7,0) node (W) {$\RV{W}$}
+		++ (0,0.35) node (X3) {$\RV{X}$}
+		++ (0,0.25) node (Z1) {$\RV{Z}$};
+		\draw (X1) to [out=0,in=180] (X3) (Z) -- (Z1);
+		\draw (X2) to [out=0,in=180] ($(L.west) + (0,0.15)$);
+		\draw (Q) to [out=0,in=180] ($(L.west) + (0,0)$);
+		\draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
+		\draw (L) -- (W);\end{tikzpicture}\right]\\
 \end{align}
 
+$\model{M}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R}]$ is itself a conditional probability with some ambient conditional probability $\model{M}$ and is an element of $\mathscr{M}$. 
 
+\todo[inline]{Prove that $\rightrightarrows$ is associative}
 
-A conditional probability $\kernel{K}[\RV{B}_D|\RV{A}_C]$ is a labeled Markov kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$
+\begin{definition}[marginal]\label{def:marginal}
+Given a conditional probability $\model{K}[\RV{X}\RV{Y}|\RV{W}]$, the marginal $\model{K}[\RV{X}|\RV{W}]$ is defined as
+\begin{align}
+	\model{K}[\RV{X}|\RV{W}] &:= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\path (0,0) node (A1) {$\RV{W}$}
+	++ (0.7,0) node[kernel] (K) {$\model{K}$}
+	++ (0.7,0.15) node (B1) {$\RV{X}$}
+	+ (0,-0.3) node (B2) {};
+	\draw (A1) -- ($(K.west) + (0,0)$);
+	\draw (B1) -- ($(K.east) + (0,0.15)$) [-{Rays[n=8]}] ($(K.east) + (0,-0.15)$) -- (B2);
+\end{tikzpicture}\\
+	\model{K}[\RV{X}|\RV{W}]_w^x &= \sum_{y\in Y} \model{K}[\RV{X}\RV{Y}|\RV{W}]_{w}^{xy}
+\end{align}
+\end{definition}
 
-\subsection{Sequences}
+\begin{definition}[disintegration]\label{def:disintegration}
+$\model{K}[\RV{Y}|\RV{X}\RV{W}]$ is a disintegration of $\model{K}[\RV{X}\RV{Y}|\RV{W}]$ if
+\begin{align}
+	\model{K}[\RV{X}|\RV{W}]\rightrightarrows \model{K}[\RV{Y}|\RV{X}\RV{W}] = \model{K}[\RV{X}\RV{Y}|\RV{W}]
+\end{align}
+\end{definition} 
 
-Given $X:E\to X$ and $Y:E\to Y$, the \emph{sequence} random variable $(\RV{X},\RV{Y}):E\to X\times Y$ is defined as $\splitter{0.2}(\RV{X}\otimes \RV{Y})$. That is, $(\RV{X},\RV{Y})_i = (\RV{X}_i,\RV{Y}_i)$.
+Any Markov kernel $\kernel{L}$ with the property
+\begin{align}
+	\kernel{L}_{xw}^{y} = \frac{\model{K}[\RV{X}\RV{Y}|\RV{W}]_w^{xy}}{\sum_{x\in X}\model{K}[\RV{X}\RV{Y}|\RV{W}]_w^{xy}}\qquad\forall {w,y}:\text{ the denominator is positive}
+\end{align}
+is a version of $\model{K}[\RV{Y}|\RV{X}\RV{W}]$.
 
+\begin{definition}[ambient conditional probability]\label{def:ambient_cp}
+A conditional probability $\model{K}[\RV{Y}|\RV{X}]$ is an \emph{ambient conditional probability} relative to $\mathscr{M}$ if there is no other conditional probability in $\mathscr{M}$ such that $\model{K}[\RV{Y}|\RV{X}]$ is either a marginal or a disintegration of this conditional probability.
+\end{definition}
 
-
-It is typical to define a probability space as a probability measure along with its underlying set and its $\sigma$-algebra: $(\prob{P},(E,\sigalg{E}))$. Here where $E$ is sometimes called the sample space and $\sigalg{E}$ is sometimes called the set of events; as we are considering discrete sets, in this paper we always have $\sigalg{E}$ is the power set of $E$ and we will henceforth only mention the set $E$.
-
-Given a probability space $(\prob{P},E)$, we can define \emph{random variables} as measurable functions $\RV{X}:E\to X$. The \emph{marginal distribution} of $\RV{X}$ is given by $\prob{P}[\RV{X}]:=\prob{P}\underline{\RV{X}}$. 
-
-Here we want to consider ``Markov kernel spaces'', which is a Markov kernel along with its domain and underlying set of its codomain: $(\kernel{K},D,F)$. Given such a triple, a \emph{random variable} is a function $F\to Y$ for some vector space $Y$ and a \emph{state variable} is a function $D\to Y'$ for some vector space $Y'$. The \emph{complete state variable} $\RV{D}$ is the identity function on $D$. Probabilities and conditional probabilities that we can define on the space $(\kernel{K},D,F)$ usually have to be conditioned on $\RV{D}$, but there are some exceptions.
-
-Something that is either a random variable or a state variable is just a \emph{variable}.
-
-\todo[inline]{We can associate a random variable with any state variable by copying it from the input to the output, but I think with low confidence that not doing this is going to be simpler for this paper}
-
-For each $d\in D$, any random variable $\RV{X}:F\to X$ has a unique marginal distribution $\kernel{K}[\RV{X}|\RV{D}]_d:=\kernel{K}_d\underline{\RV{X}}$. 
-
-To save space, we say that the marginal distribution of a sequence like $(\RV{X},\RV{Y})$ is $\kernel{K}[\RV{XY}|\RV{D}]_d$.
-
-\subsection{Disintegration}\label{ssec:disintegration}
-
-Conditional probabilities are \emph{disintegrations} of probability measures. Given a probability space $(\prob{P},E)$ and random variables $\RV{X}:E\to X$ and $\RV{Y}:E\to Y$, the probability of $\RV{X}$ given $\RV{Y}$ is any Markov kernel $\prob{P}[\RV{Y}|\RV{X}]$ such that $\prob{P}[\RV{XY}]^{ij}= P[\RV{X}]^i P[\RV{Y}|\RV{X}]_i^j$. Note that this is generally non-unique. However, wherever $P^{\RV{X}}_i>0$, $P^{\RV{Y}|\RV{X}}_{ij}$ must be equal to $\frac{P^{\RV{XY}}_{ij}}{P^{\RV{X}_i}}$.
-
-We define disintegrations of kernels analogously. Given a Markov kernel space $(\kernel{K},D,F)$, complete state variable $\RV{D}$ and variables $\RV{X}$, $\RV{Y}$, $\kernel{K}[\RV{Y}|\RV{X}\RV{D}]$ is any Markov kernel such that $\kernel{K}[\RV{XY}|\RV{D}]_i^{jk} = \kernel{K}[\RV{X}|\RV{D}]_{i}^j \kernel{K}[\RV{Y}|\RV{X}\RV{D}]_{ij}^k$. 
-
-As previously mentioned, in the kernel space $(\kernel{K},D,F)$ there is in general no unique marginal distribution of $(\RV{X},\RV{Y})$ and similarly there is generally no unique distribution of $\RV{X}$ conditioned on $\RV{Y}$. However, such a distribution might exist if $\RV{X}$ and $\RV{Y}$ are independent of $\RV{D}$.
+Recall that, if $\model{K}[\RV{Y}|\RV{X}]$ is an ambient conditional probability, then $\kernel{K}[\RV{Y}|\RV{X}]=\kernel{K}$.
 
 \subsection{Conditional independence}\label{ssec:cond_indep}
 
-Given a Markov kernel space $(\kernel{K}, D, F)$, and variables $\RV{X},\RV{Y}, \RV{Z}$ we say $\RV{X}$ is independent of $\RV{Y}$ given $\RV{Z}$, notated $\RV{X}\CI_{\kernel{K}} \RV{Y}|\RV{Z}$ iff a version of $\kernel{K}[\RV{X}|\RV{YZ}]$ exists and $\kernel{K}[\RV{X}|\RV{YZ}]_i^j = \kernel{K}[\RV{X}|\RV{YZ}]_{i'}^j$ for all $i,i'\in Y$.
+Given $\model{K}[\RV{X}|\RV{W}\RV{Z}]$ in general we have no definition of $\model{K}[\RV{X}|\RV{Z}]$. However, we can define such a ``conditional probability'' if we have the additional fact that $\RV{X}$ is independent of $\RV{W}$ given $\RV{Z}$ relative to $\model{K}$.
 
-A version of $\kernel{K}[\RV{X}|\RV{Z}]$ exists iff $\RV{X}\CI_{\kernel{K}} \RV{D}|\RV{Z}$ or $\RV{Z}=\RV{D}$, and in the former case is given by any kernel satisfying $\kernel{K}[\RV{X}|\RV{Z}]_i^j = \kernel{K}[{\RV{X}|\RV{DZ}}]_{ik}^j$ for any version of $\kernel{K}[\RV{X}|\RV{DZ}]$ and all $k\in D$.
+Given $\model{K}[\RV{X}|\RV{W}\RV{Z}]$ we say $\RV{X}$ is independent of $\RV{W}$ given $\RV{Z}$ relative to $\model{K}$, notated $\RV{X}\CI_{\model{K}} \RV{W}|\RV{Z}$ iff $\model{K}[\RV{X}|\RV{WZ}]_{wz}^x = \model{K}[\RV{X}|\RV{WZ}]_{w'z}^x$ for all $w,w'\in W$, $x\in X$ and $z\in Z$.
+
+Given $\model{K}[\RV{X}|\RV{W}\RV{Z}]$ such that $\RV{X}\CI_{\model{K}} \RV{W}|\RV{Z}$, we define $\model{K}[\RV{X}|\RV{Z}]$ to be any kernel satisfying $\model{K}[\RV{X}|\RV{Z}]_z^x = \model{K}[{\RV{X}|\RV{DZ}}]_{dz}^x$ for all $x,z,d$.
+
+\subsection{Uniqueness of disintegrations}
+
+Every conditional probability $\kernel{K}[\RV{X}|\RV{Y}]$ is unique up to an equivalence class defined with respect to the ambient conditional probability $\model{K}$.
+
+Proof sketch: if it is an ambient conditional probability, then it is unique. If not, it is obtained from an ambient conditional probability by a sequence of marginalisations and disintegrations. Defining the equivalence class to be ``equal up to measure 0 sets'', marginalisations and disintegrations are both unique.
+
+\subsection{Existence of modelling context}
+
+Take a collection of Markov kernels and give them label sets consistent with their type signatures and respecting the rule that identical labels require identical spaces. Add all the recursive disintegrations + marginals. Add all valid extensions assigning a new model name for any result not already in the modelling context. Add all recursive disintegrations and marginals of valid extensions, etc.
+
+Then: disintegration, marginalisation, extension operations all preserve label consistency rules. By construction, marginals, disintegrations and extensions are included. Marginalisation + disintegration preserves uniqueness of ambient conditional probability. Extension + assigning a new model name also preserves uniqueness of ambient conditional probability.
+
+\subsection{Standard probability models}
+
+The operation of combining two conditional probabilities which do not share a model name and obtaining a conditional probability relative with a new model name is unique to our approach. The standard approach to probability modelling features an ambient probability distribution defined on a sample space, along with ``labels'' that each correspond to a measurable functions on the sample space. With this setup, we can define marginals and disintegrations with respect to any sequences of labels. It is an open question whether there is a way to construct a modelling context with a single model that is equivalent to a standard probability model.

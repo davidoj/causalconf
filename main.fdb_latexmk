@@ -1,16 +1,16 @@
 # Fdb version 3
-["bibtex main"] 1631677631 "main.aux" "main.bbl" "main" 1631677697
+["bibtex main"] 1631793100 "main.aux" "main.bbl" "main" 1631793102
   "/usr/share/texlive/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "main.aux" 1631677697 7620 82fc31b0b346f65a1119a0ebfbee736c "xelatex"
-  "references.bib" 1631193176 179711 dee7d6bd26bac3409dd3dfcb6bca9a8d ""
+  "main.aux" 1631793102 10172 928425c58f547679595a2aa134ab95d2 "xelatex"
+  "references.bib" 1631791839 180557 ec080a02262ad12cb60c7485f88567bc ""
   (generated)
-  "main.bbl"
   "main.blg"
-["xdvipdfmx"] 1631677697 "main.xdv" "main.pdf" "main" 1631677697
-  "main.xdv" 1631677697 127028 65dbea4103ab1e242e418c8017a621aa "xelatex"
+  "main.bbl"
+["xdvipdfmx"] 1631793102 "main.xdv" "main.pdf" "main" 1631793102
+  "main.xdv" 1631793102 175936 45e3c704e99c379c4a7cfbea1341c3e1 "xelatex"
   (generated)
   "main.pdf"
-["xelatex"] 1631677696 "main.tex" "main.xdv" "main" 1631677697
+["xelatex"] 1631793100 "main.tex" "main.xdv" "main" 1631793102
   "/etc/texmf/web2c/texmf.cnf" 1590547021 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -245,17 +245,19 @@
   "/usr/share/texmf/tex/latex/lm/t1lmtt.fd" 1256929440 2681 354015af3b61e7be30009f084986375a ""
   "/usr/share/texmf/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
   "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1599613219 4648586 d2b7c7b61735336533540bc8faab0630 ""
-  "main.aux" 1631677697 7620 82fc31b0b346f65a1119a0ebfbee736c "xelatex"
-  "main.bbl" 1631677631 4321 7225101fdded9aace7a9f95044699a6a "bibtex main"
-  "main.out" 1631677697 1219 d5b44c53e73193e8835dc57c4f6b702b "xelatex"
-  "main.tex" 1631253787 7229 1b44a6f709e66f9f4374bc03de5cab1e ""
-  "main.toc" 1631677697 1381 0eaa799d2ad4a3af59c10c3800519e01 "xelatex"
-  "potential_outcomes.tex" 1631603590 19481 9f525ffcd110f1b5fa7e2b88c74b0af7 ""
-  "probability.tex" 1631677695 15028 1014a5c5aa08594cc43f4fd847507675 ""
-  "seedo.tex" 1631247983 11125 6a5e99ecc32bfca0fad381906f7e29fa ""
+  "appendix.tex" 1631772118 5581 0f6acdf610c586e3c0526bc513c8da3e ""
+  "cbns.tex" 1631792752 3428 eed0cb9fbad2ff21e4d1872b5c1930c6 ""
+  "main.aux" 1631793102 10172 928425c58f547679595a2aa134ab95d2 "xelatex"
+  "main.bbl" 1631793100 3124 71b7c989c3e505cfc3fb43798e12877a "bibtex main"
+  "main.out" 1631793102 1546 5f93cec387649fd8f7b49e8e8621aa10 "xelatex"
+  "main.tex" 1631792613 6426 9ca169222e4cfb26a77a2d5471dc60f1 ""
+  "main.toc" 1631793102 1750 a8040e9da49ef8b8f4ea63332285874c "xelatex"
+  "potential_outcomes.tex" 1631793098 20300 90994f8274bda4e200dba32b61158b5b ""
+  "probability.tex" 1631773021 22911 cd531c6ae501ec115675f0a19754e582 ""
+  "seedo.tex" 1631789831 7213 c7410de5aed8180ba77a865f591419f4 ""
   (generated)
-  "main.xdv"
-  "main.out"
+  "main.aux"
   "main.toc"
   "main.log"
-  "main.aux"
+  "main.xdv"
+  "main.out"

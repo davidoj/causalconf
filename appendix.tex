@@ -1,0 +1,77 @@
+%!TEX root = main.tex
+
+\section{Appendix:see-do model representation}\label{sec:see-do-rep}
+
+\todo[inline]{Modularise the treatment of probability}
+
+\begin{theorem}[See-do model representation]\label{th:see_do_rep}
+Suppose we have a decision problem that provides us with an observation $x\in X$, and in response to this we can select any decision or stochastic mixture of decisions from a set $D$; that is we can choose a ``strategy'' as any Markov kernel $\kernel{S}:X\to \Delta(D)$. We have a utility function $u:Y\to \mathbb{R}$ that models preferences over the potential consequences of our choice. Furthermore, suppose that we maintain a denumerable set of hypotheses $H$, and under each hypothesis $h\in H$ we model the result of choosing some strategy $\kernel{S}$ as a joint probability over observations, decisions and consequences $\prob{P}_{h,\kernel{S}}\in \Delta(X\times D\times Y)$.
+
+Define $\RV{X},\RV{Y}$ and $\RV{D}$ such that $\RV{X}_{xdy} = x$, $\RV{Y}_{xdy}=y$ and $\RV{D}_{xdy} = d$. Then making the following additional assumptions:
+\begin{enumerate}
+    \item Holding the hypothesis $h$ fixed the observations as have the same distribution under any strategy: $\prob{P}_{h,\kernel{S}}[\RV{X}]=\prob{P}_{h,\kernel{S}''}[\RV{X}]$ for all $h,\kernel{S},\kernel{S}'$ (observations are given ``before'' our strategy has any effect)
+    \item The chosen strategy is a version of the conditional probability of decisions given observations: $\kernel{S}=\prob{P}_{h,\kernel{S}}[\RV{D}|\RV{X}]$
+    \item There exists some strategy $\kernel{S}$ that is strictly positive
+    \item For any $h\in H$ and any two strategies $\kernel{Q}$ and $\kernel{S}$, we can find versions of each disintegration such that $\prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{D}\RV{X}]=\prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{D}\RV{X}]$ (our strategy tells us nothing about the consequences that we don't already know from the observations and decisions)
+\end{enumerate}
+
+Then there exists a unique see-do model $(\kernel{T},\RV{H}',\RV{D}',\RV{X}',\RV{Y}')$ such that $\prob{P}_{h,\kernel{S}}[\RV{XDY}]^{ijk} = \kernel{T}[\RV{X'}|\RV{H'}]_{h}^{i} \kernel{S}_i^j  \kernel{T}[\RV{Y'}|\RV{X'H'D'}]_{ijk}^k$.
+\end{theorem}
+
+\begin{proof}
+Consider some probability $\prob{P}\in \Delta(X\times D\times Y)$. By the definition of disintegration (section \ref{ssec:disintegration}), we can write
+
+\begin{align}
+ \prob{P}[\RV{XDY}]^{ijk} = \prob{P}[\RV{X}]^i\prob{P}[\RV{D}|\RV{X}]_i^{j} \prob{P}[\RV{Y}|\RV{XD}]_{ij}^{k} \label{eq:disint}
+\end{align}
+
+Fix some $h\in H$ and some strictly positive strategy $\kernel{S}$ and define $\kernel{T}:H\times D\to \Delta(X\times Y)$ by
+\begin{align}
+    \kernel{T}_{hj}^{kl} &= \prob{P}_{h,\kernel{S}}[\RV{X}]^k \prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{X}\RV{D}]^l_{kj} \label{eq:comb_disint}
+\end{align}
+
+Note that because $\kernel{S}$ is strictly positive and by assumption $\kernel{S}=\prob{P}_{h,\kernel{S}}[\RV{D}|\RV{X}]$, $\prob{P}_{h,\kernel{S}}[\RV{D}]$ is also strictly positive. Therefore $\prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{D}]$ is unique and therefore $\kernel{T}$ is also unique.
+
+Define $\RV{X}'$ and $\RV{Y}'$ by $\RV{X}'_{xy}=x$ and $\RV{Y}'_{xy}=y$. Define $\RV{H}'$ and $\RV{D}'$ by $\RV{H}'_{hd} = h$ and $\RV{D}'_{hd} = d$.
+
+We then have
+\begin{align}
+    \kernel{T}[\RV{X'}|\RV{H'D'}]_{hj}^{k} &= \kernel{T}\underline{\RV{X}'}_{hj}^k\\
+                                           &= \sum_l \kernel{T}_{hj}^{kl} \\
+                                           &= \prob{P}_{h,\kernel{S}}[\RV{X}]^k\\
+                                           &= \kernel{T}[\RV{X'}|\RV{H'D'}]_{hj'}^{k}
+\end{align}
+
+Thus $\RV{X}'\CI_{\kernel{T}} \RV{D}'|\RV{H}'$ and so $\kernel{T}[\RV{X}'|\RV{H}']$ exists (section \ref{ssec:cond_indep}) and $(\kernel{T},\RV{H}',\RV{D}',\RV{X}',\RV{Y}')$ is a see-do model.
+
+Applying Equation \ref{eq:disint} to $\prob{P}_{h,\kernel{S}}$:
+
+\begin{align}
+    \prob{P}_{h,\kernel{S}}[\RV{XDY}]^{ijk} &= \prob{P}_{h,\kernel{S}}[\RV{X}]^i\prob{P}_{h,\kernel{S}}[\RV{D}|\RV{X}]_i^{j} \prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{XD}]_{ij}^{k}\label{eq:t_is_comb_disint_start}\\
+     &=  \prob{P}_{h,\kernel{S}}[\RV{X}]^i\prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{XD}]_{ij}^{k}\\
+     &= \prob{P}_{h,\kernel{S}}[\RV{D}|\RV{X}]_i^{j} \kernel{T}[\RV{X'Y'}|\RV{H'D'}]_{hj}^{ik}\\
+     &= \kernel{S}_i^j \kernel{T}[\RV{X'Y'}|\RV{H'D'}]_{hj}^{ik}\\
+     &= \kernel{S}_i^j \kernel{T}[\RV{X'}|\RV{H'D'}]_{hj}^{i} \kernel{T}[\RV{Y'}|\RV{X'H'D'}]_{ihj}^k\\
+     &= \kernel{T}[\RV{X'}|\RV{H'}]_{h}^{i} \kernel{S}_i^j  \kernel{T}[\RV{Y'}|\RV{X'H'D'}]_{ihj}^k\label{eq:t_is_comb_disint_end}
+\end{align}
+
+Consider some arbitrary alternative strategy $\kernel{Q}$. By assumption
+
+\begin{align}
+    \prob{P}_{h,\kernel{S}}[\RV{X}]^{i} &= \prob{P}_{h,\kernel{Q}}[\RV{X}]^{i}\\
+    \prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{XD}]_{ij}^k &= \prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{XD}]_{ij}^k\text{ for some version of }\prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{XD}]
+\end{align}
+
+It follows that, for some version of $\prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{XD}]$,
+\begin{align}
+    \kernel{T}_{hj}^{kl} &= \prob{P}_{h,\kernel{Q}}[\RV{X}]^k \prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{X}\RV{D}]^l_{kj} \label{eq:comb_disint_nonuniq}
+\end{align}
+
+Then by substitution of $\kernel{Q}$ for $\kernel{S}$ in Equation \ref{eq:t_is_comb_disint_start} and working through the same steps
+
+\begin{align}
+    \prob{P}_{h,\kernel{S}}[\RV{XDY}]^{ijk} &= \kernel{T}[\RV{X'}|\RV{H'}]_{h}^{i} \kernel{Q}_i^j  \kernel{T}[\RV{Y'}|\RV{X'H'D'}]_{ihj}^k
+\end{align}
+
+As $\kernel{Q}$ was arbitrary, this holds for all strategies.
+\end{proof}

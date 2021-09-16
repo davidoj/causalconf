@@ -430,8 +430,12 @@ INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr7.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr5.tfm
 INPUT seedo.tex
 INPUT seedo.tex
+INPUT cbns.tex
+INPUT cbns.tex
 INPUT potential_outcomes.tex
 INPUT potential_outcomes.tex
+INPUT appendix.tex
+INPUT appendix.tex
 INPUT main.bbl
 INPUT main.bbl
 INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd

@@ -1,14 +1,16 @@
-\begin{thebibliography}{12}
+\begin{thebibliography}{8}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[\c{C}inlar(2011)]{cinlar_probability_2011}
-Erhan \c{C}inlar.
-\newblock \emph{Probability and Stochastics}.
-\newblock Springer, 2011.
+\bibitem[Chiribella et~al.(2008)Chiribella, D'Ariano, and
+  Perinotti]{chiribella_quantum_2008}
+G.~Chiribella, Giacomo D'Ariano, and P.~Perinotti.
+\newblock Quantum {Circuit} {Architecture}.
+\newblock \emph{Physical review letters}, 101:\penalty0 060401, September 2008.
+\newblock \doi{10.1103/PhysRevLett.101.060401}.
 
 \bibitem[Dawid(2000)]{dawid_causal_2000}
 A.~P. Dawid.
@@ -22,54 +24,14 @@ A.~P. Dawid.
 \newblock Publisher: Taylor \& Francis \_eprint:
   https://www.tandfonline.com/doi/pdf/10.1080/01621459.2000.10474210.
 
-\bibitem[Dawid(2002)]{dawid_influence_2002}
-A.~P. Dawid.
-\newblock Influence {Diagrams} for {Causal} {Modelling} and {Inference}.
-\newblock \emph{International Statistical Review}, 70\penalty0 (2):\penalty0
-  161--189, 2002.
-\newblock ISSN 1751-5823.
-\newblock \doi{10.1111/j.1751-5823.2002.tb00354.x}.
-\newblock URL
-  \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1751-5823.2002.tb00354.x}.
-
-\bibitem[Dawid(2020)]{dawid_decision-theoretic_2020}
-A.~Philip Dawid.
-\newblock Decision-theoretic foundations for statistical causality.
-\newblock \emph{arXiv:2004.12493 [math, stat]}, April 2020.
-\newblock URL \url{http://arxiv.org/abs/2004.12493}.
-\newblock arXiv: 2004.12493.
-
-\bibitem[Dawid(2012)]{dawid_decision-theoretic_2012}
-Philip Dawid.
-\newblock The {Decision}-{Theoretic} {Approach} to {Causal} {Inference}.
-\newblock In \emph{Causality}, pages 25--42. John Wiley \& Sons, Ltd, 2012.
-\newblock ISBN 978-1-119-94571-0.
-\newblock \doi{10.1002/9781119945710.ch4}.
-\newblock URL
-  \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/9781119945710.ch4}.
-
-\bibitem[Heckerman and Shachter(1995)]{heckerman_decision-theoretic_1995}
-D.~Heckerman and R.~Shachter.
-\newblock Decision-{Theoretic} {Foundations} for {Causal} {Reasoning}.
-\newblock \emph{Journal of Artificial Intelligence Research}, 3:\penalty0
-  405--430, December 1995.
-\newblock ISSN 1076-9757.
-\newblock \doi{10.1613/jair.202}.
-\newblock URL \url{https://www.jair.org/index.php/jair/article/view/10151}.
-
-\bibitem[Lattimore and Rohde(2019)]{lattimore_replacing_2019}
-Finnian Lattimore and David Rohde.
-\newblock Replacing the do-calculus with {Bayes} rule.
-\newblock \emph{arXiv:1906.07125 [cs, stat]}, December 2019.
-\newblock URL \url{http://arxiv.org/abs/1906.07125}.
-\newblock arXiv: 1906.07125.
-
-\bibitem[Pearl and Mackenzie(2018)]{pearl_book_2018}
-Judea Pearl and Dana Mackenzie.
-\newblock \emph{The {Book} of {Why}: {The} {New} {Science} of {Cause} and
-  {Effect}}.
-\newblock Basic Books, New York, 1 edition edition, May 2018.
-\newblock ISBN 978-0-465-09760-9.
+\bibitem[Jacobs et~al.(2019)Jacobs, Kissinger, and Zanasi]{jacobs_causal_2019}
+Bart Jacobs, Aleks Kissinger, and Fabio Zanasi.
+\newblock Causal {Inference} by {String} {Diagram} {Surgery}.
+\newblock In Mikołaj Bojańczyk and Alex Simpson, editors, \emph{Foundations
+  of {Software} {Science} and {Computation} {Structures}}, Lecture {Notes} in
+  {Computer} {Science}, pages 313--329. Springer International Publishing,
+  2019.
+\newblock ISBN 978-3-030-17127-8.
 
 \bibitem[Robins and Greenland(2000)]{robins_causal_2000}
 James~M. Robins and Sander Greenland.
@@ -91,11 +53,6 @@ Donald~B. Rubin.
 \newblock \doi{10.1198/016214504000001880}.
 \newblock URL \url{https://doi.org/10.1198/016214504000001880}.
 
-\bibitem[Savage(1954)]{savage_foundations_1954}
-Leonard~J. Savage.
-\newblock \emph{The {Foundations} of {Statistics}}.
-\newblock Wiley Publications in Statistics, 1954.
-
 \bibitem[Selinger(2010)]{selinger_survey_2010}
 Peter Selinger.
 \newblock A survey of graphical languages for monoidal categories.
@@ -103,5 +60,15 @@ Peter Selinger.
 \newblock \doi{10.1007/978-3-642-12821-9_4}.
 \newblock URL \url{http://arxiv.org/abs/0908.3347}.
 \newblock arXiv: 0908.3347.
+
+\bibitem[Tian and Pearl(2002)]{tian2002general}
+Jin Tian and Judea Pearl.
+\newblock A general identification condition for causal effects.
+\newblock In \emph{Aaai/iaai}, pages 567--573, July 2002.
+
+\bibitem[Wald(1950)]{wald_statistical_1950}
+Abraham Wald.
+\newblock \emph{Statistical decision functions}.
+\newblock Statistical decision functions. Wiley, Oxford, England, 1950.
 
 \end{thebibliography}

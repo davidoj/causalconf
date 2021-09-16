@@ -2,114 +2,68 @@
 
 \section{See-do models}\label{sec:seedo_models}
 
-We will first introduce \emph{see-do models} as a type of model that functions as the basic kind of thing which we will use to examine questions in the decision theoretic, potential outcomes and graphical models appraoch.
+Modular probability is useful when we want to combine different Markov kernels in such a way that ``variables'' refer to something consistent even though they don't necessarily have a unique distribution. The first example we will present is using modular probability to model decision problems.
 
-See-do models can be understood as generalisations of statistical models. Statistical models are a ubiquitous type of model in statistics and machine learning that consist of a set of \emph{states} $S$, and for each state the model prescribes a single probability distribution on a given set of \emph{outcomes} $O$.
+Suppose we will be given an observation $x\in X$ and in response to this we can select any decision or stochastic mixture of decisions from a set $D$; that is we can choose a ``strategy'' as any Markov kernel $\kernel{S}_\alpha:X\to \Delta(D)$. We are intersted in forecasting some consequences that take values in some set $Y$, and comparing the forecasts for different strategy choices so as to choose a best strategy.
 
-\begin{definition}[Statistical model]\label{def:statistical model}
-A statistical model is a set of states $S$, a set of outcomes $O$ and a Markov kernel $\kernel{T}:S\to \Delta(O)$.
-\end{definition}
+How can we model this? One way to proceed is as follows: Define a model context $\mathscr{M}$ to which we add the conditional probabilities mentioned hereafter. For each strategy $\model{S}_\alpha[\RV{D}|\RV{X}]$, our forecast will be represented by some joint probability in $\model{P}_{\alpha}[\RV{X}\RV{D}\RV{Y}|\RV{H}]$ where $\RV{H}$ is associated with a set of hypotheses $H$ representing different choices that we think might be reasonable to make that may lead to different forecasts. Because observations come before we execute our strategy, we assume that $\model{P}_{\alpha}[\RV{X}|\RV{H}]=P_{\beta}[\RV{X}|\RV{H}]$ for all $\alpha,\beta$. Our chosen strategy is the probability of $\RV{D}$ given $\RV{X}$: $\model{P}_{\alpha}[\RV{D}|\RV{X}]\overset{krn}{=}\model{S}_\alpha[\RV{D}|\RV{X}]$. Finally, our forecast of $\RV{Y}$ is the same for all strategies holding the observations, the decision and the hypothesis fixed: $\model{P}_{\alpha}[\RV{Y}|\RV{HD}]=P_{\beta}[\RV{Y}|\RV{HD}]$ for all $\alpha,\beta$.
 
-For example, a potentially biased coin can be modelled with a statistical model. Suppose the coin has some rate of heads $\theta\in [0,1]$, and we furthermore suppose that for each $\theta$ the result of flipping the coin can be modeled (in some sense) by the probability distribution $\text{Bernoulli}(\theta)$. The statistical model here is the set of states $S=[0,1]$ (corresponding to \emph{rates of heads}), the observation space $O=\{0,1\}^n$ with the discrete sigma-algebra (where $n$ is the number of flips observed) and the stochastic map $\kernel{B}:[0,1]\to \Delta(\mathscr{P}(0,1))$ which is given by $\kernel{B}:\theta\to \text{Bernoulli}(\theta)$.
-
-This example actually goes beyond our formal definitions here in that $\theta$ is real-valued between $0$ and $1$. Extending probability theory to real-valued spaces is well understood, see for example \citet{cinlar_probability_2011}, but in that setting the existence of disintegrations on kernel spaces (section \ref{ssec:disintegration}) is a problem to which we presently only have a partial solution. Discrete sets allow us to discuss see-do models without going into this difficulty. The price we pay is that to properly model the above problem we require $\theta$ to take on discrete values, for example restricting it to the rationals.
-
-A see-do model adds the following structure to a statistical model:
-
-\begin{itemize}
-    \item The state is a pair consisting of a \emph{hypothesis} $h\in H$ and a \emph{decision} $d\in D$; $S=H\times D$
-    \item The outcome is a pair consisting of an \emph{observation} $x\in X$ and a consequence $y\in Y$
-    \item The observation is conditionally independent of the decision given the hypothesis
-\end{itemize}
-
-We can use see-do models to model situations where we have some hypotheses and the opportunity to make an observation that takes values in $X$. Depending on what we see, we can select a decision from a set of possibilities $D$, and the ultimate consequence depends probabilistically on the decision we selected as well as whichever hypothesis turns out to best describe the world.
-
-\begin{definition}
-A \emph{see-do model} $(\kernel{T},\RV{H},\RV{D},\RV{X},\RV{Y})$ is a Markov kernel space $(\kernel{T},H\times D, O)$ along with four variables: the \emph{hypothesis} $\RV{H}:H\times D\times O\to H$, the \emph{decision} $\RV{D}:H\times D\times O\to D$, the \emph{observation} $\RV{X}: H\times D\times O\to X$ and the \emph{consequence} $\RV{Y}:H\times D\times O\to Y$, all given by the projections onto the respective spaces. In addition, a see-do model must observe the conditional independence:
-\begin{align}
-\RV{X}\CI_\kernel{T} \RV{D}|\RV{H} \label{eq:see_do_independence_requirement}
-\end{align}
-\end{definition}
-
-See-do models feature variables $\RV{D}$ and $\RV{H}$ that act like Dawid's ``non-stochastic regime indicators'' described by \citet{dawid_influence_2002,dawid_decision-theoretic_2012,dawid_decision-theoretic_2020}. In particular, see-do models induce a collection of probability measures indexed by the elements of $H\times D$, just as regime indicators induce collections of indexed probability measures. Dawid's regime indicators seem to typically do a similar job to a decision variable $\RV{D}$ rather than a decision-hypothesis pair.
-
-The hypothesis set is similar to the parameter set described by \citet{lattimore_replacing_2019} that relates pre- and post-interventional distributions. Lattimore and Rohde consider models with a prior distribution over this parameter set. A similar type of model can be created by taking the prodcut of a prior over the hypothesis set and a see-do model. See-do models are somewhat similar to the models proposed by \citet{savage_foundations_1954} for decision problems if we identify \emph{states} with \emph{hypotheses} and \emph{acts} with \emph{decisions}. Savage's models consider deterministic rather than stochastic functions from acts to outcomes, and did not explicitly distinguish observations from consequences. Savage's models themselves form the basis of the ``decision theoretic'' approach to causal inference set out by \citet{heckerman_decision-theoretic_1995} (where I use quotes to indicate that there are several distinct ``decision theoretic'' approaches in existence).
-
-\subsection{See-do models for data-driven decision problems}\label{ssec:data_driven_decision}
-
-We can be more precise about the type of decision problem see-do models are appropriate for. 
-\begin{theorem}[See-do model representation]\label{th:see_do_rep}
-Suppose we have a decision problem that provides us with an observation $x\in X$, and in response to this we can select any decision or stochastic mixture of decisions from a set $D$; that is we can choose a ``strategy'' as any Markov kernel $\kernel{S}:X\to \Delta(D)$. We have a utility function $u:Y\to \mathbb{R}$ that models preferences over the potential consequences of our choice. Furthermore, suppose that we maintain a denumerable set of hypotheses $H$, and under each hypothesis $h\in H$ we model the result of choosing some strategy $\kernel{S}$ as a joint probability over observations, decisions and consequences $\prob{P}_{h,\kernel{S}}\in \Delta(X\times D\times Y)$.
-
-Define $\RV{X},\RV{Y}$ and $\RV{D}$ such that $\RV{X}_{xdy} = x$, $\RV{Y}_{xdy}=y$ and $\RV{D}_{xdy} = d$. Then making the following additional assumptions:
-\begin{enumerate}
-    \item Holding the hypothesis $h$ fixed the observations as have the same distribution under any strategy: $\prob{P}_{h,\kernel{S}}[\RV{X}]=\prob{P}_{h,\kernel{S}''}[\RV{X}]$ for all $h,\kernel{S},\kernel{S}'$ (observations are given ``before'' our strategy has any effect)
-    \item The chosen strategy is a version of the conditional probability of decisions given observations: $\kernel{S}=\prob{P}_{h,\kernel{S}}[\RV{D}|\RV{X}]$
-    \item There exists some strategy $\kernel{S}$ that is strictly positive
-    \item For any $h\in H$ and any two strategies $\kernel{Q}$ and $\kernel{S}$, we can find versions of each disintegration such that $\prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{D}\RV{X}]=\prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{D}\RV{X}]$ (our strategy tells us nothing about the consequences that we don't already know from the observations and decisions)
-\end{enumerate}
-
-Then there exists a unique see-do model $(\kernel{T},\RV{H}',\RV{D}',\RV{X}',\RV{Y}')$ such that $\prob{P}_{h,\kernel{S}}[\RV{XDY}]^{ijk} = \kernel{T}[\RV{X'}|\RV{H'}]_{h}^{i} \kernel{S}_i^j  \kernel{T}[\RV{Y'}|\RV{X'H'D'}]_{ijk}^k$.
-\end{theorem}
-
-One thing that is worth pointing out here is that the property defining observations -- that they are independent of decisions given the hypothesis -- does \emph{not} imply that observations are probabilistically independent of decisions in the decision problem modeled in the manner described above. Instead, it reflects the set of assumptions made above.
-
-\todo[inline]{This will eventually move to an appendix}
-
-\begin{proof}
-Consider some probability $\prob{P}\in \Delta(X\times D\times Y)$. By the definition of disintegration (section \ref{ssec:disintegration}), we can write
+Under these assumptions, there exists $\model{T}[\RV{X}\RV{Y}|\RV{HD}]\in \mathscr{M}$ with $\RV{X}\CI_{\model{T}}\RV{D}|\RV{H}$ such that for all $\alpha$, 
 
 \begin{align}
- \prob{P}[\RV{XDY}]^{ijk} = \prob{P}[\RV{X}]^i\prob{P}[\RV{D}|\RV{X}]_i^{j} \prob{P}[\RV{Y}|\RV{XD}]_{ij}^{k} \label{eq:disint}
+    \model{P}_{\alpha}[\RV{X}\RV{D}\RV{Y}|\RV{H}]\overset{krn}{=}\model{T}[\RV{X}|\RV{H}]\rightrightarrows \model{S}_\alpha [\RV{D}|\RV{X}] \rightrightarrows \model{T}[\RV{Y}|\RV{XHD}] \label{eq:see_do_query}
 \end{align}
 
-Fix some $h\in H$ and some strictly positive strategy $\kernel{S}$ and define $\kernel{T}:H\times D\to \Delta(X\times Y)$ by
-\begin{align}
-    \kernel{T}_{hj}^{kl} &= \prob{P}_{h,\kernel{S}}[\RV{X}]^k \prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{X}\RV{D}]^l_{kj} \label{eq:comb_disint}
-\end{align}
+The proof is given in Appendix \ref{sec:see-do-rep}. Note that $\model{T}[\RV{X}|\RV{H}]$ exists by virtue of the fact $\RV{X}\CI_{\model{T}}\RV{D}|\RV{H}$. While this independence is what enables Equation \ref{eq:see_do_query}, in general $\RV{X}\not\CI_{\model{P}_\alpha} \RV{D}|\RV{H}$, so $\model{T}$ cannot be a disintegration of $\model{P}_\alpha$. Modular probability allows us to specify $\model{T}$, which we call a \emph{see-do model}, as a partial forecast to be completed with a strategy $\model{S}_\alpha$ while also being able to use consistent names for variables that represent the same things (observations, decisions, consequences, hypotheses) whether their distributions are given by $\model{P}_\alpha$, $\model{T}$, which are mutually incompatible conditional probabilities.
 
-Note that because $\kernel{S}$ is strictly positive and by assumption $\kernel{S}=\prob{P}_{h,\kernel{S}}[\RV{D}|\RV{X}]$, $\prob{P}_{h,\kernel{S}}[\RV{D}]$ is also strictly positive. Therefore $\prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{D}]$ is unique and therefore $\kernel{T}$ is also unique.
+\subsection{See-do models and classical statistics}
 
-Define $\RV{X}'$ and $\RV{Y}'$ by $\RV{X}'_{xy}=x$ and $\RV{Y}'_{xy}=y$. Define $\RV{H}'$ and $\RV{D}'$ by $\RV{H}'_{hd} = h$ and $\RV{D}'_{hd} = d$.
+A \emph{statistical model} (or \emph{statistical experiment}) is a collection of probability distributions indexed by some set $\Theta$. We can observe that $\{\model{T}[\RV{X}|\RV{H}]_h\}_{h\in H}$ is a collection of probability distributions indexed by $H$.
 
-We then have
-\begin{align}
-    \kernel{T}[\RV{X'}|\RV{H'D'}]_{hj}^{k} &= \kernel{T}\underline{\RV{X}'}_{hj}^k\\
-                                           &= \sum_l \kernel{T}_{hj}^{kl} \\
-                                           &= \prob{P}_{h,\kernel{S}}[\RV{X}]^k\\
-                                           &= \kernel{T}[\RV{X'}|\RV{H'D'}]_{hj'}^{k}
-\end{align}
+In statistical decision theory, as introduced by \citet{wald_statistical_1950}, we are given a statistical experiment $\{\prob{P}_\theta\in \Delta(X)\}_\Theta$, a decision set $D$ and a loss $l:\Theta\times D\to \mathbb{R}$. A strategy $\model{S}_\alpha:X\to \Delta(D)$ is evaluated according to the risk functional $R(\theta,\model{S}_\alpha)=\sum_{x\in X}\sum_{d\in D} \prob{P}_\theta^x (S_\alpha)_x^d l(h,d)$.
 
-Thus $\RV{X}'\CI_{\kernel{T}} \RV{D}'|\RV{H}'$ and so $\kernel{T}[\RV{X}'|\RV{H}']$ exists (section \ref{ssec:cond_indep}) and $(\kernel{T},\RV{H}',\RV{D}',\RV{X}',\RV{Y}')$ is a see-do model.
-
-Applying Equation \ref{eq:disint} to $\prob{P}_{h,\kernel{S}}$:
+Suppose we have a see-do model $\model{T}[\RV{X}\RV{Y}|\RV{HD}]$ with $\RV{Y}\CI_{\kernel{T}} \RV{X}|\RV{HD}$, and suppose that the random variable $\RV{Y}$ is a ``reverse utility'' function taking values in $\mathbb{R}$ for which low values are considered desirable. Then, defining a loss $l:H\times D\to \mathbb{R}$ by $l(h,d) = \sum_{y\in \mathbb{R}} y\model{T}[\RV{Y}|\RV{H}\RV{D}]_{h,d}^y$, we have 
 
 \begin{align}
-    \prob{P}_{h,\kernel{S}}[\RV{XDY}]^{ijk} &= \prob{P}_{h,\kernel{S}}[\RV{X}]^i\prob{P}_{h,\kernel{S}}[\RV{D}|\RV{X}]_i^{j} \prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{XD}]_{ij}^{k}\label{eq:t_is_comb_disint_start}\\
-     &=  \prob{P}_{h,\kernel{S}}[\RV{X}]^i\prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{XD}]_{ij}^{k}\\
-     &= \prob{P}_{h,\kernel{S}}[\RV{D}|\RV{X}]_i^{j} \kernel{T}[\RV{X'Y'}|\RV{H'D'}]_{hj}^{ik}\\
-     &= \kernel{S}_i^j \kernel{T}[\RV{X'Y'}|\RV{H'D'}]_{hj}^{ik}\\
-     &= \kernel{S}_i^j \kernel{T}[\RV{X'}|\RV{H'D'}]_{hj}^{i} \kernel{T}[\RV{Y'}|\RV{X'H'D'}]_{ihj}^k\\
-     &= \kernel{T}[\RV{X'}|\RV{H'}]_{h}^{i} \kernel{S}_i^j  \kernel{T}[\RV{Y'}|\RV{X'H'D'}]_{ihj}^k\label{eq:t_is_comb_disint_end}
+    \mathbb{E}_{\model{P}_{\alpha}[\RV{X}\RV{D}\RV{Y}|\RV{H}]}[\RV{Y}] &= \sum_{x\in X} \sum_{d\in D} \sum_{y\in Y} y \left(\model{T}[\RV{X}|\RV{H}]\rightrightarrows \model{S}_\alpha [\RV{D}|\RV{X}] \rightrightarrows \model{T}[\RV{Y}|\RV{XHD}]\right)_h^{xdy}\\
+     &= \sum_{x\in X} \sum_{d\in D} \sum_{y\in Y} \model{T}[\RV{X}|\RV{H}]^x_h \model{S}_\alpha [\RV{D}|\RV{X}]_x^d \model{T}[\RV{Y}|\RV{H}\RV{D}]_{h,d}^y\\
+    &= \sum_{x\in X}\sum_{d\in D} \model{T}[\RV{X}|\RV{H}]_h^x (S_\alpha)_x^d l(h,d)\\
+    &= R(h,\model{S}_\alpha)
 \end{align}
 
-Consider some arbitrary alternative strategy $\kernel{Q}$. By assumption
+That is, if we are given a see-do model where we interpret $\model{T}[\RV{X}|\RV{H}]$ as a statistical experiment and $\RV{Y}$ as a reversed utility, the expectation of the utility under the strategy forecast given in equation \ref{eq:see_do_query} is the risk of that strategy under hypothesis $h$.
+
+\subsection{Combs}
+
+The see-do model $\model{T}[\RV{X}\RV{Y}|\RV{HD}]$ is known as a \emph{comb}. This structure was introduced by \citet{chiribella_quantum_2008} in the context of quantum circuit architecture, and \citet{jacobs_causal_2019} adapted the concept to causal modelling.
+
+A comb is a Markov kernel with a ``hole'' in it. We combine the see-do model with a strategy by putting the strategy ``in the middle'' of the see-do model (Equation \ref{eq:see_do_query}), rather than attaching it to one end. While it is not a well-formed diagram in the language described in this paper, we can visualise combs as Markov kernels with holes:
 
 \begin{align}
-    \prob{P}_{h,\kernel{S}}[\RV{X}]^{i} &= \prob{P}_{h,\kernel{Q}}[\RV{X}]^{i}\\
-    \prob{P}_{h,\kernel{S}}[\RV{Y}|\RV{XD}]_{ij}^k &= \prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{XD}]_{ij}^k\text{ for some version of }\prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{XD}]
+\model{T}[\RV{XY}|\RV{HD}] &= \begin{tikzpicture}
+    \path (0,0) node (H) {$\RV{H}$}
+     ++ (0.5,0) node[copymap] (copy0) {}
+     ++ (0.5,0) node[kernel] (XH) {$\model{T}$}
+     ++ (0.5,0) node[copymap] (copy1) {}
+     ++ (0.5,0) node (X) {$\RV{X}$}
+     ++ (0.5,0.) node (D) {$\RV{D}$}
+     ++ (0.7,-0.15) node[kernel,inner sep=5pt] (YDXH) {$\model{T}$}
+     ++ (0.7,0.15) node (Y) {$\RV{Y}$};
+     \draw (H) -- (XH) -- (X) (D) to [out=0,in=180] ($(YDXH.west) + (0,0.15)$) ($(YDXH.east) + (0,0.15)$) -- (Y);
+     \draw (copy0) to [out=-90,in=180] ($(copy0.east) + (0.8,-0.5)$) to [out=0,in=180] ($(YDXH.west) + (0,-0.2)$) (copy1) to [out=-90,in=180] ($(YDXH.west) + (0,-0.05)$);
+\end{tikzpicture}\\
+&= \begin{tikzpicture}
+    \path (0,0) node (H) {$\RV{H}$}
+     ++ (0.7,0) node (XH) {$\model{T}$}
+     ++ (0.7,0) node (X) {$\RV{X}$}
+     ++ (0.5,0) node (D) {$\RV{D}$}
+     ++ (0.5,0) node[inner sep=4pt] (YDXH) {}
+     ++ (0.5,0) node (Y) {$\RV{Y}$};
+     \draw (H) -- (XH) -- (X) (D) -- (YDXH) -- (Y);
+     \draw ($(XH.west) + (0,0.2)$) -- ($(XH.west) + (0,-0.6)$) -- ($(YDXH.east) + (0,-0.6)$)
+     -- ($(YDXH.east) + (0,0.2)$) -- ($(YDXH.west) + (0,0.2)$) -- ($(YDXH.west) + (0,-0.4)$)
+     -- ($(XH.east) + (0,-0.4)$) -- ($(XH.east) + (0,0.2)$) -- ($(XH.west) + (0,0.2)$);
+\end{tikzpicture}\label{eq:kernel_with_hole}
 \end{align}
 
-It follows that, for some version of $\prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{XD}]$,
-\begin{align}
-    \kernel{T}_{hj}^{kl} &= \prob{P}_{h,\kernel{Q}}[\RV{X}]^k \prob{P}_{h,\kernel{Q}}[\RV{Y}|\RV{X}\RV{D}]^l_{kj} \label{eq:comb_disint_nonuniq}
-\end{align}
-
-Then by substitution of $\kernel{Q}$ for $\kernel{S}$ in Equation \ref{eq:t_is_comb_disint_start} and working through the same steps
-
-\begin{align}
-    \prob{P}_{h,\kernel{S}}[\RV{XDY}]^{ijk} &= \kernel{T}[\RV{X'}|\RV{H'}]_{h}^{i} \kernel{Q}_i^j  \kernel{T}[\RV{Y'}|\RV{X'H'D'}]_{ihj}^k
-\end{align}
-
-As $\kernel{Q}$ was arbitrary, this holds for all strategies.
-\end{proof}
+We can take any strategy $\model{S}_\alpha[\RV{D}|\RV{X}]$ and drop it into the ``hole'' in \ref{eq:kernel_with_hole} (as described in Equation \ref{eq:see_do_query}) to get a forecast of the outcome of that strategy. 

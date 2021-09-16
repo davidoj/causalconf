@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  15 SEP 2021 13:48
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  16 SEP 2021 21:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -838,33 +838,33 @@ File: l3backend-xdvipdfmx.def 2020-02-03 L3 backend support: xdvipdfmx
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 158.
-LaTeX Font Info:    ... okay on input line 158.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 158.
-LaTeX Font Info:    ... okay on input line 158.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 158.
-LaTeX Font Info:    ... okay on input line 158.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 158.
-LaTeX Font Info:    ... okay on input line 158.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 158.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 159.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 1
-58.
+59.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 158.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 158.
-LaTeX Font Info:    ... okay on input line 158.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 158.
-LaTeX Font Info:    ... okay on input line 158.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 158.
-LaTeX Font Info:    ... okay on input line 158.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 158.
-LaTeX Font Info:    ... okay on input line 158.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 158.
-LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
 \AtBeginShipoutBox=\box61
-Package hyperref Info: Link coloring OFF on input line 158.
+Package hyperref Info: Link coloring OFF on input line 159.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -877,15 +877,15 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count311
 )
-LaTeX Info: Redefining \ref on input line 158.
-LaTeX Info: Redefining \pageref on input line 158.
-LaTeX Info: Redefining \nameref on input line 158.
+LaTeX Info: Redefining \ref on input line 159.
+LaTeX Info: Redefining \pageref on input line 159.
+LaTeX Info: Redefining \nameref on input line 159.
 
 (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 158.
+LaTeX Info: Redefining \microtypecontext on input line 159.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: No adjustment of tracking.
@@ -897,7 +897,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (RS)
 )
 ABD: EveryShipout initializing macros
-LaTeX Font Info:    Trying to load font information for U+msa on input line 161
+LaTeX Font Info:    Trying to load font information for U+msa on input line 162
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -906,7 +906,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 161
+LaTeX Font Info:    Trying to load font information for U+msb on input line 162
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -916,21 +916,19 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for U+stmry on input line 1
-61.
+62.
 
 (/usr/share/texlive/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
 LaTeX Font Info:    Trying to load font information for U+wasy on input line 16
-1.
+2.
 
 (/usr/share/texlive/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 )
 
 LaTeX Font Warning: Font shape `U/stmry/b/n' undefined
-(Font)              using `U/stmry/m/n' instead on input line 161.
+(Font)              using `U/stmry/m/n' instead on input line 162.
 
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 164.
 (./main.toc
 (/usr/share/texlive/texmf-dist/tex/generic/stringenc/se-ascii-print.def
 File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
@@ -948,7 +946,10 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
  [2] [3]
-LaTeX Font Info:    Trying to load font information for U+eus on input line 159
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
+ine 137.
+ [4]
+LaTeX Font Info:    Trying to load font information for U+eus on input line 176
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueus.fd
@@ -957,7 +958,7 @@ File: ueus.fd 2013/01/14 v3.01 Euler Script
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-eus.cfg
 File: mt-eus.cfg 2006/07/28 v1.2 microtype config. file: AMS Euler Script (RS)
 )
-Overfull \hbox (5.75618pt too wide) in paragraph at lines 163--164
+Overfull \hbox (5.75618pt too wide) in paragraph at lines 190--191
 []\T1/lmr/m/n/10 Given two con-di-tional prob-a-bil-i-ties $\U/msb/m/n/10 K\OT1
 /cmr/m/n/10 [\OT1/cmss/m/n/10 B[]\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/10 A[]\OT1/cmr
 /m/n/10 ]$ \T1/lmr/m/n/10 and $\U/msb/m/n/10 L\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10
@@ -966,68 +967,82 @@ Overfull \hbox (5.75618pt too wide) in paragraph at lines 163--164
 1/cmss/m/n/10 A[]\OT1/cmr/m/n/10 ]$
  []
 
-[4] [5]) (./seedo.tex [6]
-Overfull \hbox (0.33163pt too wide) in paragraph at lines 34--35
-[]\T1/lmr/m/n/10 See-do mod-els fea-ture vari-ables $\OT1/cmss/m/n/10 D$ \T1/lm
-r/m/n/10 and $\OT1/cmss/m/n/10 H$ \T1/lmr/m/n/10 that act like Dawid's ``non-st
-ochastic
+[5]
+Overfull \hbox (12.6703pt too wide) in paragraph at lines 289--290
+[][]\T1/lmr/bx/n/10 Definition 1.2 \T1/lmr/m/n/10 (marginal)\T1/lmr/bx/n/10 . [
+]\T1/lmr/m/n/10 Given a con-di-tional prob-a-bil-ity $\U/msb/m/n/10 K\OT1/cmr/m
+/n/10 [\OT1/cmss/m/n/10 XY\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/10 W\OT1/cmr/m/n/10 ]
+$\T1/lmr/m/n/10 , the marginal
  []
 
-[7]
-Overfull \hbox (21.56874pt too wide) in paragraph at lines 52--53
-[]\T1/lmr/m/it/10 Then there ex-ists a unique see-do model $\OT1/cmr/m/n/10 (\U
-/msb/m/n/10 T\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 H[]\OML/cmm/m/it/10 ; \OT1/cms
-s/m/n/10 D[]\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 X[]\OML/cmm/m/it/10 ; \OT1/cmss
-/m/n/10 Y[]\OT1/cmr/m/n/10 )$ \T1/lmr/m/it/10 such that $\U/msb/m/n/10 P[]\OT1/
-cmr/m/n/10 [[]][] =
- []
-
-[8] [9]) (./potential_outcomes.tex [10] [11]
-Overfull \hbox (31.85356pt too wide) in paragraph at lines 49--50
-\T1/lmr/m/it/10 al-lel po-ten-tial out-come sub-model \T1/lmr/m/n/10 if $\U/msb
-/m/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/1
-0 W[]Y\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 W\OT1/cmr/m/n/10 )]$ \T1/lmr/m/n/10 ex-
-ists and $\U/msb/m/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/n/10 
-j\OT1/cmss/m/n/10 W[]Y\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 W\OT1/cmr/m/n/10 )][] =
+[6]) (./seedo.tex [7] [8] [9]) (./cbns.tex
+Overfull \hbox (16.44026pt too wide) in paragraph at lines 6--7
+\T1/lmr/m/n/10 and a set of in-ter-ven-tional dis-tri-bu-tions, for ex-am-ple $
+\OMS/cmsy/m/n/10 f\U/msb/m/n/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X; Y\OMS/c
+msy/m/n/10 j\OML/cmm/m/it/10 do\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X \OT1/cmr/m/n
+/10 = \OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ))\OMS/cmsy/m/n/10 g[]$\T1/lmr/m/n/10 .
 
  []
 
-[12]
-Overfull \hbox (1.61238pt too wide) in paragraph at lines 61--62
+[10]) (./potential_outcomes.tex [11] [12]
+Overfull \hbox (34.32564pt too wide) in paragraph at lines 53--54
+\T1/lmr/m/it/10 al-lel po-ten-tial out-come sub-model \T1/lmr/m/n/10 if $\OT1/c
+mr/bx/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/n/10 j\OT1/cmss/m/
+n/10 W[]Y\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 W\OT1/cmr/m/n/10 )]$ \T1/lmr/m/n/10 
+ex-ists and $\OT1/cmr/bx/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m
+/n/10 j\OT1/cmss/m/n/10 W[]Y\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 W\OT1/cmr/m/n/10 
+)][] =
+ []
+
+[13]
+Overfull \hbox (1.61238pt too wide) in paragraph at lines 67--68
 \T1/lmr/m/n/10 con-di-tion-ally in-de-pen-dent and iden-ti-cally dis-tributed M
 arkov ker-nel $\U/msb/m/n/10 P\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/
 n/10 j\OT1/cmss/m/n/10 J\OT1/cmr/m/n/10 ][] =
  []
 
-
-Overfull \hbox (0.19667pt too wide) in paragraph at lines 76--77
-[][]\T1/lmr/bx/n/10 Definition 3.4 \T1/lmr/m/n/10 (Ex-ten-sion)\T1/lmr/bx/n/10 
-. []\T1/lmr/m/n/10 Given a Markov ker-nel space $\OT1/cmr/m/n/10 (\U/msb/m/n/10
- K\OML/cmm/m/it/10 ; E; F\OT1/cmr/m/n/10 )$\T1/lmr/m/n/10 , $\OT1/cmr/m/n/10 (\
-U/msb/m/n/10 K[]\OML/cmm/m/it/10 ; E[]; F[]\OT1/cmr/m/n/10 )$
+[14]
+Overfull \hbox (2.66875pt too wide) in paragraph at lines 82--83
+[][]\T1/lmr/bx/n/10 Definition 4.4 \T1/lmr/m/n/10 (Ex-ten-sion)\T1/lmr/bx/n/10 
+. []\T1/lmr/m/n/10 Given a Markov ker-nel space $\OT1/cmr/m/n/10 (\OT1/cmr/bx/n
+/10 K\OML/cmm/m/it/10 ; E; F\OT1/cmr/m/n/10 )$\T1/lmr/m/n/10 , $\OT1/cmr/m/n/10
+ (\OT1/cmr/bx/n/10 K[]\OML/cmm/m/it/10 ; E[]; F[]\OT1/cmr/m/n/10 )$
  []
 
-[13]
-Overfull \hbox (15.22702pt too wide) in paragraph at lines 84--85
-[][]\T1/lmr/bx/n/10 Definition 3.5 \T1/lmr/m/n/10 (Ex-tend-ably ex-change-able)
+
+Overfull \hbox (16.46306pt too wide) in paragraph at lines 90--91
+[][]\T1/lmr/bx/n/10 Definition 4.5 \T1/lmr/m/n/10 (Ex-tend-ably ex-change-able)
 \T1/lmr/bx/n/10 . []\T1/lmr/m/n/10 Given a Markov ker-nel space $\OT1/cmr/m/n/1
-0 (\U/msb/m/n/10 K\OML/cmm/m/it/10 ; E; F\OT1/cmr/m/n/10 )$\T1/lmr/m/n/10 ,
+0 (\OT1/cmr/bx/n/10 K\OML/cmm/m/it/10 ; E; F\OT1/cmr/m/n/10 )$\T1/lmr/m/n/10 ,
  []
 
-
-Overfull \hbox (35.32014pt too wide) in paragraph at lines 103--104
+[15]
+Overfull \hbox (36.55618pt too wide) in paragraph at lines 109--110
 []\T1/lmr/m/n/10 Let $\OML/cmm/m/it/10 e \OT1/cmr/m/n/10 = (\OML/cmm/m/it/10 e[
 ]\OT1/cmr/m/n/10 )[]$\T1/lmr/m/n/10 . In-tro-duce the vari-able $\OT1/cmss/m/n/
 10 Y\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 i\OT1/cmr/m/n/10 )$ \T1/lmr/m/n/10 for $\
 OML/cmm/m/it/10 i \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 D$ \T1/lmr/m/n/10 such th
-at $\U/msb/m/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y\OT1/cmr/m/n/10 (\OML/cmm
-/m/it/10 D\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/10 D[]Z\OT1/cmr/m/n/
-10 ][] =
+at $\OT1/cmr/bx/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y\OT1/cmr/m/n/10 (\OML/
+cmm/m/it/10 D\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/10 D[]Z\OT1/cmr/m
+/n/10 ][] =
  []
 
-[14]) (./main.bbl
+[16]) (./appendix.tex [17]
+Overfull \hbox (24.04094pt too wide) in paragraph at lines 18--19
+[]\T1/lmr/m/it/10 Then there ex-ists a unique see-do model $\OT1/cmr/m/n/10 (\O
+T1/cmr/bx/n/10 T\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 H[]\OML/cmm/m/it/10 ; \OT1/
+cmss/m/n/10 D[]\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 X[]\OML/cmm/m/it/10 ; \OT1/c
+mss/m/n/10 Y[]\OT1/cmr/m/n/10 )$ \T1/lmr/m/it/10 such that $\U/msb/m/n/10 P[]\O
+T1/cmr/m/n/10 [[]][] =
+ []
+
+
+LaTeX Warning: Reference `ssec:disintegration' on page 18 undefined on input li
+ne 22.
+
+[18]) (./main.bbl
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-1.
+3.
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -1036,56 +1051,61 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 6284) in paragraph at lines 14--24
+Underfull \hbox (badness 6284) in paragraph at lines 16--26
 []\T1/lmr/m/n/10 A. P. Dawid.  Causal In-fer-ence with-out Coun-ter-fac-tu-als.
   \T1/lmr/m/it/10 Jour-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 14--24
+Underfull \hbox (badness 10000) in paragraph at lines 16--26
 \T1/lmr/m/it/10 nal of the Amer-i-can Sta-tis-ti-cal As-so-ci-a-tion\T1/lmr/m/n
 /10 , 95(450):407--424,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 14--24
+Underfull \hbox (badness 10000) in paragraph at lines 16--26
 \T1/lmr/m/n/10 June 2000.  ISSN 0162-1459.  doi: $10 . 1080 / 01621459 . 2000 .
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 14--24
+Underfull \hbox (badness 10000) in paragraph at lines 16--26
 \T1/lmr/m/n/10 10474210$.  URL []$\T1/lmtt/m/n/10 https : / / www . tandfonline
  . com / doi / abs / 10 . 1080 /
  []
 
 
-Underfull \hbox (badness 5893) in paragraph at lines 14--24
+Underfull \hbox (badness 5893) in paragraph at lines 16--26
 \T1/lmtt/m/n/10 01621459 . 2000 . 10474210$[]\T1/lmr/m/n/10 .  Pub-lisher: Tay-
 lor & Fran-cis _eprint:
  []
 
-[15]) [16] [17]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 191.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 191.
+Missing character: There is no ł in font ec-lmr10!
+Missing character: There is no ń in font ec-lmr10!
+[19]) [20] [21]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 194.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 194.
  (./main.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 191.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 191.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 194.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 194.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: D5B44C53E73193E8835DC57C4F6B702B;1219.
+(rerunfilecheck)             Checksum: 5F93CEC387649FD8F7B49E8E8621AA10;1546.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 191.
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 194.
  ) 
 Here is how much of TeX's memory you used:
- 26886 strings out of 479819
- 488641 string characters out of 5895847
- 781647 words of memory out of 5000000
- 43453 multiletter control sequences out of 15000+600000
+ 26988 strings out of 479819
+ 489981 string characters out of 5895847
+ 800249 words of memory out of 5000000
+ 43551 multiletter control sequences out of 15000+600000
  597033 words of font info for 141 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 60i,15n,83p,1689b,973s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,13n,83p,1337b,875s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.xdv (17 pages, 127028 bytes).
+Output written on main.xdv (21 pages, 175936 bytes).

@@ -89,7 +89,8 @@
 \newcommand{\ID}[1]{\ensuremath{\text{Id}_{#1}}}
 \newcommand{\utimes}{\ensuremath{\underline{\otimes}}}
 \newcommand{\prob}[1]{\ensuremath{\mathbb{#1}}}
-\newcommand{\kernel}[1]{\ensuremath{\mathbb{#1}}}
+\newcommand{\kernel}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\model}[1]{\ensuremath{\mathbb{#1}}}
 \newcommand{\seedo}{\ensuremath{\mathbb{T}}}
 \newcommand{\diagram}[1]{\ensuremath{\mathscr{#1}}}
 \newcommand{\sigalg}[1]{\ensuremath{\mathcal{#1}}}
@@ -161,7 +162,7 @@
 
 
 % \begin{abstract}
-Researchers in the field of causal inference will often choose a causal framework as one of the first steps of their investigations, or in some cases, one of the first steps of their careers. One could postulate that ``causal inference'' is what one does when one does work using a causal modelling framework. We argue that ``causal inference'' is better understood by the kind of questions people ask on rather than the kind of framework people use to answer them. \citet{pearl_book_2018} has proposed a three-level hierarchy for classifying causal questions: at the bottom are ``seeing'' questions followed by ``doing'' questions with ``imagining'' questions at the top. We propose an alternative characterisation: ``ordinary statistical questions'' are questions involving data that are answered by distributions on a given set \todo{or something like that; it could also be functions of a distribution like a maximum likelihood estimate or a p-value} while ``causal statistical questions'' are questions involving data that are answered by stochastic functions with given domain and codomain. Potential outcomes and graphical models are features of modelling frameworks, while interventions and counterfactuals are features of causal problems. We show how both potential outcomes and causal graphical models arise in \emph{see-do models}, a generic modelling framework we introduce that addresses causal questions in general, as we define them. We hypothesise that some confusion about interventions and counterfactuals arises from assuming they are given by the modelling framework rather than by the problem under investigation.
+The typical way to construct a probability model is to define a sample space and an ambient probability measure, which together form a ``probability space''. This is unweildly for causal models where we are often interested in pulling probability models apart and reassembling them in different ways. We introduce a different approach to building probability models which we call ``modular probability'' that uses a \emph{modelling context} instead of a sample space, in which random variables are akin to types in a computer program and probability measures and Markov kernels are akin to functions. We illustrate the use of modular probability with examples of decision theoretic causal models, Causal Bayesian Networks and Potential Outcomes models.
 
 
 
@@ -172,7 +173,9 @@ Researchers in the field of causal inference will often choose a causal framewor
 
 \input{probability}
 \input{seedo}
+\input{cbns}
 \input{potential_outcomes}
+\input{appendix}
 % \input{chapter_3_twoplayer_statistical_models}
 % \input{chapter_4_statistical_decision_theory}
 % \input{chapter_5_interventions_counterfactuals}

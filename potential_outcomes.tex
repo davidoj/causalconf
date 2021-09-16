@@ -1,7 +1,9 @@
 %!TEX root = main.tex
 
 
-\section{Potential outcomes and counterfactuals}
+\section{Potential outcomes with and without counterfactuals}
+
+\todo[inline]{I still need to convert this section to ``modular probability'', which I think will simplify it. The short story is that potential outcomes models are nested combs just like CBNs, and we can define potential outcome combs that accept ``counterfactual'' inserts as well as potential outcome combs that accept ordinary decision/observation inserts, the latter is all anyone actually uses and can be given a perfectly satisfactory non-counterfactual interpretation.}
 
 Potential outcomes is a widely used approach to causal modelling characterised by its use of ``potential outcome'' random variables. Potential outcome random variables are typically noted for being given counterfactual interpretations. For example, suppose have something we want to model, call it TYT (``The $\RV{Y}$ Thing''), which we represent with a variable $\RV{Y}$. Suppose we want to know how TYT behaves under different regimes 0 and 1 under which we want to know about TYT, and we use a variable $\RV{W}$ to indicate which regime holds at a given point in time. A potential outcomes model will introduce the two additional ``potential outcome'' variables $(\RV{Y}(0), \RV{Y}(1))$. What these variables represent can be given a counterfactual interpretation like ``$\RV{Y}(0)$ represents what TYT would be under regime $0$, whether or not regime $0$ is the actual regime'' and similarly ``$\RV{Y}(1)$ represents what TYT would be under regime $1$, whether or not regime $1$ is the actual regime''. Note that we say ``what TYT would be'' rather that ``what $\RV{Y}$ would be'' as ``what would $\RV{Y}$ be if $\RV{W}$ was 0 if $\RV{W}$ was actually 1'' is not a question we can ask of random variables, but it is one that might make sense for the things we use random variables to model.
 
@@ -37,6 +39,8 @@ In the following definition, $\RV{Y}(W)=(\RV{Y}(w))_{w\in W}$.
 Given a Markov kernel space $(\kernel{K},E,F)$, a collection of variables $\{\RV{Y}, \RV{Y}(W), \RV{W}\}$ where $\RV{Y}$ and $\RV{Y}(W)$ are random variables and $\RV{W}$ could be either a state or a random variable is a \emph{potential outcome submodel} if $\kernel{K}[\RV{Y}|\RV{W}\RV{Y}(W)]$ exists and $\kernel{K}[\RV{Y}|\RV{W}\RV{Y}(W)]_{i j_1 j_2 ... j_{|W|}} = \delta[j_i]$. 
 \end{definition}
 
+\todo[inline]{How this will change: a potential outcomes model is a comb $\model{K}[\RV{Y}(W)|\RV{H}]\rightrightarrows \model{K}[\RV{Y}|\RV{W}\RV{Y}(W)]$.}
+
 We allow $\RV{X}$ to be a state or a random variable to cover the cases where potential outcomes models feature as submodels of observation models (in which case $\RV{X}$ is a random variable) or as submodels of consequence models (in which case $\RV{X}$ may be a state variable).
 
 As an aside that we could define stochastic potential outcomes if we allow the variables $\RV{Y}(x)$ to take values in $\Delta(Y)$ rather than in $Y$, and then require $\kernel{K}[\RV{Y}|\RV{X}\RV{Y}(X)]_{i j_1 j_2 ... j_{|X|}} = j_i$ (where $j_i$ is an element of $\Delta(Y)$). This is more complex to work with and rarely seen in practice, but it is worth noting that Definition \ref{def:potential_outcomes} can be generalised to cover models where $\RV{Y}(x)$ describes the value $\RV{Y}$ would take if $\RV{X}$ were $x$ \emph{with uncertainty}.
@@ -48,6 +52,8 @@ We propose \emph{parallel potential outcome submodels} as a means of formalising
 \begin{definition}[Parallel potential outcomes]\label{def:pa_pot_outcomes}
 Given a Markov kernel space $(\kernel{K},E,F)$, a collection of variables $\{\RV{Y}_i, \RV{Y}(W), \RV{W}_i\}$, $i\in [n]$, where $\RV{Y}_i$ and $\RV{Y}(W)$ are random variables and $\RV{W}_i$ could be either a state or random variables is a \emph{parallel potential outcome submodel} if $\kernel{K}[\RV{Y}_i|\RV{W}_i\RV{Y}(W)]$ exists and $\kernel{K}[\RV{Y}_i|\RV{W}_i\RV{Y}(W)]_{k j_1 j_2 ... j_{|W|}} = \delta[j_k]$.
 \end{definition}
+
+\todo[inline]{How this will change: a parallel potential outcomes model is a comb $\model{K}[\RV{Y}(W)|\RV{H}]\rightrightarrows \model{K}[\RV{Y}_i|\RV{W}_i\RV{Y}(W)]$.}
 
 A parallel potential outcomes model features a sequence of $n$ ``parallel'' outcome variables $\RV{Y}_i$ and $n$ ``regime proposals'' $\RV{W}_i$, with the property that if the regime proposal $\RV{W}_i=w_i$ then the corresponding outcome $\RV{Y}_i\overset{a.s.}{=} \RV{Y}(w_i)$. We can identify a particular index, say $n=1$, with the actual world and the rest of the indices with supposed worlds. Thus $\RV{Y}_1$ represents the value of TYT in the actual world and $\RV{Y}_i$ $i\neq 1$ represents TYT under a supposed regime $\RV{W}_i$. Given such an interpretation, the fact that $\RV{Y}_i\overset{a.s.}{=} \RV{Y}(w_i)$ can be interpreted as assuming ``for all $w$, if the supposed regime $\RV{W}_i$ is $w$ then the corresponding outcome will be almost surely equal to $\RV{Y}(w)$, regardless of the value of the actual regime $\RV{W}_1$'', which is our original counterfactual assumption.
 
