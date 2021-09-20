@@ -151,7 +151,7 @@
 
 \newcommand{\cheng}[1]{ {\color{purple}[{\bf Cheng:~{#1}}]} }
 
-\title{Causal questions are questions that are answered by a function}
+\title{Modular probability for causal modelling}
 \date{\today}
 
 \author{ David Johnston }
@@ -162,9 +162,21 @@
 
 
 % \begin{abstract}
-The typical way to construct a probability model is to define a sample space and an ambient probability measure, which together form a ``probability space''. This is unweildly for causal models where we are often interested in pulling probability models apart and reassembling them in different ways. We introduce a different approach to building probability models which we call ``modular probability'' that uses a \emph{modelling context} instead of a sample space, in which random variables are akin to types in a computer program and probability measures and Markov kernels are akin to functions. We illustrate the use of modular probability with examples of decision theoretic causal models, Causal Bayesian Networks and Potential Outcomes models.
 
+\section{Introduction}
 
+The typical way to construct a probability model is to define a sample space $(\Omega,\sigalg{F})$ and an ambient probability measure $\prob{P}:\sigalg{F}\to[0,1]$, which together form a ``probability space'' $(\prob{P},\Omega,\sigalg{F})$. Random variables are then defined as measurable functions on the sample space $\RV{X}:(\Omega,\sigalg{F})\to (Q,\sigalg{Q})$. Under this theory, the names given to random variables are arbitrary. However, in practice the names given to random variables are not arbitrary: it is fairly common to talk about two different probability distributions $\prob{P}_1[\RV{X}]$ and $\prob{P}_2[\RV{X}]$ over the same random variable with the intention that these define two different models of the same set of propositions. Alternatively, we might define two probability spaces $(\prob{P}_1,\Omega,\sigalg{F})$, $(\prob{P}_2,\Omega,\sigalg{F})$ on the same sample space with random variables $\RV{X}:\Omega\to A$ and $\RV{Y}:\Omega\to A$ given by the same measurable functions $\RV{X}(\omega)=\RV{Y}(\omega)$ but with the intention that $\prob{P}_1(\RV{X})$ and $\prob{P}_2(\RV{Y})$ model different phenomena. Such issues are particularly prevalent in causal modelling, where (for example) we might take a probability distribution $\prob{P}[\RV{X}\RV{Y}\RV{Z}]$, then modify it in accordance with the do-calculus with respect to some graph $\mathcal{G}$ to obtain $\prob{P}[\RV{Y}|do(\RV{X}=x)]$. Clearly $\prob{P}[\RV{X}\RV{Y}\RV{Z}]$ and $\prob{P}[\RV{Y}|do(\RV{X}=x)]$ are different probability distributions, and the variable $\RV{Y}$ seems to refer to the same set of propositions in each. 
+
+Here we propose a theory of variable naming that formally specifies a method for dealing with ``variable names''. We define \emph{named variables} as a subset of random variables -- namely, those random variables that we care to give names. A \emph{modelling context} holds a number of different conditional probability spaces along with a collection of named random variables. Random variables names function similarly to type definitions -- the conditional probability distributions in each probability space can be combined in an operation that we call \emph{extension} with arbitrary conditional probabilities providing that the names of their respective named variable sets can be matched in appropriate ways. We call this ``modular probability'', as it enables us to take collections of conditional probabilities from our modelling context and assemble them like lego pieces, if they have the right attachments for one another.
+
+Our contributions are:
+
+\begin{itemize}
+  \item A theory of named variables
+  \item Using this theory, we explore causal models under the decision theoretic, graphical model and potential outcomes approach, and show how the latter two approaches can be embedded in the former approach
+  \item We examine an ambiguity in the definition of Causal Bayesian Networks that is made obvious when we attempt to apply our theory of named varibles
+  \item We examine how a particular kind of lego piece -- a \emph{comb} -- arises repeatedly in causal models and gives a natural way to understand conditional vs ``causal'' dependece
+\end{itemize}
 
 
 % \end{abstract}
