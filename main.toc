@@ -1,19 +1,25 @@
-\contentsline {section}{\numberline {1}Technical prerequesites}{2}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Markov kernels}{2}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Cartesian and tensor products}{3}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}Delta measures, erase maps, copy maps}{3}{subsection.1.3}%
-\contentsline {subsection}{\numberline {1.4}Products}{4}{subsection.1.4}%
-\contentsline {subsection}{\numberline {1.5}Labeled Markov kernels, conditional probabilities}{4}{subsection.1.5}%
-\contentsline {subsection}{\numberline {1.6}Modelling context}{5}{subsection.1.6}%
-\contentsline {subsection}{\numberline {1.7}Conditional independence}{7}{subsection.1.7}%
-\contentsline {subsection}{\numberline {1.8}Uniqueness of disintegrations}{7}{subsection.1.8}%
-\contentsline {subsection}{\numberline {1.9}Existence of modelling context}{7}{subsection.1.9}%
-\contentsline {subsection}{\numberline {1.10}Standard probability models}{8}{subsection.1.10}%
-\contentsline {section}{\numberline {2}See-do models}{8}{section.2}%
-\contentsline {subsection}{\numberline {2.1}See-do models and classical statistics}{9}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Combs}{9}{subsection.2.2}%
-\contentsline {section}{\numberline {3}Causal Bayesian Networks}{10}{section.3}%
-\contentsline {section}{\numberline {4}Potential outcomes with and without counterfactuals}{11}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Potential outcomes in see-do models}{13}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Parallel potential outcomes representation theorem}{14}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Appendix:see-do model representation}{17}{section.5}%
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {2}Technical prerequesites}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Markov kernels}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Cartesian and tensor products}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Delta measures, erase maps, copy maps}{5}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Products}{5}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Label dictionaries, equality and inclusion}{5}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Labeled Markov kernels, conditional probabilities}{6}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Ambient model}{7}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}Modelling context axioms}{7}{subsection.2.8}%
+\contentsline {paragraph}{Case 1}{8}{section*.3}%
+\contentsline {paragraph}{Case 2}{8}{section*.4}%
+\contentsline {subsection}{\numberline {2.9}Connection}{8}{subsection.2.9}%
+\contentsline {subsection}{\numberline {2.10}Conditional independence}{12}{subsection.2.10}%
+\contentsline {subsection}{\numberline {2.11}Uniqueness of disintegrations}{13}{subsection.2.11}%
+\contentsline {subsection}{\numberline {2.12}Existence of modelling context}{13}{subsection.2.12}%
+\contentsline {subsection}{\numberline {2.13}Standard probability models}{13}{subsection.2.13}%
+\contentsline {section}{\numberline {3}See-do models}{13}{section.3}%
+\contentsline {subsection}{\numberline {3.1}See-do models and classical statistics}{14}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Combs}{15}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Causal Bayesian Networks}{15}{section.4}%
+\contentsline {section}{\numberline {5}Potential outcomes with and without counterfactuals}{16}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Potential outcomes in see-do models}{18}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Parallel potential outcomes representation theorem}{19}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Appendix:see-do model representation}{22}{section.6}%

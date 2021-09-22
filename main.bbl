@@ -1,4 +1,4 @@
-\begin{thebibliography}{8}
+\begin{thebibliography}{13}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -24,6 +24,16 @@ A.~P. Dawid.
 \newblock Publisher: Taylor \& Francis \_eprint:
   https://www.tandfonline.com/doi/pdf/10.1080/01621459.2000.10474210.
 
+\bibitem[Hernán and Taubman(2008)]{hernan_does_2008}
+M.~A. Hernán and S.~L. Taubman.
+\newblock Does obesity shorten life? {The} importance of well-defined
+  interventions to answer causal questions.
+\newblock \emph{International Journal of Obesity}, 32\penalty0 (S3):\penalty0
+  S8--S14, August 2008.
+\newblock ISSN 1476-5497.
+\newblock \doi{10.1038/ijo.2008.82}.
+\newblock URL \url{https://www.nature.com/articles/ijo200882}.
+
 \bibitem[Jacobs et~al.(2019)Jacobs, Kissinger, and Zanasi]{jacobs_causal_2019}
 Bart Jacobs, Aleks Kissinger, and Fabio Zanasi.
 \newblock Causal {Inference} by {String} {Diagram} {Surgery}.
@@ -32,6 +42,29 @@ Bart Jacobs, Aleks Kissinger, and Fabio Zanasi.
   {Computer} {Science}, pages 313--329. Springer International Publishing,
   2019.
 \newblock ISBN 978-3-030-17127-8.
+
+\bibitem[Korzybski(1933)]{korzybski_science_1933}
+Alfred Korzybski.
+\newblock \emph{Science and sanity; an introduction to {Non}-{Aristotelian}
+  systems and general semantics}.
+\newblock Lancaster, Pa., New York City, The International Non-Aristotelian
+  Library Publishing Company, The Science Press Printing Company, distributors,
+  1933.
+\newblock URL \url{http://archive.org/details/sciencesanityint00korz}.
+
+\bibitem[Pearl(2009)]{pearl_causality:_2009}
+Judea Pearl.
+\newblock \emph{Causality: {Models}, {Reasoning} and {Inference}}.
+\newblock Cambridge University Press, 2 edition, 2009.
+
+\bibitem[Pearl(2018)]{pearl_does_2018}
+Judea Pearl.
+\newblock Does {Obesity} {Shorten} {Life}? {Or} is it the {Soda}? {On}
+  {Non}-manipulable {Causes}.
+\newblock \emph{Journal of Causal Inference}, 6\penalty0 (2), 2018.
+\newblock \doi{10.1515/jci-2018-2001}.
+\newblock URL
+  \url{https://www.degruyter.com/view/j/jci.2018.6.issue-2/jci-2018-2001/jci-2018-2001.xml}.
 
 \bibitem[Robins and Greenland(2000)]{robins_causal_2000}
 James~M. Robins and Sander Greenland.
@@ -60,6 +93,15 @@ Peter Selinger.
 \newblock \doi{10.1007/978-3-642-12821-9_4}.
 \newblock URL \url{http://arxiv.org/abs/0908.3347}.
 \newblock arXiv: 0908.3347.
+
+\bibitem[Shahar(2009)]{shahar_association_2009}
+Eyal Shahar.
+\newblock The association of body mass index with health outcomes: causal,
+  inconsistent, or confounded?
+\newblock \emph{American Journal of Epidemiology}, 170\penalty0 (8):\penalty0
+  957--958, October 2009.
+\newblock ISSN 1476-6256.
+\newblock \doi{10.1093/aje/kwp292}.
 
 \bibitem[Tian and Pearl(2002)]{tian2002general}
 Jin Tian and Judea Pearl.

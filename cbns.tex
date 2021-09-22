@@ -3,7 +3,11 @@
 
 \section{Causal Bayesian Networks}
 
-Causal Bayesian Networks are also see-do models. A Causal Bayesian Network posits a set of observational probability distributions, for example $\{\prob{P}_h(X,Y)\}_H$, and a set of interventional distributions, for example $\{\prob{P}_h(X,Y|do(X=x))\}_{x\in X,h\in H}$. Here we use notation similar to typical notation used for Causal Bayesian Networks and don't intend for these to necessarily be elements of any modelling context. For simplicity, we will consider a Causal Bayesian Network with only hard interventions on $\RV{X}$. 
+A Causal Bayesian Network posits a set of observational probability distributions, for example $\{\prob{P}_h(X,Y)\}_H$, and a set of interventional distributions, for example $\{\prob{P}_h(X,Y|do(X=x))\}_{x\in X,h\in H}$. Here we use notation similar to typical notation used for Causal Bayesian Networks and don't intend for these to necessarily be elements of any modelling context. For simplicity, we will consider a Causal Bayesian Network with only hard interventions on a single variable, e.g. interventions only of the form $do(\RV{X}=x)$.
+
+First we will offer some commentary
+
+
 
 We can consider this an instance of a see-do model. To do so consistently within a modelling context $\mathscr{M}$, we need to distinguish observation and intervention variables - let the former retain the labels $\RV{X},\RV{Y}$ and call the latter $\RV{X}',\RV{Y}'$. Let $D=\{do(\RV{X}=x)\}_{x\in X}$. Then a Causal Bayesian Network can be considered a see-do model $\model{T}[\RV{XYX'Y'}|\RV{HD}]$ by identifying $\model{T}[\RV{XY}|\RV{H}]_h := \prob{P}_h(X,Y)$ and $\model{T}[\RV{X'Y'}|\RV{HD}]_{h,do(\RV{X}=x)}:={P}_h(X,Y|do(X=x))$.
 

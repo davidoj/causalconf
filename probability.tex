@@ -99,7 +99,7 @@ Graphically, the stopper is a fuse:
 \end{tikzpicture}
 \end{align}
 
-The copy map $\splitter{0.15} [X]:X\to \Delta(X\times X)$ is the Markov kernel defined by $\splitter{0.15}_x:= \delta_x \otimes \delta_x$. Graphically it is a fork with a dot at the point where it splits:
+The copy map $\splitter{0.15} [X]:X\to \Delta(X\times X)$ is the Markov kernel defined by $\splitter{0.15}_x:= \delta_{x} \otimes \delta_x$. Graphically it is a fork with a dot at the point where it splits:
 
 \begin{align}
 	\splitter{0.2}[X]&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -125,28 +125,38 @@ Two Markov kernels $\kernel{L}:X\to \Delta(Y)$ and $\kernel{M}:Y\to \Delta(Z)$ h
 \end{tikzpicture}
 \end{align}
 
+\subsection{Label dictionaries, equality and inclusion}
 
-\subsection{Labeled Markov kernels, conditional probabilities}
+A \emph{modelling context} $\mathscr{M}$ is a collection of labels, a label dictionary (defined in this section) and a collection of conditional probabilities (defined in section \ref{sec:cp}. It can be thought of as a namespace that ensures that the properties defined in section \ref{sec:mc_axioms} hold.
 
-A labeled Markov kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$ is a Markov kernel $\kernel{K}:X\to \Delta(Y)$ along with a sequence of \emph{domain labels} $\RV{A}_C:=(\RV{A}_i)_{i\in C}$ and \emph{codomain labels} $\RV{B}_D:=(\RV{B}_i)_{i\in D}$ such that
-\begin{itemize}
-	\item Each label $\RV{A}_i$ has an associated discrete set $A_i$ (and similarly $\RV{B}_i$ is associated with $B_i$)
-	\item $X=\bigtimes_{i\in C} A_i$ and $Y=\bigtimes_{i\in D} B_i$
-\end{itemize}
+, if we respect the naming rules (section \ref{sec:mc_axioms}), any two conditional probabilities with the same name will be the same and any model containing two instances of the label name will assign probability 0 to any point at which the two labels differ.
 
-\todo[inline]{Repeated labels are okay only if there's a valid diagrammatic representation of $\kernel{K}$ such that the repeated labels are connected by a wire with no boxes in between (copy map dots are OK)}
+A label collection is a collection of labels, each of which is assigned to a measurable set. For example, $\{\RV{X}:X,\RV{Y}:Y,\RV{X}_1:X_1,\RV{X}_2:X_2\}$. A sequence of labels is associated with the cartesian product of the sets associated with the individual labels. For example, $(\RV{X},\RV{Y}):X\times Y$.
 
-A labeled probability distribution $\prob{P}\in\Delta(Y)$ comes with a sequence of codomain labels $(\RV{B}_i)_{i\in D}$ only, satisfying $Y=\bigtimes_{i\in D} B_i$.
+A label dictionary is a set of statements of equality between labels and between labels and sequences of labels. For example, we might have the set $\{\RV{X}=(\RV{X}_1,\RV{X}_2),\RV{W}=\RV{X}\}$. The sets associated with the labels on each side of all equality statements must be the same.
 
-A conditional probability $\model{L}[\RV{A}_C|\RV{B}_D]$ is a labeled kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$ along with an \emph{ambient conditional probability} (Definition \ref{def:ambient_cp}) $\model{L}$.
+If an equality $\RV{W}=\RV{X}$ appears in the label dictionary then any true expression involving conditional probabilities or labels remains true when all instances of $\RV{X}$ are replaced by $\RV{W}$ or vise-versa. A label $\RV{X}_1$ is contained in $\RV{X}$ iff it is possible to derive from the label dictionary a statement of equality between $\RV{X}$ and a sequence of labels containing $\RV{X}_1$.
 
-Graphically, we place the labels on the wires of a conditional probability and the name of the ambient conditional probability in the centre of the box:
+Because it saves a lot of space, we will generally hold to the convention that a label $\RV{X}$ is associated with the set $X$. However, this convention sometimes fails, for example when we have two labels $\RV{X}_1$ and $\RV{X}_2$ that are associated with the same set -- in such cases, we will explicitly define the relationship.
+
+The trivial label $*$ always corresponds to the 1-element set $\{*\}$. Because $\{*\}\times A$ is isomorphic to $A$ for any $A$, we can consider any label sequence to be isomorphic to the same label sequence with any number of copies of the trivial label appended. A sequence of labels that consists entirely of trivial labels is equivalent to the trivial label. An empty sequence is equivalent to the trivial label.
+
+
+\subsection{Labeled Markov kernels, conditional probabilities}\label{sec:cp}
+
+A labeled Markov kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$ is a Markov kernel $\kernel{K}:X\to \Delta(Y)$ along with a sequence of \emph{domain labels} $\RV{A}_C:=(\RV{A}_i)_{i\in C}$ and \emph{codomain labels} $\RV{B}_D:=(\RV{B}_i)_{i\in D}$. A label assignment is valid if the Markov kernel's domain matches the sets associated with its domain labels and its codomain is the same as the sets associated with its codomain labels.
+
+A labeled probability distribution $\prob{P}\in\Delta(Y)$ comes with a sequence of codomain labels $(\RV{B}_i)_{i\in D}$ only.
+
+A conditional probability $\model{L}[\RV{A}_C|\RV{B}_D;\kernel{K}]$ is a labeled kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$ along with an \emph{ambient model} (Definition \ref{def:ambient_cp}) $\model{L}$.
+
+Graphically, we place the labels on the wires of a conditional probability and include the ambient model in the name of the Markov kernel:
 
 \begin{align}
-	\model{L}[\RV{B}_1\RV{B}_2|\RV{A}_1\RV{A}_2] := \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\model{L}[\RV{B}_1\RV{B}_2|\RV{A}_1\RV{A}_2;\kernel{K}] := \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) node (A1) {$\RV{A}_1$}
 	+ (0,-0.3) node (A2) {$\RV{A}_2$}
-	++ (0.7,-0.15) node[kernel] (K) {$\model{L}$}
+	++ (0.7,-0.15) node[kernel] (K) {$\kernel{K}[\model{L}]$}
 	++ (0.7,0.15) node (B1) {$\RV{B}_1$}
 	+ (0,-0.3) node (B2) {$\RV{B}_2$};
 	\draw (A1) -- ($(K.west) + (0,0.15)$) (A2) -- ($(K.west) + (0,-0.15)$);
@@ -157,77 +167,133 @@ Graphically, we place the labels on the wires of a conditional probability and t
 A sequence of labels is itself a label, so we can also bundle wires and their corresponding labels together:
 
 \begin{align}
-	\model{L}[\RV{B}_1\RV{B}_2|\RV{A}_1\RV{A}_2] = \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\model{L}[\RV{B}_1\RV{B}_2|\RV{A}_1\RV{A}_2;\kernel{K}] = \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) node (A1) {$(\RV{A}_1,\RV{A}_2)$}
-	++ (1.3,0) node[kernel] (K) {$\model{L}$}
+	++ (1.3,0) node[kernel] (K) {$\kernel{K}[\model{L}]$}
 	++ (1.3,0.) node (B1) {$(\RV{B}_1,\RV{B}_2)$};
 	\draw (A1) -- (K) -- (B1);
 \end{tikzpicture}
 \end{align}
 
-Because it saves a lot of space, we will generally hold to the convention that a label $\RV{X}$ is associated with the set X. However, this convention sometimes fails, for example when we have two labels $\RV{X}_1$ and $\RV{X}_2$ that are associated with the same set -- in such cases, we will explicitly define the relationship.
+If two conditional probabilities $\model{L}[\RV{A}_C|\RV{B}_D;\kernel{K}]$ and $\model{M}[\RV{A}_C|\RV{B}_D;\kernel{K}]$ share the same kernel, we will say $\model{L}[\RV{A}_C|\RV{B}_D;\kernel{K}]\overset{krn}{=}\model{K}[\RV{A}_C|\RV{B}_D;\kernel{K}]$.
 
-The trivial label $*$ always corresponds to the 1-element set $\{*\}$. Because $\{*\}\times A$ is isomorphic to $A$ for any $A$, we can consider any label sequence to be isomorphic to the same label sequence with any number of copies of the trivial label appended. An trivial sequence of labels is simply a sequence of labels that consists entirely of trivial labels.
+\subsection{Ambient model}
 
-If two conditional probabilities $\model{L}[\RV{A}_C|\RV{B}_D]$ and $\model{K}[\RV{A}_C|\RV{B}_D]$ share the same kernel, we will say $\model{L}[\RV{A}_C|\RV{B}_D]\overset{krn}{=}\model{K}[\RV{A}_C|\RV{B}_D]$
+An ambient model is a tuple $\model{L}:=(\kernel{L},D,E,\mathscr{C},\mathscr{R})$ where $\kernel{L}:D\to \Delta(E)$ is a Markov kernel, $D$ and $E$ are the domain and codomain, $\mathscr{C}$ is a set of \emph{choice variable definitions} and $\mathscr{R}$ is a set of \emph{random variable definitions}. $\mathscr{C}$ and $\mathscr{R}$ each assign labels to measurable functions on $D$ and $E$ respectively. Given a label $\RV{X}$ associated with a set $X$, if the label assignment $\RV{X}:f\in \mathscr{R}$ then it must be the case that $f:D\to X$ or $f:E\to X$. 
 
-\subsection{Modelling context}
+If the label dictionary contains the assignment $\RV{X}=(\RV{Y},\RV{Z})$ and the variable assignments $\{\RV{X}:f_{\RV{X}},\RV{Y}:f_{\RV{Y}},\RV{Z}:f_{\RV{Z}}\}$ are a subset of either $\mathscr{R}$ or $\mathscr{C}$, then it must be the case that $f_{\RV{X}}(h)=(f_{\RV{Y}}(h),f_{\RV{Z}}(h))$.
 
-A \emph{modelling context} $\mathscr{M}$ is a collection of conditional probabilities. It can be thought of as a namespace. We place the following requirements on elements of $\mathscr{M}$:
+Let $\RV{D}$ be the sequence of all choice variables $\RV{D}=(\RV{A})_{\RV{A}\in \mathscr{D}}$. Then $f_{\RV{D}}$ must be an invertible function of $D$.
 
+The same label can appear in both $\mathscr{C}$ and $\mathscr{R}$ and can appear multiple times in $\mathscr{R}$. However, each label can appear at most once in $\mathscr{C}$. In addition, the assignment of repeated labels to functions must be compatible with the first axiom of modelling contexts (\ref{sec:mc_axioms}); namely, the random variables that are given the same name must be almost surely equal.
+
+Given $\RV{X}:f_{\RV{X}}\in \mathscr{R}$, $\model{L}[\RV{X}|\RV{D}]:=(d,A)\mapsto \sum_{i\in f_{\RV{X}}^{-1}(A)} \kernel{L}_d^i$ is the \emph{conditional probability of $\RV{X}$ given $\RV{D}$} under $\model{L}$.
+
+Given $\{\RV{X}:f_{\RV{X}},\RV{Y}:f_{\RV{Y}}\}\in \mathscr{R}$, any Markov kernel $\kernel{M}$ such that $\model{L}[\RV{XY}|\RV{D}]_d^{A\times B} = \sum_{i\in f_{\RV{X}}^{-1}(A)} \model{L}[\RV{X}|\RV{D}]_d^i \kernel{M}_(d,i)^B$ is a version of the \emph{conditional probability of $\RV{Y}$ given $(\RV{X}, \RV{D})$} under $\model{L}$.
+
+\subsection{Modelling context axioms}\label{sec:mc_axioms}
+
+We place the following requirements on elements of $\mathscr{M}$:
+
+\begin{enumerate}
+	\item Any model containing two instances of the same label will assign probability 0 to any point at which the two labels differ
+	\item The kernel $\kernel{K}:A^C\to \Delta(B^D)$ of the conditional probability $\model{L}[\RV{A}_C|\RV{B}_D;\kernel{K}]$ is a version of the \emph{probability of $\RV{A}_C$ given $\RV{B}_D$} under the ambient model $\model{L}$
+\end{enumerate}
+
+The first axiom can be broken down into two cases. 
+\paragraph{Case 1} Given $\model{M}[\RV{X}\RV{Y}|\RV{X}\RV{Z};\kernel{K}]$, we require that there exist some $\kernel{H}:X\times Z\to \Delta(Y)$ such that
+\begin{align}
+	\kernel{K} &= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+					\path (0,0) node (X) {$\RV{X}$}
+					+ (0,-0.65) node (Z) {$\RV{Z}$}
+					++ (0.5,0) node[copymap] (copy0) {}
+					++ (0.7,-0.5) node[kernel] (L) {$\kernel{H}$}
+					++ (0.9,0.65) node (Xout) {$\RV{X}$}
+					+  (0,-0.65) node (Y) {$\RV{Y}$};
+					\draw (X) -- (copy0) to [out=-45,in=180] ($(L.west) + (0,0.15)$) (L) -- (Y);
+					\draw (copy0) to [out=45,in=180] (Xout);
+					\draw (Z) -- ($(L.west) + (0,-0.15)$);
+				 \end{tikzpicture}\label{eq:extn1}\\
+	 	&\iff\\
+	 \kernel{K}_{xz}^{x'y} &= \delta[x]^{x'}\kernel{L}_{xz}^{y}
+\end{align}
+
+\paragraph{Case 2} Given $\model{M}[\RV{X}\RV{X}\RV{Y}|\RV{Z};\kernel{K}]$, we require that there exist some $\kernel{H}:Z\to \Delta(X\times Y)$ such that
+\begin{align}
+	\kernel{K} &= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+					\path (0,0) node (Z) {$\RV{Z}$}
+					++ (0.9,0) node[kernel] (L) {$\kernel{H}$}
+					++ (0.9,0.15) node[copymap] (copy0) {}
+					++ (0.5,0.3) node (X1) {$\RV{X}$}
+					++ (0,-0.3) node (X2) {$\RV{X}$}
+					++  (0,-0.3) node (Y) {$\RV{Y}$};
+					\draw ($(L.east) + (0,0.15)$) -- (copy0) to[out=0,in=180] (X2);
+					\draw (copy0) to [out=45,in=180] (X1);
+					\draw (Z) -- (L) ($(L.east) + (0,-0.15)$) -- (Y);
+				 \end{tikzpicture}\label{eq:extn2}\\
+			   &\iff\\
+		\kernel{K}_{z}^{xx'y} &= \delta[x]^{x'}\kernel{L}_{z}^{xy}	   
+\end{align}
+
+\subsection{Connection}
+
+Connection is an operation $\rightrightarrows$ that ``joins'' two labeled Markov kernels where the labels can be matched and preserves unmatched inputs and outputs. A key property of extension is that, if both input Markov kernels satisfy Axiom 1, then the output also satisfies axiom 1. Depending on the labels of the inputs, the extension operation can reduce to:
 \begin{itemize}
-	\item If $\model{K}[\RV{X}\RV{Z}|\RV{Y}]\in \mathscr{M}$ and $\model{L}[\RV{X}\RV{W}|\RV{V}]\in \mathscr{M}$, the label $\RV{X}$ is associated with the same set $X$ both conditional probabilities
-	\item If $\model{K}[\RV{X}|\RV{Y}]\in \mathscr{M}$ and $\model{K}[\RV{Z}\RV{X}|\RV{Y}]\in\mathscr{M}$ then $\model{K}[\RV{X}|\RV{Y}]$ is a marginal (Definition \ref{def:marginal}) of $\model{K}[\RV{Z}\RV{X}|\RV{Y}]$
-	\item If $\model{K}[\RV{X}\RV{Z}|\RV{Y}]\in \mathscr{M}$ and $\model{K}[\RV{X}|\RV{Y}\RV{Z}]\in \mathscr{M}$ then $\model{K}[\RV{X}|\RV{Y}\RV{Z}]$ is a disintegration (Definition \ref{def:disintegration}) of $\model{K}[\RV{X}\RV{Z}|\RV{Y}]$
-	\item If $\model{K}[\RV{X}|\RV{Y}]\in \mathscr{M}$ then all marginals of $\model{K}[\RV{X}|\RV{Y}]$ are also in $\mathscr{M}$
-	\item If $\model{K}[\RV{X}|\RV{Y}]\in \mathscr{M}$ then all disintegrations of $\model{K}[\RV{X}|\RV{Y}]$ are also in $\mathscr{M}$
-	\item If $\model{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]\in \mathscr{M}$ is extendable by $\model{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}]\in \mathscr{M}$ then $\model{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]\rightrightarrows \model{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}] \in \mathscr{M}$
-	\item If $\model{K}[\RV{X}|\RV{Y}]\in \mathscr{M}$ is an ambient conditional probability (Definition \ref{def:ambient_cp}), then $\model{K}[\RV{X}|\RV{Y}]=\model{K}$
+	\item The tensor product
+	\item The matrix product
+	\item The operation that combines a marginal and a conditional probability to yield a joint probability
 \end{itemize}
 
-Given two conditional probabilities from a modelling context, we can extend conditional probabilities by matching labels on inputs of one with the labels on the inputs and outputs of the other. Roughly speaking, we can extend a conditional probability with a second if the second comes ``after'' the first.
+We overload $\rightrightarrows$ to also refer to an conditional probabilities. In general, the result of connecting of two conditional probabilities sharing an ambient model does not satisfy Axiom 2. We assume the result of connecting two conditional probabilities is equipped with an arbitrary ambient model satisfying Axiom 2. We show that it is always possible to make some choice for this and, in particular cases, an ambient model matching the inputs can be chosen.
 
-Given two conditional probabilities $\model{K}[\RV{B}_C|\RV{A}_D]$ and $\model{L}[\RV{F}_H|\RV{E}_G]$, we say $\model{K}[\RV{B}_C|\RV{A}_D]$ is extendable by $\model{L}[\RV{B}_C|\RV{A}_D]$ if there is no label in $\RV{A}_D$ that matches a label in $\RV{F}_H$ (so no outputs from the ``after'' conditional probability match inputs from the ``before'' conditional probability) and there is no label in $\RV{F}_H$ that matches a label in $\RV{B}_C$ (so no shared outputs).
+Given two labeled Markov kernels $(\kernel{K},\RV{I}_F,\RV{O}_F)$ and $(\kernel{L},\RV{I}_S,\RV{O}_S)$, make the following label identifications:
+\begin{align}
+	\RV{O}_{F\cdot}&:=\RV{O}_F\setminus\RV{I}_S\\
+	\RV{O}_{FS}&:=\RV{O}_F\cap\RV{I}_S\\
+	\RV{I}_{F\cdot} &:= \RV{I}_F\setminus \RV{I}_S\\
+	\RV{I}_{FS}&:= \RV{I}_F\cap\RV{I}_S\\
+	\RV{I}_{\cdot S}&:= \RV{I}_S\setminus \RV{I}_F\\
+	\RV{O}_{I_FO_S*}&:=\RV{O}_S\cap \RV{I}_F\\
+	\RV{O}_{O_FO_S*} &:= \RV{O}_F\cap\RV{O}_S\setminus \RV{I}_S\\
+\end{align}
+
+The output labels may contain duplicates, but not the input labels. We use the convention that at most one of each label in $\RV{O}_F$ belongs to $\RV{O}_{FS}$ and the multiplicity of each label in $(\RV{O}_{F\cdot},\RV{O}_{FS},\RV{O}_{\cdot S})$ is equal to the multiplicity of each label in $(\RV{O}_F,\RV{O}_S)$. Thus if a label is shared between $\RV{O}_F$ and $\RV{I}_S$ and appears 3 times in $\RV{O}_F$, one copy is assigned to $\RV{O}_{FS}$ and two to $\RV{O}_{F\cdot}$.
+
+$(\kernel{K},\RV{I}_F,\RV{O}_F)$ can be connected to $(\kernel{L},\RV{I}_S,\RV{O}_S)$ iff $\RV{O}_{I_FO_S*}$ is trivial (the output of the ``second'' kernel cannot be connected to the inputs of the ``first'') and $\RV{O}_{O_FO_S*}$ is also trivial (the two kernels do not propose conflicting models of the same label).
 
 \begin{definition}[extension]\label{def:extension}
-Consider two arbitrary conditional probabilities $F$ and $S$ in $\mathscr{M}$ where $F$ is before $S$. Let $\RV{Z}$ as the (possibly trivial) sequence of all labels that appear only in the output of $F$, $\RV{X}$ the sequence of all labels that appear in the output of $F$ and the input of $S$, $\RV{Y}$ the sequence of all labels that appear only in the input of $F$, $\RV{Q}$ the sequence of all labels shared by the inputs of $F$ and $S$, $\RV{R}$ the sequence of all labels that appear only in the input of $S$ and $\RV{W}$ the sequence of all labels that appear only in the output of $S$. Given the assumption that $F$ is before $S$, we can in general write $F=\model{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]$ and $S=\model{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}]$ for some model names $\model{K}$ and $\model{L}$ (the necessary condition for this is that the label sequences are exhaustive).
+Consider two labeled Markov kernels $(\kernel{K},\RV{I}_F,\RV{O}_F)$ which can be connected to $(\kernel{L},\RV{I}_S,\RV{O}_S)$. Because they can be conected, we can write $(\kernel{K},(\RV{I}_{F\cdot},\RV{I}_{FS}),(\RV{O}_{F\cdot},\RV{O}_{FS}))$ and $(\kernel{L},(\RV{I}_{FS},\RV{I}_{\cdot S}),\RV{O}_S)$.
 
 Then Equations \ref{eq:extn_definition1} and \ref{eq:extn_definition2} are equivalent definitions of extension:
-
 \begin{align}
-	\model{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]\rightrightarrows \model{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}] &:= \model{M}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R}]\\
-	&:= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-		\path (0,0) node (Y) {$\RV{Y}$}
-		+ (0,-0.3) node (Q) {$\RV{Q}$}
-		+ (0,-0.8) node (R) {$\RV{R}$}
+	(\kernel{K},(\RV{I}_{F\cdot},\RV{I}_{FS}),(\RV{O}_{F\cdot},\RV{O}_{FS}))\rightrightarrows (\kernel{L},(\RV{I}_{FS},\RV{I}_{\cdot S}),\RV{O}_S) &:= (\kernel{J},(\RV{I}_{F\cdot},\RV{I}_{FS},\RV{I}_{\cdot S}), (\RV{O}_{F\cdot},\RV{O}_{FS},\RV{O}_S))\\
+	&:=  \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}]
+		\path (0,0) node (Y) {$\RV{I}_{F\cdot}$}
+		+ (0,-0.3) node (Q) {$\RV{I}_{FS}$}
+		+ (0,-0.8) node (R) {$\RV{I}_{\cdot S}$}
 		++ (0.5,-0.3) node[copymap] (copy0) {}
-		++ (0.7,0.15) node[kernel] (K) {$\model{K}$}
+		++ (0.5,0.15) node[kernel] (K) {$\kernel{K}$}
 		++ (0.5,-0.15) node[copymap] (copy1) {}
-		++ (0.7,-0.5) node[kernel] (L) {$\model{L}$}
-		++ (0.7, 0.8) node (Z) {$\RV{Z}$}
-		+ (0,-0.3) node (X) {$\RV{X}$}
-		+ (0,-0.8) node (W) {$\RV{W}$};
+		++ (0.6,-0.5) node[kernel] (L) {$\kernel{L}$}
+		++ (0.6, 0.8) node (Z) {$\RV{O}_{F\cdot}$}
+		+ (0,-0.3) node (X) {$\RV{O}_{FS}$}
+		+ (0,-0.8) node (W) {$\RV{O}_S$};
 		\draw (Y) -- ($(K.west) + (0,0.15)$) (Q) -- ($(K.west) + (0,-0.15)$);
 		\draw (copy0) to [out=-45,in=180] ($(L.west) + (0,0)$) (copy1) to [out=-60,in=180] ($(L.west) + (0,0.15)$);
 		\draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
 		\draw ($(K.east) + (0,-0.15)$) to (copy1);
 		\draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
 	\end{tikzpicture}\label{eq:extn_definition1}\\
-	\model{M}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R}]_{yqr}^{zxw} &= \model{K}[\RV{Z}\RV{X}|\RV{Y}\RV{Q}]_{yq}^{zx} \model{L}[\RV{W}|\RV{X}\RV{Q}\RV{R}]_{xqr}^{w}\label{eq:extn_definition2}
+	\kernel{J}_{yqr}^{zxw} &= \kernel{K}_{yq}^{zx} \kernel{L}_{xqr}^{w}\label{eq:extn_definition2}
 \end{align}
 \end{definition}
 
-Here we assume that we have some way of choosing the ambient conditional probability $\model{M}$. If the two kernels are appropriate marginals and disintegrations of the same ambient conditional probability $\model{K}$ (see Definition \ref{def:disintegration}), then the extension has ambient conditional probability $\model{K}$ also. Otherwise, we can always consistently choose $\model{M}:=\model{M}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R}]$.
-
-\todo[inline]{I don't know if there are other cases where it would be sensible to make a different choice. The intuition I have is that if two ambient conditional probabilities are equal in kernel and label set then they should be equal, but not other conditional probabilities.}
-
 Equation \ref{eq:extn_definition1} can be broken down to the product of four Markov kernels, each of which is itself a tensor product of a number of other Markov kernels:
-
 \begin{align}
-	\model{M}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R}] &= \left[ \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-		\path (0,0) node (Y) {$\RV{Y}$}
-		+ (0,-0.3) node (Q) {$\RV{Q}$}
-		+ (0,-0.75) node (R) {$\RV{R}$}
+	(\kernel{J},(\RV{I}_{F\cdot},\RV{I}_{FS},\RV{I}_{\cdot S}), (\RV{O}_{F\cdot},\RV{O}_{FS},\RV{O}_S)) &= \left[ \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+		\path (0,0) node (Y) {$\RV{I}_{F\cdot}$}
+		+ (0,-0.3) node (Q) {$\RV{I}_{FS}$}
+		+ (0,-0.75) node (R) {$\RV{I}_{\cdot S}$}
 		++ (0.5,-0.3) node[copymap] (copy1) {}
 		++ (0.5,0.3) node (Z) {}
 		++ (0,-0.15) node (Q1) {}
@@ -271,9 +337,9 @@ Equation \ref{eq:extn_definition1} can be broken down to the product of four Mar
 		++ (0,-0.15) node (Q) {}
 		++ (0,-0.15) node (R) {}
 		++ (0.5,0.15) node[kernel] (L) {$\model{L}$}
-		++ (0.7,0) node (W) {$\RV{W}$}
-		++ (0,0.35) node (X3) {$\RV{X}$}
-		++ (0,0.25) node (Z1) {$\RV{Z}$};
+		++ (0.7,0) node (W) {$\RV{O}_{F\cdot}$}
+		++ (0,0.35) node (X3) {$\RV{O}_{FS}$}
+		++ (0,0.25) node (Z1) {$\RV{O}_S$};
 		\draw (X1) to [out=0,in=180] (X3) (Z) -- (Z1);
 		\draw (X2) to [out=0,in=180] ($(L.west) + (0,0.15)$);
 		\draw (Q) to [out=0,in=180] ($(L.west) + (0,0)$);
@@ -281,9 +347,199 @@ Equation \ref{eq:extn_definition1} can be broken down to the product of four Mar
 		\draw (L) -- (W);\end{tikzpicture}\right]\\
 \end{align}
 
-$\model{M}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R}]$ is itself a conditional probability with some ambient conditional probability $\model{M}$ and is an element of $\mathscr{M}$. 
+\begin{lemma}[Extension is associative up to permuation of labels]
+Given labeled Markov kernels $(\kernel{K},\RV{I}_K,\RV{O}_K)$, $(\kernel{L},\RV{I}_L,\RV{O}_L)$ and $(\kernel{J},\RV{I}_J,\RV{O}_J)$,
+\begin{align}
+	(\kernel{K}\rightrightarrows \kernel{L})\rightrightarrows \kernel{J} &\overset{perm}{=} \kernel{K}\rightrightarrows (\kernel{L}\rightrightarrows \kernel{J})
+\end{align}
+Where $\overset{perm}{=}$ indicates equality up to permutation of labels and corresponding swaps applied to the Markov kernel.
+\end{lemma}
 
-\todo[inline]{Prove that $\rightrightarrows$ is associative}
+\begin{proof}
+This will be proven with string diagrams, and consequently generalises to the operation defined by Equation \ref{eq:extn2} in other Markov kernel categories.
+
+Define
+
+\begin{align}
+	\RV{I}_{K\cdot\cdot}&:=\RV{I}_K\setminus\RV{I}_L\setminus\RV{I}_J\\
+	\RV{I}_{KL\cdot}&:=\RV{I}_K\cap\RV{I}_L\setminus\RV{I}_J\\
+	\RV{I}_{K\cdot J}&:=\RV{I}_K\cap\RV{I}_J\setminus\RV{I}_L\\
+	\RV{I}_{KL J}&:=\RV{I}_K\cap \RV{I}_L\cap\RV{I}_J\\
+	\RV{I}_{\cdot L \cdot} &:= \RV{I}_L\setminus\RV{I}_K\setminus \RV{I}_J\\
+	\RV{I}_{\cdot L J} &:= \RV{I}_L\cap \RV{I}_J\setminus \RV{I}_K\\
+	\RV{I}_{\cdot\cdot J} &:= \RV{I}_J\setminus\RV{I}_K\setminus\RV{I}_L\\
+	\RV{O}_{K\cdot\cdot} &:= \RV{O}_K\setminus\RV{I}_N\setminus\RV{I}_J\\
+	\RV{O}_{KL\cdot} &:= \RV{O}_K\cap\RV{I}_L\setminus\RV{I}_J\\
+	\RV{O}_{K\cdot J} &:= \RV{O}_K\cap\RV{I}_J\setminus\RV{I}_L\\
+	\RV{O}_{KLJ} &:= \RV{O}_K\cap\RV{I}_L\cap\RV{I}_J\\
+	\RV{O}_{L\cdot} &:= \RV{O}_L\setminus\RV{I}_J\\
+	\RV{O}_{LJ} &:= \RV{O}_L\cap\RV{I}_J
+\end{align}
+
+Also define
+\begin{align}
+	(\kernel{P},\RV{I}_P,\RV{O}_P)&:=\kernel{K}\rightrightarrows \kernel{L}\\
+	(\kernel{Q},\RV{I}_Q,\RV{O}_Q)&:=\kernel{L}\rightrightarrows \kernel{J}
+\end{align}
+
+Then
+
+\begin{align}
+	(\kernel{K}\rightrightarrows \kernel{L})\rightrightarrows \kernel{J} &= \kernel{P}\rightrightarrows \kernel{J}\\
+																		 &= \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}]
+		\path (0,0) node (Y) {$\RV{I}_{P\cdot}$}
+		+ (0,-0.3) node (Q) {$\RV{I}_{PJ}$}
+		+ (0,-0.8) node (R) {$\RV{I}_{\cdot J}$}
+		++ (0.5,-0.3) node[copymap] (copy0) {}
+		++ (0.5,0.15) node[kernel] (K) {$\kernel{P}$}
+		++ (0.5,-0.15) node[copymap] (copy1) {}
+		++ (0.6,-0.5) node[kernel] (L) {$\kernel{J}$}
+		++ (0.6, 0.8) node (Z) {$\RV{O}_{P\cdot}$}
+		+ (0,-0.3) node (X) {$\RV{O}_{PJ}$}
+		+ (0,-0.8) node (W) {$\RV{O}_J$};
+		\draw (Y) -- ($(K.west) + (0,0.15)$) (Q) -- ($(K.west) + (0,-0.15)$);
+		\draw (copy0) to [out=-45,in=180] ($(L.west) + (0,0)$) (copy1) to [out=-60,in=180] ($(L.west) + (0,0.15)$);
+		\draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
+		\draw ($(K.east) + (0,-0.15)$) to (copy1);
+		\draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
+	\end{tikzpicture}\\
+	&= \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}] \path (0,0) node (IKdd) {$\RV{I}_{K\cdot\cdot}$}
+		+ (0,-0.4) node (IKLd) {$\RV{I}_{KL\cdot}$}
+		+ (0,-0.8) node (IdLd) {$\RV{I}_{\cdot L \cdot}$}
+		+ (0,-1.2) node (IKdJ) {$\RV{I}_{K\cdot J}$}
+		+ (0,-1.6) node (IKLJ) {$\RV{I}_{KLJ}$}
+		+ (0,-2) node (IdLJ) {$\RV{I}_{\cdot LJ}$}
+		+ (0,-2.4) node (IddJ) {$\RV{I}_{\cdot\cdot J}$}
+		+ (0.7,-0.4) node[copymap] (copyKL) {}
+		+ (0.7,-1.2) node[copymap] (copyKJ) {}
+		+ (0.7,-1.6) node[copymap] (copyKLJ) {}
+		+ (0.7,-2) node[copymap] (copyLJ) {}
+		++ (1.5,-0.3) node[kernel,inner sep=5pt] (K) {$\kernel{K}$}
+		++ (1.2,0.15) node[copymap] (copyOKL) {}
+		+  (0,-0.3) node[copymap] (copyOKJ) {}
+		+ (0,-0.45) node[copymap] (copyOKLJ) {}
+		++ (1.2,-0.9) node[kernel,inner sep=6pt] (L) {$\kernel{L}$}
+		++ (1.2,-0.15) node[copymap] (copyOLJ) {}
+		++ (1.2,-0.9) node[kernel,inner sep=6pt] (J) {$\kernel{J}$}
+		++ (2.1, 2.1) node (OKdd) {$\RV{O}_{K\cdot\cdot}$}
+		+ (0,-0.4) node (OKLd) {$\RV{O}_{KL\cdot}$}
+		+ (0,-0.8) node (OKdJ) {$\RV{O}_{K\cdot J}$}
+		+ (0,-1.2) node (OKLJ) {$\RV{O}_{KLJ}$}
+		+ (0,-1.6) node (OLd) {$\RV{O}_{L\cdot}$}
+		+ (0,-2) node (OLJ) {$\RV{O}_{LJ}$}
+		+ (0,-2.4) node (OJ) {$\RV{O}_{J}$};
+		\draw (IKdd) to [out=0,in=180] ($(K.west) + (0,0.25)$) ($(K.east) + (0,0.25)$) to [out=0,in=180] (OKdd);
+		\draw (IKLd) -- (copyKL) to [out=-45,in=180] ($(L.west) + (0,0.1)$) (copyKL) to [out=55,in=180] ($(K.west) + (0,0.125)$)
+		($(K.east)+(0,0.125)$) to [out=0,in=180] (copyOKL) to [out=-90,in=180] ($(L.west) + (0,0.3)$)
+		(copyOKL) to [out=0,in=180] (OKLd);
+		\draw (IKLJ) to [out=0,in=180] (copyKLJ) to [out=40,in=180] ($(K.west) + (0,-0.25)$) 
+		(copyKLJ) to [out=10,in=180] ($(L.west) + (0,0)$)
+		(copyKLJ) to [out=-25,in=180] ($(J.west) + (0,-0.2)$);
+		\draw (IKdJ) to [out=0,in=180] (copyKJ) to [out=65,in=180] ($(K.west) + (0,-0.125)$)
+		(copyKJ) to [out=-30,in=180] ($(J.west) + (0,-0.1)$);
+		\draw (IdLd) to [out=0,in=160] ($(IdLd)+(0.8,-0.1)$) to [out=-20,in=180] ($(L.west)+(0,-0.1)$);
+		\draw (IdLJ) to [out=0,in=180] (copyLJ) to[out=15,in=180] ($(L.west)+(0,-0.2)$)
+		(copyLJ) to [out=-10,in=180] ($(J.west) + (0,0.)$);
+		\draw (IddJ) to [out=0,in=180] ($(IddJ)+ (0.5,0)$) to [out=-15,in=180] ($(J.west) + (0,-0.3)$);
+		\draw ($(K.east)+(0,-0.125)$) to (copyOKJ) to [out=-75,in=180] ($(J.west) + (0,0.2)$)
+		(copyOKJ) to [out=0,in=180] (OKdJ)
+		(copyOKLJ) to [out=-80,in=180] ($(J.west) + (0,0.1)$);
+		\draw ($(K.east) + (0,-0.25)$) to [out=0,in=180] (copyOKLJ) to [out=0,in=180] (OKLJ)
+		(copyOKLJ) to [out=-35,in=180] ($(L.west) + (0,0.2)$);
+		\draw ($(L.east) + (0,0.2)$) to [out=0,in=180] (OLd)
+		($(L.east) + (0,0)$) to [out=0,in=170] (copyOLJ) to [out=-10,in=180] (OLJ)
+		(copyOLJ) to [out=-45,in=180] ($(J.west) + (0,0.3)$);
+		\draw (J) to [out=0,in=180] (OJ);
+	\end{tikzpicture}\\
+	&\overset{perm}{=} \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}] \path (0,0) node (IKdd) {$\RV{I}_{K\cdot\cdot}$}
+		+ (0,-0.4) node (IKLd) {$\RV{I}_{KL\cdot}$}
+		+ (0,-0.8) node (IKdJ) {$\RV{I}_{K\cdot J}$}
+		+ (0,-1.2) node (IKLJ) {$\RV{I}_{KLJ}$}
+		+ (0,-1.6) node (IdLd) {$\RV{I}_{\cdot L \cdot}$}
+		+ (0,-2) node (IdLJ) {$\RV{I}_{\cdot LJ}$}
+		+ (0,-2.4) node (IddJ) {$\RV{I}_{\cdot\cdot J}$}
+		+ (0.7,-0.4) node[copymap] (copyKL) {}
+		+ (0.7,-.8) node[copymap] (copyKJ) {}
+		+ (0.7,-1.2) node[copymap] (copyKLJ) {}
+		+ (0.7,-2) node[copymap] (copyLJ) {}
+		++ (1.5,-0.3) node[kernel,inner sep=5pt] (K) {$\kernel{K}$}
+		++ (1.2,0.15) node[copymap] (copyOKL) {}
+		+  (0,-0.3) node[copymap] (copyOKJ) {}
+		+ (0,-0.45) node[copymap] (copyOKLJ) {}
+		++ (1.2,-0.9) node[kernel,inner sep=6pt] (L) {$\kernel{L}$}
+		++ (1.2,-0.15) node[copymap] (copyOLJ) {}
+		++ (1.2,-0.9) node[kernel,inner sep=6pt] (J) {$\kernel{J}$}
+		++ (2.1, 2.1) node (OKdd) {$\RV{O}_{K\cdot\cdot}$}
+		+ (0,-0.4) node (OKLd) {$\RV{O}_{KL\cdot}$}
+		+ (0,-0.8) node (OKdJ) {$\RV{O}_{K\cdot J}$}
+		+ (0,-1.2) node (OKLJ) {$\RV{O}_{KLJ}$}
+		+ (0,-1.6) node (OLd) {$\RV{O}_{L\cdot}$}
+		+ (0,-2) node (OLJ) {$\RV{O}_{LJ}$}
+		+ (0,-2.4) node (OJ) {$\RV{O}_{J}$};
+		\draw (IKdd) to [out=0,in=180] ($(K.west) + (0,0.25)$) ($(K.east) + (0,0.25)$) to [out=0,in=180] (OKdd);
+		\draw (IKLd) -- (copyKL) to [out=-45,in=180] ($(L.west) + (0,0.1)$) (copyKL) to [out=55,in=180] ($(K.west) + (0,0.125)$)
+		($(K.east)+(0,0.125)$) to [out=0,in=180] (copyOKL) to [out=-90,in=180] ($(L.west) + (0,0.3)$)
+		(copyOKL) to [out=0,in=180] (OKLd);
+		\draw (IKLJ) to [out=0,in=180] (copyKLJ) to [out=40,in=180] ($(K.west) + (0,-0.25)$) 
+		(copyKLJ) to [out=10,in=180] ($(L.west) + (0,0)$)
+		(copyKLJ) to [out=-25,in=180] ($(J.west) + (0,-0.2)$);
+		\draw (IKdJ) to [out=0,in=180] (copyKJ) to [out=65,in=180] ($(K.west) + (0,-0.125)$)
+		(copyKJ) to [out=-30,in=180] ($(J.west) + (0,-0.1)$);
+		\draw (IdLd) to [out=0,in=180] ($(L.west)+(0,-0.1)$);
+		\draw (IdLJ) to [out=0,in=180] (copyLJ) to[out=15,in=180] ($(L.west)+(0,-0.2)$)
+		(copyLJ) to [out=-10,in=180] ($(J.west) + (0,0.)$);
+		\draw (IddJ) to [out=0,in=180] ($(IddJ)+ (0.5,0)$) to [out=-15,in=180] ($(J.west) + (0,-0.3)$);
+		\draw ($(K.east)+(0,-0.125)$) to (copyOKJ) to [out=-75,in=180] ($(J.west) + (0,0.2)$)
+		(copyOKJ) to [out=0,in=180] (OKdJ)
+		(copyOKLJ) to [out=-80,in=180] ($(J.west) + (0,0.1)$);
+		\draw ($(K.east) + (0,-0.25)$) to [out=0,in=180] (copyOKLJ) to [out=0,in=180] (OKLJ)
+		(copyOKLJ) to [out=-35,in=180] ($(L.west) + (0,0.2)$);
+		\draw ($(L.east) + (0,0.2)$) to [out=0,in=180] (OLd)
+		($(L.east) + (0,0)$) to [out=0,in=170] (copyOLJ) to [out=-10,in=180] (OLJ)
+		(copyOLJ) to [out=-45,in=180] ($(J.west) + (0,0.3)$);
+		\draw (J) to [out=0,in=180] (OJ);
+	\end{tikzpicture}\\
+	&= \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}]
+		\path (0,0) node (Y) {$\RV{I}_{K\cdot}$}
+		+ (0,-0.3) node (Q) {$\RV{I}_{KQ}$}
+		+ (0,-0.8) node (R) {$\RV{I}_{\cdot Q}$}
+		++ (0.5,-0.3) node[copymap] (copy0) {}
+		++ (0.5,0.15) node[kernel] (K) {$\kernel{K}$}
+		++ (0.5,-0.15) node[copymap] (copy1) {}
+		++ (0.6,-0.5) node[kernel] (L) {$\kernel{Q}$}
+		++ (0.6, 0.8) node (Z) {$\RV{O}_{K\cdot}$}
+		+ (0,-0.3) node (X) {$\RV{O}_{KQ}$}
+		+ (0,-0.8) node (W) {$\RV{O}_Q$};
+		\draw (Y) -- ($(K.west) + (0,0.15)$) (Q) -- ($(K.west) + (0,-0.15)$);
+		\draw (copy0) to [out=-45,in=180] ($(L.west) + (0,0)$) (copy1) to [out=-60,in=180] ($(L.west) + (0,0.15)$);
+		\draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
+		\draw ($(K.east) + (0,-0.15)$) to (copy1);
+		\draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
+	\end{tikzpicture}
+\end{align}
+
+\end{proof}
+
+\begin{theorem}[Extension is compatible with a modelling context]
+Given $\model{M}[\RV{Z}\RV{X}|\RV{Y}\RV{Q};\kernel{K}]$ and $\model{N}[\RV{W}|\RV{X}\RV{Q}\RV{R};\kernel{L}]$ in a modelling context $\mathscr{M}$, let $\kernel{J}=\model{M}[\RV{Z}\RV{X}|\RV{Y}\RV{Q};\kernel{K}]\rightrightarrows \model{N}[\RV{W}|\RV{X}\RV{Q}\RV{R};\kernel{L}]$. Then there exists an ambient model $\model{O}$ such that $\mathscr{M}$ along with $\model{O}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R};\kernel{J}]$ is a valid modelling context, where we can choose $\model{O}=\model{M}$ if $\model{M}=\model{N}$ and the non-shared inputs $\RV{Y}$ and $\RV{R}$ are trivial.
+\end{theorem}
+
+\begin{proof}
+By inspecting the label set in $\model{O}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R};\kernel{J}]$, we can see that no labels from either of the inputs are duplicated. We need to verify that if either of the inputs had a duplicated label, then the result of the extension still satisfies axiom 1. 
+
+We have a number of cases to deal with Introduce $\model{I}[\RV{X}|\RV{X};\mathrm{Id}_X]$ and note that in the case of  Equation \ref{eq:extn1} corresponds to the equation
+
+\begin{align}
+	\kernel{K} &= \model{I}[\RV{X}|\RV{X};\mathrm{Id}_X]\rightrightarrows \model{M}[\RV{Y}|\RV{XZ};\kernel{L}]\\
+	\implies \kernel{J} &= (\model{I}[\RV{X}|\RV{X};\mathrm{Id}_X]\rightrightarrows \model{M}[\RV{Y}|\RV{XZ};\kernel{L}])\rightrightarrows \model{N}[\RV{W}|\RV{X}\RV{Q}\RV{R};\kernel{L}]\\
+	\implies \kernel{J} &= \model{I}[\RV{X}|\RV{X};\mathrm{Id}_X]\rightrightarrows(\model{M}[\RV{Y}|\RV{XZ};\kernel{L}]\rightrightarrows \model{N}[\RV{W}|\RV{X}\RV{Q}\RV{R};\kernel{L}])
+\end{align}
+
+
+
+We can always define a new probability space so that $\model{O}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R};\kernel{J}]$ satisfies axiom 2. We will show that if $\model{M}=\model{N}$ and the non-shared inputs $\RV{Y}$ and $\RV{R}$ are trivial then in particular we can choose $\model{O}=\model{M}$.
+\end{proof}
+
 
 \begin{definition}[marginal]\label{def:marginal}
 Given a conditional probability $\model{K}[\RV{X}\RV{Y}|\RV{W}]$, the marginal $\model{K}[\RV{X}|\RV{W}]$ is defined as
