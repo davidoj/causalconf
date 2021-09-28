@@ -31,7 +31,8 @@
 \usepackage{microtype}      % microtypography
 
 % My packages
-
+\usepackage{tikzit}
+\input{diagrams.tikzstyles}
 \usepackage[mathscr]{euscript}
 \usepackage{graphicx}
 \usepackage {tikz}
@@ -137,6 +138,13 @@
 \end{tikzpicture}
 }
 
+\newcommand\swap[1]{%
+\begin{tikzpicture}[scale=#1]
+\draw (0,0) to [out=90, in=270] (0.5,1);
+\draw (0.5,0) to [out=90,in=270] (0,1);
+\end{tikzpicture}
+}
+
 \newcommand\source[1]{%
 \begin{tikzpicture}[scale=#1]
 \path (0,0) node[prob,fill=gray] (P) {};
@@ -162,6 +170,8 @@
 
 
 % \begin{abstract}
+\tableofcontents
+
 
 \section{Introduction}
 
@@ -183,7 +193,6 @@ Equipped with this foundation, we apply it to a variety of approaches to causal 
 
 
 % \end{abstract}
-\tableofcontents
 
 
 \input{probability}

@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=medium dist tikzit] (0) at (-3.5, -0.25) {$\kernel{K}$};
+		\node [style=none] (1) at (-3, 0.25) {};
+		\node [style=none] (2) at (-3, -0.75) {};
+		\node [style=RLabel tikzit] (3) at (-1, 0.25) {$X$};
+		\node [style=RLabel tikzit] (4) at (-1, -0.75) {$X$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (1.center) to (3);
+		\draw (2.center) to (4);
+	\end{pgfonlayer}
+\end{tikzpicture}

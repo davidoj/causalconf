@@ -1,0 +1,15 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=medium kernel tikzit] (0) at (-0.25, 0.75) {$\kernel{L}$};
+		\node [style=Llabel tikzit] (1) at (-3, -0.75) {$\RV{W}$};
+		\node [style=none] (2) at (-0.25, -0.75) {};
+		\node [style=none] (3) at (-0.25, -0.75) {};
+		\node [style=RLabel tikzit] (4) at (2, 0.75) {$\RV{Y}$};
+		\node [style=Llabel tikzit] (5) at (-3, 0.75) {$\RV{X}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw[-{Rays[n=8]}] (1) to (3.center);
+		\draw (5) to (0);
+		\draw (0) to (4);
+	\end{pgfonlayer}
+\end{tikzpicture}

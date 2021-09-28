@@ -1,4 +1,4 @@
-\begin{thebibliography}{13}
+\begin{thebibliography}{17}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -12,6 +12,24 @@ G.~Chiribella, Giacomo D'Ariano, and P.~Perinotti.
 \newblock \emph{Physical review letters}, 101:\penalty0 060401, September 2008.
 \newblock \doi{10.1103/PhysRevLett.101.060401}.
 
+\bibitem[Cho and Jacobs(2019)]{cho_disintegration_2019}
+Kenta Cho and Bart Jacobs.
+\newblock Disintegration and {Bayesian} inversion via string diagrams.
+\newblock \emph{Mathematical Structures in Computer Science}, 29\penalty0
+  (7):\penalty0 938--971, August 2019.
+\newblock ISSN 0960-1295, 1469-8072.
+\newblock \doi{10.1017/S0960129518000488}.
+
+\bibitem[Constantinou and Dawid(2017)]{constantinou_extended_2017}
+Panayiota Constantinou and A.~Philip Dawid.
+\newblock {EXTENDED} {CONDITIONAL} {INDEPENDENCE} {AND} {APPLICATIONS} {IN}
+  {CAUSAL} {INFERENCE}.
+\newblock \emph{The Annals of Statistics}, 45\penalty0 (6):\penalty0
+  2618--2653, 2017.
+\newblock ISSN 0090-5364.
+\newblock URL \url{http://www.jstor.org/stable/26362953}.
+\newblock Publisher: Institute of Mathematical Statistics.
+
 \bibitem[Dawid(2000)]{dawid_causal_2000}
 A.~P. Dawid.
 \newblock Causal {Inference} without {Counterfactuals}.
@@ -23,6 +41,24 @@ A.~P. Dawid.
   \url{https://www.tandfonline.com/doi/abs/10.1080/01621459.2000.10474210}.
 \newblock Publisher: Taylor \& Francis \_eprint:
   https://www.tandfonline.com/doi/pdf/10.1080/01621459.2000.10474210.
+
+\bibitem[Fong(2013)]{fong_causal_2013}
+Brendan Fong.
+\newblock Causal {Theories}: {A} {Categorical} {Perspective} on {Bayesian}
+  {Networks}.
+\newblock \emph{arXiv:1301.6201 [math]}, January 2013.
+\newblock URL \url{http://arxiv.org/abs/1301.6201}.
+\newblock arXiv: 1301.6201.
+
+\bibitem[Fritz(2020)]{fritz_synthetic_2020}
+Tobias Fritz.
+\newblock A synthetic approach to {Markov} kernels, conditional independence
+  and theorems on sufficient statistics.
+\newblock \emph{Advances in Mathematics}, 370:\penalty0 107239, August 2020.
+\newblock ISSN 0001-8708.
+\newblock \doi{10.1016/j.aim.2020.107239}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0001870820302656}.
 
 \bibitem[Hernán and Taubman(2008)]{hernan_does_2008}
 M.~A. Hernán and S.~L. Taubman.

@@ -75,3 +75,254 @@ Then by substitution of $\kernel{Q}$ for $\kernel{S}$ in Equation \ref{eq:t_is_c
 
 As $\kernel{Q}$ was arbitrary, this holds for all strategies.
 \end{proof}
+
+\section{Appendix: Connection is associative}\label{sec:connect_associative}
+
+This will be proven with string diagrams, and consequently generalises to the operation defined by Equation \ref{eq:extn2} in other Markov kernel categories.
+
+Define
+
+\begin{align}
+    \RV{I}_{K\cdot\cdot}&:=\RV{I}_K\setminus\RV{I}_L\setminus\RV{I}_J\\
+    \RV{I}_{KL\cdot}&:=\RV{I}_K\cap\RV{I}_L\setminus\RV{I}_J\\
+    \RV{I}_{K\cdot J}&:=\RV{I}_K\cap\RV{I}_J\setminus\RV{I}_L\\
+    \RV{I}_{KL J}&:=\RV{I}_K\cap \RV{I}_L\cap\RV{I}_J\\
+    \RV{I}_{\cdot L \cdot} &:= \RV{I}_L\setminus\RV{I}_K\setminus \RV{I}_J\\
+    \RV{I}_{\cdot L J} &:= \RV{I}_L\cap \RV{I}_J\setminus \RV{I}_K\\
+    \RV{I}_{\cdot\cdot J} &:= \RV{I}_J\setminus\RV{I}_K\setminus\RV{I}_L\\
+    \RV{O}_{K\cdot\cdot} &:= \RV{O}_K\setminus\RV{I}_N\setminus\RV{I}_J\\
+    \RV{O}_{KL\cdot} &:= \RV{O}_K\cap\RV{I}_L\setminus\RV{I}_J\\
+    \RV{O}_{K\cdot J} &:= \RV{O}_K\cap\RV{I}_J\setminus\RV{I}_L\\
+    \RV{O}_{KLJ} &:= \RV{O}_K\cap\RV{I}_L\cap\RV{I}_J\\
+    \RV{O}_{L\cdot} &:= \RV{O}_L\setminus\RV{I}_J\\
+    \RV{O}_{LJ} &:= \RV{O}_L\cap\RV{I}_J
+\end{align}
+
+Also define
+\begin{align}
+    (\kernel{P},\RV{I}_P,\RV{O}_P)&:=\kernel{K}\rightrightarrows \kernel{L}\\
+    (\kernel{Q},\RV{I}_Q,\RV{O}_Q)&:=\kernel{L}\rightrightarrows \kernel{J}
+\end{align}
+
+Then
+
+\begin{align}
+    (\kernel{K}\rightrightarrows \kernel{L})\rightrightarrows \kernel{J} &= \kernel{P}\rightrightarrows \kernel{J}\\
+                                                                         &= \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}]
+        \path (0,0) node (Y) {$\RV{I}_{P\cdot}$}
+        + (0,-0.3) node (Q) {$\RV{I}_{PJ}$}
+        + (0,-0.8) node (R) {$\RV{I}_{\cdot J}$}
+        ++ (0.5,-0.3) node[copymap] (copy0) {}
+        ++ (0.5,0.15) node[kernel] (K) {$\kernel{P}$}
+        ++ (0.5,-0.15) node[copymap] (copy1) {}
+        ++ (0.6,-0.5) node[kernel] (L) {$\kernel{J}$}
+        ++ (0.6, 0.8) node (Z) {$\RV{O}_{P\cdot}$}
+        + (0,-0.3) node (X) {$\RV{O}_{PJ}$}
+        + (0,-0.8) node (W) {$\RV{O}_J$};
+        \draw (Y) -- ($(K.west) + (0,0.15)$) (Q) -- ($(K.west) + (0,-0.15)$);
+        \draw (copy0) to [out=-45,in=180] ($(L.west) + (0,0)$) (copy1) to [out=-60,in=180] ($(L.west) + (0,0.15)$);
+        \draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
+        \draw ($(K.east) + (0,-0.15)$) to (copy1);
+        \draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
+    \end{tikzpicture}\\
+    &= \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}] \path (0,0) node (IKdd) {$\RV{I}_{K\cdot\cdot}$}
+        + (0,-0.4) node (IKLd) {$\RV{I}_{KL\cdot}$}
+        + (0,-0.8) node (IdLd) {$\RV{I}_{\cdot L \cdot}$}
+        + (0,-1.2) node (IKdJ) {$\RV{I}_{K\cdot J}$}
+        + (0,-1.6) node (IKLJ) {$\RV{I}_{KLJ}$}
+        + (0,-2) node (IdLJ) {$\RV{I}_{\cdot LJ}$}
+        + (0,-2.4) node (IddJ) {$\RV{I}_{\cdot\cdot J}$}
+        + (0.7,-0.4) node[copymap] (copyKL) {}
+        + (0.7,-1.2) node[copymap] (copyKJ) {}
+        + (0.7,-1.6) node[copymap] (copyKLJ) {}
+        + (0.7,-2) node[copymap] (copyLJ) {}
+        ++ (1.5,-0.3) node[kernel,inner sep=5pt] (K) {$\kernel{K}$}
+        ++ (1.2,0.15) node[copymap] (copyOKL) {}
+        +  (0,-0.3) node[copymap] (copyOKJ) {}
+        + (0,-0.45) node[copymap] (copyOKLJ) {}
+        ++ (1.2,-0.9) node[kernel,inner sep=6pt] (L) {$\kernel{L}$}
+        ++ (1.2,-0.15) node[copymap] (copyOLJ) {}
+        ++ (1.2,-0.9) node[kernel,inner sep=6pt] (J) {$\kernel{J}$}
+        ++ (2.1, 2.1) node (OKdd) {$\RV{O}_{K\cdot\cdot}$}
+        + (0,-0.4) node (OKLd) {$\RV{O}_{KL\cdot}$}
+        + (0,-0.8) node (OKdJ) {$\RV{O}_{K\cdot J}$}
+        + (0,-1.2) node (OKLJ) {$\RV{O}_{KLJ}$}
+        + (0,-1.6) node (OLd) {$\RV{O}_{L\cdot}$}
+        + (0,-2) node (OLJ) {$\RV{O}_{LJ}$}
+        + (0,-2.4) node (OJ) {$\RV{O}_{J}$};
+        \draw (IKdd) to [out=0,in=180] ($(K.west) + (0,0.25)$) ($(K.east) + (0,0.25)$) to [out=0,in=180] (OKdd);
+        \draw (IKLd) -- (copyKL) to [out=-45,in=180] ($(L.west) + (0,0.1)$) (copyKL) to [out=55,in=180] ($(K.west) + (0,0.125)$)
+        ($(K.east)+(0,0.125)$) to [out=0,in=180] (copyOKL) to [out=-90,in=180] ($(L.west) + (0,0.3)$)
+        (copyOKL) to [out=0,in=180] (OKLd);
+        \draw (IKLJ) to [out=0,in=180] (copyKLJ) to [out=40,in=180] ($(K.west) + (0,-0.25)$) 
+        (copyKLJ) to [out=10,in=180] ($(L.west) + (0,0)$)
+        (copyKLJ) to [out=-25,in=180] ($(J.west) + (0,-0.2)$);
+        \draw (IKdJ) to [out=0,in=180] (copyKJ) to [out=65,in=180] ($(K.west) + (0,-0.125)$)
+        (copyKJ) to [out=-30,in=180] ($(J.west) + (0,-0.1)$);
+        \draw (IdLd) to [out=0,in=160] ($(IdLd)+(0.8,-0.1)$) to [out=-20,in=180] ($(L.west)+(0,-0.1)$);
+        \draw (IdLJ) to [out=0,in=180] (copyLJ) to[out=15,in=180] ($(L.west)+(0,-0.2)$)
+        (copyLJ) to [out=-10,in=180] ($(J.west) + (0,0.)$);
+        \draw (IddJ) to [out=0,in=180] ($(IddJ)+ (0.5,0)$) to [out=-15,in=180] ($(J.west) + (0,-0.3)$);
+        \draw ($(K.east)+(0,-0.125)$) to (copyOKJ) to [out=-75,in=180] ($(J.west) + (0,0.2)$)
+        (copyOKJ) to [out=0,in=180] (OKdJ)
+        (copyOKLJ) to [out=-80,in=180] ($(J.west) + (0,0.1)$);
+        \draw ($(K.east) + (0,-0.25)$) to [out=0,in=180] (copyOKLJ) to [out=0,in=180] (OKLJ)
+        (copyOKLJ) to [out=-35,in=180] ($(L.west) + (0,0.2)$);
+        \draw ($(L.east) + (0,0.2)$) to [out=0,in=180] (OLd)
+        ($(L.east) + (0,0)$) to [out=0,in=170] (copyOLJ) to [out=-10,in=180] (OLJ)
+        (copyOLJ) to [out=-45,in=180] ($(J.west) + (0,0.3)$);
+        \draw (J) to [out=0,in=180] (OJ);
+    \end{tikzpicture}\\
+    &\overset{perm}{=} \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}] \path (0,0) node (IKdd) {$\RV{I}_{K\cdot\cdot}$}
+        + (0,-0.4) node (IKLd) {$\RV{I}_{KL\cdot}$}
+        + (0,-0.8) node (IKdJ) {$\RV{I}_{K\cdot J}$}
+        + (0,-1.2) node (IKLJ) {$\RV{I}_{KLJ}$}
+        + (0,-1.6) node (IdLd) {$\RV{I}_{\cdot L \cdot}$}
+        + (0,-2) node (IdLJ) {$\RV{I}_{\cdot LJ}$}
+        + (0,-2.4) node (IddJ) {$\RV{I}_{\cdot\cdot J}$}
+        + (0.7,-0.4) node[copymap] (copyKL) {}
+        + (0.7,-.8) node[copymap] (copyKJ) {}
+        + (0.7,-1.2) node[copymap] (copyKLJ) {}
+        + (0.7,-2) node[copymap] (copyLJ) {}
+        ++ (1.5,-0.3) node[kernel,inner sep=5pt] (K) {$\kernel{K}$}
+        ++ (1.2,0.15) node[copymap] (copyOKL) {}
+        +  (0,-0.3) node[copymap] (copyOKJ) {}
+        + (0,-0.45) node[copymap] (copyOKLJ) {}
+        ++ (1.2,-0.9) node[kernel,inner sep=6pt] (L) {$\kernel{L}$}
+        ++ (1.2,-0.15) node[copymap] (copyOLJ) {}
+        ++ (1.2,-0.9) node[kernel,inner sep=6pt] (J) {$\kernel{J}$}
+        ++ (2.1, 2.1) node (OKdd) {$\RV{O}_{K\cdot\cdot}$}
+        + (0,-0.4) node (OKLd) {$\RV{O}_{KL\cdot}$}
+        + (0,-0.8) node (OKdJ) {$\RV{O}_{K\cdot J}$}
+        + (0,-1.2) node (OKLJ) {$\RV{O}_{KLJ}$}
+        + (0,-1.6) node (OLd) {$\RV{O}_{L\cdot}$}
+        + (0,-2) node (OLJ) {$\RV{O}_{LJ}$}
+        + (0,-2.4) node (OJ) {$\RV{O}_{J}$};
+        \draw (IKdd) to [out=0,in=180] ($(K.west) + (0,0.25)$) ($(K.east) + (0,0.25)$) to [out=0,in=180] (OKdd);
+        \draw (IKLd) -- (copyKL) to [out=-45,in=180] ($(L.west) + (0,0.1)$) (copyKL) to [out=55,in=180] ($(K.west) + (0,0.125)$)
+        ($(K.east)+(0,0.125)$) to [out=0,in=180] (copyOKL) to [out=-90,in=180] ($(L.west) + (0,0.3)$)
+        (copyOKL) to [out=0,in=180] (OKLd);
+        \draw (IKLJ) to [out=0,in=180] (copyKLJ) to [out=40,in=180] ($(K.west) + (0,-0.25)$) 
+        (copyKLJ) to [out=10,in=180] ($(L.west) + (0,0)$)
+        (copyKLJ) to [out=-25,in=180] ($(J.west) + (0,-0.2)$);
+        \draw (IKdJ) to [out=0,in=180] (copyKJ) to [out=65,in=180] ($(K.west) + (0,-0.125)$)
+        (copyKJ) to [out=-30,in=180] ($(J.west) + (0,-0.1)$);
+        \draw (IdLd) to [out=0,in=180] ($(L.west)+(0,-0.1)$);
+        \draw (IdLJ) to [out=0,in=180] (copyLJ) to[out=15,in=180] ($(L.west)+(0,-0.2)$)
+        (copyLJ) to [out=-10,in=180] ($(J.west) + (0,0.)$);
+        \draw (IddJ) to [out=0,in=180] ($(IddJ)+ (0.5,0)$) to [out=-15,in=180] ($(J.west) + (0,-0.3)$);
+        \draw ($(K.east)+(0,-0.125)$) to (copyOKJ) to [out=-75,in=180] ($(J.west) + (0,0.2)$)
+        (copyOKJ) to [out=0,in=180] (OKdJ)
+        (copyOKLJ) to [out=-80,in=180] ($(J.west) + (0,0.1)$);
+        \draw ($(K.east) + (0,-0.25)$) to [out=0,in=180] (copyOKLJ) to [out=0,in=180] (OKLJ)
+        (copyOKLJ) to [out=-35,in=180] ($(L.west) + (0,0.2)$);
+        \draw ($(L.east) + (0,0.2)$) to [out=0,in=180] (OLd)
+        ($(L.east) + (0,0)$) to [out=0,in=170] (copyOLJ) to [out=-10,in=180] (OLJ)
+        (copyOLJ) to [out=-45,in=180] ($(J.west) + (0,0.3)$);
+        \draw (J) to [out=0,in=180] (OJ);
+    \end{tikzpicture}\\
+    &= \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}]
+        \path (0,0) node (Y) {$\RV{I}_{K\cdot}$}
+        + (0,-0.3) node (Q) {$\RV{I}_{KQ}$}
+        + (0,-0.8) node (R) {$\RV{I}_{\cdot Q}$}
+        ++ (0.5,-0.3) node[copymap] (copy0) {}
+        ++ (0.5,0.15) node[kernel] (K) {$\kernel{K}$}
+        ++ (0.5,-0.15) node[copymap] (copy1) {}
+        ++ (0.6,-0.5) node[kernel] (L) {$\kernel{Q}$}
+        ++ (0.6, 0.8) node (Z) {$\RV{O}_{K\cdot}$}
+        + (0,-0.3) node (X) {$\RV{O}_{KQ}$}
+        + (0,-0.8) node (W) {$\RV{O}_Q$};
+        \draw (Y) -- ($(K.west) + (0,0.15)$) (Q) -- ($(K.west) + (0,-0.15)$);
+        \draw (copy0) to [out=-45,in=180] ($(L.west) + (0,0)$) (copy1) to [out=-60,in=180] ($(L.west) + (0,0.15)$);
+        \draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
+        \draw ($(K.east) + (0,-0.15)$) to (copy1);
+        \draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
+    \end{tikzpicture}\\
+    &= \kernel{K}\rightrightarrows (\kernel{L}\rightrightarrows \kernel{J})
+\end{align}
+
+\section{Appendix: String Diagram Examples}
+
+Recall the definition of \emph{connection}:
+
+\begin{align}
+    \kernel{K}\rightrightarrows \kernel{L} &:=  \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}]
+        \path (0,0) node (Y) {$\RV{I}_{F\cdot}$}
+        + (0,-0.3) node (Q) {$\RV{I}_{FS}$}
+        + (0,-0.8) node (R) {$\RV{I}_{\cdot S}$}
+        ++ (0.5,-0.3) node[copymap] (copy0) {}
+        ++ (0.5,0.15) node[kernel] (K) {$\kernel{K}$}
+        ++ (0.5,-0.15) node[copymap] (copy1) {}
+        ++ (0.6,-0.5) node[kernel] (L) {$\kernel{L}$}
+        ++ (0.6, 0.8) node (Z) {$\RV{O}_{F\cdot}$}
+        + (0,-0.3) node (X) {$\RV{O}_{FS}$}
+        + (0,-0.8) node (W) {$\RV{O}_S$};
+        \draw (Y) -- ($(K.west) + (0,0.15)$) (Q) -- ($(K.west) + (0,-0.15)$);
+        \draw (copy0) to [out=-45,in=180] ($(L.west) + (0,0)$) (copy1) to [out=-60,in=180] ($(L.west) + (0,0.15)$);
+        \draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
+        \draw ($(K.east) + (0,-0.15)$) to (copy1);
+        \draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
+    \end{tikzpicture}\label{eq:extn_definition1}\\
+    &:= \kernel{J}\\
+    \kernel{J}_{yqr}^{zxw} &= \kernel{K}_{yq}^{zx} \kernel{L}_{xqr}^{w}\label{eq:extn_definition2}
+\end{align}
+\end{definition}
+
+Equation \ref{eq:extn_definition1} can be broken down to the product of four Markov kernels, each of which is itself a tensor product of a number of other Markov kernels:
+\begin{align}
+    (\kernel{J},(\RV{I}_{F\cdot},\RV{I}_{FS},\RV{I}_{\cdot S}), (\RV{O}_{F\cdot},\RV{O}_{FS},\RV{O}_S)) &= \left[ \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+        \path (0,0) node (Y) {$\RV{I}_{F\cdot}$}
+        + (0,-0.3) node (Q) {$\RV{I}_{FS}$}
+        + (0,-0.75) node (R) {$\RV{I}_{\cdot S}$}
+        ++ (0.5,-0.3) node[copymap] (copy1) {}
+        ++ (0.5,0.3) node (Z) {}
+        ++ (0,-0.15) node (Q1) {}
+        ++ (0,-0.3) node (Q2) {}
+        ++ (0,-0.3) node (R2) {};
+        \draw (Y) -- (Z) (Q) -- (copy1) to [out=45,in=180] (Q1);
+        \draw (copy1) to [out=-45,in=180] (Q2);
+        \draw (R) -- (R2); \end{tikzpicture}\right]
+        \left[\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+        \path (0,0)  node (Z) {}
+        ++ (0,-0.15) node (Q1) {}
+        ++ (0,-0.3) node (Q2) {}
+        ++ (0,-0.3) node (R) {}
+        ++ (0.5,0.65) node[kernel] (K) {$\model{K}$}
+        ++ (0.5,0.1) node (Z1) {}
+        +  (0,-0.15) node (W) {}
+        + (0,-0.45) node (Q3) {}
+        + (0,-0.75) node (R2) {};
+        \draw (Z) -- ($(K.west) + (0,0.1)$) (Q1) -- ($(K.west) + (0,-0.05)$);
+        \draw (Q2) -- (Q3) (R) -- (R2) ($(K.east) + (0,0.1)$) -- (Z1); 
+        \draw ($(K.east) + (0,-0.05)$) -- (W);\end{tikzpicture}\right] 
+        \left[ \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+        \path (0,0) node (Z) {}
+        + (0,-0.15) node (X) {}
+        + (0,-0.45) node (Q) {}
+        + (0,-0.75) node (R) {}
+        ++ (0.5,-0.3) node[copymap] (copy1) {}
+        ++ (0.5,0.3) node (Z1) {}
+        ++ (0,-0.15) node (X1) {}
+        ++ (0,-0.3) node (X2) {}
+        ++ (0,-0.15) node (Q2) {}
+        ++ (0,-0.15) node (R2) {};
+        \draw (Z) -- (Z1) (X) to [out=0,in=180] (copy1) to [out=45,in=180] (X1);
+        \draw (copy1) to [out=-45,in=180] (X2);
+        \draw (Q) to [out=0,in=180] (Q2);
+        \draw (R) -- (R2); \end{tikzpicture}\right]
+        \left[\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+        \path (0,0) node (Z) {}
+        ++ (0,-0.15) node (X1) {}
+        ++ (0,-0.3) node (X2) {}
+        ++ (0,-0.15) node (Q) {}
+        ++ (0,-0.15) node (R) {}
+        ++ (0.5,0.15) node[kernel] (L) {$\model{L}$}
+        ++ (0.7,0) node (W) {$\RV{O}_{F\cdot}$}
+        ++ (0,0.35) node (X3) {$\RV{O}_{FS}$}
+        ++ (0,0.25) node (Z1) {$\RV{O}_S$};
+        \draw (X1) to [out=0,in=180] (X3) (Z) -- (Z1);
+        \draw (X2) to [out=0,in=180] ($(L.west) + (0,0.15)$);
+        \draw (Q) to [out=0,in=180] ($(L.west) + (0,0)$);
+        \draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
+        \draw (L) -- (W);\end{tikzpicture}\right]\\
+\end{align}

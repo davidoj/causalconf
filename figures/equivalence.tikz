@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=medium kernel tikzit] (0) at (-4.25, 0.25) {$\kernel{K}$};
+		\node [style=none] (1) at (-0.25, 0.25) {$=$};
+		\node [style=medium kernel tikzit] (2) at (3.5, 0.25) {$\kernel{L}$};
+		\node [style=none] (3) at (-5, 0.75) {};
+		\node [style=none] (4) at (-5, -0.25) {};
+		\node [style=none] (5) at (-3.75, 0.75) {};
+		\node [style=none] (6) at (-3.75, -0.25) {};
+		\node [style=none] (7) at (3, 0.75) {};
+		\node [style=none] (8) at (3, -0.25) {};
+		\node [style=none] (9) at (4, 0.75) {};
+		\node [style=none] (10) at (4, -0.25) {};
+		\node [style=RLabel tikzit] (11) at (5.5, 0.75) {$\RV{Z}$};
+		\node [style=RLabel tikzit] (12) at (5.5, -0.25) {$\RV{W}$};
+		\node [style=RLabel tikzit] (13) at (-2.25, 0.75) {$\RV{Z}$};
+		\node [style=RLabel tikzit] (14) at (-2.25, -0.25) {$\RV{W}$};
+		\node [style=Llabel tikzit] (15) at (-6.5, 0.75) {$\RV{X}$};
+		\node [style=Llabel tikzit] (16) at (-6.5, -0.25) {$\RV{Y}$};
+		\node [style=Llabel tikzit] (17) at (1.75, 0.75) {$\RV{X}$};
+		\node [style=Llabel tikzit] (18) at (1.75, -0.25) {$\RV{Y}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (15) to (3.center);
+		\draw (16) to (4.center);
+		\draw (5.center) to (13);
+		\draw (6.center) to (14);
+		\draw [in=180, out=0] (17) to (8.center);
+		\draw [in=-180, out=0] (18) to (7.center);
+		\draw [in=180, out=0] (9.center) to (12);
+		\draw [in=-180, out=0] (10.center) to (11);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  22 SEP 2021 23:49
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  28 SEP 2021 16:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -229,11 +229,28 @@ Package microtype Info: Loading configuration file microtype.cfg.
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg
 File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/euscript.sty
-Package: euscript 2009/06/22 v3.00 Euler Script fonts
-LaTeX Font Info:    Overwriting math alphabet `\EuScript' in version `bold'
-(Font)                  U/eus/m/n --> U/eus/b/n on input line 33.
-)
+(./tikzit.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks17
+\pgfutil@tempdima=\dimen153
+\pgfutil@tempdimb=\dimen154
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
+ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box46
+(/usr/share/texlive/texmf-dist/tex/latex/ms/everyshi.sty
+Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2020/01/08 v3.1.5b (3.1.5b)
+))
+Package: pgf 2020/01/08 v3.1.5b (3.1.5b)
+
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
 
@@ -251,30 +268,9 @@ Package graphics Info: Driver file: xetex.def on input line 105.
 (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/xetex.def
 File: xetex.def 2017/06/24 v5.0h Graphics/color driver for xetex
 ))
-\Gin@req@height=\dimen153
-\Gin@req@width=\dimen154
+\Gin@req@height=\dimen155
+\Gin@req@width=\dimen156
 )
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks17
-\pgfutil@tempdima=\dimen155
-\pgfutil@tempdimb=\dimen156
-
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
-ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box46
-(/usr/share/texlive/texmf-dist/tex/latex/ms/everyshi.sty
-Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
-))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
-Package: pgfrcs 2020/01/08 v3.1.5b (3.1.5b)
-))
-Package: pgf 2020/01/08 v3.1.5b (3.1.5b)
-
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
@@ -547,17 +543,24 @@ zlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibrarypositioning.code.tex
-File: tikzlibrarypositioning.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+zlibrarybackgrounds.code.tex
+File: tikzlibrarybackgrounds.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@layerbox@background=\box57
+\pgf@layerboxsaved@background=\box58
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibraryshapes.misc.code.tex
-File: tikzlibraryshapes.misc.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+zlibraryarrows.code.tex
+File: tikzlibraryarrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
-s.misc.code.tex
-File: pgflibraryshapes.misc.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.
+tex
+File: pgflibraryarrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\arrowsize=\dimen261
 ))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.code.tex
+File: tikzlibraryshapes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryshapes.geometric.code.tex
 File: tikzlibraryshapes.geometric.code.tex 2020/01/08 v3.1.5b (3.1.5b)
@@ -567,16 +570,86 @@ s.geometric.code.tex
 File: pgflibraryshapes.geometric.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.misc.code.tex
+File: tikzlibraryshapes.misc.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.misc.code.tex
+File: pgflibraryshapes.misc.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.symbols.code.tex
+File: tikzlibraryshapes.symbols.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.symbols.code.tex
+File: pgflibraryshapes.symbols.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.arrows.code.tex
+File: tikzlibraryshapes.arrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.arrows.code.tex
+File: pgflibraryshapes.arrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.callouts.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.callouts.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.multipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfnodepartlowerbox=\box59
+\pgfnodeparttwobox=\box60
+\pgfnodepartthreebox=\box61
+\pgfnodepartfourbox=\box62
+\pgfnodeparttwentybox=\box63
+\pgfnodepartnineteenbox=\box64
+\pgfnodeparteighteenbox=\box65
+\pgfnodepartseventeenbox=\box66
+\pgfnodepartsixteenbox=\box67
+\pgfnodepartfifteenbox=\box68
+\pgfnodepartfourteenbox=\box69
+\pgfnodepartthirteenbox=\box70
+\pgfnodeparttwelvebox=\box71
+\pgfnodepartelevenbox=\box72
+\pgfnodeparttenbox=\box73
+\pgfnodepartninebox=\box74
+\pgfnodeparteightbox=\box75
+\pgfnodepartsevenbox=\box76
+\pgfnodepartsixbox=\box77
+\pgfnodepartfivebox=\box78
+)))
+\pgf@layerbox@edgelayer=\box79
+\pgf@layerboxsaved@edgelayer=\box80
+\pgf@layerbox@nodelayer=\box81
+\pgf@layerboxsaved@nodelayer=\box82
+) (./diagrams.tikzstyles)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/euscript.sty
+Package: euscript 2009/06/22 v3.00 Euler Script fonts
+LaTeX Font Info:    Overwriting math alphabet `\EuScript' in version `bold'
+(Font)                  U/eus/m/n --> U/eus/b/n on input line 33.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarycalc.code.tex
 File: tikzlibrarycalc.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.
 code.tex
 File: pgflibraryarrows.meta.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfarrowinset=\dimen261
-\pgfarrowlength=\dimen262
-\pgfarrowwidth=\dimen263
-\pgfarrowlinewidth=\dimen264
+\pgfarrowinset=\dimen262
+\pgfarrowlength=\dimen263
+\pgfarrowwidth=\dimen264
+\pgfarrowlinewidth=\dimen265
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryintersections.code.tex
@@ -608,11 +681,11 @@ Package: amstext 2000/06/29 v2.01 AMS text
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks35
-\ex@=\dimen265
+\ex@=\dimen266
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen266
+\pmbraise@=\dimen267
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
@@ -627,9 +700,9 @@ LaTeX Info: Redefining \overline on input line 389.
 LaTeX Info: Redefining \ldots on input line 486.
 LaTeX Info: Redefining \dots on input line 489.
 LaTeX Info: Redefining \cdots on input line 610.
-\Mathstrutbox@=\box57
-\strutbox@=\box58
-\big@size=\dimen267
+\Mathstrutbox@=\box83
+\strutbox@=\box84
+\big@size=\dimen268
 LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
 \macc@depth=\count284
@@ -642,12 +715,12 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
 \column@=\count289
 \maxfields@=\count290
 \andhelp@=\toks37
-\eqnshift@=\dimen268
-\alignsep@=\dimen269
-\tagshift@=\dimen270
-\tagwidth@=\dimen271
-\totwidth@=\dimen272
-\lineht@=\dimen273
+\eqnshift@=\dimen269
+\alignsep@=\dimen270
+\tagshift@=\dimen271
+\tagwidth@=\dimen272
+\totwidth@=\dimen273
+\lineht@=\dimen274
 \@envbody=\toks38
 \multlinegap=\skip59
 \multlinetaggap=\skip60
@@ -728,8 +801,8 @@ File: pgflibraryfadings.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count299
 \calc@Bcount=\count300
-\calc@Adimen=\dimen274
-\calc@Bdimen=\dimen275
+\calc@Adimen=\dimen275
+\calc@Bdimen=\dimen276
 \calc@Askip=\skip61
 \calc@Bskip=\skip62
 LaTeX Info: Redefining \setlength on input line 80.
@@ -742,9 +815,9 @@ LaTeX Info: Redefining \addtolength on input line 81.
 (/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
 \labelindent=\skip64
-\enit@outerparindent=\dimen276
+\enit@outerparindent=\dimen277
 \enit@toks=\toks43
-\enit@inbox=\box59
+\enit@inbox=\box85
 \enit@count@id=\count303
 \enitdp@description=\count304
 )
@@ -814,14 +887,14 @@ LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
 \g_MT_multlinerow_int=\count305
-\l_MT_multwidth_dim=\dimen277
+\l_MT_multwidth_dim=\dimen278
 \origjot=\skip65
-\l_MT_shortvdotswithinadjustabove_dim=\dimen278
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen279
-\l_MT_above_intertext_sep=\dimen280
-\l_MT_below_intertext_sep=\dimen281
-\l_MT_above_shortintertext_sep=\dimen282
-\l_MT_below_shortintertext_sep=\dimen283
+\l_MT_shortvdotswithinadjustabove_dim=\dimen279
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen280
+\l_MT_above_intertext_sep=\dimen281
+\l_MT_below_intertext_sep=\dimen282
+\l_MT_above_shortintertext_sep=\dimen283
+\l_MT_below_shortintertext_sep=\dimen284
 )
 \c@theorem=\count306
 \c@innercustomthm=\count307
@@ -831,40 +904,47 @@ Package csquotes Info: ... none found.
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-xdvipdfmx.def
 File: l3backend-xdvipdfmx.def 2020-02-03 L3 backend support: xdvipdfmx
 \g__graphics_track_int=\count308
-\l__pdf_internal_box=\box60
+\l__pdf_internal_box=\box86
 \g__pdf_backend_object_int=\count309
 \g__pdf_backend_annotation_int=\count310
 )
-(./main.aux)
+(./main.aux
+
+LaTeX Warning: Label `eq:extn_definition1' multiply defined.
+
+
+LaTeX Warning: Label `eq:extn_definition2' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 159.
-LaTeX Font Info:    ... okay on input line 159.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 159.
-LaTeX Font Info:    ... okay on input line 159.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 159.
-LaTeX Font Info:    ... okay on input line 159.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 159.
-LaTeX Font Info:    ... okay on input line 159.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 159.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 167.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 1
-59.
+67.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 159.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 159.
-LaTeX Font Info:    ... okay on input line 159.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 159.
-LaTeX Font Info:    ... okay on input line 159.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 159.
-LaTeX Font Info:    ... okay on input line 159.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 159.
-LaTeX Font Info:    ... okay on input line 159.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 159.
-LaTeX Font Info:    ... okay on input line 159.
-\AtBeginShipoutBox=\box61
-Package hyperref Info: Link coloring OFF on input line 159.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+\AtBeginShipoutBox=\box87
+Package hyperref Info: Link coloring OFF on input line 167.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -877,15 +957,15 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count311
 )
-LaTeX Info: Redefining \ref on input line 159.
-LaTeX Info: Redefining \pageref on input line 159.
-LaTeX Info: Redefining \nameref on input line 159.
+LaTeX Info: Redefining \ref on input line 167.
+LaTeX Info: Redefining \pageref on input line 167.
+LaTeX Info: Redefining \nameref on input line 167.
 
 (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 159.
+LaTeX Info: Redefining \microtypecontext on input line 167.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: No adjustment of tracking.
@@ -897,7 +977,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (RS)
 )
 ABD: EveryShipout initializing macros
-LaTeX Font Info:    Trying to load font information for U+msa on input line 162
+LaTeX Font Info:    Trying to load font information for U+msa on input line 170
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -906,7 +986,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 162
+LaTeX Font Info:    Trying to load font information for U+msb on input line 170
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -916,18 +996,23 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for U+stmry on input line 1
-62.
+70.
 
 (/usr/share/texlive/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
-LaTeX Font Info:    Trying to load font information for U+wasy on input line 16
-2.
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 17
+0.
 
 (/usr/share/texlive/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 )
 
 LaTeX Font Warning: Font shape `U/stmry/b/n' undefined
-(Font)              using `U/stmry/m/n' instead on input line 162.
+(Font)              using `U/stmry/m/n' instead on input line 170.
+
+(./main.toc)
+\tf@toc=\write5
+\openout5 = `main.toc'.
+
 
 (/usr/share/texlive/texmf-dist/tex/generic/stringenc/se-ascii-print.def
 File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
@@ -935,71 +1020,44 @@ File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
 )
 [1
 
-]
-LaTeX Font Info:    Trying to load font information for U+eus on input line 178
+] [2]
+LaTeX Font Info:    Trying to load font information for U+eus on input line 188
 .
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueus.fd
 File: ueus.fd 2013/01/14 v3.01 Euler Script
 )
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-eus.cfg
 File: mt-eus.cfg 2006/07/28 v1.2 microtype config. file: AMS Euler Script (RS)
-) [2]
+)
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 182.
- (./main.toc)
-\tf@toc=\write5
-\openout5 = `main.toc'.
+ine 192.
 
 (./probability.tex [3]
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmss' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [4] [5] [6] [7] [8]
-Overfull \hbox (15.87161pt too wide) detected at line 288
-[]
+ [4] [5] [6] (./figures/truncated_factorisation.tikz)
+(./figures/truncated_factorisation.tikz) (./figures/double_label.tikz)
+(./figures/double_label.tikz) [7]
+Overfull \hbox (24.33128pt too wide) in paragraph at lines 174--175
+[]\T1/lmr/m/n/10 Otherwise, if $\OT1/cmss/m/n/10 Z$ \T1/lmr/m/n/10 is syn-ony-m
+ous with $\OT1/cmr/m/n/10 (\OT1/cmss/m/n/10 X\OML/cmm/m/it/10 ; \OT1/cmss/m/n/1
+0 Y\OT1/cmr/m/n/10 )$ \T1/lmr/m/n/10 then $\OML/cmm/m/it/10 m[]\OT1/cmr/m/n/10 
+(\OT1/cmss/m/n/10 Z\OT1/cmr/m/n/10 ) = [][] \OML/cmm/m/it/10 m[]\OT1/cmr/m/n/10
+ (\OT1/cmss/m/n/10 X[]\OT1/cmr/m/n/10 ) +
  []
 
-
-Overfull \hbox (27.09242pt too wide) detected at line 348
-[]
- []
-
-[9]
-Overfull \hbox (9.27867pt too wide) detected at line 519
-[]
- []
-
-[10]
-Overfull \hbox (31.29422pt too wide) in paragraph at lines 524--525
-[][]\T1/lmr/bx/n/10 Theorem 2.3 \T1/lmr/m/n/10 (Ex-ten-sion is com-pat-i-ble wi
-th a mod-elling con-text)\T1/lmr/bx/n/10 . []\T1/lmr/m/it/10 Given $\U/msb/m/n/
-10 M\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 ZX\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/10 YQ\O
-T1/cmr/m/n/10 ; \OT1/cmr/bx/n/10 K\OT1/cmr/m/n/10 ]$
- []
-
-
-Overfull \hbox (8.07832pt too wide) in paragraph at lines 524--525
-\T1/lmr/m/it/10 and $\U/msb/m/n/10 N\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 W\OMS/cms
-y/m/n/10 j\OT1/cmss/m/n/10 XQR\OT1/cmr/m/n/10 ; \OT1/cmr/bx/n/10 L\OT1/cmr/m/n/
-10 ]$ \T1/lmr/m/it/10 in a mod-elling con-text $\U/eus/m/n/10 M$\T1/lmr/m/it/10
- , let $\OT1/cmr/bx/n/10 J \OT1/cmr/m/n/10 = \U/msb/m/n/10 M\OT1/cmr/m/n/10 [\O
-T1/cmss/m/n/10 ZX\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/10 YQ\OT1/cmr/m/n/10 ; \OT1/cm
-r/bx/n/10 K\OT1/cmr/m/n/10 ] \U/msa/m/n/10 ^^S \U/msb/m/n/10 N\OT1/cmr/m/n/10 [
-\OT1/cmss/m/n/10 W\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/10 XQR\OT1/cmr/m/n/10 ; \OT1/
-cmr/bx/n/10 L\OT1/cmr/m/n/10 ]$\T1/lmr/m/it/10 .
- []
-
-[11]
-Overfull \hbox (12.6703pt too wide) in paragraph at lines 545--546
-[][]\T1/lmr/bx/n/10 Definition 2.4 \T1/lmr/m/n/10 (marginal)\T1/lmr/bx/n/10 . [
-]\T1/lmr/m/n/10 Given a con-di-tional prob-a-bil-ity $\U/msb/m/n/10 K\OT1/cmr/m
-/n/10 [\OT1/cmss/m/n/10 XY\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/10 W\OT1/cmr/m/n/10 ]
-$\T1/lmr/m/n/10 , the marginal
- []
-
-[12]) (./seedo.tex [13] [14]) (./cbns.tex [15]) (./potential_outcomes.tex
-[16] [17] [18]
+[8] (./figures/equivalence.tikz) (./figures/equivalence.tikz) [9] [10]
+(./figures/iconnectm.tikz) (./figures/iconnectm_rev.tikz)
+(./figures/iconnectm.tikz) (./figures/iconnectm_rev.tikz)
+(./figures/iconnectm_clear.tikz) (./figures/iconnectm_clear.tikz) [11]
+(./figures/iconnectm_dclear.tikz) (./figures/iconnectm_dclear.tikz) [12]
+(./figures/truncated_factorisation_labeled.tikz)
+(./figures/truncated_factorisation_labeled.tikz) [13]
+(./figures/cond_indep1.tikz) (./figures/cond_indep1.tikz) [14]
+(./figures/ci_example.tikz) (./figures/ci_example.tikz)) (./seedo.tex [15])
+(./cbns.tex [16]) (./potential_outcomes.tex [17] [18] [19]
 Overfull \hbox (34.32564pt too wide) in paragraph at lines 51--52
 \T1/lmr/m/it/10 al-lel po-ten-tial out-come sub-model \T1/lmr/m/n/10 if $\OT1/c
 mr/bx/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/n/10 j\OT1/cmss/m/
@@ -1009,14 +1067,14 @@ ex-ists and $\OT1/cmr/bx/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m
 )][] =
  []
 
-
+[20]
 Overfull \hbox (1.61238pt too wide) in paragraph at lines 65--66
 \T1/lmr/m/n/10 con-di-tion-ally in-de-pen-dent and iden-ti-cally dis-tributed M
 arkov ker-nel $\U/msb/m/n/10 P\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/
 n/10 j\OT1/cmss/m/n/10 J\OT1/cmr/m/n/10 ][] =
  []
 
-[19]
+
 Overfull \hbox (2.66875pt too wide) in paragraph at lines 80--81
 [][]\T1/lmr/bx/n/10 Definition 5.4 \T1/lmr/m/n/10 (Ex-ten-sion)\T1/lmr/bx/n/10 
 . []\T1/lmr/m/n/10 Given a Markov ker-nel space $\OT1/cmr/m/n/10 (\OT1/cmr/bx/n
@@ -1024,14 +1082,14 @@ Overfull \hbox (2.66875pt too wide) in paragraph at lines 80--81
  (\OT1/cmr/bx/n/10 K[]\OML/cmm/m/it/10 ; E[]; F[]\OT1/cmr/m/n/10 )$
  []
 
-
+[21]
 Overfull \hbox (16.46306pt too wide) in paragraph at lines 88--89
 [][]\T1/lmr/bx/n/10 Definition 5.5 \T1/lmr/m/n/10 (Ex-tend-ably ex-change-able)
 \T1/lmr/bx/n/10 . []\T1/lmr/m/n/10 Given a Markov ker-nel space $\OT1/cmr/m/n/1
 0 (\OT1/cmr/bx/n/10 K\OML/cmm/m/it/10 ; E; F\OT1/cmr/m/n/10 )$\T1/lmr/m/n/10 ,
  []
 
-[20]
+
 Overfull \hbox (36.55618pt too wide) in paragraph at lines 107--108
 []\T1/lmr/m/n/10 Let $\OML/cmm/m/it/10 e \OT1/cmr/m/n/10 = (\OML/cmm/m/it/10 e[
 ]\OT1/cmr/m/n/10 )[]$\T1/lmr/m/n/10 . In-tro-duce the vari-able $\OT1/cmss/m/n/
@@ -1042,7 +1100,7 @@ cmm/m/it/10 D\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/10 D[]Z\OT1/cmr/m
 /n/10 ][] =
  []
 
-[21]) (./appendix.tex [22]
+[22]) (./appendix.tex [23]
 Overfull \hbox (24.04094pt too wide) in paragraph at lines 18--19
 []\T1/lmr/m/it/10 Then there ex-ists a unique see-do model $\OT1/cmr/m/n/10 (\O
 T1/cmr/bx/n/10 T\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 H[]\OML/cmm/m/it/10 ; \OT1/
@@ -1052,12 +1110,43 @@ T1/cmr/m/n/10 [[]][] =
  []
 
 
-LaTeX Warning: Reference `ssec:disintegration' on page 23 undefined on input li
+LaTeX Warning: Reference `ssec:disintegration' on page 24 undefined on input li
 ne 22.
 
-[23]) (./main.bbl
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-3.
+[24] [25]
+Overfull \hbox (9.27867pt too wide) detected at line 242
+[]
+ []
+
+[26]
+
+! LaTeX Error: \begin{document} ended by \end{definition}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.269 \end{definition}
+                      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.269 \end{definition}
+                      
+Things are pretty mixed up, but I think the worst is over.
+
+
+Overfull \hbox (27.09242pt too wide) detected at line 328
+[]
+ []
+
+[27]) (./main.bbl
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
+0.
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -1066,45 +1155,45 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 6284) in paragraph at lines 16--26
+Underfull \hbox (badness 6284) in paragraph at lines 34--44
 []\T1/lmr/m/n/10 A. P. Dawid.  Causal In-fer-ence with-out Coun-ter-fac-tu-als.
   \T1/lmr/m/it/10 Jour-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 16--26
+Underfull \hbox (badness 10000) in paragraph at lines 34--44
 \T1/lmr/m/it/10 nal of the Amer-i-can Sta-tis-ti-cal As-so-ci-a-tion\T1/lmr/m/n
 /10 , 95(450):407--424,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 16--26
+Underfull \hbox (badness 10000) in paragraph at lines 34--44
 \T1/lmr/m/n/10 June 2000.  ISSN 0162-1459.  doi: $10 . 1080 / 01621459 . 2000 .
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 16--26
+Underfull \hbox (badness 10000) in paragraph at lines 34--44
 \T1/lmr/m/n/10 10474210$.  URL []$\T1/lmtt/m/n/10 https : / / www . tandfonline
  . com / doi / abs / 10 . 1080 /
  []
 
 
-Underfull \hbox (badness 5893) in paragraph at lines 16--26
+Underfull \hbox (badness 5893) in paragraph at lines 34--44
 \T1/lmtt/m/n/10 01621459 . 2000 . 10474210$[]\T1/lmr/m/n/10 .  Pub-lisher: Tay-
 lor & Fran-cis _eprint:
  []
 
 Missing character: There is no ł in font ec-lmr10!
 Missing character: There is no ń in font ec-lmr10!
-[24]) [25] [26]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 209.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 209.
+[28]) [29] [30]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 218.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 218.
  (./main.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 209.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 209.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 218.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 218.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 9E4C9DABADB56464640B5A46E8A2C270;1837.
+(rerunfilecheck)             Checksum: 764B419548F53ABED56051B0716AEE2B;1478.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1112,15 +1201,18 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 209.
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 218.
  ) 
 Here is how much of TeX's memory you used:
- 27181 strings out of 479819
- 493431 string characters out of 5895847
- 841881 words of memory out of 5000000
- 43746 multiletter control sequences out of 15000+600000
+ 29258 strings out of 479819
+ 553176 string characters out of 5895847
+ 925827 words of memory out of 5000000
+ 45728 multiletter control sequences out of 15000+600000
  586514 words of font info for 102 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 60i,13n,83p,1337b,873s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 68i,14n,83p,1337b,939s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.xdv (26 pages, 252508 bytes).
+Output written on main.xdv (30 pages, 339708 bytes).

@@ -1,36 +1,46 @@
 %!TEX root = main.tex
 
 
-\section{Technical prerequesites}
+\section{Probability with connectable submodels}
 
-Our theory makes heavy use of \emph{Markov kernels} or \emph{stochastic functions}, which are taken from probability theory. However, the manner in which we use them is non-standard. The usual way to apply probability theory to model building is to assume we have a probability space $(\prob{P},\Omega,\sigalg{F})$ with random variables defined as functions with domain $\Omega$, and all aspects of the model of interest are supposed to be captured by this. Under our approach, we instead consider components, represented by Markov kernels $\kernel{K}:E\to \Delta(F)$ along with labeled inputs and outputs.  The labels do the same job that random variables do in the usual formulation. These components can be composed or broken apart, but we do not assume that there is an overarching probability space from which all components can be derived.
+Throughout this paper, we will work with a restricted probability theory in which any measurable set $X$ to be a finite set. This is both because it makes explanations simpler and because it is easy to show that submodels exist in this setting (Lemma \ref{lem:subm_exist}). Many of the proofs in this paper (with the exception of the one just mentioned) can likely be specialised to more general probility theories due to our use of string diagrams developed for Markov categories.
 
-In addition, we introduce a graphical notation for Markov kernels that is the subject of a coherence theorem: two Markov kernels represented by pictures that differ only by planar deformations are identical \citep{selinger_survey_2010}.
+The standard method of constructing probability models introduces a probability space $(\prob{P},(\Omega,\sigalg{F}))$ with $\Omega$ a sample space, $\sigalg{F}$ a $\sigma$-algebra on $\Omega$ and $\prob{P}$ a probability measure on $(\Omega,\sigalg{F})$. Random variables are defined by measurable functions on $\Omega$ and are given names in sans-serif like $\RV{X}$. A probability distribution $\prob{P}^{\RV{XYZ}}$ is ``the joint distribution of $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ under $\prob{P}$'' where $\RV{X},$ $\RV{Y}$ and $\RV{Z}$ are associated with random variables on $\Omega$ and is given by the pushforward of the function $\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega),\RV{Z}(\omega))$. Unless otherwise stated, a random variable named $\RV{X}$ will take values in the space $X$ (note the serif font).
 
-\subsection{Markov kernels}
-Markov kernels can be thought of as measurable functions that map to probability distributions. A conditional probability $\prob{P}(\RV{Y}|\RV{X})$, which maps from values of $X$ to probability distributions over $Y$, and an interventional map $x\mapsto \prob{P}(\RV{Y}|do(\RV{X}=x))$ that likewise maps values of $X$ to probability distributions on $Y$, are both Markov kernels.
+To help us to construct causal models, we need an alternative method for building probability models. The motivation for doing this is to make it easy to represent a certain type of operation common in causal models. It is well-known that causal models make use of operations that are not standard in probability theory. For example, in the causal graphical model framework, given $\prob{P}^{\RV{XYZ}}$, if $\RV{Z}$ blocks a backdoor path between $\RV{X}$ and $\RV{Y}$ then the backdoor adjustment formula allows us to define a new probability space with measure $\prob{P}_x$ via ``truncated factorisation'' \citep[page ~24]{pearl_causality:_2009}:
 
-Our theory is susbtantially simplified by restricting our attention to discrete sets -- that is, sets $X$ with at most a countable number of elements endowed with the $\sigma$-algebra made up of every subset of $X$, also called the discrete $\sigma$-algebra.
-
-In the discrete setting, we can represent probability distributions as covectors, Markov kernels as matrices and measurable functions as vectors.
-
-Given a set $X$, a probability distribution $\prob{P}$ on $X$ is a covector in $\mathbb{R}^{|X|}$, which we will write $\prob{P}:=(\prob{P}^i)_{i\in X}$. To be a probability distribution we require
 \begin{align}
-	0\leq &P_i \leq 1 &\forall i\in X\\
-	\sum_i P_i &= 1 
+	\prob{P}^{\RV{YZ}}_{x}(y,z):=\prob{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\label{eq:truncated_fac}
 \end{align}
 
-% A measurable function $f:X\to Y$ is a vector in $Y^{|X|}$ where $Y$ is some vector space. We write $f:=(f^i)_{i\in X}$.
+The standard theory of probability does not assign any special siginificance to the expression on the right side of Equation \ref{eq:truncated_fac}. At the same time, the notation we have chosen for the left side of Equation \ref{eq:truncated_fac} implicitly claims that $\prob{P}^{\RV{YZ}}_{x}$ is a distribution over the same variables $\RV{Y}$ and $\RV{Z}$ as the original $\prob{P}^{\RV{XYZ}}$. One way we can make sense of this is if $\prob{P}_{x}$ is defined on the same sample space as the original $\prob{P}$, and $\RV{Y}$ and $\RV{Z}$ are the same measurable functions on $\Omega$. However, we need to be careful that Equation \ref{eq:truncated_fac} is not therefore a contradiction. For example, if $\RV{X}=\RV{Z}$ (as in, $\RV{X}$ and $\RV{Z}$ are \emph{the same function on }$\Omega$) then there will generally be no measure $\prob{P}_x$ such that $\prob{P}^{\RV{YZ}}_{x}(y,z)$ agrees with Equation \ref{eq:truncated_fac}.
 
-Given discrete sets $X$ and $Y$, a Markov kernel $\kernel{K}:X\to \Delta(Y)$ is a matrix in $\mathbb{R}^{|X|\times |Y|}$; $\kernel{K} = (K_{i}^j)_{i\in X,j\in Y}$ where
+We want to be able to define operations like Equation \ref{eq:truncated_fac}, and we want to keep the idea that the measure that results from this operation is a joint distribution over the ``same variables''. We do this by distinguishing \emph{variable names} from the functions used to represent the variables on a particular sample space. In our framework, variables are measurable functions \emph{with names}; most measurable functions will not be given a name, and so are not variables. We note that this is implicitly accomplished by the Structural Causal Model framework, in which ``intervention'' takes a variable named $\RV{X}$ associated with a function $f:\Omega\to X$ and replaces this with a different function $g:\Omega \to X$ associated with the same variable $\RV{X}$. This operation cannot be defined with an ``anonymous function'' because there is no name enabling a statement like ``this new function $g$ points to the same thing the old function $f$ did''. Consequently, ``variable names'' are an integral part of Structural Causal Models.
+
+\subsection{Markov categories}
+The basic elements we will work with are finite sets and Markov kernels. A Markov kernel $\kernel{K}:X\to \Delta(Y)$ is a map from $X$ to probability distributions on $Y$. We can represent it concretely by the elements $(\kernel{K}_{x}^y)_{x\in X, y\in Y}$. An element $K_x^y$ represents the probability of $y\in Y$ given the argument $x\in X$. In general, an argument $w$ appearing as a superscript can be read as ``the probability of $w$'' and an argument $v$ appearing as a subscript can be read as ``given $v$''. Note that we do \emph{not} use Einstein summation in any expressions in this paper -- all sums will be written out explicitly.
+
+A Markov kernel must have the following properties:
 \begin{align}
-	0\leq &K_{i}^j \leq 1 &\forall i,j\\
-	\sum_{i\in X} K_{i}^j &= 1 & \forall j
+	0\leq &K_{x}^y \leq 1 &\forall x,y\\
+	\sum_{y\in Y} K_{x}^y &= 1 & \forall x
 \end{align}
 
-Rows of Markov kernel are probability distributions: $\kernel{K}_x:=(K_{x}^j)_{j\in Y}$. Alternatively, we can consider probability distributions to be Markov kernels with one row.
+A probability distribution is a Markov kernel $\kernel{P}:\{*\}\to \Delta(Y)$ where $\{*\}$ is a one-element set. Such a Markov kernel can be represented as a matrix with one row, i.e. a column vector.
 
-Graphically, we represent a Markov kernel as a box and a probability distribution as a triangle:
+We define two particular Markov kernels that play a special role. The erase map $\stopper{0.3}:X\to \{*\}$ is represented by the matrix $\stopper{0.3}_x = 1$ for all $x\in X$. It maps every element of $X$ to the unique probability distribution on $\{*\}$, which gives probability 1 to $*$, the only element of the set; we can think of this as forgetting the input.
+
+The copy map $\splitter{0.15}: X\to \Delta(X\times X)$ is the Markov kernel represented by the matrix $\splitter{0.15}_x^{x',x''}:= \llbracket x = x' \rrbracket \llbracket x=x''\rrbracket$, where the iverson bracket $\llbracket \cdot \rrbracket$ evaluates to $1$ if $\cdot$ is true and $0$ otherwise. We can think of the copy map as taking an element $x$ and outputting a joint distribution of two ``variables'' that are deterministically equal to $x$.
+
+A swap map $\swap{0.2}: X\times Y \to \Delta(Y\times X)$ is the Markov kernel represented by the matrix $\swap{0.2}_{x,y}^{y',x'}:=\llbracket x=x' \rrbracket \llbracket y=y'\rrbracket$. It takes two inputs and returns a joint distribution on two ``variables'' deterministically equal to the swapped inputs.
+
+The category with finite sets as objects, Markov kernels as morphisms, matrix products as the composition operation, $\stopper{0.3}$ as the counit and $\splitter{0.15}$ as the comultiplication forms the category FinStoch. This is not a category theory paper, but the fact that we are working in this category has a practical consequence. FinStoch is a \emph{Markov category}, as defined by \citet{fritz_synthetic_2020} and discussed earlier by \citet{cho_disintegration_2019,fong_causal_2013}. All Markov categories share a formal system of ``string diagrams'' such that a valid derivation using the diagrammatic notation corresponds to a valid theorem in the category. Markov categories include categories more general than ours, such as the category with general measurable sets as objects and Markov kernels as morphisms.
+
+\subsection{Graphical notation for Markov categories}
+
+\todo[inline]{In an appendix, state the axioms of Markov categories and maybe a short tutorial on reading diagrams}
+
+We represent a Markov kernel as a box and a probability distribution as a triangle:
 
 \begin{align}
 \kernel{K}&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -46,13 +56,25 @@ Graphically, we represent a Markov kernel as a box and a probability distributio
 \end{tikzpicture}
 \end{align}
 
-\subsection{Cartesian and tensor products}
+Two Markov kernels $\kernel{L}:X\to \Delta(Y)$ and $\kernel{M}:Y\to \Delta(Z)$ have a product $\kernel{L}\kernel{M}:X\to \Delta(Z)$ given by the matrix product: $\kernel{L}\kernel{M}_x^z = \sum_y \kernel{L}_x^y\kernel{M}_y^z$. Graphically, we write represent products by joining kernel wires together:
+
+\begin{align}
+	\kernel{L}\kernel{M}:= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\path (0,0) node (A) {}
+	++ (0.5,0) node[kernel] (K) {$\kernel{K}$}
+	++ (0.7,0) node[kernel] (M) {$\kernel{M}$}
+	++ (0.5,0) node (B) {};
+	\draw (A) -- (K) -- (M) -- (B);
+\end{tikzpicture}
+\end{align}
+
+We read diagrams from left to right (this is somewhat different to \citet{fritz_synthetic_2020,cho_disintegration_2019,fong_causal_2013} but in line with \citet{selinger_survey_2010}). They are to be read as a series of products of Markov kernels. For some special Markov kernels, we can replace the generic ``box'' of a Markov kernel with a special diagrammatic element that is visually suggestive of what they accomplish.
 
 The Cartesian product $X\times Y:=\{(x,y)|x\in X, y\in Y\}$.
 
 Given kernels $\kernel{K}:W\to Y$ and $\kernel{L}:X\to Z$, the tensor product $\kernel{K}\otimes\kernel{L}:W\times X\to \Delta(Y\times Z)$ is defined by $(\kernel{K}\otimes\kernel{L})_{(w,x)}^{(y,z)}:=K_{w}^y L_{x}^z$.
 
-Graphically, the tensor product is represeted by parallel juxtaposition:
+The tensor product is represeted by parallel juxtaposition:
 
 \begin{align}
 	\kernel{K}\otimes \kernel{L}&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -67,96 +89,119 @@ Graphically, the tensor product is represeted by parallel juxtaposition:
 \end{tikzpicture}
 \end{align}
 
-% Given functions $f:W\to Y$ and $g:X\to Z$, the tensor product $f\otimes g:W\times X\to Y\times Z$ is defined by $(f\otimes g)_{(w,x)}=(f_w,g_x)$.
-
-\subsection{Delta measures, erase maps, copy maps}
-
-The iverson bracket $\llbracket \cdot \rrbracket$ evaluates to $1$ if $\cdot$ is true and $0$ otherwise.
-
-% For any $X$ and any $A\subset X$, $\mathds{1}[A]$ is the function defined by $\mathds{1}[A]_x= \llbracket x\in A \rrbracket$. Thus $\prob{P}[A]=\prob{P}\mathds{1}[A]$. We use square brackets to highlight the fact that $\mathds{1}[A]$ is a function rather than a scalar.
-
-For any $X$ and any $x\in X$, $\delta[x]$ is the probability measure defined by $\delta[x]^i = \llbracket x=i \rrbracket$. The identity map $\mathrm{Id}[X]:X\to \Delta(X)$ is given by $x\mapsto \delta[x]$.
-
-Graphically, the identity map is a bare line:
+The identity map is a bare line:
 
 \begin{align}
-	\mathrm{Id}[X]&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\mathrm{Id}&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) ++ (0.5,0) node (B) {};
 	\draw (A) -- (B);
 \end{tikzpicture}
 \end{align}
 
-% We define the Markov kernel $\underline{f}:X\to \Delta(\sigalg{Y})$ associated with the function $f:X\to Y$ with the matrix defined by $\underline{f}_x^i = \delta[f_x]^i$
-
-The erase map $\stopper{0.2}[A]:A\to \{1\}$ is the map $\stopper{0.3}[A]_i = 1$. It is the unique Markov kernel with domain $A$ and only one column.
-
-Graphically, the stopper is a fuse:
+The stopper is a fuse:
 
 \begin{align}
-	\mathrm{Id}[X]&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-	\path (0,0) ++ (0.5,0) node (B) {};
+	\stopper{0.3}&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\path (0,0) ++ (1,0) node (B) {};
 	\draw[-{Rays[n=8]}] (A) -- (B);
 \end{tikzpicture}
 \end{align}
 
-The copy map $\splitter{0.15} [X]:X\to \Delta(X\times X)$ is the Markov kernel defined by $\splitter{0.15}_x:= \delta_{x} \otimes \delta_x$. Graphically it is a fork with a dot at the point where it splits:
+The splitter is a fork:
 
 \begin{align}
-	\splitter{0.2}[X]&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\splitter{0.2}&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) node (A) {} 
-	++ (0.3,0) node[copymap] (copy0) {}
+	++ (0.5,0) node[copymap] (copy0) {}
 	++ (0.5,0.15) node (B) {}
 	+ (0,-0.3) node (C) {};
 	\draw (A) -- (copy0) to [out=45,in=180] (B) (copy0) to [out=-45, in=180] (C);
 \end{tikzpicture}
 \end{align}
 
-\subsection{Products}
-
-Two Markov kernels $\kernel{L}:X\to \Delta(Y)$ and $\kernel{M}:Y\to \Delta(Z)$ have a product $\kernel{L}\kernel{M}:X\to \Delta(Z)$ given by the usual matrix-matrix product: $\kernel{L}\kernel{M}_x^z = \sum_y \kernel{L}_x^y\kernel{M}_y^z$. Graphically, we write represent products by joining kernel wires together:
+The swap map swaps wires:
 
 \begin{align}
-	\kernel{L}\kernel{M}:= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-	\path (0,0) node (A) {}
-	++ (0.5,0) node[kernel] (K) {$\kernel{K}$}
-	++ (0.7,0) node[kernel] (M) {$\kernel{M}$}
-	++ (0.5,0) node (B) {};
-	\draw (A) -- (K) -- (M) -- (B);
-\end{tikzpicture}
+	\swap{0.2} &:=  \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+		\path (0,0) node (A) {} 
+		+ (0,-0.5) node (B) {}
+		++ (1,0) node (C) {}
+		+ (0,-0.5) node (D) {};
+		\draw (A) to [out=0,in=180] (D) (B) to [out=0, in=180] (C);
+	\end{tikzpicture}
 \end{align}
 
-\subsection{Label dictionaries, equality and inclusion}
+We will use the graphical notation for derivations, but because it is quite unfamiliar we will also include translations to more familiar notation.
 
-A \emph{modelling context} $\mathscr{M}$ is a collection of labels, a label dictionary (defined in this section) and a collection of conditional probabilities (defined in section \ref{sec:cp}. It can be thought of as a namespace that ensures that the properties defined in section \ref{sec:mc_axioms} hold.
+\subsection{Revisiting truncated factorisation}
 
-, if we respect the naming rules (section \ref{sec:mc_axioms}), any two conditional probabilities with the same name will be the same and any model containing two instances of the label name will assign probability 0 to any point at which the two labels differ.
-
-A label collection is a collection of labels, each of which is assigned to a measurable set. For example, $\{\RV{X}:X,\RV{Y}:Y,\RV{X}_1:X_1,\RV{X}_2:X_2\}$. A sequence of labels is associated with the cartesian product of the sets associated with the individual labels. For example, $(\RV{X},\RV{Y}):X\times Y$.
-
-A label dictionary is a set of statements of equality between labels and between labels and sequences of labels. For example, we might have the set $\{\RV{X}=(\RV{X}_1,\RV{X}_2),\RV{W}=\RV{X}\}$. The sets associated with the labels on each side of all equality statements must be the same.
-
-If an equality $\RV{W}=\RV{X}$ appears in the label dictionary then any true expression involving conditional probabilities or labels remains true when all instances of $\RV{X}$ are replaced by $\RV{W}$ or vise-versa. A label $\RV{X}_1$ is contained in $\RV{X}$ iff it is possible to derive from the label dictionary a statement of equality between $\RV{X}$ and a sequence of labels containing $\RV{X}_1$.
-
-Because it saves a lot of space, we will generally hold to the convention that a label $\RV{X}$ is associated with the set $X$. However, this convention sometimes fails, for example when we have two labels $\RV{X}_1$ and $\RV{X}_2$ that are associated with the same set -- in such cases, we will explicitly define the relationship.
-
-The trivial label $*$ always corresponds to the 1-element set $\{*\}$. Because $\{*\}\times A$ is isomorphic to $A$ for any $A$, we can consider any label sequence to be isomorphic to the same label sequence with any number of copies of the trivial label appended. A sequence of labels that consists entirely of trivial labels is equivalent to the trivial label. An empty sequence is equivalent to the trivial label.
-
-
-\subsection{Labeled Markov kernels, conditional probabilities}\label{sec:cp}
-
-A labeled Markov kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$ is a Markov kernel $\kernel{K}:X\to \Delta(Y)$ along with a sequence of \emph{domain labels} $\RV{A}_C:=(\RV{A}_i)_{i\in C}$ and \emph{codomain labels} $\RV{B}_D:=(\RV{B}_i)_{i\in D}$. A label assignment is valid if the Markov kernel's domain matches the sets associated with its domain labels and its codomain is the same as the sets associated with its codomain labels.
-
-A labeled probability distribution $\prob{P}\in\Delta(Y)$ comes with a sequence of codomain labels $(\RV{B}_i)_{i\in D}$ only.
-
-A conditional probability $\model{L}[\RV{A}_C|\RV{B}_D;\kernel{K}]$ is a labeled kernel $(\kernel{K},\RV{A}_C,\RV{B}_D)$ along with an \emph{ambient model} (Definition \ref{def:ambient_cp}) $\model{L}$.
-
-Graphically, we place the labels on the wires of a conditional probability and include the ambient model in the name of the Markov kernel:
+Recall the original problem of defining operations like Equation \ref{eq:truncated_fac}. We can seemingly do this quite easily using the tools of the FinStoch category. Note that $P^{\RV{Y|XZ}}$ must be represented by a Markov kernel $\kernel{K}:X\times Z\to \Delta(Y)$ and $\prob{P}^{\RV{Z}}$ by a Markov kernel $\kernel{L}\in \Delta(Z)$ (we will explain later why we explicitly distinguish Markov kernels from conditional probabilities). Then it seems that we can define a Markov kernel $\kernel{M}:X\to \Delta(X\times Z)$ representing $x\mapsto \prob{P}^{\RV{YZ}}_{x}(y,z)$ by
 
 \begin{align}
-	\model{L}[\RV{B}_1\RV{B}_2|\RV{A}_1\RV{A}_2;\kernel{K}] := \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\kernel{M}:= \tikzfig{truncated_factorisation}\label{eq:tfac_setted}
+\end{align}
+
+There is a problem, however: in the diagram above $X$, $Y$ and $Z$ refer to the \emph{sets in which variables take values}, which are not an adequate substitute for variable labels. For example, if $\RV{X}_1$ and $\RV{X}_2$ both take values in $X$, then a Markov kernel $\kernel{K}$ representing some $\prob{P}^{\RV{X_1X_2}}$ could be drawn
+
+\begin{align}
+	\kernel{K}:= \tikzfig{double_label}
+\end{align}
+
+However the variable associated with each wire is different. Our solution to this is to give labels to sets. A labeled set is a set together with a label, such as $(\RV{X}_1,X)$, which can be read as the set of statements ``$\RV{X}_1=x$'' for each $x\in X$. In fact, we allow sets to have multiple synonymous labels $(\{\RV{X}_1,\RV{Q}\},X)$, which can be read as stipulating that $\RV{X}_1$ and $\RV{Q}$ refer to the same thing. In general, any two labels that appear in the same label set are called \emph{synonyms}.
+
+Let $N_{\RV{X}}$ refer to the set of labels of $\RV{X}$. Any collection of labeled sets must live in a ``labelspace'' that prevents us from making inadmissible label assignments. We require the following axioms to hold for labeled sets occupying the same labelspace:
+
+\begin{enumerate}
+	\item \textbf{Uniqueness of labels:} Given two labeled sets $(N_1,X)$ and $(N_2,Y)$, if there exists some $\RV{W}\in N_1$ and $\RV{W}\in N_2$ then $N_1=N_2$ and $X=Y$
+	\item \textbf{Empty label:} There is a unique empty label $*$ which is always associated with a 1-element set $\{*\}$
+\end{enumerate}
+
+Due to Axiom 1, we can unambiguously refer to a labeled set $(N_1,X)$ by any of its labels $\RV{X}\in N_1$. 
+
+We define a \emph{sequence} of labeled sets
+
+\begin{itemize}
+	\item \textbf{Sequence of labeled sets:} Given $(N_\RV{X},X)$ and $(N_{\RV{Y}},Y)$ with $\RV{X}\in N_\RV{X}$ and $\RV{Y}\in N_{\RV{Y}}$, the sequence $(\RV{X}, \RV{Y})$ is the labeled set $(N,X\times Y)$ with $(\RV{X},\RV{Y})\in N$
+\end{itemize}
+
+Note that $(\RV{X},\RV{Y})$ is also a label. $(\RV{X},\RV{Y})$ may have synonyms such as $\RV{Z}$. We say a label $\RV{U}$ is \emph{atomic} if none of its synonyms are sequences of labels.
+
+For some $\RV{W}$, we use $m_{\RV{W}}(\RV{Z})$ to refer to ``the number of times $\RV{W}$ appears in $\RV{Z}$''. We define this as follows:
+
+\begin{itemize}
+	\item $m_{\RV{W}}(\RV{Z})=1$ if $\RV{W}$ is a synonym of $\RV{Z}$
+	\item $m_\RV{W}(\RV{Z})=0$ if $\RV{Z}$ is atomic and $\RV{W}$ is not a synonym of $\RV{Z}$
+	\item Otherwise, if $\RV{Z}$ is synonymous with $(\RV{X},\RV{Y})$ then $m_{\RV{W}}(\RV{Z})=\argmax_{\RV{X}'\in N_{\RV{X}}} m_{\RV{W}}(\RV{X}') + \argmax_{\RV{Y}'\in N_{\RV{Y}}} m_{\RV{W}}(\RV{Y}')$
+\end{itemize}
+
+\todo[inline]{It's not obvious that this is unique}
+
+We say $\RV{X}$ is in $\RV{Y}$ or $\RV{X}\in \RV{Y}$ if $m_{\RV{X}}(\RV{Y})>0$. We say that $*$ is in every sequence.
+
+With this in mind, we define the following operations on sequences of labels
+
+\begin{enumerate}
+	\item \textbf{Difference of labels:} Given $\RV{X}$, $\RV{Y}$, the difference $\RV{X}\setminus \RV{Y}$ is a label sequence $\RV{Z}$ such that for any label $\RV{X}_i$, $m_{\RV{X}_i}(\RV{Z}) = \max(0,m_{\RV{X}_i}(\RV{X})-m_{\RV{X}_i}(\RV{Y}))$
+	\item \textbf{Intersection of labels:} Given $\RV{X}$, $\RV{Y}$, the intersection $\RV{X}\cap \RV{Y}$ is a label sequence $\RV{Z}$ such that for any label $\RV{X}_i$, $m_{\RV{X}_i}(\RV{Z}) = \min(m_{\RV{X}_i}(\RV{X}),m_{\RV{X}_i}(\RV{Y}))$
+\end{enumerate}
+
+These definitions are non-unique in that they do not define the order of $\RV{Z}$. This doesn't cause a problem because we work with labeled Markov kernels that we define to be equivalent if one can be obtained from the other by permuting its labels and applying the corresponding swap maps. We use the convention that $*$ is synonymous with a sequence under which every label has multiplicity 0.
+
+\subsection{Labeled Markov kernels}\label{sec:labeled_kernels}
+
+\todo[inline]{LabeledFinStoch is actually a different category to FinStoch and I have to show it satisfies the axioms of a Markov category}
+
+A labeled Markov kernel $\kernel{K}:\RV{A}\to \Delta(\RV{B})$ is a Markov kernel that maps between labeled sets. If $\RV{A}$ takes values in $X$ and $\RV{B}$ takes values in $Y$, then $\kernel{K}$ is the underlying Markov kernel $\kernel{K'}:X\to \Delta(Y)$ along with the \emph{domain label} $\RV{A}$ and \emph{codomain label} $\RV{B}$. The labels $\RV{A}$ and $\RV{B}$ can be replaced by any synonyms of $\RV{A}$ and $\RV{B}$.
+
+A labeled probability distribution $\prob{P}\in\Delta(Y)$ comes with a codomain label $(\RV{B})$ only.
+
+Graphically, we annotate the wires of a labeled kernel with the corresponding labels. If $\kernel{K}:(\RV{A}_1,\RV{A}_2)\to \Delta(\RV{B}_1,\RV{B}_2)$, it is represented:
+
+\begin{align}
+	\kernel{K} := \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) node (A1) {$\RV{A}_1$}
 	+ (0,-0.3) node (A2) {$\RV{A}_2$}
-	++ (0.7,-0.15) node[kernel] (K) {$\kernel{K}[\model{L}]$}
+	++ (0.7,-0.15) node[kernel] (K) {$\kernel{K}$}
 	++ (0.7,0.15) node (B1) {$\RV{B}_1$}
 	+ (0,-0.3) node (B2) {$\RV{B}_2$};
 	\draw (A1) -- ($(K.west) + (0,0.15)$) (A2) -- ($(K.west) + (0,-0.15)$);
@@ -164,10 +209,10 @@ Graphically, we place the labels on the wires of a conditional probability and i
 \end{tikzpicture}
 \end{align}
 
-A sequence of labels is itself a label, so we can also bundle wires and their corresponding labels together:
+We can also use single wires to represent sequences of labeled sets:
 
 \begin{align}
-	\model{L}[\RV{B}_1\RV{B}_2|\RV{A}_1\RV{A}_2;\kernel{K}] = \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\kernel{K} = \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) node (A1) {$(\RV{A}_1,\RV{A}_2)$}
 	++ (1.3,0) node[kernel] (K) {$\kernel{K}[\model{L}]$}
 	++ (1.3,0.) node (B1) {$(\RV{B}_1,\RV{B}_2)$};
@@ -175,33 +220,19 @@ A sequence of labels is itself a label, so we can also bundle wires and their co
 \end{tikzpicture}
 \end{align}
 
-If two conditional probabilities $\model{L}[\RV{A}_C|\RV{B}_D;\kernel{K}]$ and $\model{M}[\RV{A}_C|\RV{B}_D;\kernel{K}]$ share the same kernel, we will say $\model{L}[\RV{A}_C|\RV{B}_D;\kernel{K}]\overset{krn}{=}\model{K}[\RV{A}_C|\RV{B}_D;\kernel{K}]$.
+We say two labeled kernels $\kernel{K}$ and $\kernel{L}$ are equivalent if one can be obtained from the other by a permutation of labels and application of the corresponding swap maps. For example, if we have $\kernel{K}:(\RV{X},\RV{Y})\to \Delta(\RV{Z},\RV{W})$ and $\kernel{L}:(\RV{Y},\RV{X})\to \Delta(\RV{W},\RV{Z})$, then $\kernel{K}$ and $\kernel{L}$ are equivalent, written $\kernel{K}\overset{perm}{=}\kernel{L}$ if
 
-\subsection{Ambient model}
+\begin{align}
+\tikzfig{equivalence}
+\end{align}
 
-An ambient model is a tuple $\model{L}:=(\kernel{L},D,E,\mathscr{C},\mathscr{R})$ where $\kernel{L}:D\to \Delta(E)$ is a Markov kernel, $D$ and $E$ are the domain and codomain, $\mathscr{C}$ is a set of \emph{choice variable definitions} and $\mathscr{R}$ is a set of \emph{random variable definitions}. $\mathscr{C}$ and $\mathscr{R}$ each assign labels to measurable functions on $D$ and $E$ respectively. Given a label $\RV{X}$ associated with a set $X$, if the label assignment $\RV{X}:f\in \mathscr{R}$ then it must be the case that $f:D\to X$ or $f:E\to X$. 
-
-If the label dictionary contains the assignment $\RV{X}=(\RV{Y},\RV{Z})$ and the variable assignments $\{\RV{X}:f_{\RV{X}},\RV{Y}:f_{\RV{Y}},\RV{Z}:f_{\RV{Z}}\}$ are a subset of either $\mathscr{R}$ or $\mathscr{C}$, then it must be the case that $f_{\RV{X}}(h)=(f_{\RV{Y}}(h),f_{\RV{Z}}(h))$.
-
-Let $\RV{D}$ be the sequence of all choice variables $\RV{D}=(\RV{A})_{\RV{A}\in \mathscr{D}}$. Then $f_{\RV{D}}$ must be an invertible function of $D$.
-
-The same label can appear in both $\mathscr{C}$ and $\mathscr{R}$ and can appear multiple times in $\mathscr{R}$. However, each label can appear at most once in $\mathscr{C}$. In addition, the assignment of repeated labels to functions must be compatible with the first axiom of modelling contexts (\ref{sec:mc_axioms}); namely, the random variables that are given the same name must be almost surely equal.
-
-Given $\RV{X}:f_{\RV{X}}\in \mathscr{R}$, $\model{L}[\RV{X}|\RV{D}]:=(d,A)\mapsto \sum_{i\in f_{\RV{X}}^{-1}(A)} \kernel{L}_d^i$ is the \emph{conditional probability of $\RV{X}$ given $\RV{D}$} under $\model{L}$.
-
-Given $\{\RV{X}:f_{\RV{X}},\RV{Y}:f_{\RV{Y}}\}\in \mathscr{R}$, any Markov kernel $\kernel{M}$ such that $\model{L}[\RV{XY}|\RV{D}]_d^{A\times B} = \sum_{i\in f_{\RV{X}}^{-1}(A)} \model{L}[\RV{X}|\RV{D}]_d^i \kernel{M}_(d,i)^B$ is a version of the \emph{conditional probability of $\RV{Y}$ given $(\RV{X}, \RV{D})$} under $\model{L}$.
-
-\subsection{Modelling context axioms}\label{sec:mc_axioms}
-
-We place the following requirements on elements of $\mathscr{M}$:
+A labeled Markov kernel must satisfy the following axiom. This axiom is what makes the use of labeled Markov kernels and labeled sets different to the use of ordinary Markov kernels and sets.
 
 \begin{enumerate}
-	\item Any model containing two instances of the same label will assign probability 0 to any point at which the two labels differ
-	\item The kernel $\kernel{K}:A^C\to \Delta(B^D)$ of the conditional probability $\model{L}[\RV{A}_C|\RV{B}_D;\kernel{K}]$ is a version of the \emph{probability of $\RV{A}_C$ given $\RV{B}_D$} under the ambient model $\model{L}$
+	\item For any labeled kernel $\kernel{K}:\RV{A}\to \Delta(\RV{B})$, there must be a valid diagrammatic representation in which all instances of the same label are connected by a path consisting of wires and copy maps only.
 \end{enumerate}
 
-The first axiom can be broken down into two cases. 
-\paragraph{Case 1} Given $\model{M}[\RV{X}\RV{Y}|\RV{X}\RV{Z};\kernel{K}]$, we require that there exist some $\kernel{H}:X\times Z\to \Delta(Y)$ such that
+For example, given $\kernel{K}:(\RV{X},\RV{Y})\to \Delta(\RV{X},\RV{Z})$, we require that there exist some $\kernel{H}:X\times Z\to \Delta(Y)$ such that
 \begin{align}
 	\kernel{K} &= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 					\path (0,0) node (X) {$\RV{X}$}
@@ -215,66 +246,66 @@ The first axiom can be broken down into two cases.
 					\draw (Z) -- ($(L.west) + (0,-0.15)$);
 				 \end{tikzpicture}\label{eq:extn1}\\
 	 	&\iff\\
-	 \kernel{K}_{xz}^{x'y} &= \delta[x]^{x'}\kernel{L}_{xz}^{y}
+	 \kernel{K}_{xz}^{x'y} &= \llbracket x=x'\rrbracket \kernel{H}_{xz}^{y}
 \end{align}
 
-\paragraph{Case 2} Given $\model{M}[\RV{X}\RV{X}\RV{Y}|\RV{Z};\kernel{K}]$, we require that there exist some $\kernel{H}:Z\to \Delta(X\times Y)$ such that
+Note the path connecting the two instances of $\RV{X}$ goes only through a copy map. For a second example, given $\kernel{L}: \RV{Z}\to \Delta(\RV{X},\RV{X},\RV{Y})$, we require that there exist some $\kernel{G}:\RV{Z}\to \Delta(\RV{X}, \RV{Y})$ such that
 \begin{align}
-	\kernel{K} &= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\kernel{L} &= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 					\path (0,0) node (Z) {$\RV{Z}$}
-					++ (0.9,0) node[kernel] (L) {$\kernel{H}$}
+					++ (0.9,0) node[kernel] (L) {$\kernel{G}$}
 					++ (0.9,0.15) node[copymap] (copy0) {}
 					++ (0.5,0.3) node (X1) {$\RV{X}$}
 					++ (0,-0.3) node (X2) {$\RV{X}$}
 					++  (0,-0.3) node (Y) {$\RV{Y}$};
 					\draw ($(L.east) + (0,0.15)$) -- (copy0) to[out=0,in=180] (X2);
 					\draw (copy0) to [out=45,in=180] (X1);
-					\draw (Z) -- (L) ($(L.east) + (0,-0.15)$) -- (Y);
+					\draw (Z)--(L) ($(L.east) + (0,-0.15)$) -- (Y);
 				 \end{tikzpicture}\label{eq:extn2}\\
 			   &\iff\\
-		\kernel{K}_{z}^{xx'y} &= \delta[x]^{x'}\kernel{L}_{z}^{xy}	   
+		\kernel{L}_{z}^{xx'y} &= \llbracket x=x' \rrbracket\kernel{G}_{z}^{xy}	   
 \end{align}
+
+In short, \emph{instances of the same label must be deterministically equal}. Note that this axiom rules out the existence of any labeled kernels with multiple copies of the same label as inputs.
+
+The \emph{connection} operation, defined in the next section, can compactly represent both cases above. If $\RV{X}$ is some label that appears twice in the output of $\kernel{L}$ or once in the input and once in the output, then there must be some $\kernel{M}$ such that
+
+\begin{align}
+	\kernel{L}=\kernel{M}\rightrightarrows\kernel{I}\label{eq:extn3}
+\end{align}
+
+\todo[inline]{I need to make this an axiom}
 
 \subsection{Connection}
 
-Connection is an operation $\rightrightarrows$ that ``joins'' two labeled Markov kernels where the labels can be matched and preserves unmatched inputs and outputs. A key property of extension is that, if both input Markov kernels satisfy Axiom 1, then the output also satisfies axiom 1. Depending on the labels of the inputs, the extension operation can reduce to:
-\begin{itemize}
-	\item The tensor product
-	\item The matrix product
-	\item The operation that combines a marginal and a conditional probability to yield a joint probability
-\end{itemize}
+Connection is an associative operation $\rightrightarrows$ that ``joins'' two labeled Markov kernels where the labels can be matched and preserves unmatched inputs and outputs. A key property of connection is that, if both input Markov kernels satisfy Axiom 1, then the output also satisfies axiom 1. One can think of this operation like connecting two lego bricks of different sizes -- we connect all the parts that will fit together, and all the connection points that don't fit are left available.
 
-We overload $\rightrightarrows$ to also refer to an conditional probabilities. In general, the result of connecting of two conditional probabilities sharing an ambient model does not satisfy Axiom 2. We assume the result of connecting two conditional probabilities is equipped with an arbitrary ambient model satisfying Axiom 2. We show that it is always possible to make some choice for this and, in particular cases, an ambient model matching the inputs can be chosen.
-
-Given two labeled Markov kernels $(\kernel{K},\RV{I}_F,\RV{O}_F)$ and $(\kernel{L},\RV{I}_S,\RV{O}_S)$, make the following label identifications:
+Given two labeled Markov kernels $\kernel{F}:\RV{I}_F\to\Delta(\RV{O}_F)$ and $\kernel{S}:\RV{I}_S\to\Delta(\RV{O}_S)$, make the following label identifications:
 \begin{align}
-	\RV{O}_{F\cdot}&:=\RV{O}_F\setminus\RV{I}_S\\
-	\RV{O}_{FS}&:=\RV{O}_F\cap\RV{I}_S\\
-	\RV{I}_{F\cdot} &:= \RV{I}_F\setminus \RV{I}_S\\
-	\RV{I}_{FS}&:= \RV{I}_F\cap\RV{I}_S\\
-	\RV{I}_{\cdot S}&:= \RV{I}_S\setminus \RV{I}_F\\
-	\RV{O}_{I_FO_S*}&:=\RV{O}_S\cap \RV{I}_F\\
-	\RV{O}_{O_FO_S*} &:= \RV{O}_F\cap\RV{O}_S\setminus \RV{I}_S\\
+	\RV{O}_{F\cdot}&:=\RV{O}_F\setminus\RV{I}_S &\text{Labels only in the output of } \kernel{F}\\
+	\RV{O}_{FS}&:=\RV{O}_F\cap\RV{I}_S &\text{Labels in the output of both}\\
+	\RV{I}_{F\cdot} &:= \RV{I}_F\setminus \RV{I}_S &\text{Labels only in the input } \kernel{F}\\
+	\RV{I}_{FS}&:= \RV{I}_F\cap\RV{I}_S &\text{Labels in the input of both}\\
+	\RV{I}_{\cdot S}&:= \RV{I}_S\setminus \RV{I}_F &\text{Labels only in the input of }\kernel{S} \\
+	\RV{O}_{I_FO_S*}&:=\RV{O}_S\cap \RV{I}_F\setminus \RV{I}_S &\text{Input of }\kernel{F}\text{ and the output only of }\kernel{S}\\
+	\RV{O}_{O_FO_S*} &:= \RV{O}_F\cap\RV{O}_S\setminus \RV{I}_S&\text{Output of }\kernel{F}\text{ and the output only of }\kernel{S}\\
 \end{align}
 
-The output labels may contain duplicates, but not the input labels. We use the convention that at most one of each label in $\RV{O}_F$ belongs to $\RV{O}_{FS}$ and the multiplicity of each label in $(\RV{O}_{F\cdot},\RV{O}_{FS},\RV{O}_{\cdot S})$ is equal to the multiplicity of each label in $(\RV{O}_F,\RV{O}_S)$. Thus if a label is shared between $\RV{O}_F$ and $\RV{I}_S$ and appears 3 times in $\RV{O}_F$, one copy is assigned to $\RV{O}_{FS}$ and two to $\RV{O}_{F\cdot}$.
+$\kernel{F}$ can be connected to $\kernel{S}$ iff $\RV{O}_{I_FO_S*}$ synonymous with $*$ and $\RV{O}_{O_FO_S*}$ is also synonymous with $*$. The reason for this is that, in general, if these sets were non-empty then we would not have a way to connect $\kernel{F}$ and $\kernel{S}$ without violating axiom 1.
 
-$(\kernel{K},\RV{I}_F,\RV{O}_F)$ can be connected to $(\kernel{L},\RV{I}_S,\RV{O}_S)$ iff $\RV{O}_{I_FO_S*}$ is trivial (the output of the ``second'' kernel cannot be connected to the inputs of the ``first'') and $\RV{O}_{O_FO_S*}$ is also trivial (the two kernels do not propose conflicting models of the same label).
-
-\begin{definition}[extension]\label{def:extension}
-Consider two labeled Markov kernels $(\kernel{K},\RV{I}_F,\RV{O}_F)$ which can be connected to $(\kernel{L},\RV{I}_S,\RV{O}_S)$. Because they can be conected, we can write $(\kernel{K},(\RV{I}_{F\cdot},\RV{I}_{FS}),(\RV{O}_{F\cdot},\RV{O}_{FS}))$ and $(\kernel{L},(\RV{I}_{FS},\RV{I}_{\cdot S}),\RV{O}_S)$.
+\begin{definition}[connection]\label{def:extension}
+Consider a labeled Markov kernel $\kernel{F}:\RV{I}_F\to\Delta(\RV{O}_F)$ which can be connected to $\kernel{S}:\RV{I}_S\to\Delta(\RV{O}_S)$. Because they can be conected, we can write $\kernel{F}:(\RV{I}_{F\cdot},\RV{I}_{FS})\to\Delta(\RV{O}_{F\cdot},\RV{O}_{FS}))$ and $\kernel{S}:(\RV{I}_{FS},\RV{I}_{\cdot S})\to\Delta(\RV{O}_S)$.
 
 Then Equations \ref{eq:extn_definition1} and \ref{eq:extn_definition2} are equivalent definitions of extension:
 \begin{align}
-	(\kernel{K},(\RV{I}_{F\cdot},\RV{I}_{FS}),(\RV{O}_{F\cdot},\RV{O}_{FS}))\rightrightarrows (\kernel{L},(\RV{I}_{FS},\RV{I}_{\cdot S}),\RV{O}_S) &:= (\kernel{J},(\RV{I}_{F\cdot},\RV{I}_{FS},\RV{I}_{\cdot S}), (\RV{O}_{F\cdot},\RV{O}_{FS},\RV{O}_S))\\
-	&:=  \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}]
+	\kernel{K}\rightrightarrows \kernel{L} &:=  \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}]
 		\path (0,0) node (Y) {$\RV{I}_{F\cdot}$}
 		+ (0,-0.3) node (Q) {$\RV{I}_{FS}$}
 		+ (0,-0.8) node (R) {$\RV{I}_{\cdot S}$}
 		++ (0.5,-0.3) node[copymap] (copy0) {}
-		++ (0.5,0.15) node[kernel] (K) {$\kernel{K}$}
+		++ (0.5,0.15) node[kernel] (K) {$\kernel{F}$}
 		++ (0.5,-0.15) node[copymap] (copy1) {}
-		++ (0.6,-0.5) node[kernel] (L) {$\kernel{L}$}
+		++ (0.6,-0.5) node[kernel] (L) {$\kernel{S}$}
 		++ (0.6, 0.8) node (Z) {$\RV{O}_{F\cdot}$}
 		+ (0,-0.3) node (X) {$\RV{O}_{FS}$}
 		+ (0,-0.8) node (W) {$\RV{O}_S$};
@@ -284,317 +315,160 @@ Then Equations \ref{eq:extn_definition1} and \ref{eq:extn_definition2} are equiv
 		\draw ($(K.east) + (0,-0.15)$) to (copy1);
 		\draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
 	\end{tikzpicture}\label{eq:extn_definition1}\\
-	\kernel{J}_{yqr}^{zxw} &= \kernel{K}_{yq}^{zx} \kernel{L}_{xqr}^{w}\label{eq:extn_definition2}
+	&:= \kernel{J}\\
+	\kernel{J}_{yqr}^{zxw} &= \kernel{F}_{yq}^{zx} \kernel{S}_{xqr}^{w}\label{eq:extn_definition2}
 \end{align}
+Note that there are no sums in Equation \ref{eq:extn_definition1}, this is simply a product of matrix elements.
 \end{definition}
 
-Equation \ref{eq:extn_definition1} can be broken down to the product of four Markov kernels, each of which is itself a tensor product of a number of other Markov kernels:
-\begin{align}
-	(\kernel{J},(\RV{I}_{F\cdot},\RV{I}_{FS},\RV{I}_{\cdot S}), (\RV{O}_{F\cdot},\RV{O}_{FS},\RV{O}_S)) &= \left[ \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-		\path (0,0) node (Y) {$\RV{I}_{F\cdot}$}
-		+ (0,-0.3) node (Q) {$\RV{I}_{FS}$}
-		+ (0,-0.75) node (R) {$\RV{I}_{\cdot S}$}
-		++ (0.5,-0.3) node[copymap] (copy1) {}
-		++ (0.5,0.3) node (Z) {}
-		++ (0,-0.15) node (Q1) {}
-		++ (0,-0.3) node (Q2) {}
-		++ (0,-0.3) node (R2) {};
-		\draw (Y) -- (Z) (Q) -- (copy1) to [out=45,in=180] (Q1);
-		\draw (copy1) to [out=-45,in=180] (Q2);
-		\draw (R) -- (R2); \end{tikzpicture}\right]
-		\left[\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-		\path (0,0)  node (Z) {}
-		++ (0,-0.15) node (Q1) {}
-		++ (0,-0.3) node (Q2) {}
-		++ (0,-0.3) node (R) {}
-		++ (0.5,0.65) node[kernel] (K) {$\model{K}$}
-		++ (0.5,0.1) node (Z1) {}
-		+  (0,-0.15) node (W) {}
-		+ (0,-0.45) node (Q3) {}
-		+ (0,-0.75) node (R2) {};
-		\draw (Z) -- ($(K.west) + (0,0.1)$) (Q1) -- ($(K.west) + (0,-0.05)$);
-		\draw (Q2) -- (Q3) (R) -- (R2) ($(K.east) + (0,0.1)$) -- (Z1); 
-		\draw ($(K.east) + (0,-0.05)$) -- (W);\end{tikzpicture}\right] 
-		\left[ \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-		\path (0,0) node (Z) {}
-		+ (0,-0.15) node (X) {}
-		+ (0,-0.45) node (Q) {}
-		+ (0,-0.75) node (R) {}
-		++ (0.5,-0.3) node[copymap] (copy1) {}
-		++ (0.5,0.3) node (Z1) {}
-		++ (0,-0.15) node (X1) {}
-		++ (0,-0.3) node (X2) {}
-		++ (0,-0.15) node (Q2) {}
-		++ (0,-0.15) node (R2) {};
-		\draw (Z) -- (Z1) (X) to [out=0,in=180] (copy1) to [out=45,in=180] (X1);
-		\draw (copy1) to [out=-45,in=180] (X2);
-		\draw (Q) to [out=0,in=180] (Q2);
-		\draw (R) -- (R2); \end{tikzpicture}\right]
-		\left[\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-		\path (0,0) node (Z) {}
-		++ (0,-0.15) node (X1) {}
-		++ (0,-0.3) node (X2) {}
-		++ (0,-0.15) node (Q) {}
-		++ (0,-0.15) node (R) {}
-		++ (0.5,0.15) node[kernel] (L) {$\model{L}$}
-		++ (0.7,0) node (W) {$\RV{O}_{F\cdot}$}
-		++ (0,0.35) node (X3) {$\RV{O}_{FS}$}
-		++ (0,0.25) node (Z1) {$\RV{O}_S$};
-		\draw (X1) to [out=0,in=180] (X3) (Z) -- (Z1);
-		\draw (X2) to [out=0,in=180] ($(L.west) + (0,0.15)$);
-		\draw (Q) to [out=0,in=180] ($(L.west) + (0,0)$);
-		\draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
-		\draw (L) -- (W);\end{tikzpicture}\right]\\
-\end{align}
-
-\begin{lemma}[Extension is associative up to permuation of labels]
-Given labeled Markov kernels $(\kernel{K},\RV{I}_K,\RV{O}_K)$, $(\kernel{L},\RV{I}_L,\RV{O}_L)$ and $(\kernel{J},\RV{I}_J,\RV{O}_J)$,
+\begin{lemma}[Connection is associative up to permuation of labels]\label{lem:con_associative}
+Given labeled Markov kernels $\kernel{K}:\RV{I}_K\to\Delta(\RV{O}_K)$, $\kernel{L}:\RV{I}_L\to\Delta\RV{O}_L)$ and $\kernel{J}:\RV{I}_J\to\Delta(\RV{O}_J)$,
 \begin{align}
 	(\kernel{K}\rightrightarrows \kernel{L})\rightrightarrows \kernel{J} &\overset{perm}{=} \kernel{K}\rightrightarrows (\kernel{L}\rightrightarrows \kernel{J})
 \end{align}
-Where $\overset{perm}{=}$ indicates equality up to permutation of labels and corresponding swaps applied to the Markov kernel.
 \end{lemma}
 
 \begin{proof}
-This will be proven with string diagrams, and consequently generalises to the operation defined by Equation \ref{eq:extn2} in other Markov kernel categories.
-
-Define
-
-\begin{align}
-	\RV{I}_{K\cdot\cdot}&:=\RV{I}_K\setminus\RV{I}_L\setminus\RV{I}_J\\
-	\RV{I}_{KL\cdot}&:=\RV{I}_K\cap\RV{I}_L\setminus\RV{I}_J\\
-	\RV{I}_{K\cdot J}&:=\RV{I}_K\cap\RV{I}_J\setminus\RV{I}_L\\
-	\RV{I}_{KL J}&:=\RV{I}_K\cap \RV{I}_L\cap\RV{I}_J\\
-	\RV{I}_{\cdot L \cdot} &:= \RV{I}_L\setminus\RV{I}_K\setminus \RV{I}_J\\
-	\RV{I}_{\cdot L J} &:= \RV{I}_L\cap \RV{I}_J\setminus \RV{I}_K\\
-	\RV{I}_{\cdot\cdot J} &:= \RV{I}_J\setminus\RV{I}_K\setminus\RV{I}_L\\
-	\RV{O}_{K\cdot\cdot} &:= \RV{O}_K\setminus\RV{I}_N\setminus\RV{I}_J\\
-	\RV{O}_{KL\cdot} &:= \RV{O}_K\cap\RV{I}_L\setminus\RV{I}_J\\
-	\RV{O}_{K\cdot J} &:= \RV{O}_K\cap\RV{I}_J\setminus\RV{I}_L\\
-	\RV{O}_{KLJ} &:= \RV{O}_K\cap\RV{I}_L\cap\RV{I}_J\\
-	\RV{O}_{L\cdot} &:= \RV{O}_L\setminus\RV{I}_J\\
-	\RV{O}_{LJ} &:= \RV{O}_L\cap\RV{I}_J
-\end{align}
-
-Also define
-\begin{align}
-	(\kernel{P},\RV{I}_P,\RV{O}_P)&:=\kernel{K}\rightrightarrows \kernel{L}\\
-	(\kernel{Q},\RV{I}_Q,\RV{O}_Q)&:=\kernel{L}\rightrightarrows \kernel{J}
-\end{align}
-
-Then
-
-\begin{align}
-	(\kernel{K}\rightrightarrows \kernel{L})\rightrightarrows \kernel{J} &= \kernel{P}\rightrightarrows \kernel{J}\\
-																		 &= \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}]
-		\path (0,0) node (Y) {$\RV{I}_{P\cdot}$}
-		+ (0,-0.3) node (Q) {$\RV{I}_{PJ}$}
-		+ (0,-0.8) node (R) {$\RV{I}_{\cdot J}$}
-		++ (0.5,-0.3) node[copymap] (copy0) {}
-		++ (0.5,0.15) node[kernel] (K) {$\kernel{P}$}
-		++ (0.5,-0.15) node[copymap] (copy1) {}
-		++ (0.6,-0.5) node[kernel] (L) {$\kernel{J}$}
-		++ (0.6, 0.8) node (Z) {$\RV{O}_{P\cdot}$}
-		+ (0,-0.3) node (X) {$\RV{O}_{PJ}$}
-		+ (0,-0.8) node (W) {$\RV{O}_J$};
-		\draw (Y) -- ($(K.west) + (0,0.15)$) (Q) -- ($(K.west) + (0,-0.15)$);
-		\draw (copy0) to [out=-45,in=180] ($(L.west) + (0,0)$) (copy1) to [out=-60,in=180] ($(L.west) + (0,0.15)$);
-		\draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
-		\draw ($(K.east) + (0,-0.15)$) to (copy1);
-		\draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
-	\end{tikzpicture}\\
-	&= \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}] \path (0,0) node (IKdd) {$\RV{I}_{K\cdot\cdot}$}
-		+ (0,-0.4) node (IKLd) {$\RV{I}_{KL\cdot}$}
-		+ (0,-0.8) node (IdLd) {$\RV{I}_{\cdot L \cdot}$}
-		+ (0,-1.2) node (IKdJ) {$\RV{I}_{K\cdot J}$}
-		+ (0,-1.6) node (IKLJ) {$\RV{I}_{KLJ}$}
-		+ (0,-2) node (IdLJ) {$\RV{I}_{\cdot LJ}$}
-		+ (0,-2.4) node (IddJ) {$\RV{I}_{\cdot\cdot J}$}
-		+ (0.7,-0.4) node[copymap] (copyKL) {}
-		+ (0.7,-1.2) node[copymap] (copyKJ) {}
-		+ (0.7,-1.6) node[copymap] (copyKLJ) {}
-		+ (0.7,-2) node[copymap] (copyLJ) {}
-		++ (1.5,-0.3) node[kernel,inner sep=5pt] (K) {$\kernel{K}$}
-		++ (1.2,0.15) node[copymap] (copyOKL) {}
-		+  (0,-0.3) node[copymap] (copyOKJ) {}
-		+ (0,-0.45) node[copymap] (copyOKLJ) {}
-		++ (1.2,-0.9) node[kernel,inner sep=6pt] (L) {$\kernel{L}$}
-		++ (1.2,-0.15) node[copymap] (copyOLJ) {}
-		++ (1.2,-0.9) node[kernel,inner sep=6pt] (J) {$\kernel{J}$}
-		++ (2.1, 2.1) node (OKdd) {$\RV{O}_{K\cdot\cdot}$}
-		+ (0,-0.4) node (OKLd) {$\RV{O}_{KL\cdot}$}
-		+ (0,-0.8) node (OKdJ) {$\RV{O}_{K\cdot J}$}
-		+ (0,-1.2) node (OKLJ) {$\RV{O}_{KLJ}$}
-		+ (0,-1.6) node (OLd) {$\RV{O}_{L\cdot}$}
-		+ (0,-2) node (OLJ) {$\RV{O}_{LJ}$}
-		+ (0,-2.4) node (OJ) {$\RV{O}_{J}$};
-		\draw (IKdd) to [out=0,in=180] ($(K.west) + (0,0.25)$) ($(K.east) + (0,0.25)$) to [out=0,in=180] (OKdd);
-		\draw (IKLd) -- (copyKL) to [out=-45,in=180] ($(L.west) + (0,0.1)$) (copyKL) to [out=55,in=180] ($(K.west) + (0,0.125)$)
-		($(K.east)+(0,0.125)$) to [out=0,in=180] (copyOKL) to [out=-90,in=180] ($(L.west) + (0,0.3)$)
-		(copyOKL) to [out=0,in=180] (OKLd);
-		\draw (IKLJ) to [out=0,in=180] (copyKLJ) to [out=40,in=180] ($(K.west) + (0,-0.25)$) 
-		(copyKLJ) to [out=10,in=180] ($(L.west) + (0,0)$)
-		(copyKLJ) to [out=-25,in=180] ($(J.west) + (0,-0.2)$);
-		\draw (IKdJ) to [out=0,in=180] (copyKJ) to [out=65,in=180] ($(K.west) + (0,-0.125)$)
-		(copyKJ) to [out=-30,in=180] ($(J.west) + (0,-0.1)$);
-		\draw (IdLd) to [out=0,in=160] ($(IdLd)+(0.8,-0.1)$) to [out=-20,in=180] ($(L.west)+(0,-0.1)$);
-		\draw (IdLJ) to [out=0,in=180] (copyLJ) to[out=15,in=180] ($(L.west)+(0,-0.2)$)
-		(copyLJ) to [out=-10,in=180] ($(J.west) + (0,0.)$);
-		\draw (IddJ) to [out=0,in=180] ($(IddJ)+ (0.5,0)$) to [out=-15,in=180] ($(J.west) + (0,-0.3)$);
-		\draw ($(K.east)+(0,-0.125)$) to (copyOKJ) to [out=-75,in=180] ($(J.west) + (0,0.2)$)
-		(copyOKJ) to [out=0,in=180] (OKdJ)
-		(copyOKLJ) to [out=-80,in=180] ($(J.west) + (0,0.1)$);
-		\draw ($(K.east) + (0,-0.25)$) to [out=0,in=180] (copyOKLJ) to [out=0,in=180] (OKLJ)
-		(copyOKLJ) to [out=-35,in=180] ($(L.west) + (0,0.2)$);
-		\draw ($(L.east) + (0,0.2)$) to [out=0,in=180] (OLd)
-		($(L.east) + (0,0)$) to [out=0,in=170] (copyOLJ) to [out=-10,in=180] (OLJ)
-		(copyOLJ) to [out=-45,in=180] ($(J.west) + (0,0.3)$);
-		\draw (J) to [out=0,in=180] (OJ);
-	\end{tikzpicture}\\
-	&\overset{perm}{=} \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}] \path (0,0) node (IKdd) {$\RV{I}_{K\cdot\cdot}$}
-		+ (0,-0.4) node (IKLd) {$\RV{I}_{KL\cdot}$}
-		+ (0,-0.8) node (IKdJ) {$\RV{I}_{K\cdot J}$}
-		+ (0,-1.2) node (IKLJ) {$\RV{I}_{KLJ}$}
-		+ (0,-1.6) node (IdLd) {$\RV{I}_{\cdot L \cdot}$}
-		+ (0,-2) node (IdLJ) {$\RV{I}_{\cdot LJ}$}
-		+ (0,-2.4) node (IddJ) {$\RV{I}_{\cdot\cdot J}$}
-		+ (0.7,-0.4) node[copymap] (copyKL) {}
-		+ (0.7,-.8) node[copymap] (copyKJ) {}
-		+ (0.7,-1.2) node[copymap] (copyKLJ) {}
-		+ (0.7,-2) node[copymap] (copyLJ) {}
-		++ (1.5,-0.3) node[kernel,inner sep=5pt] (K) {$\kernel{K}$}
-		++ (1.2,0.15) node[copymap] (copyOKL) {}
-		+  (0,-0.3) node[copymap] (copyOKJ) {}
-		+ (0,-0.45) node[copymap] (copyOKLJ) {}
-		++ (1.2,-0.9) node[kernel,inner sep=6pt] (L) {$\kernel{L}$}
-		++ (1.2,-0.15) node[copymap] (copyOLJ) {}
-		++ (1.2,-0.9) node[kernel,inner sep=6pt] (J) {$\kernel{J}$}
-		++ (2.1, 2.1) node (OKdd) {$\RV{O}_{K\cdot\cdot}$}
-		+ (0,-0.4) node (OKLd) {$\RV{O}_{KL\cdot}$}
-		+ (0,-0.8) node (OKdJ) {$\RV{O}_{K\cdot J}$}
-		+ (0,-1.2) node (OKLJ) {$\RV{O}_{KLJ}$}
-		+ (0,-1.6) node (OLd) {$\RV{O}_{L\cdot}$}
-		+ (0,-2) node (OLJ) {$\RV{O}_{LJ}$}
-		+ (0,-2.4) node (OJ) {$\RV{O}_{J}$};
-		\draw (IKdd) to [out=0,in=180] ($(K.west) + (0,0.25)$) ($(K.east) + (0,0.25)$) to [out=0,in=180] (OKdd);
-		\draw (IKLd) -- (copyKL) to [out=-45,in=180] ($(L.west) + (0,0.1)$) (copyKL) to [out=55,in=180] ($(K.west) + (0,0.125)$)
-		($(K.east)+(0,0.125)$) to [out=0,in=180] (copyOKL) to [out=-90,in=180] ($(L.west) + (0,0.3)$)
-		(copyOKL) to [out=0,in=180] (OKLd);
-		\draw (IKLJ) to [out=0,in=180] (copyKLJ) to [out=40,in=180] ($(K.west) + (0,-0.25)$) 
-		(copyKLJ) to [out=10,in=180] ($(L.west) + (0,0)$)
-		(copyKLJ) to [out=-25,in=180] ($(J.west) + (0,-0.2)$);
-		\draw (IKdJ) to [out=0,in=180] (copyKJ) to [out=65,in=180] ($(K.west) + (0,-0.125)$)
-		(copyKJ) to [out=-30,in=180] ($(J.west) + (0,-0.1)$);
-		\draw (IdLd) to [out=0,in=180] ($(L.west)+(0,-0.1)$);
-		\draw (IdLJ) to [out=0,in=180] (copyLJ) to[out=15,in=180] ($(L.west)+(0,-0.2)$)
-		(copyLJ) to [out=-10,in=180] ($(J.west) + (0,0.)$);
-		\draw (IddJ) to [out=0,in=180] ($(IddJ)+ (0.5,0)$) to [out=-15,in=180] ($(J.west) + (0,-0.3)$);
-		\draw ($(K.east)+(0,-0.125)$) to (copyOKJ) to [out=-75,in=180] ($(J.west) + (0,0.2)$)
-		(copyOKJ) to [out=0,in=180] (OKdJ)
-		(copyOKLJ) to [out=-80,in=180] ($(J.west) + (0,0.1)$);
-		\draw ($(K.east) + (0,-0.25)$) to [out=0,in=180] (copyOKLJ) to [out=0,in=180] (OKLJ)
-		(copyOKLJ) to [out=-35,in=180] ($(L.west) + (0,0.2)$);
-		\draw ($(L.east) + (0,0.2)$) to [out=0,in=180] (OLd)
-		($(L.east) + (0,0)$) to [out=0,in=170] (copyOLJ) to [out=-10,in=180] (OLJ)
-		(copyOLJ) to [out=-45,in=180] ($(J.west) + (0,0.3)$);
-		\draw (J) to [out=0,in=180] (OJ);
-	\end{tikzpicture}\\
-	&= \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}]
-		\path (0,0) node (Y) {$\RV{I}_{K\cdot}$}
-		+ (0,-0.3) node (Q) {$\RV{I}_{KQ}$}
-		+ (0,-0.8) node (R) {$\RV{I}_{\cdot Q}$}
-		++ (0.5,-0.3) node[copymap] (copy0) {}
-		++ (0.5,0.15) node[kernel] (K) {$\kernel{K}$}
-		++ (0.5,-0.15) node[copymap] (copy1) {}
-		++ (0.6,-0.5) node[kernel] (L) {$\kernel{Q}$}
-		++ (0.6, 0.8) node (Z) {$\RV{O}_{K\cdot}$}
-		+ (0,-0.3) node (X) {$\RV{O}_{KQ}$}
-		+ (0,-0.8) node (W) {$\RV{O}_Q$};
-		\draw (Y) -- ($(K.west) + (0,0.15)$) (Q) -- ($(K.west) + (0,-0.15)$);
-		\draw (copy0) to [out=-45,in=180] ($(L.west) + (0,0)$) (copy1) to [out=-60,in=180] ($(L.west) + (0,0.15)$);
-		\draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
-		\draw ($(K.east) + (0,-0.15)$) to (copy1);
-		\draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
-	\end{tikzpicture}
-\end{align}
-
+Proven in Appendix \ref{sec:connect_associative}
 \end{proof}
 
-\begin{theorem}[Extension is compatible with a modelling context]
-Given $\model{M}[\RV{Z}\RV{X}|\RV{Y}\RV{Q};\kernel{K}]$ and $\model{N}[\RV{W}|\RV{X}\RV{Q}\RV{R};\kernel{L}]$ in a modelling context $\mathscr{M}$, let $\kernel{J}=\model{M}[\RV{Z}\RV{X}|\RV{Y}\RV{Q};\kernel{K}]\rightrightarrows \model{N}[\RV{W}|\RV{X}\RV{Q}\RV{R};\kernel{L}]$. Then there exists an ambient model $\model{O}$ such that $\mathscr{M}$ along with $\model{O}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R};\kernel{J}]$ is a valid modelling context, where we can choose $\model{O}=\model{M}$ if $\model{M}=\model{N}$ and the non-shared inputs $\RV{Y}$ and $\RV{R}$ are trivial.
+\begin{lemma}[Identity maps commute one way with connection]
+Consider the identity map on some labeled set $\kernel{I}:\RV{X}\to \Delta(\RV{X})$ (note that by Equation \ref{eq:extn1} the identity map is the \emph{only} kernel with this signature). For any $\kernel{M}:\RV{Y}\to\Delta(\RV{Z})$, either a copy of $\RV{X}$ appears in the output but not the input and $\kernel{I}\rightrightarrows \kernel{M}$ is undefined, or $\kernel{I}\rightrightarrows\kernel{M}=\kernel{M}\rightrightarrows\kernel{I}$.
+\end{lemma}
+
+\begin{proof}
+Consider the identity map on some labeled set $\kernel{I}:\RV{X}\to \Delta(\RV{X})$ (note that by Equation \ref{eq:extn1} the identity map is the \emph{only} kernel with this signature). Note that for any $\kernel{M}:\RV{Y}\to\Delta(\RV{Z})$, either a copy of $\RV{X}$ appears in the output but not the input, in which case $\kernel{I}\rightrightarrows \kernel{M}$ is undefined, or we have one of the following cases:
+
+If $\RV{X}$ is in $\RV{Y}$ and $\RV{Z}$, then there must be some $\kernel{N}$ such that Equation \ref{eq:extn1} holds. Defining $\RV{Y}'=\RV{Y}\setminus\RV{X}$ and $\RV{Z}'=\RV{Z}\setminus\RV{X}$:
+
+\begin{align}
+	\kernel{I}\rightrightarrows\kernel{M}&=\tikzfig{iconnectm}\\
+										 &=\tikzfig{iconnectm_rev}\\
+										 &=\kernel{M}\rightrightarrows\kernel{I}
+\end{align}
+
+\todo[inline]{Commutativity of copy map in appendix}
+
+If $\RV{X}$ is in $\RV{Y}$ only, defining $\RV{Y}'=\RV{Y}\setminus\RV{X}$:
+
+\begin{align}
+	\kernel{I}\rightrightarrows\kernel{M}&=\tikzfig{iconnectm_clear}\\
+										 &=\kernel{M}\rightrightarrows\kernel{I}
+\end{align}
+
+If $\RV{X}$ is in neither $\RV{Y}$ nor $\RV{Z}$, then
+
+\begin{align}
+	\kernel{I}\rightrightarrows\kernel{M}&=\tikzfig{iconnectm_dclear}\\
+										 &=\kernel{M}\rightrightarrows\kernel{I}
+\end{align}
+\end{proof}
+
+\begin{theorem}[Connection is compatible with axiom 1]
+Given $\kernel{K}:\RV{A}\to\Delta(\RV{B})$ and $\kernel{L}:\RV{C}\to\Delta(\RV{D})$, let $\kernel{J}=\kernel{K}\rightrightarrows \kernel{L}$. Then $\kernel{J}$ satisfies axiom 1.
 \end{theorem}
 
 \begin{proof}
-By inspecting the label set in $\model{O}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R};\kernel{J}]$, we can see that no labels from either of the inputs are duplicated. We need to verify that if either of the inputs had a duplicated label, then the result of the extension still satisfies axiom 1. 
+By inspecting the definition of $\rightrightarrows$ (Equation \ref{eq:extn_definition1}), we can see that no labels from either of the inputs are increased in multiplicity. We need to verify that if either of the inputs has a label with multiplicity $>1$, then the result of the extension still satisfies axiom 1. 
 
-We have a number of cases to deal with Introduce $\model{I}[\RV{X}|\RV{X};\mathrm{Id}_X]$ and note that in the case of  Equation \ref{eq:extn1} corresponds to the equation
+Consider any label $\RV{X}$ that appears in both the input and output of $\kernel{K}$, or twice in the output of $\kernel{K}$. Then Equation \ref{eq:extn3} implies that there exists some $\kernel{H}$ such that $\kernel{K}=\kernel{H}\rightrightarrows\kernel{I}$.
+
+Thus
 
 \begin{align}
-	\kernel{K} &= \model{I}[\RV{X}|\RV{X};\mathrm{Id}_X]\rightrightarrows \model{M}[\RV{Y}|\RV{XZ};\kernel{L}]\\
-	\implies \kernel{J} &= (\model{I}[\RV{X}|\RV{X};\mathrm{Id}_X]\rightrightarrows \model{M}[\RV{Y}|\RV{XZ};\kernel{L}])\rightrightarrows \model{N}[\RV{W}|\RV{X}\RV{Q}\RV{R};\kernel{L}]\\
-	\implies \kernel{J} &= \model{I}[\RV{X}|\RV{X};\mathrm{Id}_X]\rightrightarrows(\model{M}[\RV{Y}|\RV{XZ};\kernel{L}]\rightrightarrows \model{N}[\RV{W}|\RV{X}\RV{Q}\RV{R};\kernel{L}])
+	\kernel{K}\rightrightarrows \kernel{L} &= (\kernel{H}\rightrightarrows \kernel{I})\rightrightarrows\kernel{L}\\
+										   &\overset{perm}{=} \kernel{H}\rightrightarrows(\kernel{I}\rightrightarrows\kernel{L})\\
+										   &= \kernel{H}\rightrightarrows(\kernel{L}\rightrightarrows\kernel{I})\\
+										   &\overset{perm}{=} (\kernel{H}\rightrightarrows\kernel{L})\rightrightarrows\kernel{I}
 \end{align}
 
+Which implies that $\kernel{J}$ satistfies Equation \ref{eq:extn3} for $\RV{Y}$.
 
+Consider $\RV{Z}$ that appears in the input and output of $\kernel{L}$ or twice in the output of $\kernel{L}$. Then there exists some $\kernel{G}$ such that
 
-We can always define a new probability space so that $\model{O}[\RV{Z}\RV{X}\RV{W}|\RV{Y}\RV{Q}\RV{R};\kernel{J}]$ satisfies axiom 2. We will show that if $\model{M}=\model{N}$ and the non-shared inputs $\RV{Y}$ and $\RV{R}$ are trivial then in particular we can choose $\model{O}=\model{M}$.
+\begin{align}
+	\kernel{K}\rightrightarrows \kernel{L} &= \kernel{K}\rightrightarrows (\kernel{G}\rightrightarrows\kernel{I})\\
+										   &\overset{perm}{=} (\kernel{K}\rightrightarrows \kernel{G})\rightrightarrows\kernel{I}
+\end{align}
+
+Which implies $\kernel{J}$ satisfies Equation \ref{eq:extn3}.
 \end{proof}
 
+\subsection{Submodels}
 
-\begin{definition}[marginal]\label{def:marginal}
-Given a conditional probability $\model{K}[\RV{X}\RV{Y}|\RV{W}]$, the marginal $\model{K}[\RV{X}|\RV{W}]$ is defined as
+Note that at this point, we have a theory of probability that can handle Equation \ref{eq:truncated_fac}. In particular, $P^{\RV{Y|XZ}}$ must be represented by a labeled Markov kernel $\kernel{K}:(\RV{X}, \RV{Z})\to \Delta(\RV{Y})$ and $\prob{P}^{\RV{Z}}$ by a labeled Markov kernel $\kernel{L}\in \Delta(\RV{Z})$. Then we can define a labeled Markov kernel $\kernel{M}:\RV{X}\to \Delta(\RV{X}, \RV{Z})$ representing $x\mapsto \prob{P}^{\RV{YZ}}_{x}(y,z)$ by
+
 \begin{align}
-	\model{K}[\RV{X}|\RV{W}] &:= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-	\path (0,0) node (A1) {$\RV{W}$}
-	++ (0.7,0) node[kernel] (K) {$\model{K}$}
-	++ (0.7,0.15) node (B1) {$\RV{X}$}
-	+ (0,-0.3) node (B2) {};
-	\draw (A1) -- ($(K.west) + (0,0)$);
-	\draw (B1) -- ($(K.east) + (0,0.15)$) [-{Rays[n=8]}] ($(K.east) + (0,-0.15)$) -- (B2);
-\end{tikzpicture}\\
-	\model{K}[\RV{X}|\RV{W}]_w^x &= \sum_{y\in Y} \model{K}[\RV{X}\RV{Y}|\RV{W}]_{w}^{xy}
+	\kernel{M}&:= \kernel{L}\rightrightarrows\kernel{K}\\
+	 		&=\tikzfig{truncated_factorisation_labeled}\label{eq:tfac_labeled}
+\end{align}
+
+We can see that Equation \ref{eq:tfac_labeled} is almost identical to Equation \ref{eq:tfac_setted} except with set labels instead of sets annotating the wires. This minor change, along with Axiom 1, deals with the problem of identical sets previously mentioned.
+
+However, we do not yet have a notion of \emph{marginal probability} or \emph{conditional probability}. In the paragraph above, the terms $P^{\RV{Y|XZ}}$ and $\prob{P}^{\RV{Z}}$ are external to the theory developed so far. However, we do know that they are related in a particular way; namely, they are respectively a contitional distribution and a marginal distribution derived from the same probability space with measure $P$. 
+
+We will use the term \emph{submodels} to refer to marginals and conditionals of a higher level model, like those mentioned in the previous paragraph. 
+
+\begin{definition}[Marginal]
+For any label $\RV{X}$, define the marginalising kernel $\stopper{0.3}_{\RV{X}}:\RV{X}\to *$, which is necessarily unique. Given $\kernel{K}:\RV{W}\to\Delta(\RV{Y})$ and $\kernel{L}:\RV{W}\to \Delta(\RV{Z})$, $\RV{L}$ is a \emph{marginal} of $\kernel{K}$ if, for some $\RV{X}$ in $\RV{Y}$,
+\begin{align}
+	\kernel{K}\rightrightarrows\stopper{0.3}_{\RV{X}} = \kernel{L}
 \end{align}
 \end{definition}
 
-\begin{definition}[disintegration]\label{def:disintegration}
-$\model{K}[\RV{Y}|\RV{X}\RV{W}]$ is a disintegration of $\model{K}[\RV{X}\RV{Y}|\RV{W}]$ if
-\begin{align}
-	\model{K}[\RV{X}|\RV{W}]\rightrightarrows \model{K}[\RV{Y}|\RV{X}\RV{W}] = \model{K}[\RV{X}\RV{Y}|\RV{W}]
-\end{align}
-\end{definition} 
+Because $*$ is in every sequence of labels, $\kernel{K}$ is always a marginal of itself.
 
-Any Markov kernel $\kernel{L}$ with the property
+\begin{definition}[Submodel]
+Given $\kernel{K}:\RV{X}\to \Delta(\RV{Y})$ and $\kernel{L}:\RV{W}\to\Delta(\RV{Z})$, $\kernel{L}$ is a submodel of $\kernel{K}$ if there are marginals $\kernel{K}'$, $\kernel{K}''$ of $\kernel{K}$ such that
 \begin{align}
-	\kernel{L}_{xw}^{y} = \frac{\model{K}[\RV{X}\RV{Y}|\RV{W}]_w^{xy}}{\sum_{x\in X}\model{K}[\RV{X}\RV{Y}|\RV{W}]_w^{xy}}\qquad\forall {w,y}:\text{ the denominator is positive}
+	 \kernel{K}'\rightrightarrows\kernel{L} = \kernel{K}''
 \end{align}
-is a version of $\model{K}[\RV{Y}|\RV{X}\RV{W}]$.
-
-\begin{definition}[ambient conditional probability]\label{def:ambient_cp}
-A conditional probability $\model{K}[\RV{Y}|\RV{X}]$ is an \emph{ambient conditional probability} relative to $\mathscr{M}$ if there is no other conditional probability in $\mathscr{M}$ such that $\model{K}[\RV{Y}|\RV{X}]$ is either a marginal or a disintegration of this conditional probability.
 \end{definition}
 
-Recall that, if $\model{K}[\RV{Y}|\RV{X}]$ is an ambient conditional probability, then $\kernel{K}[\RV{Y}|\RV{X}]=\kernel{K}$.
+As the trivial map $\stopper{0.3}:\RV{X}\to\Delta(\{*\})$ is a marginal of $\kernel{K}$, and $\stopper{0.3}\rightrightarrows\kernel{K}'=\kernel{K}'$ for any marginal of $\kernel{K}$, every marginal of $\kernel{K}$ is also a submodel of $\kernel{K}$.
+
+With the definition of submodels in hand, we can introduce a notation more familiar to people experienced with probability theory. If $\kernel{L}:\RV{X}\to \Delta(\RV{Y})$ is a submodel of $\kernel{K}$, we may write $\kernel{L}\equiv \model{K}^{\RV{Y}|\RV{X};\kernel{L}}$ and $\kernel{L}_x^y\equiv \model{K}^{\RV{Y}|\RV{X};\kernel{L}}(y|x)$. Note that the same kernel might be a submodel of many other kernels. This notation isn't \emph{entirely} familiar, as we retain a reference to the original kernel $\kernel{L}$. In general, a kernel $\kernel{K}$ has many submodels with the same signature, and this non-uniqueness is more problematic for causal models than for standard probabilistic models, as we will see in Section \ref{sec:CBN}.
+
+\begin{lemma}[Submodel existence]\label{lem:subm_exist}
+In FinStoch, for any $\kernel{K}:\RV{W}\to \Delta(\RV{X},\RV{Y})$ there exists a submodel $\model{K}^{\RV{Y}|\RV{XW};\kernel{L}}$.
+\end{lemma}
+
+\begin{proof}
+Consider any Markov kernel $\kernel{L}:(\RV{X},\RV{W})\to \Delta(\RV{Y})$ with the property
+\begin{align}
+	\kernel{L}_{xw}^{y} = \frac{\kernel{K}_w^{xy}}{\sum_{x\in X}\kernel{K}_w^{xy}}\qquad\forall {w,y}:\text{ the denominator is positive}
+\end{align}
+
+Then define $\kernel{K}^{\RV{X}|\RV{W};\kernel{M}}:=\kernel{K}\rightrightarrows\stopper{0.3}_{\RV{Y}}$, which is a marginal of $\kernel{K}$. THen
+\begin{align}
+	(\kernel{M}\rightrightarrows\kernel{L})_w^{xy} &= \kernel{M}_w^x\kernel{L}_{xw}^y&\\
+												   &= \sum_{x\in X} \kernel{K}_w^{xy} \frac{\kernel{K}_w^{xy}}{\sum_{x\in X}\kernel{K}_w^{xy}} &\text{ if }\kernel{K}_w^{xy}>0\\
+												   &= \kernel{K}_w^{xy} &\text{ if }\kernel{K}_w^{xy}>0\\
+												   &= 0 &\text{otherwise}\\
+												   &= \kernel{K}_w^{xy} &\text{otherwise}
+\end{align}
+\end{proof}
+
+We did not use string diagrams in this proof, so this result does not necessarily apply to other Markov kernel categories. This is the technical reason why we choose to work with FinStoch: the existence of submodels presents a challenge in more general settings that we haven't fully resolved and the progress we have is beyond the scope of this paper.
 
 \subsection{Conditional independence}\label{ssec:cond_indep}
 
-Given $\model{K}[\RV{X}|\RV{W}\RV{Z}]$ in general we have no definition of $\model{K}[\RV{X}|\RV{Z}]$. However, we can define such a ``conditional probability'' if we have the additional fact that $\RV{X}$ is independent of $\RV{W}$ given $\RV{Z}$ relative to $\model{K}$.
+We define conditional independence in the following manner:
 
-Given $\model{K}[\RV{X}|\RV{W}\RV{Z}]$ we say $\RV{X}$ is independent of $\RV{W}$ given $\RV{Z}$ relative to $\model{K}$, notated $\RV{X}\CI_{\model{K}} \RV{W}|\RV{Z}$ iff $\model{K}[\RV{X}|\RV{WZ}]_{wz}^x = \model{K}[\RV{X}|\RV{WZ}]_{w'z}^x$ for all $w,w'\in W$, $x\in X$ and $z\in Z$.
+For a \emph{probability distribution} $\kernel{P}:\{*\}\to \Delta(\RV{Y})$ and some $\RV{A},\RV{B},\RV{C}\in \RV{Y}$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{P}}\RV{B}|\RV{C}$, if there are submodels $\model{P}^{\RV{ABC};\kernel{J}}$, $\model{P}^{\RV{C};\kernel{K}}$, $\model{P}^{\RV{A}|\RV{C};\kernel{L}}$, $\model{P}^{\RV{B}|\RV{C};\kernel{M}}$ such that
 
-Given $\model{K}[\RV{X}|\RV{W}\RV{Z}]$ such that $\RV{X}\CI_{\model{K}} \RV{W}|\RV{Z}$, we define $\model{K}[\RV{X}|\RV{Z}]$ to be any kernel satisfying $\model{K}[\RV{X}|\RV{Z}]_z^x = \model{K}[{\RV{X}|\RV{DZ}}]_{dz}^x$ for all $x,z,d$.
+\begin{align}
+	\kernel{P}^{\RV{ABC};\kernel{J}} &= \tikzfig{cond_indep1}
+\end{align}
 
-\subsection{Uniqueness of disintegrations}
+For a \emph{kernel} $\kernel{N}:\RV{X}\to \Delta(\RV{Y})$ and some $\RV{A},\RV{B},\RV{C}\in (\RV{X},\RV{Y})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{N}}\RV{B}|\RV{C}$, if there is some $\kernel{O}:\{*\}\to \Delta(\RV{X})$ such that $O^x>0$ for all $x\in X$ and $\RV{A}\CI_{\kernel{O}\rightrightarrows\kernel{N}} \RV{B}|\RV{C}$.
 
-Every conditional probability $\kernel{K}[\RV{X}|\RV{Y}]$ is unique up to an equivalence class defined with respect to the ambient conditional probability $\model{K}$.
+This definition is inappliccable in the case where sets may be uncountably infinite, as no such $\kernel{O}$ can exist in this case. There may well be definitions of conditional independence that generalise better, and we refer to the discussions in \citet{fritz_synthetic_2020} and \citet{constantinou_extended_2017} for some discussion of alternative definitions. One advantage of this definition is that it matches the version given by \citet{cho_disintegration_2019} which they showed coincides with the standard notion of conditional independence and so we don't have to show this in our particular case.
 
-Proof sketch: if it is an ambient conditional probability, then it is unique. If not, it is obtained from an ambient conditional probability by a sequence of marginalisations and disintegrations. Defining the equivalence class to be ``equal up to measure 0 sets'', marginalisations and disintegrations are both unique.
+A particular case of interest is when a kernel $\kernel{K}:(\RV{X},\RV{W})\to \Delta(\RV{Y})$ can, for some $\kernel{L}:\RV{W}\to \Delta(\RV{Y})$, be written:
 
-\subsection{Existence of modelling context}
+\begin{align}
+	\kernel{K} = \tikzfig{ci_example}
+\end{align}
 
-Take a collection of Markov kernels and give them label sets consistent with their type signatures and respecting the rule that identical labels require identical spaces. Add all the recursive disintegrations + marginals. Add all valid extensions assigning a new model name for any result not already in the modelling context. Add all recursive disintegrations and marginals of valid extensions, etc.
-
-Then: disintegration, marginalisation, extension operations all preserve label consistency rules. By construction, marginals, disintegrations and extensions are included. Marginalisation + disintegration preserves uniqueness of ambient conditional probability. Extension + assigning a new model name also preserves uniqueness of ambient conditional probability.
-
-\subsection{Standard probability models}
-
-The operation of combining two conditional probabilities which do not share a model name and obtaining a conditional probability relative with a new model name is unique to our approach. The standard approach to probability modelling features an ambient probability distribution defined on a sample space, along with ``labels'' that each correspond to a measurable functions on the sample space. With this setup, we can define marginals and disintegrations with respect to any sequences of labels. It is an open question whether there is a way to construct a modelling context with a single model that is equivalent to a standard probability model.
+Then $\RV{Y}\CI_{\kernel{K}}\RV{W}|\RV{X}$.
