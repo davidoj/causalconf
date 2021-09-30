@@ -1,19 +1,20 @@
-\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
 \contentsline {section}{\numberline {2}Probability with connectable submodels}{3}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Markov categories}{5}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Graphical notation for Markov categories}{6}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Revisiting truncated factorisation}{7}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Labeled Markov kernels}{8}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Connection}{10}{subsection.2.5}%
-\contentsline {subsection}{\numberline {2.6}Submodels}{13}{subsection.2.6}%
-\contentsline {subsection}{\numberline {2.7}Conditional independence}{14}{subsection.2.7}%
-\contentsline {section}{\numberline {3}See-do models}{15}{section.3}%
-\contentsline {subsection}{\numberline {3.1}See-do models and classical statistics}{16}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Combs}{16}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Causal Bayesian Networks}{17}{section.4}%
-\contentsline {section}{\numberline {5}Potential outcomes with and without counterfactuals}{18}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Potential outcomes in see-do models}{19}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Parallel potential outcomes representation theorem}{20}{subsection.5.2}%
-\contentsline {section}{\numberline {6}Appendix:see-do model representation}{23}{section.6}%
-\contentsline {section}{\numberline {7}Appendix: Connection is associative}{25}{section.7}%
-\contentsline {section}{\numberline {8}Appendix: String Diagram Examples}{27}{section.8}%
+\contentsline {subsection}{\numberline {2.4}Labeled Markov kernels}{10}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Connection}{12}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Submodels}{14}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Conditional independence}{16}{subsection.2.7}%
+\contentsline {section}{\numberline {3}See-do models}{16}{section.3}%
+\contentsline {subsection}{\numberline {3.1}See-do models and classical statistics}{17}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Combs}{18}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Causal Bayesian Networks}{18}{section.4}%
+\contentsline {section}{\numberline {5}Potential outcomes with and without counterfactuals}{19}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Potential outcomes in see-do models}{21}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Parallel potential outcomes representation theorem}{22}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Appendix:see-do model representation}{25}{section.6}%
+\contentsline {section}{\numberline {7}Appendix: Connection is associative}{27}{section.7}%
+\contentsline {section}{\numberline {8}Appendix: String Diagram Examples}{28}{section.8}%
+\contentsline {section}{\numberline {9}Labeled Markov kernels on Labeled sets is a Markov category}{29}{section.9}%

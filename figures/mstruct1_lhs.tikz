@@ -1,0 +1,9 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=Llabel tikzit] (0) at (-2.5, 1) {$X\otimes Y$};
+		\node [style=none] (1) at (0.5, 1) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=delmap] (0) to (1.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

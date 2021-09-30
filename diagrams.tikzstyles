@@ -16,3 +16,4 @@
 \tikzstyle{Llabel tikzit}=[anchor=east]
 
 % Edge styles
+\tikzstyle{delmap}=[>={Rays[n=8]}, ->]

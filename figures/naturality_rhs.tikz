@@ -1,0 +1,9 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (0, 1.75) {};
+		\node [style=none] (3) at (-2.75, 1.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=delmap] (3.center) to (2.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

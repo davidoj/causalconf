@@ -1,12 +1,14 @@
 %!TEX root = main.tex
 
-\section{See-do models}\label{sec:seedo_models}
+\section{Decision theoretic causal inference}\label{sec:seedo_models}
 
-Modular probability is useful when we want to combine different Markov kernels in such a way that ``variables'' refer to something consistent even though they don't necessarily have a unique distribution. The first example we will present is using modular probability to model decision problems.
+\citet{lattimore_causal_2019} and \citet{lattimore_replacing_2019} describe a novel approach to causal inference: rather than consider ``one'' causal model, they consider a pair of models; an observational and interventional model that share parameters.
 
-Suppose we will be given an observation $x\in X$ and in response to this we can select any decision or stochastic mixture of decisions from a set $D$; that is we can choose a ``strategy'' as any Markov kernel $\kernel{S}_\alpha:X\to \Delta(D)$. We are intersted in forecasting some consequences that take values in some set $Y$, and comparing the forecasts for different strategy choices so as to choose a best strategy.
+We will use the theory of probability set out previously to see how such a model can arise if we are given a decision problem with some data. Our aim is ultimately to represent ``causal effects'' and ``the consequences of my actions'' in the same model, so that we can discuss issues like possible non-correspondence between causal effects and consequences in formal mathematical language rather than in English. Understanding how we can model decision problems is a first step, because while decision models don't feature any notion of ``causal effect'', consequences of actions are primitives. We will go on to consider how to combine decision models with models that define causal effects.
 
-How can we model this? One way to proceed is as follows: Define a model context $\mathscr{M}$ to which we add the conditional probabilities mentioned hereafter. For each strategy $\model{S}_\alpha[\RV{D}|\RV{X}]$, our forecast will be represented by some joint probability in $\model{P}_{\alpha}[\RV{X}\RV{D}\RV{Y}|\RV{H}]$ where $\RV{H}$ is associated with a set of hypotheses $H$ representing different choices that we think might be reasonable to make that may lead to different forecasts. Because observations come before we execute our strategy, we assume that $\model{P}_{\alpha}[\RV{X}|\RV{H}]=P_{\beta}[\RV{X}|\RV{H}]$ for all $\alpha,\beta$. Our chosen strategy is the probability of $\RV{D}$ given $\RV{X}$: $\model{P}_{\alpha}[\RV{D}|\RV{X}]\overset{krn}{=}\model{S}_\alpha[\RV{D}|\RV{X}]$. Finally, our forecast of $\RV{Y}$ is the same for all strategies holding the observations, the decision and the hypothesis fixed: $\model{P}_{\alpha}[\RV{Y}|\RV{HD}]=P_{\beta}[\RV{Y}|\RV{HD}]$ for all $\alpha,\beta$.
+We suppose we have a decision problem of the following type: we will be given an observation that takes values in $X$ and in response to this we can select any decision or stochastic mixture of decisions from $D$. $\RV{X}$ is the variable representing the quesion ``what will we observe?'' and $\RV{D}$ the question ``what decision will we choose?''. We can consider a number of different strategies for selecting a decision, each of which corresponds to a Markov variable map $\kernel{S}_\alpha:\RV{X}\to \Delta(\RV{D})$.  The variable $\RV{Y}$ represents ``what will we see when all is said and done?'', and it takes values in $Y$. After considering the available strategies, we want to select the strategy for which we expect to see the best ultimate outcome.
+
+We will represent our uncertain answers to the questions $\RV{X}$, $\RV{D}$ and $\RV{Y}$ with probability distributions. We will allow for multiple probability distributions to be entertained as an answer; let hypotheses $\RV{H}$ represent the question ``which model best captures this problem?'', taking values in $H$. Then for each strategy $\kernel{S}_\alpha$, our forecast will be represented by a joint probability $\kernel{P}_{\alpha}\equiv\model{P}_\alpha^{\RV{XDY}|\RV{H};\kernel{P}_\alpha}:\RV{H}\to\Delta(\RV{X},\RV{D},\RV{Y})$. Because observations come before we execute our strategy, we might assume that they will be unchanged by any choice of strategy: $\model{P}_{\alpha}^{\RV{X}|\RV{H}}=P_{\beta}^{\RV{X}|\RV{H}}$ for all $\alpha,\beta$. We expect to choose a decision precisely in line with the strategy under consideration: $\model{P}_{\alpha}^{\RV{D}|\RV{X}}=\kernel{S}_\alpha$. Finally, our answer to $\RV{Y}$ will be the same under any strategy supposing we have the same observation, decision and hypothesis: $\model{P}_{\alpha}^{\RV{Y}|\RV{HD}}=P_{\beta}^{\RV{Y}|\RV{HD}}$ for all $\alpha,\beta$.
 
 Under these assumptions, there exists $\model{T}[\RV{X}\RV{Y}|\RV{HD}]\in \mathscr{M}$ with $\RV{X}\CI_{\model{T}}\RV{D}|\RV{H}$ such that for all $\alpha$, 
 
@@ -67,3 +69,9 @@ A comb is a Markov kernel with a ``hole'' in it. We combine the see-do model wit
 \end{align}
 
 We can take any strategy $\model{S}_\alpha[\RV{D}|\RV{X}]$ and drop it into the ``hole'' in \ref{eq:kernel_with_hole} (as described in Equation \ref{eq:see_do_query}) to get a forecast of the outcome of that strategy. 
+
+\citet{dawid_decision-theoretic_2020} has described his decision theoretic approach to causal inference:
+
+\begin{quote}
+A fundamental feature of the DT approach is its consideration of the relationships between the various probability distributions that govern different regimes of interest. As a very simple example, suppose that we have a binary treatment variable T, and a response variable Y. We consider three different regimes [...] the first two regimes may be described as interventional, and the last as observational.
+\end{quote}

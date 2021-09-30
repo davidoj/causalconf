@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=Llabel tikzit] (0) at (-3, 1) {$X\otimes Y$};
+		\node [style=copymap tikzit] (1) at (-1.25, 1) {};
+		\node [style=RLabel tikzit] (2) at (0.75, 2) {$X\otimes Y$};
+		\node [style=RLabel tikzit] (3) at (0.75, 0) {$X\otimes Y$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0) to (1);
+		\draw [in=-180, out=45] (1) to (2);
+		\draw [in=180, out=-45] (1) to (3);
+	\end{pgfonlayer}
+\end{tikzpicture}

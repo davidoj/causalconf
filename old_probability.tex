@@ -1,0 +1,174 @@
+
+A typical interpretation of the measurable sets in a Markov category is to think of them as sets of values. We can consider two different questions -- $\RV{X}$ ``Will this coin come up heads?'' and $\RV{Y}$ ``Am I taller than my brother?'' -- which can both be answered with the same set of values, namely $\{\text{yes},\text{no}\}$. However, it would be very unreasonable to require that the answer to both of these questions always be the same if both questions ever appear in the same model. However, if a model featured two instances of the question ``Will this coin come up heads?'' (for example, ``if the answer to the question `Will this coin will come up heads?' is $x$, Will this coin come up heads?''), it is very reasonable to expect that the answer to both instances of question must always be the same.
+
+This is the core of the problem outlined in Equation \ref{eq:double_label} -- different variables can be associated with the same values, and we also need to be able to say whether two variables are the same or not. Clearly, sets of values alone cannot solve this problem for us.
+
+A set of \emph{resolutions} is a set of (variable, value) pairs which all share the same variable, such as $\{(\RV{X},0),(\RV{X},1)\}$. By construction, such a set can only be associated with one variable. Note that we can in general write this set as the Cartesian product $\{\RV{X}\}\times \{0,1\}$. We define a \emph{resolution set} to be a set of the form $A\times B$ where $A$ is a one-element set containing the variable name, and $B$ is the set of values this variable can take. The following axioms spell out our requirements of resolution sets:
+
+\begin{enumerate}
+    \item \textbf{Uniqueness of variables:} Given resolution sets $A\times X$ and $B\times Y$, if $A=B$ then $X=Y$
+    \item \textbf{Identity element:} The identity element is the resolution set $\{()\}\times\{*\}$
+\end{enumerate}
+
+Here we use $\{()\}$ to represents the Cartesian product of no sets and $\{*\}$ is a 1-element value set which is unique up to isomorphism.
+
+Note that, in a fairly natural
+
+The lowercase $l_i$ stands for a label. We will use sans serif letters $\RV{X}$ to stand for an arbitrary sequence of labels. The operation $\RV{X}_1\frown \RV{X}_2$ refers to concatenating the two sequences.
+
+Given a labeled set $(\RV{X},X)$, we say ``$\RV{X}$ takes values in $X$''.
+
+We define a \emph{products} and \emph{selections} of labeled sets:
+
+\begin{itemize}
+    \item \textbf{Product of labeled sets:} Given $(\RV{X}_1,X)$ and $(\RV{X}_2,Y)$, the product $(\RV{X}_1,X)\otimes (\RV{X}_2,Y)$ is the labeled set $(\RV{X}_1\frown \RV{X}_2,X\times Y)$
+    \item \textbf{Selection of labels:} Given $(l_i)_{i\in I}$, and $J\subset I$, the selection function $\nu_J:(l_i)_{i\in I}=(l_i)_{i\in J}$
+\end{itemize}
+
+For a Cartesian product of sets $\bigtimes_{i\in I} A_i$, for $J\subset I$ we write the projection function $\pi_{J}:\bigtimes_{i\in I} A_i\mapsto \bigtimes_{i\in J} A_i$
+
+Any collection of labeled sets must live in a ``labelspace'' that prevents us from making inadmissible label assignments. We require the following axioms to hold for labeled sets occupying the same labelspace:
+
+\begin{enumerate}
+    \item \textbf{Uniqueness of labels:} Given two labeled sets $(\RV{X}_1,X)$ and $(\RV{X}_2,Y)$, if $\RV{X}_1=\RV{X}_2$ then $X=Y$
+    \item \textbf{Empty label:} The symbol $*$ corresponds to the empty sequence, and is always associated with the 1-element set $\{*\}$
+    \item \textbf{Factorization correspondence:} Given a labeled set $(\RV{X}_1\frown \RV{X}_2,Z)$, there must exist sets $(\RV{X}_1,X)$ and $(\RV{X}_2,Y)$ such that $Z=X\times Y$
+\end{enumerate}
+
+\begin{lemma}[The single element set is the identity element]\label{lem:se_id}
+For all labeled sets $\RV{X}$, $(\RV{X},X)\otimes (*,\{*\}) = (*,\{*\})\otimes (\RV{X},X) = (\RV{X},X)$
+\end{lemma}
+
+\begin{proof}
+Given the one-element set $\{*\}$, $A\times\{*\}=\{*\}\times A=A$ (up to isomorphism) for any $A$. Thus for all labeled sets $\RV{X}$, $(\RV{X},X)\otimes (*,\{*\}) = (\RV{X}\frown *,\RV{X}\times\{*\}) = (\RV{X},X)$, and $(*,\{*\})\otimes(\RV{X},X) = (*\frown \RV{X},\{*\}\times\RV{X}) = (\RV{X},X)$.
+\end{proof}
+
+This makes labeled sets together with $\otimes$ a monoid.
+
+For some atomic label $l$, we use $m_{l}(\RV{X})$ to refer to ``the number of times $l$ appears in $\RV{X}$''. We say $l$ is in $\RV{X}$ or $l\in \RV{X}$ if $m_{\RV{X}}(l)>0$. We say that $\RV{W}$ is in $\RV{X}$ if for all labels $l_i$, $m_{l_i}(\RV{W})\leq m_{l_i}(\RV{X})$.
+
+With this in mind, we define the following operations on sequences of labels
+
+\begin{enumerate}
+    \item \textbf{Difference of label sequences:} Given $\RV{X}_1$, $\RV{X}_2$, the difference $\RV{X}_1\setminus \RV{X}_2$ is a label sequence $\RV{X}_3$ such that $l_i$, $m_{l_i}(\RV{X}_3) = \max(0,m_{l_i}(\RV{X}_1)-m_{l_i}(\RV{X}_2))$
+    \item \textbf{Intersection of labels:} Given $\RV{X}_1$, $\RV{X}_2$, the intersection $\RV{X}_1\cap \RV{X}_2$ is a label sequence $\RV{X}_3$ such that for any label $l_i$, $m_{l_i}(\RV{X}_3) = \min(m_{l_i}(\RV{X}_1),m_{l_i}(\RV{Y}_2))$
+\end{enumerate}
+
+These definitions are non-unique in that they do not define the order of the resulting label sequence. This doesn't cause a problem because we work with labeled Markov kernels that we define to be equivalent if one can be obtained from the other by permuting its labels and applying the corresponding swap maps.
+
+The following lemma guarantees that if we can divide a sequence $\RV{Z}$ into some collection of subsequences $\{\RV{A}_i\}_{i\in [n]}$, then we can find a collection of labeled sets corresponding to each subsequence $\RV{A}_i$.
+
+\begin{lemma}{Factor-label correspondence}\label{lem:fac-label}
+Given a labeled set $(\RV{Z},Z)$, if there exist $n$ labeled sequences $\{\RV{A}_i\}_{i\in n}$ such that $\RV{Z}= \frown_{i\in [n]} \RV{A}_i$, then there exist $n$ labeled sets $\{(\RV{A}_i,A_i)\}_{i\in [n]}$ such that $Z=\bigtimes_{i\in[n]} A_i$.
+\end{lemma}
+
+\begin{proof}
+$n$ must be at least $1$, as $\{\RV{Z}\}$ is a candidate for such a collection sequence in this case. Furthermore, in the case of $n=1$, $\{(\RV{Z},Z)\}$ is a collection of labeled sets satisfying $Z=\bigtimes_{i\in [1]} Z$.
+
+If $n=2$, then the axiom of factorization correspondence guarantees the existence of the required $\{(\RV{A}_i,A_i)\}_{i\in [2]}$.
+
+Suppose that factor-label correspondence holds for all divisions of $\RV{Z}$ into $m$ subsequences up to $m=n-1$.
+
+Suppose we have an arbitrary collection of $n$ labeled sequences $\{\RV{A}_i\}_{i\in n}$ such that $\RV{Z}= \frown_{i\in [n]} \RV{A}_i$. Note that $\{\RV{A}_i|{i\in[n-2]}\}\cup\{A_{n-1}\frown A_n\}$ is a collection of $n-1$ subsequences. By inductive hypothesis, we have labeled sets $\{(\RV{B}_i,B_i)\}_{i\in [n-1]}$ such that $Z=\bigtimes_{i\in[n-1]} B_i$ and $\RV{B}_i=\RV{A}_i$ for $i<n-1$, $\RV{B}_{n-1} = \RV{A}_{n-1}\frown \RV{A}_{n}$. Then by set divisibility, there exist $(\RV{A}_{n-1},A_{n-1})$ and $(\RV{A}_n,A_n)$ such that $B_{n-1} = A_{n-1}\times A_n$. But then $\bigtimes_{i\in [n-1]} B_i=\bigtimes_{i\in [n]} A_i=Z$. 
+
+The proof follows by induction on $n$.
+\end{proof}
+
+Due to uniqueness of labels, we can unambiguously refer to a labeled set $(\RV{X}_1,X)$ by its label sequence $\RV{X}_1$. Due to factorization correspondence, a set with the label sequence $\RV{X}_1\frown \RV{X}_2$ must be equal to the product of two sets $(\RV{X}_1,X_1)\otimes(\RV{X}_2,X_2)$, and so we can without ambiguity refer to this as the set $(\RV{X}_1, \RV{X}_2)$. We will use these shorthands henceforth.
+
+\subsection{Labeled Markov kernels}\label{sec:labeled_kernels}
+
+\todo[inline]{LabeledFinStoch is actually a different category to FinStoch and I have to show it satisfies the axioms of a Markov category}
+
+A labeled Markov kernel $\kernel{K}:\RV{A}\to \Delta(\RV{B})$ is a Markov kernel that maps between labeled sets. If $\RV{A}$ takes values in $X$ and $\RV{B}$ takes values in $Y$, then $\kernel{K}$ is the triple $(\kernel{K}',\RV{A},\RV{B})$ consisting of the unlabeled Markov kernel $\kernel{K'}:X\to \Delta(Y)$ along with the \emph{domain labels} $\RV{A}$ and \emph{codomain labels} $\RV{B}$.
+
+Two labeled Markov kernels $\kernel{K}$ and $\kernel{L}$ are equal if their corresponding unlabeled Markov kernels are equal and their domain labels and codomain labels are equal.
+
+We already have the fact that if the domain (codomain) of a kernel $\kernel{K}'$ is the Cartesian product of $n$ ($m$) sets, then it can be drawn as a box with $n$ input ($m$ output) wires. Furthermore, by Lemma \ref{lem:fac-label}, if we can divide the domain (codomain) label sequences into $n$ ($m$) subsequences, then the domain (codomain) of $\kernel{K}'$ can be written as the Cartesian product of $n$ ($m$) sets. Thus for any division of the set labels associated with $\kernel{K}$ into subsequences, there is a graphical representation of $\kernel{K}$ with one wire associated with each subsequence.
+
+Therefore we can graphically represent a labeled kernel as a box with labeled wires corresponding to any division of the kernel's labels into subsequences. If $\kernel{K}:(\RV{A}_1,\RV{A}_2)\to \Delta(\RV{B}_1,\RV{B}_2)$, for example, we can draw:
+
+\begin{align}
+    \kernel{K} := \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+    \path (0,0) node (A1) {$\RV{A}_1$}
+    + (0,-0.3) node (A2) {$\RV{A}_2$}
+    ++ (0.7,-0.15) node[kernel] (K) {$\kernel{K}$}
+    ++ (0.7,0.15) node (B1) {$\RV{B}_1$}
+    + (0,-0.3) node (B2) {$\RV{B}_2$};
+    \draw (A1) -- ($(K.west) + (0,0.15)$) (A2) -- ($(K.west) + (0,-0.15)$);
+    \draw (B1) -- ($(K.east) + (0,0.15)$) (B2) -- ($(K.east) + (0,-0.15)$);
+\end{tikzpicture}
+\end{align}
+
+and
+
+\begin{align}
+    \kernel{K} = \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+    \path (0,0) node (A1) {$(\RV{A}_1,\RV{A}_2)$}
+    ++ (1.3,0) node[kernel] (K) {$\kernel{K}[\model{L}]$}
+    ++ (1.3,0.) node (B1) {$(\RV{B}_1,\RV{B}_2)$};
+    \draw (A1) -- (K) -- (B1);
+\end{tikzpicture}
+\end{align}
+
+Products of labeled Markov kernels
+
+We say two labeled kernels $\kernel{K}$ and $\kernel{L}$ are equivalent if one can be obtained from the other by application of the corresponding swap maps. For example, if we have $\kernel{K}:(\RV{X},\RV{Y})\to \Delta(\RV{Z},\RV{W})$ and $\kernel{L}:(\RV{Y},\RV{X})\to \Delta(\RV{W},\RV{Z})$, then $\kernel{K}$ and $\kernel{L}$ are equivalent, written $\kernel{K}\overset{perm}{=}\kernel{L}$ if
+
+\begin{align}
+\tikzfig{equivalence}
+\end{align}
+
+A labeled Markov kernel must satisfy the following axiom. This axiom is what makes the use of labeled Markov kernels and labeled sets different to the use of ordinary Markov kernels and sets.
+
+\begin{enumerate}
+    \item \textbf{Identity of labels:} For any labeled kernel $\kernel{K}:\RV{A}\to \Delta(\RV{B})$, the same label is assigned to two wires if and only if there is a valid diagrammatic representation of $\kernel{K}$ in which all instances of the same label are connected by a path consisting of bare wires and copy only.
+\end{enumerate}
+
+Here we consider the ``dot'' indicating a copy map to be an element of bare wire (the dot is not displayed in some other work on Markov categories such as \citet{fong_causal_2013}, but we include it to distinguish copy maps from wire crossings).
+
+For example, given $\kernel{K}:(\RV{X},\RV{Y})\to \Delta(\RV{X},\RV{Z})$, we require that there exist some $\kernel{H}:X\times Z\to \Delta(Y)$ such that
+\begin{align}
+    \kernel{K} &= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+                    \path (0,0) node (X) {$\RV{X}$}
+                    + (0,-0.65) node (Z) {$\RV{Z}$}
+                    ++ (0.5,0) node[copymap] (copy0) {}
+                    ++ (0.7,-0.5) node[kernel] (L) {$\kernel{H}$}
+                    ++ (0.9,0.65) node (Xout) {$\RV{X}$}
+                    +  (0,-0.65) node (Y) {$\RV{Y}$};
+                    \draw (X) -- (copy0) to [out=-45,in=180] ($(L.west) + (0,0.15)$) (L) -- (Y);
+                    \draw (copy0) to [out=45,in=180] (Xout);
+                    \draw (Z) -- ($(L.west) + (0,-0.15)$);
+                 \end{tikzpicture}\label{eq:extn1}\\
+        &\iff\\
+     \kernel{K}_{xz}^{x'y} &= \llbracket x=x'\rrbracket \kernel{H}_{xz}^{y}
+\end{align}
+
+Note the path connecting the two instances of $\RV{X}$ goes only through a copy map. For a second example, given $\kernel{L}: \RV{Z}\to \Delta(\RV{X},\RV{X},\RV{Y})$, we require that there exist some $\kernel{G}:\RV{Z}\to \Delta(\RV{X}, \RV{Y})$ such that
+\begin{align}
+    \kernel{L} &= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+                    \path (0,0) node (Z) {$\RV{Z}$}
+                    ++ (0.9,0) node[kernel] (L) {$\kernel{G}$}
+                    ++ (0.9,0.15) node[copymap] (copy0) {}
+                    ++ (0.5,0.3) node (X1) {$\RV{X}$}
+                    ++ (0,-0.3) node (X2) {$\RV{X}$}
+                    ++  (0,-0.3) node (Y) {$\RV{Y}$};
+                    \draw ($(L.east) + (0,0.15)$) -- (copy0) to[out=0,in=180] (X2);
+                    \draw (copy0) to [out=45,in=180] (X1);
+                    \draw (Z)--(L) ($(L.east) + (0,-0.15)$) -- (Y);
+                 \end{tikzpicture}\label{eq:extn2}\\
+               &\iff\\
+        \kernel{L}_{z}^{xx'y} &= \llbracket x=x' \rrbracket\kernel{G}_{z}^{xy}     
+\end{align}
+
+The identity of labels requires that \emph{instances of the same label must be deterministically equal}. It \emph{also} requires that the identity map $\mathrm{Id}_{\RV{X}}:\RV{X}\to \Delta(\RV{X})$, the copy map and the swap map all keep both the input value \emph{and the input label}. We can define a Markov kernel $\kernel{K}:\RV{X}\to \Delta(\RV{Y})$ where $\RV{X}$ and $\RV{Y}$ take values in the same set $Z$ but are different labels, and the unlabeled kernel associated with $\kernel{K}$ is $\mathrm{Id}_Z$, but in a string diagram this kernel will be represented by a box and not a bare wire.
+
+Note that the identity of labels rules out the existence of any labeled kernels with multiple copies of the same label as inputs.
+
+The \emph{connection} operation, defined in the next section, can compactly represent both cases above. If $\RV{X}$ is some label that appears twice in the output of $\kernel{L}$ or once in the input and once in the output, then there must be some $\kernel{M}$ such that
+
+\begin{align}
+    \kernel{L}=\kernel{M}\rightrightarrows\kernel{I}\label{eq:extn3}
+\end{align}
+
+\todo[inline]{I need to make this a lemma}

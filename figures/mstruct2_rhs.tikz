@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=Llabel tikzit] (0) at (-3, 1.5) {$X$};
+		\node [style=copymap tikzit] (1) at (-1.25, 1.5) {};
+		\node [style=RLabel tikzit] (2) at (0.75, 2) {$X$};
+		\node [style=Llabel tikzit] (4) at (-3, -0.5) {$Y$};
+		\node [style=copymap tikzit] (5) at (-1.25, -0.5) {};
+		\node [style=RLabel tikzit] (7) at (0.75, -1) {$Y$};
+		\node [style=none] (8) at (0, 1) {};
+		\node [style=none] (9) at (0, 0) {};
+		\node [style=RLabel tikzit] (10) at (0.75, 0) {$X$};
+		\node [style=RLabel tikzit] (11) at (0.75, 1) {$Y$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0) to (1);
+		\draw [in=-180, out=45] (1) to (2);
+		\draw (4) to (5);
+		\draw [in=180, out=-45] (5) to (7);
+		\draw [bend right=15] (1) to (8.center);
+		\draw [in=180, out=0, looseness=0.75] (8.center) to (10);
+		\draw [bend left=15] (5) to (9.center);
+		\draw [in=165, out=0, looseness=0.50] (9.center) to (11);
+	\end{pgfonlayer}
+\end{tikzpicture}

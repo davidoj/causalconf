@@ -1,0 +1,12 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=Llabel tikzit] (0) at (-2.5, 1) {$X$};
+		\node [style=none] (1) at (0.5, 1) {};
+		\node [style=Llabel tikzit] (2) at (-2.5, 0) {$X$};
+		\node [style=none] (3) at (0.5, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=delmap] (0) to (1.center);
+		\draw [style=delmap] (2) to (3.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-1.5, 1) {};
+		\node [style=none] (1) at (3.75, 2.5) {};
+		\node [style=copymap tikzit] (4) at (0.75, 1) {};
+		\node [style=none] (5) at (3, 0.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (4);
+		\draw [in=-180, out=45] (4) to (1.center);
+		\draw [style=delmap, in=-180, out=-30] (4) to (5.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
