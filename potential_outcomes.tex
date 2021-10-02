@@ -1,7 +1,7 @@
 %!TEX root = main.tex
 
 
-\section{Potential outcomes with and without counterfactuals}
+\section{Potential outcomes with and without counterfactuals}\label{sec:potential_outcomes}
 
 Potential outcomes is a widely used approach to causal modelling characterised by its use of ``potential outcome'' random variables. Potential outcome random variables are typically noted for being given counterfactual interpretations. For example, suppose have something we want to model, call it TYT (``The $\RV{Y}$ Thing''), which we represent with a variable $\RV{Y}$. Suppose we want to know how TYT behaves under different regimes 0 and 1 under which we want to know about TYT, and we use a variable $\RV{W}$ to indicate which regime holds at a given point in time. A potential outcomes model will introduce the two additional ``potential outcome'' variables $(\RV{Y}(0), \RV{Y}(1))$. What these variables represent can be given a counterfactual interpretation like ``$\RV{Y}(0)$ represents what TYT would be under regime $0$, whether or not regime $0$ is the actual regime'' and similarly ``$\RV{Y}(1)$ represents what TYT would be under regime $1$, whether or not regime $1$ is the actual regime''. Note that we say ``what TYT would be'' rather that ``what $\RV{Y}$ would be'' as ``what would $\RV{Y}$ be if $\RV{W}$ was 0 if $\RV{W}$ was actually 1'' is not a question we can ask of random variables, but it is one that might make sense for the things we use random variables to model.
 
