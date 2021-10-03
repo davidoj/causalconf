@@ -1,29 +1,24 @@
 
-
-Researchers in the field of causal inference will often choose a causal framework as one of the first steps of their investigations, or in some cases, one of the first steps of their careers. One could postulate that ``causal inference'' is what one does when one does work using a causal modelling framework. We argue that ``causal inference'' is better understood by the kind of \emph{questions} people work on rather than the kind of framework people use to answer them. \citet{pearl_book_2018} has proposed a three-level hierarchy for classifying causal questions: at the bottom are ``seeing'' questions followed by ``doing'' questions with ``imagining'' questions at the top. We propose an alternative characterisation: ``ordinary statistical questions'' are questions involving data that are answered by distributions on a given set \todo{or something like that; it could also be functions of a distribution like a maximum likelihood estimate or a p-value} while ``causal statistical questions'' are questions involving data that are answered by stochastic functions with given domain and codomain. Potential outcomes and graphical models are features of modelling frameworks, while interventions and counterfactuals are features of causal problems. We show how both potential outcomes and causal graphical models arise in \emph{see-do models}, a generic modelling framework we introduce that addresses causal questions in general, as we define them. We hypothesise that some confusion about interventions and counterfactuals arises from attempts to understand them as features dictated by the modelling framework rather than by the problem under investigation.
-
+Motivated by the need to deal with vagueness found in causal models, this paper takes a close look at trandom variables probability spaces and Markov categories.
 
 # Introduction (1pg)
 
- - When people write about causal inference, they overwhelmingly say that what they're trying to figure out is e.g. the treatment effect or the interventional distribution. Few to no examples of ``here is our problem, here is how we're going to model it'
- - The ``decision theoretic approach to causality'' (Dawid, Heckerman, Rohde & Lattimore) is an example of a ``problem first'' approach: ``our problem is to make a good decision. How do we do it?''
- - A \emph{decision} theoretic approach seems to rule out counterfactuals, because we can't decide to have done something different instead, but the problem first approach does not rule out counterfactuals: ``our problem is to answer some question about what would have happened. How do we do it?''
- - On terminology: we choose terms like ``hypothesis'', ``observations'' and ``see-do model'' because we think it is easier to understand the maths with a vague notion of what it could be used to model. However, we think the maths is more important than the words we use to describe it! See-do models can still model things better described by ``state'' instead of ``hypothesis'' or by ``supposition'' instead of ``decision''.
+Two widely used approaches to causal modelling are \emph{graphical causal models} and \emph{potential outcomes models}. Graphical causal models, which include Causal Bayesian Networks and Structural Causal Models, provide a set of \emph{intervention} operations that take probability distributions and a graph and return a modified probability distribution \citep{pearl_causality:_2009}. Potential outcomes models feature \emph{potential outcome variables} that represent the ``potential'' value that a quantity of interest would take under the right circumstances, a potential that may be realised if the circumstances actually arise, but will otherwise remain only a potential or \emph{counterfactual} value \citep{rubin_causal_2005}.
 
-# Probability (1pg)
+One challenge for both of these approaches is understanding how their causal primitives -- interventions and potential outcome variables respectively -- relate to the causal questions we are interested in. This challenge is related to the distinction, first drawn by \citep{korzybski_science_1933}, between ``the map'' and ``the territory''. Causal models, like other models, are ``maps'' that purport to represent a ``territory'' that we are interested in understanding. Causal primitives are elements of the maps, and the things to which they refer are parts of the territory. The maps contain all the things that we can talk about unambiguously, so it is challenging to speak clearly about how parts of the maps relate to parts of the territory that fall outside of the maps.
 
- - Discrete probability
- - Probability <-> positive normed vector, Markov kernel <-> positive matrix with row sum 1
- - Pictures
- - Variables w/Markov kernels instead of probabilities
- 	- Labels <-> random variables
- 	- Ambiguity regarding ambient space
+[...]
+
+# Probability (10pg)
+
+ - Markov categories
+ - With variables
 
 # See-do model (1pg)
 
  - See-do models are two-part models: observations, (decision->consequence)
- - Postulate: causal inference problems are problems that can be modeled with see-do models
- 	- ``causal'' problems and ``inference'' problems, broadly construed, could be a much larger set!
+ - They arise from a stylised decision problem
+ - And are closely related to classical statistical decision theory
 
 # See-do models solve a subproblem of decision problems (2pg)
 
