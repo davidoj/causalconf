@@ -7,41 +7,43 @@ Throughout this paper, we will assume all measurable sets $X$ are finite sets. T
 
 The standard method of constructing probability models introduces a probability space $(\prob{P},(\Omega,\sigalg{F}))$ with $\Omega$ a sample space, $\sigalg{F}$ a $\sigma$-algebra on $\Omega$ and $\prob{P}$ a probability measure on $(\Omega,\sigalg{F})$. Random variables are defined by measurable functions on $\Omega$ and are given names in sans-serif like $\RV{X}$. A probability distribution $\prob{P}^{\RV{XYZ}}$ is ``the joint distribution of $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ under $\prob{P}$'' where $\RV{X},$ $\RV{Y}$ and $\RV{Z}$ are associated with random variables on $\Omega$ and is given by the pushforward of the function $\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega),\RV{Z}(\omega))$. Unless otherwise stated, a random variable named $\RV{X}$ will take values in the space $X$ (note the serif font).
 
-To help us to construct causal models, we use an alternative method for building probability models. The motivation for doing this is to make it easy to represent a certain type of operation common in causal models. It is well-known that graphical causal models make use of operations that are not standard in probability theory. For example, in the causal graphical model framework, given $\prob{P}^{\RV{XYZ}}$, if $\RV{Z}$ blocks a backdoor path between $\RV{X}$ and $\RV{Y}$ then the backdoor adjustment formula allows us to define a new probability space with measure $\prob{P}_x$ via ``truncated factorisation'' \citep[page ~24]{pearl_causality:_2009}:
+This approach needs to be extended if we are to apply it to causal modelling. The causal graphical models literature provides some simple examples illustrating this need, while the fact that the potential outcomes approach also benefits from extension requires more explanation, and will be discussed in Section \ref{sec:potential_outcomes}. 
 
+Consider the ``truncated factorisation'', a linchpin operation in causal graphical models. Given a probability $\prob{P}^{\RV{XYZ}}$ and a graphical model in which $\RV{Z}$ blocks all backdoor paths between $\RV{X}$ and $\RV{Y}$, the truncated factorisation defines a new probability measure $\prob{P}_x$ as follows \citep[page ~24]{pearl_causality:_2009}:
 \begin{align}
 	\prob{P}^{\RV{YZ}}_{x}(y,z):=\prob{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\label{eq:truncated_fac}
 \end{align}
 
-The standard theory of probability does not assign special siginificance to the expression on the right side of Equation \ref{eq:truncated_fac}. At the same time, the notation we have chosen for the left side of Equation \ref{eq:truncated_fac} implicitly claims that $\prob{P}^{\RV{YZ}}_{x}$ is a distribution over the same variables $\RV{Y}$ and $\RV{Z}$ as the original $\prob{P}^{\RV{XYZ}}$. One way we can make sense of this is if $\prob{P}_{x}$ is defined on the same sample space as the original $\prob{P}$, and $\RV{Y}$ and $\RV{Z}$ are the same measurable functions on $\Omega$. However, in this case there is no guarantee that a suitable $\prob{P}_x$ exists. For example, if $\RV{X}=\RV{Z}$ (as in, $\RV{X}$ and $\RV{Z}$ are \emph{the same function on }$\Omega$) then there will usually be no measure $\prob{P}_x$ such that $\prob{P}^{\RV{YZ}}_{x}(y,z)$ agrees with Equation \ref{eq:truncated_fac} for any $\RV{Y}$ or $\prob{P}$.
+Without a causal model justifying the claim that $\RV{Z}$ blocks backdoor paths between $\RV{X}$ and $\RV{Y}$, there is in general no special siginificance to the expression on the right side of Equation \ref{eq:truncated_fac}, and causal models that can justify such claims are not a feature of the standard approach to probability modelling. At the same time, the notation we have chosen for the left side of Equation \ref{eq:truncated_fac} suggests that $\prob{P}^{\RV{YZ}}_{x}$ is a distribution over the same variables $\RV{Y}$ and $\RV{Z}$ as the original $\prob{P}^{\RV{XYZ}}$. The standard approach to probability modelling \emph{does} offer an account of what it means for variables to be the same, which is that they are represented by the same measurable functions on the probability space.
 
-A similar question arises in the framework of structural causal models. Such models posit a collection of \emph{structural equations}:
-\begin{align}
-	\RV{X}=f(\xi)\\
-	\RV{Y}=g(\RV{X},\xi)
-\end{align}
-along with an operation of \emph{intervention} that can replace the right hand side of each equation. One can ask: are structural equations definitions of the random variables $\RV{X}$ and $\RV{Y}$, in which case intervention is an operation that apparently changes their definition, or are they instead statements of equalities that happen to hold with probability 1? The latter might seem to fit better with the view that these equations can be replaced, but there are at least some cases in which some variables \emph{are} defined to be equal to functions of other variables. For example (recalling our discussion in the introduction), any variable $\RV{B}$ representing a person's body mass index should surely be equal \emph{by definition} to $\frac{\RV{W}}{\RV{H}^2}$ where $\RV{W}$ represents their weight in kilograms and $\RV{H}$ represents their height in metres. 
+An immediate issue is that $\prob{P}_x$ is a different probability measure to $\prob{P}$. However, even if we substitute probability measures, we could perhaps keep the sample space $\Omega$ and define variables as measurable functions on $\Omega$. This is the approach taken in \citet{pearl_causality:_2009} (but see Section \ref{sec:vague_variables}).
 
-One way to approach this is to note that there are two notions of equality of random variables - they can be strictly equal as functions on $\Omega$, and they can be almost surely equal with respect to some probability $\prob{P}$. Perhaps structural equations are statements of equality of the latter type. However, a statement of almost sure equality does not rule out strict equality -- in fact, it is necessary that almost sure equality holds for strict equality to hold. Furthermore, strict equalities have an impact on which interventions are possible (see body mass index above). Thus it seems that to fully specify a structural causal model we need to explicitly define the sample space and random variables in addition to the structural equations. But doing so is a hassle that, just like everyone else who works with probability theory, we would prefer to avoid.
+This approach rules out the possibility of performing some interventions. For example, if $\RV{X}=\RV{Z}$ and $\prob{P}^{\RV{Z}}$ is non-deterministic, then no $\prob{P}_x$ exists with the property required in Equation \ref{eq:truncated_fac}. We think that this is probably a useful feature. Consider a variable $\RV{B}$ representing a person's body mass index. It seems reasonable to hold that this variable is by definition equivalent to $\frac{\RV{W}}{\RV{H}^2}$ where $\RV{W}$ represents their weight in kilograms and $\RV{H}$ represents their height in metres. This rules out the existence of any probability measure that represents the results of an intervention on $\RV{B}$ in any model that also contains $\RV{H}$ and $\RV{W}$ and features the expected causal relationships (and, regardless of causal relationships, it completely rules out the possibility that $\RV{B}$, $\RV{H}$ and $\RV{W}$ can all be intervened on). Such interventions can be ruled out by defining the random variables such that $\RV{B} = \frac{\RV{W}}{\RV{H}^2}$.
 
-While Potential Outcomes, which features no ``intervention'' operation, does not seem to raise the particular questions discussed above, we still find our approach useful for discussing questions like how ``consequences of actions'' relate to ``potential outcomes'', as discussed in the introduction.
+Along the same lines as \citet{dawid_causal_2000}, we find that it is often desirable to introduce variables representing the results of choices, and we often don't want to attach probability distributions to such variables. We might have $\RV{D}$, representing a choice, and $\prob{P}^{\RV{Y}|\RV{D}}$ representing the consequences of this choice, but no $\prob{P}^{\RV{Y},\RV{D}}$ as we have no need of a marginal probability of $\RV{D}$.
 
-The fundamental idea behind our approach is to define variables as ``names'' along with sets of possible values. We suggest that variable names can act as indicators of ``what the variable is modelling''. We think advantages of this approach is, essentially, that we can choose how much structure we want to give variable names:
+As a brief summary, we want a version of ``probability theory'' that:
 \begin{itemize}
-	\item We do not need to fully specify a sample space and a set of functions to define variables
-	\itme We do not need to specify a default sample space and set of functions that might rule out interventions (e.g. if structural equations are variable definitions) or rule out the possibility that body mass index $\RV{B}$ and $\frac{\RV{W}}{\RV{H}^2}$ are the same thing (e.g. if every symbol is associated 1:1 with a projection from some big Cartesian product)
+	\item Defines what we mean by a ``variable''
+	\item Includes generalised variables that do not have marginal probabilities (for example, to represent choices)
+	\item Operations like Equation \ref{eq:truncated_fac} are standard rather than special cases
 \end{itemize}
 
+Standard probability theory does the first, but not the second two.
+
 \subsection{Markov categories}
-Before we introduce our definition of variables, we will briefly introduce the theory of \emph{Markov categories}, which we will build our approach on top of.
+We base our approach on the theory of Markov categories. This has two benefits: firstly, Markov categories have a graphical notation that help present some ideas in an intuitive manner. Secondly, because they are abstract categories that represent models of the flow of information, proofs that use only string diagrams correspond to theorems in many formalisations of probability, not just the finite set case that we focus on here. More comprehensive introductions to Markov categories can be found in \citet{fritz_synthetic_2020,cho_disintegration_2019}.
 
-We are working with a ``probability theory'' constructed with finite sets and Markov kernels that map from one set to probability distributions on another. The category with finite sets as objects and Markov kernels as morphisms along with some additional elements we will introduce shortly is known to be an example of a Markov category \citep{fritz_synthetic_2020}. In the words of Fritz, if one wants to model flow of information, the model one adopts will generally satisfy the requirements of Markov categories. In particular, all formalisations of probability theory satisfy the requirements of Markov categories, including the formalisation we work with here consisting of finite sets and Markov kernels.
+Rather than explain Markov categories in the abstract, we will instead introduce string diagrams with reference to how they represent stochastic maps and finite sets (though see Appendix \ref{sec:app_mcat}). Given measurable sets $(X,\sigalg{X})$ and $(Y,\sigalg{Y})$, a Markov kernel or stochastic map is a map $\kernel{K}:X\times \sigalg{Y}\to [0,1]$ such that
 
-The string diagram notation we introduce is an abstract notation for reasoning in Markov categories; a valid derivation in a string diagram corresponds to a valid proof in any Markov category. This is complicated by the fact that while we use standard notation for the ``pictorial'' aspects of these diagrams, we also annotate wires with variable names as an extension of this notation. 
+\begin{itemize}
+	\item The map $x\mapsto \kernel{K}(x,A)$ is $\sigalg{X}$-measurable for every $A\in \sigalg{Y}$
+	\item The map $A\mapsto \kernel{K}(x,A)$} is a probability measure for every $x\in X$
+\end{itemize}
 
-\todo[inline]{I don't really know where that leaves me overall}
+Where $X$ and $Y$ are finite sets with the discrete $\sigma$-algebra, we can represent a Markov kernel $\kernel{K}$ as a $|X|\times |Y|$ matrix where $\sum_{y\in Y} \kernel{K}_x^y = 1$ for every $x\in X$. We will give Markov kernels the signature $\kernel{K}:X\kto Y$ to indicate that they map from $X$ to probability distributions on $Y$.
 
-The basics of the graphical notation are as follows: a Markov kernel is represented as a box and a probability distribution as a triangle:
+Graphically, Markov kernels are drawn as boxes with input and output wires:
 
 \begin{align}
 \kernel{K}&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -57,7 +59,7 @@ The basics of the graphical notation are as follows: a Markov kernel is represen
 \end{tikzpicture}
 \end{align}
 
-Two Markov kernels $\kernel{L}:X\to \Delta(Y)$ and $\kernel{M}:Y\to \Delta(Z)$ have a product $\kernel{L}\kernel{M}:X\to \Delta(Z)$ given by the matrix product: $\kernel{L}\kernel{M}_x^z = \sum_y \kernel{L}_x^y\kernel{M}_y^z$. Graphically, we write represent products by joining kernel wires together:
+Two Markov kernels $\kernel{L}:X\kto Y$ and $\kernel{M}:Y\kto Z$ have a product $\kernel{L}\kernel{M}:X\kto Z$ given by the matrix product $\kernel{L}\kernel{M}_x^z = \sum_y \kernel{L}_x^y\kernel{M}_y^z$. Graphically, we write represent by joining wires together:
 
 \begin{align}
 	\kernel{L}\kernel{M}:= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -69,11 +71,9 @@ Two Markov kernels $\kernel{L}:X\to \Delta(Y)$ and $\kernel{M}:Y\to \Delta(Z)$ h
 \end{tikzpicture}
 \end{align}
 
-The Cartesian product $X\times Y:=\{(x,y)|x\in X, y\in Y\}$.
+The Cartesian product $X\times Y:=\{(x,y)|x\in X, y\in Y\}$. Given kernels $\kernel{K}:W\kto Y$ and $\kernel{L}:X\kto Z$, the tensor product $\kernel{K}\otimes\kernel{L}:W\times X\kto Y\times Z$ is defined by $(\kernel{K}\otimes\kernel{L})_{(w,x)}^{(y,z)}:=K_{w}^y L_{x}^z$ and represents applying the kernels in parallel to their inputs.
 
-Given kernels $\kernel{K}:W\to Y$ and $\kernel{L}:X\to Z$, the tensor product $\kernel{K}\otimes\kernel{L}:W\times X\to \Delta(Y\times Z)$ is defined by $(\kernel{K}\otimes\kernel{L})_{(w,x)}^{(y,z)}:=K_{w}^y L_{x}^z$.
-
-The tensor product is represeted by parallel juxtaposition:
+The tensor product is represeted by drawing kernels in parallel:
 
 \begin{align}
 	\kernel{K}\otimes \kernel{L}&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -88,20 +88,20 @@ The tensor product is represeted by parallel juxtaposition:
 \end{tikzpicture}
 \end{align}
 
-We read diagrams from left to right (this is somewhat different to \citet{fritz_synthetic_2020,cho_disintegration_2019,fong_causal_2013} but in line with \citet{selinger_survey_2010}). They are to be read as a series of products of Markov kernels. For some special Markov kernels, we can replace the generic ``box'' of a Markov kernel with a special diagrammatic element that is visually suggestive of what they accomplish.
+We read diagrams from left to right (this is somewhat different to \citet{fritz_synthetic_2020,cho_disintegration_2019,fong_causal_2013} but in line with \citet{selinger_survey_2010}). A diagram describes products and tensor products of Markov kernels, which are expressed according to the conventions described above. There are a collection of special Markov kernels for which we can replace the generic ``box'' of a Markov kernel with a diagrammatic elements that are visually suggestive of what these kernels accomplish.
 
-Markov categories feature a number of Markov kernels that play special roles in the theory. They are defined abstractly in Appendix \ref{sec:app_mcat}. Their visual representation is as follows:
+A description of these kernels follows.
 
-The identity map is a bare line:
+The identity map $\text{id}_X:X\kto X$ defined by $(\text{id}_X)_x^{x'}= \llbracket x = x' \rrbracket$, where the iverson bracket $\llbracket \cdot \rrbracket$ evaluates to $1$ if $\cdot$ is true and $0$ otherwise, is a bare line:
 
 \begin{align}
-	\mathrm{Id}_X&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\mathrm{id}_X&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\path (0,0) node (A) {$X$} ++ (0.5,0) node (B) {$X$};
 	\draw (A) -- (B);
 \end{tikzpicture}
 \end{align}
 
-The erase map is a fuse:
+We choose a particular 1-element set $\{*\}$ that acts as the identity in the sense that $\{*\}\times A=A\times \{*\} = A$ for any set $A$. The erase map $\text{del}_X:X\kto \{*\}$ defined by $(\text{del}_X)_x^* = 1$ is a Markov kernel that ``discards the input'' (we will later use it for marginalising joint distributions). It is drawn as a fuse:
 
 \begin{align}
 	\text{del}_X&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -110,7 +110,7 @@ The erase map is a fuse:
 \end{tikzpicture}
 \end{align}
 
-The copy map is a fork:
+The copy map $\text{copy}_X:X\kto X\times X$ defined by $(\text{copy}_X)_x^{x',x''}=\llbracket x=x' \rrbracket \llbracket x=x'' \rrbracket$ is a Markov kernel that makes two identical copies of the input. It is drawn as a fork:
 
 \begin{align}
 	\text{copy}_X&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -122,7 +122,7 @@ The copy map is a fork:
 \end{tikzpicture}
 \end{align}
 
-The swap map swaps wires:
+The swap map $\text{swap}_{X,Y}:X\times Y\kto Y\times X$ defined by $(\text{swap}_{X,Y})_{x,y}^{y',x'}=\llbracket x=x' \rrbracket\llbracket y=y' \rrbracket$ swaps two inputs, and is represented by crossing wires:
 
 \begin{align}
 	\text{swap}_X &:=  \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -134,85 +134,45 @@ The swap map swaps wires:
 	\end{tikzpicture}
 \end{align}
 
-Because we anticipate that the graphical notation will be unfamiliar  to maney, we will also include translations to more familiar notation.
+Because we anticipate that the graphical notation will be unfamiliar to many, we will also include translations to more familiar notation.
 
-\subsection{Finite set probability theory}
+\subsection{Truncated factorisation with string diagrams}
 
-For our purposes, a Markov kernel $\kernel{K}:X\to \Delta(Y)$ is a map from $X$ to probability distributions on $Y$. We can represent it concretely by the elements $(\kernel{K}_{x}^y)_{x\in X, y\in Y}$. An element $K_x^y$ represents the probability of $y\in Y$ given the argument $x\in X$. In general, an argument $w$ appearing as a superscript can be read as ``the probability of $w$'' and an argument $v$ appearing as a subscript can be read as ``given $v$''. Note that we do \emph{not} use Einstein summation in any expressions in this paper -- all sums will be written out explicitly.
-
-A Markov kernel must have the following properties:
-\begin{align}
-	0\leq &K_{x}^y \leq 1 &\forall x,y\\
-	\sum_{y\in Y} K_{x}^y &= 1 & \forall x
-\end{align}
-
-A probability distribution is a Markov kernel $\kernel{P}:\{*\}\to \Delta(Y)$ where $\{*\}$ is a one-element set. Such a Markov kernel can be represented as a matrix with one row, i.e. a column vector.
-
-The erase map $\text{del}_X:X\to \{*\}$ is represented by the matrix $(\text{del}_X)_x = 1$ for all $x\in X$. It maps every element of $X$ to the unique probability distribution on $\{*\}$, which gives probability 1 to $*$, the only element of the set; we can think of this as forgetting the input.
-
-The copy map $\text{copy}_X: X\to \Delta(X\times X)$ is the Markov kernel represented by the matrix $(\text{copy}_X)_x^{x',x''}:= \llbracket x = x' \rrbracket \llbracket x=x''\rrbracket$, where the iverson bracket $\llbracket \cdot \rrbracket$ evaluates to $1$ if $\cdot$ is true and $0$ otherwise. We can think of the copy map as taking an element $x$ and outputting a joint distribution of two ``variables'' that are deterministically equal to $x$.
-
-A swap map $\text{swap}_X: X\times Y \to \Delta(Y\times X)$ is the Markov kernel represented by the matrix $(\text{swap}_X)_{x,y}^{y',x'}:=\llbracket x=x' \rrbracket \llbracket y=y'\rrbracket$. It takes two inputs and returns a joint distribution on two ``variables'' deterministically equal to the swapped inputs.
-
-\subsection{Revisiting truncated factorisation}
-
-Recall the problem of using non-standard operations like Equation \ref{eq:truncated_fac}, and our concerns regarding the fact that such operations might conflict with random variable definitions. Abstract Markov categories allow us to consider similar operations with no apparent concerns. Note that $P^{\RV{Y|XZ}}$ must be represented by a Markov kernel $\kernel{K}:X\times Z\to \Delta(Y)$ and $\prob{P}^{\RV{Z}}$ by a Markov kernel $\kernel{L}\in \Delta(Z)$ (we will explain later why we explicitly distinguish Markov kernels from conditional probabilities). Then we can define a Markov kernel $\kernel{M}:X\to \Delta(X\times Z)$ representing $x\mapsto \prob{P}^{\RV{YZ}}_{x}(y,z)$ by
+The Markov kernels introduced in the previous section can be though of as ``conditional probability distributions without variables''. We can use these to represent an operation very similar to Equation \ref{eq:truncated_fac}. Note that $P^{\RV{Y|XZ}}$ must be represented by a Markov kernel $\kernel{K}:X\times Z\kto Y$ and $\prob{P}^{\RV{Z}}$ by a Markov kernel $\kernel{L}\in \Delta(Z)$. Then we can define a Markov kernel $\kernel{M}:X\kto X\times Z$ representing $x\mapsto \prob{P}^{\RV{YZ}}_{x}(y,z)$ by
 
 \begin{align}
 	\kernel{M}:= \tikzfig{truncated_factorisation}\label{eq:tfac_setted}
 \end{align}
 
-This is possible whenever $\kernel{K}$ and $\kernel{L}$ have the appropriate signatures, which seems to get around the issues regarding random variable definitions. However, we have accomplished this by substituting \emph{variables} for \emph{sets}, and sets are not an adequate substitute for variables. Consider an arbitrary Markov kernel $\kernel{K}:\{*\}\to \Delta(X\times X)$. We could draw this:
+There is, however, a key difference between Equation \ref{eq:tfac_setted} and Equation \ref{eq:truncated_fac}: the Markov kernels in the latter equation describe the distribution of particular variables, while the former equation describes Markov kernels only.
+
+To illustrate why we need variables, consider an arbitrary Markov kernel $\kernel{K}:\{*\}\kto \Delta(X\times X)$. We could draw this:
 \begin{align}
 	\kernel{K}:= \tikzfig{double_label}\label{eq:double_label}
 \end{align}
-In particular, we label both wires with $X$. However, it would be inappropriate to interpret this label as referring to a variable. Any Markov kernel representing ``the probability of $(\RV{X},\RV{X})$'' must surely require both copies of $\RV{X}$ to be deterministically equal. However, the relationship between the two in Equation \ref{eq:double_label} can be arbitrary.
+We label both wires with the set $X$. However, say $X=\{0,1\}$. Then $\kernel{K}$ could be the kernel $\kernel{K}^{x_1,x_2} = \llbracket x_1 = 0\rrbracket \llbracket x_2 = 1\rrbracket$. In this case, both of its outputs must represent \emph{different} variables, despite taking values in the same set. On the other hand, if $\kernel{K}^{x_1,x_2} = 0.5 \llbracket x_1 = x_2 \rrbracket$ then both outputs coudl represent the same variable, because they are deterministically the same, or they could represent different variables that happen to be equal. We need some way to distinguish the two cases.
 
-Our solution to this is to distinguish \emph{names}, \emph{sets of values} and \emph{variables}. A name is, broadly speaking, a unique identifier and a variable is a name together with a set of values. If we say a variable $\RV{X}$ stands for a question like ``Will this coin come up heads?'', we could choose the name to correspond to the English sentence ``Will this coin come up heads?''. Formally this only means that there is no other variable that also has this name, but it also does the job of communicating informally what we intend this variable to represent. Names do not have to be of this form; for example, I could choose all my names to be functions on a common sample space $\Omega$ and perhaps offer a natural language explanation of what that sample space represents. However, for our purposes a variable is a unique identifier along with a set of values.
+We use a definition of variable that almost matches the standard definition we introduced at the beginning of the section. We use Markov kernels rather than functions as it makes the construction slightly simpler.
 
-The unique identifier is introduced to addresses the problem described above: it's fine for two different variables to take values in the same set, and we generally do not require them to always take the same value. However, two instances of the same variable should always take the same value.
+\begin{definition}[Variable]
+Given a \emph{sample space} $\Omega$ and a measurable function $f:\Omega\to A$, the variable $\RV{X}:\Omega\kto A$ induced by $f$ is the Markov kernel defined by $\RV{X}_x^a=\llbracket a = f(x) \rrbracket$.
+\end{definition}
 
-We define a variable as a Cartesian product $A\times B$ where $A$ is the single-element set containing the variable name and $B$ is the set of values it can take. Thus a variable is a set of (name, value) pairs such ats $\{(\RV{X},a),(\RV{X},b)\}$.
+We then need a notion of Markov kernels that ``map between variables''. An \emph{indexed Markov kernel} is such an object.
 
-We require the following to be true of variables:
+\begin{definition}[Indexed Markov kernel]
+Given variables $\RV{X}:\Omega\to A$ and $\RV{Y}:\Omega\to B$, an indexed Markov kernel $\kernel{K}:\RV{X}\kto \RV{Y}$ is a triple $(\kernel{K}',\RV{X},\RV{Y})$ where $\kernel{K}':A\kto B$ is the \emph{underlying kernel}, $\RV{X}$ is the \emph{input index} and $\RV{Y}$ is the \emph{output index}. Indexed Markov kernels must satisfy the property of \emph{non-contradiction}:
+\begin{align}
+	\max_{\omega\in \Omega} (\RV{X}\otimes\RV{Y})_{\omega,\omega}^{a',b'} = 0 \implies \kernel{K}'_{a'}^{b'} = 0
+\end{align}
+\end{definition}
 
-\begin{enumerate}
-	\item \textbf{Uniqueness:} Given resolution sets $A\times X$ and $B\times Y$, if $A=B$ then $X=Y$
-\end{enumerate}
-
-We use sans serif letters $\RV{X},\RV{Y}$ to refer to names of variables and, due to the uniqueness axiom, also to variables. Given a variable $\RV{X}=A\times X$ we say ``$\RV{X}$ takes values in $X$''.
-
-
-We define the product and projection of variables as follows:
+Non-contradiction means that, if there is no $\omega\in \Omega$ such that $\RV{X}_\omega^{a'} = 1$ and $\RV{Y}_\omega^{b'}=1$ then the simultaneous occurrence of $a'$ and $b'$ must be zero.
 
 \begin{itemize}
-	\item \textbf{Product:} Given variables $\RV{W}=A\times X$ and $\RV{V}=B\times Y$, the product $\RV{W}\otimes\RV{V}=(A\times B)\times (X\times Y)$
-	\item \textbf{Projection:} The projection $\pi_i$ is defined by $\pi_j:\bigotimes_{i\in I} \RV{X}_i = \RV{X}_j$
+	\item \textbf{Product:} Given variables $\RV{W}=A\times X$ and $\RV{V}=B\times Y$, the product is $\RV{W}\otimes\RV{V}=(A\times B)\times (X\times Y)$
 \end{itemize}
 
-\todo[inline]{Show that these induce a symmetric monoidal category. One thing we need is that $A\times B$ is not isomorphic to $B$, and I'm not sure how to say this exactly.}
-
-% In the category of sets, $(A\times B)\times (X\times Y)$ is naturally isomorphic to $\RV{W}\times\RV{V}=(A\times X)\times(B\times Y)$, and thus $\pi_i$ is naturally isomorphic to the canonical projection $\nu_j:\bigtimes_{i\in I} A_i = A_j$.
-
-Define the variable $*:=\{\emptyset\}\times\{\emptyset\}$.
-
-\begin{lemma}[Identity element]\label{lem:se_id}
-For all variables $\RV{X}$, $\RV{X}\otimes * \cong *\otimes \RV{X} \cong \RV{X}$
-\end{lemma}
-
-\begin{proof}
-Let $\RV{X}=A\times B$.
-\begin{align}
-	*\otimes \RV{X} &= (\{\emptyset\}\times A)\times(\{\emptyset\}\times B)\\
-					&\cong A\times B\\
-					&\cong (A\times \{\emptyset\})\times(B\times \{\emptyset\})\\
-					&= \RV{X}\otimes *
-\end{align}
-\end{proof}
-
-The following lemma guarantees that if we can divide a sequence $\RV{Z}$ into some collection of subsequences $\{\RV{A}_i\}_{i\in [n]}$, then we can find a collection of labeled sets corresponding to each subsequence $\RV{A}_i$.
-
-Rather than using the $\otimes$ symbol to refer to the product of variables, which is somewhat overloaded, we will use the more familiar notation $(\RV{X},\RV{Y})$. Note that $(\{\RV{X}\}\times A)\otimes (\{\RV{Y}\}\times B) = \{(\RV{X},\RV{Y})\}\times (A\times B)$, so the notation $(\RV{X},\RV{Y})$ is the name of the variable obtained from taking the product of the two associated resolution sets.
 
 \subsection{Markov variable maps}\label{sec:labeled_kernels}
 
@@ -236,7 +196,13 @@ Note that we don't allow products of Markov variable maps if they have compatibl
 
 The diagrams representing Markov variable maps are identical to the diagrams representing their underlying Markov kernels decorated with variable names on each input and each output wire. 
 
-A variable name could be a sequence of other variable names $(\RV{X}_i)_{i\in [n]}$. By construction, this means that we have a collection of variables $\RV{X}_i$ such that $(\RV{X}_i)_{i\in [n]}$ is the variable name associated with the product $\bigotimes_{i\in [n]} \RV{X}_i$. If each $\RV{X}_i$ takes values in a set $X_i$, then $(\RV{X}_i)_{i\in [n]}$ must take values in $\bigtimes_{i\in [n]} X_i$. The underlying Markov kernel can always be drawn with one wire representing each $X_i$, and using such a representation it is possible to assign each $\RV{X}_i$ in the sequence to a corresponding wire.
+\todo[inline]{Show that these induce a symmetric monoidal category.}
+
+\begin{lemma}[Deterministic equality]
+
+\end{lemma}
+
+A variable could be a product of other variables, e.g. $\RV{X}=\bigotimes_{i\in [n]} \RV{X}_i$. By construction, this means that we have a collection of variables $\RV{X}_i$ such that $(\RV{X}_i)_{i\in [n]}$ is the variable name associated with the product $\bigotimes_{i\in [n]} \RV{X}_i$. If each $\RV{X}_i$ takes values in a set $X_i$, then $(\RV{X}_i)_{i\in [n]}$ must take values in $\bigtimes_{i\in [n]} X_i$. The underlying Markov kernel can always be drawn with one wire representing each $X_i$, and using such a representation it is possible to assign each $\RV{X}_i$ in the sequence to a corresponding wire.
 
 For example, if $\kernel{K}:(\RV{A}_1,\RV{A}_2)\to \Delta(\RV{B}_1,\RV{B}_2)$, for example, we can draw:
 
@@ -262,12 +228,6 @@ or
 	\draw (A1) -- (K) -- (B1);
 \end{tikzpicture}
 \end{align}
-
-A Markov variable maps must satisfy the following axiom.
-
-\begin{enumerate}
-	\item \textbf{Deterministic equality of identical variables:} For any Markov variable map $\kernel{K}:\RV{A}\to \Delta(\RV{B})$, the same variable may be assigned to two terminal wires in a graphical representation if there is a valid graphical representation of $\kernel{K}$ in which those two terminals are connected by a path and that path is not obstructed by any boxes or triangles.
-\end{enumerate}
 
 \begin{lemma}[Deterministic equality of identical variables]
 This axiom is equivalent to the following three conditions:
@@ -530,3 +490,21 @@ A particular case of interest is when a kernel $\kernel{K}:(\RV{X},\RV{W})\to \D
 \end{align}
 
 Then $\RV{Y}\CI_{\kernel{K}}\RV{W}|\RV{X}$.
+
+\subsection{Variables or vague variables?}\label{sec:vague_variables}
+
+Recall our definition of variables: functions from a sample space $\Omega$ to some codomain set. We also recall a concern raised in our introduction: if actions affecting a measure of interest are vague, then potential outcome random variables \emph{might} be ill-defined. Consider: how can it be that the degree to which we specify actions sometimes, but not always, allows a random variable to be well-defined? These concerns seem to be of different types -- on the one hand, we have the problem of whether my instructions are clear enough for you to follow them and produce the same results, and on the other hand the problem of whether an abstract sample space has the appropriate properties for a certain type of function to exist.
+
+Consider also the definition of \emph{variable} found in \citet{pearl_causality:_2009}:
+
+\begin{quote}
+By a \emph{variable} we will mean an attribute, measurement or inquiry that may take on one of several possible outcomes, or values, from a specified domain. If we have beliefs (i.e., probabilities) attached to the possible values that a variable may attain, we will call that variable a random variable.
+\end{quote}
+
+This is claimed to be identical to our definition of a variable -- i.e. a measurable function on the sample space. However, we feel that a much closer match is the definition of a \emph{qualitative statistical random variable} given by \citet{menger_random_2003}; roughly speaking, a qualitative statistical random variable is a vague function (our term) whose codomain is well-specified but whose domain is not. Menger offers examples of vague functions that take as arguments acts of measurement, or people in Chicago; in a very similar manner, Pearl's definition offers examples of arguments that a variable may take, but does not offer examples of sample spaces that may form their domains.
+
+We offer the following rough idea of how vague random variables can be thought about. A vague random variable like ``$\RV{X}$ represents whether this coin lands on heads or tails'' can be considered an instruction for whoever is reading to construct a concrete random variable whose domain is related to the set of observations that they might receive. These domains necessarily differ between individuals, and we postulate the existence of a ``reality'' that offers everyone observations that are sometimes similar in some respects. A vague random variable can be well-defined if the concrete random variables that everyone constructs allow everyone to agree on the result when they are given observations that are appropriately related.
+
+This might seem an excessively pedantic way to describe a coin-flipping experiment. However, we think there that a story like this this may be important in causal models. At the start of this section we asked ``how can the degree to which we specify actions sometimes, but not always, allows a random variable to be well-defined?'' Our rough model of vague variables offers a solution to this question: sufficiently specific actions are sometimes enough to allow all parties to agree on the values once observations have taken place. We hypothesise that this question arises with variables representing consequences of actions because when it comes to taking actions there is an asymmetry that is extremely hard to avoid: I know more about what I am doing and why I am doing it than you do.
+
+While we believe that this is a potentially fruitful line of inquiry, we won't develop it here and will satisfy ourselves with a theory based on concrete variables.

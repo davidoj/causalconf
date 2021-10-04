@@ -172,3 +172,44 @@ The \emph{connection} operation, defined in the next section, can compactly repr
 \end{align}
 
 \todo[inline]{I need to make this a lemma}
+
+
+
+% In the category of sets, $(A\times B)\times (X\times Y)$ is naturally isomorphic to $\RV{W}\times\RV{V}=(A\times X)\times(B\times Y)$, and thus $\pi_i$ is naturally isomorphic to the canonical projection $\nu_j:\bigtimes_{i\in I} A_i = A_j$.
+
+Define the variable $*:=\{\emptyset\}\times\{\emptyset\}$.
+
+\begin{lemma}[Identity element]\label{lem:se_id}
+For all variables $\RV{X}$, $\RV{X}\otimes * \cong *\otimes \RV{X} \cong \RV{X}$
+\end{lemma}
+
+\begin{proof}
+Let $\RV{X}=A\times B$.
+\begin{align}
+    *\otimes \RV{X} &= (\{\emptyset\}\times A)\times(\{\emptyset\}\times B)\\
+                    &\cong A\times B\\
+                    &\cong (A\times \{\emptyset\})\times(B\times \{\emptyset\})\\
+                    &= \RV{X}\otimes *
+\end{align}
+\end{proof}
+
+The following lemma guarantees that if we can divide a sequence $\RV{Z}$ into some collection of subsequences $\{\RV{A}_i\}_{i\in [n]}$, then we can find a collection of labeled sets corresponding to each subsequence $\RV{A}_i$.
+
+Rather than using the $\otimes$ symbol to refer to the product of variables, which is somewhat overloaded, we will use the more familiar notation $(\RV{X},\RV{Y})$. Note that $(\{\RV{X}\}\times A)\otimes (\{\RV{Y}\}\times B) = \{(\RV{X},\RV{Y})\}\times (A\times B)$, so the notation $(\RV{X},\RV{Y})$ is the name of the variable obtained from taking the product of the two associated resolution sets.
+
+r solution to this is to distinguish \emph{names}, \emph{sets of values} and \emph{variables}. A name is, broadly speaking, a unique identifier and a variable is a name together with a set of values. If we say a variable $\RV{X}$ stands for a question like ``Will this coin come up heads?'', we could choose the name to correspond to the English sentence ``Will this coin come up heads?''. Formally this only means that there is no other variable that also has this name, but it also does the job of communicating informally what we intend this variable to represent. Names do not have to be of this form; for example, I could choose all my names to be functions on a common sample space $\Omega$ and perhaps offer a natural language explanation of what that sample space represents. However, for our purposes a variable is a unique identifier along with a set of values.
+
+The unique identifier is introduced to addresses the problem described above: it's fine for two different variables to take values in the same set, and we generally do not require them to always take the same value. However, two instances of the same variable should always take the same value.
+
+We define a variable as a Cartesian product $A\times B$ where $A$ is the single-element set containing the variable name and $B$ is the set of values it can take. Thus a variable is a set of (name, value) pairs such ats $\{(\RV{X},a),(\RV{X},b)\}$.
+
+We require the following to be true of variables:
+
+\begin{enumerate}
+    \item \textbf{Uniqueness:} Given resolution sets $A\times X$ and $B\times Y$, if $A=B$ then $X=Y$
+\end{enumerate}
+
+We use sans serif letters $\RV{X},\RV{Y}$ to refer to names of variables and, due to the uniqueness axiom, also to variables. Given a variable $\RV{X}=A\times X$ we say ``$\RV{X}$ takes values in $X$''.
+
+
+We define the product and projection of variables as follows:
