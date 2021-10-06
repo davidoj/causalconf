@@ -1,22 +1,26 @@
 \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=medium dist tikzit] (0) at (-4.75, 3.25) {$\kernel{L}$};
-		\node [style=copymap tikzit] (3) at (-3.25, 3.25) {};
-		\node [style=none] (6) at (-1, 4.5) {};
-		\node [style=none] (8) at (-1, 2.5) {};
-		\node [style=none] (9) at (-2.25, 2.5) {};
-		\node [style=medium kernel tikzit] (11) at (-1.5, 3) {$\kernel{K}$};
-		\node [style=none] (12) at (-2.25, 3.25) {};
-		\node [style=RLabel tikzit] (13) at (1, 4.5) {$\RV{Y}$};
-		\node [style=RLabel tikzit] (14) at (1, 2.5) {$\RV{Z}$};
-		\node [style=RLabel tikzit] (15) at (-5, 1) {$\RV{X}$};
+		\node [style=medium dist tikzit] (16) at (2.25, 3.25) {$\kernel{L}$};
+		\node [style=copymap tikzit] (17) at (3.75, 3.25) {};
+		\node [style=none] (18) at (6, 4.5) {};
+		\node [style=none] (19) at (6, 2.5) {};
+		\node [style=none] (20) at (4.75, 2.5) {};
+		\node [style=medium kernel tikzit] (21) at (5.5, 3) {$\kernel{K}$};
+		\node [style=none] (22) at (4.75, 3.25) {};
+		\node [style=RLabel tikzit] (23) at (8, 4.5) {$\RV{Y}$};
+		\node [style=RLabel tikzit] (24) at (8, 2.5) {$\RV{Z}$};
+		\node [style=RLabel tikzit] (25) at (2, 1) {$\RV{X}$};
+		\node [style=copymap tikzit] (26) at (3.75, 2.5) {};
+		\node [style=RLabel tikzit] (27) at (8, 1) {$\RV{X}$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-		\draw (0) to (3);
-		\draw [in=-180, out=60] (3) to (6.center);
-		\draw (3) to (12.center);
-		\draw (6.center) to (13);
-		\draw [in=180, out=0] (8.center) to (14);
-		\draw [in=-180, out=0] (15) to (9.center);
+		\draw (16) to (17);
+		\draw [in=-180, out=60] (17) to (18.center);
+		\draw (17) to (22.center);
+		\draw (18.center) to (23);
+		\draw [in=180, out=0] (19.center) to (24);
+		\draw [in=-180, out=0, looseness=0.75] (25) to (26);
+		\draw (26) to (20.center);
+		\draw [in=180, out=-30, looseness=0.75] (26) to (27);
 	\end{pgfonlayer}
 \end{tikzpicture}

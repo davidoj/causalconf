@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  30 SEP 2021 14:04
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  5 OCT 2021 17:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -908,43 +908,36 @@ File: l3backend-xdvipdfmx.def 2020-02-03 L3 backend support: xdvipdfmx
 \g__pdf_backend_object_int=\count309
 \g__pdf_backend_annotation_int=\count310
 )
-(./main.aux
-
-LaTeX Warning: Label `eq:extn_definition1' multiply defined.
-
-
-LaTeX Warning: Label `eq:extn_definition2' multiply defined.
-
-)
+(./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 167.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 168.
+LaTeX Font Info:    ... okay on input line 168.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 168.
+LaTeX Font Info:    ... okay on input line 168.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 168.
+LaTeX Font Info:    ... okay on input line 168.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 168.
+LaTeX Font Info:    ... okay on input line 168.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 168.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 1
-67.
+68.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    ... okay on input line 168.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 168.
+LaTeX Font Info:    ... okay on input line 168.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 168.
+LaTeX Font Info:    ... okay on input line 168.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 168.
+LaTeX Font Info:    ... okay on input line 168.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 168.
+LaTeX Font Info:    ... okay on input line 168.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 168.
+LaTeX Font Info:    ... okay on input line 168.
 \AtBeginShipoutBox=\box87
-Package hyperref Info: Link coloring OFF on input line 167.
+Package hyperref Info: Link coloring OFF on input line 168.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -957,15 +950,15 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count311
 )
-LaTeX Info: Redefining \ref on input line 167.
-LaTeX Info: Redefining \pageref on input line 167.
-LaTeX Info: Redefining \nameref on input line 167.
+LaTeX Info: Redefining \ref on input line 168.
+LaTeX Info: Redefining \pageref on input line 168.
+LaTeX Info: Redefining \nameref on input line 168.
 
 (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 167.
+LaTeX Info: Redefining \microtypecontext on input line 168.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: No adjustment of tracking.
@@ -977,7 +970,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (RS)
 )
 ABD: EveryShipout initializing macros
-LaTeX Font Info:    Trying to load font information for U+msa on input line 170
+LaTeX Font Info:    Trying to load font information for U+msa on input line 171
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -986,7 +979,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 170
+LaTeX Font Info:    Trying to load font information for U+msb on input line 171
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -996,18 +989,18 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for U+stmry on input line 1
-70.
+71.
 
 (/usr/share/texlive/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
 LaTeX Font Info:    Trying to load font information for U+wasy on input line 17
-0.
+1.
 
 (/usr/share/texlive/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 )
 
 LaTeX Font Warning: Font shape `U/stmry/b/n' undefined
-(Font)              using `U/stmry/m/n' instead on input line 170.
+(Font)              using `U/stmry/m/n' instead on input line 171.
 
 (./main.toc)
 \tf@toc=\write5
@@ -1021,7 +1014,7 @@ File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
 [1
 
 ] [2]
-LaTeX Font Info:    Trying to load font information for U+eus on input line 188
+LaTeX Font Info:    Trying to load font information for U+eus on input line 189
 .
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueus.fd
 File: ueus.fd 2013/01/14 v3.01 Euler Script
@@ -1030,7 +1023,7 @@ File: ueus.fd 2013/01/14 v3.01 Euler Script
 File: mt-eus.cfg 2006/07/28 v1.2 microtype config. file: AMS Euler Script (RS)
 )
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 192.
+ine 193.
 
 (./probability.tex [3]
 Package microtype Info: Loading generic protrusion settings for font family
@@ -1039,26 +1032,13 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
  [4] [5] [6] (./figures/truncated_factorisation.tikz)
 (./figures/truncated_factorisation.tikz) (./figures/double_label.tikz)
-(./figures/double_label.tikz) [7]
-Overfull \hbox (9.69707pt too wide) in paragraph at lines 173--174
-[]\T1/lmr/bx/n/10 Product of la-beled sets: \T1/lmr/m/n/10 Given $\OT1/cmr/m/n/
-10 (\OT1/cmss/m/n/10 X[]\OML/cmm/m/it/10 ; X\OT1/cmr/m/n/10 )$ \T1/lmr/m/n/10 a
-nd $\OT1/cmr/m/n/10 (\OT1/cmss/m/n/10 X[]\OML/cmm/m/it/10 ; Y\OT1/cmr/m/n/10 )$
-\T1/lmr/m/n/10 , the prod-uct $\OT1/cmr/m/n/10 (\OT1/cmss/m/n/10 X[]\OML/cmm/m/
-it/10 ; X\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 
-
- []
-
-[8] [9] (./figures/equivalence.tikz) (./figures/equivalence.tikz) [10] [11]
-[12] (./figures/iconnectm.tikz) (./figures/iconnectm_rev.tikz)
-(./figures/iconnectm.tikz) (./figures/iconnectm_rev.tikz)
-(./figures/iconnectm_clear.tikz) (./figures/iconnectm_clear.tikz)
-(./figures/iconnectm_dclear.tikz) (./figures/iconnectm_dclear.tikz) [13]
+(./figures/double_label.tikz) [7] [8] [9]
 (./figures/truncated_factorisation_labeled.tikz)
-(./figures/truncated_factorisation_labeled.tikz) [14] [15]
-(./figures/cond_indep1.tikz) (./figures/cond_indep1.tikz)
-(./figures/ci_example.tikz) (./figures/ci_example.tikz)) (./seedo.tex [16]
-[17]) (./cbns.tex [18]) (./potential_outcomes.tex [19] [20] [21]
+(./figures/truncated_factorisation_labeled.tikz) [10]
+(./figures/conditional_submodel.tikz) (./figures/conditional_submodel.tikz)
+[11] [12] (./figures/cond_indep1.tikz) (./figures/cond_indep1.tikz)
+(./figures/ci_example.tikz) (./figures/ci_example.tikz) [13]) (./seedo.tex
+[14] [15] [16]) (./cbns.tex [17]) (./potential_outcomes.tex [18] [19]
 Overfull \hbox (34.32564pt too wide) in paragraph at lines 51--52
 \T1/lmr/m/it/10 al-lel po-ten-tial out-come sub-model \T1/lmr/m/n/10 if $\OT1/c
 mr/bx/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/n/10 j\OT1/cmss/m/
@@ -1068,14 +1048,14 @@ ex-ists and $\OT1/cmr/bx/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m
 )][] =
  []
 
-
+[20]
 Overfull \hbox (1.61238pt too wide) in paragraph at lines 65--66
 \T1/lmr/m/n/10 con-di-tion-ally in-de-pen-dent and iden-ti-cally dis-tributed M
 arkov ker-nel $\U/msb/m/n/10 P\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/
 n/10 j\OT1/cmss/m/n/10 J\OT1/cmr/m/n/10 ][] =
  []
 
-[22]
+[21]
 Overfull \hbox (2.66875pt too wide) in paragraph at lines 80--81
 [][]\T1/lmr/bx/n/10 Definition 5.4 \T1/lmr/m/n/10 (Ex-ten-sion)\T1/lmr/bx/n/10 
 . []\T1/lmr/m/n/10 Given a Markov ker-nel space $\OT1/cmr/m/n/10 (\OT1/cmr/bx/n
@@ -1090,7 +1070,7 @@ Overfull \hbox (16.46306pt too wide) in paragraph at lines 88--89
 0 (\OT1/cmr/bx/n/10 K\OML/cmm/m/it/10 ; E; F\OT1/cmr/m/n/10 )$\T1/lmr/m/n/10 ,
  []
 
-[23]
+[22]
 Overfull \hbox (36.55618pt too wide) in paragraph at lines 107--108
 []\T1/lmr/m/n/10 Let $\OML/cmm/m/it/10 e \OT1/cmr/m/n/10 = (\OML/cmm/m/it/10 e[
 ]\OT1/cmr/m/n/10 )[]$\T1/lmr/m/n/10 . In-tro-duce the vari-able $\OT1/cmss/m/n/
@@ -1101,7 +1081,7 @@ cmm/m/it/10 D\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/10 D[]Z\OT1/cmr/m
 /n/10 ][] =
  []
 
-[24]) (./appendix.tex [25]
+[23]) (./appendix.tex [24]
 Overfull \hbox (24.04094pt too wide) in paragraph at lines 18--19
 []\T1/lmr/m/it/10 Then there ex-ists a unique see-do model $\OT1/cmr/m/n/10 (\O
 T1/cmr/bx/n/10 T\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 H[]\OML/cmm/m/it/10 ; \OT1/
@@ -1111,20 +1091,24 @@ T1/cmr/m/n/10 [[]][] =
  []
 
 
-LaTeX Warning: Reference `ssec:disintegration' on page 26 undefined on input li
+LaTeX Warning: Reference `ssec:disintegration' on page 25 undefined on input li
 ne 22.
 
-[26]
+[25]
+
+LaTeX Warning: Reference `eq:extn2' on page 26 undefined on input line 81.
+
+
 Overfull \hbox (9.27867pt too wide) detected at line 242
 []
  []
 
-[27]
+[26]
 Overfull \hbox (27.09242pt too wide) detected at line 328
 []
  []
 
-[28] (./figures/ccom_lhs.tikz) (./figures/ccom_rhs.tikz)
+[27] (./figures/ccom_lhs.tikz) (./figures/ccom_rhs.tikz)
 (./figures/ccom_lhs.tikz) (./figures/ccom_rhs.tikz) (./figures/ccom2_lhs.tikz)
 (./figures/ccom2_mhs.tikz) (./figures/ccom2_rhs.tikz) (./figures/ccom2_lhs.tikz
 ) (./figures/ccom2_mhs.tikz) (./figures/ccom2_rhs.tikz)
@@ -1133,20 +1117,23 @@ Overfull \hbox (27.09242pt too wide) detected at line 328
 (./figures/mstruct1_rhs.tikz) (./figures/mstruct2_lhs.tikz)
 (./figures/mstruct2_rhs.tikz) (./figures/mstruct1_lhs.tikz)
 (./figures/mstruct1_rhs.tikz) (./figures/mstruct2_lhs.tikz)
-(./figures/mstruct2_rhs.tikz) [29] (./figures/naturality_lhs.tikz)
+(./figures/mstruct2_rhs.tikz) [28] (./figures/naturality_lhs.tikz)
 (./figures/naturality_rhs.tikz) (./figures/naturality_lhs.tikz)
-(./figures/naturality_rhs.tikz) [30]) (./main.bbl
+(./figures/naturality_rhs.tikz)
+
+LaTeX Warning: Reference `lem:se_id' on page 29 undefined on input line 409.
+
+[29]) (./main.bbl
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
 0.
-
-(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+ (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [31]
+ [30]
 Underfull \hbox (badness 6284) in paragraph at lines 34--44
 []\T1/lmr/m/n/10 A. P. Dawid.  Causal In-fer-ence with-out Coun-ter-fac-tu-als.
   \T1/lmr/m/it/10 Jour-
@@ -1178,14 +1165,14 @@ lor & Fran-cis _eprint:
 
 Missing character: There is no ł in font ec-lmr10!
 Missing character: There is no ń in font ec-lmr10!
-[32]) [33] [34]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 218.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 218.
+[31]) [32] [33]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 219.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 219.
  (./main.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 218.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 218.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 219.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 219.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: CB8736C28E84AECFBDCC3A6B71162E95;1600.
+(rerunfilecheck)             Checksum: 6529B6CFEAA80CB1167559EDD49629BD;1584.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1193,18 +1180,15 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 218.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 219.
  ) 
 Here is how much of TeX's memory you used:
- 29483 strings out of 479819
- 557900 string characters out of 5895847
- 926193 words of memory out of 5000000
- 45883 multiletter control sequences out of 15000+600000
- 614009 words of font info for 151 fonts, out of 8000000 for 9000
+ 29318 strings out of 479819
+ 554697 string characters out of 5895847
+ 925493 words of memory out of 5000000
+ 45742 multiletter control sequences out of 15000+600000
+ 595050 words of font info for 104 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 68i,16n,83p,1337b,939s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 68i,16n,83p,1337b,938s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.xdv (34 pages, 392868 bytes).
+Output written on main.xdv (33 pages, 353676 bytes).

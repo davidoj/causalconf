@@ -1,0 +1,131 @@
+\subsection{Connection}
+
+We can think of an indexed Markov kernel $\kernel{K}:(\RV{X},\RV{Y})\kto (\RV{W},\RV{Z})$ as a block with input connection points ``$\RV{X}$'' and ``$\RV{y}$'' and output connection points ``$\RV{W}$'' and ``$\RV{Z}$''. We define an associative operation of \emph{connection} $\rightrightarrows$ that takes two compatible indexed Markov kernels and ``joins'' all of the matching connectin points, and preserving a copy of all the available connection points in the result. Two indexed Markov kernels can be connected unless connecting them will result in something that violates the rule of non-contradiction.
+
+The operation $\rightrightarrows$ is a helpful shorthand. Whenever we use it, we could instead define an object via a string diagram or via sums and products of Markov kernels, but these reduce to $\rightrightarrows$ often enough that it's helpful to define it in a standalone manner.
+
+
+For some variable $\RV{W}$, we use $m_{\RV{W}}(\RV{X})$ to refer to the number of times $\RV{W}$ appears in $\RV{X}$ (recalling that $\RV{X}$ may be a sequence of other variables). We say $\RV{W}$ is in $\RV{X}$ or $\RV{W}\in \RV{X}$ if $m_{\RV{W}}(\RV{X})>0$.
+
+With this in mind, we define the following operations on sequences of labels
+
+\begin{enumerate}
+    \item \textbf{Difference of label sequences:} Given $\RV{X}_1$, $\RV{X}_2$, the difference $\RV{X}_1\setminus \RV{X}_2$ is a variable $\RV{X}_3$ such that for all variables $\RV{W}_i$, $m_{\RV{W}_i}(\RV{X}_3) = \max(0,m_{\RV{W}_i}(\RV{X}_1)-m_{\RV{W}_i}(\RV{X}_2))$
+    \item \textbf{Intersection of labels:} Given $\RV{X}_1$, $\RV{X}_2$, the intersection $\RV{X}_1\cap \RV{X}_2$ is a variable $\RV{X}_3$ such that for any variable $\RV{W}_i$, $m_{\RV{W}_i}(\RV{X}_3) = \min(m_{\RV{W}_i}(\RV{X}_1),m_{\RV{W}_i}(\RV{Y}_2))$
+\end{enumerate}
+
+These definitions are non-unique in that they do not define the order of the resulting label sequence. This doesn't cause a problem because we only care about Markov variable maps that are identical up to isomorphism.
+
+Given two Markov variable maps $\kernel{F}:\RV{I}_F\to\Delta(\RV{O}_F)$ and $\kernel{S}:\RV{I}_S\to\Delta(\RV{O}_S)$, make the following variable identifications:
+\begin{align}
+    \RV{O}_{F\cdot}&:=\RV{O}_F\setminus\RV{I}_S &\text{Variables only in the output of } \kernel{F}\\
+    \RV{O}_{FS}&:=\RV{O}_F\cap\RV{I}_S &\text{Variables in the output of both}\\
+    \RV{I}_{F\cdot} &:= \RV{I}_F\setminus \RV{I}_S &\text{Variables only in the input } \kernel{F}\\
+    \RV{I}_{FS}&:= \RV{I}_F\cap\RV{I}_S &\text{Variables in the input of both}\\
+    \RV{I}_{\cdot S}&:= \RV{I}_S\setminus \RV{I}_F &\text{Variables only in the input of }\kernel{S} \\
+    \RV{O}_{I_FO_S*}&:=\RV{O}_S\cap \RV{I}_F\setminus \RV{I}_S &\text{Input of }\kernel{F}\text{ and the output only of }\kernel{S}\\
+    \RV{O}_{O_FO_S*} &:= \RV{O}_F\cap\RV{O}_S\setminus \RV{I}_S&\text{Output of }\kernel{F}\text{ and the output only of }\kernel{S}\\
+\end{align}
+
+$\kernel{F}$ can be connected to $\kernel{S}$ iff $\RV{O}_{I_FO_S*}$ synonymous with $*$ and $\RV{O}_{O_FO_S*}$ is also synonymous with $*$. The reason for this is that, in general, if these sets were non-empty then we would not have a way to connect $\kernel{F}$ and $\kernel{S}$ without violating the deterministic equality of identical variables.
+
+\begin{definition}[connection]\label{def:extension}
+Consider a labeled Markov kernel $\kernel{F}:\RV{I}_F\to\Delta(\RV{O}_F)$ which can be connected to $\kernel{S}:\RV{I}_S\to\Delta(\RV{O}_S)$. Because they can be conected, we can write $\kernel{F}:(\RV{I}_{F\cdot},\RV{I}_{FS})\to\Delta(\RV{O}_{F\cdot},\RV{O}_{FS}))$ and $\kernel{S}:(\RV{I}_{FS},\RV{I}_{\cdot S})\to\Delta(\RV{O}_S)$.
+
+Then Equations \ref{eq:extn_definition1} and \ref{eq:extn_definition2} are equivalent definitions of connection:
+\begin{align}
+    \kernel{K}\rightrightarrows \kernel{L} &:=  \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}]
+        \path (0,0) node (Y) {$\RV{I}_{F\cdot}$}
+        + (0,-0.3) node (Q) {$\RV{I}_{FS}$}
+        + (0,-0.8) node (R) {$\RV{I}_{\cdot S}$}
+        ++ (0.5,-0.3) node[copymap] (copy0) {}
+        ++ (0.5,0.15) node[kernel] (K) {$\kernel{F}$}
+        ++ (0.5,-0.15) node[copymap] (copy1) {}
+        ++ (0.6,-0.5) node[kernel] (L) {$\kernel{S}$}
+        ++ (0.6, 0.8) node (Z) {$\RV{O}_{F\cdot}$}
+        + (0,-0.3) node (X) {$\RV{O}_{FS}$}
+        + (0,-0.8) node (W) {$\RV{O}_S$};
+        \draw (Y) -- ($(K.west) + (0,0.15)$) (Q) -- ($(K.west) + (0,-0.15)$);
+        \draw (copy0) to [out=-45,in=180] ($(L.west) + (0,0)$) (copy1) to [out=-60,in=180] ($(L.west) + (0,0.15)$);
+        \draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
+        \draw ($(K.east) + (0,-0.15)$) to (copy1);
+        \draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
+    \end{tikzpicture}\label{eq:extn_definition1}\\
+    &:= \kernel{J}\\
+    \kernel{J}_{yqr}^{zxw} &= \kernel{F}_{yq}^{zx} \kernel{S}_{xqr}^{w}\label{eq:extn_definition2}
+\end{align}
+Note that there are no sums in Equation \ref{eq:extn_definition1}, this is simply a product of matrix elements.
+\end{definition}
+
+\begin{lemma}[Connection is associative up to permuation of labels]\label{lem:con_associative}
+Given labeled Markov kernels $\kernel{K}:\RV{I}_K\to\Delta(\RV{O}_K)$, $\kernel{L}:\RV{I}_L\to\Delta\RV{O}_L)$ and $\kernel{J}:\RV{I}_J\to\Delta(\RV{O}_J)$,
+\begin{align}
+    (\kernel{K}\rightrightarrows \kernel{L})\rightrightarrows \kernel{J} &\overset{perm}{=} \kernel{K}\rightrightarrows (\kernel{L}\rightrightarrows \kernel{J})
+\end{align}
+\end{lemma}
+
+\begin{proof}
+Proven in Appendix \ref{sec:connect_associative}
+\end{proof}
+
+\begin{lemma}[Identity maps commute one way with connection]
+Consider the identity map on some labeled set $\kernel{I}:\RV{X}\to \Delta(\RV{X})$ (note that by Equation \ref{eq:extn1} the identity map is the \emph{only} kernel with this signature). For any $\kernel{M}:\RV{Y}\to\Delta(\RV{Z})$, either a copy of $\RV{X}$ appears in the output but not the input and $\kernel{I}\rightrightarrows \kernel{M}$ is undefined, or $\kernel{I}\rightrightarrows\kernel{M}=\kernel{M}\rightrightarrows\kernel{I}$.
+\end{lemma}
+
+\begin{proof}
+Consider the identity map on some labeled set $\kernel{I}:\RV{X}\to \Delta(\RV{X})$ (note that by Equation \ref{eq:extn1} the identity map is the \emph{only} kernel with this signature). Note that for any $\kernel{M}:\RV{Y}\to\Delta(\RV{Z})$, either a copy of $\RV{X}$ appears in the output but not the input, in which case $\kernel{I}\rightrightarrows \kernel{M}$ is undefined, or we have one of the following cases:
+
+If $\RV{X}$ is in $\RV{Y}$ and $\RV{Z}$, then there must be some $\kernel{N}$ such that Equation \ref{eq:extn1} holds. Defining $\RV{Y}'=\RV{Y}\setminus\RV{X}$ and $\RV{Z}'=\RV{Z}\setminus\RV{X}$:
+
+\begin{align}
+    \kernel{I}\rightrightarrows\kernel{M}&=\tikzfig{iconnectm}\\
+                                         &=\tikzfig{iconnectm_rev}\\
+                                         &=\kernel{M}\rightrightarrows\kernel{I}
+\end{align}
+
+\todo[inline]{Commutativity of copy map in appendix}
+
+If $\RV{X}$ is in $\RV{Y}$ only, defining $\RV{Y}'=\RV{Y}\setminus\RV{X}$:
+
+\begin{align}
+    \kernel{I}\rightrightarrows\kernel{M}&=\tikzfig{iconnectm_clear}\\
+                                         &=\kernel{M}\rightrightarrows\kernel{I}
+\end{align}
+
+If $\RV{X}$ is in neither $\RV{Y}$ nor $\RV{Z}$, then
+
+\begin{align}
+    \kernel{I}\rightrightarrows\kernel{M}&=\tikzfig{iconnectm_dclear}\\
+                                         &=\kernel{M}\rightrightarrows\kernel{I}
+\end{align}
+\end{proof}
+
+\begin{theorem}[Connection is compatible with axiom 1]
+Given $\kernel{K}:\RV{A}\to\Delta(\RV{B})$ and $\kernel{L}:\RV{C}\to\Delta(\RV{D})$, let $\kernel{J}=\kernel{K}\rightrightarrows \kernel{L}$. Then $\kernel{J}$ satisfies axiom 1.
+\end{theorem}
+
+\begin{proof}
+By inspecting the definition of $\rightrightarrows$ (Equation \ref{eq:extn_definition1}), we can see that no labels from either of the inputs are increased in multiplicity. We need to verify that if either of the inputs has a label with multiplicity $>1$, then the result of the extension still satisfies axiom 1. 
+
+Consider any label $\RV{X}$ that appears in both the input and output of $\kernel{K}$, or twice in the output of $\kernel{K}$. Then Equation \ref{eq:extn3} implies that there exists some $\kernel{H}$ such that $\kernel{K}=\kernel{H}\rightrightarrows\kernel{I}$.
+
+Thus
+
+\begin{align}
+    \kernel{K}\rightrightarrows \kernel{L} &= (\kernel{H}\rightrightarrows \kernel{I})\rightrightarrows\kernel{L}\\
+                                           &\overset{perm}{=} \kernel{H}\rightrightarrows(\kernel{I}\rightrightarrows\kernel{L})\\
+                                           &= \kernel{H}\rightrightarrows(\kernel{L}\rightrightarrows\kernel{I})\\
+                                           &\overset{perm}{=} (\kernel{H}\rightrightarrows\kernel{L})\rightrightarrows\kernel{I}
+\end{align}
+
+Which implies that $\kernel{J}$ satistfies Equation \ref{eq:extn3} for $\RV{Y}$.
+
+Consider $\RV{Z}$ that appears in the input and output of $\kernel{L}$ or twice in the output of $\kernel{L}$. Then there exists some $\kernel{G}$ such that
+
+\begin{align}
+    \kernel{K}\rightrightarrows \kernel{L} &= \kernel{K}\rightrightarrows (\kernel{G}\rightrightarrows\kernel{I})\\
+                                           &\overset{perm}{=} (\kernel{K}\rightrightarrows \kernel{G})\rightrightarrows\kernel{I}
+\end{align}
+
+Which implies $\kernel{J}$ satisfies Equation \ref{eq:extn3}.
+\end{proof}

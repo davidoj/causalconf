@@ -7,18 +7,20 @@ Throughout this paper, we will assume all measurable sets $X$ are finite sets. T
 
 The standard method of constructing probability models introduces a probability space $(\prob{P},(\Omega,\sigalg{F}))$ with $\Omega$ a sample space, $\sigalg{F}$ a $\sigma$-algebra on $\Omega$ and $\prob{P}$ a probability measure on $(\Omega,\sigalg{F})$. Random variables are defined by measurable functions on $\Omega$ and are given names in sans-serif like $\RV{X}$. A probability distribution $\prob{P}^{\RV{XYZ}}$ is ``the joint distribution of $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ under $\prob{P}$'' where $\RV{X},$ $\RV{Y}$ and $\RV{Z}$ are associated with random variables on $\Omega$ and is given by the pushforward of the function $\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega),\RV{Z}(\omega))$. Unless otherwise stated, a random variable named $\RV{X}$ will take values in the space $X$ (note the serif font).
 
-This approach needs to be extended if we are to apply it to causal modelling. The causal graphical models literature provides some simple examples illustrating this need, while the fact that the potential outcomes approach also benefits from extension requires more explanation, and will be discussed in Section \ref{sec:potential_outcomes}. 
+We want to consider an extension of this approach for reasoning about causal modelling. The causal graphical models literature provides some simple examples illustrating this need, while the fact that the potential outcomes approach also benefits from extension requires more explanation, and will be discussed in Section \ref{sec:potential_outcomes}. 
 
-Consider the ``truncated factorisation'', a linchpin operation in causal graphical models. Given a probability $\prob{P}^{\RV{XYZ}}$ and a graphical model in which $\RV{Z}$ blocks all backdoor paths between $\RV{X}$ and $\RV{Y}$, the truncated factorisation defines a new probability measure $\prob{P}_x$ as follows \citep[page ~24]{pearl_causality:_2009}:
+Consider the ``truncated factorisation'', a linchpin operation in causal graphical models. Given a probability $\prob{P}^{\RV{XYZ}}$ and the assumption that the results of interventions are described by $\prob{P}$ along with a graphical model in which $\RV{Z}$ blocks all backdoor paths between $\RV{X}$ and $\RV{Y}$, we can define a new probability measure $\prob{P}_x$ representing the result of ``setting $\RV{X}$ to $x$'' by truncated factorisation \citep[page ~24]{pearl_causality:_2009}:
 \begin{align}
-	\prob{P}^{\RV{YZ}}_{x}(y,z):=\prob{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\label{eq:truncated_fac}
+	\prob{P}^{\RV{XYZ}}_{x}(x',y,z):=\prob{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x'\rrbracket\label{eq:truncated_fac}
 \end{align}
 
-Without a causal model justifying the claim that $\RV{Z}$ blocks backdoor paths between $\RV{X}$ and $\RV{Y}$, there is in general no special siginificance to the expression on the right side of Equation \ref{eq:truncated_fac}, and causal models that can justify such claims are not a feature of the standard approach to probability modelling. At the same time, the notation we have chosen for the left side of Equation \ref{eq:truncated_fac} suggests that $\prob{P}^{\RV{YZ}}_{x}$ is a distribution over the same variables $\RV{Y}$ and $\RV{Z}$ as the original $\prob{P}^{\RV{XYZ}}$. The standard approach to probability modelling \emph{does} offer an account of what it means for variables to be the same, which is that they are represented by the same measurable functions on the probability space.
+Without a causal model justifying the claim that $\RV{Z}$ blocks backdoor paths between $\RV{X}$ and $\RV{Y}$, there is in general no special siginificance to the expression on the right side of Equation \ref{eq:truncated_fac}, and causal models that can justify such claims are not a feature of the standard approach to probability modelling. At the same time, the notation we have chosen for the left side of Equation \ref{eq:truncated_fac} suggests that $\prob{P}^{\RV{XYZ}}_{x}$ is a distribution over the same variables $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ as the original $\prob{P}^{\RV{XYZ}}$. The standard approach to probability modelling \emph{does} offer an account of what it means for variables to be the same, which is that they are represented by the same measurable functions on the probability space.
 
 An immediate issue is that $\prob{P}_x$ is a different probability measure to $\prob{P}$. However, even if we substitute probability measures, we could perhaps keep the sample space $\Omega$ and define variables as measurable functions on $\Omega$. This is the approach taken in \citet{pearl_causality:_2009} (but see Section \ref{sec:vague_variables}).
 
-This approach rules out the possibility of performing some interventions. For example, if $\RV{X}=\RV{Z}$ and $\prob{P}^{\RV{Z}}$ is non-deterministic, then no $\prob{P}_x$ exists with the property required in Equation \ref{eq:truncated_fac}. We think that this is probably a useful feature. Consider a variable $\RV{B}$ representing a person's body mass index. It seems reasonable to hold that this variable is by definition equivalent to $\frac{\RV{W}}{\RV{H}^2}$ where $\RV{W}$ represents their weight in kilograms and $\RV{H}$ represents their height in metres. This rules out the existence of any probability measure that represents the results of an intervention on $\RV{B}$ in any model that also contains $\RV{H}$ and $\RV{W}$ and features the expected causal relationships (and, regardless of causal relationships, it completely rules out the possibility that $\RV{B}$, $\RV{H}$ and $\RV{W}$ can all be intervened on). Such interventions can be ruled out by defining the random variables such that $\RV{B} = \frac{\RV{W}}{\RV{H}^2}$.
+This rules out the possibility of performing some interventions. For example, if $\RV{X}=\RV{Z}$ and $\RV{X}$ can take more than one value, then no $\prob{P}_x$ exists with the property required by Equation \ref{eq:truncated_fac}.
+
+For an example of an intervention we \emph{want} to rule out, consider a variable $\RV{B}$ representing a person's body mass index. It seems reasonable to hold that this variable is by definition equivalent to $\frac{\RV{W}}{\RV{H}^2}$ where $\RV{W}$ represents their weight in kilograms and $\RV{H}$ represents their height in metres. This rules out the existence of any probability measure that represents the results of an intervention on $\RV{B}$ in any model that also contains $\RV{H}$ and $\RV{W}$ and features the expected causal relationships (and, regardless of causal relationships, it completely rules out the possibility that $\RV{B}$, $\RV{H}$ and $\RV{W}$ can all be intervened on). Such interventions can be ruled out by defining the random variables such that $\RV{B} = \frac{\RV{W}}{\RV{H}^2}$.
 
 Along the same lines as \citet{dawid_causal_2000}, we find that it is often desirable to introduce variables representing the results of choices, and we often don't want to attach probability distributions to such variables. We might have $\RV{D}$, representing a choice, and $\prob{P}^{\RV{Y}|\RV{D}}$ representing the consequences of this choice, but no $\prob{P}^{\RV{Y},\RV{D}}$ as we have no need of a marginal probability of $\RV{D}$.
 
@@ -26,10 +28,10 @@ As a brief summary, we want a version of ``probability theory'' that:
 \begin{itemize}
 	\item Defines what we mean by a ``variable''
 	\item Includes generalised variables that do not have marginal probabilities (for example, to represent choices)
-	\item Operations like Equation \ref{eq:truncated_fac} are standard rather than special cases
+	\item Can express operations like Equation \ref{eq:truncated_fac}
 \end{itemize}
 
-Standard probability theory does the first, but not the second two.
+Standard probability theory does the first, but not the second two. 
 
 \subsection{Markov categories}
 We base our approach on the theory of Markov categories. This has two benefits: firstly, Markov categories have a graphical notation that help present some ideas in an intuitive manner. Secondly, because they are abstract categories that represent models of the flow of information, proofs that use only string diagrams correspond to theorems in many formalisations of probability, not just the finite set case that we focus on here. More comprehensive introductions to Markov categories can be found in \citet{fritz_synthetic_2020,cho_disintegration_2019}.
@@ -38,12 +40,12 @@ Rather than explain Markov categories in the abstract, we will instead introduce
 
 \begin{itemize}
 	\item The map $x\mapsto \kernel{K}(x,A)$ is $\sigalg{X}$-measurable for every $A\in \sigalg{Y}$
-	\item The map $A\mapsto \kernel{K}(x,A)$} is a probability measure for every $x\in X$
+	\item The map $A\mapsto \kernel{K}(x,A)$ is a probability measure for every $x\in X$
 \end{itemize}
 
 Where $X$ and $Y$ are finite sets with the discrete $\sigma$-algebra, we can represent a Markov kernel $\kernel{K}$ as a $|X|\times |Y|$ matrix where $\sum_{y\in Y} \kernel{K}_x^y = 1$ for every $x\in X$. We will give Markov kernels the signature $\kernel{K}:X\kto Y$ to indicate that they map from $X$ to probability distributions on $Y$.
 
-Graphically, Markov kernels are drawn as boxes with input and output wires:
+Graphically, Markov kernels are drawn as boxes with input and output wires, and probability measures (which are kernels with the domain $\{*\}$) are represented by triangles:
 
 \begin{align}
 \kernel{K}&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -52,8 +54,8 @@ Graphically, Markov kernels are drawn as boxes with input and output wires:
 	++ (0.5,0) node (B) {};
 	\draw (A) -- (K) -- (B);
 \end{tikzpicture}\\
-\prob{P}&:= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-	\path (0,0) node[dist] (K) {$\kernel{K}$}
+\kernel{P}&:= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	\path (0,0) node[dist] (K) {$\kernel{P}$}
 	++ (0.5,0) node (B) {};
 	\draw (K) -- (B);
 \end{tikzpicture}
@@ -136,7 +138,7 @@ The swap map $\text{swap}_{X,Y}:X\times Y\kto Y\times X$ defined by $(\text{swap
 
 Because we anticipate that the graphical notation will be unfamiliar to many, we will also include translations to more familiar notation.
 
-\subsection{Truncated factorisation with string diagrams}
+\subsection{Truncated factorisation with Markov kernels}
 
 The Markov kernels introduced in the previous section can be though of as ``conditional probability distributions without variables''. We can use these to represent an operation very similar to Equation \ref{eq:truncated_fac}. Note that $P^{\RV{Y|XZ}}$ must be represented by a Markov kernel $\kernel{K}:X\times Z\kto Y$ and $\prob{P}^{\RV{Z}}$ by a Markov kernel $\kernel{L}\in \Delta(Z)$. Then we can define a Markov kernel $\kernel{M}:X\kto X\times Z$ representing $x\mapsto \prob{P}^{\RV{YZ}}_{x}(y,z)$ by
 
@@ -152,57 +154,25 @@ To illustrate why we need variables, consider an arbitrary Markov kernel $\kerne
 \end{align}
 We label both wires with the set $X$. However, say $X=\{0,1\}$. Then $\kernel{K}$ could be the kernel $\kernel{K}^{x_1,x_2} = \llbracket x_1 = 0\rrbracket \llbracket x_2 = 1\rrbracket$. In this case, both of its outputs must represent \emph{different} variables, despite taking values in the same set. On the other hand, if $\kernel{K}^{x_1,x_2} = 0.5 \llbracket x_1 = x_2 \rrbracket$ then both outputs coudl represent the same variable, because they are deterministically the same, or they could represent different variables that happen to be equal. We need some way to distinguish the two cases.
 
-We use a definition of variable that almost matches the standard definition we introduced at the beginning of the section. We use Markov kernels rather than functions as it makes the construction slightly simpler.
+We use a definition of variable that almost matches the standard definition we introduced at the beginning of the section. We define variables as Markov kernels rather than functions as it makes the construction slightly simpler.
 
 \begin{definition}[Variable]
-Given a \emph{sample space} $\Omega$ and a measurable function $f:\Omega\to A$, the variable $\RV{X}:\Omega\kto A$ induced by $f$ is the Markov kernel defined by $\RV{X}_x^a=\llbracket a = f(x) \rrbracket$.
+Given a \emph{sample space} $\Omega$, a variable $\RV{X}$ is a Markov kernel $\Omega\kto A$ such that there exists some function $f_{\RV{X}}:\Omega\to A$
+with $\RV{X}_x^a=\llbracket a = f_{\RV{X}}(x) \rrbracket$.
 \end{definition}
 
-We then need a notion of Markov kernels that ``map between variables''. An \emph{indexed Markov kernel} is such an object.
-
-\begin{definition}[Indexed Markov kernel]
-Given variables $\RV{X}:\Omega\to A$ and $\RV{Y}:\Omega\to B$, an indexed Markov kernel $\kernel{K}:\RV{X}\kto \RV{Y}$ is a triple $(\kernel{K}',\RV{X},\RV{Y})$ where $\kernel{K}':A\kto B$ is the \emph{underlying kernel}, $\RV{X}$ is the \emph{input index} and $\RV{Y}$ is the \emph{output index}. Indexed Markov kernels must satisfy the property of \emph{non-contradiction}:
-\begin{align}
-	\max_{\omega\in \Omega} (\RV{X}\otimes\RV{Y})_{\omega,\omega}^{a',b'} = 0 \implies \kernel{K}'_{a'}^{b'} = 0
-\end{align}
-\end{definition}
-
-Non-contradiction means that, if there is no $\omega\in \Omega$ such that $\RV{X}_\omega^{a'} = 1$ and $\RV{Y}_\omega^{b'}=1$ then the simultaneous occurrence of $a'$ and $b'$ must be zero.
-
+We define the \emph{product} of two variables as follows:
 \begin{itemize}
-	\item \textbf{Product:} Given variables $\RV{W}=A\times X$ and $\RV{V}=B\times Y$, the product is $\RV{W}\otimes\RV{V}=(A\times B)\times (X\times Y)$
+	\item \textbf{Product:} Given variables $\RV{W}:\Omega\kto A$ and $\RV{V}:\Omega\kto B$, the product is defined as $(\RV{W}, \RV{V})=\text{copy}_{\Omega} (\RV{W}\otimes\RV{V})$
 \end{itemize}
 
+The \emph{unit} variable is the erase map $\RV{I}:=\text{del}_\Omega$, with $(\RV{I},\RV{X})=(\RV{X},\RV{I})=\RV{X}$ (up to isomorphism) for any $\RV{X}$.
 
-\subsection{Markov variable maps}\label{sec:labeled_kernels}
+We then need a notion of Markov kernels that ``maps between variables''. An \emph{indexed Markov kernel} is such a thing.
 
-We will call the morphisms of our category of variables \emph{Markov variable maps}. A Markov variable map $\model{K}:\RV{A}\to \Delta(\RV{B})$ is defined by a triple $(\kernel{K}^U,\RV{A},\RV{B})$, and can be thought of as a Markov kernel that maps between variables rather than between sets of values. If $\RV{A}$ takes values in $X$ and $\RV{B}$ takes values in $Y$, we define $\kernel{K}$ as follows for all $x\in X$, $y\in Y$:
-
-\begin{align}
-	\kernel{K}_{\RV{A},x}^{\RV{B},y}  = \kernel{K}^{U y}_x
-\end{align}
-
-We call $\kernel{K}^U:X\to \Delta(Y)$ the \emph{underlying Markov kernel}.
-
-Suppose we have Markov variable maps $\kernel{K}:\RV{A}\to \Delta(\RV{B})$ and $\kernel{L}:\RV{C}\to \Delta(\RV{D})$. Then $\kernel{K}=\kernel{L}$ iff $\RV{A}= \RV{C}$ and $\RV{B}= \RV{D}$ and $\kernel{K}^U=\kernel{L}^U$.
-
-Given $\kernel{K}:\RV{A}\to \Delta(\RV{B})$ and $\kernel{L}:\RV{B}\to \Delta(\RV{C})$, the product $\kernel{K}\kernel{L}$ is given by
-
-\begin{align}
-	\kernel{K}\kernel{L} = (\kernel{K}^U\kernel{L}^U,\RV{A},\RV{C})
-\end{align}
-
-Note that we don't allow products of Markov variable maps if they have compatible value sets but different variables. Going back to our example of viewing variables as questions, this can be thought of as disallowing the product of a variable map that answers the question ``will this coin land heads?'' with a variable map that depends on the answer to the question ``am I taller than my brother?''.
-
-The diagrams representing Markov variable maps are identical to the diagrams representing their underlying Markov kernels decorated with variable names on each input and each output wire. 
-
-\todo[inline]{Show that these induce a symmetric monoidal category.}
-
-\begin{lemma}[Deterministic equality]
-
-\end{lemma}
-
-A variable could be a product of other variables, e.g. $\RV{X}=\bigotimes_{i\in [n]} \RV{X}_i$. By construction, this means that we have a collection of variables $\RV{X}_i$ such that $(\RV{X}_i)_{i\in [n]}$ is the variable name associated with the product $\bigotimes_{i\in [n]} \RV{X}_i$. If each $\RV{X}_i$ takes values in a set $X_i$, then $(\RV{X}_i)_{i\in [n]}$ must take values in $\bigtimes_{i\in [n]} X_i$. The underlying Markov kernel can always be drawn with one wire representing each $X_i$, and using such a representation it is possible to assign each $\RV{X}_i$ in the sequence to a corresponding wire.
+\begin{definition}[Indexed Markov kernel]
+Given variables $\RV{X}:\Omega\to A$ and $\RV{Y}:\Omega\to B$, an indexed Markov kernel $\kernel{K}:\RV{X}\kto \RV{Y}$ is a triple $(\kernel{K}',\RV{X},\RV{Y})$ where $\kernel{K}':A\kto B$ is the \emph{underlying kernel}, $\RV{X}$ is the \emph{input index} and $\RV{Y}$ is the \emph{output index}.
+\end{definition}
 
 For example, if $\kernel{K}:(\RV{A}_1,\RV{A}_2)\to \Delta(\RV{B}_1,\RV{B}_2)$, for example, we can draw:
 
@@ -229,226 +199,151 @@ or
 \end{tikzpicture}
 \end{align}
 
-\begin{lemma}[Deterministic equality of identical variables]
-This axiom is equivalent to the following three conditions:
+We define the product of indexed Markov kenrnels $\kernel{K}:\RV{X}\kto \RV{Y}$ and $\kernel{L}:\RV{Y}\kto \RV{Z}$ as the triple $\kernel{K}\kernel{L}:=(\kernel{K}'\kernel{L}',\RV{X},\RV{Z})$.
 
-Given $\kernel{K}:(\RV{X},\RV{Y})\to \Delta(\RV{X},\RV{Z})$, there exists some $\kernel{H}:X\times Z\to \Delta(Y)$ such that
+Similarly, the tensor product of $\kernel{K}:\RV{X}\kto\RV{Y}$ and $\kernel{L}:\RV{W}\kto\RV{Z}$ is the triple $\kernel{K}\otimes\kernel{L}:=(\kernel{K}'\otimes\kernel{L}',(\RV{X},\RV{W}),(\RV{Y},\RV{Z}))$.
+
+We define $\text{Id}_{\RV{X}}$ to be the model $(\text{Id}_X,\RV{X},\RV{X})$, and similarly the indexed versions $\text{del}_{\RV{X}}$, $\text{copy}_{\RV{X}}$ and $\text{swap}_{\RV{X},\RV{Y}}$ are obtained by taking the unindexed versions of these maps and attaching the appropriate random variables as indices. Diagrams are the diagrams associated with the underlying kernel, with input and output wires annotated with input and output indices.
+
+The category of indexed Markov kernels as morphisms and variables as objects is a Markov category (Appendix \ref{sec:app_mcat}), and so a valid derivation based on the string diagram language for Markov categories corresponds to a valid theorem in this category. However, most of the diagrams we can form are not viable candidates for models of our variables. For example, if $\RV{X}$ takes values in $\{0,1\}$ we can propose an indexed Markov kernel $\kernel{K}:\RV{X}\kto\RV{X}$ with $\kernel{K}'_x^{x'}=0.5$ for all $x, x'$. However, this is not a viable model of the variable $\RV{X}$, because it expresses something like ``if we know the value of $\RV{X}$, then we belive that $\RV{X}$ could take any value with equal probability''.
+
+We define a \emph{model} as ``an indexed Markov kernel that assigns probability 0 to things known to be contradictions''.
+
+\begin{definition}[Model]
+An indexed Markov kernel $(\kernel{K}',\RV{X},\RV{Y})$ is a \emph{model} if it assigns probability 0 to contradictions. That is:
 \begin{align}
-	\kernel{K} &= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-					\path (0,0) node (X) {$\RV{X}$}
-					+ (0,-0.65) node (Z) {$\RV{Z}$}
-					++ (0.5,0) node[copymap] (copy0) {}
-					++ (0.7,-0.5) node[kernel] (L) {$\kernel{H}$}
-					++ (0.9,0.65) node (Xout) {$\RV{X}$}
-					+  (0,-0.65) node (Y) {$\RV{Y}$};
-					\draw (X) -- (copy0) to [out=-45,in=180] ($(L.west) + (0,0.15)$) (L) -- (Y);
-					\draw (copy0) to [out=45,in=180] (Xout);
-					\draw (Z) -- ($(L.west) + (0,-0.15)$);
-				 \end{tikzpicture}\label{eq:extn1}\\
-	 	&\iff\\
-	 \kernel{K}_{xz}^{x'y} &= \llbracket x=x'\rrbracket \kernel{H}_{xz}^{y}
+	\max_{\omega\in \Omega} (\RV{X},\RV{Y})_{\omega}^{a,b} = 0 \implies \left(\kernel{K}_{a}^{\prime b} = 0\right) \lor \left(\max_{\omega\in \Omega} \RV{X}_{\omega}^{a} = 0\right)
 \end{align}
-
-Given $\kernel{L}: \RV{Z}\to \Delta(\RV{X},\RV{X},\RV{Y})$, we require that there exist some $\kernel{G}:\RV{Z}\to \Delta(\RV{X}, \RV{Y})$ such that
-\begin{align}
-	\kernel{L} &= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-					\path (0,0) node (Z) {$\RV{Z}$}
-					++ (0.9,0) node[kernel] (L) {$\kernel{G}$}
-					++ (0.9,0.15) node[copymap] (copy0) {}
-					++ (0.5,0.3) node (X1) {$\RV{X}$}
-					++ (0,-0.3) node (X2) {$\RV{X}$}
-					++  (0,-0.3) node (Y) {$\RV{Y}$};
-					\draw ($(L.east) + (0,0.15)$) -- (copy0) to[out=0,in=180] (X2);
-					\draw (copy0) to [out=45,in=180] (X1);
-					\draw (Z)--(L) ($(L.east) + (0,-0.15)$) -- (Y);
-				 \end{tikzpicture}\label{eq:extn2}\\
-			   &\iff\\
-		\kernel{L}_{z}^{xx'y} &= \llbracket x=x' \rrbracket\kernel{G}_{z}^{xy}	   
-\end{align}
-
-There is no $\kernel{M}:(\RV{X},\RV{X},\RV{Y})\to \Delta(\RV{W},\RV{Z})$.
-\end{lemma}
-
-\begin{proof}
-Suppose some variable $\RV{X}$ appears 
-\end{proof}
-
-\todo[inline]{If the category of variables and Markov variable maps is symmetric monoidal..}
-
-There is a natural isomorphism between two Markov variable maps  $\kernel{K}$ and $\kernel{L}$ if one can be obtained from the other by application of a sequence of swaps. For example, if we have $\kernel{K}:(\RV{X},\RV{Y})\to \Delta(\RV{Z},\RV{W})$ and $\kernel{L}:(\RV{Y},\RV{X})\to \Delta(\RV{W},\RV{Z})$, then $\kernel{K}\cong \kernel{L}$ if
-
-\begin{align}
-\tikzfig{equivalence}
-\end{align}
-
-\subsection{Connection}
-
-Connection is an associative operation $\rightrightarrows$ that ``joins'' two labeled Markov kernels where the labels can be matched and preserves unmatched inputs and outputs. A key property of connection is that, if both input Markov kernels satisfy Axiom 1, then the output also satisfies axiom 1. One can think of this operation like connecting two lego bricks of different sizes -- we connect all the parts that will fit together, and all the connection points that don't fit are left available.
-
-For some variable $\RV{W}$, we use $m_{\RV{W}}(\RV{X})$ to refer to the number of times $\RV{W}$ appears in $\RV{X}$ (recalling that $\RV{X}$ may be a sequence of other variables). We say $\RV{W}$ is in $\RV{X}$ or $\RV{W}\in \RV{X}$ if $m_{\RV{W}}(\RV{X})>0$.
-
-With this in mind, we define the following operations on sequences of labels
-
-\begin{enumerate}
-	\item \textbf{Difference of label sequences:} Given $\RV{X}_1$, $\RV{X}_2$, the difference $\RV{X}_1\setminus \RV{X}_2$ is a variable $\RV{X}_3$ such that for all variables $\RV{W}_i$, $m_{\RV{W}_i}(\RV{X}_3) = \max(0,m_{\RV{W}_i}(\RV{X}_1)-m_{\RV{W}_i}(\RV{X}_2))$
-	\item \textbf{Intersection of labels:} Given $\RV{X}_1$, $\RV{X}_2$, the intersection $\RV{X}_1\cap \RV{X}_2$ is a variable $\RV{X}_3$ such that for any variable $\RV{W}_i$, $m_{\RV{W}_i}(\RV{X}_3) = \min(m_{\RV{W}_i}(\RV{X}_1),m_{\RV{W}_i}(\RV{Y}_2))$
-\end{enumerate}
-
-These definitions are non-unique in that they do not define the order of the resulting label sequence. This doesn't cause a problem because we only care about Markov variable maps that are identical up to isomorphism.
-
-Given two Markov variable maps $\kernel{F}:\RV{I}_F\to\Delta(\RV{O}_F)$ and $\kernel{S}:\RV{I}_S\to\Delta(\RV{O}_S)$, make the following variable identifications:
-\begin{align}
-	\RV{O}_{F\cdot}&:=\RV{O}_F\setminus\RV{I}_S &\text{Variables only in the output of } \kernel{F}\\
-	\RV{O}_{FS}&:=\RV{O}_F\cap\RV{I}_S &\text{Variables in the output of both}\\
-	\RV{I}_{F\cdot} &:= \RV{I}_F\setminus \RV{I}_S &\text{Variables only in the input } \kernel{F}\\
-	\RV{I}_{FS}&:= \RV{I}_F\cap\RV{I}_S &\text{Variables in the input of both}\\
-	\RV{I}_{\cdot S}&:= \RV{I}_S\setminus \RV{I}_F &\text{Variables only in the input of }\kernel{S} \\
-	\RV{O}_{I_FO_S*}&:=\RV{O}_S\cap \RV{I}_F\setminus \RV{I}_S &\text{Input of }\kernel{F}\text{ and the output only of }\kernel{S}\\
-	\RV{O}_{O_FO_S*} &:= \RV{O}_F\cap\RV{O}_S\setminus \RV{I}_S&\text{Output of }\kernel{F}\text{ and the output only of }\kernel{S}\\
-\end{align}
-
-$\kernel{F}$ can be connected to $\kernel{S}$ iff $\RV{O}_{I_FO_S*}$ synonymous with $*$ and $\RV{O}_{O_FO_S*}$ is also synonymous with $*$. The reason for this is that, in general, if these sets were non-empty then we would not have a way to connect $\kernel{F}$ and $\kernel{S}$ without violating the deterministic equality of identical variables.
-
-\begin{definition}[connection]\label{def:extension}
-Consider a labeled Markov kernel $\kernel{F}:\RV{I}_F\to\Delta(\RV{O}_F)$ which can be connected to $\kernel{S}:\RV{I}_S\to\Delta(\RV{O}_S)$. Because they can be conected, we can write $\kernel{F}:(\RV{I}_{F\cdot},\RV{I}_{FS})\to\Delta(\RV{O}_{F\cdot},\RV{O}_{FS}))$ and $\kernel{S}:(\RV{I}_{FS},\RV{I}_{\cdot S})\to\Delta(\RV{O}_S)$.
-
-Then Equations \ref{eq:extn_definition1} and \ref{eq:extn_definition2} are equivalent definitions of connection:
-\begin{align}
-	\kernel{K}\rightrightarrows \kernel{L} &:=  \begin{tikzpicture}[baseline={([yshift=-.2ex]current bounding box.center)}]
-		\path (0,0) node (Y) {$\RV{I}_{F\cdot}$}
-		+ (0,-0.3) node (Q) {$\RV{I}_{FS}$}
-		+ (0,-0.8) node (R) {$\RV{I}_{\cdot S}$}
-		++ (0.5,-0.3) node[copymap] (copy0) {}
-		++ (0.5,0.15) node[kernel] (K) {$\kernel{F}$}
-		++ (0.5,-0.15) node[copymap] (copy1) {}
-		++ (0.6,-0.5) node[kernel] (L) {$\kernel{S}$}
-		++ (0.6, 0.8) node (Z) {$\RV{O}_{F\cdot}$}
-		+ (0,-0.3) node (X) {$\RV{O}_{FS}$}
-		+ (0,-0.8) node (W) {$\RV{O}_S$};
-		\draw (Y) -- ($(K.west) + (0,0.15)$) (Q) -- ($(K.west) + (0,-0.15)$);
-		\draw (copy0) to [out=-45,in=180] ($(L.west) + (0,0)$) (copy1) to [out=-60,in=180] ($(L.west) + (0,0.15)$);
-		\draw (R) to [out=0,in=180] ($(L.west) + (0,-0.15)$);
-		\draw ($(K.east) + (0,-0.15)$) to (copy1);
-		\draw ($(K.east) + (0,0.15)$) -- (Z) (copy1) to [out=0,in=180] (X) (L) -- (W);
-	\end{tikzpicture}\label{eq:extn_definition1}\\
-	&:= \kernel{J}\\
-	\kernel{J}_{yqr}^{zxw} &= \kernel{F}_{yq}^{zx} \kernel{S}_{xqr}^{w}\label{eq:extn_definition2}
-\end{align}
-Note that there are no sums in Equation \ref{eq:extn_definition1}, this is simply a product of matrix elements.
+A \emph{probability model} is a model where the underlying kernel $\kernel{K}'$ has the unit $\RV{I}$ as the domain. We use the font $\model{K}$ to distinguish models from arbitrary indexed Markov kernels.
 \end{definition}
 
-\begin{lemma}[Connection is associative up to permuation of labels]\label{lem:con_associative}
-Given labeled Markov kernels $\kernel{K}:\RV{I}_K\to\Delta(\RV{O}_K)$, $\kernel{L}:\RV{I}_L\to\Delta\RV{O}_L)$ and $\kernel{J}:\RV{I}_J\to\Delta(\RV{O}_J)$,
+We can think of $\RV{X}$ as the antecedent and $\RV{Y}$ as the consequent in this definition. If there is no $\omega$ such that $f_{\RV{X}}(\omega)=a$, no restrictions are applied (from a contradiction, one may conclude anything). If there is no $\omega\in \Omega$ such that $f_\RV{X}(\omega)=a$ and $f_\RV{Y}(\omega)={b'}$ then the probability of $\RV{Y}=b$ when $\RV{X}=a$ must be zero. If $f_{\RV{X}}(\omega)=a\implies f_{\RV{Y}}(\omega)=b$ then the probability of $\RV{Y}=b$ when $\RV{X}=a$ must be one (because 0 probability must be assigned to all other pairs of values).
+
+Non-contradiction implies that for any $\RV{X}:\Omega\kto A$, there is a unique model mapping $\text{Id}_\Omega$ to $\RV{X}$ for which the underlying kernel is $\RV{X}$ itself (Lemma \ref{lem:uniq_model}). One consequence of this is, given a probability model of the sample space $\model{P}:\RV{I}\kto \text{Id}_\Omega$ (``a probability measure on $\Omega$''), $\model{P}\RV{X}$ is the unique measure on $\RV{X}$ obtainable by composition of a model with $\prob{P}$. $\model{P}\RV{X}$ is the pushforward of $\model{P}$ by $\RV{X}$. That is, non-contradiction implies that, given a probability model of the sample space, there is a unique corresponding probability model of $\RV{X}$ is given by the pushforward of $\RV{X}$ (corollary \ref{corr:pushforward}).
+
+\begin{lemma}[Uniqueness of models with the sample space as a domain]\label{lem:uniq_model}
+For any $\RV{X}:\Omega\to A$, there is a unique model $\model{X}:\text{Id}_\Omega\kto \RV{X}$ given by $\model{X}:=(\RV{X},\text{Id}_\Omega,\RV{X})$.
+\end{lemma}
+
+\begin{proof}
+$\RV{X}$ is a Markov kernel mapping from $\Omega\to A$, so it is a valid underlying kernel for $\model{X}$, and $\model{X}$ has input and output indices matching its signature. We need to show it satisfies non-contradiction.
+
+For any $\omega\in \Omega$, $a\in A$
 \begin{align}
-	(\kernel{K}\rightrightarrows \kernel{L})\rightrightarrows \kernel{J} &\overset{perm}{=} \kernel{K}\rightrightarrows (\kernel{L}\rightrightarrows \kernel{J})
+	\max_{\omega\in \Omega}(\text{Id}_\Omega,\RV{X})_{\omega}^{\omega',a} &= \max_{\omega\in \Omega} \llbracket \omega = \omega' \rrbracket \llbracket \omega = f_{\RV{X}}(a) \rrbracket\\
+	&= \llbracket \omega = f_{\RV{X}}(a) \rrbracket\\
+	&= \kernel{X}_\omega^a
+\end{align}
+Thus $\model{X}$ satisfies non-contradiction.
+
+Suppose there were some $\model{K}:\text{Id}_\Omega\kto \RV{X}$ not equal to $\RV{X}$. Then there must be some $\omega\in \Omega$, $b\in A$ such that $\model{K}_\omega^b\neq 0$ and $f_{\RV{X}}(\omega)\neq b$. Then
+\begin{align}
+	\max_{\omega\in \Omega}(\text{Id}_\Omega,\RV{X})_{\omega}^{\omega',a} &= \max_{\omega\in \Omega} \llbracket \omega = \omega' \rrbracket \llbracket \omega = f_{\RV{X}}(b) \rrbracket\\
+	&= \llbracket \omega = f_{\RV{X}}(b) \rrbracket\\
+	&= 0\\
+	&< \model{K}_\omega^b
+\end{align}
+Thus $\model{K}$ doesn't satisfy non-contradiction.
+\end{proof}
+
+\begin{corollary}[Pushforward measure]\label{corr:pushforward}
+Given any probability model $\model{P}:\RV{I}\kto \text{Id}_\Omega$, there is a unique probability model $\model{P}^{\RV{X}}:\RV{I}\kto \RV{X}$ such that $\model{P}^{\RV{X}}=\model{P}\model{Q}$ for some $\model{Q}:\text{Id}_\Omega\to \RV{X}$ and it is given by $(\model{P}^{\RV{X}})^a = \sum_{\omega\in f^{-1}(a)} \model{P}^{\omega}$.
+\end{corollary}
+
+\begin{proof}
+As $\model{X}:=(\RV{X},\text{Id}_\Omega,\RV{X})$ is the unique model $\text{Id}_\Omega\to \RV{X}$, it must be the case that $\model{P}^{\RV{X}}=\model{P}\model{X}$. Then for any $a\in A$
+\begin{align}
+	(\model{P}\model{X})^a &= \sum_{\omega\in \Omega} \model{P}^\omega\RV{X}_\omega^a\\
+						 &= \sum_{\omega\in \Omega} \model{P}^\omega \llbracket a = f_{\RV{X}}(\omega) \rrbracket\\
+						 &= \sum_{\omega\in f^{-1}(a)} \model{P}^{\omega}
+\end{align}
+\end{proof}
+
+We also show a number of other useful properties. 
+
+\begin{lemma}[Output copies of the same variable are identical]\label{lem:nocopy1}
+If $\model{K}:\RV{X}\kto (\RV{Y},\RV{Y},\RV{Z})$ is a model, there exists some $\model{L}:\RV{X}\kto (\RV{Y},\RV{Z})$ such that
+\begin{align}
+		\model{K}_{x}^{\prime y,y',z} &= \llbracket y=y' \rrbracket\model{L}_{x}^{\prime y,z}\\
 \end{align}
 \end{lemma}
 
 \begin{proof}
-Proven in Appendix \ref{sec:connect_associative}
+For any $\omega,x,y,y',z$:
+\begin{align}
+	(\RV{X},\RV{Y},\RV{Y},\RV{Z})_\omega^{x,y,y',z} &= \llbracket f_{\RV{Y}}(\omega)=y \rrbracket \llbracket f_{\RV{Y}}(\omega)=y' \rrbracket (\RV{X},\RV{Z})_\omega^{x,z} \\
+	&= \llbracket y=y' \rrbracket \llbracket f_{\RV{Y}}(\omega)=y \rrbracket(\RV{X},\RV{Z})_\omega^{x,z}
+\end{align}
+Therefore, by non-contradiction, for any $x,y,y',z$, $y\neq y'\implies \model{K}_{x}^{\prime yy'z}=0$. Define $\model{L}$ by $\model{L}_x^{\prime y, z} := \model{K}_x^{\prime y y z}$. The fact that $\model{L}$ is a model follows from the assumption that $\model{K}$ is. Then
+\begin{align}
+	\model{K}_{x}^{\prime y,y',z} &= \llbracket y=y' \rrbracket\model{L}_{x}^{\prime y,z}
+\end{align}
 \end{proof}
 
-\begin{lemma}[Identity maps commute one way with connection]
-Consider the identity map on some labeled set $\kernel{I}:\RV{X}\to \Delta(\RV{X})$ (note that by Equation \ref{eq:extn1} the identity map is the \emph{only} kernel with this signature). For any $\kernel{M}:\RV{Y}\to\Delta(\RV{Z})$, either a copy of $\RV{X}$ appears in the output but not the input and $\kernel{I}\rightrightarrows \kernel{M}$ is undefined, or $\kernel{I}\rightrightarrows\kernel{M}=\kernel{M}\rightrightarrows\kernel{I}$.
+
+\begin{lemma}[Copies shared between input and output are identical]\label{lem:nocopy2}
+For any $\model{K}:(\RV{X},\RV{Y})\kto (\RV{X},\RV{Z})$, there exists some $\model{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ such
+\begin{align}
+	 \model{K}_{x,y}^{\prime x',z} &= \llbracket x=x'\rrbracket \model{L}_{\prime x,y}^{z}
+\end{align}
 \end{lemma}
 
 \begin{proof}
-Consider the identity map on some labeled set $\kernel{I}:\RV{X}\to \Delta(\RV{X})$ (note that by Equation \ref{eq:extn1} the identity map is the \emph{only} kernel with this signature). Note that for any $\kernel{M}:\RV{Y}\to\Delta(\RV{Z})$, either a copy of $\RV{X}$ appears in the output but not the input, in which case $\kernel{I}\rightrightarrows \kernel{M}$ is undefined, or we have one of the following cases:
-
-If $\RV{X}$ is in $\RV{Y}$ and $\RV{Z}$, then there must be some $\kernel{N}$ such that Equation \ref{eq:extn1} holds. Defining $\RV{Y}'=\RV{Y}\setminus\RV{X}$ and $\RV{Z}'=\RV{Z}\setminus\RV{X}$:
-
+For any $\omega,x,y,y',z$:
 \begin{align}
-	\kernel{I}\rightrightarrows\kernel{M}&=\tikzfig{iconnectm}\\
-										 &=\tikzfig{iconnectm_rev}\\
-										 &=\kernel{M}\rightrightarrows\kernel{I}
+	(\RV{X},\RV{Y},\RV{Y},\RV{Z})_\omega^{x,y,y',z} &= \llbracket f_{\RV{Y}}(\omega)=y \rrbracket \llbracket f_{\RV{Y}}(\omega)=y' \rrbracket (\RV{X},\RV{Z})_\omega^{x,z} \\
+	&= \llbracket y=y' \rrbracket \llbracket f_{\RV{Y}}(\omega)=y \rrbracket(\RV{X},\RV{Z})_\omega^{x,z}
 \end{align}
-
-\todo[inline]{Commutativity of copy map in appendix}
-
-If $\RV{X}$ is in $\RV{Y}$ only, defining $\RV{Y}'=\RV{Y}\setminus\RV{X}$:
-
+Therefore, by non-contradiction, for any $x,y,y',z$, $x\neq x'\implies \model{K}_{x,y}^{\prime x'z}=0$. Define $\model{L}$ by $\model{L}_{x,y}^{\prime x', z} := \model{K}_{x,y}^{\prime x, y}$. The fact that $\model{L}$ is a model again follows from the assumption that $\model{K}$ is a model. Then
 \begin{align}
-	\kernel{I}\rightrightarrows\kernel{M}&=\tikzfig{iconnectm_clear}\\
-										 &=\kernel{M}\rightrightarrows\kernel{I}
-\end{align}
-
-If $\RV{X}$ is in neither $\RV{Y}$ nor $\RV{Z}$, then
-
-\begin{align}
-	\kernel{I}\rightrightarrows\kernel{M}&=\tikzfig{iconnectm_dclear}\\
-										 &=\kernel{M}\rightrightarrows\kernel{I}
+	\model{K}_{x, y}^{\prime x', z} &= \llbracket x=x' \rrbracket\model{L}_{x,y}^{\prime z}
 \end{align}
 \end{proof}
 
-\begin{theorem}[Connection is compatible with axiom 1]
-Given $\kernel{K}:\RV{A}\to\Delta(\RV{B})$ and $\kernel{L}:\RV{C}\to\Delta(\RV{D})$, let $\kernel{J}=\kernel{K}\rightrightarrows \kernel{L}$. Then $\kernel{J}$ satisfies axiom 1.
-\end{theorem}
+\subsection{Truncated factorisation a third time}
 
-\begin{proof}
-By inspecting the definition of $\rightrightarrows$ (Equation \ref{eq:extn_definition1}), we can see that no labels from either of the inputs are increased in multiplicity. We need to verify that if either of the inputs has a label with multiplicity $>1$, then the result of the extension still satisfies axiom 1. 
-
-Consider any label $\RV{X}$ that appears in both the input and output of $\kernel{K}$, or twice in the output of $\kernel{K}$. Then Equation \ref{eq:extn3} implies that there exists some $\kernel{H}$ such that $\kernel{K}=\kernel{H}\rightrightarrows\kernel{I}$.
-
-Thus
+At this point, we can represent Equation \ref{eq:truncated_fac} using models. Suppose $P^{\RV{Y|XZ}}$ is an model $\model{K}:(\RV{X}, \RV{Z})\kto \RV{Y}$ and $\prob{P}^{\RV{Z}}$ an model $\model{L}:\{*\}\kto \RV{Z}$. Then we can define an indexed Markov kernel $\kernel{M}:\RV{X}\kto \RV{X}, \RV{Z}$ representing $x\mapsto \prob{P}^{\RV{YZ}}_{x}(y,z)$ by
 
 \begin{align}
-	\kernel{K}\rightrightarrows \kernel{L} &= (\kernel{H}\rightrightarrows \kernel{I})\rightrightarrows\kernel{L}\\
-										   &\overset{perm}{=} \kernel{H}\rightrightarrows(\kernel{I}\rightrightarrows\kernel{L})\\
-										   &= \kernel{H}\rightrightarrows(\kernel{L}\rightrightarrows\kernel{I})\\
-										   &\overset{perm}{=} (\kernel{H}\rightrightarrows\kernel{L})\rightrightarrows\kernel{I}
+	\kernel{M}&:= \tikzfig{truncated_factorisation_labeled}\label{eq:tfac_labeled}
 \end{align}
 
-Which implies that $\kernel{J}$ satistfies Equation \ref{eq:extn3} for $\RV{Y}$.
+Equation \ref{eq:tfac_labeled} is almost identical to Equation \ref{eq:tfac_setted}, except it now specifies which variables each measure applies to, not just which sets they take values in. Like the original Equation \ref{eq:truncated_fac}, there is no guarantee that $\kernel{M}$ is actually a model. If $f_\RV{X}=g\circ f_\RV{Z}$ for some $g:Z\to X$ and $X$ has more than 1 element, then the rule of non-contradiction will rule out the existence of any such model.
 
-Consider $\RV{Z}$ that appears in the input and output of $\kernel{L}$ or twice in the output of $\kernel{L}$. Then there exists some $\kernel{G}$ such that
+We don't know an easy way to check whether an arbitrary construction like Equation \ref{eq:tfac_labeled} is a model. 
 
-\begin{align}
-	\kernel{K}\rightrightarrows \kernel{L} &= \kernel{K}\rightrightarrows (\kernel{G}\rightrightarrows\kernel{I})\\
-										   &\overset{perm}{=} (\kernel{K}\rightrightarrows \kernel{G})\rightrightarrows\kernel{I}
-\end{align}
-
-Which implies $\kernel{J}$ satisfies Equation \ref{eq:extn3}.
-\end{proof}
+Instead, we will 
 
 \subsection{Submodels}
 
-Note that at this point, we have a theory of probability that can handle Equation \ref{eq:truncated_fac}. In particular, $P^{\RV{Y|XZ}}$ must be represented by a Markov variable map $\kernel{K}:(\RV{X}, \RV{Z})\to \Delta(\RV{Y})$ and $\prob{P}^{\RV{Z}}$ by a Markov variable map $\kernel{L}\in \Delta(\RV{Z})$. Then we can define a Markov variable map $\kernel{M}:\RV{X}\to \Delta(\RV{X}, \RV{Z})$ representing $x\mapsto \prob{P}^{\RV{YZ}}_{x}(y,z)$ by
+We do not yet have a notion of \emph{marginal probability} or \emph{conditional probability}. In the paragraph above, the terms $P^{\RV{Y|XZ}}$ and $P^{\RV{Z}}$ are external to the theory we have postulated so far. In particular, the idea that $P^{\RV{Y|XZ}}$ and $P^{\RV{Z}}$ are both parts of a larger model $P$ is not something we can yet express. We will use the term \emph{submodels} to refer to marginals and conditionals of a larger model.
 
+\begin{definition}[Marginalising model]
+For any variable $\RV{X}:\Omega\to A$, a model $\kernel{K}:\RV{Y}\kto \RV{Z}$ \emph{marginalises over} $\RV{X}$ if there exists some $\RV{W}$ such that $\RV{Y}=(\RV{X},\RV{W})$ and $\kernel{K}=\text{del}_{\RV{X}}\otimes \text{Id}_{\RV{W}}$.
+\end{definition}
+
+Note that any model $\kernel{M}:\RV{Y}\kto\RV{Z}$ that marginalises over $*$ is equal to $\text{del}_*\otimes \text{Id}_{\RV{Y}}=\text{Id}_{\RV{Y}}$.
+
+\begin{definition}[Marginal submodel]\label{def:marg_submodel}
+Given any $\kernel{K}:\RV{X}\kto\RV{Y}$, any $\kernel{L}:\RV{X}\kto\RV{Z}$ and any variable $\RV{A}$, $\kernel{L}$ is a \emph{marginal submodel} of $\kernel{K}$ if there is some model $\kernel{M}:\RV{Y}\kto \RV{Z}$ that marginalises over $\RV{A}$ such that $\kernel{L}=\kernel{KM}$.
+\end{definition}
+
+Because $\kernel{K} \text{Id}_{\RV{Y}}=\kernel{K}$, and $\text{Id}_{\RV{Y}}$ is the model that marginalises over $*$, $\kernel{K}$ is always a marginal of itself.
+
+\begin{definition}[Conditional submodel]\label{def:submodel}
+Given $\kernel{K}:\RV{X}\kto \RV{Y}$ and $\kernel{L}:\RV{W,X}\kto \RV{Z}$, $\kernel{L}$ is a conditional submodel of $\kernel{K}$ if there are marginal submodels $\kernel{K}^{1}:\RV{X}\kto \RV{W}$, $\kernel{K}^2:\RV{X}\kto (\RV{W},\RV{Z})$ of $\kernel{K}$ such that
 \begin{align}
-	\kernel{M}&:= \kernel{L}\rightrightarrows\kernel{K}\\
-	 		&=\tikzfig{truncated_factorisation_labeled}\label{eq:tfac_labeled}
-\end{align}
-
-We can see that Equation \ref{eq:tfac_labeled} is almost identical to Equation \ref{eq:tfac_setted} except with set labels instead of sets annotating the wires. This minor change, along with Axiom 1, deals with the problem of identical sets previously mentioned.
-
-However, we do not yet have a notion of \emph{marginal probability} or \emph{conditional probability}. In the paragraph above, the terms $P^{\RV{Y|XZ}}$ and $\prob{P}^{\RV{Z}}$ are external to the theory developed so far. However, we do know that they are related in a particular way; namely, they are respectively a contitional distribution and a marginal distribution derived from the same probability space with measure $P$. 
-
-We will use the term \emph{submodels} to refer to marginals and conditionals of a higher level model, like those mentioned in the previous paragraph. 
-
-\begin{definition}[Marginal]
-For any label $\RV{X}$, define the marginalising kernel $\text{del}_{\RV{X}}:\RV{X}\to *$, which is necessarily unique. Given $\kernel{K}:\RV{W}\to\Delta(\RV{Y})$ and $\kernel{L}:\RV{W}\to \Delta(\RV{Z})$, $\RV{L}$ is a \emph{marginal} of $\kernel{K}$ if, for some $\RV{X}$ in $\RV{Y}$,
-\begin{align}
-	\kernel{K}\rightrightarrows\text{del}_{\RV{X}} = \kernel{L}
+	 \kernel{K}^2 &= \tikzfig{conditional_submodel}\label{eq:submodel}\\
+	 (\kernel{K}^2)_x^{w,z} &= (\kernel{K}^1)_x^w\kernel{L}_{w,x}^z		  
 \end{align}
 \end{definition}
 
-Because $\kernel{K}\rightrightarrows \text{del}_*=\kernel{K}$, $\kernel{K}$ is always a marginal of itself.
+The erase map $\text{del}_{\RV{X}}:\RV{X}\kto *$ is a marginal of $\kernel{K}$ and letting $\kernel{K}^1=\text{del}_{\RV{X}}$, then any other marginal $\kernel{K}^2$ satisfies Equation \ref{eq:submodel}. So every marginal submodel of $\kernel{K}$ is also a conditional submodel.
 
-\begin{definition}[Submodel]
-Given $\kernel{K}:\RV{X}\to \Delta(\RV{Y})$ and $\kernel{L}:\RV{W}\to\Delta(\RV{Z})$, $\kernel{L}$ is a submodel of $\kernel{K}$ if there are marginals $\kernel{K}'$, $\kernel{K}''$ of $\kernel{K}$ such that
-\begin{align}
-	 \kernel{K}'\rightrightarrows\kernel{L} = \kernel{K}''
-\end{align}
-\end{definition}
-
-As the trivial map $\text{del}_*:\RV{X}\to\Delta(\{*\})$ is a marginal of $\kernel{K}$, and $\text{del}_*\rightrightarrows\kernel{K}'=\kernel{K}'$ for any marginal of $\kernel{K}$, every marginal of $\kernel{K}$ is also a submodel of $\kernel{K}$.
-
-With the definition of submodels in hand, we can introduce a notation more familiar to people experienced with probability theory. If $\kernel{L}:\RV{X}\to \Delta(\RV{Y})$ is a submodel of $\kernel{K}$, we may write $\kernel{L}\equiv \kernel{K}^{\RV{Y}|\RV{X};\kernel{L}}$ and $\kernel{L}_x^y\equiv \kernel{K}^{\RV{Y}|\RV{X};\kernel{L}}(y|x)$. Note that the same kernel might be a submodel of many other kernels. This notation isn't \emph{entirely} familiar, as we retain a reference to the original kernel $\kernel{L}$. In general, a kernel $\kernel{K}$ has many submodels with the same signature, and this non-uniqueness is more problematic for causal models than for standard probabilistic models, as we will see in Section \ref{sec:CBN}.
-
-However, we will sometimes write $\model{K}^{\RV{Y}|\RV{X}}=\model{L}^{\RV{Y}|\RV{X}}$. This means that some $\kernel{Q}$ exists such that $\model{K}^{\RV{Y}|\RV{X};\kernel{Q}}=\model{L}^{\RV{Y}|\RV{X};\kernel{Q}}$; alternatively, $\kernel{Q}$ is a submodel of $\model{K}$ and $\model{L}$.
+Marginal submodels are unique by definition, while conditional submodels are not unique. Because all marginal submodels are also conditional submodels, we will simply use ``submodel'' to refer to the latter.
 
 \begin{lemma}[Submodel existence]\label{lem:subm_exist}
-In FinStoch, for any $\kernel{K}:\RV{W}\to \Delta(\RV{X},\RV{Y})$ there exists a submodel $\model{K}^{\RV{Y}|\RV{XW};\kernel{L}}$.
+For any model $\kernel{K}:\RV{W}\kto (\RV{X},\RV{Y})$ (where variables take values in finite sets), there exists a submodel $\model{L}:(\RV{X},\RV{W})\kto \RV{Y}$.
 \end{lemma}
 
 \begin{proof}
@@ -456,18 +351,22 @@ Consider any Markov kernel $\kernel{L}:(\RV{X},\RV{W})\to \Delta(\RV{Y})$ with t
 \begin{align}
 	\kernel{L}_{xw}^{y} = \frac{\kernel{K}_w^{xy}}{\sum_{x\in X}\kernel{K}_w^{xy}}\qquad\forall {w,y}:\text{ the denominator is positive}
 \end{align}
+Note that in general there are many Markov kernels $\kernel{L}$ that satisfy this.
 
-Then define $\kernel{K}^{\RV{X}|\RV{W};\kernel{M}}:=\kernel{K}\rightrightarrows\text{del}_{\RV{Y}}$, which is a marginal of $\kernel{K}$. THen
+Then define $\kernel{K}^1:\RV{W}\kto \RV{X}$, obtained by marginalising $\kernel{K}$ over $\RV{Y}$. Then
 \begin{align}
-	(\kernel{M}\rightrightarrows\kernel{L})_w^{xy} &= \kernel{M}_w^x\kernel{L}_{xw}^y&\\
-												   &= \sum_{x\in X} \kernel{K}_w^{xy} \frac{\kernel{K}_w^{xy}}{\sum_{x\in X}\kernel{K}_w^{xy}} &\text{ if }\kernel{K}_w^{xy}>0\\
+	\kernel{M}_w^x\kernel{L}_{xw}^y &= \sum_{x\in X} \kernel{K}_w^{xy} \frac{\kernel{K}_w^{xy}}{\sum_{x\in X}\kernel{K}_w^{xy}} &\text{ if }\kernel{K}_w^{xy}>0\\
 												   &= \kernel{K}_w^{xy} &\text{ if }\kernel{K}_w^{xy}>0\\
 												   &= 0 &\text{otherwise}\\
 												   &= \kernel{K}_w^{xy} &\text{otherwise}
 \end{align}
 \end{proof}
 
-We did not use string diagrams in this proof, so this result does not necessarily apply to other Markov kernel categories. This is the technical reason why we choose to work with FinStoch: the existence of submodels presents a challenge in more general settings that we haven't fully resolved and the progress we have is beyond the scope of this paper.
+It is the existence of submodels that makes this theory more complex when sets may be uncountably infinite. While submodels are known to exist in the case that the domain of $\kernel{K}$ is $\{*\}$ and the codomain a standard measurable set (this being equivalent to the existence of regular conditional probabilities \citet{cho_disintegration_2019}), this does not necessarily guarantee the existence of submodels for models where the domain is also an uncountable set.
+
+With the definition of submodels in hand, we can introduce a more familiar notation. If $\kernel{L}:\RV{X}\kto \RV{Y}$ is a submodel of $\kernel{K}$, we may write $\kernel{L}\in \kernel{K}^{\RV{Y}|\RV{X}}$. We can also write $\kernel{L}\equiv \kernel{K}^{\RV{Y}|\RV{X};\kernel{L}}$ and $\kernel{L}_x^y\equiv \kernel{K}^{\RV{Y}|\RV{X};\kernel{L}}(y|x)$. Note that $\kernel{L}$ might be a submodel of other models, and other kernels might be submodels of $\kernel{K}$ with the same signature. This notation isn't \emph{entirely} standard, as we use $\kernel{K}^{\RV{Y}|\RV{X}}$ to refer to a set and not a single model. The non-uniqueness of submodels is more problematic for causal models than for standard probabilistic models, as we will see in Section \ref{sec:CBN}.
+
+If $\model{K}^{\RV{Y}|\RV{X}}=\model{L}^{\RV{Y}|\RV{X}}$ then we mean set equality.
 
 \subsection{Conditional independence}\label{ssec:cond_indep}
 
@@ -479,7 +378,7 @@ For a \emph{probability distribution} $\kernel{P}:\{*\}\to \Delta(\RV{Y})$ and s
 	\kernel{P}^{\RV{ABC};\kernel{J}} &= \tikzfig{cond_indep1}
 \end{align}
 
-For a \emph{kernel} $\kernel{N}:\RV{X}\to \Delta(\RV{Y})$ and some $\RV{A},\RV{B},\RV{C}\in (\RV{X},\RV{Y})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{N}}\RV{B}|\RV{C}$, if there is some $\kernel{O}:\{*\}\to \Delta(\RV{X})$ such that $O^x>0$ for all $x\in X$ and $\RV{A}\CI_{\kernel{O}\rightrightarrows\kernel{N}} \RV{B}|\RV{C}$.
+For an arbitrary model $\kernel{N}:\RV{X}\to \Delta(\RV{Y})$ and some $\RV{A},\RV{B},\RV{C}\in (\RV{X},\RV{Y})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{N}}\RV{B}|\RV{C}$, if there is some $\kernel{O}:\{*\}\to \Delta(\RV{X})$ such that $O^x>0$ for all $x\in X$ and $\RV{A}\CI_{\kernel{O}\kernel{N}} \RV{B}|\RV{C}$.
 
 This definition is inappliccable in the case where sets may be uncountably infinite, as no such $\kernel{O}$ can exist in this case. There may well be definitions of conditional independence that generalise better, and we refer to the discussions in \citet{fritz_synthetic_2020} and \citet{constantinou_extended_2017} for some discussion of alternative definitions. One advantage of this definition is that it matches the version given by \citet{cho_disintegration_2019} which they showed coincides with the standard notion of conditional independence and so we don't have to show this in our particular case.
 

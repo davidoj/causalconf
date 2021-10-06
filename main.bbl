@@ -1,4 +1,4 @@
-\begin{thebibliography}{17}
+\begin{thebibliography}{21}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -41,6 +41,13 @@ A.~P. Dawid.
   \url{https://www.tandfonline.com/doi/abs/10.1080/01621459.2000.10474210}.
 \newblock Publisher: Taylor \& Francis \_eprint:
   https://www.tandfonline.com/doi/pdf/10.1080/01621459.2000.10474210.
+
+\bibitem[Dawid(2020)]{dawid_decision-theoretic_2020}
+A.~Philip Dawid.
+\newblock Decision-theoretic foundations for statistical causality.
+\newblock \emph{arXiv:2004.12493 [math, stat]}, April 2020.
+\newblock URL \url{http://arxiv.org/abs/2004.12493}.
+\newblock arXiv: 2004.12493.
 
 \bibitem[Fong(2013)]{fong_causal_2013}
 Brendan Fong.
@@ -87,6 +94,32 @@ Alfred Korzybski.
   Library Publishing Company, The Science Press Printing Company, distributors,
   1933.
 \newblock URL \url{http://archive.org/details/sciencesanityint00korz}.
+
+\bibitem[Lattimore and Rohde(2019{\natexlab{a}})]{lattimore_causal_2019}
+Finnian Lattimore and David Rohde.
+\newblock Causal inference with {Bayes} rule.
+\newblock \emph{arXiv:1910.01510 [cs, stat]}, October 2019{\natexlab{a}}.
+\newblock URL \url{http://arxiv.org/abs/1910.01510}.
+\newblock arXiv: 1910.01510.
+
+\bibitem[Lattimore and Rohde(2019{\natexlab{b}})]{lattimore_replacing_2019}
+Finnian Lattimore and David Rohde.
+\newblock Replacing the do-calculus with {Bayes} rule.
+\newblock \emph{arXiv:1906.07125 [cs, stat]}, December 2019{\natexlab{b}}.
+\newblock URL \url{http://arxiv.org/abs/1906.07125}.
+\newblock arXiv: 1906.07125.
+
+\bibitem[Menger(2003)]{menger_random_2003}
+Karl Menger.
+\newblock Random {Variables} from the {Point} of {View} of a {General} {Theory}
+  of {Variables}.
+\newblock In Karl Menger, Bert Schweizer, Abe Sklar, Karl Sigmund, Peter
+  Gruber, Edmund Hlawka, Ludwig Reich, and Leopold Schmetterer, editors,
+  \emph{Selecta {Mathematica}: {Volume} 2}, pages 367--381. Springer, Vienna,
+  2003.
+\newblock ISBN 978-3-7091-6045-9.
+\newblock \doi{10.1007/978-3-7091-6045-9_31}.
+\newblock URL \url{https://doi.org/10.1007/978-3-7091-6045-9_31}.
 
 \bibitem[Pearl(2009)]{pearl_causality:_2009}
 Judea Pearl.

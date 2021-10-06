@@ -213,3 +213,30 @@ We use sans serif letters $\RV{X},\RV{Y}$ to refer to names of variables and, du
 
 
 We define the product and projection of variables as follows:
+
+
+
+We give a sufficient condition for the existence of matrix products of models -- if the variables that are ``newly coupled'' by the product do not place any restrictions on one another, then the product exists.
+
+\begin{definition}[Unrestricted pairs of variables]
+Given $\RV{X}:\Omega\kto A$ and $\RV{Z}:\Omega\kto B$, if for each $a\in f_{\RV{X}}(\Omega)$ and each $b\in f_{\RV{Z}}(\Omega)$ there is some $\omega_{ab}$ such that $f_{\RV{X}}(\omega_{ab})=a$ and $f_{\RV{Z}}(\omega_{ab})=b$.
+\end{definition}
+
+\begin{lemma}[Existence of model products]
+Given models $\kernel{K}:\RV{X}\kto (\RV{W},\RV{Y})$ and $\kernel{L}:(\RV{W},\RV{Y})\kto (\RV{W},\RV{Z})$, if $\RV{X}$ and $\RV{Z}$ are an unrestricted pair of variables then $\kernel{K}\kernel{L}$ exists.
+\end{lemma}
+
+\begin{proof}
+The overall idea here is that for all pairwise combinations of variables apart from $(\RV{X},\RV{Z})$, we know non-contradiction holds because $\kernel{K}$ and $\kernel{L}$ are models. Finally, non-contradiction for $(\RV{X},\RV{Z})$ is guaranteed because they form an unrestricted pair.
+
+Suppose $\RV{X}$ takes values in $X$, $\RV{Y}$ takes values in $Y$ and so forth. Then (using Lemma \ref{lem:nocopy2})
+\begin{align}
+    (\kernel{K}'\kernel{L}')_{x}^{w,z} &= \sum_{y\in Y} \kernel{K}_x^{\prime w,y} \kernel{L}_{w,y}^{\prime w,z}
+\end{align}
+
+Suppose we have some $a\in X$, $b\in W$ such that $\max_{\omega\in \Omega} (\RV{X},\RV{W})_{\omega}^{a,b} = 0$. By the assumption that $\kernel{K}$ and $\kernel{L}$ satisfy non-contradiction, $\kernel{K}_a^{\prime b,y}=0$ for all $y\in Y$. Thus $(\kernel{K}'\kernel{L}')_{a}^{b,z}=0$ for all $z\in Z$.
+
+Suppose we have some $a\in W$, $b\in Z$ such that $\max_{\omega\in \Omega} (\RV{W},\RV{Z})_{\omega}^{a,b} = 0$. Then $\kernel{L}_{a,y}^{\prime a,c}=0$ for all $y\in Y$.
+
+Suppose alternatively that we have $a\in X$, $b\in W$, $c\in Z$ such that $\max_{\omega\in \Omega} (\RV{X},\RV{W},\RV{Z})_{\omega}^{a,b,c} = 0$ and there is some $\omega_{ab}\in \Omega$ such that $(\RV{X},\RV{W})_{\omega_{ab}}^{a,b}=1$ and some $\omega_{bc}\in \Omega$ such that $(\RV{W},\RV{Z})_{\omega_{ab}}^{b,c}=1$. 
+\end{proof}
