@@ -205,7 +205,7 @@ Similarly, the tensor product of $\kernel{K}:\RV{X}\kto\RV{Y}$ and $\kernel{L}:\
 
 We define $\text{Id}_{\RV{X}}$ to be the model $(\text{Id}_X,\RV{X},\RV{X})$, and similarly the indexed versions $\text{del}_{\RV{X}}$, $\text{copy}_{\RV{X}}$ and $\text{swap}_{\RV{X},\RV{Y}}$ are obtained by taking the unindexed versions of these maps and attaching the appropriate random variables as indices. Diagrams are the diagrams associated with the underlying kernel, with input and output wires annotated with input and output indices.
 
-The category of indexed Markov kernels as morphisms and variables as objects is a Markov category (Appendix \ref{sec:app_mcat}), and so a valid derivation based on the string diagram language for Markov categories corresponds to a valid theorem in this category. However, most of the diagrams we can form are not viable candidates for models of our variables. For example, if $\RV{X}$ takes values in $\{0,1\}$ we can propose an indexed Markov kernel $\kernel{K}:\RV{X}\kto\RV{X}$ with $\kernel{K}'_x^{x'}=0.5$ for all $x, x'$. However, this is not a viable model of the variable $\RV{X}$, because it expresses something like ``if we know the value of $\RV{X}$, then we belive that $\RV{X}$ could take any value with equal probability''.
+The category of indexed Markov kernels as morphisms and variables as objects is a Markov category (Appendix \ref{sec:app_mcat}), and so a valid derivation based on the string diagram language for Markov categories corresponds to a valid theorem in this category. However, most of the diagrams we can form are not viable candidates for models of our variables. For example, if $\RV{X}$ takes values in $\{0,1\}$ we can propose an indexed Markov kernel $\kernel{K}:\RV{X}\kto\RV{X}$ with $\kernel{K}_a^{\prime b}=0.5$ for all $a, b$. However, this is not a useful model of the variable $\RV{X}$ -- it expresses something like ``if we know the value of $\RV{X}$, then we belive that $\RV{X}$ could take any value with equal probability''.
 
 We define a \emph{model} as ``an indexed Markov kernel that assigns probability 0 to things known to be contradictions''.
 
@@ -246,17 +246,25 @@ Suppose there were some $\model{K}:\text{Id}_\Omega\kto \RV{X}$ not equal to $\R
 Thus $\model{K}$ doesn't satisfy non-contradiction.
 \end{proof}
 
-\begin{corollary}[Pushforward measure]\label{corr:pushforward}
-Given any probability model $\model{P}:\RV{I}\kto \text{Id}_\Omega$, there is a unique probability model $\model{P}^{\RV{X}}:\RV{I}\kto \RV{X}$ such that $\model{P}^{\RV{X}}=\model{P}\model{Q}$ for some $\model{Q}:\text{Id}_\Omega\to \RV{X}$ and it is given by $(\model{P}^{\RV{X}})^a = \sum_{\omega\in f^{-1}(a)} \model{P}^{\omega}$.
+\begin{lemma}[Pushforward models]\label{lem:pushforward}
+Given any model $\model{P}:\RV{Y}\kto \text{Id}_\Omega$, there is a unique model $\model{P}^{\RV{X}|\RV{Y}}:\RV{Y}\kto \RV{X}$ such that $\model{P}^{\RV{X}|\RV{Y}}=\model{P}\model{Q}$ for some $\model{Q}:\text{Id}_\Omega\to \RV{X}$, and it is given by $(\model{P}^{\RV{X}|\RV{Y}})^a_b = \sum_{\omega\in f^{-1}(a)} \model{P}_b^{\omega}$.
+\end{lemma}
+
+\begin{proof}
+As $\model{X}:=(\RV{X},\text{Id}_\Omega,\RV{X})$ is the unique model $\text{Id}_\Omega\to \RV{X}$, it must be the case that $\model{P}^{\RV{X}|\RV{Y}}=\model{P}\model{X}$. Suppose $\RV{X}:\Omega\kto A$ and $\RV{Y}:\Omega\kto B$. Then for any $a\in A$, $b\in B$
+\begin{align}
+	(\model{P}\model{X})^a_b &= \sum_{\omega\in \Omega} \model{P}_b^\omega\RV{X}_\omega^a\\
+						 &= \sum_{\omega\in \Omega} \model{P}_b^\omega \llbracket a = f_{\RV{X}}(\omega) \rrbracket\\
+						 &= \sum_{\omega\in f^{-1}(a)} \model{P}_b^{\omega}
+\end{align}
+\end{proof}
+
+\begin{corollary}[Pushforward probability model]\label{corr:pushforward}
+Given any probability model $\model{P}:\RV{I}\kto \text{Id}_\Omega$, there is a unique model $\model{P}^{\RV{X}}:\RV{I}\kto \RV{X}$ such that $\model{P}^{\RV{X}}=\model{P}\model{Q}$ for some $\model{Q}:\text{Id}_\Omega\to \RV{X}$, and it is given by $(\model{P}^{\RV{X}})^a_b = \sum_{\omega\in f^{-1}(a)} \model{P}_b^{\omega}$.
 \end{corollary}
 
 \begin{proof}
-As $\model{X}:=(\RV{X},\text{Id}_\Omega,\RV{X})$ is the unique model $\text{Id}_\Omega\to \RV{X}$, it must be the case that $\model{P}^{\RV{X}}=\model{P}\model{X}$. Then for any $a\in A$
-\begin{align}
-	(\model{P}\model{X})^a &= \sum_{\omega\in \Omega} \model{P}^\omega\RV{X}_\omega^a\\
-						 &= \sum_{\omega\in \Omega} \model{P}^\omega \llbracket a = f_{\RV{X}}(\omega) \rrbracket\\
-						 &= \sum_{\omega\in f^{-1}(a)} \model{P}^{\omega}
-\end{align}
+Apply Lemma \ref{lem:pushforward}
 \end{proof}
 
 We also show a number of other useful properties. 
@@ -300,6 +308,19 @@ Therefore, by non-contradiction, for any $x,y,y',z$, $x\neq x'\implies \model{K}
 \end{align}
 \end{proof}
 
+\begin{lemma}[Avoiding contradictions]\label{lem:avoid_contradic}
+Given a model $\model{K}:\RV{X}\kto (\RV{Y},\RV{Z})$, if an indexed Markov kernel $\kernel{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ has the property $\kernel{K}_x^{\prime yz}=0\implies \kernel{L}_{xy}^{\prime z}=0$ then $\kernel{L}$ is also a model.
+\end{lemma}
+
+\begin{proof}
+Because $\model{K}$ is a model,
+\begin{align}
+	\kernel{L}_{xy}^{\prime z}>0 &\implies \kernel{K}_x^{\prime yz} >0 \\
+	&\implies \left(\max_{\omega\in \Omega} (\RV{X},\RV{Y},\RV{Z})_{\omega}^{x,y,z} > 0\right) \lor \left(\max_{\omega\in \Omega} \RV{X}_{\omega}^{x} = 0\right)\\
+	&\implies \left(\max_{\omega\in \Omega} (\RV{X},\RV{Y},\RV{Z})_{\omega}^{x,y,z} > 0\right) \lor \left(\max_{\omega\in \Omega} (\RV{X},\RV{W})_\omega^{x,w} = 0\right)
+\end{align}
+\end{proof}
+
 \subsection{Truncated factorisation a third time}
 
 At this point, we can represent Equation \ref{eq:truncated_fac} using models. Suppose $P^{\RV{Y|XZ}}$ is an model $\model{K}:(\RV{X}, \RV{Z})\kto \RV{Y}$ and $\prob{P}^{\RV{Z}}$ an model $\model{L}:\{*\}\kto \RV{Z}$. Then we can define an indexed Markov kernel $\kernel{M}:\RV{X}\kto \RV{X}, \RV{Z}$ representing $x\mapsto \prob{P}^{\RV{YZ}}_{x}(y,z)$ by
@@ -310,63 +331,77 @@ At this point, we can represent Equation \ref{eq:truncated_fac} using models. Su
 
 Equation \ref{eq:tfac_labeled} is almost identical to Equation \ref{eq:tfac_setted}, except it now specifies which variables each measure applies to, not just which sets they take values in. Like the original Equation \ref{eq:truncated_fac}, there is no guarantee that $\kernel{M}$ is actually a model. If $f_\RV{X}=g\circ f_\RV{Z}$ for some $g:Z\to X$ and $X$ has more than 1 element, then the rule of non-contradiction will rule out the existence of any such model.
 
-We don't know an easy way to check whether an arbitrary construction like Equation \ref{eq:tfac_labeled} is a model. 
+We don't know an easy way to check in general whether an arbitrary construction like Equation \ref{eq:tfac_labeled} is a model. A sufficient condition is: if we have a model $\model{K}:\RV{X}\kto (\RV{Y},\RV{Z})$ such that $\kernel{K}'$ is strictly positive, then any $\kernel{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ is also a model (Lemma \ref{lem:avoid_contradic}). A model with, for example, variables $\RV{B}$ for body mass index, $\RV{H}$ for height and $\RV{W}$ for weight could not be strictly positive.
 
-Instead, we will 
+An alternative approach is to assume that we have a collection of ``big'' models that is known to be non-contradictory, and work only with submodels of these. This is very similar to the standard approach to probability modelling in which the probability $\prob{P}$ is usually assumed not to contradict any constraints placed by random variables. The only differences are that we suppose that we have a collection of models, and we don't require that these are probability models.
 
-\subsection{Submodels}
+\subsection{Sample space models and submodels}
 
-We do not yet have a notion of \emph{marginal probability} or \emph{conditional probability}. In the paragraph above, the terms $P^{\RV{Y|XZ}}$ and $P^{\RV{Z}}$ are external to the theory we have postulated so far. In particular, the idea that $P^{\RV{Y|XZ}}$ and $P^{\RV{Z}}$ are both parts of a larger model $P$ is not something we can yet express. We will use the term \emph{submodels} to refer to marginals and conditionals of a larger model.
+A sample space model is any model $\kernel{K}:\RV{X}\kto \text{Id}_\Omega$. We expect that the collection of models under consideration will usually be defined on some small collection of random variables, but every such model is the pushforward of some sample space model. Using sample space models allows us to stay close to the usual convention of probability modelling that starts with a sample space probability model.
 
-\begin{definition}[Marginalising model]
-For any variable $\RV{X}:\Omega\to A$, a model $\kernel{K}:\RV{Y}\kto \RV{Z}$ \emph{marginalises over} $\RV{X}$ if there exists some $\RV{W}$ such that $\RV{Y}=(\RV{X},\RV{W})$ and $\kernel{K}=\text{del}_{\RV{X}}\otimes \text{Id}_{\RV{W}}$.
-\end{definition}
-
-Note that any model $\kernel{M}:\RV{Y}\kto\RV{Z}$ that marginalises over $*$ is equal to $\text{del}_*\otimes \text{Id}_{\RV{Y}}=\text{Id}_{\RV{Y}}$.
-
-\begin{definition}[Marginal submodel]\label{def:marg_submodel}
-Given any $\kernel{K}:\RV{X}\kto\RV{Y}$, any $\kernel{L}:\RV{X}\kto\RV{Z}$ and any variable $\RV{A}$, $\kernel{L}$ is a \emph{marginal submodel} of $\kernel{K}$ if there is some model $\kernel{M}:\RV{Y}\kto \RV{Z}$ that marginalises over $\RV{A}$ such that $\kernel{L}=\kernel{KM}$.
-\end{definition}
-
-Because $\kernel{K} \text{Id}_{\RV{Y}}=\kernel{K}$, and $\text{Id}_{\RV{Y}}$ is the model that marginalises over $*$, $\kernel{K}$ is always a marginal of itself.
-
-\begin{definition}[Conditional submodel]\label{def:submodel}
-Given $\kernel{K}:\RV{X}\kto \RV{Y}$ and $\kernel{L}:\RV{W,X}\kto \RV{Z}$, $\kernel{L}$ is a conditional submodel of $\kernel{K}$ if there are marginal submodels $\kernel{K}^{1}:\RV{X}\kto \RV{W}$, $\kernel{K}^2:\RV{X}\kto (\RV{W},\RV{Z})$ of $\kernel{K}$ such that
-\begin{align}
-	 \kernel{K}^2 &= \tikzfig{conditional_submodel}\label{eq:submodel}\\
-	 (\kernel{K}^2)_x^{w,z} &= (\kernel{K}^1)_x^w\kernel{L}_{w,x}^z		  
-\end{align}
-\end{definition}
-
-The erase map $\text{del}_{\RV{X}}:\RV{X}\kto *$ is a marginal of $\kernel{K}$ and letting $\kernel{K}^1=\text{del}_{\RV{X}}$, then any other marginal $\kernel{K}^2$ satisfies Equation \ref{eq:submodel}. So every marginal submodel of $\kernel{K}$ is also a conditional submodel.
-
-Marginal submodels are unique by definition, while conditional submodels are not unique. Because all marginal submodels are also conditional submodels, we will simply use ``submodel'' to refer to the latter.
-
-\begin{lemma}[Submodel existence]\label{lem:subm_exist}
-For any model $\kernel{K}:\RV{W}\kto (\RV{X},\RV{Y})$ (where variables take values in finite sets), there exists a submodel $\model{L}:(\RV{X},\RV{W})\kto \RV{Y}$.
+\begin{lemma}[Existence of sample space model]\label{lem:ss_exist}
+Given any model $\model{K}:\RV{X}\kto \RV{Y}$, there is a sample space model $\model{L}:\RV{X}\kto\text{Id}_\Omega$ such that, defining $\model{Y}:=(\RV{Y},\text{Id}_\Omega,\RV{Y})$, $\model{L}\model{Y}=\model{K}$.
 \end{lemma}
 
 \begin{proof}
-Consider any Markov kernel $\kernel{L}:(\RV{X},\RV{W})\to \Delta(\RV{Y})$ with the property
-\begin{align}
-	\kernel{L}_{xw}^{y} = \frac{\kernel{K}_w^{xy}}{\sum_{x\in X}\kernel{K}_w^{xy}}\qquad\forall {w,y}:\text{ the denominator is positive}
-\end{align}
-Note that in general there are many Markov kernels $\kernel{L}$ that satisfy this.
+If $\RV{X}:\Omega\kto A$ and $\RV{Y}:\Omega\kto B$, take any $a\in A$ and $b\in B$. Then set
 
-Then define $\kernel{K}^1:\RV{W}\kto \RV{X}$, obtained by marginalising $\kernel{K}$ over $\RV{Y}$. Then
 \begin{align}
-	\kernel{M}_w^x\kernel{L}_{xw}^y &= \sum_{x\in X} \kernel{K}_w^{xy} \frac{\kernel{K}_w^{xy}}{\sum_{x\in X}\kernel{K}_w^{xy}} &\text{ if }\kernel{K}_w^{xy}>0\\
-												   &= \kernel{K}_w^{xy} &\text{ if }\kernel{K}_w^{xy}>0\\
-												   &= 0 &\text{otherwise}\\
-												   &= \kernel{K}_w^{xy} &\text{otherwise}
+	\kernel{L}'_a^\omega = \begin{cases}
+					0 & \text{ if } f_{\RV{Y}}^{-1}(b)\cap f_{\RV{X}}^{-1}(a)=\emptyset\\
+					\kernel{K}_a^{\prime b} \llbracket \omega = \omega_b \rrbracket & \text{for some }\omega_b\in f_{\RV{Y}}^{-1}(b) \text{ if }f_{\RV{X}}^{-1}(a)=\emptyset\\
+					\kernel{K}_a^{\prime b} \llbracket \omega = \omega_{ab} \rrbracket & \text{for some }\omega_{ab}\in f_{\RV{Y}}^{-1}(b)\cap f_{\RV{X}}^{-1}(a)\text{ otherwise}\\
+					\end{cases}
+\end{align}
+
+Note that for all $a\in A$, $\sum_{\omega\in \Omega}\kernel{L}^{\prime\omega}_a = \sum_{b\in B} \kernel{K}_a^{\prime b} = 1$.
+
+By construction, $(\kernel{L}',\text{Id}_\Omega,\RV{X})$ is free of contradiction. In addition
+\begin{align}
+	(\kernel{L}'\RV{Y})_a^b &= \sum_{\omega\in \Omega} \kernel{L}^{\prime \omega}_a \RV{Y}_\omega^b\\
+							&= \sum_{\omega\in f_{\RV{Y}}^{-1}(b)} \kernel{L}_a^{\prime \omega}\\
+							&= \begin{cases}
+							 0 & f_{\RV{Y}}^{-1}(b)\cap f_{\RV{X}}^{-1}(a)=\emptyset\\
+							 \kernel{K}_a^{\prime b} & \text{ otherwise }
+							\end{cases}\\
+		\implies (\kernel{L}'\RV{Y}) &= \kernel{K}'
 \end{align}
 \end{proof}
 
-It is the existence of submodels that makes this theory more complex when sets may be uncountably infinite. While submodels are known to exist in the case that the domain of $\kernel{K}$ is $\{*\}$ and the codomain a standard measurable set (this being equivalent to the existence of regular conditional probabilities \citet{cho_disintegration_2019}), this does not necessarily guarantee the existence of submodels for models where the domain is also an uncountable set.
+\begin{definition}[Pushforward model]
+For any variables $\RV{X}:\Omega\kto A$, $\RV{Y}:\Omega\kto B$ and any sample space model $\model{K}:\RV{X}\kto \mathrm{Id}_\Omega$, the pushforward $\model{K}^{\RV{Y}|\RV{X}}:= \model{K}\model{X}$ where $\model{X}:=(\RV{X},\mathrm{Id}_\Omega,\RV{X})$.
+\end{definition}
 
-With the definition of submodels in hand, we can introduce a more familiar notation. If $\kernel{L}:\RV{X}\kto \RV{Y}$ is a submodel of $\kernel{K}$, we may write $\kernel{L}\in \kernel{K}^{\RV{Y}|\RV{X}}$. We can also write $\kernel{L}\equiv \kernel{K}^{\RV{Y}|\RV{X};\kernel{L}}$ and $\kernel{L}_x^y\equiv \kernel{K}^{\RV{Y}|\RV{X};\kernel{L}}(y|x)$. Note that $\kernel{L}$ might be a submodel of other models, and other kernels might be submodels of $\kernel{K}$ with the same signature. This notation isn't \emph{entirely} standard, as we use $\kernel{K}^{\RV{Y}|\RV{X}}$ to refer to a set and not a single model. The non-uniqueness of submodels is more problematic for causal models than for standard probabilistic models, as we will see in Section \ref{sec:CBN}.
+The fact that the pushforward is a model is proved in Lemma \ref{lem:pushforward}. We employ the slightly more familiar notation $\model{K}^{\RV{Y}|\RV{X}}(y|x)\equiv (\kernel{K}^{\prime \RV{Y}|\RV{X}})^y_x$.
 
-If $\model{K}^{\RV{Y}|\RV{X}}=\model{L}^{\RV{Y}|\RV{X}}$ then we mean set equality.
+\begin{definition}[Submodel]\label{def:submodel}
+Given $\model{K}:\RV{X}\kto \mathrm{Id}_\Omega$ and $\model{L}:\RV{W,X}\kto \RV{Z}$, $\model{L}$ is a submodel of $\model{K}$ if
+\begin{align}
+	 \model{K}^{\RV{Z,W}|\RV{Y}} &= \tikzfig{conditional_submodel}\label{eq:submodel}\\
+	 (\model{K}^{\RV{Z,W}|\RV{Y}})_x^{w,z} &= (\model{K}^{\RV{W}|\RV{Y}})_x^w\model{L}_{w,x}^z		  
+\end{align}
+We write $\model{L}\in \model{K}^{\{\RV{Z}|\RV{W},\RV{X}\}}$.
+\end{definition}
+
+\begin{lemma}[Submodel existence]\label{lem:subm_exist}
+For any model $\model{K}:\RV{X}\kto \mathrm{Id}_\Omega$ (where $\Omega$ is a finite set), $\RV{W}$ and $\RV{Y}$, there exists a submodel $\model{L}:(\RV{W},\RV{X})\kto \RV{Y}$.
+\end{lemma}
+
+\begin{proof}
+Consider any indexed Markov kernel $\kernel{L}:(\RV{W},\RV{X})\kto \RV{Y}$ with the property
+\begin{align}
+	\kernel{L}_{wx}^{\prime y} = \frac{\model{K}^{\RV{W,Y}|\RV{X}}(w,y|x)}{\model{K}^{\RV{W}|\RV{X}}(w|x)}\qquad\forall {x,w}:\text{ the denominator is positive}
+\end{align}
+In general there are many indexed Markov kernels that satisfy this. We need to check that $\kernel{L}'$ can be chosen so that it avoids contradictions. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{K}^{\RV{W,Y}|\RV{X}}(w,y|x)>0\implies \kernel{L}_{wx}^{\prime y} > 0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $f_{\RV{W}}^{-1}(w)\cap f_{\RV{X}}^{-1}(x)=\emptyset$ or we can choose some $\omega_{wx}\in f_{\RV{W}}^{-1}(w)\cap f_{\RV{X}}^{-1}(x)$ and let $\kernel{L}_{wx}^{\prime f_{\RV{Y}}(\omega_{wx})} = 1$. Thus $\kernel{L}'$ can be chosen such that $\kernel{L}$ is a model (but this is not automatic).
+
+Then
+\begin{align}
+	\model{K}^{\RV{W}|\RV{X}}(w|x) \kernel{L}_{xw}^{\prime y} &= \model{K}^{\RV{W}|\RV{X}}(w|x) \frac{\model{K}^{\RV{W,Y}|\RV{X}}(w,y|x)}{\model{K}^{\RV{W}|\RV{X}}(w|x)} &\text{ if }\model{K}^{\RV{W}|\RV{X}}(w|x)>0\\
+												   &= \model{K}^{\RV{W,Y}|\RV{X}}(w,y|x) &\text{ if }\model{K}^{\RV{W}|\RV{X}}(w|x)>0\\
+												   &= 0 &\text{otherwise}\\
+												   &= \model{K}^{\RV{W,Y}|\RV{X}}(w,y|x) &\text{otherwise}
+\end{align}
+\end{proof}
 
 \subsection{Conditional independence}\label{ssec:cond_indep}
 
