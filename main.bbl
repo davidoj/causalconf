@@ -1,4 +1,4 @@
-\begin{thebibliography}{21}
+\begin{thebibliography}{22}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -76,6 +76,14 @@ M.~A. Hernán and S.~L. Taubman.
 \newblock ISSN 1476-5497.
 \newblock \doi{10.1038/ijo.2008.82}.
 \newblock URL \url{https://www.nature.com/articles/ijo200882}.
+
+\bibitem[Hájek(2003)]{hajek_what_2003}
+Alan Hájek.
+\newblock What {Conditional} {Probability} {Could} {Not} {Be}.
+\newblock \emph{Synthese}, 137\penalty0 (3):\penalty0 273--323, December 2003.
+\newblock ISSN 1573-0964.
+\newblock \doi{10.1023/B:SYNT.0000004904.91112.16}.
+\newblock URL \url{https://doi.org/10.1023/B:SYNT.0000004904.91112.16}.
 
 \bibitem[Jacobs et~al.(2019)Jacobs, Kissinger, and Zanasi]{jacobs_causal_2019}
 Bart Jacobs, Aleks Kissinger, and Fabio Zanasi.

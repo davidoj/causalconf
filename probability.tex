@@ -1,42 +1,74 @@
 %!TEX root = main.tex
 
 
-\section{Probability with connectable submodels}
+\section{Variables and Probability Models}\label{sec:vague_variables}
 
-Throughout this paper, we will assume all measurable sets $X$ are finite sets. This is both because it makes explanations simpler and because it is easy to show that submodels exist in this setting (Lemma \ref{lem:subm_exist}). Many of the proofs in this paper can likely be specialised to more general settings due to our use of string diagrams which represent abstract morphisms in Markov categories, rather than finite Markov kernels specifically.
+\subsection{Why are variables functions?}
 
-The standard method of constructing probability models introduces a probability space $(\prob{P},(\Omega,\sigalg{F}))$ with $\Omega$ a sample space, $\sigalg{F}$ a $\sigma$-algebra on $\Omega$ and $\prob{P}$ a probability measure on $(\Omega,\sigalg{F})$. Random variables are defined by measurable functions on $\Omega$ and are given names in sans-serif like $\RV{X}$. A probability distribution $\prob{P}^{\RV{XYZ}}$ is ``the joint distribution of $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ under $\prob{P}$'' where $\RV{X},$ $\RV{Y}$ and $\RV{Z}$ are associated with random variables on $\Omega$ and is given by the pushforward of the function $\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega),\RV{Z}(\omega))$. Unless otherwise stated, a random variable named $\RV{X}$ will take values in the space $X$ (note the serif font).
+\todo[inline]{I don't think this subsection actually says much about what is coming next}
 
-We want to consider an extension of this approach for reasoning about causal modelling. The causal graphical models literature provides some simple examples illustrating this need, while the fact that the potential outcomes approach also benefits from extension requires more explanation, and will be discussed in Section \ref{sec:potential_outcomes}. 
+Our intention is to clarify various ``map-territory'' issues related to causal inference. We start with a discussion of random variables as variables are often where we specify which real things our models are supposed to correspond to.
 
-Consider the ``truncated factorisation'', a linchpin operation in causal graphical models. Given a probability $\prob{P}^{\RV{XYZ}}$ and the assumption that the results of interventions are described by $\prob{P}$ along with a graphical model in which $\RV{Z}$ blocks all backdoor paths between $\RV{X}$ and $\RV{Y}$, we can define a new probability measure $\prob{P}_x$ representing the result of ``setting $\RV{X}$ to $x$'' by truncated factorisation \citep[page ~24]{pearl_causality:_2009}:
-\begin{align}
-	\prob{P}^{\RV{XYZ}}_{x}(x',y,z):=\prob{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x'\rrbracket\label{eq:truncated_fac}
-\end{align}
-
-Without a causal model justifying the claim that $\RV{Z}$ blocks backdoor paths between $\RV{X}$ and $\RV{Y}$, there is in general no special siginificance to the expression on the right side of Equation \ref{eq:truncated_fac}, and causal models that can justify such claims are not a feature of the standard approach to probability modelling. At the same time, the notation we have chosen for the left side of Equation \ref{eq:truncated_fac} suggests that $\prob{P}^{\RV{XYZ}}_{x}$ is a distribution over the same variables $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ as the original $\prob{P}^{\RV{XYZ}}$. The standard approach to probability modelling \emph{does} offer an account of what it means for variables to be the same, which is that they are represented by the same measurable functions on the probability space.
-
-An immediate issue is that $\prob{P}_x$ is a different probability measure to $\prob{P}$. However, even if we substitute probability measures, we could perhaps keep the sample space $\Omega$ and define variables as measurable functions on $\Omega$. This is the approach taken in \citet{pearl_causality:_2009} (but see Section \ref{sec:vague_variables}).
-
-This rules out the possibility of performing some interventions. For example, if $\RV{X}=\RV{Z}$ and $\RV{X}$ can take more than one value, then no $\prob{P}_x$ exists with the property required by Equation \ref{eq:truncated_fac}.
-
-For an example of an intervention we \emph{want} to rule out, consider a variable $\RV{B}$ representing a person's body mass index. It seems reasonable to hold that this variable is by definition equivalent to $\frac{\RV{W}}{\RV{H}^2}$ where $\RV{W}$ represents their weight in kilograms and $\RV{H}$ represents their height in metres. This rules out the existence of any probability measure that represents the results of an intervention on $\RV{B}$ in any model that also contains $\RV{H}$ and $\RV{W}$ and features the expected causal relationships (and, regardless of causal relationships, it completely rules out the possibility that $\RV{B}$, $\RV{H}$ and $\RV{W}$ can all be intervened on). Such interventions can be ruled out by defining the random variables such that $\RV{B} = \frac{\RV{W}}{\RV{H}^2}$.
-
-Along the same lines as \citet{dawid_causal_2000}, we find that it is often desirable to introduce variables representing the results of choices, and we often don't want to attach probability distributions to such variables. We might have $\RV{D}$, representing a choice, and $\prob{P}^{\RV{Y}|\RV{D}}$ representing the consequences of this choice, but no $\prob{P}^{\RV{Y},\RV{D}}$ as we have no need of a marginal probability of $\RV{D}$.
-
-As a brief summary, we want a version of ``probability theory'' that:
+A standard formal definition of random variables is that they are functions from some measurable sample space $(\Omega,\sigalg{F})$ equipped with a probability measure $\prob{P}$ to some codomain $(X,\sigalg{X})$. This is also frequently relaxed to drop the requirement of a probability measure $\prob{P}$. A variable defined in this manner we will call a \emph{formal variable}. In practice, however, it is very common to define variables with reference to:
 \begin{itemize}
-	\item Defines what we mean by a ``variable''
-	\item Includes generalised variables that do not have marginal probabilities (for example, to represent choices)
-	\item Can express operations like Equation \ref{eq:truncated_fac}
+	\item The things that they are supposed to represent
+	\item Their codomain
 \end{itemize}
 
-Standard probability theory does the first, but not the second two. 
+For example, \citet{pearl_causality:_2009} offers the same formal definiton as ours, but also says:
+\begin{quote}
+By a \emph{variable} we will mean an attribute, measurement or inquiry that may take on one of several possible outcomes, or values, from a specified domain. If we have beliefs (i.e., probabilities) attached to the possible values that a variable may attain, we will call that variable a random variable.
+\end{quote}
+Suppose we add the condition that a variable return the same value when given the same inquiry. Then we have an alternative definition of a variable:
+\begin{itemize}
+	\item A set of ordered pairs $(x,y)$, where $x$ may take values of an attribute, measurement or inquiry and $y$ may take values in a specified codomain $Y$ 
+	\item Each $x$ corresponds to exactly one $y$
+\end{itemize}
 
-\subsection{Markov categories}
-We base our approach on the theory of Markov categories. This has two benefits: firstly, Markov categories have a graphical notation that help present some ideas in an intuitive manner. Secondly, because they are abstract categories that represent models of the flow of information, proofs that use only string diagrams correspond to theorems in many formalisations of probability, not just the finite set case that we focus on here. More comprehensive introductions to Markov categories can be found in \citet{fritz_synthetic_2020,cho_disintegration_2019}.
+This is almost a function, but it is not a function because a well-defined function requires a domain. It is what \citet{menger_random_2003} calls a \emph{qualitative statistical random variable}, and we will call a \emph{vague variable} for short. Menger offers the examples of a vague variable that takes as an argument people in Chicago and returns their height in metres. Something that requires me to fly to Chicago with a tape measure in order to evaluate it is not a function.
 
-Rather than explain Markov categories in the abstract, we will instead introduce string diagrams with reference to how they represent stochastic maps and finite sets (though see Appendix \ref{sec:app_mcat}). Given measurable sets $(X,\sigalg{X})$ and $(Y,\sigalg{Y})$, a Markov kernel or stochastic map is a map $\kernel{K}:X\times \sigalg{Y}\to [0,1]$ such that
+Vague variables are crucial for expressing the fact that a given model says something about the real world. If I'm interested in the heights of people in Chicago, then I can't simply construct a set and define some formal variables -- I must consider some family of things that actually have some correspondence with people's heights in Chicago.
+
+One way to view vague variables is as an existential claim: there is \emph{some} sample space and \emph{some} function that behaves exactly like the thing I have vaguely indicated in the definition. If you and I start measuring people's heights and I tell you ``$\RV{X}_i$ represents the $i$th person's height'', then we can go and measure someone's height and in the end we both somehow decide decide that the appropriate value of $\RV{X}_1$ is, say, $1.78$ metres. Whatever actually happens to get from ``let's measure people's height'' to $\RV{X}_1=1.78$ is extremely hard to explain, but if we can be confident of always agreeing on the end result then the definition appears to have been a success. Furthermore, given that we both come to the same conclusion based on observing the same experiment perhaps this observation process, however it actually works, can be modeled with a some function on some sample space.
+
+There are also other kinds of things we also use variables to model. For example, ``latent variables'' are by definition unobserved, so we cannot posit a story about them being defined by some ``process of observation''. Latent variables are often introduced in order to model relationships between observed variables, for example ``if the average height is $\RV{M}$ and the variance $\RV{V}$, then $\RV{X}_1$ will be distributed according to $\mathcal{N}(\RV{M},\RV{V})$''. We can extend the existential claim: there is some sample space and some collection of variables on it that describe the process of observing and supposing.
+
+Suppose more generally that we have a collection of things that can be evaluated by multiple evaluation processes (I can check the value of the things, you can check the value, the department of value checking can check the value), and we're sure that all the evaluation processes will agree on the result in the end. Then we can model this collection of things as a collection of functions, and we can choose a domain that is practical for this modelling task. If all we care about are variables $\RV{X}$ with codomain $X$ and $\RV{Y}$ with codomain $Y$, and they can mutually take any pair of values, then $X\times Y$ might be sufficient. 
+
+We want to say more about our collection of functions, what we want to say might be uncertain and we might use probability to express these uncertain views. However, if we are using probability to model our ``collection of functions'', then our probability model should minimally assign zero probability to collections of outcomes that the function definitions indicate are impossible.
+
+However, for some questions we do need to be mindful of the complexities of vague variables, particularly when we are doing causal inference. Firstly, variables representing \emph{choices} may have a different scope to most types of variables. Consider two vague variables: $\RV{X}$ represents ``whether I get regular exercise next month'' and  $\RV{D}$ represents ``whether I decide to get regular exercise next month''. Many people might be able to observe my exercise next month, and therefore might be expected to agree on the value of $\RV{X}$ when all is said and done. On the other hand, most people won't be able to say what value $\RV{D}$ should take, as whether or not I contemplated a choice and what choice I took is information that will usually be available only to me. However, I will be able to say what value $\RV{D}$ took, and I will agree with my previous judgement if I ask myself this on multiple occasions.
+
+Secondly, the fact that a practical sample space might be constructible for a given set of vague variables does not imply that there is a practical way to consider the set of \emph{all} variables. Something like ``for every variable $\RV{Z}$, $\RV{Z}$ is not a common cause of $\RV{X}$ and $\RV{Y}$'' would seem to require consideration of all variables on the ``actual sample space'', whatever exactly that is, rather than a convenient summary.
+
+\subsection{Probability, variables and composition}
+
+Throughout this paper, we will assume all measurable sets are finite sets. This is because it makes explanations simpler and because it is easy to show that conditional probabilities exist in this setting (Lemma \ref{lem:subm_exist}).
+
+We will be following the general approach discussed above, assuming that there is some measurable sample space $\Omega$ and that variables are measurable functions defined on $\Omega$. It is also often standard to assume that we have a \emph{probability space} $(\prob{P},(\Omega,\sigalg{F}))$, where $\prob{P}$ is a $\sigma$-additive measure on $(\Omega,\sigalg{F})$ with $\prob{P}(\Omega)=1$. Given a probability space, the normal way to define the probability distribution of a particular random variable is via the \emph{pushforward measure}. Given $(\prob{P},(\Omega,\sigalg{F}))$ and $f_{\RV{X}}:(\Omega,\sigalg{F})\to (X,\sigalg{X})$, the pushforward measure is $\prob{P}^{\RV{X}} (A) := \prob{P}(\RV{X}^{-1}(A))$ for $A\in \sigalg{X}$.
+
+We will show that a key property of the pushforward measure is that it is the only measure that, in a certain sense, is consistent with both $\prob{P}$ and the function definitions we have used to model our variables. For causal models, we are interested in what \citet{constantinou_extended_2017} refer to as ``non-stochastic variables''. That is, we might be interested in some variable $\RV{D}$ and a probability model that depends on $\RV{D}$ but does not define ``the distribution of $\RV{D}$''. If we do not define the distribution of $\RV{D}$ via the pushforward, we still need probability models that are consistent with the functions we use to model our variables but this is no longer guaranteed by the pushforward rule. We introduce the assumption of \emph{consistency} that reduces to the pushforward rule in the familiar case and also ensures models of nonstochastic variables are consistent.
+
+Consistency has another application. Causal inference also makes use of non-standard operations involving conditional probabilities, and it is useful to have a condition to check when the result of such non-standard operations is a viable model. To illustrate this point, consider ``truncated factorisation'', a linchpin operation in causal graphical models. Suppose we have a causal Bayesian network $(\prob{P}^{\RV{XYZ}},\mathcal{G})$ where $\mathcal{G}$ is a Directed Acyclic Graph that features the edges $\RV{X}\longrightarrowRHD \RV{Y}$ and $\RV{X}\longleftarrowRHD \RV{Z} \longrightarrowRHD \RV{Y}$. Then the result of ``setting $\RV{X}$ to $x$'' is represented by a new probability measure $\prob{P}_x$ that is required to obey the truncated factorisation \citep[page ~24]{pearl_causality:_2009}:
+\begin{align}
+	\prob{P}^{\RV{XYZ}}_{x}(x',y,z)=\prob{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x'\rrbracket\label{eq:truncated_fac}
+\end{align}
+
+There is no special siginificance in standard probability theory to the expression on the right hand side of Equation \ref{eq:truncated_fac}. There are two ways to view this property. First, we can think of starting with knowledge of $\prob{P}_x$ for every $x\in X$ and, if they happen to have this property, then they are a causal Bayesian network relative to $(\prob{P},\mathcal{G})$. On the other hand, we could think of starting with $(\prob{P}^{\RV{XYZ}},\mathcal{G})$ and defining $\prob{P}_x^{\RV{XYZ}}$ to be such that Equation \ref{eq:truncated_fac} holds. Now we have something unusual going on -- we have the irregular expression on the right hand side defining a probability distribution \emph{over the same variables} $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ as the original $\prob{P}^{\RV{XYZ}}$ that we used to construct the expression. However, in this case 
+
+
+Here we consider in general when it is possible to combine irregular collections of conditional or marginal probabilities (we refer to these as \emph{submodels}) and get a probability model \emph{over the same variables}.
+
+The main challenge with combining submodels is that, as we will show, this operation is ``unsafe'' in the sense that the combination of two well-formed submodels might return a submodel that is not itself well-formed. For a simple example of this, suppose in Equation \ref{eq:truncated_fac} that $\RV{X}$ represents a person's body mass index while $\RV{Z}=(\RV{W},\RV{H})$ represents the pair of their weight and height. The collection $\{\prob{P}^{\RV{XYZ}}_x|x\in X\}$ then models a situation where we change a patient's body mass index while leaving their weight and height unchanged, which is not a particularly useful model, and does not abide by any reasonable definition of ``a variable representing body mass index''.
+
+We discuss some conditions under which the result of composition is well-formed, which includes the case where the variables in question are surjective and \emph{variationally independent}, and if we have a strictly positive model over the same variables we know to be well-formed.
+
+We also show that the standard approach of defining a sample space model and defining marginals and conditionals via push-forwards is safe, in the sense that if the sample space model is well-formed then the marginals are well-formed and conditionals can always be chosen to be well-formed.
+
+\subsection{Probability and composition without variables: Markov categories}
+Markov categories are abstract categories that represent models of the flow of information. Operations like Equation \ref{eq:truncated_fac} are expressible as abstract compositions in Markov categories, and may be represented with string diagrams developed for reasoning about objects in the category. Valid proofs using string diagrams correspond to valid theorems in \emph{any} Markov category, though we will limit our attention to the category of finite sets and Markov kernels in this paper. The main drawback of Markov categories is that, as they exist at the moment, they have no notion of ``variables''. More comprehensive introductions to Markov categories can be found in \citet{fritz_synthetic_2020,cho_disintegration_2019}.
+
+Rather than explain Markov categories in the abstract, we will introduce string diagrams with reference to how they represent stochastic maps and finite sets (though see Appendix \ref{sec:app_mcat}). Given measurable sets $(X,\sigalg{X})$ and $(Y,\sigalg{Y})$, a Markov kernel or stochastic map is a map $\kernel{K}:X\times \sigalg{Y}\to [0,1]$ such that
 
 \begin{itemize}
 	\item The map $x\mapsto \kernel{K}(x,A)$ is $\sigalg{X}$-measurable for every $A\in \sigalg{Y}$
@@ -154,11 +186,14 @@ To illustrate why we need variables, consider an arbitrary Markov kernel $\kerne
 \end{align}
 We label both wires with the set $X$. However, say $X=\{0,1\}$. Then $\kernel{K}$ could be the kernel $\kernel{K}^{x_1,x_2} = \llbracket x_1 = 0\rrbracket \llbracket x_2 = 1\rrbracket$. In this case, both of its outputs must represent \emph{different} variables, despite taking values in the same set. On the other hand, if $\kernel{K}^{x_1,x_2} = 0.5 \llbracket x_1 = x_2 \rrbracket$ then both outputs coudl represent the same variable, because they are deterministically the same, or they could represent different variables that happen to be equal. We need some way to distinguish the two cases.
 
-We use a definition of variable that almost matches the standard definition we introduced at the beginning of the section. We define variables as Markov kernels rather than functions as it makes the construction slightly simpler.
+
+\subsection{Composition and probability with variables}
+
+Our goal is to define a category of ``finite sets and Markov kernels with variables''. Introducing variables requires an assumption of consistency, which we don't know how to express in category theoretic terms. Our approach is to define a category of Markov kernels with variables that may or may not be consistent, which we will need to check for the resulting models. Because the consistency assumption is not expressed category theoretically, many proofs in this section only apply to our chosen setting of finite sets.
 
 \begin{definition}[Variable]
-Given a \emph{sample space} $\Omega$, a variable $\RV{X}$ is a Markov kernel $\Omega\kto A$ such that there exists some function $f_{\RV{X}}:\Omega\to A$
-with $\RV{X}_x^a=\llbracket a = f_{\RV{X}}(x) \rrbracket$.
+Given a \emph{sample space} $\Omega$, a variable $f_\RV{X}$ is a function $\Omega\to A$. We will also refer to the associated Markov kernel $\RV{X}:\Omega\kto A$
+as a variable, where $\RV{X}_x^a=\llbracket a = f_{\RV{X}}(x) \rrbracket$.
 \end{definition}
 
 We define the \emph{product} of two variables as follows:
@@ -207,26 +242,28 @@ We define $\text{Id}_{\RV{X}}$ to be the model $(\text{Id}_X,\RV{X},\RV{X})$, an
 
 The category of indexed Markov kernels as morphisms and variables as objects is a Markov category (Appendix \ref{sec:app_mcat}), and so a valid derivation based on the string diagram language for Markov categories corresponds to a valid theorem in this category. However, most of the diagrams we can form are not viable candidates for models of our variables. For example, if $\RV{X}$ takes values in $\{0,1\}$ we can propose an indexed Markov kernel $\kernel{K}:\RV{X}\kto\RV{X}$ with $\kernel{K}_a^{\prime b}=0.5$ for all $a, b$. However, this is not a useful model of the variable $\RV{X}$ -- it expresses something like ``if we know the value of $\RV{X}$, then we belive that $\RV{X}$ could take any value with equal probability''.
 
-We define a \emph{model} as ``an indexed Markov kernel that assigns probability 0 to things known to be contradictions''.
+We define a \emph{model} as ``an indexed Markov kernel that assigns probability 0 to things known to be contradictions''. A contradiction is a simultaneous assignment of values to the variables $\RV{X}$ and $\RV{Y}$ such that there is no value of $\omega$ under which they jointly take these values. Unless the value assignment to the domain variable is itself contradictory, we hold that any valid model must assign probability zero to such occurrences.
 
 \begin{definition}[Model]
-An indexed Markov kernel $(\kernel{K}',\RV{X},\RV{Y})$ is a \emph{model} if it assigns probability 0 to contradictions. That is:
+An indexed Markov kernel $(\kernel{K}',\RV{X},\RV{Y})$ is a \emph{model} if it is \emph{consistent}, which means it assigns probability 0 to contradictions:
 \begin{align}
-	\max_{\omega\in \Omega} (\RV{X},\RV{Y})_{\omega}^{a,b} = 0 \implies \left(\kernel{K}_{a}^{\prime b} = 0\right) \lor \left(\max_{\omega\in \Omega} \RV{X}_{\omega}^{a} = 0\right)
+	f_{\RV{X}}^{-1}(a)\cap f_{\RV{Y}}^{-1}(b) = \emptyset \implies \left(\kernel{K}_{a}^{\prime b} = 0\right) \lor \left(f_{\RV{X}}^{-1}(a) = \emptyset\right)
 \end{align}
 A \emph{probability model} is a model where the underlying kernel $\kernel{K}'$ has the unit $\RV{I}$ as the domain. We use the font $\model{K}$ to distinguish models from arbitrary indexed Markov kernels.
 \end{definition}
 
-We can think of $\RV{X}$ as the antecedent and $\RV{Y}$ as the consequent in this definition. If there is no $\omega$ such that $f_{\RV{X}}(\omega)=a$, no restrictions are applied (from a contradiction, one may conclude anything). If there is no $\omega\in \Omega$ such that $f_\RV{X}(\omega)=a$ and $f_\RV{Y}(\omega)={b'}$ then the probability of $\RV{Y}=b$ when $\RV{X}=a$ must be zero. If $f_{\RV{X}}(\omega)=a\implies f_{\RV{Y}}(\omega)=b$ then the probability of $\RV{Y}=b$ when $\RV{X}=a$ must be one (because 0 probability must be assigned to all other pairs of values).
+Consistency has some interesting implications. For a start, given a probability model of the sample space, there is a unique corresponding probability model of $\RV{X}$ is given by the pushforward of $\RV{X}$ (corollary \ref{corr:pushforward}). Thus it motivates the definition of the pushforward measure as the distribution of $\RV{X}$ induced by the sample space model.
 
-Non-contradiction implies that for any $\RV{X}:\Omega\kto A$, there is a unique model mapping $\text{Id}_\Omega$ to $\RV{X}$ for which the underlying kernel is $\RV{X}$ itself (Lemma \ref{lem:uniq_model}). One consequence of this is, given a probability model of the sample space $\model{P}:\RV{I}\kto \text{Id}_\Omega$ (``a probability measure on $\Omega$''), $\model{P}\RV{X}$ is the unique measure on $\RV{X}$ obtainable by composition of a model with $\prob{P}$. $\model{P}\RV{X}$ is the pushforward of $\model{P}$ by $\RV{X}$. That is, non-contradiction implies that, given a probability model of the sample space, there is a unique corresponding probability model of $\RV{X}$ is given by the pushforward of $\RV{X}$ (corollary \ref{corr:pushforward}).
+Consistency also implies that for any $\model{K}:\RV{X}\kto\RV{Y}$, if $f_{\RV{Y}}=g\circ f_{\RV{X}}$ then $\model{K}_x^{g(x)}=1$. A particularly simple case of this is a model $\model{L}:\RV{X}\kto\RV{X}$, which must be such that $\model{L}_x^x=1$. \citet{hajek_what_2003} has pointed out that standard definitions of conditional probability allow the conditional probability to be arbitrary on a set of measure zero, even though ``the probability $\RV{X}=x$, given $\RV{X}=x$'' should obviously be 1.
+
+The consistency condition is also needed to ensure sample space models with nontrival domains such as $\model{K}:\RV{X}\kto \text{Id}_\Omega$ conform to expectations imposed by the random variables. We might want to consider such models if we want to include ``nonstochastic variables'' \citep{constantinou_extended_2017}.
 
 \begin{lemma}[Uniqueness of models with the sample space as a domain]\label{lem:uniq_model}
 For any $\RV{X}:\Omega\to A$, there is a unique model $\model{X}:\text{Id}_\Omega\kto \RV{X}$ given by $\model{X}:=(\RV{X},\text{Id}_\Omega,\RV{X})$.
 \end{lemma}
 
 \begin{proof}
-$\RV{X}$ is a Markov kernel mapping from $\Omega\to A$, so it is a valid underlying kernel for $\model{X}$, and $\model{X}$ has input and output indices matching its signature. We need to show it satisfies non-contradiction.
+$\RV{X}$ is a Markov kernel mapping from $\Omega\to A$, so it is a valid underlying kernel for $\model{X}$, and $\model{X}$ has input and output indices matching its signature. We need to show it satisfies consistency.
 
 For any $\omega\in \Omega$, $a\in A$
 \begin{align}
@@ -234,7 +271,7 @@ For any $\omega\in \Omega$, $a\in A$
 	&= \llbracket \omega = f_{\RV{X}}(a) \rrbracket\\
 	&= \kernel{X}_\omega^a
 \end{align}
-Thus $\model{X}$ satisfies non-contradiction.
+Thus $\model{X}$ satisfies consistency.
 
 Suppose there were some $\model{K}:\text{Id}_\Omega\kto \RV{X}$ not equal to $\RV{X}$. Then there must be some $\omega\in \Omega$, $b\in A$ such that $\model{K}_\omega^b\neq 0$ and $f_{\RV{X}}(\omega)\neq b$. Then
 \begin{align}
@@ -243,7 +280,7 @@ Suppose there were some $\model{K}:\text{Id}_\Omega\kto \RV{X}$ not equal to $\R
 	&= 0\\
 	&< \model{K}_\omega^b
 \end{align}
-Thus $\model{K}$ doesn't satisfy non-contradiction.
+Thus $\model{K}$ doesn't satisfy consistency.
 \end{proof}
 
 \begin{lemma}[Pushforward models]\label{lem:pushforward}
@@ -264,51 +301,91 @@ Given any probability model $\model{P}:\RV{I}\kto \text{Id}_\Omega$, there is a 
 \end{corollary}
 
 \begin{proof}
-Apply Lemma \ref{lem:pushforward}
+Apply Lemma \ref{lem:pushforward} to a model $\model{P}:\RV{I}\kto\text{Id}_{\Omega}$.
 \end{proof}
 
-We also show a number of other useful properties. 
+The following lemmas can help us check whether an indexed Markov kernel is a valid model.
+
+We can always get a valid model by adding a copy map to a valid model, and conversely all valid models with repeated codomain variables must contain copy maps.
 
 \begin{lemma}[Output copies of the same variable are identical]\label{lem:nocopy1}
-If $\model{K}:\RV{X}\kto (\RV{Y},\RV{Y},\RV{Z})$ is a model, there exists some $\model{L}:\RV{X}\kto (\RV{Y},\RV{Z})$ such that
+For any $\kernel{K}:\RV{X}\kto (\RV{Y},\RV{Y},\RV{Z})$, $\kernel{K}$ is a model iff there exists some $\model{L}:\RV{X}\kto (\RV{Y},\RV{Z})$ such that
 \begin{align}
 		\model{K}_{x}^{\prime y,y',z} &= \llbracket y=y' \rrbracket\model{L}_{x}^{\prime y,z}\\
 \end{align}
 \end{lemma}
 
 \begin{proof}
+$\implies$
 For any $\omega,x,y,y',z$:
 \begin{align}
 	(\RV{X},\RV{Y},\RV{Y},\RV{Z})_\omega^{x,y,y',z} &= \llbracket f_{\RV{Y}}(\omega)=y \rrbracket \llbracket f_{\RV{Y}}(\omega)=y' \rrbracket (\RV{X},\RV{Z})_\omega^{x,z} \\
 	&= \llbracket y=y' \rrbracket \llbracket f_{\RV{Y}}(\omega)=y \rrbracket(\RV{X},\RV{Z})_\omega^{x,z}
 \end{align}
-Therefore, by non-contradiction, for any $x,y,y',z$, $y\neq y'\implies \model{K}_{x}^{\prime yy'z}=0$. Define $\model{L}$ by $\model{L}_x^{\prime y, z} := \model{K}_x^{\prime y y z}$. The fact that $\model{L}$ is a model follows from the assumption that $\model{K}$ is. Then
+Therefore, by consistency, for any $x,y,y',z$, $y\neq y'\implies \model{K}_{x}^{\prime yy'z}=0$. Define $\model{L}$ by $\model{L}_x^{\prime y, z} := \model{K}_x^{\prime y y z}$. The fact that $\model{L}$ is a model follows from the assumption that $\model{K}$ is. Then
 \begin{align}
 	\model{K}_{x}^{\prime y,y',z} &= \llbracket y=y' \rrbracket\model{L}_{x}^{\prime y,z}
 \end{align}
+$\Leftarrow$
+If $\model{L}$ is a model, then for any $x,x',y,z$, 
+\begin{align}
+\llbracket y=y'\rrbracket \model{L}_{x}^{\prime y,z}>0&\implies y=y'\land \model{L}_{x}^{\prime y,z}>0\\
+													  &\implies \left(f_{\RV{X}}^{-1}(x)=\emptyset \right)\lor \left(f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y) \cap f_{\RV{Y}}^{-1}(y)\cap f_{\RV{Z}}^{-1}(z)\neq\emptyset \right)\\
+\end{align}
 \end{proof}
 
+We can always get a valid model by copying the input to the output of a valid model, and conversely all valid models where there is a variable shared between the input and the output must copy that input to the output.
 
 \begin{lemma}[Copies shared between input and output are identical]\label{lem:nocopy2}
-For any $\model{K}:(\RV{X},\RV{Y})\kto (\RV{X},\RV{Z})$, there exists some $\model{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ such
+For any $\kernel{K}:(\RV{X},\RV{Y})\kto (\RV{X},\RV{Z})$, $\kernel{K}$ is a model iff there exists some $\model{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ such that
 \begin{align}
-	 \model{K}_{x,y}^{\prime x',z} &= \llbracket x=x'\rrbracket \model{L}_{\prime x,y}^{z}
+	 \kernel{K}_{x,y}^{\prime x',z} &= \llbracket x=x'\rrbracket \kernel{L}_{\prime x,y}^{z}
 \end{align}
 \end{lemma}
 
 \begin{proof}
+$\implies$
 For any $\omega,x,y,y',z$:
 \begin{align}
 	(\RV{X},\RV{Y},\RV{Y},\RV{Z})_\omega^{x,y,y',z} &= \llbracket f_{\RV{Y}}(\omega)=y \rrbracket \llbracket f_{\RV{Y}}(\omega)=y' \rrbracket (\RV{X},\RV{Z})_\omega^{x,z} \\
 	&= \llbracket y=y' \rrbracket \llbracket f_{\RV{Y}}(\omega)=y \rrbracket(\RV{X},\RV{Z})_\omega^{x,z}
 \end{align}
-Therefore, by non-contradiction, for any $x,y,y',z$, $x\neq x'\implies \model{K}_{x,y}^{\prime x'z}=0$. Define $\model{L}$ by $\model{L}_{x,y}^{\prime x', z} := \model{K}_{x,y}^{\prime x, y}$. The fact that $\model{L}$ is a model again follows from the assumption that $\model{K}$ is a model. Then
+Therefore, by consistency, for any $x,y,y',z$, $x\neq x'\implies \model{K}_{x,y}^{\prime x'z}=0$. Define $\kernel{L}$ by $\kernel{L}_{x,y}^{\prime x', z} := \model{K}_{x,y}^{\prime x, y}$. The fact that $\kernel{L}$ is a model follows from the assumption that $\model{K}$ is a model. Then
 \begin{align}
-	\model{K}_{x, y}^{\prime x', z} &= \llbracket x=x' \rrbracket\model{L}_{x,y}^{\prime z}
+	\kernel{K}_{x, y}^{\prime x', z} &= \llbracket x=x' \rrbracket\kernel{L}_{x,y}^{\prime z}
+\end{align}
+$\Leftarrow$
+If $\model{L}$ is a model, then for any $x,x',y,z$, 
+\begin{align}
+\llbracket x=x'\rrbracket \model{L}_{ x,y}^{\prime z}>0&\implies x=x'\land \model{L}_{ x,y}^{\prime z}>0\\
+													  &\implies \left( f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y)=\emptyset \right)\lor \left(f_{\RV{X}}^{-1}(x)\cap f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y)\cap f_{\RV{Z}}^{-1}(z)\neq\emptyset \right)\\
 \end{align}
 \end{proof}
 
-\begin{lemma}[Avoiding contradictions]\label{lem:avoid_contradic}
+We take the following term from \citet{constantinou_extended_2017}. Our definition is equivalent to unconditional variation independence in that paper.
+
+\begin{definition}[Variation independence]
+Two variables $\RV{X}:\Omega\kto X$ and $\RV{Y}:\Omega\kto Y$ are variation independent, written $\RV{X}\perp_v \RV{Y}$, if for all $y\in f_\RV{Y}(\Omega)R(f_{\RV{Y}})$
+\begin{align}
+ f_\RV{Y}(\Omega) \times f_{\RV{X}}(\Omega) = \{(f_{\RV{Y}}(\omega),f_{\RV{X}}(\omega))|\omega\in \Omega\}
+\end{align}
+\end{definition}
+
+If a collection of variables is variation independent and surjective, then an arbitrary indexed Markov kernel labelled with these variables is a model.
+
+\begin{lemma}[Consistency via variation conditional independence]\label{lem:var_indep}
+Given an indexed Markov kernel $\kernel{K}:\RV{X} \kto \RV{Y}$ with $\RV{X}:\Omega\kto X$ and $\RV{Y}:\Omega\kto Y$, if $f_\RV{Y}$ is surjective and $\RV{Y}\perp_v \RV{X}$ then $\kernel{K}$ is a model.
+\end{lemma}
+
+\begin{proof}
+By variation independence and surjectivity of $f_{\RV{Y}}$, for any $x\in X$, $y\in Y$, $f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y) = \emptyset \implies f_{\RV{X}}^{-1}(x) = \emptyset$. Thus the criterion of consistency places no restrictions on $\kernel{K}$.
+\end{proof}
+
+\todo[inline]{I think Lemmas \ref{lem:nocopy1} and \ref{lem:nocopy2} might be sufficient to offer diagrammatic checks of consistency if all variables that are not identical are variation independent. This is probably an interesting result, but I'm not sure if it's a higher priority than filling out the rest of the content.}
+
+Alternatively, if we have a strictly positive indexed Markov kernel that is known to be a model, we can conclude that arbitrary indexed Markov kernels with appropriate labels are also models.
+
+\begin{lemma}[Consistency via positive models]\label{lem:avoid_contradic}
 Given a model $\model{K}:\RV{X}\kto (\RV{Y},\RV{Z})$, if an indexed Markov kernel $\kernel{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ has the property $\kernel{K}_x^{\prime yz}=0\implies \kernel{L}_{xy}^{\prime z}=0$ then $\kernel{L}$ is also a model.
 \end{lemma}
 
@@ -316,12 +393,12 @@ Given a model $\model{K}:\RV{X}\kto (\RV{Y},\RV{Z})$, if an indexed Markov kerne
 Because $\model{K}$ is a model,
 \begin{align}
 	\kernel{L}_{xy}^{\prime z}>0 &\implies \kernel{K}_x^{\prime yz} >0 \\
-	&\implies \left(\max_{\omega\in \Omega} (\RV{X},\RV{Y},\RV{Z})_{\omega}^{x,y,z} > 0\right) \lor \left(\max_{\omega\in \Omega} \RV{X}_{\omega}^{x} = 0\right)\\
-	&\implies \left(\max_{\omega\in \Omega} (\RV{X},\RV{Y},\RV{Z})_{\omega}^{x,y,z} > 0\right) \lor \left(\max_{\omega\in \Omega} (\RV{X},\RV{W})_\omega^{x,w} = 0\right)
+	&\implies \left( f_\RV{X}^{-1}(x)\cap f_\RV{Y}^{-1}(y)\cap f_\RV{Z}^{-1}(z) \neq \emptyset \right) \lor \left(f_\RV{X}^{-1}(x) = \emptyset \right)\\
+	&\implies \left( f_\RV{X}^{-1}(x)\cap f_\RV{Y}^{-1}(y)\cap f_\RV{Z}^{-1}(z) \neq \emptyset \right) \lor \left(f_\RV{X}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y) = \emptyset \right)
 \end{align}
 \end{proof}
 
-\subsection{Truncated factorisation a third time}
+\subsection{Truncated factorisation with variables}
 
 At this point, we can represent Equation \ref{eq:truncated_fac} using models. Suppose $P^{\RV{Y|XZ}}$ is an model $\model{K}:(\RV{X}, \RV{Z})\kto \RV{Y}$ and $\prob{P}^{\RV{Z}}$ an model $\model{L}:\{*\}\kto \RV{Z}$. Then we can define an indexed Markov kernel $\kernel{M}:\RV{X}\kto \RV{X}, \RV{Z}$ representing $x\mapsto \prob{P}^{\RV{YZ}}_{x}(y,z)$ by
 
@@ -329,13 +406,13 @@ At this point, we can represent Equation \ref{eq:truncated_fac} using models. Su
 	\kernel{M}&:= \tikzfig{truncated_factorisation_labeled}\label{eq:tfac_labeled}
 \end{align}
 
-Equation \ref{eq:tfac_labeled} is almost identical to Equation \ref{eq:tfac_setted}, except it now specifies which variables each measure applies to, not just which sets they take values in. Like the original Equation \ref{eq:truncated_fac}, there is no guarantee that $\kernel{M}$ is actually a model. If $f_\RV{X}=g\circ f_\RV{Z}$ for some $g:Z\to X$ and $X$ has more than 1 element, then the rule of non-contradiction will rule out the existence of any such model.
+Equation \ref{eq:tfac_labeled} is almost identical to Equation \ref{eq:tfac_setted}, except it now specifies which variables each measure applies to, not just which sets they take values in. Like the original Equation \ref{eq:truncated_fac}, there is no guarantee that $\kernel{M}$ is actually a model. If $f_\RV{X}=g\circ f_\RV{Z}$ for some $g:Z\to X$ and $X$ has more than 1 element, then the rule of consistency will rule out the existence of any such model.
 
-We don't know an easy way to check in general whether an arbitrary construction like Equation \ref{eq:tfac_labeled} is a model. A sufficient condition is: if we have a model $\model{K}:\RV{X}\kto (\RV{Y},\RV{Z})$ such that $\kernel{K}'$ is strictly positive, then any $\kernel{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ is also a model (Lemma \ref{lem:avoid_contradic}). A model with, for example, variables $\RV{B}$ for body mass index, $\RV{H}$ for height and $\RV{W}$ for weight could not be strictly positive.
-
-An alternative approach is to assume that we have a collection of ``big'' models that is known to be non-contradictory, and work only with submodels of these. This is very similar to the standard approach to probability modelling in which the probability $\prob{P}$ is usually assumed not to contradict any constraints placed by random variables. The only differences are that we suppose that we have a collection of models, and we don't require that these are probability models.
+If we want to use $\kernel{M}$, we want it at minimum to satisfy the consistency condition. One approach we could use is to check the result using Lemmas \ref{lem:nocopy1} to \ref{lem:avoid_contradic}, although note that \ref{lem:var_indep} and \ref{lem:avoid_contradic} are sufficient conditions, not necessary ones.
 
 \subsection{Sample space models and submodels}
+
+Instead of trying to assemble probability models as in Equation \ref{eq:tfac_labeled}, we might try to build probability models in a manner closer to the standard setup -- that is, we start with a sample space model (or a collection of sample space models) and work with marginal and conditional probabilities derived from these, without using any non-standard model assemblies.
 
 A sample space model is any model $\kernel{K}:\RV{X}\kto \text{Id}_\Omega$. We expect that the collection of models under consideration will usually be defined on some small collection of random variables, but every such model is the pushforward of some sample space model. Using sample space models allows us to stay close to the usual convention of probability modelling that starts with a sample space probability model.
 
@@ -347,7 +424,7 @@ Given any model $\model{K}:\RV{X}\kto \RV{Y}$, there is a sample space model $\m
 If $\RV{X}:\Omega\kto A$ and $\RV{Y}:\Omega\kto B$, take any $a\in A$ and $b\in B$. Then set
 
 \begin{align}
-	\kernel{L}'_a^\omega = \begin{cases}
+	\kernel{L}_a^{\prime \omega} = \begin{cases}
 					0 & \text{ if } f_{\RV{Y}}^{-1}(b)\cap f_{\RV{X}}^{-1}(a)=\emptyset\\
 					\kernel{K}_a^{\prime b} \llbracket \omega = \omega_b \rrbracket & \text{for some }\omega_b\in f_{\RV{Y}}^{-1}(b) \text{ if }f_{\RV{X}}^{-1}(a)=\emptyset\\
 					\kernel{K}_a^{\prime b} \llbracket \omega = \omega_{ab} \rrbracket & \text{for some }\omega_{ab}\in f_{\RV{Y}}^{-1}(b)\cap f_{\RV{X}}^{-1}(a)\text{ otherwise}\\
@@ -407,13 +484,13 @@ Then
 
 We define conditional independence in the following manner:
 
-For a \emph{probability distribution} $\kernel{P}:\{*\}\to \Delta(\RV{Y})$ and some $\RV{A},\RV{B},\RV{C}\in \RV{Y}$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{P}}\RV{B}|\RV{C}$, if there are submodels $\model{P}^{\RV{ABC};\kernel{J}}$, $\model{P}^{\RV{C};\kernel{K}}$, $\model{P}^{\RV{A}|\RV{C};\kernel{L}}$, $\model{P}^{\RV{B}|\RV{C};\kernel{M}}$ such that
+For a \emph{probability model} $\model{P}:\RV{I}\kto \text{Id}_{\Omega}$ and variables $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\model{P}}\RV{B}|\RV{C}$, if
 
 \begin{align}
-	\kernel{P}^{\RV{ABC};\kernel{J}} &= \tikzfig{cond_indep1}
+	\kernel{P}^{\RV{ABC}} &= \tikzfig{cond_indep1}
 \end{align}
 
-For an arbitrary model $\kernel{N}:\RV{X}\to \Delta(\RV{Y})$ and some $\RV{A},\RV{B},\RV{C}\in (\RV{X},\RV{Y})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{N}}\RV{B}|\RV{C}$, if there is some $\kernel{O}:\{*\}\to \Delta(\RV{X})$ such that $O^x>0$ for all $x\in X$ and $\RV{A}\CI_{\kernel{O}\kernel{N}} \RV{B}|\RV{C}$.
+For an arbitrary model $\kernel{N}:\RV{X}\kto \text{Id}_{\Omega}$ where $\RV{X}:\Omega\kto X$, and some $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{N}}\RV{B}|\RV{C}$, if there is some $\model{O}:\RV{I}\kto \RV{X}$ such that $O^x>0$ for all $x\in f_{\RV{X}}^{-1}(X)$ and $\RV{A}\CI_{\model{O}\model{N}} \RV{B}|\RV{C}$.
 
 This definition is inappliccable in the case where sets may be uncountably infinite, as no such $\kernel{O}$ can exist in this case. There may well be definitions of conditional independence that generalise better, and we refer to the discussions in \citet{fritz_synthetic_2020} and \citet{constantinou_extended_2017} for some discussion of alternative definitions. One advantage of this definition is that it matches the version given by \citet{cho_disintegration_2019} which they showed coincides with the standard notion of conditional independence and so we don't have to show this in our particular case.
 
@@ -424,21 +501,3 @@ A particular case of interest is when a kernel $\kernel{K}:(\RV{X},\RV{W})\to \D
 \end{align}
 
 Then $\RV{Y}\CI_{\kernel{K}}\RV{W}|\RV{X}$.
-
-\subsection{Variables or vague variables?}\label{sec:vague_variables}
-
-Recall our definition of variables: functions from a sample space $\Omega$ to some codomain set. We also recall a concern raised in our introduction: if actions affecting a measure of interest are vague, then potential outcome random variables \emph{might} be ill-defined. Consider: how can it be that the degree to which we specify actions sometimes, but not always, allows a random variable to be well-defined? These concerns seem to be of different types -- on the one hand, we have the problem of whether my instructions are clear enough for you to follow them and produce the same results, and on the other hand the problem of whether an abstract sample space has the appropriate properties for a certain type of function to exist.
-
-Consider also the definition of \emph{variable} found in \citet{pearl_causality:_2009}:
-
-\begin{quote}
-By a \emph{variable} we will mean an attribute, measurement or inquiry that may take on one of several possible outcomes, or values, from a specified domain. If we have beliefs (i.e., probabilities) attached to the possible values that a variable may attain, we will call that variable a random variable.
-\end{quote}
-
-This is claimed to be identical to our definition of a variable -- i.e. a measurable function on the sample space. However, we feel that a much closer match is the definition of a \emph{qualitative statistical random variable} given by \citet{menger_random_2003}; roughly speaking, a qualitative statistical random variable is a vague function (our term) whose codomain is well-specified but whose domain is not. Menger offers examples of vague functions that take as arguments acts of measurement, or people in Chicago; in a very similar manner, Pearl's definition offers examples of arguments that a variable may take, but does not offer examples of sample spaces that may form their domains.
-
-We offer the following rough idea of how vague random variables can be thought about. A vague random variable like ``$\RV{X}$ represents whether this coin lands on heads or tails'' can be considered an instruction for whoever is reading to construct a concrete random variable whose domain is related to the set of observations that they might receive. These domains necessarily differ between individuals, and we postulate the existence of a ``reality'' that offers everyone observations that are sometimes similar in some respects. A vague random variable can be well-defined if the concrete random variables that everyone constructs allow everyone to agree on the result when they are given observations that are appropriately related.
-
-This might seem an excessively pedantic way to describe a coin-flipping experiment. However, we think there that a story like this this may be important in causal models. At the start of this section we asked ``how can the degree to which we specify actions sometimes, but not always, allows a random variable to be well-defined?'' Our rough model of vague variables offers a solution to this question: sufficiently specific actions are sometimes enough to allow all parties to agree on the values once observations have taken place. We hypothesise that this question arises with variables representing consequences of actions because when it comes to taking actions there is an asymmetry that is extremely hard to avoid: I know more about what I am doing and why I am doing it than you do.
-
-While we believe that this is a potentially fruitful line of inquiry, we won't develop it here and will satisfy ourselves with a theory based on concrete variables.
