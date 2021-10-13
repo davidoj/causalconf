@@ -3,6 +3,21 @@
 
 \section{Causal Bayesian Networks}\label{sec:CBN}
 
+So, what is a causal Bayesian network? According to \citet{pearl_causality:_2009}, a probability model $\prob{P}$, a directed acyclic graph $\mathcal{G}$ whose nodes are identified with some collection of variables $\{\text{Pa}(\RV{X}),\RV{X},\RV{Y}\}$, and a collection of interventional probability models $\{\prob{P}_{\RV{X}=a}|a\in X_i\}$ such that the interventional probability models all obey the truncated factorisation condition with respect to $\mathcal{G}$.
+
+The truncated factorisation condition holds that
+\begin{align}
+    \prob{P}_{\RV{X}=a}^{\text{Pa}(\RV{X})\RV{X}\RV{Y}}(a,b,c) &= \prob{P}^{\text{Pa}(\RV{X})}(a)\prob{P}^{\RV{Y}|\text{Pa}(\RV{X})}(c|a)\llbracket x=a \rrbracket
+\end{align}
+
+Let's slow down for a second. What are these variables $\{\text{Pa}(\RV{X}),\RV{X},\RV{Y}\}$, and what do we mean they are distributed according to $\prob{P}$? It means that we have a sequence of variables $\RV{V}_A:=(\text{Pa}(\RV{X}_i),\RV{X}_i,\RV{Y}_i)_{i\in A}$ modelled by $\prob{P}^{\RV{V}_A|\RV{H}}$ such that the triples $(\text{Pa}(\RV{X}_i),\RV{X}_i,\RV{Y}_i)$ are mutually independent and identically distributed conditonal on $\RV{H}$. For each $h\in H$ we have a probability measure $\prob{P}^{\RV{V}_i|\RV{H}}(\cdot|h)$ (for any $i$) that uniquely defines $\prob{P}^{\RV{V}_A|\RV{H}}(\cdot|h)$. 
+
+
+
+Let's be honest here, this ``collection of interventional distributions'' is really a model. We have a Markov kernel $\kernel{Q}:=a\mapsto \prob{P}_{\RV{X}=a}$, and the indices are clearly going to designate the codomain as a model of $(\text{Pa}(\RV{X}),\RV{X},\RV{Y})$, and the domain is proposed value of $\RV{X}$. So we have a model $\model{Q}^{\text{Pa}(\RV{X})\RV{X}\RV{Y}|\RV{X}}$.  which is well defined at least if $\{\text{Pa}(\RV{X}),\RV{X},\RV{Y}\}$ are mutually variationally independent. Now, how does $\model{Q}^{\cdot|\RV{X}}$ relate to $\prob{P}$? Let's draw them out:
+
+
+
 In the presentation of \citet{pearl_causality:_2009}, a Causal Bayesian Network posits an observational probability distribution such as $P(X,Y)$, and a set of interventional distributions, for example $\{\prob{P}_h(X,Y|do(X=x))\}_{x\in X,h\in H}$. Here we use notation similar to typical notation used for Causal Bayesian Networks and don't intend for these to necessarily be elements of any modelling context. For simplicity, we will consider a Causal Bayesian Network with only hard interventions on a single variable, e.g. interventions only of the form $do(\RV{X}=x)$.
 
 First we will offer some commentary

@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=medium kernel tikzit] (0) at (0.25, 0) {$\model{X}$};
+		\node [style=RLabel tikzit] (1) at (2, 0) {$\RV{X}$};
+		\node [style=RLabel tikzit] (2) at (2, 1.75) {$\mathrm{Id}_{\Omega}$};
+		\node [style=Llabel tikzit] (3) at (-1.75, 0) {$\RV{Y}$};
+		\node [style=copymap tikzit] (4) at (-1, 0) {};
+		\node [style=none] (5) at (0.75, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (4) to (0);
+		\draw (3) to (4);
+		\draw (5.center) to (1);
+		\draw [in=180, out=90] (4) to (2);
+	\end{pgfonlayer}
+\end{tikzpicture}

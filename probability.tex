@@ -204,7 +204,7 @@ We label both wires with the set $X$. However, say $X=\{0,1\}$. Then $\kernel{K}
 Our goal is to define a category of ``finite sets and Markov kernels with variables''. Introducing variables requires an assumption of consistency, which we don't know how to express in category theoretic terms. Our approach is to define a category of Markov kernels with variables that may or may not be consistent, which we will need to check for the resulting models. Because the consistency assumption is not expressed category theoretically, many proofs in this section only apply to our chosen setting of finite sets.
 
 \begin{definition}[Variable]
-Given a \emph{sample space} $\Omega$, a variable $f_\RV{X}$ is a function $\Omega\to A$. We will also refer to the associated Markov kernel $\RV{X}:\Omega\kto A$
+Given a \emph{sample space} $\Omega$, a variable $f_\RV{X}$ is a function $\Omega\to A$ where $A$ is a vector space. We will also refer to the associated Markov kernel $\RV{X}:\Omega\kto A$
 as a variable, where $\RV{X}_x^a=\llbracket a = f_{\RV{X}}(x) \rrbracket$.
 \end{definition}
 
@@ -256,19 +256,93 @@ The category of indexed Markov kernels as morphisms and variables as objects is 
 
 We define a \emph{model} as ``an indexed Markov kernel that assigns probability 0 to things known to be contradictions''. A contradiction is a simultaneous assignment of values to the variables $\RV{X}$ and $\RV{Y}$ such that there is no value of $\omega$ under which they jointly take these values. Unless the value assignment to the domain variable is itself contradictory, we hold that any valid model must assign probability zero to such occurrences.
 
-\begin{definition}[Model]
-An indexed Markov kernel $(\kernel{K}',\RV{X},\RV{Y})$ is a \emph{model} if it is \emph{consistent}, which means it assigns probability 0 to contradictions:
+\begin{definition}[Probabilistic model]
+An indexed Markov kernel $(\kernel{K}',\RV{X},\RV{Y})$ is a \emph{probabilistic model} (``model'' for short) if it is \emph{consistent}, which means it assigns probability 0 to contradictions:
 \begin{align}
 	f_{\RV{X}}^{-1}(a)\cap f_{\RV{Y}}^{-1}(b) = \emptyset \implies \left(\kernel{K}_{a}^{\prime b} = 0\right) \lor \left(f_{\RV{X}}^{-1}(a) = \emptyset\right)
 \end{align}
 A \emph{probability model} is a model where the underlying kernel $\kernel{K}'$ has the unit $\RV{I}$ as the domain. We use the font $\model{K}$ to distinguish models from arbitrary indexed Markov kernels.
 \end{definition}
 
-Consistency has some interesting implications. For a start, given a probability model of the sample space, there is a unique corresponding probability model of $\RV{X}$ is given by the pushforward of $\RV{X}$ (corollary \ref{corr:pushforward}). Thus it motivates the definition of the pushforward measure as the distribution of $\RV{X}$ induced by the sample space model.
+Consistency implies that for any $\model{K}:\RV{X}\kto\RV{Y}$, if $f_{\RV{Y}}=g\circ f_{\RV{X}}$ then $\model{K}_x^{g(x)}=1$. A particularly simple case of this is a model $\model{L}:\RV{X}\kto\RV{X}$, which must be such that $\model{L}_x^x=1$. \citet{hajek_what_2003} has pointed out that standard definitions of conditional probability allow the conditional probability to be arbitrary on a set of measure zero, even though ``the probability $\RV{X}=x$, given $\RV{X}=x$'' should obviously be 1.
 
-Consistency also implies that for any $\model{K}:\RV{X}\kto\RV{Y}$, if $f_{\RV{Y}}=g\circ f_{\RV{X}}$ then $\model{K}_x^{g(x)}=1$. A particularly simple case of this is a model $\model{L}:\RV{X}\kto\RV{X}$, which must be such that $\model{L}_x^x=1$. \citet{hajek_what_2003} has pointed out that standard definitions of conditional probability allow the conditional probability to be arbitrary on a set of measure zero, even though ``the probability $\RV{X}=x$, given $\RV{X}=x$'' should obviously be 1.
+We take the idea of marginal distributions as fundamental.
 
-The consistency condition is also needed to ensure sample space models with nontrival domains such as $\model{K}:\RV{X}\kto \text{Id}_\Omega$ conform to expectations imposed by the random variables. We might want to consider such models if we want to include ``nonstochastic variables'' \citep{constantinou_extended_2017}.
+\begin{definition}[Marginal distribution]
+Given a model $\model{K}:\RV{X}\kto(\RV{Y},\RV{Z})$, the marginal distribution of $\RV{Y}$, written $\model{K}^{\RV{Y}|\RV{X}}$, is obtained by marginalising over $\RV{Z}$:
+\begin{align}
+	\model{K}^{\RV{Y}|\RV{X}} &:= \tikzfig{marginal}\\
+	&\iff\\
+	(\model{K}^{\RV{Y}|\RV{X}})_x^y &= \sum_{z\in Z} \kernel{K}_x^{\prime yz}
+\end{align}
+\end{definition}
+
+\begin{definition}[Disintegration]
+Given a model $\model{K}:\RV{X}\kto(\RV{Y},\RV{Z})$, a disintegration $\model{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ $\RV{Y}$, written $\model{K}^{\RV{Y}|\RV{X}}$, is obtained by marginalising over $\RV{Z}$
+\end{definition}
+
+We can always get a valid model by adding a copy map to a valid model, and conversely all valid models with repeated codomain variables must contain copy maps.
+
+\begin{lemma}[Output copies of the same variable are identical]\label{lem:nocopy1}
+For any $\kernel{K}:\RV{X}\kto (\RV{Y},\RV{Y},\RV{Z})$, $\kernel{K}$ is a model iff there exists some $\model{L}:\RV{X}\kto (\RV{Y},\RV{Z})$ such that
+\begin{align}
+		\kernel{K} &= \tikzfig{compose_with_copymap}\\
+		&\iff \\
+		\kernel{K}_{x}^{\prime y,y',z} &= \llbracket y=y' \rrbracket\kernel{L}_{x}^{\prime y,z}\\
+\end{align}
+\end{lemma}
+
+
+\begin{proof}
+$\implies$
+For any $\omega,x,y,y',z$:
+\begin{align}
+	(\RV{X},\RV{Y},\RV{Y},\RV{Z})_\omega^{x,y,y',z} &= \llbracket f_{\RV{Y}}(\omega)=y \rrbracket \llbracket f_{\RV{Y}}(\omega)=y' \rrbracket (\RV{X},\RV{Z})_\omega^{x,z} \\
+	&= \llbracket y=y' \rrbracket \llbracket f_{\RV{Y}}(\omega)=y \rrbracket(\RV{X},\RV{Z})_\omega^{x,z}
+\end{align}
+Therefore, by consistency, for any $x,y,y',z$, $y\neq y'\implies \kernel{K}_{x}^{\prime yy'z}=0$. Define $\kernel{L}$ by $\kernel{L}_x^{\prime y, z} := \kernel{K}_x^{\prime y y z}$. The fact that $\model{L}$ is a model follows from the assumption that $\model{K}$ is. Then
+\begin{align}
+	\kernel{K}_{x}^{\prime y,y',z} &= \llbracket y=y' \rrbracket\kernel{L}_{x}^{\prime y,z}
+\end{align}
+$\Leftarrow$
+If $\model{L}$ is a model, then for any $x,x',y,z$, 
+\begin{align}
+\llbracket y=y'\rrbracket \model{L}_{x}^{\prime y,z}>0&\implies y=y'\land \model{L}_{x}^{\prime y,z}>0\\
+													  &\implies \left(f_{\RV{X}}^{-1}(x)=\emptyset \right)\lor \left(f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y) \cap f_{\RV{Y}}^{-1}(y)\cap f_{\RV{Z}}^{-1}(z)\neq\emptyset \right)\\
+\end{align}
+\end{proof}
+
+We can always get a valid model by copying the input to the output of a valid model, and conversely all valid models where there is a variable shared between the input and the output must copy that input to the output.
+
+\begin{lemma}[Copies shared between input and output are identical]\label{lem:nocopy2}
+For any $\kernel{K}:(\RV{X},\RV{Y})\kto (\RV{X},\RV{Z})$, $\kernel{K}$ is a model iff there exists some $\model{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ such that
+\begin{align}
+	 \kernel{K} &= \tikzfig{precompose_with_copymap}\\
+	 &\iff\\
+	 \kernel{K}_{x,y}^{\prime x',z} &= \llbracket x=x'\rrbracket \kernel{L}_{\prime x,y}^{z}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+$\implies$
+For any $\omega,x,y,y',z$:
+\begin{align}
+	(\RV{X},\RV{Y},\RV{Y},\RV{Z})_\omega^{x,y,y',z} &= \llbracket f_{\RV{Y}}(\omega)=y \rrbracket \llbracket f_{\RV{Y}}(\omega)=y' \rrbracket (\RV{X},\RV{Z})_\omega^{x,z} \\
+	&= \llbracket y=y' \rrbracket \llbracket f_{\RV{Y}}(\omega)=y \rrbracket(\RV{X},\RV{Z})_\omega^{x,z}
+\end{align}
+Therefore, by consistency, for any $x,y,y',z$, $x\neq x'\implies \model{K}_{x,y}^{\prime x'z}=0$. Define $\kernel{L}$ by $\kernel{L}_{x,y}^{\prime x', z} := \model{K}_{x,y}^{\prime x, y}$. The fact that $\kernel{L}$ is a model follows from the assumption that $\model{K}$ is a model. Then
+\begin{align}
+	\kernel{K}_{x, y}^{\prime x', z} &= \llbracket x=x' \rrbracket\kernel{L}_{x,y}^{\prime z}
+\end{align}
+$\Leftarrow$
+If $\model{L}$ is a model, then for any $x,x',y,z$, 
+\begin{align}
+\llbracket x=x'\rrbracket \model{L}_{ x,y}^{\prime z}>0&\implies x=x'\land \model{L}_{ x,y}^{\prime z}>0\\
+													  &\implies \left( f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y)=\emptyset \right)\lor \left(f_{\RV{X}}^{-1}(x)\cap f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y)\cap f_{\RV{Z}}^{-1}(z)\neq\emptyset \right)\\
+\end{align}
+\end{proof}
+
+Consistency along with the notion of marginal distributions implies that, given some $\RV{X}$ and some $\model{K}:\RV{Y}\kto\text{Id}_\Omega$, the pushforward $\model{K}\model{X}$ is the unique model $\RV{Y}\kto \RV{X}$ that can be paired (Definition \ref{def:pairing}) with $\model{K}$. This is shown in Lemma \ref{lem:pushforward}.
 
 \begin{lemma}[Uniqueness of models with the sample space as a domain]\label{lem:uniq_model}
 For any $\RV{X}:\Omega\to A$, there is a unique model $\model{X}:\text{Id}_\Omega\kto \RV{X}$ given by $\model{X}:=(\RV{X},\text{Id}_\Omega,\RV{X})$.
@@ -295,14 +369,34 @@ Suppose there were some $\model{K}:\text{Id}_\Omega\kto \RV{X}$ not equal to $\R
 Thus $\model{K}$ doesn't satisfy consistency.
 \end{proof}
 
-\begin{lemma}[Pushforward models]\label{lem:pushforward}
-Given any model $\model{P}:\RV{Y}\kto \text{Id}_\Omega$, there is a unique model $\model{P}^{\RV{X}|\RV{Y}}:\RV{Y}\kto \RV{X}$ such that $\model{P}^{\RV{X}|\RV{Y}}=\model{P}\model{Q}$ for some $\model{Q}:\text{Id}_\Omega\to \RV{X}$, and it is given by $(\model{P}^{\RV{X}|\RV{Y}})^a_b = \sum_{\omega\in f^{-1}(a)} \model{P}_b^{\omega}$.
+% \begin{corollary}[Uniqueness of joint models]\label{cor:uniq_joint}
+% For any $\RV{X}:\Omega\to A$, there is a unique model $\model{X}:\text{Id}_\Omega\kto (\RV{X},\text{Id}_{\Omega})$.
+% \end{corollary}
+
+% \begin{proof}
+% Apply Lemma \ref{lem:nocopy2} to the model $\model{X}$ from Lemma \ref{lem:uniq_model}.
+% \end{proof}
+
+\begin{definition}[Pairing]\label{def:pairing}
+Two models $\model{K}:\RV{X}\kto \RV{Y}$ and $\model{L}:\RV{X}\kto \RV{Z}$ can be \emph{paired} if there is some $\model{M}:\RV{X}\kto (\RV{Y},\RV{Z})$ such that $\model{K}=\model{M}^{\RV{Y}|\RV{X}}$ and $\model{L}=\model{M}^{\RV{Z}|\RV{X}}$.
+\end{definition}
+
+\begin{lemma}[Pushforward model]\label{lem:pushforward}
+Given any model $\model{K}:\RV{Y}\kto \text{Id}_\Omega$ and any $\RV{X}$, there is a unique $\model{L}:\RV{Y}\kto \RV{X}$ that can be paired with $\model{K}$, and it is given by $(\kernel{L}^a_b = \sum_{\omega\in f_{\RV{X}}^{-1}(a)} \kernel{K}_b^{\omega}$.
 \end{lemma}
 
 \begin{proof}
-As $\model{X}:=(\RV{X},\text{Id}_\Omega,\RV{X})$ is the unique model $\text{Id}_\Omega\to \RV{X}$, it must be the case that $\model{P}^{\RV{X}|\RV{Y}}=\model{P}\model{X}$. Suppose $\RV{X}:\Omega\kto A$ and $\RV{Y}:\Omega\kto B$. Then for any $a\in A$, $b\in B$
+Suppose that there is some $\model{L}$ that can be paired with $\model{K}$ via some $\model{M}:\RV{Y}\kto(\text{Id}_\Omega,\RV{X})$. Then, by the existence of disintegrations, there must be some $\model{N}:\text{Id}_{\Omega}\kto \RV{X}$ such that
 \begin{align}
-	(\model{P}\model{X})^a_b &= \sum_{\omega\in \Omega} \model{P}_b^\omega\RV{X}_\omega^a\\
+	\model{M}&=\tikzfig{disintegration_omega}
+\end{align}
+By Corollary \ref{cor:uniq_joint}, there is only one model $\model{N}:\text{Id}_{\Omega}\kto \RV{X}$ is unique and equal to $\model{X}:=(\RV{X},\text{Id}_\Omega,\RV{X})$.
+
+It remains to be shown that $\model{M}$ is also a model. We already know that $\model{K}$ is consistent with respect to $(\RV{Y},\text{Id}_\Omega)$ and $\model{L}$ is consistent with respect to $(\text{Id}_\Omega,\RV{X})$. $\model{M}$ must be consistent with respect to $(\RV{Y},\text{Id}_\Omega,\RV{X})$. Consider any $x\in X$, $\omega\in \Omega$, $y\in Y$ such that $f_{\RV{X}}^{-1}(x)\cap \{\omega\}\neq \emptyset$ and $f_{\RV{Y}}^{-1}(y)\cap\{\omega\}\neq \emptyset$. Trouble might arise if $f_{\RV{X}}^{-1}(x)\cap \{\omega\} \cap f_{\RV{Y}}^{-1}(y)=\emptyset$, but this is obviously impossible as $\omega\in f_{\RV{X}}^{-1}(x)$ and $\omega\in f_{\RV{Y}}^{-1}(y)$.
+
+Finally, for any $a\in A$, $b\in B$
+\begin{align}
+	(\model{K}\model{X})^a_b &= \sum_{\omega\in \Omega} \model{P}_b^\omega\RV{X}_\omega^a\\
 						 &= \sum_{\omega\in \Omega} \model{P}_b^\omega \llbracket a = f_{\RV{X}}(\omega) \rrbracket\\
 						 &= \sum_{\omega\in f^{-1}(a)} \model{P}_b^{\omega}
 \end{align}
@@ -318,61 +412,7 @@ Apply Lemma \ref{lem:pushforward} to a model $\model{P}:\RV{I}\kto\text{Id}_{\Om
 
 The following lemmas can help us check whether an indexed Markov kernel is a valid model.
 
-We can always get a valid model by adding a copy map to a valid model, and conversely all valid models with repeated codomain variables must contain copy maps.
 
-\begin{lemma}[Output copies of the same variable are identical]\label{lem:nocopy1}
-For any $\kernel{K}:\RV{X}\kto (\RV{Y},\RV{Y},\RV{Z})$, $\kernel{K}$ is a model iff there exists some $\model{L}:\RV{X}\kto (\RV{Y},\RV{Z})$ such that
-\begin{align}
-		\model{K}_{x}^{\prime y,y',z} &= \llbracket y=y' \rrbracket\model{L}_{x}^{\prime y,z}\\
-\end{align}
-\end{lemma}
-
-\begin{proof}
-$\implies$
-For any $\omega,x,y,y',z$:
-\begin{align}
-	(\RV{X},\RV{Y},\RV{Y},\RV{Z})_\omega^{x,y,y',z} &= \llbracket f_{\RV{Y}}(\omega)=y \rrbracket \llbracket f_{\RV{Y}}(\omega)=y' \rrbracket (\RV{X},\RV{Z})_\omega^{x,z} \\
-	&= \llbracket y=y' \rrbracket \llbracket f_{\RV{Y}}(\omega)=y \rrbracket(\RV{X},\RV{Z})_\omega^{x,z}
-\end{align}
-Therefore, by consistency, for any $x,y,y',z$, $y\neq y'\implies \model{K}_{x}^{\prime yy'z}=0$. Define $\model{L}$ by $\model{L}_x^{\prime y, z} := \model{K}_x^{\prime y y z}$. The fact that $\model{L}$ is a model follows from the assumption that $\model{K}$ is. Then
-\begin{align}
-	\model{K}_{x}^{\prime y,y',z} &= \llbracket y=y' \rrbracket\model{L}_{x}^{\prime y,z}
-\end{align}
-$\Leftarrow$
-If $\model{L}$ is a model, then for any $x,x',y,z$, 
-\begin{align}
-\llbracket y=y'\rrbracket \model{L}_{x}^{\prime y,z}>0&\implies y=y'\land \model{L}_{x}^{\prime y,z}>0\\
-													  &\implies \left(f_{\RV{X}}^{-1}(x)=\emptyset \right)\lor \left(f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y) \cap f_{\RV{Y}}^{-1}(y)\cap f_{\RV{Z}}^{-1}(z)\neq\emptyset \right)\\
-\end{align}
-\end{proof}
-
-We can always get a valid model by copying the input to the output of a valid model, and conversely all valid models where there is a variable shared between the input and the output must copy that input to the output.
-
-\begin{lemma}[Copies shared between input and output are identical]\label{lem:nocopy2}
-For any $\kernel{K}:(\RV{X},\RV{Y})\kto (\RV{X},\RV{Z})$, $\kernel{K}$ is a model iff there exists some $\model{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ such that
-\begin{align}
-	 \kernel{K}_{x,y}^{\prime x',z} &= \llbracket x=x'\rrbracket \kernel{L}_{\prime x,y}^{z}
-\end{align}
-\end{lemma}
-
-\begin{proof}
-$\implies$
-For any $\omega,x,y,y',z$:
-\begin{align}
-	(\RV{X},\RV{Y},\RV{Y},\RV{Z})_\omega^{x,y,y',z} &= \llbracket f_{\RV{Y}}(\omega)=y \rrbracket \llbracket f_{\RV{Y}}(\omega)=y' \rrbracket (\RV{X},\RV{Z})_\omega^{x,z} \\
-	&= \llbracket y=y' \rrbracket \llbracket f_{\RV{Y}}(\omega)=y \rrbracket(\RV{X},\RV{Z})_\omega^{x,z}
-\end{align}
-Therefore, by consistency, for any $x,y,y',z$, $x\neq x'\implies \model{K}_{x,y}^{\prime x'z}=0$. Define $\kernel{L}$ by $\kernel{L}_{x,y}^{\prime x', z} := \model{K}_{x,y}^{\prime x, y}$. The fact that $\kernel{L}$ is a model follows from the assumption that $\model{K}$ is a model. Then
-\begin{align}
-	\kernel{K}_{x, y}^{\prime x', z} &= \llbracket x=x' \rrbracket\kernel{L}_{x,y}^{\prime z}
-\end{align}
-$\Leftarrow$
-If $\model{L}$ is a model, then for any $x,x',y,z$, 
-\begin{align}
-\llbracket x=x'\rrbracket \model{L}_{ x,y}^{\prime z}>0&\implies x=x'\land \model{L}_{ x,y}^{\prime z}>0\\
-													  &\implies \left( f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y)=\emptyset \right)\lor \left(f_{\RV{X}}^{-1}(x)\cap f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y)\cap f_{\RV{Z}}^{-1}(z)\neq\emptyset \right)\\
-\end{align}
-\end{proof}
 
 We take the following term from \citet{constantinou_extended_2017}. Our definition is equivalent to unconditional variation independence in that paper.
 

@@ -1,0 +1,31 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (3) at (3.75, 1.75) {};
+		\node [style=none] (4) at (3.75, 1.5) {};
+		\node [style=none] (5) at (3.75, 1.25) {};
+		\node [style=Llabel tikzit] (6) at (-5, 2.5) {$\RV{D}$};
+		\node [style=Llabel tikzit] (7) at (-5, 1.5) {$\RV{H}$};
+		\node [style=RLabel tikzit] (8) at (5.75, 1.5) {$\RV{Y}$};
+		\node [style=RLabel tikzit] (9) at (5.75, 2.75) {$\RV{D}$};
+		\node [style=RLabel tikzit] (10) at (5.75, 0.25) {$\RV{X}$};
+		\node [style=copymap tikzit] (11) at (-4, 1.5) {};
+		\node [style=copymap tikzit] (12) at (0, 1) {};
+		\node [style=copymap tikzit] (13) at (2, 2.5) {};
+		\node [style=small kernel tikzit] (14) at (4.25, 1.5) {$\model{T}^{\RV{Y}|\RV{DHX}}$};
+		\node [style=small kernel tikzit] (15) at (0.5, 2.5) {$\model{S}_\alpha^{\RV{D}|\RV{X}}$};
+		\node [style=small kernel tikzit] (16) at (-2, 1) {$\model{T}^{\RV{X}|\RV{H}}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (7) to (11);
+		\draw [in=-180, out=-30] (12) to (10);
+		\draw [in=180, out=-75, looseness=1.25] (13) to (3.center);
+		\draw [in=180, out=15] (13) to (9);
+		\draw (14) to (8);
+		\draw (15) to (13);
+		\draw (16) to (12);
+		\draw (11) to (16);
+		\draw (15) to (6);
+		\draw [in=180, out=0] (12) to (5.center);
+		\draw [in=180, out=15, looseness=0.75] (11) to (4.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

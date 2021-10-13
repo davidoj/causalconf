@@ -4,52 +4,35 @@
 
 The first question we want to investigate is: supposing that we are happy to use the modelling approach described in the previous section, what kind of model would we want to use to help make good choices when we have to make choices?
 
-Suppose we will be given an observation, modelled by $\RV{X}$ taking values in $X$, and in response to this we can select any decision, modelled by $\RV{D}$ taking values in $D$. Picking a decision, or mixture of decisions, is a \emph{strategy} $\alpha$, modelled by $\kernel{S}_\alpha:\RV{X}\to \Delta(\RV{D})$ (In principle we can make $\alpha$ a variable too, but in that case we need to generalise our theory of probability models to cover continuously valued variables). We are interested in some defined collection of things that happen at some point after we have taken our decision; these will be modelled by the variable $\RV{Y}$ which we will call the consequences.
+Suppose we will be given an observation, modelled by $\RV{X}$ taking values in $X$, and in response to this we can select any decision, modelled by $\RV{D}$ taking values in $D$. The process by which we choose a decision or mixture of decisions, is called a decision rule or a \emph{strategy}, designated $\alpha$ and modelled by $\kernel{S}_\alpha:\RV{X}\to \Delta(\RV{D})$\footnote{Recalling our discussion of variables, the strategy we ultimately choose could also be considered a vague variable. After we have made our choice, there is some ``measurement process'' by which we can determine which strategy we chose and which will always yield a consistent output given the same act of choosing. The reason we don't do so is that it would necessitate an extension of our theory to uncountable sets, which complicates the story.}. We are interested in some defined collection of things that will be determined at some point after we have taken our decision; these will be modelled by the variable $\RV{Y}$ and we will call them \emph{consequences}.
 
-Clearly, for different observations and strategy choices we should expect different consequences. 
+For different observations and decisions we will generally expect different consequences. We will assume that we expect the same observations whatever strategy we choose. We will also assume that given the same observations and the same decision, we expect the same consequences regardless of the strategy. These assumptions rule out certain classes of decision problem where, for example, there is controversy over whether the strategy chosen should depend on the time at which it is chosen \citet{weirich_causal_2016,lewis_causal_1981,paul_f_christiano_edt_2018}.
 
-We will represent our uncertain answers to the questions $\RV{X}$, $\RV{D}$ and $\RV{Y}$ with probability distributions. We will allow for multiple probability distributions to be entertained as an answer; let hypotheses $\RV{H}$ represent the question ``which model best captures this problem?'', taking values in $H$. Then for each strategy $\kernel{S}_\alpha$, our forecast will be represented by a joint probability $\kernel{P}_{\alpha}\equiv\model{P}_\alpha^{\RV{XDY}|\RV{H};\kernel{P}_\alpha}:\RV{H}\to\Delta(\RV{X},\RV{D},\RV{Y})$. Because observations come before we execute our strategy, we might assume that they will be unchanged by any choice of strategy: $\model{P}_{\alpha}^{\RV{X}|\RV{H}}=P_{\beta}^{\RV{X}|\RV{H}}$ for all $\alpha,\beta$. We expect to choose a decision precisely in line with the strategy under consideration: $\model{P}_{\alpha}^{\RV{D}|\RV{X}}=\kernel{S}_\alpha$. Finally, our answer to $\RV{Y}$ will be the same under any strategy supposing we have the same observation, decision and hypothesis: $\model{P}_{\alpha}^{\RV{Y}|\RV{HD}}=P_{\beta}^{\RV{Y}|\RV{HD}}$ for all $\alpha,\beta$.
+We will entertain a collection of probabilistic models to represent postulated relationships between $\RV{X}$, $\RV{D}$ and $\RV{Y}$ for each strategy $\alpha$; to do this, we will introduce a latent variable $\RV{H}$ such that each value of $\RV{H}$ corresponds to a particular probabilistic model of $\RV{X}$, $\RV{D}$ and $\RV{Y}$. Concretely, for each strategy $\alpha$ our forecast will be represented by a probability model $\kernel{P}_{\alpha}:\RV{I}\kto (\RV{H},\RV{X},\RV{D},\RV{Y})$. We assume that -- holding the hypothesis fixed -- the same observations are expected whatever strategy we choose: $\model{P}_{\alpha}^{\RV{X}|\RV{H}}=P_{\beta}^{\RV{X}|\RV{H}}$ for all $\alpha,\beta$. We assume that under each hypothesis, the decision chosen is always modelled by the the chosen strategy: $\model{P}_{\alpha}^{\RV{D}|\RV{HX}}=\kernel{S}_\alpha \otimes \text{erase}_{\RV{H}}$. Finally, we assume that, holding the hypothesis fixed, the same consequences are expected under any strategy given the same observations and the same decision: $\model{P}_{\alpha}^{\RV{Y}|\RV{HD}}=P_{\beta}^{\RV{Y}|\RV{HD}}$ for all $\alpha,\beta$.
 
-Under these assumptions, there exists $\model{T}[\RV{X}\RV{Y}|\RV{HD}]\in \mathscr{M}$ with $\RV{X}\CI_{\model{T}}\RV{D}|\RV{H}$ such that for all $\alpha$, 
-
-\begin{align}
-    \model{P}_{\alpha}[\RV{X}\RV{D}\RV{Y}|\RV{H}]\overset{krn}{=}\model{T}[\RV{X}|\RV{H}]\rightrightarrows \model{S}_\alpha [\RV{D}|\RV{X}] \rightrightarrows \model{T}[\RV{Y}|\RV{XHD}] \label{eq:see_do_query}
-\end{align}
-
-The proof is given in Appendix \ref{sec:see-do-rep}. Note that $\model{T}[\RV{X}|\RV{H}]$ exists by virtue of the fact $\RV{X}\CI_{\model{T}}\RV{D}|\RV{H}$. While this independence is what enables Equation \ref{eq:see_do_query}, in general $\RV{X}\not\CI_{\model{P}_\alpha} \RV{D}|\RV{H}$, so $\model{T}$ cannot be a disintegration of $\model{P}_\alpha$. Modular probability allows us to specify $\model{T}$, which we call a \emph{see-do model}, as a partial forecast to be completed with a strategy $\model{S}_\alpha$ while also being able to use consistent names for variables that represent the same things (observations, decisions, consequences, hypotheses) whether their distributions are given by $\model{P}_\alpha$, $\model{T}$, which are mutually incompatible conditional probabilities.
-
-\subsection{See-do models and classical statistics}
-
-A \emph{statistical model} (or \emph{statistical experiment}) is a collection of probability distributions indexed by some set $\Theta$. We can observe that $\{\model{T}[\RV{X}|\RV{H}]_h\}_{h\in H}$ is a collection of probability distributions indexed by $H$.
-
-In statistical decision theory, as introduced by \citet{wald_statistical_1950}, we are given a statistical experiment $\{\prob{P}_\theta\in \Delta(X)\}_\Theta$, a decision set $D$ and a loss $l:\Theta\times D\to \mathbb{R}$. A strategy $\model{S}_\alpha:X\to \Delta(D)$ is evaluated according to the risk functional $R(\theta,\model{S}_\alpha)=\sum_{x\in X}\sum_{d\in D} \prob{P}_\theta^x (S_\alpha)_x^d l(h,d)$.
-
-Suppose we have a see-do model $\model{T}[\RV{X}\RV{Y}|\RV{HD}]$ with $\RV{Y}\CI_{\kernel{T}} \RV{X}|\RV{HD}$, and suppose that the random variable $\RV{Y}$ is a ``reverse utility'' function taking values in $\mathbb{R}$ for which low values are considered desirable. Then, defining a loss $l:H\times D\to \mathbb{R}$ by $l(h,d) = \sum_{y\in \mathbb{R}} y\model{T}[\RV{Y}|\RV{H}\RV{D}]_{h,d}^y$, we have 
+Under these assumptions, there exists a ``see-do model'' $\model{T}:(\RV{H},\RV{D})\kto (\RV{X},\RV{Y})$ such that $\RV{X}\CI_{\model{T}}\RV{D}|\RV{H}$ and for all $\alpha$, 
 
 \begin{align}
-    \mathbb{E}_{\model{P}_{\alpha}[\RV{X}\RV{D}\RV{Y}|\RV{H}]}[\RV{Y}] &= \sum_{x\in X} \sum_{d\in D} \sum_{y\in Y} y \left(\model{T}[\RV{X}|\RV{H}]\rightrightarrows \model{S}_\alpha [\RV{D}|\RV{X}] \rightrightarrows \model{T}[\RV{Y}|\RV{XHD}]\right)_h^{xdy}\\
-     &= \sum_{x\in X} \sum_{d\in D} \sum_{y\in Y} \model{T}[\RV{X}|\RV{H}]^x_h \model{S}_\alpha [\RV{D}|\RV{X}]_x^d \model{T}[\RV{Y}|\RV{H}\RV{D}]_{h,d}^y\\
-    &= \sum_{x\in X}\sum_{d\in D} \model{T}[\RV{X}|\RV{H}]_h^x (S_\alpha)_x^d l(h,d)\\
-    &= R(h,\model{S}_\alpha)
+    \model{P}_{\alpha} = \tikzfig{seedo} \label{eq:see_do_query}
 \end{align}
 
-That is, if we are given a see-do model where we interpret $\model{T}[\RV{X}|\RV{H}]$ as a statistical experiment and $\RV{Y}$ as a reversed utility, the expectation of the utility under the strategy forecast given in equation \ref{eq:see_do_query} is the risk of that strategy under hypothesis $h$.
+The proof is given in Appendix \ref{sec:see-do-rep}. Note that $\model{T}^{\RV{X}|\RV{H}}$ exists by virtue of the fact $\RV{X}\CI_{\model{T}}\RV{D}|\RV{H}$. 
 
 \subsection{Combs}
 
-The see-do model $\model{T}[\RV{X}\RV{Y}|\RV{HD}]$ is known as a \emph{comb}. This structure was introduced by \citet{chiribella_quantum_2008} in the context of quantum circuit architecture, and \citet{jacobs_causal_2019} adapted the concept to causal modelling.
+The conditional independence $\RV{X}\CI_{\model{T}}\RV{D}|\RV{H}$ of $\model{T}$ is the property that allows us to write Equation \ref{eq:see_do_query}, but it also implies that $\model{T}$ is \emph{not} a submodel of $\prob{P}_\alpha$ for most strategies $\alpha$, because for most such strategies $\RV{X}$ and $\RV{D}$ are not independent. Instead, $\model{T}$ is a \emph{comb}. This structure was introduced by \citet{chiribella_quantum_2008} in the context of quantum circuit architecture, and \citet{jacobs_causal_2019} adapted the concept to causal modelling.
 
-A comb is a Markov kernel with a ``hole'' in it. We combine the see-do model with a strategy by putting the strategy ``in the middle'' of the see-do model (Equation \ref{eq:see_do_query}), rather than attaching it to one end. While it is not a well-formed diagram in the language described in this paper, we can visualise combs as Markov kernels with holes:
+We don't formally define any special operations with combs here, but because they come up multiple times we will explain the notion a little. A comb is a Markov kernel with an ``insert'' operation; to obtain the probability model associated with a particular strategy, we ``insert'' the strategy into our see-do model.
 
 \begin{align}
-\model{T}[\RV{XY}|\RV{HD}] &= \begin{tikzpicture}
+\model{T} &= \begin{tikzpicture}
     \path (0,0) node (H) {$\RV{H}$}
      ++ (0.5,0) node[copymap] (copy0) {}
-     ++ (0.5,0) node[kernel] (XH) {$\model{T}$}
+     ++ (0.5,0) node[kernel] (XH) {$\model{T}^{\RV{X}|\RV{H}}$}
      ++ (0.5,0) node[copymap] (copy1) {}
      ++ (0.5,0) node (X) {$\RV{X}$}
      ++ (0.5,0.) node (D) {$\RV{D}$}
-     ++ (0.7,-0.15) node[kernel,inner sep=5pt] (YDXH) {$\model{T}$}
+     ++ (0.7,-0.15) node[kernel,inner sep=5pt] (YDXH) {$\model{T}^{\RV{Y}|\RV{XDH}}$}
      ++ (0.7,0.15) node (Y) {$\RV{Y}$};
      \draw (H) -- (XH) -- (X) (D) to [out=0,in=180] ($(YDXH.west) + (0,0.15)$) ($(YDXH.east) + (0,0.15)$) -- (Y);
      \draw (copy0) to [out=-90,in=180] ($(copy0.east) + (0.8,-0.5)$) to [out=0,in=180] ($(YDXH.west) + (0,-0.2)$) (copy1) to [out=-90,in=180] ($(YDXH.west) + (0,-0.05)$);
@@ -68,12 +51,32 @@ A comb is a Markov kernel with a ``hole'' in it. We combine the see-do model wit
 \end{tikzpicture}\label{eq:kernel_with_hole}
 \end{align}
 
-We can take any strategy $\model{S}_\alpha[\RV{D}|\RV{X}]$ and drop it into the ``hole'' in \ref{eq:kernel_with_hole} (as described in Equation \ref{eq:see_do_query}) to get a forecast of the outcome of that strategy. 
+\citet{lattimore_causal_2019} and \citet{lattimore_replacing_2019} describe a novel approach to causal inference: they consider an observational probability model and a collection of indexed interventional probability models, with the probability model tied to the interventional models by shared parameters. In these papers, they show how such a model can reproduce inferences made using Causal Bayesian Networks. This kind of model is very close to a type of see-do model, where we identify the hypotheses $\RV{H}$ with the parameter variables in that work. The only difference is that we consider interventional maps (see-do models represent a map $(\RV{D},\RV{H})\kto \RV{Y}$) rather than interventional probability models, and this is a superficial difference as an indexed collection of probability models is a map.
 
-\citet{dawid_decision-theoretic_2020} has described his decision theoretic approach to causal inference:
+\citet{dawid_decision-theoretic_2020} describes a different version of a decision theoretic approach to causal inference:
 
 \begin{quote}
-A fundamental feature of the DT approach is its consideration of the relationships between the various probability distributions that govern different regimes of interest. As a very simple example, suppose that we have a binary treatment variable T, and a response variable Y. We consider three different regimes [...] the first two regimes may be described as interventional, and the last as observational.
+A fundamental feature of the DT approach is its consideration of the relationships between the various probability distributions that govern different regimes of interest. As a very simple example, suppose that we have a binary treatment variable $\RV{T}$, and a response variable $\RV{Y}$. We consider three different regimes [...] the first two regimes may be described as interventional, and the last as observational.
 \end{quote}
 
-\citet{lattimore_causal_2019} and \citet{lattimore_replacing_2019} describe a novel approach to causal inference: rather than consider ``one'' causal model, they consider a pair of models; an observational and interventional model that share parameters.
+This is somewhat different to a see-do model, as it features a probabilistic model that uses the same random variables $\RV{T}$ and $\RV{Y}$ to represent both interventional and observational regimes, while a see-do model uses different random variables. This difference can be thought of as the difference between positing a sequence $(\RV{X}_1,\RV{X}_2,\RV{X}_3)$ distributed according to $\prob{P}^{\RV{X}}$, or saying that the $\RV{X}_i$ are distributed according to $\prob{P}$ such that they are mutually independent ($i\not\in A\subset[3]\implies \RV{X}_i\CI_{\prob{P}} (\RV{X}_j)_{j\in A}$) and identically distributed ($\prob{P}^{\RV{X}_i}=\prob{P}^{\RV{X}_j}$ for all $i,j$). The former can be understood as a shorthand of the latter, but because in this paper we are particularly interested in problems that arise regarding the relation between the map and the territory, we favour the second approach because it is more explicit.
+
+\subsection{See-do models and classical statistics}
+
+See-do models are capable of expressing the expected results of a particular choice of decision strategy, but they cannot by themselves tell us which strategies are more desirable than others. To do this, we need some measure of the desirability of our collection of results $\{\prob{P}_\alpha|\alpha\in A\}$. A common way to do this is to employ the principle of expected utility. The classic result of \citet{von_neumann_theory_1944} shows that all preferences over a collection of probability models that obey their axioms of completeness, transitivity, continuity and independence of irrelevant alternatives must be able to be expressed via the principle of expected utility. This does not imply that anyone knows what the appropriate utility function is.
+
+We introduced the hypothesis $\RV{H}$ as a latent variable to allow us to postulate multiple different models of obsevations, decisions and consequences. In general, both the hypothesis and the observation $\RV{X}$ may influence our views about the consequences $\RV{Y}$ that are likely to follow from a given decision. It is very common to model sequences of observations as independent and identically distributed given some parameter or latent variable. In such cases, we can identify $\RV{H}$ with this latent variable (our setup does not preclude introducing a prior over $\RV{H}$, nor does it require it). Furthermore, in such cases where we have a collection of $\RV{X}_i$ such that $\RV{X}_i\CI_{\model{T}} \RV{X}_j|\RV{H}$, it may be reasonable to expect that $\RV{Y} \CI_{\RV{T}} \RV{X}|\RV{H}$ also. In fact, this is the standard view in causal modelling -- given ``the probability distribution over observations'' (which is to say, conditional on $\RV{H}$), interventional distributions have no additional dependence on \emph{particular} observations. We can find exceptions with questions like ``given what actually happened, what would have happened if a different action had been taken?'' \citep{pearl_causality:_2009,tian_probabilities_2000,mueller_causes_2021}, but this is not the kind of question we are considering here.
+
+Given these two choices -- to use the principle of expected utility to evaluate strategies, and to use a see-do model $\model{T}$ with the conditional independence $\RV{Y}\CI_{\model{T}} \RV{X}|\RV{H,D}$ -- we obtain a statistical decision problem in the form introduced by \citet{wald_statistical_1950}.
+
+A \emph{statistical model} (or \emph{statistical experiment}) is a collection of probability distributions $\{\prob{P}_\theta\}$ indexed by some set $\Theta$. A statistical decision problem gives us an observation variable $\RV{X}:\Omega\kto X$ and a statistical experiment $\{\prob{P}^{\RV{X}}_\theta\}_\Theta$, a decision set $D$ and a loss $l:\Theta\times D\to \mathbb{R}$. A strategy $\model{S}^{\RV{D}|\RV{X}}_\alpha$ is evaluated according to the risk functional $R(\theta,\alpha):=\sum_{x\in X}\sum_{d\in D} \prob{P}^{\RV{X}}_\theta(x) S^{\RV{D}|\RV{X}}_\alpha (d|x) l(h,d)$. A strategy $\model{S}^{\RV{D}|\RV{X}}_\alpha$ is considered more desirable than $\model{S}^{\RV{D}|\RV{X}}_\beta$ if $R(\theta,\alpha)<R(\theta,\beta)$.
+
+Suppose we have a see-do model $\model{T}^{\RV{X}\RV{Y}|\RV{HD}}$ with $\RV{Y}\CI_{\model{T}} \RV{X}|(\RV{H,D})$, and suppose that the random variable $\RV{Y}$ is a ``reverse utility'' function taking values in $\mathbb{R}$ for which low values are considered desirable. Then, defining a loss $l:H\times D\to \mathbb{R}$ by $l(h,d) = \sum_{y\in \mathbb{R}} y\model{T}^{\RV{Y}|\RV{H}\RV{D}}(y|h,d)$, we have 
+
+\begin{align}
+    \mathbb{E}_{\model{P}_{\alpha}}[\RV{Y}|h] &= \sum_{x\in X} \sum_{d\in D} \sum_{y\in Y} \model{T}^{\RV{X}|\RV{H}}(x|h) \model{S}_\alpha^{\RV{D}|\RV{X}}(d|x) \model{T}^{\RV{Y}|\RV{HD}}(y|h,d)\\
+    &= \sum_{x\in X} \sum_{d\in D} \model{T}^{\RV{X}|\RV{H}}(x|h) \model{S}_\alpha ^{\RV{D}|\RV{X}}(d|x) l(h,d)\\
+    &= R(h,\alpha)
+\end{align}
+
+If we are given a see-do model where we interpret $\model{T}^{\RV{X}|\RV{H}}$ as a statistical experiment and $\RV{Y}$ as a reversed utility, the expectation of the utility under the strategy forecast given in equation \ref{eq:see_do_query} is the risk of that strategy under hypothesis $h$.

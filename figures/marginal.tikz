@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=medium kernel tikzit] (0) at (-0.5, 0) {$\kernel{K}'$};
+		\node [style=Llabel tikzit] (1) at (-3, 0) {$\RV{X}$};
+		\node [style=none] (2) at (-1, 0) {};
+		\node [style=RLabel tikzit] (3) at (2.25, 0.5) {$\RV{Y}$};
+		\node [style=none] (4) at (2.25, -0.5) {};
+		\node [style=none] (5) at (0, 0.5) {};
+		\node [style=none] (6) at (0, -0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (1) to (2.center);
+		\draw (5.center) to (3);
+		\draw [style=delmap] (6.center) to (4.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
