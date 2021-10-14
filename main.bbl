@@ -1,4 +1,4 @@
-\begin{thebibliography}{25}
+\begin{thebibliography}{28}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -138,6 +138,14 @@ Karl Menger.
 \newblock \doi{10.1007/978-3-7091-6045-9_31}.
 \newblock URL \url{https://doi.org/10.1007/978-3-7091-6045-9_31}.
 
+\bibitem[Mueller et~al.(2021)Mueller, Li, and Pearl]{mueller_causes_2021}
+Scott Mueller, Ang Li, and Judea Pearl.
+\newblock Causes of {Effects}: {Learning} individual responses from population
+  data.
+\newblock \emph{arXiv:2104.13730 [cs, stat]}, May 2021.
+\newblock URL \url{http://arxiv.org/abs/2104.13730}.
+\newblock arXiv: 2104.13730.
+
 \bibitem[{Paul F. Christiano}(2018)]{paul_f_christiano_edt_2018}
 {Paul F. Christiano}.
 \newblock {EDT} vs {CDT}, September 2018.
@@ -194,10 +202,25 @@ Eyal Shahar.
 \newblock ISSN 1476-6256.
 \newblock \doi{10.1093/aje/kwp292}.
 
+\bibitem[Tian and Pearl(2000)]{tian_probabilities_2000}
+Jin Tian and Judea Pearl.
+\newblock Probabilities of causation: {Bounds} and identification.
+\newblock \emph{Annals of Mathematics and Artificial Intelligence}, 28\penalty0
+  (1):\penalty0 287--313, October 2000.
+\newblock ISSN 1573-7470.
+\newblock \doi{10.1023/A:1018912507879}.
+\newblock URL \url{https://doi.org/10.1023/A:1018912507879}.
+
 \bibitem[Tian and Pearl(2002)]{tian2002general}
 Jin Tian and Judea Pearl.
 \newblock A general identification condition for causal effects.
 \newblock In \emph{Aaai/iaai}, pages 567--573, July 2002.
+
+\bibitem[Von~Neumann and Morgenstern(1944)]{von_neumann_theory_1944}
+J.~Von~Neumann and O.~Morgenstern.
+\newblock \emph{Theory of games and economic behavior}.
+\newblock Theory of games and economic behavior. Princeton University Press,
+  Princeton, NJ, US, 1944.
 
 \bibitem[Wald(1950)]{wald_statistical_1950}
 Abraham Wald.

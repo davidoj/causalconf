@@ -1,16 +1,16 @@
 # Fdb version 3
-["bibtex main"] 1634010766 "main.aux" "main.bbl" "main" 1634010784
+["bibtex main"] 1634189862 "main.aux" "main.bbl" "main" 1634189866
   "/usr/share/texlive/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "main.aux" 1634010769 14219 cfbbe501e7b5005f3f26c54be794012b "xelatex"
-  "references.bib" 1634009449 187598 2c0f33ed423b0d8fcd3c0da0282db8a8 ""
+  "main.aux" 1634189866 15796 5b23a113165850ba64a00bb83bd6d589 "xelatex"
+  "references.bib" 1634101091 191251 48c50378c120beb3c2cd63dd3bf777a6 ""
   (generated)
   "main.blg"
   "main.bbl"
-["xdvipdfmx"] 1634010769 "main.xdv" "main.pdf" "main" 1634010784
-  "main.xdv" 1634010769 404468 a0cd4d63435b6533c4bc5deb5f1612b7 "xelatex"
+["xdvipdfmx"] 1634189866 "main.xdv" "main.pdf" "main" 1634189866
+  "main.xdv" 1634189866 484552 2ee04015ed3aa51f0fbe724e4ab029b8 "xelatex"
   (generated)
   "main.pdf"
-["xelatex"] 1634010766 "main.tex" "main.xdv" "main" 1634010784
+["xelatex"] 1634189862 "main.tex" "main.xdv" "main" 1634189866
   "/etc/texmf/web2c/texmf.cnf" 1590547021 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -257,8 +257,13 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
   "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1599613219 4648586 d2b7c7b61735336533540bc8faab0630 ""
   "appendix.tex" 1633061279 25053 0f98e5f7a1f02c33088dacb52a1d7892 ""
-  "cbns.tex" 1632983665 3574 5a89512c4162872b81ffa022458428d5 ""
+  "cbns.tex" 1634189857 13397 c4660db8a30761c18a28a85a7fd5ca07 ""
   "diagrams.tikzstyles" 1632877974 1424 2418df6d3fb3b65107262c2962e11ad5 ""
+  "figures/cbn_sd2.tikz" 1634186069 886 b9ec601a80b9dbd94d3497c3b73198f7 ""
+  "figures/cbn_sd23.tikz" 1634186995 1588 9cae6207831960121165dc20fa23e0b9 ""
+  "figures/cbn_sd_2comb.tikz" 1634187254 1770 228802787b0d3bf1807f11fd6d5e412b ""
+  "figures/cbn_sd_2comb_extended.tikz" 1634189854 2342 a63da228add43ccb604bc7d19847ac36 ""
+  "figures/cbn_seedo.tikz" 1634184675 848 0e193a33ac578d4a85a4fc84f77880b4 ""
   "figures/ccom2_lhs.tikz" 1632877998 448 4f15b77e6de827c7c0a0fc91e7ce3ae0 ""
   "figures/ccom2_mhs.tikz" 1632878030 257 40c731348696c097b572af178cbb4b6f ""
   "figures/ccom2_rhs.tikz" 1632878065 451 8334dd2d961e64fd41587f730db611e8 ""
@@ -281,20 +286,21 @@
   "figures/naturality_rhs.tikz" 1632879511 273 9ecac0febf804faadb31843414954044 ""
   "figures/precompose_with_copymap.tikz" 1633999399 774 7e2eb555ffa14f8e269d9d6ec8db79dc ""
   "figures/seedo.tikz" 1634010744 1369 cbc0f028f0b552ee17f95fcf6c432927 ""
+  "figures/truncated_fac_definition.tikz" 1634186342 1251 1a6b803c0713c54ce86a29aaaa543086 ""
   "figures/truncated_factorisation.tikz" 1633495524 1140 e8792a2d5c1893af90c000b4cfff0be0 ""
   "figures/truncated_factorisation_labeled.tikz" 1633495574 1164 bab4c1ab44090ec79620d9ad15d0efd7 ""
-  "main.aux" 1634010769 14219 cfbbe501e7b5005f3f26c54be794012b "xelatex"
-  "main.bbl" 1634010766 9012 bc670b9d014d3ecccd21ce70cdb6abac "bibtex main"
-  "main.out" 1634010769 1875 29a2d8311009933edf867c4dfff3e3f7 "xelatex"
+  "main.aux" 1634189866 15796 5b23a113165850ba64a00bb83bd6d589 "xelatex"
+  "main.bbl" 1634189862 10015 c199f2c60a7c4b4f6f8da9ca803ee667 "bibtex main"
+  "main.out" 1634189866 1875 e735020fb05ed0fb940e17195cf2e9e9 "xelatex"
   "main.tex" 1633825013 12688 087bff43765e41c11dd1510727bc1ed4 ""
-  "main.toc" 1634010769 2063 da084ad1a486b127e1428c6a43c360f4 "xelatex"
+  "main.toc" 1634189866 2063 c75f0ddad0ee4c808d36ae42a2987a32 "xelatex"
   "potential_outcomes.tex" 1633052355 19851 20c85bb6e15c70cea0ad0c1596e33358 ""
-  "probability.tex" 1634009782 47315 a7cd01a33fa3e37b0f6c1edb44e82615 ""
-  "seedo.tex" 1634010756 9145 fcf4962fa96539d76e072271612f653d ""
+  "probability.tex" 1634172590 47364 7dda3be807fa1ea7c80ab6d8b718c887 ""
+  "seedo.tex" 1634101931 12385 db0f2baaef3d8ea75371e6078edc141e ""
   "tikzit.sty" 1632791409 1248 43e1a5fcf14fc024e289b1463d1206ce ""
   (generated)
-  "main.aux"
-  "main.xdv"
-  "main.toc"
   "main.log"
+  "main.aux"
   "main.out"
+  "main.toc"
+  "main.xdv"
