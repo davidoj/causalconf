@@ -61,6 +61,8 @@ A fundamental feature of the DT approach is its consideration of the relationshi
 
 This is somewhat different to a see-do model, as it features a probabilistic model that uses the same random variables $\RV{T}$ and $\RV{Y}$ to represent both interventional and observational regimes, while a see-do model uses different random variables. This difference can be thought of as the difference between positing a sequence $(\RV{X}_1,\RV{X}_2,\RV{X}_3)$ distributed according to $\prob{P}^{\RV{X}}$, or saying that the $\RV{X}_i$ are distributed according to $\prob{P}$ such that they are mutually independent ($i\not\in A\subset[3]\implies \RV{X}_i\CI_{\prob{P}} (\RV{X}_j)_{j\in A}$) and identically distributed ($\prob{P}^{\RV{X}_i}=\prob{P}^{\RV{X}_j}$ for all $i,j$). The former can be understood as a shorthand of the latter, but because in this paper we are particularly interested in problems that arise regarding the relation between the map and the territory, we favour the second approach because it is more explicit.
 
+\citet{jacobs_causal_2019} has used a comb decomposition theorem to prove a sufficient identification condition similar to the identification condition given by \citet{tian2002general}. This theorem depends on the particular inductive hypotheses made by causal Bayesian networks.
+
 \subsection{See-do models and classical statistics}
 
 See-do models are capable of expressing the expected results of a particular choice of decision strategy, but they cannot by themselves tell us which strategies are more desirable than others. To do this, we need some measure of the desirability of our collection of results $\{\prob{P}_\alpha|\alpha\in A\}$. A common way to do this is to employ the principle of expected utility. The classic result of \citet{von_neumann_theory_1944} shows that all preferences over a collection of probability models that obey their axioms of completeness, transitivity, continuity and independence of irrelevant alternatives must be able to be expressed via the principle of expected utility. This does not imply that anyone knows what the appropriate utility function is.
@@ -80,3 +82,4 @@ Suppose we have a see-do model $\model{T}^{\RV{X}\RV{Y}|\RV{HD}}$ with $\RV{Y}\C
 \end{align}
 
 If we are given a see-do model where we interpret $\model{T}^{\RV{X}|\RV{H}}$ as a statistical experiment and $\RV{Y}$ as a reversed utility, the expectation of the utility under the strategy forecast given in equation \ref{eq:see_do_query} is the risk of that strategy under hypothesis $h$.
+

@@ -1,0 +1,129 @@
+
+Recall our distinction between latent variables and observables: observable variables are related to other variables in the model and to the real world, while latent variables are related only to other variables in the model. In the previous section, we considered a sequence of $(\RV{W}_i, \RV{X}_i, \RV{Y}_i)$ variables. Typically the $\RV{X}_i$'s and $\RV{Y}_i$'s are observable variables. The $\RV{W}_i$'s are trickier. They 
+
+Potential outcomes is a widely used approach to causal modelling characterised by its use of ``potential outcome'' random variables. Potential outcome random variables are typically noted for being given counterfactual interpretations. For example, suppose have something we want to model, call it TYT (``The $\RV{Y}$ Thing''), which we represent with a variable $\RV{Y}$. Suppose we want to know how TYT behaves under different regimes 0 and 1 under which we want to know about TYT, and we use a variable $\RV{W}$ to indicate which regime holds at a given point in time. A potential outcomes model will introduce the two additional ``potential outcome'' variables $(\RV{Y}(0), \RV{Y}(1))$. What these variables represent can be given a counterfactual interpretation like ``$\RV{Y}(0)$ represents what TYT would be under regime $0$, whether or not regime $0$ is the actual regime'' and similarly ``$\RV{Y}(1)$ represents what TYT would be under regime $1$, whether or not regime $1$ is the actual regime''. Note that we say ``what TYT would be'' rather that ``what $\RV{Y}$ would be'' as ``what would $\RV{Y}$ be if $\RV{W}$ was 0 if $\RV{W}$ was actually 1'' is not a question we can ask of random variables, but it is one that might make sense for the things we use random variables to model.
+
+This is a key point, so it is worth restating: the assumption that potential outcome variables agree with ``the value TYT would take'' under fixed regimes regardless of the ``actual'' value of the regime seems to be a critical assumption that distinguishes potential outcome variables from arbitrary random variables that happen to take values in the same space as $\RV{Y}$. However, this assumption can only be stated by making reference to the informally defined ``TYT'' and the informal distinction between the supposed and the actual value of the regime.
+
+The potential outcomes framework features other critical assumptions that relate potential outcome variables to things that are only informally defined. For example, \citet{rubin_causal_2005} defines the \emph{Stable Unit Treatment Value Assumption} (SUTVA) as:
+
+\begin{quote}
+SUTVA (stable unit treatment value assumption) [...] comprises two subassumptions. First, it assumes that there is no interference between units (Cox 1958); that is, neither $Y_i(1)$ nor $Y_i(0)$ is affected by what action any other unit received. Second, it assumes that there are no hidden versions of treatments; no matter how unit $i$ received treatment $1$, the outcome that would be observed would be $Y_i(1)$ and similarly for treatment $0$
+\end{quote}
+
+``Versions of treatments'' do not appear within typical potential outcomes models, so this is also an assumption about how ``the thing we are trying to model'' behaves rather than an assumption stated within the model.
+
+Given informal assumptions like this, one may be motivated to ``formalize'' them. More specifically, one might be motivated to ask whether there is some larger class of models that, under conditions corresponding to the informal conditions above yield regular potential outcome models?
+
+\todo[inline]{I have a vague intuition here that you always need some kind of assumption like ``my model is faithful to the real thing'', but if you are stating fairly specific conditions in English you should also be able to state them mathematically. Among other reasons, this is useful because it's easier for other people to know what you mean when you state them.}
+
+The approach we have introduced here, motivated by decision problems, has in the past been considered a means of avoiding counterfactual statements, which has been considered a positive by some \citep{dawid_causal_2000} and a negative by others:
+
+\begin{quote}
+[...] Dawid, in our opinion, incorrectly concludes that an approach to causal inference based on ``decision analysis'' and free of counterfactuals is completely satisfactory for addressing the problem of inference about the effects of causes.\citep{robins_causal_2000}
+\end{quote}
+
+It may be surprising to some, then, that we can use see-do models to formally state these key assumptions associated with potential outcomes models. Furthermore, we will argue that potential outcomes are typically a strategy to motivate inductive assumptions in see-do models, and we will show that the counterfactual interpretation is unnecessary for this purpose.
+
+\subsection{Potential outcomes in see-do models}
+
+A basic property of potential outcomes models is the relation between variables representing actual outcomes and variables representing potential outcomes, which was stated informally in the opening paragraph of this section.
+
+In the following definition, $\RV{Y}(W)=(\RV{Y}(w))_{w\in W}$.
+
+\begin{definition}[Potential outcomes]\label{def:potential_outcomes}
+Given a Markov kernel space $(\kernel{K},E,F)$, a collection of variables $\{\RV{Y}, \RV{Y}(W), \RV{W}\}$ where $\RV{Y}$ and $\RV{Y}(W)$ are random variables and $\RV{W}$ could be either a state or a random variable is a \emph{potential outcome submodel} if $\kernel{K}[\RV{Y}|\RV{W}\RV{Y}(W)]$ exists and $\kernel{K}[\RV{Y}|\RV{W}\RV{Y}(W)]_{i j_1 j_2 ... j_{|W|}} = \delta[j_i]$. 
+\end{definition}
+
+\todo[inline]{How this will change: a potential outcomes model is a comb $\model{K}[\RV{Y}(W)|\RV{H}]\rightrightarrows \model{K}[\RV{Y}|\RV{W}\RV{Y}(W)]$.}
+
+We allow $\RV{X}$ to be a state or a random variable to cover the cases where potential outcomes models feature as submodels of observation models (in which case $\RV{X}$ is a random variable) or as submodels of consequence models (in which case $\RV{X}$ may be a state variable).
+
+As an aside that we could define stochastic potential outcomes if we allow the variables $\RV{Y}(x)$ to take values in $\Delta(Y)$ rather than in $Y$, and then require $\kernel{K}[\RV{Y}|\RV{X}\RV{Y}(X)]_{i j_1 j_2 ... j_{|X|}} = j_i$ (where $j_i$ is an element of $\Delta(Y)$). This is more complex to work with and rarely seen in practice, but it is worth noting that Definition \ref{def:potential_outcomes} can be generalised to cover models where $\RV{Y}(x)$ describes the value $\RV{Y}$ would take if $\RV{X}$ were $x$ \emph{with uncertainty}.
+
+An arbitrary see-do model featuring potential outcome submodels does not necessarily allow for the formal statement of the counterfactual interpretation of potential outcomes. Here we use TYT (``the actual thing'') and ``regime'' to refer to the things we are actually trying to model. We require that $\RV{Y}\overset{a.s.}{=}\RV{Y}(w)$ conditioned on $\RV{W}=w$. If we add an interpretation to this model saying $\RV{Y}$ represents TYT and $\RV{W}$ represents the regime, then we have ``for all $w$, $\RV{Y}(w)$ is equal to $\RV{Y}$ which represents TYT under the regime $w$''. However, this does not guarantee that our model has anything that reasonably represents ``what TYT would be equal to under supposed regime $w$ if the regime is actually $w'$''.
+
+We propose \emph{parallel potential outcome submodels} as a means of formalising statements about what how TYT behaves under ``supposed'' and ``actual'' regimes:
+
+\begin{definition}[Parallel potential outcomes]\label{def:pa_pot_outcomes}
+Given a Markov kernel space $(\kernel{K},E,F)$, a collection of variables $\{\RV{Y}_i, \RV{Y}(W), \RV{W}_i\}$, $i\in [n]$, where $\RV{Y}_i$ and $\RV{Y}(W)$ are random variables and $\RV{W}_i$ could be either a state or random variables is a \emph{parallel potential outcome submodel} if $\kernel{K}[\RV{Y}_i|\RV{W}_i\RV{Y}(W)]$ exists and $\kernel{K}[\RV{Y}_i|\RV{W}_i\RV{Y}(W)]_{k j_1 j_2 ... j_{|W|}} = \delta[j_k]$.
+\end{definition}
+
+\todo[inline]{How this will change: a parallel potential outcomes model is a comb $\model{K}[\RV{Y}(W)|\RV{H}]\rightrightarrows \model{K}[\RV{Y}_i|\RV{W}_i\RV{Y}(W)]$.}
+
+A parallel potential outcomes model features a sequence of $n$ ``parallel'' outcome variables $\RV{Y}_i$ and $n$ ``regime proposals'' $\RV{W}_i$, with the property that if the regime proposal $\RV{W}_i=w_i$ then the corresponding outcome $\RV{Y}_i\overset{a.s.}{=} \RV{Y}(w_i)$. We can identify a particular index, say $n=1$, with the actual world and the rest of the indices with supposed worlds. Thus $\RV{Y}_1$ represents the value of TYT in the actual world and $\RV{Y}_i$ $i\neq 1$ represents TYT under a supposed regime $\RV{W}_i$. Given such an interpretation, the fact that $\RV{Y}_i\overset{a.s.}{=} \RV{Y}(w_i)$ can be interpreted as assuming ``for all $w$, if the supposed regime $\RV{W}_i$ is $w$ then the corresponding outcome will be almost surely equal to $\RV{Y}(w)$, regardless of the value of the actual regime $\RV{W}_1$'', which is our original counterfactual assumption.
+
+We do not intend to defend this as the only way that counterfactuals can be modeled, or even that it is appropriate to capture the idea of counterfactuals at all. It is simply a way that we can model the counterfactual assumption typically associated with potential outcomes. We will show show that parallel potential outcome submodels correspond precisely to \emph{extendably exchangeable} and \emph{deterministically reproducible} submodels of Markov kernel spaces.
+
+
+\subsection{Parallel potential outcomes representation theorem}
+
+Exchangeble sequences of random variables are sequences whose joint distribution is unchanged by permutation. Independent and identically distributed random variables are one example: if $\RV{X}_1$ is the result of the first flip of a coin that we know to be fair and $\RV{X}_2$ is the second flip then $\prob{P}[\RV{X}_1\RV{X}_2]=\prob{P}[\RV{X}_2\RV{X}_1]$. There are also many examples of exchangeable sequences that are not mutually independent and identically distributed -- for example, if we want to use random variables $\RV{Y}_1$ and $\RV{Y}_2$ to model our subjective uncertainty regarding two flips of a coin of unknown fairness, we regard our initial uncertainty for each flip to be equal $\prob{P}[\RV{Y}_1]=\prob{P}[\RV{Y}_2]$ and we our state of knowledge of the second flip after observing only the first will be the same as our state of knowledge of the first flip after observing only the second $\prob{P}[\RV{Y}_2|\RV{Y}_1]=\prob{P}[\RV{Y}_1|\RV{Y}_2]$, then our model of subjective uncertainty is exchangeable.
+
+De Finetti's representation theorem establishes the fact that any infinite exchangeable sequence $\RV{Y}_1, \RV{Y}_2, ...$ can be modeled by the product of a \emph{prior} probability $\prob{P}[\RV{J}]$ with $\RV{J}$ taking values in the set of marginal probabilities $\Delta(Y)$ and a conditionally independent and identically distributed Markov kernel $\prob{P}[\RV{Y}_A|\RV{J}]_j^{y_A} = \prod_{i\in A} \prob{P}[\RV{Y}_1|\RV{J}]_j^{y_i}$.
+
+We extend the idea of exchangeable sequences to cover both random variables and state variables, and we show that a similar representation theorem holds for potential outcomes. De Finetti's original theorem introduced the variable $\RV{J}$ that took values in the set of marginal distributions over a single observation; the set of potential outcome variables plays an analagous role taking values in the set of functions from propositions to outcomes.
+
+The representation theorem for potential outcomes is somewhat simpler that De Finetti's original theorem due to the fact that potential outcomes are usually assumed to be \emph{deterministically reproducible}; in the parallel potential outcomes model, this means that for $j\neq i$, if $\RV{W}_j$ and $\RV{W}_i$ are equal then $\RV{Y}_j$ and $\RV{Y}_i$ will be almost surely equal. This assumption of determinism means that we can avoid appeal to a law of large numbers in the proof of our theorem.
+
+\todo[inline]{An interesting question is whether there is a similar representation theorem for potential outcomes without the assumption of deterministic reproducibility. I'm reasonably confident that this is a straightforward corollary of the representation theorem proved in my thesis. However, this requires maths not introduced in this draft of the paper.}
+
+Extendably exchangeable sequences can be permuted without changing their conditional probabilities, and can be extended to arbitrarily long sequences while maintaining this property. We consider here sequences that are exchangeable conditional on some variable; this corresponds to regular exchageability if the conditioning variable is $\stopper{0.2}$ where $\stopper{0.2}_i = 1$.
+
+\begin{definition}[Exchangeability]\label{def:exchangeable}
+Given a Markov kernel space $(\kernel{K},E,F)$, a sequence of variables $\left((\RV{D}_i,\RV{Y}_i)\right)_{i\in [n]}$ with $\RV{Y}_i$ random variables is \emph{exchangeable} conditional on $\RV{Z}$ if, defining $\RV{Y}_{[n]} = (\RV{Y}_i)_{i\in [n]}$ and $\RV{D}_{[n]}= (\RV{D}_i)_{i\in [n]}$, $\kernel{K}[\RV{Y}_{[n]}|\RV{D}_{[n]}\RV{Z}]$ exists and for any bijection $\pi:[n]\to [n]$ $\kernel{K}[\RV{Y}_{\pi([n])}|\RV{D}_{\pi([n])}\RV{Z}]=\kernel{K}[\RV{Y}_{[n]}|\RV{D}_{[n]}\RV{Z}]$.
+\end{definition}
+
+\begin{definition}[Extension]
+Given a Markov kernel space $(\kernel{K},E,F)$, $(\kernel{K}',E',F')$ is an \emph{extension} of $(\kernel{K},E,F)$ if there is some random variable $\RV{X}$ and some state variable $\RV{U}$ such that $\kernel{K}'[\RV{X}|\RV{U}]$ exists and $\kernel{K}'[\RV{X}|\RV{U}]=\kernel{K}$.
+\end{definition}
+
+If $(\kernel{K}',E',F')$ is an extension of $(\kernel{K},E,F)$ we can identify any random variable $\RV{Y}$ on $(\kernel{K},E,F)$ with $ \RV{Y}\circ \RV{X}$ on $(\kernel{K}',E',F')$ and any state variable $\RV{D}$ with $\RV{D}\circ \RV{U}$ on $(\kernel{K}',E',F')$ and under this identification $\kernel{K}'[\RV{Y}\circ\RV{X}|\RV{D}\circ\RV{E}]$ exists iff $\kernel{K}[\RV{Y}|\RV{D}]$ exists and $\kernel{K}'[\RV{Y}\circ\RV{X}|\RV{D}\circ\RV{E}]=\kernel{K}[\RV{Y}|\RV{D}]$. To avoid proliferation of notation, if we propose $(\kernel{K},E,F)$ and later an extension $(\kernel{K}',E',F')$, we will redefine $\kernel{K}:=\kernel{K}'$ and $\RV{Y}:=\RV{Y}\circ \RV{X}$ and $\RV{D}:=\RV{D}\circ\RV{E}$.
+
+\todo[inline]{I think this is a very standard thing to do -- propose some $\RV{X}$ and $\prob{P}(\RV{X})$ then introduce some random variable $\RV{Y}$ and $\prob{P}(\RV{X}\RV{Y})$ as if the sample space contained both $\RV{X}$ and $\RV{Y}$ all along.}
+
+\begin{definition}[Extendably exchangeable]\label{def:ext_exchangeable}
+Given a Markov kernel space $(\kernel{K},E,F)$, a sequence of variables $\left((\RV{D}_i,\RV{Y}_i)\right)_{i\in [n]}$ and a state variable $\RV{Z}$ with $\RV{Y}_i$ random variables is \emph{extendably exchangeable} if there exists an extension of $\kernel{K}$ with respect to which $\left((\RV{D}_i,\RV{Y}_i)\right)_{i\in \mathbb{N}}$ is exchangeable conditional on $\RV{Z}$.
+\end{definition}
+
+Here that we identify $\RV{Z}$ and $\left((\RV{D}_i,\RV{Y}_i)\right)_{i\in [n]}$ defined on the extension with the original variables defined on $(\kernel{K},E,F)$ while $\left((\RV{D}_i,\RV{Y}_i)\right)_{i\in \mathbb{N}\setminus[n]}$ may be defined only on the extension.
+
+Deterministically reproducible sequences have the property that repeating the same decision gets the same response with probability 1. This could be a model of an experiment that exhibits no variation in results (e.g. every time I put green paint on the page, the page appears green), or an assumption about collections of ``what-ifs'' (e.g. if I went for a walk an hour ago, just as I actually did, then I definitely would have stubbed my toe, just like I actually did). Incidentally, many consider that this assumption is false concering what-if questions about things that exhibit quantum behaviour.
+
+\begin{definition}[Deterministically reproducible]
+Given a Markov kernel space $(\kernel{K},E,F)$, a sequence of variables $\left((\RV{D}_i,\RV{Y}_i)\right)_{i\in [n]}$ with $\RV{Y}_i$ random variables is \emph{deterministically reproducible} conditional on $\RV{Z}$ if $n\geq 2$, $\kernel{K}[\RV{Y}_{[n]}|\RV{D}_{[n]}\RV{Z}]$ exists and $\kernel{K}[\RV{Y}_{\{i,j\}}|\RV{D}_{\{i,j\}}\RV{Z}]_{kk}^{lm} = \llbracket l=m \rrbracket \kernel{K}[\RV{Y}_{i}|\RV{D}_{i}\RV{Z}]_{k}^{l}$ for all $i,j,k,l,m$.
+\end{definition}
+
+\begin{theorem}[Potential outcomes representation]\label{th:cfac_rep}
+Given a Markov kernel space $(\kernel{K},E,F)$ along with a sequence of variables $\left((\RV{D}_i,\RV{Y}_i)\right)_{i\in [n]}$ with $n\geq 2$ and a conditioning variable $\RV{Z}$, $(\kernel{K},E,F)$ can be extended with a set of variables $\RV{Y}(D):=(\RV{Y}(i))_{i\in D}$ such that $\{\RV{Y}_i, \RV{Y}(D), \RV{D}_i\}$ is a parallel potential outcome submodel if and only if $\left((\RV{D}_i,\RV{Y}_i)\right)_{i\in [n]}$ is extendably exchangeable and deterministically reproducible conditional on $\RV{Z}$.
+\end{theorem}
+
+\begin{proof}
+If:
+Because $\left((\RV{D}_i,\RV{Y}_i)\right)_{i\in [n]}$ is extendably exchangeable, we can without loss of generality assume $n\geq |D|$.
+
+Let $e=(e_i)_{i\in {[|D|]}}$. Introduce the variable $\RV{Y}(i)$ for $i\in D$ such that $\kernel{K}[\RV{Y}(D)|\RV{D}_{[D]}\RV{Z}]_{ez}=\kernel{K}[\RV{Y}_D|\RV{D}_D \RV{Z}]_{ez}$ and introduce $\RV{X}_i$, $i\in D$ such that $\kernel{K}[\RV{X}_i|\RV{D}_i\RV{Z}\RV{Y}(D)]_{e_izj_1...j_{|D|}}^{x_i} = \delta[j_{e_i}]^{x_i}$. Clearly $\{\RV{X}_{[n]},\RV{D}_{[n]},\RV{Y}(D)\}$ is a parallel potential outcome submodel. We aim to show that $\kernel{K}[\RV{Y}_{[n]}|\RV{D}_{[n]}\RV{Z}]=\kernel{K}[\RV{X}_{[n]}|\RV{D}_{[n]}\RV{Z}]$.
+
+Let $y:=(y_i)_{i\in |D|}\in Y^{|D|}$, $d:=(d_i)_{i\in [n]}\in D^{[n]}$, $x:=(x_i)_{i\in [n]}\in Y^{[n]}$.
+\begin{align}
+    \kernel{K}[\RV{X}_n|\RV{D}_n\RV{Z}]^x_{dz} &= \sum_{y\in Y^{|D|}} \kernel{K}[\RV{X}_{[n]}|\RV{D}_n\RV{Z}\RV{Y}(D)]_{dzy}^x \kernel{K}[\RV{Y}(D)|\RV{D}_{[n]}\RV{Z}]_{dz}^y\\
+                                               &= \sum_{y\in Y^{|D|}} \prod_{i\in [n]} \delta[y_{d_i}]^{x_i} \kernel{K}[\RV{Y}(D)|\RV{D}_n\RV{Z}]_{dz}^y
+\end{align}
+
+Wherever $d_i=d_j:=\alpha$, every term in the above expression will contain the product $\delta[\alpha]^{x_i}\delta[\alpha]^{x_j}$. If $x_i\neq x_j$, this will always be zero. By deterministic reproducibility, $d_i=d_j$ and $x_i\neq x_j$ implies $\kernel{K}[\RV{Y}_{[n]}|\RV{D}_{[n]}\RV{Z}]_dz^x=0$ also. We need to check for equality for sequences $x$ and $d$ such that wherever $d_i=d_j$, $x_i=x_j$. In this case, $\delta[\alpha]^{x_i}\delta[\alpha]^{x_j}=\delta[\alpha]^{x_i}$. Let $Q_d\subset[n]:=\{i|\not\exists i\in [n]: j<i \And d_j=d_i\}$, i.e. $Q$ is the set of all indices such that $d_i$ is the first time this value appears in $d$. Note that $Q_d$ is of size at most $|D|$. Let $Q_d^C=[n]\setminus Q_d$, let $R_d\subset D:\{d_i|i\in Q_d\}$ i.e. all the elements of $D$ that appear at least once in the sequence $d$ and let $R^C_d=D\setminus R_d$. 
+
+Let $y'=(y_i)_{i\in Q_d^C}$, $x_{Q_d} = (x_i)_{i\in Q_d}$, $\RV{Y}(R_d)=(\RV{Y}_d)_{d\in R_d}$ and $\RV{Y}(S_d)=(\RV{Y}_d)_{d\in S_d}$.
+\begin{align}
+    \kernel{K}[\RV{X}_{[n]}|\RV{D}_{[n]}\RV{Z}]^x_{dz} &= \sum_{y\in Y^{|D|}} \prod_{i\in Q_d} \delta[y_{d_i}]^{x_i} \kernel{K}[\RV{Y}(D)|\RV{D}_{[n]}\RV{Z}]_{dz}^y\\
+                                               &= \sum_{y'\in Y^{|R^C_d|}} \kernel{K}[\RV{Y}(R_d)\RV{Y}(R^C_d)|\RV{D}_{Q_d}\RV{D}_{Q_d^C}\RV{Z}]_{d_{Q_d}d_{Q_d}^Cz}^{x_{Q_d}y'}\\
+                                               &= \sum_{y'\in Y^{|R^C_d|}} \kernel{K}[\RV{Y}_{R_d}\RV{Y}_{R^C_d}|\RV{D}_{Q_d}\RV{D}_{Q_d^C}\RV{Z}]_{dz}^{x_{Q_d}y'}\\
+                                               &= \sum_{y'\in Y^{|R^C_d|}} \kernel{K}[\RV{Y}_{[n]}|\RV{D}_{[n]}\RV{Z}]_{dz}^{x_{Q_d}y'}\qquad\text{ (using exchangeability})
+\end{align}
+
+Note that 
+
+
+
+Only if:
+We aim to show that the sequences $\RV{Y}_{[n]}$ and $\RV{D}_{[n]}$ in a parallel potential outcomes submodel are exchangeable and deterministically reproducible.
+\end{proof}

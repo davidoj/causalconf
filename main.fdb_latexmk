@@ -1,16 +1,16 @@
 # Fdb version 3
-["bibtex main"] 1634189862 "main.aux" "main.bbl" "main" 1634189866
+["bibtex main"] 1634516415 "main.aux" "main.bbl" "main" 1634516420
   "/usr/share/texlive/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "main.aux" 1634189866 15796 5b23a113165850ba64a00bb83bd6d589 "xelatex"
+  "main.aux" 1634516419 15856 623c456603b44edf87f30d89e16f4b65 "xelatex"
   "references.bib" 1634101091 191251 48c50378c120beb3c2cd63dd3bf777a6 ""
   (generated)
   "main.blg"
   "main.bbl"
-["xdvipdfmx"] 1634189866 "main.xdv" "main.pdf" "main" 1634189866
-  "main.xdv" 1634189866 484552 2ee04015ed3aa51f0fbe724e4ab029b8 "xelatex"
+["xdvipdfmx"] 1634516419 "main.xdv" "main.pdf" "main" 1634516420
+  "main.xdv" 1634516419 502280 5508142ea6b0f5904f50e8238cf61c6a "xelatex"
   (generated)
   "main.pdf"
-["xelatex"] 1634189862 "main.tex" "main.xdv" "main" 1634189866
+["xelatex"] 1634516415 "main.tex" "main.xdv" "main" 1634516420
   "/etc/texmf/web2c/texmf.cnf" 1590547021 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -257,12 +257,12 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
   "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1599613219 4648586 d2b7c7b61735336533540bc8faab0630 ""
   "appendix.tex" 1633061279 25053 0f98e5f7a1f02c33088dacb52a1d7892 ""
-  "cbns.tex" 1634189857 13397 c4660db8a30761c18a28a85a7fd5ca07 ""
+  "cbns.tex" 1634516411 14811 bed819431d775c64e6bec2205f511046 ""
   "diagrams.tikzstyles" 1632877974 1424 2418df6d3fb3b65107262c2962e11ad5 ""
   "figures/cbn_sd2.tikz" 1634186069 886 b9ec601a80b9dbd94d3497c3b73198f7 ""
   "figures/cbn_sd23.tikz" 1634186995 1588 9cae6207831960121165dc20fa23e0b9 ""
   "figures/cbn_sd_2comb.tikz" 1634187254 1770 228802787b0d3bf1807f11fd6d5e412b ""
-  "figures/cbn_sd_2comb_extended.tikz" 1634189854 2342 a63da228add43ccb604bc7d19847ac36 ""
+  "figures/cbn_sd_2comb_extended.tikz" 1634379666 2194 1cab46cf0fc6d032c7f8385289252414 ""
   "figures/cbn_seedo.tikz" 1634184675 848 0e193a33ac578d4a85a4fc84f77880b4 ""
   "figures/ccom2_lhs.tikz" 1632877998 448 4f15b77e6de827c7c0a0fc91e7ce3ae0 ""
   "figures/ccom2_mhs.tikz" 1632878030 257 40c731348696c097b572af178cbb4b6f ""
@@ -286,21 +286,23 @@
   "figures/naturality_rhs.tikz" 1632879511 273 9ecac0febf804faadb31843414954044 ""
   "figures/precompose_with_copymap.tikz" 1633999399 774 7e2eb555ffa14f8e269d9d6ec8db79dc ""
   "figures/seedo.tikz" 1634010744 1369 cbc0f028f0b552ee17f95fcf6c432927 ""
+  "figures/strategy_2step.tikz" 1634380706 1802 d23c8b4b379438db0ffc10df49fa4b61 ""
+  "figures/strategy_2step_simplified.tikz" 1634380806 1073 1c30220c831da98d993d8f946c3c4378 ""
   "figures/truncated_fac_definition.tikz" 1634186342 1251 1a6b803c0713c54ce86a29aaaa543086 ""
   "figures/truncated_factorisation.tikz" 1633495524 1140 e8792a2d5c1893af90c000b4cfff0be0 ""
   "figures/truncated_factorisation_labeled.tikz" 1633495574 1164 bab4c1ab44090ec79620d9ad15d0efd7 ""
-  "main.aux" 1634189866 15796 5b23a113165850ba64a00bb83bd6d589 "xelatex"
-  "main.bbl" 1634189862 10015 c199f2c60a7c4b4f6f8da9ca803ee667 "bibtex main"
-  "main.out" 1634189866 1875 e735020fb05ed0fb940e17195cf2e9e9 "xelatex"
+  "main.aux" 1634516419 15856 623c456603b44edf87f30d89e16f4b65 "xelatex"
+  "main.bbl" 1634516415 10428 b7b6c6d37df60ec911c6a781d241a404 "bibtex main"
+  "main.out" 1634516419 1875 e735020fb05ed0fb940e17195cf2e9e9 "xelatex"
   "main.tex" 1633825013 12688 087bff43765e41c11dd1510727bc1ed4 ""
-  "main.toc" 1634189866 2063 c75f0ddad0ee4c808d36ae42a2987a32 "xelatex"
+  "main.toc" 1634516419 2063 36bbd4019ca5eafe0f17ae8877a91373 "xelatex"
   "potential_outcomes.tex" 1633052355 19851 20c85bb6e15c70cea0ad0c1596e33358 ""
   "probability.tex" 1634172590 47364 7dda3be807fa1ea7c80ab6d8b718c887 ""
-  "seedo.tex" 1634101931 12385 db0f2baaef3d8ea75371e6078edc141e ""
+  "seedo.tex" 1634381054 12667 ee01dc4ceb4e8f3e8221842c16f8e56c ""
   "tikzit.sty" 1632791409 1248 43e1a5fcf14fc024e289b1463d1206ce ""
   (generated)
-  "main.log"
-  "main.aux"
   "main.out"
+  "main.log"
   "main.toc"
   "main.xdv"
+  "main.aux"
