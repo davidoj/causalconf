@@ -3,27 +3,62 @@
 
 \section{Potential outcomes}\label{sec:potential_outcomes}
 
-We began by discussing a small controversy about ``the causal effect of obesity''; can such a quantity be defined if we have different actions that might affect obesity that might each have different impacts on health outcomes? For a particular decision, the question of whether obesity is a full-knowledge proxy for that decision's effects on health seems to have some bearing on whether the ``causal effect'' of obesity is or is not useful for this purpose. While we do not investigate approximate versions of this assumption, it may be acceptable if some approximate version of this assumption holds.
+We began by discussing a small controversy about ``the causal effect of obesity''; can such a quantity be defined if we have different actions that might affect obesity that might each have different impacts on health outcomes? \citet{hernan_does_2008} posit that vague interventions violate the assumption of \emph{consistency}, and this makes the causal effect ill-defined. We think that the potential outcomes framework is inadequate to precisely state the problem, and the sense in which consistency may or may not hold is vague at best. Rather, the crucial question is whether obesity serves as a proxy for decisions of interest under conditions of full knowledge of the obesity-health outcome relationship.
 
-\citet{hernan_does_2008,noauthor_does_2016} posit that vague interventions violate the assumption of \emph{consistency}. This is an assumption found in the potential outcomes literature, and we want to briefly discuss what it might mean for this assumption to be violated.
+\citet{noauthor_does_2016} argues at length that in order for consistency to hold, interventions must be sufficiently well-defined. Regarding well-defined interventions, they say:
+\begin{quote}
+Each version in the list [of interventions] above is the result of making a particular decision about those aspects of the intervention (which are key to the specification of the target trial). \emph{Different scientists may disagree about these decisions.}
+\end{quote}
+(emphasis ours).
 
-\begin{definition}[Potential outcomes model]\label{def:potential_outcomes}
-Given variables $\RV{Y}:\Omega\to Y$ and $\RV{X}:\Omega\to X$, a \emph{potential outcomes model} of $\RV{Y}$ given $\RV{X}$ is a collection of variables $\RV{Y}_X:=(\RV{Y}_x)_{x\in X}$ known as the potential outcomes, along with a model $\model{K}^{\RV{XYY}_X|\RV{W}}$ such that
-\begin{align}
-    \model{K}^{\RV{XYY}_X|\RV{W}}(x,y,y_X|w) = \llbracket y_x=y \rrbracket \kernel{Q}^{x,y_x}_{w}
-\end{align}
-For some $\kernel{Q}:W\kto Y^X\times X$
+The problem that Hern\'an is alluding to here is related to the scope of observable variables. As we have noted, observations are frequently ``public'', in the sense that it is usually possible to specify with sufficient precision that a wide variety of observers will agree on the value of the variable at any particular time. On the other hand, my decisions are observable in the sense that \emph{I} can often say say which options I am contemplating, and after I have made a decision I know which one I have made. However, unless I explain my options quite carefully to someone else they will not know what I am considering, nor which choice I ultimately made. Unlike observation variables, decision variables are typically private.
+
+If decisions are typically private, it is challenging to say whether obesity serves as a proxy for health outcomes for the set of decisions \emp{you} or \emph{some doctor} or \emph{some individual} is contemplating. We do not provide a solution to this problem in this paper -- our contribution is to show how we need probabilistic models with decisions in order to ask this question in the first place!
+
+\todo[inline]{I think that the notion of \emph{imitability} is a reasonable step towards answering questions about when the decisions different people are contemplating might be answered by the same causal model, but I definitely cannot discuss it here!}
+
+We will say a few words about consistency in the potential outcomes framework. First, we will define a potential outcomes.
+
+\todo[inline]{Consistency as we use it is not the same as consistency as the potential outcomes folk use it...ergh}
+
+\begin{definition}[Projection]
+Given variables $\RV{X}:\Omega\to X$ and $\{\RV{Y}^x:\Omega\to Y|x\in X\}$, define $\RV{Y}^X:(\RV{Y}^x)_{x\in X}$. The indexed projection $\pi:X\times Y^X\to Y$ is the function that sends $(x,y^1,...,y^{|X|})\to y^x$.
 \end{definition}
 
-\begin{lemma}[All pairs of variables can be modeled as potential outcomes]
-For any variables $\RV{Y}:\Omega\to Y$ and $\RV{X}:\Omega\to X$ and any $\model{L}^{\RV{YX}|\RV{W}}$, there exists a potential outcomes model $\RV{Y}_X$, $\model{K}^{\RV{XYY}_X|\RV{W}}$ such that for all $x\in X$, $y\in Y$, $w\in W$
-\begin{align}
-    \model{K}^{\RV{XYY}_X|\RV{W}}(x,y,y_X|w) &= \model{L}^{\RV{YX}|\RV{W}}(x,y|w)
-\end{align}
+\begin{definition}[Potential outcomes]\label{def:potential_outcomes}
+Given variables $\RV{Y}:\Omega\to Y$ and $\RV{X}:\Omega\to X$, we introduce a collection of latent variables called \emph{potential outcomes} $\RV{Y}^X:=(\RV{Y}^x)_{x\in X}$ such that $\RV{Y} = \pi\circ(\RV{X},\RV{Y}^X)$. A \emph{potential outcomes model} is any consistent model of $\RV{Y}$, $\RV{X}$ and $\RV{Y}^X$.
+\end{definition}
+
+The following lemma shows that consistent potential outcomes models by themselves require nothing special.
+
+\begin{lemma}[We can always define potential outcomes]\label{lem:po_triviality}
+For any pair of variables $\RV{Y}:\Omega\to Y$ and $\RV{X}:\Omega\to X$, we can always define potential outcomes $\RV{Y}_X$ such that any consistent model of $\RV{X}$ and $\RV{Y}$ can be extended to a consistent model of $\RV{X}$, $\RV{Y}$ and $\RV{Y}^X$.
 \end{lemma}
 
 \begin{proof}
-Define $\model{K}^{Y_X}:=\model{L}$
+Define $\RV{Y}^X:=(\RV{Y})_{x\in X}$. Then we can extend any model of $\RV{X}$ and $\RV{Y}$ with $|X|$ copies of $\RV{Y}$ by repeated application of Lemma \ref{lem:nocopy1}. 
+
+With this choice of potential outcomes $\pi\circ(\RV{X},\RV{Y})=\RV{Y}$.
 \end{proof}
 
-According to \citet{rubin_causal_2005}, potential outcomes models are models of sequences of observations, not models of observations and consequences together.
+$\RV{Y}$ is deterministic given $\RV{Y}^X$ and $\RV{X}$, and so is independent of any other variable conditional on these two.
+
+\begin{lemma}[Multiplexer kernel]
+Given $\RV{X}$, $\RV{Y}$, potential outcomes $\RV{Y}^X$ variationally independent of $\RV{X}$ and arbitrary $\RV{W}$ variationally independent of $\RV{Y}$ and $\RV{X}$, any consistent potential outcomes model $\model{T}^{\RV{Y}|\RV{Y}^X\RV{X}\RV{W}}=\text{del}_{\RV{W}} \otimes \model{T}^{\RV{Y}|\RV{Y}^X\RV{X}}$, where
+\begin{align}
+    \model{T}^{\RV{Y}|\RV{Y}^X\RV{X}}(y|y^X,x) = \llbracket y=\pi(x,y^X) \rrbracket\\
+\end{align}
+We call $\model{T}^{\RV{Y}|\RV{Y}^X\RV{X}}$ a \emph{multiplexer}.
+\end{lemma}
+
+\begin{proof}
+Because $\RV{Y} = \pi\circ(\RV{X},\RV{Y}^X)$ and $\RV{Y}^X, \RV{X}$ and $\RV{W}$ are variationally independent, we must have $\RV{Y} \overset{a.s.}{=} \pi\circ(\RV{X},\RV{Y}^X)$ for all $x, y^X$ and $w$.
+\end{proof}
+
+The question we really want to ask is ``can the things we are interested be modelled by a consistent potential outcomes to model?'' What are we trying to model? According to \citet{rubin_causal_2005}, we model sequences of observations with potential outcomes models. Given Lemma \ref{lem:po_triviality}, it is obvious that we are not \emph{just} trying to model observations, or else we would be satisfied with attaching a trivial collection of potential outcomes to any such model. We will focus on the modelling of decision problems, though see Appendix \ref{sec:pot_rep} for a discussion of representing parallel experiments.
+
+The basic assumption we make to consider decision problems with potential outcomes is that we have a sequence $\RV{Y}^X_i$ that are independent and identically distributed conditional on $\RV{H}$, and that for any $i$, $\RV{Y}^X_i$ are potential outcomes for $\RV{X}_i$ and $\RV{Y}_i$.
+
+\begin{align}
+
+\end{align}
