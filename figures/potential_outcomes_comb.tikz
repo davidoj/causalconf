@@ -1,0 +1,51 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (-3.5, 2.5) {$\model{T}^{\RV{Y}_1^X|\RV{H}}$};
+		\node [style=Llabel tikzit] (2) at (-6, 1.75) {$\RV{H}$};
+		\node [style=Llabel tikzit] (3) at (7.5, 2.75) {$\RV{X}_2$};
+		\node [style=RLabel tikzit] (4) at (4.75, 1.75) {$\RV{X}_1$};
+		\node [style=copymap tikzit] (6) at (-5.25, 1.75) {};
+		\node [style=RLabel tikzit] (13) at (4.75, 2.75) {$\RV{Y}_1$};
+		\node [style=small kernel tikzit] (14) at (0.25, 1.5) {$\model{T}^{\RV{X}_1|\RV{Y}^X\RV{H}}$};
+		\node [style=copymap tikzit] (15) at (-2, 2.5) {};
+		\node [style=small kernel tikzit] (16) at (3.25, 2.75) {$\Pi$};
+		\node [style=copymap tikzit] (17) at (2, 1.75) {};
+		\node [style=none] (18) at (3, 3) {};
+		\node [style=none] (19) at (3, 2.5) {};
+		\node [style=none] (20) at (-1, 1.5) {};
+		\node [style=none] (21) at (-1, 1.25) {};
+		\node [style=small kernel tikzit] (22) at (0.75, 0) {$\model{T}^{\RV{Y}_1^X|\RV{H}}$};
+		\node [style=RLabel tikzit] (23) at (12.75, 0.25) {$\RV{X}_2$};
+		\node [style=RLabel tikzit] (24) at (12.75, 1.25) {$\RV{Y}_2$};
+		\node [style=small kernel tikzit] (27) at (11, 1.25) {$\Pi$};
+		\node [style=copymap tikzit] (28) at (9.75, 0.25) {};
+		\node [style=none] (29) at (10.5, 1.5) {};
+		\node [style=none] (30) at (10.5, 1) {};
+		\node [style=RLabel tikzit] (31) at (4.75, 3.75) {$\RV{H}$};
+		\node [style=copymap tikzit] (32) at (3, 0) {};
+		\node [style=RLabel tikzit] (33) at (4.75, 0.75) {$\RV{Y}^X_2$};
+		\node [style=none] (34) at (7, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (2) to (6);
+		\draw [in=180, out=15] (6) to (0);
+		\draw (0) to (15);
+		\draw [in=180, out=0] (15) to (18.center);
+		\draw [in=-180, out=30] (17) to (19.center);
+		\draw (16) to (13);
+		\draw (17) to (4);
+		\draw (14) to (17);
+		\draw [in=-180, out=-30] (15) to (20.center);
+		\draw [in=-180, out=0] (6) to (21.center);
+		\draw [in=-180, out=30] (28) to (30.center);
+		\draw (27) to (24);
+		\draw (28) to (23);
+		\draw [in=180, out=0] (3) to (28);
+		\draw [in=-180, out=-45, looseness=0.75] (6) to (22);
+		\draw [in=-180, out=90, looseness=0.75] (6) to (31);
+		\draw (22) to (32);
+		\draw [in=-180, out=30] (32) to (33);
+		\draw (34.center) to (32);
+		\draw [in=180, out=0] (34.center) to (29.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

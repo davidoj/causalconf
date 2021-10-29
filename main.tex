@@ -162,7 +162,7 @@
 
 \newcommand{\cheng}[1]{ {\color{purple}[{\bf Cheng:~{#1}}]} }
 
-\title{Understanding Causal Primitives Using Modular Probability }
+\title{When does one variable have a probabilistic causal effect on another?}
 \date{\today}
 
 \author{ David Johnston }
@@ -188,11 +188,11 @@ In a response, \citet{pearl_does_2018} argues that \emph{interventions} (by whic
 
 One of the key problems in this whole discussion is how the things we have called \emph{interventions} -- which are elements of causal models -- relate to the things we have called \emph{actions}, which live outside of causal models. One way to address this difficulty is to construct a bigger causal model that can contain both ``interventions'' and ``actions'', and we can then speak unambiguously about how one relates to another. This is precisely what we do here.
 
-To do this, we use a novel approach to probability modelling that we find is well suited to building causal mdoels. A typical approach to probability modelling is to construct a probability space $(\prob{P},\Omega,\sigalg{F})$ that serves as a top level model, along with a collection of random variables defined by measurable functions on this space, such that the particular quantities of interest can be obtained from conditional and marginal distributions on this space. Instead we consider a modelling context $\mathscr{M}$ that contains a collection of \emph{probability components}, which are Markov kernels with named inputs and outputs. The names correspond to variables in the standard setting. Probability components with the right input and output types can be \emph{connected}, an operation that yields a new probability component. We relate this back to the standard approach by equipping each probability component with a probability space and requiring that all components are the conditional probability distributions on their assigned spaces corresponding to their input and output labels.
-
-Equipped with this foundation, we apply it to a variety of approaches to causal modelling, showing how it can enable understanding of different approaches in a common framework, and how it can represent assertions that were previously made ``outside the model''. First, we consider causal decision problems and derive \emph{see-do models}, which reduce to statistical decision problems when augmented with the principle of expected utility. See-do models are a particular kind of probability component that we call a \emph{comb}, which can be thought of as a probability model that needs something to be inserted into the middle. We consider causal graphical models, and show how under a very slight modification to the standard notation they induce see-do models, which allows us to formally connect \emph{interventions} to \emph{actions}. Finally, we consider potential outcomes models and show how we can formalise the typical assertion (which again, lives ``outside the model'') that potential outcomes represent counterfactual values. Potential outcomes models as typically used do not contain counterfactual assertions and in fact feature comb and insert components almost but not quite identical to combs and inserts found in causal graphical models.
-
-\todo[inline]{I'm probably going to have to cut some of the above}
+\begin{itemize}
+  \item We need to talk about variables
+  \item We use compatibility + string diagrams
+  \item We consider causation in terms of ``proxy control''
+\end{itemize}
 
 
 % \end{abstract}

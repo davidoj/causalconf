@@ -1,11 +1,11 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=small kernel tikzit] (0) at (0.75, 1.25) {$\model{T}^{\RV{V}_1|\RV{H}}$};
-		\node [style=small kernel tikzit] (1) at (1.25, -0.75) {$\model{U}^{\RV{V}_2|\RV{HX}_2}$};
+		\node [style=small kernel tikzit] (0) at (0.75, 1.25) {$\model{U}^{\RV{V}_i|\RV{H}}$};
+		\node [style=small kernel tikzit] (1) at (1.25, -0.75) {$\model{U}^{\RV{V}_j|\RV{HX}_j}$};
 		\node [style=Llabel tikzit] (2) at (-1.75, 1.25) {$\RV{H}$};
-		\node [style=Llabel tikzit] (3) at (-1.75, -0.75) {$\RV{X}_B$};
-		\node [style=RLabel tikzit] (4) at (3.25, 1.25) {$\RV{V}_1$};
-		\node [style=RLabel tikzit] (5) at (3.25, -0.75) {$\RV{V}_2$};
+		\node [style=Llabel tikzit] (3) at (-1.75, -0.75) {$\RV{X}_j$};
+		\node [style=RLabel tikzit] (4) at (3.25, 1.25) {$\RV{V}_i$};
+		\node [style=RLabel tikzit] (5) at (3.25, -0.75) {$\RV{V}_j$};
 		\node [style=copymap tikzit] (6) at (-1, 1.25) {};
 		\node [style=none] (7) at (0.25, -0.5) {};
 		\node [style=none] (8) at (0.25, -1) {};
@@ -16,6 +16,6 @@
 		\draw [in=180, out=0] (3) to (8.center);
 		\draw (6) to (0);
 		\draw (0) to (4);
-		\draw (1) to (5);
+		\draw [in=180, out=0] (1) to (5);
 	\end{pgfonlayer}
 \end{tikzpicture}

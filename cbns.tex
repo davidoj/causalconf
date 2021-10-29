@@ -3,97 +3,126 @@
 
 \section{Causal Bayesian Networks}\label{sec:CBN}
 
-\todo[inline]{Vague variable = observable variable. The connotations of the latter make explanations a bit more intuitive. Also, somehow explain ``latent variables are things we use to make models''}
-
-What is a causal Bayesian network? We will consider a simplified case where a single node may be intervened on. With this condition, according to \citet{pearl_causality:_2009}, a causal Bayesian network is a probability model $\prob{P}$, a collection of interventional probability models $\{\prob{P}_{\RV{X}=a}|a\in X_i\}$ and a directed acyclic graph $\mathcal{G}$ whose nodes are identified with some collection of variables, which we can group into three variables $\{\RV{W},\RV{X},\RV{Y}\}$, where $\RV{W}$ is the sequence of variables associated with the parents of $\RV{X}$ in $\mathcal{G}$, $\RV{X}$ is the ``intervenable'' node of $\mathcal{G}$ and $\RV{Y}$ are associated with the other nodes. The interventional probability models must all obey the truncated factorisation condition with respect to $\mathcal{G}$:
+When do causal relationships as defined by causal Bayesian networks exist? We will consider a simplified case where a single node may be intervened on, and find the implied see-do model. With this condition, according to \citet{pearl_causality:_2009}, a causal Bayesian network is a probability model $\prob{P}$, a collection of interventional probability models $\{\prob{P}_{\RV{X}=a}|a\in X_i\}$ and a directed acyclic graph $\mathcal{G}$ whose nodes are identified with some collection of variables, which we can group into three variables $\{\RV{W},\RV{X},\RV{Y}\}$, where $\RV{W}$ is the sequence of variables associated with the parents of $\RV{X}$ in $\mathcal{G}$, $\RV{X}$ is the ``intervenable'' node of $\mathcal{G}$ and $\RV{Y}$ are associated with the other nodes. The interventional probability models must all obey the truncated factorisation condition with respect to $\mathcal{G}$:
 \begin{align}
     \prob{P}_{\RV{X}=a}^{\RV{W}\RV{X}\RV{Y}}(w,x,y) &= \prob{P}^{\RV{W}}(w)\prob{P}^{\RV{Y}|\RV{XW}}(y|x,w)\llbracket x=a \rrbracket\label{eq:truncated_fac2}
 \end{align}
 
-\todo[inline]{Prove this is equivalent to the normal definition}
-
-What are these variables $\{\RV{W},\RV{X},\RV{Y}\}$, and what do we mean they are distributed according to $\prob{P}$? To begin with, it means that observations are modeled by a sequence of variables $\RV{V}_A:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in A}$, for which we assume the triples $(\RV{W}_i,\RV{X}_i,\RV{Y}_i)$ are mutually independent and identically distributed but we are not sure exactly how they are distributed. This can be captured by introducing a latent variable $\RV{H}$representing the distribution of $\RV{V}_i:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)$ for any $i\in A$\footnote{Under the theory introduced we are implicitly assuming $\RV{H}$ to be finite. It would clearly be desirable to extend the theory so that we can weaken this assumption, but it doesn't prevent us from explaining the basic idea.}. Then we define a model of observations such that $\model{T}^{\RV{V}_i|\RV{H}}=\model{T}^{\RV{V}_j|\RV{H}}$ (for any $i,j\in A$) and $\RV{V}_i\CI_{\model{T}}\RV{V}_j|\RV{H}$. Then, the assumption ``given a probability model $\prob{P}$'' can be identified with the definition 
+A standard interpretation of the observational and interventional probability distributions is that we have a sequence of observations modeled by $\RV{V}_A:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in A}$ mutually independent and identically distributed according to $\prob{P}^{\RV{WXY}}$, and a sequence of consequences modeled by $\RV{V}_B:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in B}$ mutually independent and identically distributed according to $\prob{P}_{\RV{X}=a}^{\RV{WXY}}$, and $\prob{P}$ and $\prob{P}_{\RV{X}=a}$ are coupled by Equation \ref{eq:truncated_fac2}. What it means for $\prob{P}$ and $\prob{P}_{\RV{X}=a}$ to be coupled is: if $\prob{P}$ is the ``actual'' distribution of observations, then $\prob{P}_{\RV{X}=a}$ is the ``actual'' distribution of consequences. This can be explicitly represented by introducing a variable $\RV{H}$ representing the ``actual'' distribution of observations, and we introduce a model $\model{U}^{\cdot|\RV{H}}$ such that
 \begin{align}
-    \prob{P}:=\model{T}^{\RV{V}_i|\RV{H}}(\cdot|h)\text{ for some }h\in H\text{ and any }i\in A\label{eq:what_is_p}
+    \prob{P}^{\RV{V}_i}&:=\model{U}^{\RV{V}_i|\RV{H}}(v|h)\text{ for some }h\in H\text{ and any }i\in A, v\in W\times X\times Y\label{eq:what_is_p}\\
+    \prob{P}_{\RV{X}_j=a}^{\RV{V}_j}&:=\model{U}^{\RV{V}_j|\RV{HX}_j}(v|h,a)\text{ for some }h\in H\text{ and any }j\in B, v\in W\times X\times Y\label{eq:what_is_do}
+\end{align}
+We justify line \ref{eq:what_is_do} by noting that $\model{U}^{\RV{V}_i|\RV{HX}}$ is a Markov kernel $H\times X\kto W\times X\times Y$, which is the same type as the map $\kernel{Q}:=h,a\mapsto \prob{P}_{\RV{X}=a}$, and in addition Equation \ref{eq:truncated_fac2} ensures that defining $\model{U}^{\RV{V}_i|\RV{HX}}:=\kernel{Q}$ is consistent via Lemma \ref{lem:nocopy2}.
+
+Note that the assumptions of mutual independence $\RV{V}_i\CI \RV{V}_{A\cup B\setminus \{i\}}|\RV{H}$ for $i\in A$ and $\RV{V}_j\CI \RV{V}_{A\cup B\setminus \{j\}}|\RV{HX}_j$ for $j\in B$ are required for the existence of $\model{U}^{\RV{V}_i|\RV{H}}$ and $\model{U}^{\RV{V}_j|\RV{HX}_j}$ respectively.
+
+Then Equation \ref{eq:truncated_fac2} becomes
+\begin{align}
+    \model{U}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{HX}_j}(w,x,y|h,a) &= \model{U}^{\RV{W}_i|\RV{H}}(w)\model{U}^{\RV{Y}_i|\RV{X_iW_iH}}(y|x,w,h)\llbracket x=a \rrbracket & i\in A, j\in B \label{eq:truncated_fac3}
+\end{align}
+The only difference here is that the coupling between distributions of observations and consequences via $\RV{H}$ is explicit. 
+
+In most situations, $A$ will be disjoint from $B$. While we don't necessarily want to rule out considering consequences to be equal to observations, we usually want to consider consequences that may take different values from observations.
+
+For $i\in A$, $j\in B$, we can write $\model{U}^{\RV{V}_{i}\RV{V}_j|\RV{HX}_{j}}$ as follows
+\begin{align}
+    \model{U}^{\RV{V}_{i}\RV{V}_j|\RV{HX}_{j}} &= \tikzfig{cbn_sd2}\\
+    \model{U}^{\RV{V}_j|\RV{HX}_j} &= \tikzfig{truncated_fac_definition}\\
+    \implies \model{U}^{\RV{V}_A\RV{V}_j|\RV{HX}_{j}} &= \tikzfig{cbn_sd23}\label{eq:cbn_maybe_comb}
 \end{align}
 
-What do the interventional probability models represent? We have already established on the basis of observations that the variables $\RV{W},\RV{X},\RV{Y}$ don't represent ``observables'' in the sense we discuss in Section \ref{sec:variables} -- we cannot explain which observation specifically $\RV{W}$ represents. We will suppose, as with observations, that there is some set $B$ such that $\RV{V}_B$ are a sequence of observables modeled by the interventional models but we will leave $B$ unspecified for now. 
-
-We also know that interventional probability models are coupled to observational models via $\RV{H}$. That is Equations \ref{eq:truncated_fac2} and \ref{eq:what_is_p} together indicate that for different values $h,h'\in H$, we will generally get different sets of interventional models. We can define a collection of models of interventions $\model{U}^{\RV{V}_B|\RV{H}}_{\RV{X}_B=a}$ such that $\RV{V}_i$ are independent and identically distributed conditional on $\RV{H}$ and for any $i\in B$, $j\in A$:
-\begin{align}
-    \model{U}^{\RV{W}_i\RV{X}_i\RV{Y}_i|\RV{H}}_{\RV{X}_i=a}(w,x,y|h) &= \model{T}^{\RV{W}_j|\RV{H}}(w)\model{T}^{\RV{Y}_j|\RV{X_jW_jH}}(y|x,w,h)\llbracket x=a \rrbracket \label{eq:truncated_fac3}
-\end{align}
-This is just the same as Equation \ref{eq:truncated_fac2}, except we make the coupling between $\model{T}$ and $\model{U}$ via $\RV{H}$ explicit. We will also modify the notation in one more way. Instead of considering a collection of interventional models, we'll consider the map $\kernel{U}:=a\mapsto \model{U}^{\RV{V}_B|\RV{H}}_{\RV{X}_B=a}$. $\kernel{U}$ is a Markov kernel, and to make it a model we need to specify the domain and codomain indices. It can inherit the codomain index $(\RV{V}_B)$ from the original interventional interventional models, and its domain index is clearly going to be $(\RV{H},RV{Q})$ for some $\RV{Q}$ -- i.e. it will also inherit $\RV{H}$ in its domain index. 
-
-To work out what the remaining variable $\RV{Q}$ ought to be, the question we need to answer is: when we supply a value $a$ to $\kernel{U}$, \emph{which observable variable are we saying takes the value $a$}?  Consider that we refer to interventions by invoking the variable $\RV{X}_i$, as in the subscript ``$\RV{X}_i=a$'' (or, in alternative notation, $do(\RV{X}_i=a)$). Furthermore, Equations \ref{eq:truncated_fac2} and \ref{eq:truncated_fac3} force $\RV{X}$ to be deterministically equal to the argument of $\RV{U}$. For these reasons (and others we will see below), we think it is reasonable to choose $\RV{X}_B$ to be the remaining domain index of $\model{U}$. Thus we have:
-\begin{align}
-    \model{U}^{\RV{V}_B|\RV{HX}_B}(v|h,a) &= \model{U}^{\RV{V}_B|\RV{H}}_{\RV{X}_B=a}(v|h)\\
-    \model{U}^{\RV{W}_i\RV{X}_i\RV{Y}_i|\RV{HX}_i}(w,x,y|h,a)&=\model{U}^{\RV{W}_i\RV{X}_i\RV{Y}_i|\RV{H}}_{\RV{X}_i=a}(w,x,y|h)
-\end{align}
-And we stipulate that $(\RV{W}_i\RV{X}_i\RV{Y}_i)\CI_\model{U} \RV{V}_{B\setminus \{i\}} | \RV{H}\RV{X}_i$, which is makes the second line well-defined (without this we would have to condition on $\RV{X}_B$).
-
-We intentionally left the sets $A$ and $B$ vague. Let's consider the possibility that they overlap; that is, there is some $i\in A\cap B$. We can express the coupling between observational and interventional models by joining them with a copymap, as follows:
-\begin{align}
-    \tikzfig{cbn_seedo}\label{eq:inconsistent_cbn}
-\end{align}
-
-However, \ref{eq:inconsistent_cbn} cannot usually be a model. Because the variable $\RV{V}_i$ appears twice, unless we force the output at each terminal to be deterministically equal, which limits us to modelling deterministic functions of $\RV{H}$, then this model is inconsistent (see Lemma \ref{lem:nocopy1}). Thus we can conclude that, usually, $B\cap A=\emptyset$, that is to say observations are typically distinct from consequences. 
-
-\emph{Purely to avoid introducing new graphical notation}, we will suppose that $A=\{1\}$ and $B=\{2\}$. Because the sequences are conditionally independent and identically distributed, we can construct a model of arbitrary length sequences $A$ and $B$ from length-one examples. However, we will leave this construction implicit.
-
-If we assume that the triples are $(\RV{W}_i,\RV{X}_i,\RV{Y}_i)$ are mutually variationally independent for all $i\in A\cup B$, then we can also extend $\model{T}$ as follows:
-\begin{align}
-    \model{T}^{\RV{V}_{A\cup B}|\RV{HX}_{B}} &:= \tikzfig{cbn_sd2}\\
-    \model{U}^{\RV{W}_i\RV{X}_i\RV{Y}_i|\RV{HX}_i} &= \tikzfig{truncated_fac_definition}\\
-    \implies \model{T}^{\RV{V}_{A\cup B}|\RV{HX}_{B}} &= \tikzfig{cbn_sd23}\label{eq:cbn_maybe_comb}
-\end{align}
-
-So we have in Equation \ref{eq:cbn_maybe_comb} a definition of a model $\model{T}$ which, we argue, is the general form of a model of observables implied by the original definition of a causal Bayesian network (recall that our definition restricted interventions to target a single node). The model in Equation \ref{eq:cbn_maybe_comb} looks like a 2-comb:
+Note that we replace the single observation $\RV{V}_i$ with the full observations $\RV{V}_A$ as we will make use of them subsequently, and we can do this without issue due to the assumption of conditional independence among the $\RV{V}_k$s. It will be sufficient to consider a single consequence $\RV{V}_j$. Equation \ref{eq:cbn_maybe_comb} defines a model $\model{U}^{\cdot|\RV{HX}_j}$ which relates observations to consequences in the manner suggested by Equation \ref{eq:truncated_fac2}. We will call $\model{U}$ a ``CBN model''. We note that the model in Equation \ref{eq:cbn_maybe_comb} looks like a 2-comb:
 \begin{align}
     \tikzfig{cbn_sd_2comb} \label{eq:cbn_2comb}
 \end{align}
 
-To actually \emph{be} a 2-comb we require a family of ``inserts'' $\model{S}^{\RV{X}_B|\RV{V}_A\RV{W}_B}$ that, in combination with $\model{T}^{\RV{V}_{A\cup B}|\RV{HX}_{B}}$,  generate models $\model{P}^{\RV{V}_{A\cup B}|\RV{H}}$. But still, we can make a reasonable guess guess: perhaps $\model{T}^{\RV{V}_{A\cup B}|\RV{HX}_{B}}$ is a see-do model, and the appropriate family of inserts are strategies.
-
-We can weaken this somewhat, in that we don't strictly need $\RV{X}_B$ to be a variable representing decisions. This might be desirable, because the range of $\RV{X}_j$, $j\in B$ is exactly the same as the range of $\RV{X}_i$, $i\in A$, but in general, there's no reason to expect that the observations we make will have the same range as the decisions available. To return to our favourite example, we might have observations $\RV{X}$ of body mass index, but the decision $\RV{D}$ we are considering might be whether or not to go on a diet. A more generic see-do model might then be of the form $\model{T}^{\RV{V}_{A\cup B}|\RV{HD}}$ for some decision variable $\RV{D}$.
-
-Instead, we can introduce a see-do models $\model{T}^{\RV{V}_{A\cup B}|\RV{HD}}$ with a generic variable $\RV{D}$ representing decisions. If and only if it exhibits the conditional independence $\RV{V}_{B}\CI_{\model{T}} \RV{D}|(\RV{H,X}_B)$, $\model{T}^{\RV{V}_{A\cup B}|\RV{HX}_{B}}$ will be a conditional probability of $\RV{T}^{\RV{X}_B|\RV{W}_B\RV{HD}}$. In such a case, we can represent the see-do model
+However, we have not at this point assumed that we have a convex set of strategies. Suppose we have some standard see-do model $\mathscr{M}:=\{\model{T}^{\RV{O}\RV{V}_B|\RV{HD}},\{\model{S}_\alpha^{\RV{D}|\RV{O}}|\alpha\in \mathscr{A}\}\}$. The question we want to ask is: when can we posit a see-do model $\{\model{U}^{\RV{V}_A\RV{V}_j|\RV{HX}_j},\{\model{R}_\alpha^{\RV{X}_j|\RV{V}_A\RV{W}_j\RV{H}}|\alpha\in \mathscr{A}\}\}$ consistent with $\mathscr{M}$ in the sense that, for all $\alpha\in \mathscr{A}$:
 \begin{align}
-    \model{T}^{\RV{V}_{A\cup B}|\RV{HD}} &= \tikzfig{cbn_sd_2comb_extended}
+    \model{P}^{\RV{V}_B|\RV{H}}_\alpha&:=\tikzfig{seedo_equality2}\\
+    &=\tikzfig{seedo_equality} \label{eq:consistent}\\
+    &=: \model{Q}^{\RV{V}_B|\RV{H}}_\alpha
 \end{align}
+
+\todo[inline]{I think reusing the same $\RV{H}$ between $\RV{U}$ and $\RV{T}$ is a mistake here. Maybe not a big problem, but ideally one would check!}
+\begin{theorem}\label{th:seedo_rep}
+Given a standard see-do model $\mathscr{M}:=\{\model{T}^{\RV{O}\RV{V}_B|\RV{HD}},\{\model{S}_\alpha^{\RV{D}|\RV{V}_A}|\alpha\in \mathscr{A}\}\}$ and a CBN model $\model{U}^{\RV{V}_A\RV{V}_j|\RV{HX}_j}$ as defined in Equation \ref{eq:cbn_maybe_comb}, assuming $\RV{W}_j$ is a pre-choice variable, then there exists a see-do model $\{\model{U}^{\RV{V}_i\RV{V}_j|\RV{HX}_j},\{\model{R}_\alpha^{\RV{X}_j|\RV{V}_A\RV{W}_j\RV{H}}|\alpha\in \mathscr{A}\}\}$ consistent with $\mathscr{M}$ if and only if
+\begin{enumerate}
+    \item $\RV{W}_j$ is a pre-choice variable, i.e. $(\RV{V}_A,\RV{W}_j)\CI_{\model{T}} \RV{D}|\RV{H}$
+    \item $\model{T}^{\RV{V}_A\RV{W}_j|\RV{H}} = \model{U}^{\RV{V}_A\RV{W}_j|\RV{H}}$
+    \item $\RV{Y}_j\CI_{\model{T}}\RV{D}|\RV{W}_j\RV{V}_A\RV{HX}_j$
+    \item $\model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j} = \model{U}^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j}$
+\end{enumerate}
+\end{theorem}
 
 \begin{proof}
-(sketch) We require $\RV{V}_A\CI_{\model{T}} \RV{D}|\RV{H}$ (implied by see-do assumption), $\RV{W}_B\CI_{\model{T}} \RV{D}|\RV{H}$ (implied by $\RV{V}_{B}\CI_{\model{T}} \RV{D}|(\RV{H,X}_B)$ along with $\RV{W}_{B}\CI_{\model{T}} \RV{X}_B|\RV{H}$), $\RV{W}_B\CI_{\model{T}} \RV{X}_B |\RV{HD}$ (implied by $\RV{W}_{B}\CI_{\model{T}} \RV{D}|(\RV{H,X}_B)$ and $\RV{W}_{B}\CI_{\model{T}} \RV{X}_B|\RV{H}$), $\RV{Y}_B\CI_{\model{T}} \RV{D}|\RV{H}$ (assumed).
+\textbf{If:}
+If all assumptions hold, we can write
+\begin{align}
+    \model{T}^{\RV{V}_A\RV{V}_j|\RV{HD}} = \tikzfig{t_vs_u}
+\end{align}
+For each $\model{S}_\alpha^{\RV{D}|\RV{V}_A}$, define
+\begin{align}
+    \model{R}_\alpha^{\RV{X}_j|\RV{V}_A\RV{W}_j\RV{H}}:= \tikzfig{defn_ra}
+\end{align}
+Then
+\begin{align}
+    &\tikzfig{seedo_equality2}\\
+    &= \tikzfig{seedo_cbn_with_s}\\
+    &= \tikzfig{seedo_equality}
+\end{align}
+\textbf{Only if:}
+Suppose assumption 1 does not hold. Then there exists some $d,d'\in D$, $w\in W$, $h\in H$ such that $\model{T}^{\RV{W}_j|\RV{HD}}(w_j|h,d)\neq \model{T}^{\RV{W}_j|\RV{HD}}(w|h,d')$. Then choose $\model{S}_d^{\RV{D}|\RV{V}_A}:v_A\mapsto \delta_{d}$ and $\model{S}_{d'}^{\RV{D}|\RV{V}_A}:v\mapsto \delta_{d'}$ for all $v\in V^{|A|}$. Then define
+\begin{align}
+    \model{P}_d^{\RV{W}_j|\RV{H}}(w|h) &= \model{T}^{\RV{W}_j|\RV{HD}}(w_j|h,d)\\
+                                       &\neq \model{T}^{\RV{W}_j|\RV{HD}}(w_j|h,d')\\
+                                       &= \model{P}_{d'}^{\RV{W}_j|\RV{H}}(w|h)
+\end{align}
+But for any $\alpha, \alpha'$, $\model{Q}_\alpha^{\RV{W}_j|\RV{H}}=\model{Q}_{\alpha'}^{\RV{W}_j|\RV{H}}$ as $\RV{W}_j\CI_{\RV{U}} \RV{X}_j|\RV{H}$, so $\model{Q}\neq \model{P}$.
+Suppose assumption 1 holds but assumption 2 does not. Then for any $\alpha$
+\begin{align}
+    \model{P}_\alpha^{\RV{V}_A\RV{W}_j|\RV{H}}&=\model{T}^{\RV{V}_A\RV{W}_j|\RV{H}}\\
+                                              &\neq \model{U}^{\RV{V}_A\RV{W}_j|\RV{H}}\\
+                                              &= \model{Q}_\alpha^{\RV{V}_A\RV{W}_j|\RV{H}}
+\end{align}
+Suppose assumption 3 does not hold. Then there is some $d,d'\in D$, $w\in W$, $h\in H$, $v\in V^{|A|}$, $x\in X$ and $y\in Y$ such that
+\begin{align}
+    \model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j\RV{D}}(y|w,v,h,x,d) &\neq \model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j\RV{D}}(y|w,v,h,x,d')\label{eq:not_indep}\\
+    &\text{and }\model{T}^{\RV{X}_j\RV{W}_j\RV{V}_A|\RV{HD}}(x,w,v|h,d) >0\\
+    &\text{and }\model{T}^{\RV{X}_j\RV{W}_j\RV{V}_A|\RV{HD}}(x,w,v|h,d') >0\\
+\end{align}
+The latter conditions hold as if Equation \ref{eq:not_indep} only held on sets of measure 0 then we could choose versions of the conditional probabilities such that the independence held.
+
+Then
+\begin{align}
+    \model{P}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j\RV{D}}(y|w,v,h,x)&= \model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j\RV{D}}(y|w,v,h,x,d)\\
+    &\neq \model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j\RV{D}}(y|w,v,h,x,d')\\
+    &= \model{P}_{d'}^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j\RV{D}}(y|w,v,h,x)\\
+    \implies \model{P}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j\RV{D}}(y|w,v,h,x) &\neq \model{Q}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j\RV{D}}(y|w,v,h,x)\\
+    \text{or } \model{P}_{d'}^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j\RV{D}}(y|w,v,h,x) &\neq \model{Q}_{d'}^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j\RV{D}}(y|w,v,h,x)
+\end{align}
+As the conditional probabilities disagree on a positive measure set, $\model{P}\neq\model{Q}$.
+
+Suppose assumption 3 holds but assumption 4 does not. Then for some $h\in H$, some $w\in W$, $v\in V^{|A|}$, $x\in X$ with positive measure and some $y\in Y$
+\begin{align}
+    \model{P}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j\RV{D}}(y|w,v,h,x)&= \model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j}(y|w,v,h,x)\\
+    &\neq \model{U}^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j}(y|w,v,h,x)\\
+    &\neq model{Q}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{HX}_j\RV{D}}(y|w,v,h,x)
+\end{align}
 \end{proof}
 
-In summary, when we have a causal Bayesian network where it is possible to intervene on a variable $\RV{X}$, we can construct a see-do model $\model{T}^{\RV{V}_{A}\RV{V}_B|\RV{HD}}$ with the conditional independence $\RV{V}_{B}\CI_{\model{T}} \RV{D}|(\RV{H,X}_B)$. This conditional idependence resembles the ``limited invariance'' condition proposed by \citet{heckerman_decision-theoretic_1995} as an account of causation. 
+Conditional independences like $(\RV{V}_A,\RV{W}_j)\CI_{\model{T}} \RV{D}|\RV{H}$ and $\RV{Y}_j\CI_{\model{T}}\RV{D}|\RV{W}_j\RV{V}_A\RV{HX}_j$ bear some resemblance to the condition of ``limited unresponsiveness'' proposed by \citet{heckerman_decision-theoretic_1995}. They are conceptually similar in that they indicate that a particular variable does not ``depend on'' a decision $\RV{D}$ in some sense. As Heckerman points out, however, limited unresponsiveness is not equivalent to conditional independence. We tentatively speculate that there may be a relation between our ``pre-choice variables'' $(\RV{W}_j,\RV{V}_A,\RV{H})$ and the ``state'' in Heckerman's work crucial for defining limited unresponsiveness.
 
-The independence $\RV{Y}_{B}\CI_{\model{T}} \RV{D}|(\RV{H,X}_B)$ can be interpreted as expressing the property ``if I knew $\RV{H}$, then the effect of my decision $\RV{D}$ on $\RV{Y}_B$ is determined entirely by its effect on $\RV{X}_B$''. If this independence holds, then under conditions of full knowledge about the relationship betwen $\RV{X}$ and $\RV{Y}$, $\RV{X}$ acts as a proxy for $\RV{D}$ in controlling $\RV{Y}$. For short, we say $\RV{X}$ is a \emph{full-knowledge proxy for }$\RV{D}$. This assumption does not by itself permit us to reason about the effect of $\RV{D}$ on $\RV{Y}_B$ by separately considering the effect of $\RV{D}$ on $\RV{X}_B$ and the relationship between $\RV{X}_B$ and $\RV{Y}_B$. For example, suppose $\RV{H}$, $\RV{D}$, $\RV{Y}_B$ and $\RV{X}_B$ are all binary, with $\RV{D}$ representing ``do I go on a diet?'', $\RV{Y}_B$ representing ``do I experience heart disease?'' and $\RV{X}_B$ an indicator for obesity based on my body mass index. Suppose that my model is
+\subsection{Proxy control}
+
+We say that $(\RV{V}_A,\RV{W}_j)\CI_{\model{T}} \RV{D}|\RV{H}$ expresses the notion that $\RV{W}_j$ is a \emph{pre-choice variable} and $(\RV{W}_j,\RV{V}_A,\RV{X}_j)$ are \emph{proxies for }$\RV{D}$ with respect to $\RV{Y}$ under conditions of full information. To justify this terminology, we note that under a strong assumption of identifiability $\RV{Y}_j\CI\RV{H}|\RV{W}_j\RV{V}_A\RV{X}_j$ (i.e. the observed data allow us to identify $\RV{H}$ for the purposes of determining $\RV{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_A\RV{X}_j\RV{H}}$), then we can write
 \begin{align}
-    \model{T}^{\RV{Y}_B\RV{X}_B|\RV{D}\RV{H}}(y,x|d,h) &= \begin{cases}
-        0.5\llbracket x=y\rrbracket & d\in\{0,1\},h=0\\
-        0.5\llbracket x = d \rrbracket & d\in \{0,1\},h=1
-    \end{cases}
+    \model{T}^{\RV{V}_A\RV{V}_B|\RV{H}\RV{D}} &=\tikzfig{strong_identifiability}\\
+                                              &=\tikzfig{strong_identifiability2}
+                                              &= \model{T}^{\RV{V}_A\RV{W}_j\RV{X}_j|\RV{H}\RV{D}}\kernel{M}
 \end{align}
-We can verify that $\RV{Y}_{B}\CI_{\model{T}} \RV{D}|(\RV{H,X}_B)$. Under $h=0$, if I am not obese I do not experience heart disease, but my diet has no effect. Under $h=1$ if I diet I avoid obesity but obesity has no impact on my chance of heart disease. While a diet could reduce obesity and obesity could reduce heart disease, a diet can under no circumstances help me avoid heart disease. We can consider extending $\model{T}$ with a prior that gave each hypothesis a probability of 0.5 and find that, for example, a diet reduces obesity in expectation and obesity reduces heart disease in expectation but a diet will not reduce heart disease.
 
-However, there is an additional assumption that will allow ``two part reasoning'' of this type. That assumption is $\RV{V}_B\CI_{\model{T}}\RV{H}|\RV{V}_A\RV{X}_B$. Explaining this assumption formally is beyond the theory presented here, but it can be thought of as expressing the assumption that the interventional map is precisely identifiable. That is, the observational data is enough to precisely identify the latent variable $\RV{H}$ up to the kernel of $\model{T}^{\RV{V}_B|\RV{X}_B\RV{H}}$.
-
-\todo[inline]{in the context of conditionally IID data, we can get ``precise identifiability'' with infinite data, but infinite data requires continuous measurable sets}.
-
-Given this additional assumption of ``identifiability'', we obtain the property $\RV{V}_B\CI_{\model{T}} \RV{D}|\RV{V}_A$. If this holds, we can consider the application of an arbitrary strategy $(\RV{V}_A,\RV{W}_B)\kto \RV{D}$ and write the resulting probabilistic model:
-
-\begin{align}
- &\tikzfig{strategy_2step}\\
- =&\tikzfig{strategy_2step_simplified}\label{eq:identifiable_controllable}
-\end{align}
-\todo[inline]{draw this diagram}
-
-As we can see in Equation \ref{eq:identifiable_controllable}, the probabilistic model decomposes into two parts - one that depends on the unknown $\RV{H}$ and the other that depends only on known quantities. The opportunity to reason in this manner ties in neatly with \citet{pearl_does_2018} on causal effects representing ``stable characteristics'':
+That is, under conditions of full information, knowing how to control the proxies $(\RV{W}_j,\RV{V}_A,\RV{X}_j)$ is sufficient to control $\RV{Y}$. This echoes \citet{pearl_does_2018}'s view on causal effects representing ``stable characteristics'':
 \begin{quote}
 Smoking cannot be stopped by any legal or educational means available to us today; cigarette advertising can. That does not stop researchers from aiming to estimate ``the effect of smoking on cancer,'' and doing so from experiments in which they vary the instrument—cigarette advertisement—not smoking. The reason they would be interested in the atomic intervention $P(\text{cancer}|do(\text{smoking}))$ rather than (or in addition to) $P(\text{cancer}|do(\text{advertising}))$ is that the former represents a stable biological characteristic of the population, uncontaminated by social factors that affect susceptibility to advertisement, thus rendering it transportable across cultures and environments. With the help of this stable characteristic, one can assess the effects of a wide variety of practical policies, each employing a different smoking-reduction instrument.
 \end{quote}
-
-The assumption that smoking is a full-knowledge proxy for some action affecting cigarette advertising is an additional assumption, not a consequence of anything in the original causal Bayesian network. One might be inclined to say that an assumption of this nature is implicit when one chooses to try calculating $do(\text{smoking})$ to begin with. In fact, the implicit assumption seems to us to be stronger -- something like ``though we don't have specific knowledge of the decisions being contemplated, whether or not someone is smoking is a full-knowledge proxy for the effects of these decisions on cancer''. 
-
-Such an assumption seems to invite psychology into our discussion -- if we want to defend it, we must do so from the point of view of what kinds of decisions are likely to be contemplated and why. Bear in mind that the project of statistical inference has always depended on psychological assumptions. That probability is a reasonable framework for reasoning under uncertainty is a psychological assumption, and that ``the height of someing in Chicago'' can be modeled by a random variable is a psychological assumption. If we are going to make assumptions about decisions other people are likely to consider, we are no more likely to commit reasoning errors if we say we're assuming this than if we do not say so.

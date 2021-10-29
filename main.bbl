@@ -1,4 +1,4 @@
-\begin{thebibliography}{29}
+\begin{thebibliography}{28}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -30,24 +30,19 @@ Panayiota Constantinou and A.~Philip Dawid.
 \newblock URL \url{http://www.jstor.org/stable/26362953}.
 \newblock Publisher: Institute of Mathematical Statistics.
 
-\bibitem[Dawid(2000)]{dawid_causal_2000}
-A.~P. Dawid.
-\newblock Causal {Inference} without {Counterfactuals}.
-\newblock \emph{Journal of the American Statistical Association}, 95\penalty0
-  (450):\penalty0 407--424, June 2000.
-\newblock ISSN 0162-1459.
-\newblock \doi{10.1080/01621459.2000.10474210}.
-\newblock URL
-  \url{https://www.tandfonline.com/doi/abs/10.1080/01621459.2000.10474210}.
-\newblock Publisher: Taylor \& Francis \_eprint:
-  https://www.tandfonline.com/doi/pdf/10.1080/01621459.2000.10474210.
-
 \bibitem[Dawid(2020)]{dawid_decision-theoretic_2020}
 A.~Philip Dawid.
 \newblock Decision-theoretic foundations for statistical causality.
 \newblock \emph{arXiv:2004.12493 [math, stat]}, April 2020.
 \newblock URL \url{http://arxiv.org/abs/2004.12493}.
 \newblock arXiv: 2004.12493.
+
+\bibitem[Feynman(1979)]{feynman_feynman_1979}
+R.P. Feynman.
+\newblock \emph{The {Feynman} lectures on physics}.
+\newblock Le cours de physique de {Feynman}. Intereditions, France, 1979.
+\newblock ISBN 978-2-7296-0030-3.
+\newblock INIS Reference Number: 13648743.
 
 \bibitem[Fong(2013)]{fong_causal_2013}
 Brendan Fong.
@@ -173,17 +168,6 @@ Judea Pearl.
 \newblock \doi{10.1515/jci-2018-2001}.
 \newblock URL
   \url{https://www.degruyter.com/view/j/jci.2018.6.issue-2/jci-2018-2001/jci-2018-2001.xml}.
-
-\bibitem[Robins and Greenland(2000)]{robins_causal_2000}
-James~M. Robins and Sander Greenland.
-\newblock Causal {Inference} {Without} {Counterfactuals}: {Comment}.
-\newblock \emph{Journal of the American Statistical Association}, 95\penalty0
-  (450):\penalty0 431--435, 2000.
-\newblock ISSN 0162-1459.
-\newblock \doi{10.2307/2669381}.
-\newblock URL \url{http://www.jstor.org/stable/2669381}.
-\newblock Publisher: [American Statistical Association, Taylor \& Francis,
-  Ltd.].
 
 \bibitem[Rubin(2005)]{rubin_causal_2005}
 Donald~B. Rubin.

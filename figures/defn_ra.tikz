@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (5) at (7.5, -0.5) {$\model{T}^{\RV{X}|\RV{W}_j\RV{V}_A\RV{HD}}$};
+		\node [style=none] (9) at (6, -0.25) {};
+		\node [style=none] (10) at (6, -0.5) {};
+		\node [style=none] (11) at (6, -0.75) {};
+		\node [style=none] (12) at (6, -1) {};
+		\node [style=small kernel tikzit] (13) at (3.75, -1.5) {$\model{S}_{\alpha}^{\RV{D}|\RV{V}_A}$};
+		\node [style=RLabel tikzit] (14) at (10.5, -0.5) {$\RV{X}_j$};
+		\node [style=Llabel tikzit] (15) at (1, -1.5) {$\RV{V}_A$};
+		\node [style=Llabel tikzit] (16) at (1, -0.75) {$\RV{H}$};
+		\node [style=Llabel tikzit] (18) at (1, 0.25) {$\RV{W}_j$};
+		\node [style=copymap tikzit] (19) at (1.75, -1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (5) to (14);
+		\draw [in=-180, out=0] (13) to (12.center);
+		\draw [in=180, out=0] (16) to (11.center);
+		\draw [in=180, out=0] (18) to (9.center);
+		\draw (15) to (19);
+		\draw [in=180, out=60, looseness=0.75] (19) to (10.center);
+		\draw (19) to (13);
+	\end{pgfonlayer}
+\end{tikzpicture}

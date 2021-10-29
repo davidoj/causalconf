@@ -3,62 +3,116 @@
 
 \section{Potential outcomes}\label{sec:potential_outcomes}
 
-We began by discussing a small controversy about ``the causal effect of obesity''; can such a quantity be defined if we have different actions that might affect obesity that might each have different impacts on health outcomes? \citet{hernan_does_2008} posit that vague interventions violate the assumption of \emph{consistency}, and this makes the causal effect ill-defined. We think that the potential outcomes framework is inadequate to precisely state the problem, and the sense in which consistency may or may not hold is vague at best. Rather, the crucial question is whether obesity serves as a proxy for decisions of interest under conditions of full knowledge of the obesity-health outcome relationship.
+Like causal Bayesian networks, causal models in the potential outcomes framework typically do not include any variables representing what we call ``consequences''. A potential outcomes model features a sequence of observable variables $(\RV{Y}_i,\RV{X}_i,\RV{Z}_i)_{i\in [n]}$ and a collection of potential outcomes $(\RV{Y}^x_i)_{x\in X, i\in[n]}$. Also like causal Bayeisan networks, we think that introducing the idea of consequences clarifies the meaning of potential outcomes models.
 
-\citet{noauthor_does_2016} argues at length that in order for consistency to hold, interventions must be sufficiently well-defined. Regarding well-defined interventions, they say:
-\begin{quote}
-Each version in the list [of interventions] above is the result of making a particular decision about those aspects of the intervention (which are key to the specification of the target trial). \emph{Different scientists may disagree about these decisions.}
-\end{quote}
-(emphasis ours).
+We begin with a formal definition of potential outcomes, but as we will discuss this formal definition is not enough on its own to tell us what potential outcomes are. Formally, potential outcomes of $\RV{Y}$ taking values in $Y$ with respect to $\RV{X}$ taking values in $X$ are a variable $\RV{Y}^X$ taking values in $Y^X$ such that $\RV{Y}$ is related to $\RV{Y}^X$ and $\RV{X}$ via a $\emph{selector}$.
 
-The problem that Hern\'an is alluding to here is related to the scope of observable variables. As we have noted, observations are frequently ``public'', in the sense that it is usually possible to specify with sufficient precision that a wide variety of observers will agree on the value of the variable at any particular time. On the other hand, my decisions are observable in the sense that \emph{I} can often say say which options I am contemplating, and after I have made a decision I know which one I have made. However, unless I explain my options quite carefully to someone else they will not know what I am considering, nor which choice I ultimately made. Unlike observation variables, decision variables are typically private.
-
-If decisions are typically private, it is challenging to say whether obesity serves as a proxy for health outcomes for the set of decisions \emp{you} or \emph{some doctor} or \emph{some individual} is contemplating. We do not provide a solution to this problem in this paper -- our contribution is to show how we need probabilistic models with decisions in order to ask this question in the first place!
-
-\todo[inline]{I think that the notion of \emph{imitability} is a reasonable step towards answering questions about when the decisions different people are contemplating might be answered by the same causal model, but I definitely cannot discuss it here!}
-
-We will say a few words about consistency in the potential outcomes framework. First, we will define a potential outcomes.
-
-\todo[inline]{Consistency as we use it is not the same as consistency as the potential outcomes folk use it...ergh}
-
-\begin{definition}[Projection]
-Given variables $\RV{X}:\Omega\to X$ and $\{\RV{Y}^x:\Omega\to Y|x\in X\}$, define $\RV{Y}^X:(\RV{Y}^x)_{x\in X}$. The indexed projection $\pi:X\times Y^X\to Y$ is the function that sends $(x,y^1,...,y^{|X|})\to y^x$.
+\begin{definition}[Selector]
+Given variables $\RV{X}:\Omega\to X$ and $\{\RV{Y}^x:\Omega\to Y|x\in X\}$, define $\RV{Y}^X:(\RV{Y}^x)_{x\in X}$. The selector $\pi:X\times Y^X\to Y$ is the function that sends $(x,y^1,...,y^{|X|})\to y^x$.
 \end{definition}
 
-\begin{definition}[Potential outcomes]\label{def:potential_outcomes}
+\begin{definition}[Potential outcomes: formal requirement]\label{def:potential_outcomes}
 Given variables $\RV{Y}:\Omega\to Y$ and $\RV{X}:\Omega\to X$, we introduce a collection of latent variables called \emph{potential outcomes} $\RV{Y}^X:=(\RV{Y}^x)_{x\in X}$ such that $\RV{Y} = \pi\circ(\RV{X},\RV{Y}^X)$. A \emph{potential outcomes model} is any consistent model of $\RV{Y}$, $\RV{X}$ and $\RV{Y}^X$.
 \end{definition}
 
-The following lemma shows that consistent potential outcomes models by themselves require nothing special.
+Lemma \ref{lem:po_triviality} shows we can always define trivial potential outcomes of $\RV{Y}$ with respect to $\RV{X}$ by taking the product of $|X|$ copies of $\RV{Y}$. We need some other constraint on the values of potential outcomes besides the formal definition \ref{def:potential_outcomes} if we want them to be informative.
 
-\begin{lemma}[We can always define potential outcomes]\label{lem:po_triviality}
-For any pair of variables $\RV{Y}:\Omega\to Y$ and $\RV{X}:\Omega\to X$, we can always define potential outcomes $\RV{Y}_X$ such that any consistent model of $\RV{X}$ and $\RV{Y}$ can be extended to a consistent model of $\RV{X}$, $\RV{Y}$ and $\RV{Y}^X$.
+\begin{lemma}[Trivial formal potential outcomes]\label{lem:po_triviality}
+For any variables $\RV{Y}:\Omega\to Y$, $\RV{X}:\Omega\to X$ and $\RV{W}:\Omega\to W$, we can always define potential outcomes $\RV{Y}_X$ such that any consistent model $\model{K}^{\RV{YX}|\RV{W}}$ can be extended to a consistent model of $\model{K}^{\RV{YXY}^X|\RV{W}}$.
 \end{lemma}
 
 \begin{proof}
-Define $\RV{Y}^X:=(\RV{Y})_{x\in X}$. Then we can extend any model of $\RV{X}$ and $\RV{Y}$ with $|X|$ copies of $\RV{Y}$ by repeated application of Lemma \ref{lem:nocopy1}. 
-
-With this choice of potential outcomes $\pi\circ(\RV{X},\RV{Y})=\RV{Y}$.
+Define $\RV{Y}^X:=(\RV{Y})_{x\in X}$. Then we can consistently extend $\model{K}^{\RV{YX}|\RV{W}}$ to $\model{K}^{\RV{YXY}^X|\RV{W}}$ by repeated application of Lemma \ref{lem:nocopy1}.
 \end{proof}
 
-$\RV{Y}$ is deterministic given $\RV{Y}^X$ and $\RV{X}$, and so is independent of any other variable conditional on these two.
+The trivial potential outcomes of Lemma \ref{lem:po_triviality} are in many cases unsatisfactory for what we want potential outcomes to represent. Thus Definition \ref{def:potential_outcomes} is incomplete. In common with observable variables, the definition of potential outcomes involves both the formal requirement of Definition \ref{def:potential_outcomes}, and an indication of the parts of the real world that they model. Unlike observable variables, the ``part of the world'' that potential outcomes model will not at any point resolve to a canonical value. We say the potential outcome $\RV{Y}^x:=\pi(x,\RV{Y})$ is ``the value that $\RV{Y}$ would take if $\RV{X}$ were $x$, whether or not $\RV{X}$ actually takes the value $x$''. We will call this additional element of the definition of potential outcomes the \emph{counterfactual extension}.
 
-\begin{lemma}[Multiplexer kernel]
-Given $\RV{X}$, $\RV{Y}$, potential outcomes $\RV{Y}^X$ variationally independent of $\RV{X}$ and arbitrary $\RV{W}$ variationally independent of $\RV{Y}$ and $\RV{X}$, any consistent potential outcomes model $\model{T}^{\RV{Y}|\RV{Y}^X\RV{X}\RV{W}}=\text{del}_{\RV{W}} \otimes \model{T}^{\RV{Y}|\RV{Y}^X\RV{X}}$, where
+\begin{definition}[What potential outcomes model: counterfactual extension]\label{def:po_whatmodel}
+Given observables $\RV{X}$, $\RV{Y}$ and $\RV{Y}^X$, $\RV{Y}^X$ are potential outcomes if they satisfy Definition \ref{def:potential_outcomes} and for all $x\in X$, the individual potential outcome $\RV{Y}^x:=\pi(x,\RV{Y})$ models the value $\RV{Y}$ would take if $\RV{X}$ took the value $x$.
+\end{definition}
+
+Because observables resolve to a single canonical value, the conditional in Definition \ref{def:po_whatmodel} is eventually satisfied for exactly one $x\in X$, at which point $\RV{Y}^{x'}$ for all $x'\neq x$ are guaranteed not to resolve. Nevertheless, we can maybe draw some conclusions about $\RV{Y}^X$ from Definition \ref{def:po_whatmodel}. For example, it seems unreasonable in light of this definition to assert that $\RV{Y}^x$ is \emph{necessarily} identical to $\RV{Y}$ for all $x\in X$, which rules out the strictly trivial potential outcomes of Lemma \ref{lem:po_triviality}.
+
+We will note at this point that if $\RV{X}$ refers to a person's body mass index and $\RV{Y}$ to an indicator of whether or not they experience heart disease, it is metaphysically subtle to say whether $\RV{Y}^X$ is well-defined with regard to Definitions \ref{def:potential_outcomes} and \ref{def:po_whatmodel} together. Recall that there are multiple ways that a given level of body mass index ($\RV{X}$) could be achieved. One might say that, when there are multiple possibile paths, there is no unique way to choose a path. However, a very similar argument can be made that whenever there are multiple possible values of $\RV{Y}^x$ (which is whenever $\RV{X}$ does not take the value $x$), then there is no unique choice of $\RV{Y}^x$, which implies that the full set of potential outcomes $\RV{Y}^X$ is \emph{almost never well-defined}. Alternatively, if there is some method of making a canonical choice of $\RV{Y}^x$, then perhaps this same method can also make a canonical choice of which path was taken to achieve this value of $\RV{X}$.
+
+We will set Definition \ref{def:po_whatmodel} aside and propose an alternative decision-theoretic extension of the definition of potential outcomes. To motivate this proposal, we first note that, if we are using potential outcomes $\RV{Y}^X$ to model an observation of $\RV{X}$ and $\RV{Y}$ only conditional on some hypothesis (or parameter) $\RV{H}$, then by repeated application of Lemma \ref{lem:subm_exist}, we can represent the model $\prob{P}^{\RV{X}\RV{Y}\RV{Y}^X|\RV{H}}$ of these variables as
+
 \begin{align}
-    \model{T}^{\RV{Y}|\RV{Y}^X\RV{X}}(y|y^X,x) = \llbracket y=\pi(x,y^X) \rrbracket\\
+    \prob{P}^{\RV{X}\RV{Y}\RV{Y}^X|\RV{H}} &= \tikzfig{po_probmodel} \label{eq:po_probmodel}
 \end{align}
-We call $\model{T}^{\RV{Y}|\RV{Y}^X\RV{X}}$ a \emph{multiplexer}.
+
+For any collection of representative kernels $\kernel{T}^{\RV{Y}^X|\RV{H}}$, $\kernel{T}^{\RV{X}|\RV{Y}^X\RV{H}}$ and $\kernel{T}^{\RV{Y}|\RV{H}\RV{Y}^X\RV{X}}$. We can simplify Equation \ref{eq:po_probmodel} somewhat. Firstly, $\model{P}^{\RV{Y}|\RV{H}\RV{Y}^X\RV{X}}$ must always be represented a \emph{selector kernel} $\Pi:X\times Y^{|X|}\kto Y$, as shown by Lemma \ref{lem:selector}.
+
+\begin{lemma}[Selector kernel]\label{lem:selector}
+Let the selector kernel $\Pi:X\times Y^X\kto Y$ be defined by $\Pi_{(x,y^X)}^y=\llbracket \pi(x,y^X)=y \rrbracket$. Given $\RV{X}$, $\RV{Y}$, potential outcomes $\RV{Y}^X$ and arbitrary $\RV{W}$, defining $\kernel{Q}:X\times Y^X\times W\kto Y$ by
+\begin{align}
+    \kernel{Q} &:= \tikzfig{multiplexer}&\label{eq:multiplex2}\\
+    &\iff&\\
+    \kernel{Q}^y_{(y^X,x,w)} &= \Pi_{(x,y^X)}^y &\forall y,y^X,x,w\label{eq:multiplex1}
+\end{align}
+Then any potential outcomes model $\model{T}^{\RV{Y}\RV{Y}^X\RV{X}|\RV{W}}$ must have the property that, for all $x,w,y^X$ and $y$, $\kernel{Q}$ is a representative of $\model{T}^{\RV{Y}|\RV{Y}^X\RV{X}\RV{W}}$.
 \end{lemma}
 
 \begin{proof}
-Because $\RV{Y} = \pi\circ(\RV{X},\RV{Y}^X)$ and $\RV{Y}^X, \RV{X}$ and $\RV{W}$ are variationally independent, we must have $\RV{Y} \overset{a.s.}{=} \pi\circ(\RV{X},\RV{Y}^X)$ for all $x, y^X$ and $w$.
+Recall $\RV{Y} = \pi\circ(\RV{X},\RV{Y}^X)$. Thus consistency implies that $\RV{Y} \overset{a.s.}{=} \pi\circ(\RV{X},\RV{Y}^X)$ for all $(x, y^X,w)\in \text{Range}(\RV{X})\times \text{Range}(\RV{Y})\times \text{Range}(\RV{W})$ such that $\RV{X}^{-1}(x)\cap (\RV{Y}^X)^{-1}(y^X)\cap \RV{W}^{-1}(w)\neq \emptyset$. However, wherever $\RV{X}^{-1}(x)\cap (\RV{Y}^X)^{-1}(y^X)\cap \RV{W}^{-1}(w)= \emptyset$, consistency implies $\model{T}^{\RV{Y}\RV{Y}^X\RV{X}|\RV{W}}(y,y^X,x|w)=0$ and so $\model{T}^{\RV{Y}|\RV{Y}^X\RV{X}\RV{W}}$ is arbitrary on this collection of values. Equations \ref{eq:multiplex2} and \ref{eq:multiplex1} are equivalent to the statement $\RV{Y} \overset{a.s.}{=} \pi\circ(\RV{X},\RV{Y}^X)$.
 \end{proof}
 
-The question we really want to ask is ``can the things we are interested be modelled by a consistent potential outcomes to model?'' What are we trying to model? According to \citet{rubin_causal_2005}, we model sequences of observations with potential outcomes models. Given Lemma \ref{lem:po_triviality}, it is obvious that we are not \emph{just} trying to model observations, or else we would be satisfied with attaching a trivial collection of potential outcomes to any such model. We will focus on the modelling of decision problems, though see Appendix \ref{sec:pot_rep} for a discussion of representing parallel experiments.
+Thus we can without loss of generality choose $\Pi$ to represent $\model{T}^{\RV{Y}|\RV{Y}^X\RV{X}\RV{W}}$. We observe that when \citet{rubin_causal_2005} describes a potential outcomes model, he calls $\model{T}^{\RV{Y}^X|\RV{H}}$ ``the science'' and $\model{T}^{\RV{X}|\RV{H}\RV{Y}^X}$ the ``selection function''. He goes on to explain that the science ``is not affected by how or whether we try to learn about it''.
 
-The basic assumption we make to consider decision problems with potential outcomes is that we have a sequence $\RV{Y}^X_i$ that are independent and identically distributed conditional on $\RV{H}$, and that for any $i$, $\RV{Y}^X_i$ are potential outcomes for $\RV{X}_i$ and $\RV{Y}_i$.
+We propose a definition of potential outcomes that enshrines the stability of ``the science''.
 
+\begin{definition}{Potential outcomes: decision theoretic extension}\label{def:po_dte}
+Given a standard decision problem $\{\model{T}^{\RV{WZ}|\RV{HD}},\{\model{S}_\alpha\}_{\alpha\in A}\}$, $\RV{Y}^X$ is a potential outcome for $\RV{Y}$ with respect to $\RV{X}$ if it satisfies Definition \ref{def:potential_outcomes} and is a prechoice variable; that is, $(\RV{Y}^X,\RV{W})\CI_{\model{T}} \RV{D}|\RV{H}$.
+\end{definition}
+
+Owing to the subtlety of interpreting Definition \ref{def:po_whatmodel}, we don't know a straightforward argument to the effect that Definition \ref{def:po_dte} is implied by it. Besides the fact that it seems to formalise the idea that the distribution of potential outcomes is unaffected by our actions, we will point out that a key feature of prechoice variables -- decisions can be chosen so that they are random with respect to all prechoice variables -- is used in practice to justify the assumption of ignorability in randomised experiments.
+
+Definition \ref{def:po_dte} can sometimes (but not always) rule out potential outcomes if there is more than one way to achieve a given value of $\RV{X}$. Recall that \citet{hernan_does_2008} argued potential outcomes are ``ill-defined'' in the presence of multiple treatments.
+
+\begin{example}
+Suppose we have a standard decision problem $\{\model{T}^{\RV{WZ}|\RV{HD}},\{\model{S}_\alpha\}_{\alpha\in A}\}$ where observations are $\RV{W}$, consequences $\RV{Z}$, hypotheses $\RV{H}$ and decisions $\RV{D}\in \{0,1,2,3\}$. Suppose we also have some $\RV{X}\in \{0,1\}$, $\RV{Y}$ such that $\model{T}^{\RV{X}|\RV{HWD}}(x|h,w,d) = \llbracket x = d\text{ mod }2 \rrbracket$ for all $h,w$ and, for some $y$
 \begin{align}
-
+    \model{T}^{\RV{Y}|\RV{HWXD}}(y|h,w,0,0)\neq \model{T}^{\RV{Y}|\RV{HWXD}}(y|h,w,0,2) \label{eq:different_ys}
 \end{align}
+Then we can consider strategies $\model{S}_0^{\RV{D}|\RV{W}}:=w\mapsto \delta_0$ and $\model{S}_2^{\RV{D}|\RV{W}}:=w\mapsto \delta_2$. By assumption, 
+\begin{align}
+    \model{P}_0^{\RV{Y}|\RV{HD}}(y|h,0) &=  \sum_{x\in \{0,1\},w\in W}\model{T}^{\RV{W}|\RV{H}}(w|h) \model{S}_0^{\RV{D}|\RV{W}}(0|w) \model{T}^{\RV{X}|\RV{HWD}}(x|h,w,0) \model{T}^{\RV{Y}|\RV{HWXD}}(y|h,w,x,0)\\
+    &= \model{T}^{\RV{Y}|\RV{HWXD}}(y|h,w,0,0)\\
+    &\neq \model{P}_2^{\RV{Y}|\RV{HD}} \label{eq:po_exist_con1}
+\end{align}
+Suppose we had some potential outcomes $\RV{Y}^X$ for $\RV{Y}$ with respect to $\RV{X}$. Then, by assumption
+\begin{align}
+    \model{P}_0^{\RV{Y}|\RV{HD}}(y|h,0) &= \sum_{y^{X}\in Y^2,x\in\{0,1\}} \model{T}^{\RV{Y}^X|\RV{H}}(y^X|h)\model{T}^{\RV{X}|\RV{HDY}^X}(x|h,0,y^X)\Pi(y|x,y^X)\\
+                                        &= \sum_{y^X} \model{T}^{\RV{Y}^X|\RV{H}}(y^X|h)\Pi(y|0,y^X)\\
+                                        &= \sum_{y^{X}\in Y^2,x\in\{0,1\}} \model{T}^{\RV{Y}^X|\RV{H}}(y^X|h)\model{T}^{\RV{X}|\RV{HDY}^X}(x|h,2,y^X)\Pi(y|x,y^X)\\
+                                        &= \model{P}_2^{\RV{Y}|\RV{HD}} \label{eq:po_exist_con2}
+\end{align}
+Here we use the property $\RV{Y}^X\CI_{\model{T}}\RV{D}|\RV{H}$, implied by the assumption that $\RV{Y}^X$ is a prechoice variable. Equations \ref{eq:po_exist_con1} and \ref{eq:po_exist_con2} are clearly contradictory, thus there can be no potential outcomes $\RV{Y}^X$ in this example.
+\end{example}
+
+\todo[inline]{I think I asked the wrong question here -- should've asked when I can extend a see-do model with additonal pre-choice variables. I think it's possible to always choose some deterministic potential outcomes.}
+
+\begin{theorem}[Existence of potential outcomes]
+Suppose we have a standard decision problem $\{\model{T}^{\RV{WZ}|\RV{HD}},\{\model{S}_\alpha\}_{\alpha\in A}\}$, and let $\RV{U}$ be the sequence of all prechoice variables. For some $\RV{Y}$ and $\RV{X}$, there exist potential outcomes $\RV{Y}^X$ in the sense of Definition \ref{def:po_dte} if and only if $\model{T}^{\RV{Y}|\RV{UX}}$ exists and is deterministic.
+\end{theorem}
+
+\begin{proof}
+If:
+If $\model{T}^{\RV{Y}|\RV{UX}}$ exists and is deterministic then there exists some $f:U\times X\to Y$ such that $\RV{Y}\overset{a.s.}{=} f\circ(\RV{U},\RV{X})$. Let $\RV{Y}^X:=(f(\RV{U},x))_{x\in X}$. Then $\pi\circ(\RV{X},\RV{Y}^X)=f(\RV{U},\RV{X})\overset{a.s.}{=}\RV{Y}$.
+
+Only if:
+By definition, $\RV{Y}^X=g\circ \RV{U}$. From Lemma \ref{lem:selector}, $\model{T}^{\RV{Y}|\RV{XY}^X}$ exists and is deterministic. Thus $\model{T}^{\RV{Y}|\RV{XW}}$ also exists and is also deterministic.
+\end{proof}
+
+\begin{corollary}
+Potential outcomes $\RV{Y}^X$ in the sense of Definition \ref{def:po_dte} exist only if 
+\begin{align}
+    \RV{Y}\CI_{\model{T}}\RV{D}|\RV{WX} \label{eq:po_proxycontrol}
+\end{align}
+\end{corollary}
+
+\begin{proof}
+$\model{T}^{\RV{Y}|\RV{UX}}$ exists only if $\RV{Y}\CI_{\model{T}}\RV{D}|\RV{UX}$.
+\end{proof}
+
+Note the similarity between Equation \ref{eq:po_proxycontrol} and the condition for proxy control in the previous section. Indeed, the two are identical if we identify $\RV{U}$ with $(\RV{W}_j,\RV{V}_A,\RV{X}_j)$.

@@ -1,16 +1,16 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=small kernel tikzit] (0) at (0.25, 1) {$\model{T}^{\RV{X}_1|\RV{H}}$};
-		\node [style=small kernel tikzit] (1) at (3.75, -1) {$\model{T}^{\RV{Y}_1|\RV{HX_1W_1}}$};
+		\node [style=small kernel tikzit] (0) at (0.25, 1) {$\model{U}^{\RV{W}_j|\RV{H}}$};
+		\node [style=small kernel tikzit] (1) at (3.75, -1) {$\model{T}^{\RV{Y}_j|\RV{HX_jW_j}}$};
 		\node [style=Llabel tikzit] (2) at (-2, 1) {$\RV{H}$};
-		\node [style=Llabel tikzit] (3) at (-2, -1) {$\RV{X}_2$};
-		\node [style=RLabel tikzit] (4) at (6, 1) {$\RV{W}_2$};
-		\node [style=RLabel tikzit] (5) at (6, -1) {$\RV{Y}_2$};
+		\node [style=Llabel tikzit] (3) at (-2, -1) {$\RV{X}_j$};
+		\node [style=RLabel tikzit] (4) at (6, 1) {$\RV{W}_j$};
+		\node [style=RLabel tikzit] (5) at (6, -1) {$\RV{Y}_j$};
 		\node [style=copymap tikzit] (6) at (-1.25, 1) {};
 		\node [style=none] (7) at (2.25, -1) {};
 		\node [style=none] (8) at (2.25, -1.5) {};
 		\node [style=copymap tikzit] (9) at (-1.25, -1) {};
-		\node [style=RLabel tikzit] (10) at (6, -1.75) {$\RV{X}_2$};
+		\node [style=RLabel tikzit] (10) at (6, -1.75) {$\RV{X}_j$};
 		\node [style=copymap tikzit] (11) at (1.5, 1) {};
 		\node [style=none] (12) at (2.25, -0.5) {};
 	\end{pgfonlayer}

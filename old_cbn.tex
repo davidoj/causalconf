@@ -1,0 +1,25 @@
+
+In summary, when we have a causal Bayesian network where it is possible to intervene on a variable $\RV{X}$, we can construct a see-do model $\model{T}^{\RV{V}_{A}\RV{V}_B|\RV{HD}}$ with the conditional independence $\RV{V}_{B}\CI_{\model{T}} \RV{D}|(\RV{H,X}_B)$. This conditional idependence resembles the ``limited invariance'' condition proposed by  as an account of causation. 
+
+The independence $\RV{Y}_{B}\CI_{\model{T}} \RV{D}|(\RV{H,X}_B)$ can be interpreted as expressing the property ``if I knew $\RV{H}$, then the effect of my decision $\RV{D}$ on $\RV{Y}_B$ is determined entirely by its effect on $\RV{X}_B$''. If this independence holds, then under conditions of full knowledge about the relationship betwen $\RV{X}$ and $\RV{Y}$, $\RV{X}$ acts as a proxy for $\RV{D}$ in controlling $\RV{Y}$. For short, we say $\RV{X}$ is a \emph{full-knowledge proxy for }$\RV{D}$. This assumption does not by itself permit us to reason about the effect of $\RV{D}$ on $\RV{Y}_B$ by separately considering the effect of $\RV{D}$ on $\RV{X}_B$ and the relationship between $\RV{X}_B$ and $\RV{Y}_B$. For example, suppose $\RV{H}$, $\RV{D}$, $\RV{Y}_B$ and $\RV{X}_B$ are all binary, with $\RV{D}$ representing ``do I go on a diet?'', $\RV{Y}_B$ representing ``do I experience heart disease?'' and $\RV{X}_B$ an indicator for obesity based on my body mass index. Suppose that my model is
+\begin{align}
+    \model{T}^{\RV{Y}_B\RV{X}_B|\RV{D}\RV{H}}(y,x|d,h) &= \begin{cases}
+        0.5\llbracket x=y\rrbracket & d\in\{0,1\},h=0\\
+        0.5\llbracket x = d \rrbracket & d\in \{0,1\},h=1
+    \end{cases}
+\end{align}
+We can verify that $\RV{Y}_{B}\CI_{\model{T}} \RV{D}|(\RV{H,X}_B)$. Under $h=0$, if I am not obese I do not experience heart disease, but my diet has no effect. Under $h=1$ if I diet I avoid obesity but obesity has no impact on my chance of heart disease. While a diet could reduce obesity and obesity could reduce heart disease, a diet can under no circumstances help me avoid heart disease. We can consider extending $\model{T}$ with a prior that gave each hypothesis a probability of 0.5 and find that, for example, a diet reduces obesity in expectation and obesity reduces heart disease in expectation but a diet will not reduce heart disease.
+
+However, there is an additional assumption that will allow ``two part reasoning'' of this type. That assumption is $\RV{V}_B\CI_{\model{T}}\RV{H}|\RV{V}_A\RV{X}_B$. Explaining this assumption formally is beyond the theory presented here, but it can be thought of as expressing the assumption that the interventional map is precisely identifiable. That is, the observational data is enough to precisely identify the latent variable $\RV{H}$ up to the kernel of $\model{T}^{\RV{V}_B|\RV{X}_B\RV{H}}$.
+
+\todo[inline]{in the context of conditionally IID data, we can get ``precise identifiability'' with infinite data, but infinite data requires continuous measurable sets}.
+
+Given this additional assumption of ``identifiability'', we obtain the property $\RV{V}_B\CI_{\model{T}} \RV{D}|\RV{V}_A$. If this holds, we can consider the application of an arbitrary strategy $(\RV{V}_A,\RV{W}_B)\kto \RV{D}$ and write the resulting probabilistic model:
+
+\begin{align}
+ &\tikzfig{strategy_2step}\\
+ =&\tikzfig{strategy_2step_simplified}\label{eq:identifiable_controllable}
+\end{align}
+\todo[inline]{draw this diagram}
+
+As we can see in Equation \ref{eq:identifiable_controllable}, the probabilistic model decomposes into two parts - one that depends on the unknown $\RV{H}$ and the other that depends only on known quantities.

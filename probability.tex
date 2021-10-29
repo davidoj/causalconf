@@ -5,31 +5,58 @@
 
 \subsection{Why are variables functions?}\label{sec:variables}
 
-\todo[inline]{I don't think this subsection actually says much about what is coming next}
+Our theory is mainly concerned with \emph{Markov kernels}, which are functions that map from measurable sets to probability distributions. On their own, Markov kernels are just abstract mathematical objects, but we want to use them to make \emph{models} which aim to explain some part of the world. To make a Markov kernel into a model, we annotate it with a set of variables. The model relates variables to one another ``in the world of maths'', and the variables enable this to be interpreted as a claim about how some parts of the real world relate to one another.
 
-Our intention is to clarify various ``map-territory'' issues related to causal inference. We start with a discussion of random variables as variables are often where we specify which real things our models are supposed to correspond to.
+As a simple example of a model, consider Newton's second law in the form $F=MA$, which relates variables $F$, $M$ and $A$. As \citet{feynman_feynman_1979} noted, this law is incomplete -- in order to understand it, we must bring some pre-existing understanding of force, mass and acceleration as independent things, not defined by this equation. As it happens, physicists know a great deal about determining the forces on an object. Nevertheless, in order to actually say what the force on an object is, even a highly knowledgeable physicist will still have to go and measure something.
 
-A standard formal definition of random variables is that they are functions from some measurable sample space $(\Omega,\sigalg{F})$ equipped with a probability measure $\prob{P}$ to some codomain $(X,\sigalg{X})$. This is also frequently relaxed to drop the requirement of a probability measure $\prob{P}$. A variable defined in this manner we will call a \emph{formal variable}. In practice, however, it is very common to define variables with reference to:
+This makes ``force'' $F$ and odd kind of object. It is not a well-defined mathematical thing, because it requires an action in the real world to determine its value, and such actions can not themselves be mathematically defined. At the same time, the set of values it takes is a well-defined mathematical thing. This is what enables an expression like ``$MA$'' to be sensibly interpreted --  $MA$ is itself a variable obtained by making a measurement of $M$ and $A$ and multiplies the resulting values. We will call objects like $F$, $M$ and $MA$ ``real-world variables''.
+
+In general, if I have a variable $B$ that takes values in some set $X$, and a function $f:X\to Y$, call the composition $f\circ B$, itself a variable that takes values in $Y$, what I get by first measuring $B$ and then applying the function $f$ to the result.
+
+In order to proceed, we assume we have a real-world variable that measures everything of interest and records it as some value. We can't understand the model $F=MA$ by providing a generic $F$ that measures some net force, $M$ that measures some mass and so forth. Rather, we require the mass, acceleration and forces on a particular object at a particular time, so we require $F,M$ and $A$ to all refer to the same object. In order to state this requirement, we have to talk about all three variables together. That is, a complete specification of the measurement to take place must detail how to measure $(F,M,A)$ all together. 
+
+Our assumption is that a joint specification of every measurment of interest is available, and when conducted these measurements will yield a unique value in some well-defined set. This entire process is represented by the ``master'' real-world variable $S$. What we mean by the condition that $S$ contains every measurement of interest is, precisely, that any observed variable appearing in our model is obtained by composing a function with $S$ in the sense described above.
+
+At this point, we have something that resembles the usual story: we can call the set of potential values of $S$ the ``sample space''. If we have some observed variable $X$ given by $f\circ S$, we can identify the ``random variable'' $\RV{X}:=f$.
+
+Not every variable will be an observable variable. Unobserved and unobservable variables play a central role in causal inference. We suppose all such variables take values in well-defined sets, and that we can always propose values of unobserved variables.
+
+To account for unobserved variables, we make the following rather inelegant assumption: there is some process $O$ that can take proposed values of unobserved variables, as well as make measurments of observed variables of interest, that returns values in some sample space $\Omega$. Values in $\Omega$ uniquely determine all quantities of interest in the sense that any variable $V$ taking values in $W$ that appears in our model is obtained by composing some function $\RV{V}:\Omega\to W$ with $O$; $V:=\RV{V}\circ O$ (where composition is defined as above: it is again a process that takes the output of $O$ and applies the function $\RV{V}$ to it).
+
+Thus we confine all of the messy real-world interaction to this process $O$, and identify any variable $V$ with the function $\RV{V}$ we use to obtain $V$ from $O$. Before we sweep $O$ under the carpet completely, we want to note that we have placed some non-trivial requirements on it:
+
 \begin{itemize}
-	\item The things that they are supposed to represent
-	\item Their codomain
+	\item Given a proposed value of unobserved variables it must eventually produce a unique element of $\Omega$, once all measurements are complete
+	\item For any variable $V$, we must be satisfied that $O$ followed by applying the function $\RV{V}$ to the output is indeed a measurement of the thing $V$ refers to
 \end{itemize}
 
-For example, \citet{pearl_causality:_2009} offers the same formal definiton as ours, but also says:
+We don't make any presumptions about how $O$ and $\Omega$ are constructed, just that they can be.
+
+For example, \citet{pearl_causality:_2009} offers the same definition of formal variables as we do, but also explains:
 \begin{quote}
 By a \emph{variable} we will mean an attribute, measurement or inquiry that may take on one of several possible outcomes, or values, from a specified domain. If we have beliefs (i.e., probabilities) attached to the possible values that a variable may attain, we will call that variable a random variable.
 \end{quote}
-Suppose we add the condition that a variable return the same value when given the same inquiry. Then we have an alternative definition of a variable:
+
+We will call variables defined with reference to specific measurements \emph{observable variables}. How should we model variables of this kind? Suppose we have an observable variable $\RV{X}$ -- i.e. $\RV{X}$ represents an act of measurement (``the measurement of my height in centimetres I am about to perform'') and has a specified codomain (a natural number). Suppose we can consult $\RV{X}$ on multiple occasions -- say, first to write it in this paper (185cm) and secondly to discuss with my daughter later today. I cannot consult $\RV{X}$ before I measure my height, but once I have done so, in order for $\RV{X}$ to be well-defined, it must surely have the same value every time it is consulted.
+
+\citet{menger_random_2003}, under the name of \emph{qualitative statistical random variable}, offers the following definition of a variable that satisfies this condition. A qualitative statistical random variable is:
 \begin{itemize}
-	\item A set of ordered pairs $(x,y)$, where $x$ may take values of an attribute, measurement or inquiry and $y$ may take values in a specified codomain $Y$ 
+	\item A set of ordered pairs $(x,y)$, where $x$s are attributes, acts of measurement or inquiries and $y$s may take values in a specified codomain $Y$ 
 	\item Each $x$ corresponds to exactly one $y$
 \end{itemize}
 
-This is almost a function, but it is not a function because a well-defined function requires a domain. It is what \citet{menger_random_2003} calls a \emph{qualitative statistical random variable}, and we will call a \emph{vague variable} for short. Menger offers the examples of a vague variable that takes as an argument people in Chicago and returns their height in metres. Something that requires me to fly to Chicago with a tape measure in order to evaluate it is not a function.
+Menger offers the examples of a variable that takes for $x$ people in Chicago and returns as $y$ their height in metres. The condition each $x$ corresponds to exactly one $y$ means that, if we go and do the experiment and measure the height of everybody in Chicago, each person will be assigned exactly one canonical height, and every time we query the height of a person $x$ we get the same height $y$.
 
-However, some vague variables can be modeled by functions. You and I could start measuring people's heights and I tell you ``$\RV{X}_i$ represents the $i$th person's height'', then we go and measure someone's height and, in the end, we both decide decide that the appropriate value of $\RV{X}_1$ is $1.78$ metres. We agree because we each received an observation generated by the same measurement, and we mapped these observations to the same value. If we are sure we'll always agree on the result given observations from the same measurement, and we can model all possible experiments as a set, then the relation between experiments and values that our respective ``observation processes'' induce is a function. In this sense $\RV{X}_1$ is a well-defined vague variable.
+Our first condition for a model of observable variables is, if the value of an observable variable appears in multiple places, it must in all cases take the same value.
 
-Thus the definition of a vague variable $\RV{X}$ can sometimes be understood to be a statement like ``let $\RV{X}$ be a formal variable that models the \emph{measurement process} of interest''. We say sometimes, because we do not claim to consider every usage to which random variables have ever been put.
+Secondly, it is often useful to consider ``functions of variables''. For example, my daughter might want to know if she is more than half of my height. If my height is $\RV{X}$, then we will want to know what half my height is. We can consider this a second variable $\RV{H}$, whose codomain is multiples of $\frac{1}{2}$, with the property that whatever value $y$ is the ``actual'' value of $\RV{X}$, the value of $\RV{H}$ must be $\frac{y}{2}$. This induces a binary relation between the codomains of $\RV{X}$ and $\RV{H}$ consisting of the valid pairs of values $(y,\frac{y}{2})$.
+
+
+
+For theoretical tractability, however, we require formal definitions of observable variables. 
+\begin{align}
+	\RV{X}=\RV{X}
+\end{align}
 
 An important question for our purposes is: when we define vague variables, what relationships should we understand them to have? This question can be illustrated with an example from the causal modelling framework of \emph{structural causal models}. This framework assigns a function to each variable. For example
 \begin{align}
