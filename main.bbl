@@ -1,4 +1,4 @@
-\begin{thebibliography}{28}
+\begin{thebibliography}{27}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -129,18 +129,6 @@ David Lewis.
 \newblock ISSN 0004-8402.
 \newblock \doi{10.1080/00048408112340011}.
 \newblock URL \url{https://doi.org/10.1080/00048408112340011}.
-
-\bibitem[Menger(2003)]{menger_random_2003}
-Karl Menger.
-\newblock Random {Variables} from the {Point} of {View} of a {General} {Theory}
-  of {Variables}.
-\newblock In Karl Menger, Bert Schweizer, Abe Sklar, Karl Sigmund, Peter
-  Gruber, Edmund Hlawka, Ludwig Reich, and Leopold Schmetterer, editors,
-  \emph{Selecta {Mathematica}: {Volume} 2}, pages 367--381. Springer, Vienna,
-  2003.
-\newblock ISBN 978-3-7091-6045-9.
-\newblock \doi{10.1007/978-3-7091-6045-9_31}.
-\newblock URL \url{https://doi.org/10.1007/978-3-7091-6045-9_31}.
 
 \bibitem[Mueller et~al.(2021)Mueller, Li, and Pearl]{mueller_causes_2021}
 Scott Mueller, Ang Li, and Judea Pearl.

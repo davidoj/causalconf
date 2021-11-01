@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  27 OCT 2021 15:39
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  1 NOV 2021 10:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1018,40 +1018,40 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmss' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [4] [5] [6]
-Overfull \hbox (7.59142pt too wide) in paragraph at lines 102--102
+ [4]
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
+ine 39.
+ [5]
+Overfull \hbox (7.59142pt too wide) in paragraph at lines 111--111
 []\T1/lmr/bx/n/12 Probability and com-po-si-tion with-out vari-ables: Markov
  []
 
-[7] [8] (./figures/truncated_factorisation.tikz)
+[6] [7] (./figures/truncated_factorisation.tikz)
 (./figures/truncated_factorisation.tikz) (./figures/double_label.tikz)
-(./figures/double_label.tikz) [9] [10] (./figures/marginal.tikz)
-(./figures/marginal.tikz) [11] (./figures/compose_with_copymap.tikz)
+(./figures/double_label.tikz) [8] [9] (./figures/marginal.tikz)
+(./figures/marginal.tikz) [10] (./figures/compose_with_copymap.tikz)
 (./figures/compose_with_copymap.tikz)
-Overfull \hbox (4.45355pt too wide) detected at line 334
+Overfull \hbox (4.45355pt too wide) detected at line 343
 []
  []
 
 (./figures/precompose_with_copymap.tikz)
-(./figures/precompose_with_copymap.tikz) [12]
-Overfull \hbox (44.79489pt too wide) detected at line 364
+(./figures/precompose_with_copymap.tikz) [11]
+Overfull \hbox (44.79489pt too wide) detected at line 373
 []
  []
 
-[13] (./figures/disintegration_omega.tikz) (./figures/disintegration_omega.tikz
+[12] (./figures/disintegration_omega.tikz) (./figures/disintegration_omega.tikz
 )
 
-LaTeX Warning: Reference `cor:uniq_joint' on page 14 undefined on input line 41
-5.
+LaTeX Warning: Reference `cor:uniq_joint' on page 13 undefined on input line 42
+4.
 
-[14]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 458.
- (./figures/truncated_factorisation_labeled.tikz)
-(./figures/truncated_factorisation_labeled.tikz) [15] [16]
+[13] (./figures/truncated_factorisation_labeled.tikz)
+(./figures/truncated_factorisation_labeled.tikz) [14] [15]
 (./figures/conditional_submodel.tikz) (./figures/conditional_submodel.tikz)
-[17] (./figures/cond_indep1.tikz) (./figures/cond_indep1.tikz)
-(./figures/ci_example.tikz) (./figures/ci_example.tikz)) (./seedo.tex [18]
+[16] (./figures/cond_indep1.tikz) (./figures/cond_indep1.tikz)
+(./figures/ci_example.tikz) (./figures/ci_example.tikz)) (./seedo.tex [17]
 (./figures/seedo.tikz) (./figures/seedo.tikz)
 LaTeX Font Info:    Trying to load font information for U+eus on input line 21.
 
@@ -1061,11 +1061,11 @@ File: ueus.fd 2013/01/14 v3.01 Euler Script
 )
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-eus.cfg
 File: mt-eus.cfg 2006/07/28 v1.2 microtype config. file: AMS Euler Script (RS)
-) [19] [20]
-[21]) (./cbns.tex [22] (./figures/cbn_sd2.tikz)
+) [18] [19]
+[20]) (./cbns.tex [21] (./figures/cbn_sd2.tikz)
 (./figures/truncated_fac_definition.tikz) (./figures/cbn_sd23.tikz)
 (./figures/cbn_sd2.tikz) (./figures/truncated_fac_definition.tikz)
-(./figures/cbn_sd23.tikz) [23] (./figures/cbn_sd_2comb.tikz)
+(./figures/cbn_sd23.tikz) [22] (./figures/cbn_sd_2comb.tikz)
 (./figures/cbn_sd_2comb.tikz)
 Overfull \hbox (13.56367pt too wide) in paragraph at lines 40--41
 \T1/lmr/m/n/10 strate-gies. Sup-pose we have some stan-dard see-do model $\U/eu
@@ -1075,12 +1075,12 @@ s/m/n/10 M \OT1/cmr/m/n/10 := \OMS/cmsy/m/n/10 f\U/msb/m/n/10 T[]\OML/cmm/m/it/
  []
 
 (./figures/seedo_equality2.tikz) (./figures/seedo_equality.tikz)
-(./figures/seedo_equality2.tikz) (./figures/seedo_equality.tikz) [24]
+(./figures/seedo_equality2.tikz) (./figures/seedo_equality.tikz) [23]
 (./figures/t_vs_u.tikz) (./figures/t_vs_u.tikz) (./figures/defn_ra.tikz)
 (./figures/defn_ra.tikz) (./figures/seedo_equality2.tikz)
 (./figures/seedo_cbn_with_s.tikz) (./figures/seedo_equality.tikz)
 (./figures/seedo_equality2.tikz) (./figures/seedo_cbn_with_s.tikz)
-(./figures/seedo_equality.tikz) [25] [26]
+(./figures/seedo_equality.tikz) [24] [25]
 (./figures/strong_identifiability.tikz) (./figures/strong_identifiability2.tikz
 ) (./figures/strong_identifiability.tikz)
 (./figures/strong_identifiability2.tikz)
@@ -1088,10 +1088,10 @@ Overfull \hbox (39.74922pt too wide) detected at line 123
 []
  []
 
-[27]
+[26]
 Missing character: There is no — in font ec-lmr10!
 Missing character: There is no — in font ec-lmr10!
-) (./potential_outcomes.tex [28] [29] (./figures/po_probmodel.tikz)
+) (./potential_outcomes.tex [27] [28] (./figures/po_probmodel.tikz)
 (./figures/po_probmodel.tikz) (./figures/multiplexer.tikz)
 (./figures/multiplexer.tikz)
 Overfull \hbox (2.22739pt too wide) in paragraph at lines 57--58
@@ -1105,7 +1105,7 @@ sy/m/n/10 \ \OT1/cmss/m/n/10 W[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n
 /10 ) =
  []
 
-[30]
+[29]
 Overfull \hbox (3.6853pt too wide) in paragraph at lines 73--74
 [][]\T1/lmr/bx/n/10 Example 5.7. []\T1/lmr/m/n/10 Sup-pose we have a stan-dard 
 de-ci-sion prob-lem $\OMS/cmsy/m/n/10 f\U/msb/m/n/10 T[]\OML/cmm/m/it/10 ; \OMS
@@ -1128,7 +1128,7 @@ Overfull \hbox (31.99535pt too wide) detected at line 82
 []
  []
 
-[31]) (./appendix.tex [32]
+[30]) (./appendix.tex [31]
 Overfull \hbox (24.04094pt too wide) in paragraph at lines 18--19
 []\T1/lmr/m/it/10 Then there ex-ists a unique see-do model $\OT1/cmr/m/n/10 (\O
 T1/cmr/bx/n/10 T\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 H[]\OML/cmm/m/it/10 ; \OT1/
@@ -1138,10 +1138,10 @@ T1/cmr/m/n/10 [[]][] =
  []
 
 
-LaTeX Warning: Reference `ssec:disintegration' on page 33 undefined on input li
+LaTeX Warning: Reference `ssec:disintegration' on page 32 undefined on input li
 ne 22.
 
-[33]
+[32]
 Overfull \hbox (34.32564pt too wide) in paragraph at lines 83--84
 \T1/lmr/m/it/10 al-lel po-ten-tial out-come sub-model \T1/lmr/m/n/10 if $\OT1/c
 mr/bx/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/n/10 j\OT1/cmss/m/
@@ -1151,14 +1151,14 @@ ex-ists and $\OT1/cmr/bx/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m
 )][] =
  []
 
-[34]
+[33]
 Overfull \hbox (1.61238pt too wide) in paragraph at lines 97--98
 \T1/lmr/m/n/10 con-di-tion-ally in-de-pen-dent and iden-ti-cally dis-tributed M
 arkov ker-nel $\U/msb/m/n/10 P\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/
 n/10 j\OT1/cmss/m/n/10 J\OT1/cmr/m/n/10 ][] =
  []
 
-[35]
+[34]
 Overfull \hbox (2.66875pt too wide) in paragraph at lines 112--113
 [][]\T1/lmr/bx/n/10 Definition 7.3 \T1/lmr/m/n/10 (Ex-ten-sion)\T1/lmr/bx/n/10 
 . []\T1/lmr/m/n/10 Given a Markov ker-nel space $\OT1/cmr/m/n/10 (\OT1/cmr/bx/n
@@ -1173,7 +1173,7 @@ Overfull \hbox (16.46306pt too wide) in paragraph at lines 120--121
 0 (\OT1/cmr/bx/n/10 K\OML/cmm/m/it/10 ; E; F\OT1/cmr/m/n/10 )$\T1/lmr/m/n/10 ,
  []
 
-[36]
+[35]
 Overfull \hbox (36.55618pt too wide) in paragraph at lines 139--140
 []\T1/lmr/m/n/10 Let $\OML/cmm/m/it/10 e \OT1/cmr/m/n/10 = (\OML/cmm/m/it/10 e[
 ]\OT1/cmr/m/n/10 )[]$\T1/lmr/m/n/10 . In-tro-duce the vari-able $\OT1/cmss/m/n/
@@ -1184,22 +1184,22 @@ cmm/m/it/10 D\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/10 D[]Z\OT1/cmr/m
 /n/10 ][] =
  []
 
+[36]
+
+LaTeX Warning: Reference `eq:extn2' on page 37 undefined on input line 167.
+
 [37]
-
-LaTeX Warning: Reference `eq:extn2' on page 38 undefined on input line 167.
-
-[38]
 Overfull \hbox (9.27867pt too wide) detected at line 328
 []
  []
 
-[39]
+[38]
 Overfull \hbox (27.09242pt too wide) detected at line 414
 []
  []
 
 (./figures/ccom_lhs.tikz) (./figures/ccom_rhs.tikz) (./figures/ccom_lhs.tikz)
-(./figures/ccom_rhs.tikz) [40] (./figures/ccom2_lhs.tikz)
+(./figures/ccom_rhs.tikz) [39] (./figures/ccom2_lhs.tikz)
 (./figures/ccom2_mhs.tikz) (./figures/ccom2_rhs.tikz) (./figures/ccom2_lhs.tikz
 ) (./figures/ccom2_mhs.tikz) (./figures/ccom2_rhs.tikz)
 (./figures/ccom3_lhs.tikz) (./figures/ccom3_rhs.tikz) (./figures/ccom3_lhs.tikz
@@ -1209,11 +1209,11 @@ Overfull \hbox (27.09242pt too wide) detected at line 414
 (./figures/mstruct1_rhs.tikz) (./figures/mstruct2_lhs.tikz)
 (./figures/mstruct2_rhs.tikz) (./figures/naturality_lhs.tikz)
 (./figures/naturality_rhs.tikz) (./figures/naturality_lhs.tikz)
-(./figures/naturality_rhs.tikz) [41]
+(./figures/naturality_rhs.tikz) [40]
 
-LaTeX Warning: Reference `lem:se_id' on page 42 undefined on input line 495.
+LaTeX Warning: Reference `lem:se_id' on page 41 undefined on input line 495.
 
-) (./main.bbl [42]
+) (./main.bbl [41]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
 0.
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
@@ -1225,13 +1225,13 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
 Missing character: There is no ł in font ec-lmr10!
 Missing character: There is no ń in font ec-lmr10!
- [43]
-Underfull \hbox (badness 1127) in paragraph at lines 154--157
+ [42]
+Underfull \hbox (badness 1127) in paragraph at lines 142--145
 []\T1/lmr/m/n/10 Paul F. Chris-tiano.  EDT vs CDT, Septem-ber 2018.  URL []$\T1
 /lmtt/m/n/10 https : / /
  []
 
-[44]) [45] [46]
+[43]) [44] [45]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 221.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 221.
  (./main.aux)
@@ -1249,12 +1249,12 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 221.
  ) 
 Here is how much of TeX's memory you used:
- 29743 strings out of 479819
- 563063 string characters out of 5895847
- 941069 words of memory out of 5000000
- 46070 multiletter control sequences out of 15000+600000
+ 29740 strings out of 479819
+ 563008 string characters out of 5895847
+ 941984 words of memory out of 5000000
+ 46067 multiletter control sequences out of 15000+600000
  595650 words of font info for 106 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  68i,16n,83p,1391b,938s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.xdv (46 pages, 600180 bytes).
+Output written on main.xdv (45 pages, 595032 bytes).
