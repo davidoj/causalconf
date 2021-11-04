@@ -27,9 +27,9 @@ Specifically, suppose $\proc{S}$ takes values in $\Psi$. Then we can propose a s
 
 Thus the procedure $\proc{S}$ eventually restricts the observationally compatible elements of $\Omega$ to some subset induced by $\RV{S}$; we may or may not add additional postulates to choose from the remaining candidates. A probability model on $\Omega$ could be regarded as a forecast of which elements of $\Omega$ are likely to be observationally compatible. If we have a formal variable $\RV{X}$ that can be written as $f\circ \RV{S}$ for some $f$, then $\RV{X}$ is an \emph{observed variable}, otherwise it is an \emph{unobserved variable}.
 
-One thing to note in this setup is that two different sets of measurement outcomes $\Psi$ and $\Psi'$ entails specifying an different mesurement processes $\proc{S}$ and $\proc{S}'$. On the other hand, it is possible to define different sample spaces $\Omega$ and $\Omega'$ that share a single procedure $\proc{S}$ (recall that the procedure $\proc{S}$ does not itself depend on $\Omega$, though its model $\RV{S}$ does). We will sometimes consider different models of the same observable processes.
+One thing to note in this setup is that two different sets of measurement outcomes $\Psi$ and $\Psi'$ entails specifying an different mesurement procedurees $\proc{S}$ and $\proc{S}'$. On the other hand, it is possible to define different sample spaces $\Omega$ and $\Omega'$ that share a single procedure $\proc{S}$ (recall that the procedure $\proc{S}$ does not itself depend on $\Omega$, though its model $\RV{S}$ does). We will sometimes consider different models of the same observable procedurees.
 
-As far as we know, distinguishing variables from processes is somewhat nonstandard, but it is useful because, as we have discussed, every process is assumed to be modeled by a variable but not every variable is a model of a process. Furthermore, while they may not be distinguished, both variables and processes are often discussed in statistical texts. For example, \citet{pearl_causality:_2009} offers the following two, purportedly equivalent, definitions of variables:
+As far as we know, distinguishing variables from procedurees is somewhat nonstandard, but it is useful because, as we have discussed, every procedure is assumed to be modeled by a variable but not every variable is a model of a procedure. Furthermore, while they may not be distinguished, both variables and procedurees are often discussed in statistical texts. For example, \citet{pearl_causality:_2009} offers the following two, purportedly equivalent, definitions of variables:
 \begin{quote}
 By a \emph{variable} we will mean an attribute, measurement or inquiry that may take on one of several possible outcomes, or values, from a specified domain. If we have beliefs (i.e., probabilities) attached to the possible values that a variable may attain, we will call that variable a random variable.
 \end{quote}
@@ -38,11 +38,11 @@ By a \emph{variable} we will mean an attribute, measurement or inquiry that may 
 This is a minor generalization of the textbook definition, according to which a random variable is a mapping from the sample space (e.g., the set of elementary events) to the real line. In our definition, the mapping is from the sample space to any set of objects called ``values,'' which may or may not be ordered.
 \end{quote}
 
-We have offered the clarification above that variables model processes, but they are not the same thing as processes.
+Variables model procedurees, but they are not the same thing as procedurees.
 
 \subsection{Events}
 
-To recap, we have a process $\proc{S}$ yielding values in $\Psi$ that measures everything we are interested in, a sample space $\Omega$ and a function $\RV{S}$ that models $\proc{S}$ in the sense of Definition \ref{def:observable}. We assume also that $\Psi$ has a $\sigma$-algebra $\sigalg{E}$ (this may be the power set of $\Psi$, as measurement processes are typically limited to finite precision). $\Omega$ is equipped with a $\sigma$-algebra $\sigalg{F}$ such that $\sigma(\RV{S})\subset \sigalg{F}$. If a procedure $\proc{X}=f\circ \RV{S}$ then we define $\RV{X}:\Omega\to X$ by $\RV{X}:=f\circ\RV{S}$.
+To recap, we have a procedure $\proc{S}$ yielding values in $\Psi$ that measures everything we are interested in, a sample space $\Omega$ and a function $\RV{S}$ that models $\proc{S}$ in the sense of Definition \ref{def:observable}. We assume also that $\Psi$ has a $\sigma$-algebra $\sigalg{E}$ (this may be the power set of $\Psi$, as measurement procedurees are typically limited to finite precision). $\Omega$ is equipped with a $\sigma$-algebra $\sigalg{F}$ such that $\sigma(\RV{S})\subset \sigalg{F}$. If a procedure $\proc{X}=f\circ \RV{S}$ then we define $\RV{X}:\Omega\to X$ by $\RV{X}:=f\circ\RV{S}$.
 
 If a particular procedure $\proc{X}=f\circ \proc{S}$ eventually yields a value $x$, then the values of $\Omega$ compatible with observation are a subset of $\RV{X}^{-1}(x)$. We define $\RV{X}\bowtie x:\cong \RV{X}^{-1}(x)$, which we read ``$\RV{X}$ yields x''. This definition applies to all types of variables, not just observables, but we only provide an interpretation of the meaning of this definition when $\RV{X}$ is associated with $\proc{X}$: in that case, $\RV{X}\bowtie x$ contains the compatible values of $\Omega$ iff $\proc{X}$ yields x. 
 
@@ -50,8 +50,13 @@ We extend this to say, for measurable $A\in \sigalg{X}$, $\RV{X}\bowtie A=\bigcu
 
 We use a bowtie to stand for ``yields'': $\RV{Y}\bowtie y :\cong \RV{Y}^{-1}(y)$. It is somewhat common to use the symbol ``$=$'' to do this job, but we do not want to do this because $\RV{Y}=y$ already has a meaning, namely that $\RV{Y}$ is a constant function everywhere equal to $y$. 
 
-Throughout this paper, we will assume all measurable sets are finite sets. This is because it makes explanations simpler and because it is easy to show that conditional probabilities exist in this setting (Lemma \ref{lem:subm_exist}).
+\subsection{Probabilistic models}
 
+We've offered an interpretation of variables, but we won't offer a similar interpretation of probability. Interpreting probability is notoriously difficult. Incidentally, conditioning on different values of unobserved variables typically induces different probability models over observed variables, so supplying an interpretion of what it means for a probability model to be ``correct'' might also entail an interpretation of what it means for an unobserved variable to yield a particular value.
+
+We will assume for the time being that we want to construct probabilistic models that relate collection of variables, defined as they have been above. The standard method for 
+
+Throughout this paper, we will assume all measurable sets are finite sets. This is because it makes explanations simpler and because it is easy to show that conditional probabilities exist in this setting (Lemma \ref{lem:subm_exist}).
 
 At this point we have a crude model of some observation procedure $\proc{S}$ given by $\Omega$ and a collection of variables, and we can relate a claim that some $\omega$ is \emph{compatible with observations} to real-world events via the procedure $\proc{S}$. We wish to extend this with probability distributions and conditional probabilties. A probability distribution $\prob{P}^{\RV{X}}$ for some variable $\RV{X}:\Omega\to B$ is a probability measure on $(B,\sigalg{B})$, and a conditional probability $\prob{P}^{\RV{X}|\RV{Y}}$ for $\RV{X}:\Omega\to B$, $\RV{Y}:\Omega\to C$ is a Markov kernel $B\kto C$. A a probability distribution $\mu$ on $(B,\sigalg{B})$ is a $\sigma$-additive measure $\mu:\sigalg{B}\to [0,1]$ such that $\mu(\emptyset)=0$ and $\mu(B)=1$, and a Markov kernel $\kernel{K}:B\kto C$ is a is a map $B\times \sigalg{C}\to [0,1]$ such that
 
