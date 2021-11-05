@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: plainnat.bst
+Database file #1: references.bib
+Repeated entry---line 1691 of file references.bib
+ : @article{fong_causal_2013
+ :                          ,
+I'm skipping whatever remains of this entry
+You've used 29 entries,
+            2773 wiz_defined-function locations,
+            827 strings with 10908 characters,
+and the built_in function-call counts, 12407 in all, are:
+= -- 1222
+> -- 487
+< -- 29
++ -- 173
+- -- 143
+* -- 930
+:= -- 1957
+add.period$ -- 148
+call.type$ -- 29
+change.case$ -- 128
+chr.to.int$ -- 28
+cite$ -- 58
+duplicate$ -- 613
+empty$ -- 1089
+format.name$ -- 190
+if$ -- 2633
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 33
+newline$ -- 208
+num.names$ -- 122
+pop$ -- 212
+preamble$ -- 1
+purify$ -- 102
+quote$ -- 0
+skip$ -- 423
+stack$ -- 0
+substring$ -- 453
+swap$ -- 78
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 294
+warning$ -- 0
+while$ -- 123
+width$ -- 0
+write$ -- 495
+(There was 1 error message)

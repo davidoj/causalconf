@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (-3, 0) {$\mapsto$};
+		\node [style=Llabel tikzit] (3) at (-6.75, 0) {Y};
+		\node [style=RLabel tikzit] (4) at (-4.75, 0) {$X$};
+		\node [style=small kernel tikzit] (5) at (-5.75, 0) {$\kernel{J}$};
+		\node [style=Llabel tikzit] (7) at (-1.25, 0) {$W$};
+		\node [style=RLabel tikzit] (8) at (7, 0.25) {$Z$};
+		\node [style=small kernel tikzit] (9) at (0.25, 0) {$\kernel{K}$};
+		\node [style=small kernel tikzit] (10) at (5.75, 0.25) {$\kernel{L}$};
+		\node [style=copymap tikzit] (11) at (1.75, 0) {};
+		\node [style=none] (12) at (5.25, 0.5) {};
+		\node [style=none] (13) at (5.25, 0) {};
+		\node [style=small kernel tikzit] (14) at (3, 0) {$\kernel{J}$};
+		\node [style=none] (15) at (3.25, 0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (7) to (9);
+		\draw (9) to (11);
+		\draw (10) to (8);
+		\draw (11) to (14);
+		\draw [in=180, out=45] (11) to (15.center);
+		\draw (14) to (13.center);
+		\draw [in=180, out=0] (15.center) to (12.center);
+		\draw (3) to (5);
+		\draw (5) to (4);
+	\end{pgfonlayer}
+\end{tikzpicture}

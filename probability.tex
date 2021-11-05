@@ -9,9 +9,19 @@ We are interested in constructing \emph{probabilistic models} which explain some
 
 Consider Newton's second law in the form $\proc{F}=\proc{MA}$ as a simple example of a model that relates variables $\proc{F}$, $\proc{M}$ and $\proc{A}$. As \citet{feynman_feynman_1979} noted, this law is incomplete -- in order to understand it, we must bring some pre-existing understanding of force, mass and acceleration as independent things. Furthermore, the nature of this knowledge is somewhat perculiar. Acknowledging that physicists happen to know a great deal about determining the forces on an object, it remains true that in order to actually say what the net force on a real object is, even a highly knowledgeable physicist will still have to go and do some measurements, and the result of such measurements will be a vector representing the net forces on that object.
 
-This suggests that we can think about ``force'' $\proc{F}$ (or mass or acceleration) as a kind of procedure that we apply to a particular real world object and which returns a mathematical object (in this case, a vector). We will call $\proc{F}$ a \emph{procedure}. Our view of $\proc{F}$ is akin to \citet{menger_random_2003}'s notion of variables as ``consistent classes of quantities'' that consist of pairing between real-world objects and quantities of some type. Force $\proc{F}$ itself is not a well-defined mathematical thing, as measurement procedures are not mathematically well-defined. At the same time, the set of values it can return \emph{are} well-defined mathematical things. 
+This suggests that we can think about ``force'' $\proc{F}$ (or mass or acceleration) as a kind of procedure that we apply to a particular real world object and which returns a mathematical object (in this case, a vector). We will call $\proc{F}$ a \emph{procedure}. Our view of $\proc{F}$ is akin to \citet{menger_random_2003}'s notion of variables as ``consistent classes of quantities'' that consist of pairing between real-world objects and quantities of some type. Force $\proc{F}$ itself is not a well-defined mathematical thing, as measurement procedures are not mathematically well-defined. At the same time, the set of values it may yield \emph{are} well-defined mathematical things.
 
-The fact that procedures return well-defined mathematical quantities allows us to define an operation akin to function composition. If I have a procedure $\proc{B}$ that takes values in some set $B$, and a function $f:B\to C$, define the ``composition'' $f\circ \proc{B}$ to be the procedure given by applying the procedure $\proc{B}$ and then applying $f$ to the result. For example, $\proc{MA}$ is the composition of $h:(x,y)\mapsto xy$ with $(\proc{M},\proc{A})$ that measures the mass and acceleration of the same object, and returns their values in an ordered pair.
+We will assume that any procedure will eventually yield an unambiguous value in a defined mathematical set. No actual procedure can be guaranteed to have this property -- any apparatus, however robust, could suffer catastrophic failure -- but we assume that we can study procedures reliable enough that we don't lose much by making this assumption. This assumption allows us to say a procedure $\proc{B}$ yields values in $B$. $\proc{B}\bowtie x$ is the proposition that $\proc{B}$, when completed, yields the value $x\in B$, and by assumption exactly one of these propositions is true. For $A\subset B$, $\proc{B}\bowtie A$ is the proposition $\bigor_{x\in A} \proc{B}\bowtie x$. Two procedures $\proc{B}$ and $\proc{C}$ are the same if $\proc{B}\bowtie x\iff \proc{C}\bowtie x$ for all $x\in B$. 
+
+The notion of ``yielding values'' allows us to define an operation akin to function composition. If I have a procedure $\proc{B}$ that takes values in some set $B$, and a function $f:B\to C$, define the ``composition'' $f\circ \proc{B}$ to be the procedure $\proc{C}$ that yields $f(x)$ whenever $\proc{B}$ yields $x$. For example, $\proc{MA}$ is the composition of $h:(x,y)\mapsto xy$ with the procedure $(\proc{M},\proc{A})$ that yields the mass and acceleration of the same object. Composition is associative - for all $x\in B$: 
+
+\begin{align}
+	(g\circ f)\circ\proc{B}\text{ yields } x &\iff B\text{ yields } (g\circ f)^{-1}(x) \\
+	&\iff B\text{ yields } f^{-1}(g^{-1}(x))\\
+	&\iff f\circ B \text{ yields } g^{-1}(x)\\
+	&\iff g\circ(f\circ B)\text{ yields } x
+\end{align}
+
 
 One might whether there is also some kind of ``append'' operation that takes a standalone $\proc{M}$ and a standalone $\proc{A}$ and returns a procedure $(\proc{M},\proc{A})$. Unlike function composition, this would be an operation that acts on two procedures rather than a procedure and a function. Rather than attempt to define any operation of this type, we simply assume that somehow a procedure has been devised that measures everything of interest, which we will call $\proc{S}$ which takes values in $\Psi$. We assume $\proc{S}$ is such that any procedure of interest can be written as $f\circ \proc{S}$ for some $f$.
 
@@ -19,17 +29,17 @@ For the model $\proc{F}=\proc{MA}$, for example, we could assume $\proc{F}=f\cir
 
 Thus far, $\Psi$ is a ``sample space'' that only contains observable variables. To include unobserved variables, we posit a richer sample space $\Omega$ such that the measurement $\proc{S}$ determines an element of some partition of $\Omega$ rather than an element of $\Omega$ itself. Then, by analogy to procedures defined with respect to $\proc{S}$, we identify variables in general with measurable functions defined on the domain $\Omega$. 
 
-Specifically, suppose $\proc{S}$ takes values in $\Psi$. Then we can propose a sample space $\Omega$ such that $|\Omega|\geq |\Psi|$ and a surjective function $\RV{S}:\Omega\to \Psi$ associated with $\proc{S}$. We connect $\Omega$, $\RV{S}$ and $\proc{S}$ with the notion of \emph{compatibility with obseravation}:
+Specifically, suppose $\proc{S}$ takes values in $\Psi$. Then we can propose a sample space $\Omega$ such that $|\Omega|\geq |\Psi|$ and a surjective function $\RV{S}:\Omega\to \Psi$ associated with $\proc{S}$. We connect $\Omega$, $\RV{S}$ and $\proc{S}$ with the notion of \emph{consistency with obseravation}:
 
 \begin{align}
- &\omega\in \Omega\text{ is \emph{compatible with observation} iff the result yielded by }S\text{ is equal to }\RV{S}(\omega)\label{def:observable}
+ &\omega\in \Omega\text{ is \emph{consistent with observation} iff the result yielded by }\proc{S}\text{ is equal to }\RV{S}(\omega)\label{def:observable}
 \end{align}
 
-Thus the procedure $\proc{S}$ eventually restricts the observationally compatible elements of $\Omega$ to some subset induced by $\RV{S}$; we may or may not add additional postulates to choose from the remaining candidates. A probability model on $\Omega$ could be regarded as a forecast of which elements of $\Omega$ are likely to be observationally compatible. If we have a formal variable $\RV{X}$ that can be written as $f\circ \RV{S}$ for some $f$, then $\RV{X}$ is an \emph{observed variable}, otherwise it is an \emph{unobserved variable}.
+Thus the procedure $\proc{S}$ eventually restricts the observationally consistent elements of $\Omega$. If $\proc{S}$ yield the result $s$, then the consistent values of $\Omega$ will be $\RV{S}^{-1}(s)$.
 
-One thing to note in this setup is that two different sets of measurement outcomes $\Psi$ and $\Psi'$ entails specifying an different mesurement procedurees $\proc{S}$ and $\proc{S}'$. On the other hand, it is possible to define different sample spaces $\Omega$ and $\Omega'$ that share a single procedure $\proc{S}$ (recall that the procedure $\proc{S}$ does not itself depend on $\Omega$, though its model $\RV{S}$ does). We will sometimes consider different models of the same observable procedurees.
+One thing to note in this setup is that two different sets of measurement outcomes $\Psi$ and $\Psi'$ entail a different mesurement procedures $\proc{S}$ and $\proc{S}'$, but different sample spaces $\Omega$ and $\Omega'$ may be used to model a single procedure $\proc{S}$. We will sometimes consider different models of the same observable procedures.
 
-As far as we know, distinguishing variables from procedurees is somewhat nonstandard, but it is useful because, as we have discussed, every procedure is assumed to be modeled by a variable but not every variable is a model of a procedure. Furthermore, while they may not be distinguished, both variables and procedurees are often discussed in statistical texts. For example, \citet{pearl_causality:_2009} offers the following two, purportedly equivalent, definitions of variables:
+As far as we know, distinguishing variables from procedures is somewhat nonstandard, but it is a useful distinction to make. While they may not be explicitly distinguished, both variables and procedures are often discussed in statistical texts. For example, \citet{pearl_causality:_2009} offers the following two, purportedly equivalent, definitions of variables:
 \begin{quote}
 By a \emph{variable} we will mean an attribute, measurement or inquiry that may take on one of several possible outcomes, or values, from a specified domain. If we have beliefs (i.e., probabilities) attached to the possible values that a variable may attain, we will call that variable a random variable.
 \end{quote}
@@ -38,82 +48,67 @@ By a \emph{variable} we will mean an attribute, measurement or inquiry that may 
 This is a minor generalization of the textbook definition, according to which a random variable is a mapping from the sample space (e.g., the set of elementary events) to the real line. In our definition, the mapping is from the sample space to any set of objects called ``values,'' which may or may not be ordered.
 \end{quote}
 
-Variables model procedurees, but they are not the same thing as procedurees.
+Our view is that the first definition is a definition of a procedure, while the second is a definition of a variable. Variables model procedures, but they are not the same thing. We can establish this by noting that, under our definition, every procedure of interest -- that is, all procedures that can be written $f\circ \proc{S}$ for some $f$ -- is modeled by a variable, but there may be variables defined on $\Omega$ that do not factorise through $\proc{S}$, and these variables do not model procedures.
 
 \subsection{Events}
 
-To recap, we have a procedure $\proc{S}$ yielding values in $\Psi$ that measures everything we are interested in, a sample space $\Omega$ and a function $\RV{S}$ that models $\proc{S}$ in the sense of Definition \ref{def:observable}. We assume also that $\Psi$ has a $\sigma$-algebra $\sigalg{E}$ (this may be the power set of $\Psi$, as measurement procedurees are typically limited to finite precision). $\Omega$ is equipped with a $\sigma$-algebra $\sigalg{F}$ such that $\sigma(\RV{S})\subset \sigalg{F}$. If a procedure $\proc{X}=f\circ \RV{S}$ then we define $\RV{X}:\Omega\to X$ by $\RV{X}:=f\circ\RV{S}$.
+To recap, we have a procedure $\proc{S}$ yielding values in $\Psi$ that measures everything we are interested in, a sample space $\Omega$ and a function $\RV{S}$ that models $\proc{S}$ in the sense of Definition \ref{def:observable}. We assume also that $\Psi$ has a $\sigma$-algebra $\sigalg{E}$ (this may be the power set of $\Psi$, as measurement procedures are typically limited to finite precision). $\Omega$ is equipped with a $\sigma$-algebra $\sigalg{F}$ such that $\sigma(\RV{S})\subset \sigalg{F}$. If a procedure $\proc{X}=f\circ \RV{S}$ then we define $\RV{X}:\Omega\to X$ by $\RV{X}:=f\circ\RV{S}$.
 
-If a particular procedure $\proc{X}=f\circ \proc{S}$ eventually yields a value $x$, then the values of $\Omega$ compatible with observation are a subset of $\RV{X}^{-1}(x)$. We define $\RV{X}\bowtie x:\cong \RV{X}^{-1}(x)$, which we read ``$\RV{X}$ yields x''. This definition applies to all types of variables, not just observables, but we only provide an interpretation of the meaning of this definition when $\RV{X}$ is associated with $\proc{X}$: in that case, $\RV{X}\bowtie x$ contains the compatible values of $\Omega$ iff $\proc{X}$ yields x. 
+If a particular procedure $\proc{X}=f\circ \proc{S}$ eventually yields a value $x$, then the values of $\Omega$ consistent with observation must be a subset of $\RV{X}^{-1}(x)$. We define an \emph{event} $\RV{X}\bowtie x:\equiv \RV{X}^{-1}(x)$, which we read ``the event that $\RV{X}$ yields x''. An event $\RV{X}\bowtie x$ occurs if the consistent values of $\Omega$ are a subset of $\RV{X}\bowtie x$, thus ``the event that $\RV{X}$ yields x occurs$\equiv \proc{X}$ yields $x$''. The definition of events applies to all types of variables, not just observables, but we only provide an interpretation of events ``occurring'' when the variable $\RV{X}$ is associated with some $\proc{X}$.
 
-We extend this to say, for measurable $A\in \sigalg{X}$, $\RV{X}\bowtie A=\bigcup_{x\in A} \RV{X}\bowtie x$. Given $\RV{Y}:\Omega\to X$, $\RV{X}\bowtie \RV{Y}=\bigcup_{x\in X} \RV{X}\bowtie x \cap \RV{Y}\bowtie x$, read ``$\RV{X}$ yields the same as $\RV{Y}$''. $\RV{X}\not\bowtie x:\cong (\RV{X}\bowtie x)^C$.
+For measurable $A\in \sigalg{X}$, $\RV{X}\bowtie A=\bigcup_{x\in A} \RV{X}\bowtie x$. 
 
-We use a bowtie to stand for ``yields'': $\RV{Y}\bowtie y :\cong \RV{Y}^{-1}(y)$. It is somewhat common to use the symbol ``$=$'' to do this job, but we do not want to do this because $\RV{Y}=y$ already has a meaning, namely that $\RV{Y}$ is a constant function everywhere equal to $y$. 
+Given $\RV{Y}:\Omega\to X$, we can define an append operation for variables: $(\RV{X},\RV{Y}):=\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega))$. $(\RV{X},\RV{Y})$ has the property that $(\RV{X},\RV{Y})\bowtie (x,y)= \RV{X}\bowtie x\cap \RV{Y}\bowtie y$, which supports the interpretation of $(\RV{X},\RV{Y})$ as the values yielded by $\RV{X}$ and $\RV{Y}$ together.
 
-\subsection{Probabilistic models}
+It is common to use the symbol ``$=$'' instead of ``$\bowtie$'', but we want to avoid this because $\RV{Y}=y$ already has a meaning, namely that $\RV{Y}$ is a constant function everywhere equal to $y$.
 
-We've offered an interpretation of variables, but we won't offer a similar interpretation of probability. Interpreting probability is notoriously difficult. Incidentally, conditioning on different values of unobserved variables typically induces different probability models over observed variables, so supplying an interpretion of what it means for a probability model to be ``correct'' might also entail an interpretation of what it means for an unobserved variable to yield a particular value.
+\subsection{Probabilistic models for causal inference}
 
-We will assume for the time being that we want to construct probabilistic models that relate collection of variables, defined as they have been above. The standard method for 
+We have a ``skeletal model'' process $\proc{S}$, a sample space $(\Omega,\sigalg{F})$ and a collection of \emph{variables}, which we write with the sans serif font: $\RV{X},\RV{Y}_i$. The process $\proc{S}$ is related to the model $\Omega$ and the observable variables via the notion of \emph{consistency with observation}. To this skeleton, we want to add a model that relates variables probabilistically. Without delving into it too deeply, such a model can be thought to be something like a quantitative forecast of the results eventually yielded by $\proc{S}$.
 
-Throughout this paper, we will assume all measurable sets are finite sets. This is because it makes explanations simpler and because it is easy to show that conditional probabilities exist in this setting (Lemma \ref{lem:subm_exist}).
+For causal inference, we need to modify the standard approach to constructing probability models on a sample space $(\Omega,\sigalg{F})$ to allow for \emph{holes} in our model. \citet{hajek_what_2003} defines \emph{probability gaps} as propositions that do not have a probability assigned to them (these propositions might correspond to events in the sense discussed above), and probability holes are a particular kind of probability gap. Before defining models with holes in them, we will consider the example of \emph{truncated factorisation} to illustrate the need for models of this type.
 
-At this point we have a crude model of some observation procedure $\proc{S}$ given by $\Omega$ and a collection of variables, and we can relate a claim that some $\omega$ is \emph{compatible with observations} to real-world events via the procedure $\proc{S}$. We wish to extend this with probability distributions and conditional probabilties. A probability distribution $\prob{P}^{\RV{X}}$ for some variable $\RV{X}:\Omega\to B$ is a probability measure on $(B,\sigalg{B})$, and a conditional probability $\prob{P}^{\RV{X}|\RV{Y}}$ for $\RV{X}:\Omega\to B$, $\RV{Y}:\Omega\to C$ is a Markov kernel $B\kto C$. A a probability distribution $\mu$ on $(B,\sigalg{B})$ is a $\sigma$-additive measure $\mu:\sigalg{B}\to [0,1]$ such that $\mu(\emptyset)=0$ and $\mu(B)=1$, and a Markov kernel $\kernel{K}:B\kto C$ is a is a map $B\times \sigalg{C}\to [0,1]$ such that
+For this example, we will assume that the reader is familiar enough with marginal probabilities, conditional probabilities and causal models to follow along. We will offer more careful definitions of terms subsequently.
 
-\begin{itemize}
-	\item x\mapsto \kernel{K}(x,A) is $\sigalg{B}$-measurable for all $A\in \sigalg{C}$
-	\item A\mapsto \kernel{K}(x,A) is a probability measure on $(C,\sigalg{C})$ for all $x\in B$
-\end{itemize}
-
-Given $\prob{P}^{\RV{X}}$, we identify $\prob{P}^{\RV{X}}(\{x\})$ with the probability $\prob{P}(\RV{X}\bowtie x)$ of the event $\RV{X}\bowtie x$ under some related probability measure $\prob{P}$ on $(\Omega,\sigalg{F})$. That is, we assume that there exists some $\prob{P}$ on $(\Omega,\sigalg{F})$ such that $\prob{P}^{\RV{X}}(\{x\})=\prob{P}(\RV{X}\bowtie x)$. More generally, we say a collection of probability distributions $\{\prob{P}^{\RV{X}_i}|i\in D\}$ is \emph{sample space compatible} if there exists $\prob{P}$ on $\Omega$ such that $\prob{P}^{\RV{X}_i}(A)=\prob{P}(\RV{X}_i\bowtie A)$ for all $A\in \sigalg{B}$, $i\in D$.
-
-Extending sample space compatibility to conditional probabilities is somewhat trickier, because conditional probably does not seem to have a simple correspondence to any more fundamental notion. See for example \citet{hajek_what_2003} for some difficulties with defining conditional probability purely in terms or a probability measure $\prob{P}$ on $(\Omega,\sigalg{F})$, and \citet{nguyen_probability_2002} for a difficulties with interpreting conditional probability as the probability of an implication.
-
-We say a collection of conditional probabilities $\{\prob{P}^{\RV{X}_i|\RV{X}_j}|i\in D, j\in E\}$ is sample space compatible relative to $\RV{Y}$ if there exists some $\prob{P}^{;\RV{Y}}:Y\kto \Omega$ such that, for all $j\in E$, $i\in D$:
-
-\begin{align}
-	\RV{X}_i^{-1}(A)\cap \RV{X}_{j}^{-1}(b) &= \emptyset \implies \prob{P}^{\RV{X}_i|\RV{X}_j}(A|b)=0 &\forall A\in \sigalg{X}_i, b\in X_j \label{eq:ssc_1}\\
-	\prob{P}^{;\RV{Y}}((\RV{X}_i,\RV{X}_j)\bowtie A\times B|c) &= \int_A \prob{P}^{\RV{X}_{i}|\RV{X}_j}(B|\RV{X}_j(\omega))\prob{P}^{;\RV{Y}}(d\omega|c) &\forall c\in Y:\prob{P}^{;\RV{Y}}(\RV{X}_j\bowtie A|c)>0 \label{eq:ssc_2}
-\end{align}
-
-$\{\prob{P}^{\RV{X}_i|\RV{X}_j}|i\in D, j\in E\}$ is sample space compatible if there is some $\RV{Y}$ such that it is sample space compatible relative to $\RV{Y}$. Note that Equation \ref{eq:ssc_2} is similar to a standard definition of conditional probability, while Equation \ref{eq:ssc_1} is an additional requirement, roughly saying ``the probability of $u$ given $\not u$ is always zero''. 
-
-By convention, a collection of conditional probabilities with the same base letter $\prob{P}^{\RV{X}|\RV{Y}}$, $\prob{P}^{\RV{Z}|\RV{Y}}$ are held to be jointly sample space compatible.
-
-Consider a model obtained from ``truncated factorisation'', an operation that is typical in causal modelling and atypical in probability theory. Suppose we have a causal Bayesian network $(\prob{P}^{\RV{XYZ}},\mathcal{G})$ where $\RV{X}:\Omega\to A$, $\RV{Y}:\Omega\to B$ and $\RV{Z}:\Omega\to C$ are variables, $\prob{P}^{\RV{XYZ}}$ is a probability measure on $A\times B\times C$ that we call ``a probability model of $(\RV{X},\RV{Y},\RV{Z})$'' and $\mathcal{G}$ is a Directed Acyclic Graph whose vertices we identify with $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ that contains the edges $\RV{X}\longrightarrowRHD \RV{Y}$ and $\RV{X}\longleftarrowRHD \RV{Z} \longrightarrowRHD \RV{Y}$. ``Setting $\RV{X}$ to $x$'' is an operation that takes as inputs $\prob{P}^{\RV{XYZ}}$, $\mathcal{G}$ and some $x\in A$ and returns a new probability measure $\prob{P}_x^{\RV{XYZ}}$ on $A\times B\times C$ given by \citep[page ~24]{pearl_causality:_2009}:
+Suppose we have a causal Bayesian network $(\prob{P}^{\RV{XYZ}},\mathcal{G})$ where $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ are variables, $\prob{P}^{\RV{XYZ}}$ is a probability measure on $X\times Y\times Z$ that we call ``a probability model of $(\RV{X},\RV{Y},\RV{Z})$'' and $\mathcal{G}$ is a Directed Acyclic Graph whose vertices we identify with $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ that contains the edges $\RV{X}\longrightarrowRHD \RV{Y}$ and $\RV{X}\longleftarrowRHD \RV{Z} \longrightarrowRHD \RV{Y}$. ``Setting $\RV{X}$ to $x$'' is an operation that takes as inputs $\prob{P}^{\RV{XYZ}}$, $\mathcal{G}$ and some $x\in X$ and returns a new probability measure $\prob{P}_x^{\RV{XYZ}}$ on $X\times Y\times Z$ given by \citep[page ~24]{pearl_causality:_2009}:
 \begin{align}
 	\prob{P}^{\RV{XYZ}}_{x}(x',y,z)=\prob{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x' \rrbracket\label{eq:truncated_fac}
 \end{align}
 
 Equation \ref{eq:truncated_fac} embodies three assumptions about a model of the operation of ``setting $\RV{X}$ to $x$''. First, such a model must assign probability 1 to the proposition that $\RV{X}$ yields $x$. Second, such a model must assign the same marginal probability distribution to $\RV{Z}$ as the input distribution; $\prob{P}^{\RV{Z}}=\prob{P}_{x}^{\RV{Z}}$. Finally, our model must also assign the same conditional probability to $\RV{Y}$ given $\RV{X}$ and $\RV{Z}$; $\prob{P}^{\RV{Y}|\RV{XZ}}=\prob{P}_x^{\RV{Y}|\RV{XZ}}$.
 
-We cannot always find a sensible probability distribution $\prob{P}_x^{\RV{XYZ}}$ that has the required properties. For example, if $\RV{X}$ and $\RV{Z}$ happen to be represented by the same function -- which is to say, the underlying procedurees $X$ and $Z$ both refer to the same measurement of the same thing -- then any model must surely assign probability 1 to the event $\RV{X}\bowtie \RV{Z}$; or equivalently, probability 0 to the event $\RV{X}\not\bowtie \RV{Z}$. However, this cannot be done in accordance with Equation \ref{eq:truncated_fac} for all $x\in A$ if $|A|\geq 2$. This is because for $x\neq x'\in A$, $\prob{P}_x^{\RV{X}}\neq \prob{P}_{x'}^{\RV{X}}$ but $\prob{P}_x^{\RV{Z}}=\prob{P}_{x'}^{\RV{Z}}$.
+Notice that the map $x\mapsto \prob{P}^{\RV{XYZ}}_x$ itself has the type of a conditional probability - that is, it takes some $x\in X$ and returns a probability distribution over $(\RV{X},\RV{Y},\RV{Z})$. In fact, a popular notation for this map suggests that it is a conditional probability of sorts: $\prob{P}^{\RV{XYZ}|do(\RV{X}=x)}$. Suppose that this actually is a conditional probability. That is, suppose $\RV{X}$ is an observable associated with $\proc{X}$ and I have some choice available that I believe can dictate the value yielded by $\proc{X}$ (alternatively, I can dictate that $\RV{X}\bowtie x$ occurs for any $x\in X$), and furthermore I have some $\proc{U}$ (modeled by $\RV{U}$), taking values in $X$, that yields whatever choice I end up making. Then I can define a probabilisitic model $\prob{Q}^{\RV{XYZ}|\RV{U}}:=x\mapsto \prob{P}^{\RV{XYZ}}_x$.
 
-Thus we have \emph{four} assumptions to satisfy:
-\begin{enumerate}
-	\item $\prob{P}_x^{\RV{X}}=1$
-	\item $\prob{P}^{\RV{Z}}=\prob{P}_{x}^{\RV{Z}}$
-	\item $\prob{P}^{\RV{Y}|\RV{XZ}}=\prob{P}_x^{\RV{Y}|\RV{XZ}}$
-	\item If $\RV{X}=\RV{Z}$ then $\prob{P}_x(\RV{X}\bowtie \RV{Z})=1$
-\end{enumerate}
+Now, the result yielded by $\proc{U}$ is a matter of choice, and I may be perfectly capable of making this choice without specifying a probability distribution $\prob{Q}^{\RV{U}}$. If so, I can leave $\prob{Q}^{\RV{U}}$ as a \emph{probability hole}, and $\prob{Q}^{\RV{XYZ}|\RV{U}}$ is thus a \emph{probability model with a hole}.
 
-Crucially, only assumptions 2 and 3 depend on the assumed causal graph $\mathcal{G}$; assumptions 1 and 4 should hold regardless. As we will show, these assumptions are both implied by the assumption that we have some $\prob{Q}^{\RV{XYZ}|\RV{X}}$ that is \emph{sample space compatible} such that $\prob{P}^{\RV{XYZ}}_x(x',y,z) = \prob{Q}^{\RV{XYZ}|\RV{X}}(x',y,z|x)$. Furthermore, as we will show, Equation \ref{eq:ssc_1} implies assumption 1 and Equation \ref{eq:ssc_2} implies assumption 4, and so both requirements are needed.
+There are a few features of $\prob{Q}^{\RV{XYZ}|\RV{U}}$ we want to point out. Firstly, $\prob{Q}^{\RV{XYZ}|\RV{U}}$ should be unique, but Equation \ref{eq:truncated_fac} does not necessarily yield a unique $\prob{P}^{\RV{XYZ}}_{x}$ for each $x$. If there are measure zero sets in the range of $(\RV{X},\RV{Z})$ then $\prob{P}^{\RV{Y|XZ}}$ can be chosen arbitrarily on these sets, and because these do not necessarily correspond to zero measure sets in the range of $\RV{Z}$, different choices can lead to different versions of $\prob{P}^{\RV{XYZ}}_{x}$.
+
+Secondly, $\prob{Q}^{\RV{XYZ}|\RV{U}}$ should be valid, but such that Equation \ref{eq:truncated_fac} does not always yield a valid probability model. For example, if $\RV{X}=\RV{Z}$ -- which is to say, $\RV{X}$ and $\RV{Z}$ are the same function on $\Omega$ -- then any probability model must assign probability 1 to the event $(\RV{X},\RV{Z})\bowtie \{(x,x)|x\in X\}$. However, this cannot be done in accordance with Equation \ref{eq:truncated_fac} for all $x\in X$ if $|X|\geq 2$ because for $x\neq x'\in X$, $\prob{P}_x^{\RV{X}}\neq \prob{P}_{x'}^{\RV{X}}$ while $\prob{P}_x^{\RV{Z}}=\prob{P}_{x'}^{\RV{Z}}$.
+
+Finally, $\prob{Q}^{\RV{XYZ}|\RV{U}}$ should be extendable to a valid $\prob{Q}_\alpha^{\RV{XYZU}}$ for every $\prob{Q}_\alpha^{\RV{U}}$ that ``fills the hole''.
+
+To construct probability models with holes in them, we need to address these three issues -- uniqueness, validity and valid extendability.
+
+\todo[inline]{The is an extension of the point (2), I think it's interesting but also a complication. Not quite sure where to put it}
 
 The example of $\RV{X}=\RV{A}$ might seem absurd. Consider instead $\RV{Z}=(\RV{H},\RV{W})$, representing the height in metres and weight in kilograms of a particular person, and $\RV{X}$ represents their body mass index, which is to say $\RV{X}=\frac{\RV{W}}{\RV{H}^2}$ (not that in both cases we are using ``$=$'', which means these variables are \emph{equal as functions}, not that they \emph{yield the same result with probability 1}, which would involve the symbol ``$\bowtie$''). A causal graph with exactly these variables and arrows analogous to ours appears in \citet{shahar_association_2009}. However, generally there is no $\prob{P}_x^{\RV{XHW}}$ that satisfies both $\RV{X}\bowtie \frac{\RV{W}}{\RV{H}^2}$ with probability 1 and Equation \ref{eq:truncated_fac}. This is true, for example, whenever $\prob{P}^{\RV{X}}$ has support at more than one point.
 
-\subsection{Operating on Markov kernels with string diagrams}
-Markov categories are abstract categories that represent models of the flow of information. Operations like Equation \ref{eq:truncated_fac} are expressible as abstract compositions in Markov categories, and may be represented with string diagrams developed for reasoning about objects in the category. Valid proofs using string diagrams correspond to valid theorems in \emph{any} Markov category, though we will limit our attention to the category of finite sets and Markov kernels in this paper. The main drawback of Markov categories is that, as they exist at the moment, they have no notion of ``variables''. More comprehensive introductions to Markov categories can be found in \citet{fritz_synthetic_2020,cho_disintegration_2019}.
+\subsection{Markov kernels and string diagrams}
 
-Given measurable sets $(X,\sigalg{X})$ and $(Y,\sigalg{Y})$, a Markov kernel or stochastic map is a map $\kernel{K}:X\times \sigalg{Y}\to [0,1]$ such that
+We say, given a variable $\RV{X}:\Omega\to X$, a probability distribution $\prob{P}^{\RV{X}}$ is a probability measure on $(X,\sigalg{X})$. Recall that a probability measure is a $\sigma$-additive function $\prob{P}^{\RV{X}}:\sigalg{X}\to [0,1]$ such that $\prob{P}^{\RV{X}}(\emptyset)=0$ and $\prob{P}^{\RV{X}}(X)=1$. Given a second variable $\RV{Y}:\Omega\to Y$, a conditional probability $\prob{Q}^{\RV{X}|\RV{Y}}$ is a Markov kernel $\prob{Q}^{\RV{X}|\RV{Y}}:X\kto Y$which is a map $Y\times \sigalg{X}\to [0,1]$ such that
 
-\begin{itemize}
-	\item The map $x\mapsto \kernel{K}(x,A)$ is $\sigalg{X}$-measurable for every $A\in \sigalg{Y}$
-	\item The map $A\mapsto \kernel{K}(x,A)$ is a probability measure for every $x\in X$
-\end{itemize}
+\begin{enumerate}
+	\item $y\mapsto \prob{Q}^{\RV{X}|\RV{Y}}(A|y)$ is $\sigalg{B}$-measurable for all $A\in \sigalg{X}$
+	\item $A\mapsto \prob{Q}^{\RV{X}|\RV{Y}}{K}(A|y)$ is a probability measure on $(X,\sigalg{X})$ for all $y\in Y$
+\end{enumerate}
 
-Where $X$ and $Y$ are finite sets with the discrete $\sigma$-algebra, we can represent a Markov kernel $\kernel{K}$ as a $|X|\times |Y|$ matrix where $\sum_{y\in Y} \kernel{K}_x^y = 1$ for every $x\in X$. We will give Markov kernels the signature $\kernel{K}:X\kto Y$ to indicate that they map from $X$ to probability distributions on $Y$.
+If we consider only variables takeing values in discrete sets, Markov kernels and probability distributions have simple representations: a Markov kernel is a positive Matrix with row sum 1 and a probability distribution is a positive row vector with sum 1. Like matrices, we can define products between Markov kernels and in the case of discrete sets, the product of two Markov kernels is precisely the matrix product.
 
-Graphically, Markov kernels are drawn as boxes with input and output wires, and probability measures (which are kernels with the domain $\{*\}$) are represented by triangles:
+To help us work with Markov kernels, we introduce the string diagram notation taken from the study of Markov categories. Markov categories are abstract categories that represent models of the flow of information. We can form Markov categories from collections of sets -- for example, discrete sets or standard measurable sets -- along with the Markov kernel product as the composition operation. Markov categories come equipped with a graphical language of \emph{string diagrams}, and a coherence theorem which states that calid proofs using string diagrams correspond to valid theorems in \emph{any} Markov category \citep{selinger_survey_2010}. More comprehensive introductions to Markov categories can be found in \citet{fritz_synthetic_2020,cho_disintegration_2019}.
+
+We use the graphical language to assist in expressing the concept of probability models with holes.
+
+In the graphical language, Markov kernels are drawn as boxes with input and output wires, and probability measures (which are kernels with the domain $\{*\}$) are represented by triangles:
 
 \begin{align}
 \kernel{K}&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -129,21 +124,19 @@ Graphically, Markov kernels are drawn as boxes with input and output wires, and 
 \end{tikzpicture}
 \end{align}
 
-Two Markov kernels $\kernel{L}:X\kto Y$ and $\kernel{M}:Y\kto Z$ have a product $\kernel{L}\kernel{M}:X\kto Z$ given by the matrix product $\kernel{L}\kernel{M}_x^z = \sum_y \kernel{L}_x^y\kernel{M}_y^z$. Graphically, we write represent by joining wires together:
+Two Markov kernels $\kernel{L}:X\kto Y$ and $\kernel{M}:Y\kto Z$ have a product $\kernel{L}\kernel{M}:X\kto Z$, given in the discrete case by the matrix product $ \kernel{L}\kernel{M}(z|x) = \sum_{y\in Y} \kernel{M}(z|y)\kernel{L}(y|x)$. Graphically, we represent products between compatible Markov kernels by joining wires together:
 
 \begin{align}
 	\kernel{L}\kernel{M}:= \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-	\path (0,0) node (A) {}
+	\path (0,0) node (A) {$X$}
 	++ (0.5,0) node[kernel] (K) {$\kernel{K}$}
 	++ (0.7,0) node[kernel] (M) {$\kernel{M}$}
-	++ (0.5,0) node (B) {};
+	++ (0.5,0) node (B) {$Z$};
 	\draw (A) -- (K) -- (M) -- (B);
 \end{tikzpicture}
 \end{align}
 
-The Cartesian product $X\times Y:=\{(x,y)|x\in X, y\in Y\}$. Given kernels $\kernel{K}:W\kto Y$ and $\kernel{L}:X\kto Z$, the tensor product $\kernel{K}\otimes\kernel{L}:W\times X\kto Y\times Z$ is defined by $(\kernel{K}\otimes\kernel{L})_{(w,x)}^{(y,z)}:=K_{w}^y L_{x}^z$ and represents applying the kernels in parallel to their inputs.
-
-The tensor product is represeted by drawing kernels in parallel:
+The Cartesian product $X\times Y:=\{(x,y)|x\in X, y\in Y\}$. Given kernels $\kernel{K}:W\kto Y$ and $\kernel{L}:X\kto Z$, the tensor product $\kernel{K}\otimes\kernel{L}:W\times X\kto Y\times Z$ given by $(\kernel{K}\otimes\kernel{L})(y,z|w,x):=K(y|w) L(z|x)$. The tensor product is graphically represeted by drawing kernels in parallel:
 
 \begin{align}
 	\kernel{K}\otimes \kernel{L}&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -158,11 +151,9 @@ The tensor product is represeted by drawing kernels in parallel:
 \end{tikzpicture}
 \end{align}
 
-We read diagrams from left to right (this is somewhat different to \citet{fritz_synthetic_2020,cho_disintegration_2019,fong_causal_2013} but in line with \citet{selinger_survey_2010}). A diagram describes products and tensor products of Markov kernels, which are expressed according to the conventions described above. There are a collection of special Markov kernels for which we can replace the generic ``box'' of a Markov kernel with a diagrammatic elements that are visually suggestive of what these kernels accomplish.
+We read diagrams from left to right (this is somewhat different to \citet{fritz_synthetic_2020,cho_disintegration_2019,fong_causal_2013} but in line with \citet{selinger_survey_2010}), and any diagram describes a set of nested products and tensor products of Markov kernels. There are a collection of special Markov kernels for which we can replace the generic ``box'' of a Markov kernel with a diagrammatic elements that are visually suggestive of what these kernels accomplish.
 
-A description of these kernels follows.
-
-The identity map $\text{id}_X:X\kto X$ defined by $(\text{id}_X)_x^{x'}= \llbracket x = x' \rrbracket$, where the iverson bracket $\llbracket \cdot \rrbracket$ evaluates to $1$ if $\cdot$ is true and $0$ otherwise, is a bare line:
+The identity map $\text{id}_X:X\kto X$ defined by $(\text{id}_X)(x'|x)= \llbracket x = x' \rrbracket$, where the Iverson bracket $\llbracket \cdot \rrbracket$ evaluates to $1$ if $\cdot$ is true and $0$ otherwise, is a bare line:
 
 \begin{align}
 	\mathrm{id}_X&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -171,7 +162,7 @@ The identity map $\text{id}_X:X\kto X$ defined by $(\text{id}_X)_x^{x'}= \llbrac
 \end{tikzpicture}
 \end{align}
 
-We choose a particular 1-element set $\{*\}$ that acts as the identity in the sense that $\{*\}\times A=A\times \{*\} = A$ for any set $A$. The erase map $\text{del}_X:X\kto \{*\}$ defined by $(\text{del}_X)_x^* = 1$ is a Markov kernel that ``discards the input'' (we will later use it for marginalising joint distributions). It is drawn as a fuse:
+We choose a particular 1-element set $\{*\}$ that acts as the identity in the sense that $\{*\}\times A\cong A\times \{*\} \cong A$ for any set $A$. The erase map $\text{del}_X:X\kto \{*\}$ defined by $(\text{del}_X)(*|x) = 1$ is a Markov kernel that ``discards the input''. It is drawn as a fuse:
 
 \begin{align}
 	\text{del}_X&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -180,7 +171,7 @@ We choose a particular 1-element set $\{*\}$ that acts as the identity in the se
 \end{tikzpicture}
 \end{align}
 
-The copy map $\text{copy}_X:X\kto X\times X$ defined by $(\text{copy}_X)_x^{x',x''}=\llbracket x=x' \rrbracket \llbracket x=x'' \rrbracket$ is a Markov kernel that makes two identical copies of the input. It is drawn as a fork:
+The copy map $\text{copy}_X:X\kto X\times X$ defined by $(\text{copy}_X)(x',x''|x)=\llbracket x=x' \rrbracket \llbracket x=x'' \rrbracket$ is a Markov kernel that makes two identical copies of the input. It is drawn as a fork:
 
 \begin{align}
 	\text{copy}_X&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -192,7 +183,7 @@ The copy map $\text{copy}_X:X\kto X\times X$ defined by $(\text{copy}_X)_x^{x',x
 \end{tikzpicture}
 \end{align}
 
-The swap map $\text{swap}_{X,Y}:X\times Y\kto Y\times X$ defined by $(\text{swap}_{X,Y})_{x,y}^{y',x'}=\llbracket x=x' \rrbracket\llbracket y=y' \rrbracket$ swaps two inputs, and is represented by crossing wires:
+The swap map $\text{swap}_{X,Y}:X\times Y\kto Y\times X$ defined by $(\text{swap}_{X,Y})(y',x'|x,y)=\llbracket x=x' \rrbracket\llbracket y=y' \rrbracket$ swaps two inputs, and is represented by crossing wires:
 
 \begin{align}
 	\text{swap}_X &:=  \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
@@ -206,38 +197,105 @@ The swap map $\text{swap}_{X,Y}:X\times Y\kto Y\times X$ defined by $(\text{swap
 
 Because we anticipate that the graphical notation will be unfamiliar to many, we will also include translations to more familiar notation.
 
-\subsection{Truncated factorisation with Markov kernels}
+\subsection{Combs: Markov kernels with holes in them}
 
-The Markov kernels introduced in the previous section can be though of as ``conditional probability distributions without variables''. We can use these to represent an operation very similar to Equation \ref{eq:truncated_fac}. Note that $P^{\RV{Y|XZ}}$ must be represented by a Markov kernel $\kernel{K}:X\times Z\kto Y$ and $\prob{P}^{\RV{Z}}$ by a Markov kernel $\kernel{L}\in \Delta(Z)$. Then we can define a Markov kernel $\kernel{M}:X\kto X\times Z$ representing $x\mapsto \prob{P}^{\RV{YZ}}_{x}(y,z)$ by
+Consider the Markov kernels $\kernel{K}:W\kto Y$, $\kernel{L}:Y\times X\kto Z$ and $\kernel{M}:W\times X\kto Y\times Z$ defined as
 
 \begin{align}
-	\kernel{M}:= \tikzfig{truncated_factorisation}\label{eq:tfac_setted}
+	\kernel{M} = \tikzfig{2_comb}
 \end{align}
 
-There is, however, a key difference between Equation \ref{eq:tfac_setted} and Equation \ref{eq:truncated_fac}: the Markov kernels in the latter equation describe the distribution of particular variables, while the former equation describes Markov kernels only.
+Following the rules above, we can translate this to ordinary notation by first breaking it down into products and tensor products, and then evaluating these products
 
-To illustrate why we need variables, consider an arbitrary Markov kernel $\kernel{K}:\{*\}\kto \Delta(X\times X)$. We could draw this:
 \begin{align}
-	\kernel{K}:= \tikzfig{double_label}\label{eq:double_label}
+	\kernel{M}(y,z|w,x) &= (\kernel{K}\otimes \text{id}_X)[(\text{copy}_Y\otimes \text{id}_X)(\text{id}_Y\otimes\kernel{L})](y,z|w,x)\\
+						&= \sum_{x'\in X,y'\in Y} \kernel{K} (y'|w) \llbracket x=x' \rrbracket [(\text{copy}_Y\otimes \text{id}_X)
+						(\text{id}_Y\otimes\kernel{L})](y,z|y',x')\\
+						&= \sum_{y'\in Y}  \kernel{K} (y'|w)[(\text{copy}_Y\otimes \text{id}_X)
+						(\text{id}_Y\otimes\kernel{L})](y,z|y',x)\\
+						&= \sum_{y'}  \kernel{K} (y'|w) \sum_{x'\in X,y'',y'''\in Y}\llbracket y'=y''\rrbracket\llbracket y'=y''' \rrbracket \llbracket x = x' \rrbracket \llbracket y''=y \rrbracket \kernel{L} (z|y''',x') (y,z|y',x')\\
+						&= \kernel{K}(y|w)\kernel{L}(z|y,x)
 \end{align}
-We label both wires with the set $X$. However, say $X=\{0,1\}$. Then $\kernel{K}$ could be the kernel $\kernel{K}^{x_1,x_2} = \llbracket x_1 = 0\rrbracket \llbracket x_2 = 1\rrbracket$. In this case, both of its outputs must represent \emph{different} variables, despite taking values in the same set. On the other hand, if $\kernel{K}^{x_1,x_2} = 0.5 \llbracket x_1 = x_2 \rrbracket$ then both outputs coudl represent the same variable, because they are deterministically the same, or they could represent different variables that happen to be equal. We need some way to distinguish the two cases.
+
+Now, if we are given additionally $\kernel{J}:Y\kto X$, we can define a new Markov kernel $\kernel{N}:W\kto Z$:
+
+\begin{align}
+	\kernel{M} = \tikzfig{2comb_inserted}
+\end{align}
+
+This can be translated as
+
+\begin{align}
+	\kernel{N}(z|w) &= [\kernel{K}\text{copy}_Y(\kernel{J}\otimes \text{id}_Y)\kernel{L}] (z|w)\\
+					&= \sum_{y'\in Y} \kernel{K}(y'|w) \sum_{y'',y'''\in Y} \llbracket y'=y''\rrbracket\llbracket y'=y'''\rrbracket [(\kernel{J}\otimes \text{id}_Y)\kernel{L}] (z|y'',y''')\\
+					&= \sum_{y'\in Y} \kernel{K}(y'|w)[(\kernel{J}\otimes \text{id}_Y)\kernel{L}] (z|y',y')\\
+					&= \sum_{y'\in Y} \kernel{K}(y'|w) \sum_{x'\in X,y''\in Y} \kernel{J}(x'|y')\llbracket y'=y''\rrbracket \kernel{L}(z|y'',x')\\
+					&= \sum_{y'\in Y,x'\in X} \kernel{K}(y'|w) \kernel{J}(x'|y') \kernel{L}(z|y',x')\\
+\end{align}
+
+We can define an \emph{insertion} operation $\text{Insert}_{\kernel{M}}:\Delta(X)^Y\to \Delta(Z)^W$ that takes a Markov kernel $Y\kto X$ and returns a Markov kernel $W\kto Z$:
+
+\begin{align}
+	\text{Insert}_{\kernel{M}}: \tikzfig{insert_j}
+\end{align}
+
+We can then represent the $\text{Insert}_{\kernel{M}}$ operation (informally) as follows:
+
+\begin{align}
+	\tikzfig{insert_opn}&\\
+	\tikzfig{insert_opn2}
+\end{align}
+
+Thus $\text{Insert}_{\kernel{M}}$ is a ``Markov kernel with a hole in it''. Such operations are the basis of models with probability holes. Operations like $\text{Insert}_{\kernel{M}}$  are called \emph{combs} after \citet{chiribella_quantum_2008}; we will say that $\text{Insert}_{\kernel{M}}$ is a $Y\kto X$-comb, as it takes Markov kernels $\kernel{J}:Y\kto X$ as input.
+
+\subsection{Probability models with holes}
+
+Define $\RV{I}:\Omega\to \Omega$ as the identity function. A \emph{standard probability model} on $(\Omega,\sigalg{F})$ is a probability distribution $\prob{P}^{\RV{I}}$ on $(\Omega,\sigalg{F})$. A \emph{probability comb} is a function that maps appropriately typed Markov kernels to standard probability models.
+
+\begin{itemize}
+	\item The comb is the kernel, not the operation
+	\item The probability comb (holey probability) is the operation; maps complementary combs to standard probability models
+	\begin{itemize}
+		\item Complementary variable sets
+	\end{itemize}
+	\item Notation
+	\item Uniqueness holds by definition
+	\item Compatibility requirements ensure validity + valid extendability 
+	\item Comb-conditional probabilities and conditional independence
+	\item Another look at truncated factorisation
+\end{itemize}
+
+A \emph{model} is a collection of conditional probabilities. For example, we could have $\{\prob{P}^{\RV{X}|*},\prob{P}^{\RV{Y}|\RV{X}}\}$. We use the convention that conditional probabilities with the same base letter all belong to the same model. Whether a particular model is ``correct'' is a difficult question to answer, and indeed a difficult question to pose. However, we can specify some necessary conditions that must hold. Informally, these are:
+
+\begin{enumerate}
+	\item All conditional probabilities assign probability 0 to contradictions and probability 1 to tautologies
+	\item There exists a $\RV{Y}:\Omega\to Y$ and a master probability $\prob{P}^{\RV{I}|\RV{Y}}$ compatible with all the conditional probabilities in the model
+\end{enumerate}
+
+The first condition is not standard, while the second condition is.
+
+\begin{definition}[Probability 0 to contradictions]\label{def:prob_0_contradiction}
+A conditional probability $\prob{P}^{\RV{Y}|\RV{X}}$ assigns probability 0 to contradictions if 
+\begin{align}
+	(\RV{X}^{-1}(x)\neq \emptyset)\land (\RV{X}^{-1}(x)\cap \RV{Y}^{-1}(A) = \emptyset) \implies\prob{P}^{\RV{Y}|\RV{X}}(A|x) = 0
+\end{align}
+\end{definition}
+
+This condition says: if, according to my chosen variables, $\RV{X}$ may potentially yield $x$ but $\RV{Y}$ cannot possibly yield $A$ when $\RV{X}$ yields $x$, then the conditional probability must assign a probability of 0 to $\RV{Y}$ yielding $A$ given $\RV{X}$ yields $x$. This is non-standard, because the condition is not that the \emph{probability} that $\prob{P}^\RV{X}(x)$ is nonzero (a quantity which may not be defined), but simply that $x$ is in the range of the variable $\RV{X}$. This is required if $\prob{P}^{\RV{X}}$ is not defined. \citet{hajek_what_2003} argues that it is desirable even if $\prob{P}^{\RV{X}}$ is defined, though in that case it would normally have no impact on questions of interest. See also \citet{renyi_conditional_1956}.
+
+It is a consequence of Definition \ref{def:prob_0_contradiction} that $\prob{P}^{\RV{Y}|\RV{X}}$ assigns probability 1 to tautologies. If $\RV{X}\bowtie x\subset \RV{Y}\bowtie A$ then $\RV{X}^{-1}(x)\cap \RV{Y}^{-1}(A^C) = \emptyset$, and hence $\prob{P}^{\RV{Y}|\RV{X}}(A^C|x) = 0$ so $\prob{P}^{\RV{Y}|\RV{X}}(A|x) = 1$.
+
+\begin{definition}[Compatible master condtional probability]\label{def:compat_master}
+We say a conditional probability $\prob{P}^{\RV{X}_i|\RV{X}_j}$ is compatible with $\prob{P}^{\RV{I}|\RV{Y}}$ if
+\begin{align}
+	\prob{P}^{\RV{I}|\RV{Y}}((\RV{X}_i,\RV{X}_j)\bowtie A\times B|c) &= \int_A \prob{P}^{\RV{X}_{i}|\RV{X}_j}(B|\RV{X}_j(\omega))\prob{P}^{\RV{I}|\RV{Y}}(d\omega|c) &\forall c\in Y:\prob{P}^{\RV{I}|\RV{Y}}(\RV{X}_j\bowtie A|c)>0 \label{eq:ssc_2}
+\end{align}
+\end{definition}
+
+There is one final difference between our approach and the standard one: we say a model is a collection of conditional probabilities compatible with some $\prob{P}^{\RV{I}|\RV{Y}}$, while the standard approach is to say that $\prob{P}^{\RV{I}|\RV{Y}}$ is the model and goes on to define how the conditional probabilities can be derived from it. The difference here is that \textbf{our approach implies that conditional probabilities in a model are unique}. If there are multiple Markov kernels that satisfy Equation \ref{eq:ssc_2}, we assume that one of these is chosen somehow. 
 
 
 \subsection{Composition and probability with variables}
-
-Our goal is to define a category of ``finite sets and Markov kernels with variables''. Introducing variables requires an assumption of consistency, which we don't know how to express in category theoretic terms. Our approach is to define a category of Markov kernels with variables that may or may not be consistent, which we will need to check for the resulting models. Because the consistency assumption is not expressed category theoretically, many proofs in this section only apply to our chosen setting of finite sets.
-
-\begin{definition}[Variable]
-Given a \emph{sample space} $\Omega$, a variable $f_\RV{X}$ is a function $\Omega\to A$ where $A$ is a vector space. We will also refer to the associated Markov kernel $\RV{X}:\Omega\kto A$
-as a variable, where $\RV{X}_x^a=\llbracket a = f_{\RV{X}}(x) \rrbracket$.
-\end{definition}
-
-We define the \emph{product} of two variables as follows:
-\begin{itemize}
-	\item \textbf{Product:} Given variables $\RV{W}:\Omega\kto A$ and $\RV{V}:\Omega\kto B$, the product is defined as $(\RV{W}, \RV{V})=\text{copy}_{\Omega} (\RV{W}\otimes\RV{V})$
-\end{itemize}
-
-The \emph{unit} variable is the erase map $\RV{I}:=\text{del}_\Omega$, with $(\RV{I},\RV{X})=(\RV{X},\RV{I})=\RV{X}$ (up to isomorphism) for any $\RV{X}$.
 
 We then need a notion of Markov kernels that ``maps between variables''. An \emph{indexed Markov kernel} is such a thing.
 
