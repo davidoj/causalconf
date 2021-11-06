@@ -243,12 +243,14 @@ We can then represent the $\text{Insert}_{\kernel{M}}$ operation (informally) as
 
 \begin{align}
 	\tikzfig{insert_opn}&\\
-	\tikzfig{insert_opn2}
+	\tikzfig{insert_opn2}\label{eq:insert_op}
 \end{align}
 
 Thus $\text{Insert}_{\kernel{M}}$ is a ``Markov kernel with a hole in it''. Such operations are the basis of models with probability holes. Operations like $\text{Insert}_{\kernel{M}}$  are called \emph{combs} after \citet{chiribella_quantum_2008}; we will say that $\text{Insert}_{\kernel{M}}$ is a $Y\kto X$-comb, as it takes Markov kernels $\kernel{J}:Y\kto X$ as input.
 
 \subsection{Probability models with holes}
+
+A ``holey probability model'' is a collection of fixed conditional probabilities along with an ``insert'' operation that joins the fixed conditional probabilities with an element from a collection of insertable Markov kernels as in Equation \ref{eq:insert_op} that yields a standard probability model.
 
 Define $\RV{I}:\Omega\to \Omega$ as the identity function. A \emph{standard probability model} on $(\Omega,\sigalg{F})$ is a probability distribution $\prob{P}^{\RV{I}}$ on $(\Omega,\sigalg{F})$. A \emph{probability comb} is a function that maps appropriately typed Markov kernels to standard probability models.
 
