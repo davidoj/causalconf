@@ -79,17 +79,15 @@ Equation \ref{eq:truncated_fac} embodies three assumptions about a model of the 
 
 Notice that the map $x\mapsto \prob{P}^{\RV{XYZ}}_x$ itself has the type of a conditional probability - that is, it takes some $x\in X$ and returns a probability distribution over $(\RV{X},\RV{Y},\RV{Z})$. In fact, a popular notation for this map suggests that it is a conditional probability of sorts: $\prob{P}^{\RV{XYZ}|do(\RV{X}=x)}$. Suppose that this actually is a conditional probability. That is, suppose $\RV{X}$ is an observable associated with $\proc{X}$ and I have some choice available that I believe can dictate the value yielded by $\proc{X}$ (alternatively, I can dictate that $\RV{X}\bowtie x$ occurs for any $x\in X$), and furthermore I have some $\proc{U}$ (modeled by $\RV{U}$), taking values in $X$, that yields whatever choice I end up making. Then I can define a probabilisitic model $\prob{Q}^{\RV{XYZ}|\RV{U}}:=x\mapsto \prob{P}^{\RV{XYZ}}_x$.
 
-Now, the result yielded by $\proc{U}$ is a matter of choice, and I may be perfectly capable of making this choice without specifying a probability distribution $\prob{Q}^{\RV{U}}$. If so, I can leave $\prob{Q}^{\RV{U}}$ as a \emph{probability hole}, and $\prob{Q}^{\RV{XYZ}|\RV{U}}$ is thus a \emph{probability model with a hole}.
+Now, the result yielded by $\proc{U}$ is a matter of choice, and I may be perfectly capable of making this choice without specifying a probability distribution $\prob{Q}^{\RV{U}}$. If so, I can leave $\prob{Q}^{\RV{U}}$ as a \emph{probability gap}, and $\prob{Q}^{\RV{XYZ}|\RV{U}}$ is thus a \emph{probability model with a gap}.
 
 There are a few features of $\prob{Q}^{\RV{XYZ}|\RV{U}}$ we want to point out. Firstly, $\prob{Q}^{\RV{XYZ}|\RV{U}}$ should be unique, but Equation \ref{eq:truncated_fac} does not necessarily yield a unique $\prob{P}^{\RV{XYZ}}_{x}$ for each $x$. If there are measure zero sets in the range of $(\RV{X},\RV{Z})$ then $\prob{P}^{\RV{Y|XZ}}$ can be chosen arbitrarily on these sets, and because these do not necessarily correspond to zero measure sets in the range of $\RV{Z}$, different choices can lead to different versions of $\prob{P}^{\RV{XYZ}}_{x}$.
 
-Secondly, $\prob{Q}^{\RV{XYZ}|\RV{U}}$ should be valid, but such that Equation \ref{eq:truncated_fac} does not always yield a valid probability model. For example, if $\RV{X}=\RV{Z}$ -- which is to say, $\RV{X}$ and $\RV{Z}$ are the same function on $\Omega$ -- then any probability model must assign probability 1 to the event $(\RV{X},\RV{Z})\bowtie \{(x,x)|x\in X\}$. However, this cannot be done in accordance with Equation \ref{eq:truncated_fac} for all $x\in X$ if $|X|\geq 2$ because for $x\neq x'\in X$, $\prob{P}_x^{\RV{X}}\neq \prob{P}_{x'}^{\RV{X}}$ while $\prob{P}_x^{\RV{Z}}=\prob{P}_{x'}^{\RV{Z}}$.
+Secondly, $\prob{Q}^{\RV{XYZ}|\RV{U}}$ should be valid, but Equation \ref{eq:truncated_fac} does not always yield a valid probability model. For example, if $\RV{X}=\RV{Z}$ -- which is to say, $\RV{X}$ and $\RV{Z}$ are the same function on $\Omega$ -- then any probability model must assign probability 1 to the event $(\RV{X},\RV{Z})\bowtie \{(x,x)|x\in X\}$. However, this cannot be done in accordance with Equation \ref{eq:truncated_fac} for all $x\in X$ if $|X|\geq 2$ because for $x\neq x'\in X$, $\prob{P}_x^{\RV{X}}\neq \prob{P}_{x'}^{\RV{X}}$ while $\prob{P}_x^{\RV{Z}}=\prob{P}_{x'}^{\RV{Z}}$. In addition, $\prob{Q}^{\RV{XYZ}|\RV{U}}$ should be extendable to a valid $\prob{Q}_\alpha^{\RV{XYZU}}$ for every $\prob{Q}_\alpha^{\RV{U}}$ that ``fills the gap''.
 
-Finally, $\prob{Q}^{\RV{XYZ}|\RV{U}}$ should be extendable to a valid $\prob{Q}_\alpha^{\RV{XYZU}}$ for every $\prob{Q}_\alpha^{\RV{U}}$ that ``fills the hole''.
+To construct probability models with gaps in them, we need to address these two issues -- uniqueness and valid extendability.
 
-To construct probability models with holes in them, we need to address these three issues -- uniqueness, validity and valid extendability.
-
-\todo[inline]{The is an extension of the point (2), I think it's interesting but also a complication. Not quite sure where to put it}
+\todo[inline]{The following is an extension of the point (2), I think it's interesting but also a complication. Not quite sure where to put it}
 
 The example of $\RV{X}=\RV{A}$ might seem absurd. Consider instead $\RV{Z}=(\RV{H},\RV{W})$, representing the height in metres and weight in kilograms of a particular person, and $\RV{X}$ represents their body mass index, which is to say $\RV{X}=\frac{\RV{W}}{\RV{H}^2}$ (not that in both cases we are using ``$=$'', which means these variables are \emph{equal as functions}, not that they \emph{yield the same result with probability 1}, which would involve the symbol ``$\bowtie$''). A causal graph with exactly these variables and arrows analogous to ours appears in \citet{shahar_association_2009}. However, generally there is no $\prob{P}_x^{\RV{XHW}}$ that satisfies both $\RV{X}\bowtie \frac{\RV{W}}{\RV{H}^2}$ with probability 1 and Equation \ref{eq:truncated_fac}. This is true, for example, whenever $\prob{P}^{\RV{X}}$ has support at more than one point.
 
@@ -106,7 +104,7 @@ If we consider only variables takeing values in discrete sets, Markov kernels an
 
 To help us work with Markov kernels, we introduce the string diagram notation taken from the study of Markov categories. Markov categories are abstract categories that represent models of the flow of information. We can form Markov categories from collections of sets -- for example, discrete sets or standard measurable sets -- along with the Markov kernel product as the composition operation. Markov categories come equipped with a graphical language of \emph{string diagrams}, and a coherence theorem which states that calid proofs using string diagrams correspond to valid theorems in \emph{any} Markov category \citep{selinger_survey_2010}. More comprehensive introductions to Markov categories can be found in \citet{fritz_synthetic_2020,cho_disintegration_2019}.
 
-We use the graphical language to assist in expressing the concept of probability models with holes.
+We use the graphical language to assist in expressing the concept of probability models with gaps.
 
 In the graphical language, Markov kernels are drawn as boxes with input and output wires, and probability measures (which are kernels with the domain $\{*\}$) are represented by triangles:
 
@@ -197,7 +195,7 @@ The swap map $\text{swap}_{X,Y}:X\times Y\kto Y\times X$ defined by $(\text{swap
 
 Because we anticipate that the graphical notation will be unfamiliar to many, we will also include translations to more familiar notation.
 
-\subsection{Combs: Markov kernels with holes in them}
+\subsection{Combs: Markov kernels with gaps in them}
 
 Consider the Markov kernels $\kernel{K}:W\kto Y$, $\kernel{L}:Y\times X\kto Z$ and $\kernel{M}:W\times X\kto Y\times Z$ defined as
 
@@ -246,13 +244,79 @@ We can then represent the $\text{Insert}_{\kernel{M}}$ operation (informally) as
 	\tikzfig{insert_opn2}\label{eq:insert_op}
 \end{align}
 
-Thus $\text{Insert}_{\kernel{M}}$ is a ``Markov kernel with a hole in it''. Such operations are the basis of models with probability holes. Operations like $\text{Insert}_{\kernel{M}}$  are called \emph{combs} after \citet{chiribella_quantum_2008}; we will say that $\text{Insert}_{\kernel{M}}$ is a $Y\kto X$-comb, as it takes Markov kernels $\kernel{J}:Y\kto X$ as input.
+Thus $\text{Insert}_{\kernel{M}}$ is a ``Markov kernel with a hole in it''. Operations like $\text{Insert}_{\kernel{M}}$  are called \emph{combs} after \citet{chiribella_quantum_2008}.
 
-\subsection{Probability models with holes}
+\subsection{Probability models with recursive gaps}
 
-A ``holey probability model'' is a collection of fixed conditional probabilities along with an ``insert'' operation that joins the fixed conditional probabilities with an element from a collection of insertable Markov kernels as in Equation \ref{eq:insert_op} that yields a standard probability model.
+We are interested in particular in \emph{recursive probability gaps}. A recursive set of variables is a set $\{\RV{X}_{[i]}|i\in [n]\}$ where $\RV{X}_{[i]}=(\RV{X}_j)_{j\leq i}$. A recursive set of conditional probabilities is a set of conditional probabilities $\{\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}|i\in [n]\}$ where we define $\RV{X}_0:=*$ so $\model{P}^{\RV{X}_1|\RV{X}_0}=\model{P}^{\RV{X}_1|*}\cong \model{P}^{\RV{X}_1}$. A model with recursive probability gaps is a recursive set of conditional probabilties with some conditional probabilities removed $\{\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}|i\in L\subset [n]\}$.
 
-Define $\RV{I}:\Omega\to \Omega$ as the identity function. A \emph{standard probability model} on $(\Omega,\sigalg{F})$ is a probability distribution $\prob{P}^{\RV{I}}$ on $(\Omega,\sigalg{F})$. A \emph{probability comb} is a function that maps appropriately typed Markov kernels to standard probability models.
+Define $\RV{I}:\Omega\to \Omega$ as the identity function. A \emph{standard probability model} on $(\Omega,\sigalg{F})$ is a probability distribution $\prob{P}^{\RV{I}}$ on $(\Omega,\sigalg{F})$.
+
+Recall that we want models with probability gaps that are \emph{unique} and \emph{validly extendable} to a standard probability model on $(\Omega,\sigalg{F})$. 
+
+We get uniqueness from our definition of conditional probabilities $\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}$ as Markov kernels rather than equivalence classes of Markov kernels. This definition is motivated by our attitude to probability gaps: they are the things we don't yet know. If we had a standard probability model $\prob{P}^{\RV{I}}$, we could derive a class of conditional probabilities suitable to be named $\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}$. However, our starting point is that we have less than a standard probability model, and the knowledge that we have is represented by a unique Markov kernel rather than a class of Markov kernels.
+
+\begin{definition}[Valid conditional probability]
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{valid conditional probability} $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$ such that it assigns probability 0 to contradictions:
+\begin{align}
+	\forall A\in \sigalg{Y}, x\in X: \RV{X}^{-1}(x)\cap \RV{Y}^{-1}(A) = \emptyset \implies \left(\prob{P}^{\RV{Y}|\RV{X}}(A|x) = 0\right) \lor \left(\RV{X}^{-1}(x) = \emptyset\right)
+\end{align}
+\end{definition}
+
+The requirement that a conditional probability be valid means that if the variables themselves rule out certain values, then these values must be assigned zero probability. For example, $\prob{P}^{\RV{X}|\RV{X}}(x'|x)=0$ if $x'\neq x$. In addition, it implies that $\prob{P}^{\RV{X}|\RV{X}}=1$. If we start with a standard probability model and derive conditional probabilities from it, then validity holds up to a set of measure zero. In our case, valid conditional probabilities guarantee that we can extend the conditional probability to a standard probability model.
+
+Because $\prob{P}^{\RV{Y}}$ may be a probability gap, we require validity to hold everywhere rather than up to a set of measure zero. However, it is always possible to choose a valid conditional probability from a class of conditional probabilities derived from a standard probability model, so the stronger condition doesn't prevent dealing with conditional probabilities in the usual way.
+
+\begin{definition}[Copy-product]
+Given two Markov kernels $\kernel{K}:X\kto Y$ and $\RV{L}:Y\times X\kto Z$, define the copy-product $\kernel{K}\odot\kernel{L}$ as
+\begin{align}
+	\kernel{K}\odot\kernel{L}:&= \text{copy}_X(\kernel{K}\otimes \text{Id}_X)(\text{copy}_Y\otimes\text{Id}_X )(\text{Id}_Y \otimes \kernel{L})\\
+							&= \tikzfig{copy_product}\\
+							&\iff\\
+	(\kernel{K}\odot\kernel{L})(A\times B|x) &= \int_A\kernel{L}(B|y)\kernel{K}(dy|x)
+\end{align}
+\end{definition}
+
+
+\begin{lemma}[Valid conditional probabilities are validly extendible]\label{lem:valid_extendability}
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and any valid conditional probabilities $\prob{P}^{\RV{Y}|\RV{X}}$ and $\prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$, $ \prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$ is also a valid conditional probability.
+\end{lemma}
+
+\begin{proof}
+Let $\prob{R}^{\RV{YZ}|\RV{X}}:=\prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$.
+
+We only need to check validity in $x\in \RV{X}(\Omega)$, as it is automatically satisfied for other values of $\RV{X}$.
+
+For all $x\in \RV{X}(\Omega)$, $\RV{X}^{-1}(x)\cap\RV{Y}^{-1}(A)=\emptyset$, $\prob{P}^{\RV{Y}|\RV{X}}(A|x)=0$ by validity. Thus
+\begin{align}
+	\prob{R}^{\RV{YZ}|\RV{X}}(A\times B|x) &= \int_A\prob{Q}^{\RV{Z}|\RV{YX}}(B|y,x)\prob{P}^{\RV{Y}|\RV{X}}(dy|x)\\
+								  &\leq \int_A\prob{P}^{\RV{Y}|\RV{X}}(dy|x)\\
+								  &=0
+\end{align}
+
+For all $U\times A\subset (\RV{X},\RV{Y})(\Omega)$, $U\times A\times B$ disjoing from $(\RV{X},\RV{Y},\RV{Z})(\Omega)$, $\prob{Q}^{\RV{Z}|\RV{YX}}(B|y,x)=0$ for all $x\in U$, $y\in A$ by validity. Thus for all $x\in U$:
+\begin{align}
+	\prob{R}^{\RV{YZ}|\RV{X}}(A\times B|x) &= \int_A\prob{Q}^{\RV{Z}|\RV{YX}}(B|y,x)\prob{P}^{\RV{Y}|\RV{X}}(dy|x)\\
+								  &=0
+\end{align}
+\end{proof}
+
+\begin{corollary}[Valid conditional probability is validly extendible to a probability distribution]
+Given $(\Omega,\sigalg{F})$, $\RV{U}:\Omega\to U$, $\RV{W}:\Omega\to W$ and a valid conditional probability $\prob{T}^{\RV{W}|\RV{U}}$, then for any valid conditional probability $\prob{V}^{\RV{U}}$, $\prob{V}^{\RV{U}}\odot \prob{T}^{\RV{W}|\RV{U}}$ is a valid probability distribution.
+\end{corollary}
+
+\begin{proof}
+Recall that $\prob{V}^{\RV{U}}\odot \prob{T}^{\RV{W}|\RV{U}}\cong \prob{V}^{\RV{U}|*}\odot \prob{T}^{\RV{W}|\RV{U}*}$. Applying Lemma \ref{lem:valid_extendability} choosing $\RV{X}=*$, $\RV{Y}=\RV{U}$, $\RV{Z}=\RV{W}$ and $\prob{P}^{\RV{Y}|\RV{X}}=\prob{V}^{\RV{U}|*}$ and $\prob{Q}^{\RV{Z}|\RV{YX}}=\prob{T}^{\RV{W}|\RV{U*}}$.
+\end{proof}
+
+
+\begin{lemma}[Recursive probability gaps are validly extendible if all conditionals are valid]
+A model with recursive probability gaps $M:=\{\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}|i\in L\subset [n]\}$ is validly extendible to a probability distribution $\model{P}^{\RV{X}_{[n]}}$ with any valid complement set of conditional probabilities $\{\model{P}_\alpha^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}|i\in [n]\setminus L\}$ iff every conditional probability in $M$ is valid.
+\end{lemma}
+
+\begin{proof}
+By assumption, we have a sequence of valid conditional probabilities $(\model{Q}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}})_{i\in [n]}$ where $\model{Q}=\model{P}$ if $i\in L$ and $\model{Q}=\model{P}_\alpha$ otherwise. We can take the sequential copy product starting with $\model{Q}^{\RV{X}_{[1]}|*}\odot \model{Q}^{\RV{X}_{[2]}|\RV{X}_{[1]}}$ and repeatedly apply Lemma \ref{lem:valid_extendability} to show the result is valid at each step.
+\end{proof}
 
 \begin{itemize}
 	\item The comb is the kernel, not the operation
