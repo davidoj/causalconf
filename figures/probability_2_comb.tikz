@@ -1,0 +1,25 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=Llabel tikzit] (1) at (-3.25, -0.5) {$\RV{Y}$};
+		\node [style=RLabel tikzit] (2) at (4, 1) {$\RV{X}$};
+		\node [style=RLabel tikzit] (3) at (4, -0.5) {$\RV{Z}$};
+		\node [style=small kernel tikzit] (5) at (2.5, -0.5) {$\prob{P}^{\RV{Z}|\RV{WXY}}$};
+		\node [style=copymap tikzit] (6) at (0.5, 1) {};
+		\node [style=none] (7) at (1.75, -0.25) {};
+		\node [style=none] (8) at (1.75, -0.75) {};
+		\node [style=small kernel tikzit] (9) at (-0.75, 1) {$\prob{P}^{\RV{X}|\RV{W}}$};
+		\node [style=Llabel tikzit] (10) at (-3.25, 1) {$\RV{W}$};
+		\node [style=copymap tikzit] (11) at (-2.25, 1) {};
+		\node [style=none] (12) at (1.75, -0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (6) to (2);
+		\draw [in=-180, out=-75, looseness=1.25] (6) to (7.center);
+		\draw [in=180, out=0] (1) to (8.center);
+		\draw [in=180, out=0] (5) to (3);
+		\draw (9) to (6);
+		\draw (10) to (11);
+		\draw (11) to (9);
+		\draw [in=180, out=-75, looseness=0.75] (11) to (12.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

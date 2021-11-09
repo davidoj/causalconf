@@ -1,21 +1,19 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=Llabel tikzit] (0) at (-1, 1) {$W$};
 		\node [style=Llabel tikzit] (1) at (-1, -0.5) {$X$};
-		\node [style=RLabel tikzit] (2) at (4.5, 1) {$Y$};
+		\node [style=RLabel tikzit] (2) at (4.5, 1) {$\RV{X}$};
 		\node [style=RLabel tikzit] (3) at (4.5, -0.5) {$Z$};
-		\node [style=small kernel tikzit] (4) at (0.5, 1) {$\kernel{K}$};
 		\node [style=small kernel tikzit] (5) at (3.25, -0.5) {$\kernel{L}$};
 		\node [style=copymap tikzit] (6) at (2, 1) {};
 		\node [style=none] (7) at (2.75, -0.25) {};
 		\node [style=none] (8) at (2.75, -0.75) {};
+		\node [style=small dist tikzit] (9) at (-1, 1) {$\prob{P}^{\RV{X}}$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-		\draw (0) to (4);
-		\draw (4) to (6);
 		\draw (6) to (2);
 		\draw [in=-180, out=-75, looseness=1.25] (6) to (7.center);
 		\draw [in=180, out=0] (1) to (8.center);
 		\draw (5) to (3);
+		\draw (9) to (6);
 	\end{pgfonlayer}
 \end{tikzpicture}

@@ -1,4 +1,4 @@
-\begin{thebibliography}{29}
+\begin{thebibliography}{30}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -36,6 +36,16 @@ A.~Philip Dawid.
 \newblock \emph{arXiv:2004.12493 [math, stat]}, April 2020.
 \newblock URL \url{http://arxiv.org/abs/2004.12493}.
 \newblock arXiv: 2004.12493.
+
+\bibitem[Ershov(1975)]{ershov_extension_1975}
+M.~P. Ershov.
+\newblock Extension of {Measures} and {Stochastic} {Equations}.
+\newblock \emph{Theory of Probability \& Its Applications}, 19\penalty0
+  (3):\penalty0 431--444, June 1975.
+\newblock ISSN 0040-585X.
+\newblock \doi{10.1137/1119053}.
+\newblock URL \url{https://epubs.siam.org/doi/abs/10.1137/1119053}.
+\newblock Publisher: Society for Industrial and Applied Mathematics.
 
 \bibitem[Feynman(1979)]{feynman_feynman_1979}
 R.P. Feynman.

@@ -11,7 +11,7 @@ Consider Newton's second law in the form $\proc{F}=\proc{MA}$ as a simple exampl
 
 This suggests that we can think about ``force'' $\proc{F}$ (or mass or acceleration) as a kind of procedure that we apply to a particular real world object and which returns a mathematical object (in this case, a vector). We will call $\proc{F}$ a \emph{procedure}. Our view of $\proc{F}$ is akin to \citet{menger_random_2003}'s notion of variables as ``consistent classes of quantities'' that consist of pairing between real-world objects and quantities of some type. Force $\proc{F}$ itself is not a well-defined mathematical thing, as measurement procedures are not mathematically well-defined. At the same time, the set of values it may yield \emph{are} well-defined mathematical things.
 
-We will assume that any procedure will eventually yield an unambiguous value in a defined mathematical set. No actual procedure can be guaranteed to have this property -- any apparatus, however robust, could suffer catastrophic failure -- but we assume that we can study procedures reliable enough that we don't lose much by making this assumption. This assumption allows us to say a procedure $\proc{B}$ yields values in $B$. $\proc{B}\bowtie x$ is the proposition that $\proc{B}$, when completed, yields the value $x\in B$, and by assumption exactly one of these propositions is true. For $A\subset B$, $\proc{B}\bowtie A$ is the proposition $\bigor_{x\in A} \proc{B}\bowtie x$. Two procedures $\proc{B}$ and $\proc{C}$ are the same if $\proc{B}\bowtie x\iff \proc{C}\bowtie x$ for all $x\in B$. 
+We will assume that any procedure will eventually yield an unambiguous value in a defined mathematical set. No actual procedure can be guaranteed to have this property -- any apparatus, however robust, could suffer catastrophic failure -- but we assume that we can study procedures reliable enough that we don't lose much by making this assumption. This assumption allows us to say a procedure $\proc{B}$ yields values in $B$. $\proc{B}\bowtie x$ is the proposition that $\proc{B}$, when completed, yields the value $x\in B$, and by assumption exactly one of these propositions is true. For $A\subset B$, $\proc{B}\bowtie A$ is the proposition $\lor_{x\in A} \proc{B}\bowtie x$. Two procedures $\proc{B}$ and $\proc{C}$ are the same if $\proc{B}\bowtie x\iff \proc{C}\bowtie x$ for all $x\in B$. 
 
 The notion of ``yielding values'' allows us to define an operation akin to function composition. If I have a procedure $\proc{B}$ that takes values in some set $B$, and a function $f:B\to C$, define the ``composition'' $f\circ \proc{B}$ to be the procedure $\proc{C}$ that yields $f(x)$ whenever $\proc{B}$ yields $x$. For example, $\proc{MA}$ is the composition of $h:(x,y)\mapsto xy$ with the procedure $(\proc{M},\proc{A})$ that yields the mass and acceleration of the same object. Composition is associative - for all $x\in B$: 
 
@@ -91,7 +91,119 @@ To construct probability models with gaps in them, we need to address these two 
 
 The example of $\RV{X}=\RV{A}$ might seem absurd. Consider instead $\RV{Z}=(\RV{H},\RV{W})$, representing the height in metres and weight in kilograms of a particular person, and $\RV{X}$ represents their body mass index, which is to say $\RV{X}=\frac{\RV{W}}{\RV{H}^2}$ (not that in both cases we are using ``$=$'', which means these variables are \emph{equal as functions}, not that they \emph{yield the same result with probability 1}, which would involve the symbol ``$\bowtie$''). A causal graph with exactly these variables and arrows analogous to ours appears in \citet{shahar_association_2009}. However, generally there is no $\prob{P}_x^{\RV{XHW}}$ that satisfies both $\RV{X}\bowtie \frac{\RV{W}}{\RV{H}^2}$ with probability 1 and Equation \ref{eq:truncated_fac}. This is true, for example, whenever $\prob{P}^{\RV{X}}$ has support at more than one point.
 
-\subsection{Markov kernels and string diagrams}
+\subsection{Probability models}
+
+Define $\RV{I}:\Omega\to \Omega$ as the identity function $\omega\mapsto \omega$. A \emph{standard probability model} on $(\Omega,\sigalg{F})$ is a probability distribution $\prob{P}^{\RV{I}}$ on $(\Omega,\sigalg{F})$.
+
+Given a standard probability model $\prob{P}^{\RV{I}}$ and $\RV{X}:\Omega\to X$, the probability that $\RV{X}\bowtie A$ for $A\in\sigalg{X}$ is defined as $\prob{P}^{\RV{X}}(A):=\prob{P}^{\RV{I}}(\RV{X}\bowtie A)$. $\prob{P}^{\RV{X}}$ is known as the pushforward of $\prob{P}^{\RV{I}}$ via $\RV{X}$. We use the convention that the same base letter appearing in $\prob{P}^{\RV{I}}$ and $\prob{P}^{\RV{X}}$ indicates $\prob{P}^{\RV{X}}$ is a pushforward of $\prob{P}^{\RV{I}}$. 
+
+Any \emph{sample space-valid} probability distribution $\prob{Q}^{\RV{X}}$ is the pushforward of some $\prob{Q}^{\RV{I}}$.
+
+\subsection{Validity of probability models with gaps}\label{sec:validity_of_gapprob}
+
+A conditional probability can be considered to be a model with a probability gap. For example, suppose I have two variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, and I have some known $\prob{P}^{\RV{Y}|\RV{X}}$ but ``the probability of $\RV{X}$'' is a probability gap. In this case, I can define a map that takes an arbitrary $\prob{P}_\alpha^{\RV{X}}$ and returns $\prob{P}^{\RV{XY}}_\alpha:=\prob{P}_\alpha^{\RV{X}}\odot \prob{P}^{\RV{Y}|\RV{X}}$ (definition \ref{def:copyproduct}). Thus $\prob{P}^{\RV{Y}|\RV{X}}$ is an example of a probability model with a gap.
+
+We want models with probability gaps that are \emph{validly extendable}: given a valid proposed model that fills the probability gap, we get a unique, sample space-valid probability distribution. To examine this issue, we will firstly define the copy-product between two Markov kernels. This is the standard operation we use to extend conditional probabilities.
+
+\begin{definition}[Copy-product]\label{def:copyproduct}
+Given two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:Y\times X\kto Z$, define the copy-product $\kernel{K}\odot\kernel{L}$ as
+\begin{align}
+	\kernel{K}\odot\kernel{L}:&= \text{copy}_X(\kernel{K}\otimes \text{Id}_X)(\text{copy}_Y\otimes\text{Id}_X )(\text{Id}_Y \otimes \kernel{L})\\
+							&= \tikzfig{copy_product}\\
+							&\iff\\
+	(\kernel{K}\odot\kernel{L})(A\times B|x) &= \int_A\kernel{L}(B|y)\kernel{K}(dy|x)
+\end{align}
+\end{definition}
+
+We want extensions of conditional probabilities via $\odot$ to be sample space-valid, but this is not true for arbitrary conditional probabilities $\prob{P}^{\RV{Y}|\RV{X}}$ yield invalid extensions $\prob{P}_\alpha^{\RV{XY}}$ from this operation. For example, suppose $X=Y$ and $\RV{X}=\RV{Y}$. Then given $x\neq x'\in X$ such that $\prob{P}^{\RV{Y}|\RV{X}}(x|x')=a>0$, we could choose $\prob{P}_\alpha^{\RV{X}}(\{x'\})=1$ and then $\prob{P}_\alpha^{\RV{XY}}(\{(x',x)\})=a>0$ also. To begin with, it is absurd to assign nonzero probability to the proposition $\RV{X}\not\bowtie\RV{X}$. Furthermore for every probability model $\prob{Q}^{\RV{I}}\in \Delta(\Omega)$,
+\begin{align}
+\prob{Q}^{\RV{XY}}(\{(x,x')\})&=\prob{Q}^{\RV{I}}(\RV{X}^{-1}(x)\cap\RV{X}^{-1}(x'))\\
+&= \llbracket x=x' \rrbracket
+\end{align}
+Thus $\prob{P}_\alpha^{\RV{XY}}$ is not sample space-valid.
+
+We already have a validity criterion for probability distributions. We propose a slightly different validity criterion for conditional probabilities.
+
+\begin{definition}[Valid conditional probability]\label{def:valid_conditional_prob}
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{valid conditional probability} $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$ such that it assigns probability 0 to contradictions:
+\begin{align}
+	\forall A\in \sigalg{Y}, x\in X: \RV{X}^{-1}(x)\cap \RV{Y}^{-1}(A) = \emptyset \implies \left(\prob{P}^{\RV{Y}|\RV{X}}(A|x) = 0\right) \lor \left(\RV{X}^{-1}(x) = \emptyset\right)
+\end{align}
+\end{definition}
+
+The requirement that a conditional probability be valid means that if the variables themselves rule out certain values, then these values must be assigned zero probability. For example, $\prob{P}^{\RV{X}|\RV{X}}(x'|x)=0$ if $x'\neq x$. In addition, it implies that $\prob{P}^{\RV{X}|\RV{X}}=1$. If we start with a standard probability model and derive conditional probabilities from it, then validity holds up to a set of measure zero. In our case, valid conditional probabilities guarantee that we can extend the conditional probability to a standard probability model.
+
+\begin{theorem}[Agreement of validity criteria for probability distributions]\label{th:valid_agree}
+Given $\RV{X}:\Omega\to X$ with $(\Omega,\sigalg{F})$ and $(X,\sigalg{X})$ standard measurable, a probability $\prob{P}^{\RV{X}}$ is sample space-valid if and only if the conditional probability $\prob{P}^{\RV{X}|*}:=*\mapsto \prob{P}^{\RV{X}}$ is valid.
+\end{theorem}
+
+\begin{proof}
+$*^{-1}(*)=\Omega$ necessarily. Thus validity of $\prob{P}^{\RV{X}|*}$ means 
+
+\begin{align}
+	\forall A\in \sigalg{X}: \RV{X}^{-1}(A)=\emptyset \implies \prob{P}^{\RV{X}|*}(A|*)&=0\\
+	&= \prob{P}^{\RV{X}}(A)\label{eq:nec_and_suff}
+\end{align}
+
+If: We refer to \citet{ershov_extension_1975} Theorem 2.5 for the proof that Equation \ref{eq:nec_and_suff} is necessary and sufficient for the existence of $\prob{P}^{\RV{I}}$ such that $\prob{P}^{\RV{I}}(\RV{X}^{-1}(A))=\prob{P}^{\RV{X}}(A)$ for all $A\in \sigalg{X}$ when $(\Omega,\sigalg{F})$ and $(X,\sigalg{X})$ are standard measurable.
+
+Only if: If $\RV{X}^{-1}(A)=\emptyset$ then $\prob{P}^{\RV{X}}(A)=\prob{P}^{\RV{I}}(\emptyset)=0$.
+\end{proof}
+
+For ``true'' conditional probabilities -- that is, where our conditioning variable has more than one value -- Definition \ref{def:valid_conditional_prob} is equivalent to the the conditional probability extending to a sample space-valid probability distribution given any valid probability distribution to extend it with.
+
+\begin{lemma}[Valid conditional probabilities are validly extendable]\label{lem:valid_extendability}
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and any valid conditional probabilities $\prob{P}^{\RV{Y}|\RV{X}}$ and $\prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$, $ \prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$ is also a valid conditional probability.
+\end{lemma}
+
+\begin{proof}
+Let $\prob{R}^{\RV{YZ}|\RV{X}}:=\prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$.
+
+We only need to check validity in $x\in \RV{X}(\Omega)$, as it is automatically satisfied for other values of $\RV{X}$.
+
+For all $x\in \RV{X}(\Omega)$, $\RV{X}^{-1}(x)\cap\RV{Y}^{-1}(A)=\emptyset$, $\prob{P}^{\RV{Y}|\RV{X}}(A|x)=0$ by validity. Thus
+\begin{align}
+	\prob{R}^{\RV{YZ}|\RV{X}}(A\times B|x) &= \int_A\prob{Q}^{\RV{Z}|\RV{YX}}(B|y,x)\prob{P}^{\RV{Y}|\RV{X}}(dy|x)\\
+								  &\leq \int_A\prob{P}^{\RV{Y}|\RV{X}}(dy|x)\\
+								  &=0
+\end{align}
+
+For all $U\times A\subset (\RV{X},\RV{Y})(\Omega)$, $U\times A\times B$ disjoing from $(\RV{X},\RV{Y},\RV{Z})(\Omega)$, $\prob{Q}^{\RV{Z}|\RV{YX}}(B|y,x)=0$ for all $x\in U$, $y\in A$ by validity. Thus for all $x\in U$:
+\begin{align}
+	\prob{R}^{\RV{YZ}|\RV{X}}(A\times B|x) &= \int_A\prob{Q}^{\RV{Z}|\RV{YX}}(B|y,x)\prob{P}^{\RV{Y}|\RV{X}}(dy|x)\\
+								  &=0
+\end{align}
+\end{proof}
+
+\begin{corollary}[Valid conditional probability is validly extendable to a probability distribution]
+Given $(\Omega,\sigalg{F})$, $\RV{U}:\Omega\to U$, $\RV{W}:\Omega\to W$ and a valid conditional probability $\prob{T}^{\RV{W}|\RV{U}}$, then for any valid conditional probability $\prob{V}^{\RV{U}}$, $\prob{V}^{\RV{U}}\odot \prob{T}^{\RV{W}|\RV{U}}$ is a valid probability distribution.
+\end{corollary}
+
+\begin{proof}
+Applying Lemma \ref{lem:valid_extendability} choosing $\RV{X}=*$, $\RV{Y}=\RV{U}$, $\RV{Z}=\RV{W}$ and $\prob{P}^{\RV{Y}|\RV{X}}=\prob{V}^{\RV{U}|*}$ and $\prob{Q}^{\RV{Z}|\RV{YX}}=\prob{T}^{\RV{W}|\RV{U*}}$ we have $\prob{R}^{WU|*}:=\prob{V}^{\RV{U}|*}\odot \prob{T}^{\RV{W}|\RV{U}*}$ is a valid conditional probability. Then $\prob{R}^{\RV{WU}}\cong \prob{R}^{\RV{WU}|*}$ is valid by Theorem \ref{th:valid_agree}.
+\end{proof}
+
+\begin{theorem}[Validity of conditional probabilities]
+Suppose we have $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $(\Omega,\sigalg{F})$, $(X,\sigalg{X})$, $(Y,\sigalg{Y})$ standard measurable. A conditional probability $\prob{T}^{\RV{Y}|\RV{X}}$ is valid if and only if for all valid probability distributions $\prob{V}^{\RV{X}}$, $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is a valid probability distribution.
+\end{theorem}
+
+\begin{proof}
+If: this follows directly from Lemma \ref{lem:valid_extendability}.
+
+Only if: suppose $\prob{T}^{\RV{Y}|\RV{X}}$ is invalid. Then there is some $x\in X$, $A\in \sigalg{Y}$ such that $\RV{X}^{-1}(x)\neq \emptyset$, $\RV{Y}^{-1}(A)\cap\RV{X}^{-1}(x)=\emptyset$ and $\prob{T}^{\RV{Y}|\RV{X}}(A|x)>0$. Choose $\prob{V}^{\RV{X}}$ such that $\prob{V}^{\RV{X}}(\{x\})=1$; this is possible due to standard measurability and valid due to $\RV{X}^{-1}(x)\neq \emptyset$. Then
+\begin{align}
+	(\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}})(\{x\}\times A) &= \int_{\{x\}} \prob{T}^{\RV{Y}|\RV{X}}(A|x') \prob{V}^{\RV{X}}(dx')\\
+																	 &= \prob{T}^{\RV{Y}|\RV{X}}(A|x')\\
+																	 &>0
+\end{align}
+Hence $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is invalid.
+\end{proof}
+
+Given any two conditional probabilities $\prob{T}^{\RV{Y}|\RV{X}}$, $ \prob{U}^{\RV{Y}|\RV{X}}$ such that there is some $x\in \RV{X}(\Omega)$, $A\in \sigalg{Y}$ for which $\prob{T}^{\RV{Y}|\RV{X}}(A|x)\neq \prob{U}^{\RV{Y}|\RV{X}}(A|x)$, there exists some $\prob{Q}^{\RV{X}}$ such that $\prob{Q}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}\neq \prob{Q}^{\RV{X}}\odot \prob{U}^{\RV{Y}|\RV{X}}$.\todo{not proved for now} Thus if we are using conditional probability as a probability model with a gap, uniqueness requires that the conditional probability be represented by a Markov kernel that is unique up to the set of impossible values of the conditioning variable. In contrast, conditional probability derived from a standard probability model may be represented by a Markov kernel unique up to a measure zero set, which is a strictly weaker condition because the set of impossible values must be given measure 0 by any valid probability distribution.
+
+In our work conditional probabilities are probability models with gaps that are filled by probability distributions. That is, the conditional probability $\prob{P}^{\RV{Y}|\RV{X}}$ has a gap that is filled by probability distributions of the form $\prob{Q}^{\RV{X}}$. We want to consider the more general case of probability models with gaps that are filled by conditional probabilities. These are \emph{probability combs}, which we will define with the aid of string diagram notation for Markov kernels.
+
+\subsection{String diagram notation}
 
 We say, given a variable $\RV{X}:\Omega\to X$, a probability distribution $\prob{P}^{\RV{X}}$ is a probability measure on $(X,\sigalg{X})$. Recall that a probability measure is a $\sigma$-additive function $\prob{P}^{\RV{X}}:\sigalg{X}\to [0,1]$ such that $\prob{P}^{\RV{X}}(\emptyset)=0$ and $\prob{P}^{\RV{X}}(X)=1$. Given a second variable $\RV{Y}:\Omega\to Y$, a conditional probability $\prob{Q}^{\RV{X}|\RV{Y}}$ is a Markov kernel $\prob{Q}^{\RV{X}|\RV{Y}}:X\kto Y$which is a map $Y\times \sigalg{X}\to [0,1]$ such that
 
@@ -200,7 +312,7 @@ Because we anticipate that the graphical notation will be unfamiliar to many, we
 Consider the Markov kernels $\kernel{K}:W\kto Y$, $\kernel{L}:Y\times X\kto Z$ and $\kernel{M}:W\times X\kto Y\times Z$ defined as
 
 \begin{align}
-	\kernel{M} = \tikzfig{2_comb}
+	\kernel{M} = \tikzfig{2_comb}\label{eq:2comb_M}
 \end{align}
 
 Following the rules above, we can translate this to ordinary notation by first breaking it down into products and tensor products, and then evaluating these products
@@ -218,149 +330,93 @@ Following the rules above, we can translate this to ordinary notation by first b
 Now, if we are given additionally $\kernel{J}:Y\kto X$, we can define a new Markov kernel $\kernel{N}:W\kto Z$:
 
 \begin{align}
-	\kernel{M} = \tikzfig{2comb_inserted}
+	\kernel{N} = \tikzfig{2comb_inserted}\label{eq:2comb_winsert}
 \end{align}
 
-This can be translated as
+For the following translation, we will apply the following shorthands: for arbitrary $\kernel{A}:X\times Y\to Z$, $\kernel{B}:W\to Y$
 
 \begin{align}
-	\kernel{N}(z|w) &= [\kernel{K}\text{copy}_Y(\kernel{J}\otimes \text{id}_Y)\kernel{L}] (z|w)\\
-					&= \sum_{y'\in Y} \kernel{K}(y'|w) \sum_{y'',y'''\in Y} \llbracket y'=y''\rrbracket\llbracket y'=y'''\rrbracket [(\kernel{J}\otimes \text{id}_Y)\kernel{L}] (z|y'',y''')\\
-					&= \sum_{y'\in Y} \kernel{K}(y'|w)[(\kernel{J}\otimes \text{id}_Y)\kernel{L}] (z|y',y')\\
-					&= \sum_{y'\in Y} \kernel{K}(y'|w) \sum_{x'\in X,y''\in Y} \kernel{J}(x'|y')\llbracket y'=y''\rrbracket \kernel{L}(z|y'',x')\\
-					&= \sum_{y'\in Y,x'\in X} \kernel{K}(y'|w) \kernel{J}(x'|y') \kernel{L}(z|y',x')\\
+ (\text{Id}_X\otimes \kernel{W})\kernel{A}(z|x,w) &= \sum_{y'\in Y, x'\in X}\llbracket x=x' \rrbracket \kernel{W}(y'|w) \kernel{B}(z|x',y')\\
+										   &= \sum_{y'\in Y} \kernel{W}(y'|w) \kernel{B}(z|x,y')
 \end{align}
 
-We can define an \emph{insertion} operation $\text{Insert}_{\kernel{M}}:\Delta(X)^Y\to \Delta(Z)^W$ that takes a Markov kernel $Y\kto X$ and returns a Markov kernel $W\kto Z$:
+That is, an identity map passes along its input to the next kernel in the product. In addition, for arbitrary $\kernel{B}: X\times Y\times Y\to Z$ (where we apply the above shorthand immediately):
 
 \begin{align}
-	\text{Insert}_{\kernel{M}}: \tikzfig{insert_j}
+ (\text{Id}_X\otimes \text{copy}_Y)\kernel{B}(z|x,y) &= \sum_{y',y''\in Y}\text{copy}_Y(y',y''|y)\kernel{B}(z|x,y',y'')\\
+										   &= \kernel{B}(z|x,y,y)
 \end{align}
 
-We can represent the $\text{Insert}_{\kernel{M}}$ operation informally as follows:
+That is, the copy map passes along two copies of its input to the next kernel in the product. Finally, for $\kernel{C}^n:Y^n\to Z$, define $(y)^{n}=(y|i\in[n])$:
 
 \begin{align}
-	\tikzfig{insert_opn}&\\
-	\tikzfig{insert_opn2}\label{eq:insert_op}
+	\text{copy}^n_Y &:= \begin{cases}
+	\text{copy}^{n-1}_Y(\text{Id}_{Y^{n-2}}\otimes \text{copy}_Y) & n>2\\
+	\text{copy}_Y & n=2
+	\end{cases}\\
+	(\text{copy}^2_Y\kernel{C}^2)(z|y) &= \kernel{C}^2(z|y,y)\\
+	\text{ suppose for induction } (\text{copy}^{n-1}_Y\kernel{C}^{n-1})(z|y) &= \kernel{C}^{n-1}(z|(y)^{n-1})\\
+	\text{ then }(\text{copy}^n_Y\kernel{C}^n)(z|y) &= (\text{copy}^{n-1}_Y(\text{Id}_{Y^{n-2}}\otimes \text{copy}_Y)\kernel{C}^n)(z|y)\\
+									 &= \sum_{y'\in Y^{n-1}}(\text{Id}_{Y^{n-2}}\otimes \text{copy}_Y)(\mathbf{y}'|(y)^{n-1})\kernel{C}^n(z|\mathbf{y}')\\
+									 &= \kernel{C}^n(z|(y)^n)
 \end{align}
 
-Thus $\text{Insert}_{\kernel{M}}$ is a ``Markov kernel with a hole in it''. Operations like $\text{Insert}_{\kernel{M}}$  are called \emph{combs} after \citet{chiribella_quantum_2008}.
+Using these shorthands, we can translate Equation \ref{eq:2comb_winsert} to
 
-\subsection{Probability models}
-
-Define $\RV{I}:\Omega\to \Omega$ as the identity function $\omega\mapsto \omega$. A \emph{standard probability model} on $(\Omega,\sigalg{F})$ is a probability distribution $\prob{P}^{\RV{I}}$ on $(\Omega,\sigalg{F})$.
-
-Given a standard probability model $\prob{P}^{\RV{I}}$ and $\RV{X}:\Omega\to X$, the probability that $\RV{X}\bowtie A$ for $A\in\sigalg{X}$ is defined as $\prob{P}^{\RV{X}}(A):=\prob{P}^{\RV{I}}(\RV{X}\bowtie A)$. $\prob{P}^{\RV{X}}$ is known as the pushforward of $\prob{P}^{\RV{I}}$ via $\RV{X}$. We use the convention that the same base letter appearing in $\prob{P}^{\RV{I}}$ and $\prob{P}^{\RV{X}}$ indicates $\prob{P}^{\RV{X}}$ is a pushforward of $\prob{P}^{\RV{I}}$. 
-
-Any \emph{valid} probability distribution $\prob{Q}^{\RV{X}}$ is the pushforward of some $\prob{Q}^{\RV{I}}$ (not necessarily unique).
-
-\subsection{Valid extensions of probability models with gaps}
-
-Suppose I have two variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, and I have some known $\prob{P}^{\RV{Y}|\RV{X}}$ but ``the probability of $\RV{X}$'' is a probability gap. In this case, I can define a map that takes an arbitrary $\prob{P}_\alpha^{\RV{X}}$ and returns $\prob{P}^{\RV{XY}}_\alpha:=\prob{P}_\alpha^{\RV{X}}\odot \prob{P}^{\RV{Y}|\RV{X}}$ (definition \ref{def:copyproduct}). Thus $\prob{P}^{\RV{Y}|\RV{X}}$ is an example of a probability model with a gap.
-
-\begin{definition}[Copy-product]\label{def:copyproduct}
-Given two Markov kernels $\kernel{K}:X\kto Y$ and $\RV{L}:Y\times X\kto Z$, define the copy-product $\kernel{K}\odot\kernel{L}$ as
 \begin{align}
-	\kernel{K}\odot\kernel{L}:&= \text{copy}_X(\kernel{K}\otimes \text{Id}_X)(\text{copy}_Y\otimes\text{Id}_X )(\text{Id}_Y \otimes \kernel{L})\\
-							&= \tikzfig{copy_product}\\
-							&\iff\\
-	(\kernel{K}\odot\kernel{L})(A\times B|x) &= \int_A\kernel{L}(B|y)\kernel{K}(dy|x)
+	\kernel{N}(z,x,y|w) &= [\kernel{K}\text{copy}^3_Y(\text{Id}_Y\otimes\kernel{J}\otimes \text{Id}_Y)(\text{Id}_Y \otimes \text{copy}_X\otimes \text{Id}_Y)(\kernel{L}\otimes \text{Id}_X\otimes \text{Id}_Y)] (z,x,y|w)\\
+					&= \sum_{y'\in Y} \kernel{K}(y'|w)  [(\text{Id}_Y\otimes\kernel{J}\otimes \text{Id}_Y)(\text{Id}_Y\otimes\text{copy}_X\otimes \text{Id}_Y)(\kernel{L}\otimes \text{Id}_X\otimes \text{Id}_Y)] (z,x,y|y',y',y')\\
+					&= \sum_{y'\in Y,x'\in X} \kernel{K}(y'|w)\kernel{J}(x'|y')[\kernel{L}\otimes \text{Id}_X\otimes \text{Id}_Y] (z,x,y|y',x',x',y')\\
+					&= \kernel{K}(y|w) \kernel{J}(x|y) \kernel{L}(z|y,x)\\
+\end{align}
+
+We say $\kernel{M}$ is a \emph{2-comb} after \citet{chiribella_quantum_2008}. Similar to the copy-product we defined between two appropriately typed Markov kernels, we can define an insert-product between a 2-comb and an appropriately defined insert.
+
+Specifically, given a 2-comb $\kernel{M}$ defined as in Equation \ref{eq:2comb_M} and a Markov kernel $\kernel{J}:Y\kto X$, we define $\text{Insert}(\kernel{M},\kernel{J})$ to be the right hand side of Equation \ref{eq:2comb_winsert}. We can depict this informally as follows:
+
+\begin{align}
+	\text{Insert}\left(\tikzfig{insert_opn2}\right) &= \tikzfig{2comb_inserted}\label{eq:insert_op}
+\end{align}
+
+The insert-product places $\kernel{J}$ in the matching slot in $\kernel{M}$, and also copies both the input and output of $\kernel{J}$ to the output of the result. Just as copy-products extend conditional probabilities, insert-products extend probability combs.
+
+Note that if $W=Y=\{*\}$, then $\text{Insert}(\kernel{M},\kernel{J})\cong \kernel{J}\odot \kernel{M}$.
+
+\subsection{Probability combs}
+
+We will use probability 2-combs to define probability models with ``conditional probability shaped gaps''. Just as in Section \ref{sec:validity_of_gapprob}, our main concern is whether a probability 2-comb is \emph{validly extendable}.
+
+\begin{definition}[Probability 2-comb]
+Given $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:Y\kto X\times Z$ is a Markov kernel with components $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$ defined by
+\begin{align}
+	\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}} &= \tikzfig{probability_2_comb}
 \end{align}
 \end{definition}
 
-Some conditional probabilities $\prob{P}^{\RV{Y}|\RV{X}}$ yield invalid extensions $\prob{P}_\alpha^{\RV{XY}}$ from this operation. For example, suppose $X=Y$ and $\RV{X}=\RV{Y}$. Then given $x\neq x'\in X$ such that $\prob{P}^{\RV{Y}|\RV{X}}(x|x')=a>0$, we could choose $\prob{P}_\alpha^{\RV{X}}(\{x'\})=1$ and then $\prob{P}_\alpha^{\RV{XY}}(\{(x',x)\})=a>0$ also. To begin with, it is absurd to assign nonzero probability to the proposition $\RV{X}\not\bowtie\RV{X}$. Furthermore for every probability model $\prob{Q}^{\RV{I}}\in \Delta(\Omega)$,
-\begin{align}
-\prob{Q}^{\RV{XY}}(\{(x,x')\})&=\prob{Q}^{\RV{I}}(\RV{X}^{-1}(x)\cap\RV{X}^{-1}(x'))\\
-&= \llbracket x=x' \rrbracket
-\end{align}
-Thus such a $\prob{P}_\alpha^{\RV{XY}}$ is invalid.
+Inserting a conditional probability into a probability 2-comb yields a condiitonal probability.
 
-We can also encounter problems if we try to extend a valid $\prob{P}^{\RV{Y}|\RV{X}}$ with an invalid $\prob{P}_\alpha^{\RV{X}}$. Suppose $\RV{X}=(\RV{W},\RV{W})$ for some $\RV{W}:\Omega\to W$ (and so $X=W^2$). Then if for some $w\neq w'\in W$,  $\prob{P}_\alpha^{\RV{X}}(\{(w,w')\})=a>0$. Then
+\begin{definition}[Valid probability 2-comb]
+Given $(\Omega,\sigalg{F})$, $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ a \emph{valid probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is a Markov kernel $Y\kto X\times Z$ such that:
 \begin{align}
-	\prob{P}^{\RV{XY}}_\alpha(\{(w,w')\}\times Y) &= \prob{P}_\alpha^{\RV{X}}(\{(w,w')\})\\
-												  &> 0
-\end{align}
-Thus $\prob{P}_\alpha^{\RV{XY}}$ is invalid in this case too.
-
-We already have a validity criterion for probability distributions. We generalise this to a validity criterion for conditional probabilities.
-
-\begin{definition}[Valid conditional probability]\label{def:valid_conditional_prob}
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{valid conditional probability} $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$ such that it assigns probability 0 to contradictions:
-\begin{align}
-	\forall A\in \sigalg{Y}, x\in X: \RV{X}^{-1}(x)\cap \RV{Y}^{-1}(A) = \emptyset \implies \left(\prob{P}^{\RV{Y}|\RV{X}}(A|x) = 0\right) \lor \left(\RV{X}^{-1}(x) = \emptyset\right)
+	\forall w\in W, A\in \sigalg{X}, y\in Y,C\in\sigalg{Z}: &\RV{W}^{-1}(w)\cap\RV{X}^{-1}(A)\cap \RV{Y}^{-1}(y)\cap \RV{Z}^{-1}(C) = \emptyset\\ 
+	\implies &\left(\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(A\times C|w,y) = 0\right) \lor \\
+	&\left(\RV{W}^{-1}(w)\cap\RV{X}^{-1}(A)\cap\RV{Y}^{-1}(y) = \emptyset\right)
 \end{align}
 \end{definition}
 
-The requirement that a conditional probability be valid means that if the variables themselves rule out certain values, then these values must be assigned zero probability. For example, $\prob{P}^{\RV{X}|\RV{X}}(x'|x)=0$ if $x'\neq x$. In addition, it implies that $\prob{P}^{\RV{X}|\RV{X}}=1$. If we start with a standard probability model and derive conditional probabilities from it, then validity holds up to a set of measure zero. In our case, valid conditional probabilities guarantee that we can extend the conditional probability to a standard probability model.
+Calid conditional probabilities were precisely those that, given any valid probability distribution, could be extended to valid probability distributions. Analogously, valid probability 2-combs are precisely those that, given any valid conditional probability, can be extended to valid conditional probabilities.
 
-\begin{lemma}[Agreement of validity criteria]
-A probability $\prob{P}^{\RV{X}}$ is valid if and only if the conditional probability $\prob{P}^{\RV{X}|*}:=*\mapsto \prob{P}^{\RV{X}}$ is valid.
-\end{lemma}
-
-\begin{proof}
-If: $*^{-1}(*)=\Omega$ necessarily. Thus validity of $\prob{P}^{\RV{X}|*}$ implies 
-\end{proof}
-
-\begin{lemma}[Valid conditional probabilities are validly extendible]\label{lem:valid_extendability}
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and any valid conditional probabilities $\prob{P}^{\RV{Y}|\RV{X}}$ and $\prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$, $ \prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$ is also a valid conditional probability.
-\end{lemma}
+\begin{theorem}[Extension of valid probability 2-combs]
+Given $(\Omega,\sigalg{F})$, $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is valid if and only if for any valid conditional probability $\prob{P}^{\RV{Z}|\RV{X}}$, $\text{insert}(\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}},\prob{P}^{\RV{Z}|\RV{X}})$ is a valid conditional probability.
+\end{theorem}
 
 \begin{proof}
-Let $\prob{R}^{\RV{YZ}|\RV{X}}:=\prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$.
 
-We only need to check validity in $x\in \RV{X}(\Omega)$, as it is automatically satisfied for other values of $\RV{X}$.
-
-For all $x\in \RV{X}(\Omega)$, $\RV{X}^{-1}(x)\cap\RV{Y}^{-1}(A)=\emptyset$, $\prob{P}^{\RV{Y}|\RV{X}}(A|x)=0$ by validity. Thus
-\begin{align}
-	\prob{R}^{\RV{YZ}|\RV{X}}(A\times B|x) &= \int_A\prob{Q}^{\RV{Z}|\RV{YX}}(B|y,x)\prob{P}^{\RV{Y}|\RV{X}}(dy|x)\\
-								  &\leq \int_A\prob{P}^{\RV{Y}|\RV{X}}(dy|x)\\
-								  &=0
-\end{align}
-
-For all $U\times A\subset (\RV{X},\RV{Y})(\Omega)$, $U\times A\times B$ disjoing from $(\RV{X},\RV{Y},\RV{Z})(\Omega)$, $\prob{Q}^{\RV{Z}|\RV{YX}}(B|y,x)=0$ for all $x\in U$, $y\in A$ by validity. Thus for all $x\in U$:
-\begin{align}
-	\prob{R}^{\RV{YZ}|\RV{X}}(A\times B|x) &= \int_A\prob{Q}^{\RV{Z}|\RV{YX}}(B|y,x)\prob{P}^{\RV{Y}|\RV{X}}(dy|x)\\
-								  &=0
-\end{align}
 \end{proof}
 
-\begin{corollary}[Valid conditional probability is validly extendible to a probability distribution]
-Given $(\Omega,\sigalg{F})$, $\RV{U}:\Omega\to U$, $\RV{W}:\Omega\to W$ and a valid conditional probability $\prob{T}^{\RV{W}|\RV{U}}$, then for any valid conditional probability $\prob{V}^{\RV{U}}$, $\prob{V}^{\RV{U}}\odot \prob{T}^{\RV{W}|\RV{U}}$ is a valid probability distribution.
-\end{corollary}
+It appears that we may be able to extend this theory to $n$-combs, where valid $n$-combs are those that can have $n-1$-combs inserted to yield valid $n-1$-combs. We don't develop that theory here, though.
 
-\begin{proof}
-Recall that $\prob{V}^{\RV{U}}\odot \prob{T}^{\RV{W}|\RV{U}}\cong \prob{V}^{\RV{U}|*}\odot \prob{T}^{\RV{W}|\RV{U}*}$. Applying Lemma \ref{lem:valid_extendability} choosing $\RV{X}=*$, $\RV{Y}=\RV{U}$, $\RV{Z}=\RV{W}$ and $\prob{P}^{\RV{Y}|\RV{X}}=\prob{V}^{\RV{U}|*}$ and $\prob{Q}^{\RV{Z}|\RV{YX}}=\prob{T}^{\RV{W}|\RV{U*}}$.
-\end{proof}
-
-particular in \emph{recursive probability gaps}. This means that we have some 
-
- A recursive set of variables is a set $\{\RV{X}_{[i]}|i\in [n]\}$ where $\RV{X}_{[i]}=(\RV{X}_j)_{j\leq i}$. A recursive set of conditional probabilities is a set of conditional probabilities $\{\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}|i\in [n]\}$ where we define $\RV{X}_0:=*$ so $\model{P}^{\RV{X}_1|\RV{X}_0}=\model{P}^{\RV{X}_1|*}\cong \model{P}^{\RV{X}_1}$. A model with recursive probability gaps is a recursive set of conditional probabilties with some conditional probabilities removed $\{\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}|i\in L\subset [n]\}$.
-
-Recall that we want models with probability gaps that are \emph{unique} and \emph{validly extendable} to a standard probability model on $(\Omega,\sigalg{F})$. 
-
-We get uniqueness from our definition of conditional probabilities $\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}$ as Markov kernels rather than equivalence classes of Markov kernels. This definition is motivated by our attitude to probability gaps: they are the things we don't yet know. If we had a standard probability model $\prob{P}^{\RV{I}}$, we could derive a class of conditional probabilities suitable to be named $\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}$. However, our starting point is that we have less than a standard probability model, and the knowledge that we have is represented by a unique Markov kernel rather than a class of Markov kernels.
-
-
-\begin{lemma}[Recursive probability gaps are validly extendible if all conditionals are valid]
-A model with recursive probability gaps $M:=\{\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}|i\in L\subset [n]\}$ is validly extendible to a probability distribution $\model{P}^{\RV{X}_{[n]}}$ with any valid complement set of conditional probabilities $\{\model{P}_\alpha^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}|i\in [n]\setminus L\}$ iff every conditional probability in $M$ is valid.
-\end{lemma}
-
-\begin{proof}
-By assumption, we have a sequence of valid conditional probabilities $(\model{Q}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}})_{i\in [n]}$ where $\model{Q}=\model{P}$ if $i\in L$ and $\model{Q}=\model{P}_\alpha$ otherwise. We can take the sequential copy product starting with $\model{Q}^{\RV{X}_{[1]}|*}\odot \model{Q}^{\RV{X}_{[2]}|\RV{X}_{[1]}}$ and repeatedly apply Lemma \ref{lem:valid_extendability} to show the result is valid at each step.
-\end{proof}
-
-\begin{itemize}
-	\item The comb is the kernel, not the operation
-	\item The probability comb (holey probability) is the operation; maps complementary combs to standard probability models
-	\begin{itemize}
-		\item Complementary variable sets
-	\end{itemize}
-	\item Notation
-	\item Uniqueness holds by definition
-	\item Compatibility requirements ensure validity + valid extendability 
-	\item Comb-conditional probabilities and conditional independence
-	\item Another look at truncated factorisation
-\end{itemize}
+\subsection{What goes wrong with truncated factorisation?}
 
 A \emph{model} is a collection of conditional probabilities. For example, we could have $\{\prob{P}^{\RV{X}|*},\prob{P}^{\RV{Y}|\RV{X}}\}$. We use the convention that conditional probabilities with the same base letter all belong to the same model. Whether a particular model is ``correct'' is a difficult question to answer, and indeed a difficult question to pose. However, we can specify some necessary conditions that must hold. Informally, these are:
 

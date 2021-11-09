@@ -9,6 +9,9 @@
 		\node [style=none] (8) at (5.75, 0.75) {};
 		\node [style=small kernel tikzit] (9) at (3.5, 0.75) {$\kernel{J}$};
 		\node [style=none] (10) at (3.75, 1.5) {};
+		\node [style=RLabel tikzit] (11) at (7.5, 0.25) {$X$};
+		\node [style=RLabel tikzit] (12) at (7.5, -0.5) {$Y$};
+		\node [style=copymap tikzit] (13) at (4.75, 0.75) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (0) to (4);
@@ -16,7 +19,10 @@
 		\draw (5) to (3);
 		\draw (6) to (9);
 		\draw [in=180, out=45] (6) to (10.center);
-		\draw (9) to (8.center);
 		\draw [in=180, out=0] (10.center) to (7.center);
+		\draw (9) to (13);
+		\draw (13) to (8.center);
+		\draw [in=180, out=-60, looseness=0.50] (6) to (12);
+		\draw [in=-180, out=-30, looseness=0.75] (13) to (11);
 	\end{pgfonlayer}
 \end{tikzpicture}

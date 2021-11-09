@@ -10,7 +10,7 @@
 \tikzstyle{copymap tikzit}=[fill=black, draw=black, shape=circle, inner sep=1, tikzit category=kernels]
 \tikzstyle{small kernel tikzit}=[fill=white, draw=black, shape=rectangle, tikzit category=kernels, minimum width=0.5cm, minimum height=0.5cm]
 \tikzstyle{large kernel tikzit}=[fill=white, draw=black, shape=rectangle, tikzit category=kernels, minimum width=1.2cm, minimum height=1.5cm]
-\tikzstyle{small dist tikzit}=[fill=white, draw=black, shape=regular polygon, tikzit category=kernels, regular polygon sides=3, shape border rotate=90, minimum height=0.5cm]
+\tikzstyle{small dist tikzit}=[fill=white, draw=black, shape=regular polygon, tikzit category=kernels, regular polygon sides=3, shape border rotate=90, minimum height=0.5cm, inner sep=-1pt]
 \tikzstyle{erase tikzit}=[{-{Rays[n=8]}}]
 \tikzstyle{RLabel tikzit}=[anchor=west]
 \tikzstyle{Llabel tikzit}=[anchor=east]
