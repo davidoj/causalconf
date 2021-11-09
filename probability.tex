@@ -237,7 +237,7 @@ We can define an \emph{insertion} operation $\text{Insert}_{\kernel{M}}:\Delta(X
 	\text{Insert}_{\kernel{M}}: \tikzfig{insert_j}
 \end{align}
 
-We can then represent the $\text{Insert}_{\kernel{M}}$ operation (informally) as follows:
+We can represent the $\text{Insert}_{\kernel{M}}$ operation informally as follows:
 
 \begin{align}
 	\tikzfig{insert_opn}&\\
@@ -246,28 +246,19 @@ We can then represent the $\text{Insert}_{\kernel{M}}$ operation (informally) as
 
 Thus $\text{Insert}_{\kernel{M}}$ is a ``Markov kernel with a hole in it''. Operations like $\text{Insert}_{\kernel{M}}$  are called \emph{combs} after \citet{chiribella_quantum_2008}.
 
-\subsection{Probability models with recursive gaps}
+\subsection{Probability models}
 
-We are interested in particular in \emph{recursive probability gaps}. A recursive set of variables is a set $\{\RV{X}_{[i]}|i\in [n]\}$ where $\RV{X}_{[i]}=(\RV{X}_j)_{j\leq i}$. A recursive set of conditional probabilities is a set of conditional probabilities $\{\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}|i\in [n]\}$ where we define $\RV{X}_0:=*$ so $\model{P}^{\RV{X}_1|\RV{X}_0}=\model{P}^{\RV{X}_1|*}\cong \model{P}^{\RV{X}_1}$. A model with recursive probability gaps is a recursive set of conditional probabilties with some conditional probabilities removed $\{\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}|i\in L\subset [n]\}$.
+Define $\RV{I}:\Omega\to \Omega$ as the identity function $\omega\mapsto \omega$. A \emph{standard probability model} on $(\Omega,\sigalg{F})$ is a probability distribution $\prob{P}^{\RV{I}}$ on $(\Omega,\sigalg{F})$.
 
-Define $\RV{I}:\Omega\to \Omega$ as the identity function. A \emph{standard probability model} on $(\Omega,\sigalg{F})$ is a probability distribution $\prob{P}^{\RV{I}}$ on $(\Omega,\sigalg{F})$.
+Given a standard probability model $\prob{P}^{\RV{I}}$ and $\RV{X}:\Omega\to X$, the probability that $\RV{X}\bowtie A$ for $A\in\sigalg{X}$ is defined as $\prob{P}^{\RV{X}}(A):=\prob{P}^{\RV{I}}(\RV{X}\bowtie A)$. $\prob{P}^{\RV{X}}$ is known as the pushforward of $\prob{P}^{\RV{I}}$ via $\RV{X}$. We use the convention that the same base letter appearing in $\prob{P}^{\RV{I}}$ and $\prob{P}^{\RV{X}}$ indicates $\prob{P}^{\RV{X}}$ is a pushforward of $\prob{P}^{\RV{I}}$. 
 
-Recall that we want models with probability gaps that are \emph{unique} and \emph{validly extendable} to a standard probability model on $(\Omega,\sigalg{F})$. 
+Any \emph{valid} probability distribution $\prob{Q}^{\RV{X}}$ is the pushforward of some $\prob{Q}^{\RV{I}}$ (not necessarily unique).
 
-We get uniqueness from our definition of conditional probabilities $\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}$ as Markov kernels rather than equivalence classes of Markov kernels. This definition is motivated by our attitude to probability gaps: they are the things we don't yet know. If we had a standard probability model $\prob{P}^{\RV{I}}$, we could derive a class of conditional probabilities suitable to be named $\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}$. However, our starting point is that we have less than a standard probability model, and the knowledge that we have is represented by a unique Markov kernel rather than a class of Markov kernels.
+\subsection{Valid extensions of probability models with gaps}
 
-\begin{definition}[Valid conditional probability]
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{valid conditional probability} $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$ such that it assigns probability 0 to contradictions:
-\begin{align}
-	\forall A\in \sigalg{Y}, x\in X: \RV{X}^{-1}(x)\cap \RV{Y}^{-1}(A) = \emptyset \implies \left(\prob{P}^{\RV{Y}|\RV{X}}(A|x) = 0\right) \lor \left(\RV{X}^{-1}(x) = \emptyset\right)
-\end{align}
-\end{definition}
+Suppose I have two variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, and I have some known $\prob{P}^{\RV{Y}|\RV{X}}$ but ``the probability of $\RV{X}$'' is a probability gap. In this case, I can define a map that takes an arbitrary $\prob{P}_\alpha^{\RV{X}}$ and returns $\prob{P}^{\RV{XY}}_\alpha:=\prob{P}_\alpha^{\RV{X}}\odot \prob{P}^{\RV{Y}|\RV{X}}$ (definition \ref{def:copyproduct}). Thus $\prob{P}^{\RV{Y}|\RV{X}}$ is an example of a probability model with a gap.
 
-The requirement that a conditional probability be valid means that if the variables themselves rule out certain values, then these values must be assigned zero probability. For example, $\prob{P}^{\RV{X}|\RV{X}}(x'|x)=0$ if $x'\neq x$. In addition, it implies that $\prob{P}^{\RV{X}|\RV{X}}=1$. If we start with a standard probability model and derive conditional probabilities from it, then validity holds up to a set of measure zero. In our case, valid conditional probabilities guarantee that we can extend the conditional probability to a standard probability model.
-
-Because $\prob{P}^{\RV{Y}}$ may be a probability gap, we require validity to hold everywhere rather than up to a set of measure zero. However, it is always possible to choose a valid conditional probability from a class of conditional probabilities derived from a standard probability model, so the stronger condition doesn't prevent dealing with conditional probabilities in the usual way.
-
-\begin{definition}[Copy-product]
+\begin{definition}[Copy-product]\label{def:copyproduct}
 Given two Markov kernels $\kernel{K}:X\kto Y$ and $\RV{L}:Y\times X\kto Z$, define the copy-product $\kernel{K}\odot\kernel{L}$ as
 \begin{align}
 	\kernel{K}\odot\kernel{L}:&= \text{copy}_X(\kernel{K}\otimes \text{Id}_X)(\text{copy}_Y\otimes\text{Id}_X )(\text{Id}_Y \otimes \kernel{L})\\
@@ -277,6 +268,38 @@ Given two Markov kernels $\kernel{K}:X\kto Y$ and $\RV{L}:Y\times X\kto Z$, defi
 \end{align}
 \end{definition}
 
+Some conditional probabilities $\prob{P}^{\RV{Y}|\RV{X}}$ yield invalid extensions $\prob{P}_\alpha^{\RV{XY}}$ from this operation. For example, suppose $X=Y$ and $\RV{X}=\RV{Y}$. Then given $x\neq x'\in X$ such that $\prob{P}^{\RV{Y}|\RV{X}}(x|x')=a>0$, we could choose $\prob{P}_\alpha^{\RV{X}}(\{x'\})=1$ and then $\prob{P}_\alpha^{\RV{XY}}(\{(x',x)\})=a>0$ also. To begin with, it is absurd to assign nonzero probability to the proposition $\RV{X}\not\bowtie\RV{X}$. Furthermore for every probability model $\prob{Q}^{\RV{I}}\in \Delta(\Omega)$,
+\begin{align}
+\prob{Q}^{\RV{XY}}(\{(x,x')\})&=\prob{Q}^{\RV{I}}(\RV{X}^{-1}(x)\cap\RV{X}^{-1}(x'))\\
+&= \llbracket x=x' \rrbracket
+\end{align}
+Thus such a $\prob{P}_\alpha^{\RV{XY}}$ is invalid.
+
+We can also encounter problems if we try to extend a valid $\prob{P}^{\RV{Y}|\RV{X}}$ with an invalid $\prob{P}_\alpha^{\RV{X}}$. Suppose $\RV{X}=(\RV{W},\RV{W})$ for some $\RV{W}:\Omega\to W$ (and so $X=W^2$). Then if for some $w\neq w'\in W$,  $\prob{P}_\alpha^{\RV{X}}(\{(w,w')\})=a>0$. Then
+\begin{align}
+	\prob{P}^{\RV{XY}}_\alpha(\{(w,w')\}\times Y) &= \prob{P}_\alpha^{\RV{X}}(\{(w,w')\})\\
+												  &> 0
+\end{align}
+Thus $\prob{P}_\alpha^{\RV{XY}}$ is invalid in this case too.
+
+We already have a validity criterion for probability distributions. We generalise this to a validity criterion for conditional probabilities.
+
+\begin{definition}[Valid conditional probability]\label{def:valid_conditional_prob}
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{valid conditional probability} $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$ such that it assigns probability 0 to contradictions:
+\begin{align}
+	\forall A\in \sigalg{Y}, x\in X: \RV{X}^{-1}(x)\cap \RV{Y}^{-1}(A) = \emptyset \implies \left(\prob{P}^{\RV{Y}|\RV{X}}(A|x) = 0\right) \lor \left(\RV{X}^{-1}(x) = \emptyset\right)
+\end{align}
+\end{definition}
+
+The requirement that a conditional probability be valid means that if the variables themselves rule out certain values, then these values must be assigned zero probability. For example, $\prob{P}^{\RV{X}|\RV{X}}(x'|x)=0$ if $x'\neq x$. In addition, it implies that $\prob{P}^{\RV{X}|\RV{X}}=1$. If we start with a standard probability model and derive conditional probabilities from it, then validity holds up to a set of measure zero. In our case, valid conditional probabilities guarantee that we can extend the conditional probability to a standard probability model.
+
+\begin{lemma}[Agreement of validity criteria]
+A probability $\prob{P}^{\RV{X}}$ is valid if and only if the conditional probability $\prob{P}^{\RV{X}|*}:=*\mapsto \prob{P}^{\RV{X}}$ is valid.
+\end{lemma}
+
+\begin{proof}
+If: $*^{-1}(*)=\Omega$ necessarily. Thus validity of $\prob{P}^{\RV{X}|*}$ implies 
+\end{proof}
 
 \begin{lemma}[Valid conditional probabilities are validly extendible]\label{lem:valid_extendability}
 Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and any valid conditional probabilities $\prob{P}^{\RV{Y}|\RV{X}}$ and $\prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$, $ \prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$ is also a valid conditional probability.
@@ -308,6 +331,14 @@ Given $(\Omega,\sigalg{F})$, $\RV{U}:\Omega\to U$, $\RV{W}:\Omega\to W$ and a va
 \begin{proof}
 Recall that $\prob{V}^{\RV{U}}\odot \prob{T}^{\RV{W}|\RV{U}}\cong \prob{V}^{\RV{U}|*}\odot \prob{T}^{\RV{W}|\RV{U}*}$. Applying Lemma \ref{lem:valid_extendability} choosing $\RV{X}=*$, $\RV{Y}=\RV{U}$, $\RV{Z}=\RV{W}$ and $\prob{P}^{\RV{Y}|\RV{X}}=\prob{V}^{\RV{U}|*}$ and $\prob{Q}^{\RV{Z}|\RV{YX}}=\prob{T}^{\RV{W}|\RV{U*}}$.
 \end{proof}
+
+particular in \emph{recursive probability gaps}. This means that we have some 
+
+ A recursive set of variables is a set $\{\RV{X}_{[i]}|i\in [n]\}$ where $\RV{X}_{[i]}=(\RV{X}_j)_{j\leq i}$. A recursive set of conditional probabilities is a set of conditional probabilities $\{\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}|i\in [n]\}$ where we define $\RV{X}_0:=*$ so $\model{P}^{\RV{X}_1|\RV{X}_0}=\model{P}^{\RV{X}_1|*}\cong \model{P}^{\RV{X}_1}$. A model with recursive probability gaps is a recursive set of conditional probabilties with some conditional probabilities removed $\{\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}|i\in L\subset [n]\}$.
+
+Recall that we want models with probability gaps that are \emph{unique} and \emph{validly extendable} to a standard probability model on $(\Omega,\sigalg{F})$. 
+
+We get uniqueness from our definition of conditional probabilities $\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}$ as Markov kernels rather than equivalence classes of Markov kernels. This definition is motivated by our attitude to probability gaps: they are the things we don't yet know. If we had a standard probability model $\prob{P}^{\RV{I}}$, we could derive a class of conditional probabilities suitable to be named $\model{P}^{\RV{X}_{[i]}|\RV{X}_{[i-1]}}$. However, our starting point is that we have less than a standard probability model, and the knowledge that we have is represented by a unique Markov kernel rather than a class of Markov kernels.
 
 
 \begin{lemma}[Recursive probability gaps are validly extendible if all conditionals are valid]
