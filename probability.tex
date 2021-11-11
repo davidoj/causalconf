@@ -64,11 +64,13 @@ It is common to use the symbol ``$=$'' instead of ``$\bowtie$'', but we want to 
 
 \subsection{Probabilistic models for causal inference}
 
-We have a ``skeletal model'' process $\proc{S}$, a sample space $(\Omega,\sigalg{F})$ and a collection of \emph{variables}, which we write with the sans serif font: $\RV{X},\RV{Y}_i$. The process $\proc{S}$ is related to the model $\Omega$ and the observable variables via the notion of \emph{consistency with observation}. To this skeleton, we want to add a model that relates variables probabilistically. Without delving into it too deeply, such a model can be thought to be something like a quantitative forecast of the results eventually yielded by $\proc{S}$.
+The sample space $(\Omega,\sigalg{F})$ along with our collection of variables is a ``model skeleton'' -- it tells us what kind of data we might see. The process $\proc{S}$ which tells us which part of the world we're interested in is related to the model $\Omega$ and the observable variables by the criterion of \emph{consistency with observation}. The kind of problem we are mainly interested in here is one where we make use of data to help make decisions under uncertainty. Probabilistic models have a long history of being used for this purpose, and our interest here is in constructing probabilistic models that can be attached to our variable ``skeleton''. 
 
-For causal inference, we need to modify the standard approach to constructing probability models on a sample space $(\Omega,\sigalg{F})$ to allow for \emph{gaps} in our model. \citet{hajek_what_2003} defines \emph{probability gaps} as propositions that do not have a probability assigned to them. Probability gaps arise particularly often when some variables represent choices. Because we use the probability model to make choices, we typically only work out what choice we're going to make after we settle on all other important aspects of the model. Another area we sometimes see probability gaps is for prior probabilities.
+For causal inference, we find we need to generalise the standard approach to constructing probability models on a given sample space $(\Omega,\sigalg{F})$. The key things we need to handle are \emph{gaps} in our model. \citet{hajek_what_2003} defines \emph{probability gaps} as propositions that do not have a probability assigned to them. Our view of probability gaps is slightly different -- in this work, a model with probability gaps as one that is missing some key parts. If we complete such a model with parts of the appropriate type, we get a standard probability model.
 
-For this example, we will assume that the reader is familiar enough with marginal probabilities, conditional probabilities and causal models to follow along. We will offer more careful definitions of terms subsequently.
+Probability gaps are useful in models used for decision making because, when I have a number of different options I could choose, a model can only help select from them if it tells me what is likely to happen for each choice I could make. Thus if we have a variable representing choices, we must have a model that can tolerate a probability gap for this variable.
+
+As an initial example of a probability gap in causal inference, we will consider the example of truncated factorisation. For this example, we will assume that the reader is familiar enough with marginal probabilities, conditional probabilities and causal models to follow along. We will offer more careful definitions of terms later.
 
 Suppose we have a causal Bayesian network $(\prob{P}^{\RV{XYZ}},\mathcal{G})$ where $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ are variables, $\prob{P}^{\RV{XYZ}}$ is a probability measure on $X\times Y\times Z$ that we call ``a probability model of $(\RV{X},\RV{Y},\RV{Z})$'' and $\mathcal{G}$ is a Directed Acyclic Graph whose vertices we identify with $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ that contains the edges $\RV{X}\longrightarrowRHD \RV{Y}$ and $\RV{X}\longleftarrowRHD \RV{Z} \longrightarrowRHD \RV{Y}$. ``Setting $\RV{X}$ to $x$'' is an operation that takes as inputs $\prob{P}^{\RV{XYZ}}$, $\mathcal{G}$ and some $x\in X$ and returns a new probability measure $\prob{P}_x^{\RV{XYZ}}$ on $X\times Y\times Z$ given by \citep[page ~24]{pearl_causality:_2009}:
 \begin{align}
@@ -77,19 +79,17 @@ Suppose we have a causal Bayesian network $(\prob{P}^{\RV{XYZ}},\mathcal{G})$ wh
 
 Equation \ref{eq:truncated_fac} embodies three assumptions about a model of the operation of ``setting $\RV{X}$ to $x$''. First, such a model must assign probability 1 to the proposition that $\RV{X}$ yields $x$. Second, such a model must assign the same marginal probability distribution to $\RV{Z}$ as the input distribution; $\prob{P}^{\RV{Z}}=\prob{P}_{x}^{\RV{Z}}$. Finally, our model must also assign the same conditional probability to $\RV{Y}$ given $\RV{X}$ and $\RV{Z}$; $\prob{P}^{\RV{Y}|\RV{XZ}}=\prob{P}_x^{\RV{Y}|\RV{XZ}}$.
 
-Notice that the map $x\mapsto \prob{P}^{\RV{XYZ}}_x$ itself has the type of a conditional probability - that is, it takes some $x\in X$ and returns a probability distribution over $(\RV{X},\RV{Y},\RV{Z})$. In fact, a popular notation for this map suggests that it is a conditional probability of sorts: $\prob{P}^{\RV{XYZ}|do(\RV{X}=x)}$. Suppose that this actually is a conditional probability. That is, suppose $\RV{X}$ is an observable associated with $\proc{X}$ and I have some choice available that I believe can dictate the value yielded by $\proc{X}$ (alternatively, I can dictate that $\RV{X}\bowtie x$ occurs for any $x\in X$), and furthermore I have some $\proc{U}$ (modeled by $\RV{U}$), taking values in $X$, that yields whatever choice I end up making. Then I can define a probabilisitic model $\prob{Q}^{\RV{XYZ}|\RV{U}}:=x\mapsto \prob{P}^{\RV{XYZ}}_x$.
+Notice that the map $x\mapsto \prob{P}^{\RV{XYZ}}_x$ itself ``looks like'' a conditional probability. It maps each $x\in X$ to a probability distribution over $(\RV{X},\RV{Y},\RV{Z})$. In fact, a popular alternative notation for $\prob{P}^{\RV{XYZ}}_x$ this map is $\prob{P}^{\RV{XYZ}|do(\RV{X}=x)}$, which is clearly suggestive of an interpretation as a kind of conditional probability. We will take this interpretation seriously: we will posit some variable $\RV{U}$ (which may or may not be observable) and a probabilisitic model $\prob{Q}^{\RV{XYZ}|\RV{U}}:=x\mapsto \prob{P}^{\RV{XYZ}}_x$.
 
-Now, the result yielded by $\proc{U}$ is a matter of choice, and I may be perfectly capable of making this choice without specifying a probability distribution $\prob{Q}^{\RV{U}}$. If so, I can leave $\prob{Q}^{\RV{U}}$ as a \emph{probability gap}, and $\prob{Q}^{\RV{XYZ}|\RV{U}}$ is thus a \emph{probability model with a gap}.
+We note that the thing called $do(\RV{X}=x)$ or that we have called $\RV{U}$ is often referred to as an \emph{intervention}. Interventions are often things we can choose to do or not to do. Also, perhaps, we could also consider choosing to do or not do an intervention based on the output of some random process. In this case, we will need a model that can tell us which result we are likely to see for any choice of $\prob{Q}_\alpha^{\RV{U}}$; the distribution of $\RV{U}$ is a \emph{probability gap}.
 
-There are a few features of $\prob{Q}^{\RV{XYZ}|\RV{U}}$ we want to point out. Firstly, $\prob{Q}^{\RV{XYZ}|\RV{U}}$ should be unique, but Equation \ref{eq:truncated_fac} does not necessarily yield a unique $\prob{P}^{\RV{XYZ}}_{x}$ for each $x$. If there are measure zero sets in the range of $(\RV{X},\RV{Z})$ then $\prob{P}^{\RV{Y|XZ}}$ can be chosen arbitrarily on these sets, and because these do not necessarily correspond to zero measure sets in the range of $\RV{Z}$, different choices can lead to different versions of $\prob{P}^{\RV{XYZ}}_{x}$.
+$\prob{Q}^{\RV{XYZ}|\RV{U}}$, as we have defined it so far, is not quite an ideal candidate for for a gappy probability model. Firstly, because conditional probabilities are arbitrary on sets of measure zero with regard to $\prob{P}^{\RV{XYZ}}$, definition \ref{eq:truncated_fac} can be satisfied by multiple probability distributions that differ in meaningful ways. Suppose $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ are binary, $\prob{P}^{\RV{Z}}(1)=1$ and $\prob{P}(\RV{X}\bowtie \RV{Z})=1$. Then we can consistently choose $\prob{P}^{\RV{Y|XZ}}(1|0,1)=1$ or $\prob{P}^{\RV{Y|XZ}}(1|0,1)=0$ because $\{0,1\}$ is a measure zero event. However, the first choice gives us  $\prob{P}^{\RV{XYZ}}_{0}(0,1,1)=1$ while the second gives us $\prob{P}^{\RV{XYZ}}_{0}(0,1,1)=0$, which are very different opinions regarding ``the result of setting $\RV{X}$ to $1$''.
 
-Secondly, $\prob{Q}^{\RV{XYZ}|\RV{U}}$ should be valid, but Equation \ref{eq:truncated_fac} does not always yield a valid probability model. For example, if $\RV{X}=\RV{Z}$ -- which is to say, $\RV{X}$ and $\RV{Z}$ are the same function on $\Omega$ -- then any probability model must assign probability 1 to the event $(\RV{X},\RV{Z})\bowtie \{(x,x)|x\in X\}$. However, this cannot be done in accordance with Equation \ref{eq:truncated_fac} for all $x\in X$ if $|X|\geq 2$ because for $x\neq x'\in X$, $\prob{P}_x^{\RV{X}}\neq \prob{P}_{x'}^{\RV{X}}$ while $\prob{P}_x^{\RV{Z}}=\prob{P}_{x'}^{\RV{Z}}$. In addition, $\prob{Q}^{\RV{XYZ}|\RV{U}}$ should be extendable to a valid $\prob{Q}_\alpha^{\RV{XYZU}}$ for every $\prob{Q}_\alpha^{\RV{U}}$ that ``fills the gap''.
+Secondly, there may be no probability model at all that satisfies Equation \ref{eq:truncated_fac}. For example, suppose $\RV{X}=f\circ\RV{Z}$ for some $f$. Then we must have $\prob{P}^{\RV{X}}_x(x')=\prob{P}^{\RV{Z}}_x(f^{-1}(x'))$ for any $x$. However, we also have $\prob{P}^{\RV{X}}_x(x')=\llbracket x = x' \rrbracket$ for all $x,x'$ and $\prob{P}^{\RV{Z}}_x=\prob{P}^{\RV{Z}}$ for all $x$. Thus if $\RV{X}$ can more than one value, there is at least one choice of $x$ that cannot simultaneously satisfy these requirements.
 
-To construct probability models with gaps in them, we need to address these two issues -- uniqueness and valid extendability.
+This might seem like an absurd model, but in fact an analogous causal graph appears in \citet{shahar_association_2009} where $\RV{Z}=(\RV{H},\RV{W})$, representing a person's height and weight, and $\RV{X}$ represents their body mass index, which is to say $\RV{X}=\frac{\RV{W}}{\RV{H}^2}$. Furthermore, this paper uses this model to argue that body mass index cannot have a causal effect, which is to say that the causal effect of $\RV{X}$ was a key quantity of interest in this model.
 
-\todo[inline]{The following is an extension of the point (2), I think it's interesting but also a complication. Not quite sure where to put it}
-
-The example of $\RV{X}=\RV{A}$ might seem absurd. Consider instead $\RV{Z}=(\RV{H},\RV{W})$, representing the height in metres and weight in kilograms of a particular person, and $\RV{X}$ represents their body mass index, which is to say $\RV{X}=\frac{\RV{W}}{\RV{H}^2}$ (not that in both cases we are using ``$=$'', which means these variables are \emph{equal as functions}, not that they \emph{yield the same result with probability 1}, which would involve the symbol ``$\bowtie$''). A causal graph with exactly these variables and arrows analogous to ours appears in \citet{shahar_association_2009}. However, generally there is no $\prob{P}_x^{\RV{XHW}}$ that satisfies both $\RV{X}\bowtie \frac{\RV{W}}{\RV{H}^2}$ with probability 1 and Equation \ref{eq:truncated_fac}. This is true, for example, whenever $\prob{P}^{\RV{X}}$ has support at more than one point.
+Our first aim is to offer a more careful theory of probability models with gaps in them, addressing these two shortcomings.
 
 \subsection{Probability models}
 
@@ -108,7 +108,7 @@ We want models with probability gaps that are \emph{validly extendable}: given a
 \begin{definition}[Copy-product]\label{def:copyproduct}
 Given two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:Y\times X\kto Z$, define the copy-product $\kernel{K}\odot\kernel{L}$ as
 \begin{align}
-	\kernel{K}\odot\kernel{L}:&= \text{copy}_X(\kernel{K}\otimes \text{Id}_X)(\text{copy}_Y\otimes\text{Id}_X )(\text{Id}_Y \otimes \kernel{L})\\
+	\kernel{K}\odot\kernel{L}:&= \text{copy}_X(\kernel{K}\otimes \text{id}_X)(\text{copy}_Y\otimes\text{id}_X )(\text{id}_Y \otimes \kernel{L})\\
 							&= \tikzfig{copy_product}\\
 							&\iff\\
 	(\kernel{K}\odot\kernel{L})(A\times B|x) &= \int_A\kernel{L}(B|y)\kernel{K}(dy|x)
@@ -212,7 +212,7 @@ We say, given a variable $\RV{X}:\Omega\to X$, a probability distribution $\prob
 	\item $A\mapsto \prob{Q}^{\RV{X}|\RV{Y}}{K}(A|y)$ is a probability measure on $(X,\sigalg{X})$ for all $y\in Y$
 \end{enumerate}
 
-If we consider only variables takeing values in discrete sets, Markov kernels and probability distributions have simple representations: a Markov kernel is a positive Matrix with row sum 1 and a probability distribution is a positive row vector with sum 1. Like matrices, we can define products between Markov kernels and in the case of discrete sets, the product of two Markov kernels is precisely the matrix product.
+If we consider only variables taking values in discrete sets, Markov kernels and probability distributions have simple representations: a Markov kernel is a positive Matrix with row sum 1 and a probability distribution is a positive row vector with sum 1. Like matrices, we can define products between Markov kernels and in the case of discrete sets, the product of two Markov kernels is precisely the matrix product.
 
 To help us work with Markov kernels, we introduce the string diagram notation taken from the study of Markov categories. Markov categories are abstract categories that represent models of the flow of information. We can form Markov categories from collections of sets -- for example, discrete sets or standard measurable sets -- along with the Markov kernel product as the composition operation. Markov categories come equipped with a graphical language of \emph{string diagrams}, and a coherence theorem which states that calid proofs using string diagrams correspond to valid theorems in \emph{any} Markov category \citep{selinger_survey_2010}. More comprehensive introductions to Markov categories can be found in \citet{fritz_synthetic_2020,cho_disintegration_2019}.
 
@@ -307,9 +307,47 @@ The swap map $\text{swap}_{X,Y}:X\times Y\kto Y\times X$ defined by $(\text{swap
 
 Because we anticipate that the graphical notation will be unfamiliar to many, we will also include translations to more familiar notation.
 
+\subsubsection{Shorthands}
+
+When translating string diagram notation to integral notation, a number of identities can speed up the process.
+
+For arbitrary $\kernel{K}:X\times Y\to Z$, $\kernel{L}:W\to Y$
+
+\begin{align}
+ [(\text{id}_X\otimes \kernel{L})\kernel{K}](A|x,w) &= \int_{Y}\int_X   \kernel{K}(z|x',y')\kernel{L}(dy'|w)\text{id}_X(dx'|x)\\
+										   &= \int_Y  \kernel{K}(z|x,y') \kernel{L}(dy'|w)
+\end{align}
+
+That is, an identity map passes its input to the next kernel in the product. 
+
+For arbitrary $\kernel{K}: X\times Y\times Y\to Z$ (where we apply the above shorthand in the first line):
+
+\begin{align}
+ [(\text{id}_X\otimes \text{copy}_Y)\kernel{K}](A|x,y) &= \int_Y\int_Y \kernel{K}(A|x,y',y'') \text{copy}_Y(dy'\times dy''|y)\\
+										   &= \kernel{K}(A|x,y,y)
+\end{align}
+
+That is, the copy map passes along two copies of its input to the next kernel in the product. 
+
+For a collection of kernels $\kernel{K}^n:Y^n\to Z$, $n\in[n]$, define $(y)^{n}=(y|i\in[n])$ and:
+
+\begin{align}
+	\text{copy}^n_Y &:= \begin{cases}
+	\text{copy}^{n-1}_Y(\text{id}_{Y^{n-2}}\otimes \text{copy}_Y) & n>2\\
+	\text{copy}_Y & n=2
+	\end{cases}\\
+	(\text{copy}^2_Y\kernel{K}^2)(z|y) &= \kernel{K}^2(z|y,y)\\
+	\text{ suppose for induction } (\text{copy}^{n-1}_Y\kernel{K}^{n-1})(z|y) &= \kernel{K}^{n-1}(z|(y)^{n-1})\\
+	\text{ then }(\text{copy}^n_Y\kernel{K}^n)(z|y) &= (\text{copy}^{n-1}_Y(\text{id}_{Y^{n-2}}\otimes \text{copy}_Y)\kernel{K}^n)(z|y)\\
+									 &= \sum_{y'\in Y^{n-1}}(\text{id}_{Y^{n-2}}\otimes \text{copy}_Y)(\mathbf{y}'|(y)^{n-1})\kernel{K}^n(z|\mathbf{y}')\\
+									 &= \kernel{K}^n(z|(y)^n)
+\end{align}
+
+That is, we can define the $n$-fold copy map that passes along $n$ copies of its input to the next kernel in the product.
+
 \subsection{Combs: Markov kernels with gaps in them}
 
-Consider the Markov kernels $\kernel{K}:W\kto Y$, $\kernel{L}:Y\times X\kto Z$ and $\kernel{M}:W\times X\kto Y\times Z$ defined as
+Consider the Markov kernels $\kernel{K}:W\kto X$, $\kernel{L}:X\times W\times Y\kto Z$ and $\kernel{M}:W\times Y\kto X\times Z$ defined as
 
 \begin{align}
 	\kernel{M} = \tikzfig{2_comb}\label{eq:2comb_M}
@@ -318,64 +356,38 @@ Consider the Markov kernels $\kernel{K}:W\kto Y$, $\kernel{L}:Y\times X\kto Z$ a
 Following the rules above, we can translate this to ordinary notation by first breaking it down into products and tensor products, and then evaluating these products
 
 \begin{align}
-	\kernel{M}(y,z|w,x) &= (\kernel{K}\otimes \text{id}_X)[(\text{copy}_Y\otimes \text{id}_X)(\text{id}_Y\otimes\kernel{L})](y,z|w,x)\\
-						&= \sum_{x'\in X,y'\in Y} \kernel{K} (y'|w) \llbracket x=x' \rrbracket [(\text{copy}_Y\otimes \text{id}_X)
-						(\text{id}_Y\otimes\kernel{L})](y,z|y',x')\\
-						&= \sum_{y'\in Y}  \kernel{K} (y'|w)[(\text{copy}_Y\otimes \text{id}_X)
-						(\text{id}_Y\otimes\kernel{L})](y,z|y',x)\\
-						&= \sum_{y'}  \kernel{K} (y'|w) \sum_{x'\in X,y'',y'''\in Y}\llbracket y'=y''\rrbracket\llbracket y'=y''' \rrbracket \llbracket x = x' \rrbracket \llbracket y''=y \rrbracket \kernel{L} (z|y''',x') (y,z|y',x')\\
-						&= \kernel{K}(y|w)\kernel{L}(z|y,x)
+	\kernel{M}(A\times B|w,y) &= [(\text{copy}_W\otimes \text{id}_Y)(\kernel{K}\otimes \text{id}_{W\times Y})(\text{copy}_X\otimes \text{id}_{W\times Y})(\text{id}_X\otimes\kernel{L})](A\times B|w,y)\\
+						&= [(\kernel{K}\otimes \text{id}_{W\times Y})(\text{copy}_X\otimes \text{id}_{W\times Y})(\text{id}_X\otimes\kernel{L})](A\times B|w,w,y)\\
+						&= \int_{X}  (\text{id}_X\otimes\kernel{L})(A\times B|x',w,y) \kernel{K} (dx'|w)
+						](y,z|y',x)\\
+						&= \int_X \text{id}_X(A|x') \kernel{L}(B|x',w,y)\kernel{K}(dx'|w)\\
+						&= \int_A \kernel{L}(B|x',w,y)\kernel{K}(dx'|w)
 \end{align}
 
-Now, if we are given additionally $\kernel{J}:Y\kto X$, we can define a new Markov kernel $\kernel{N}:W\kto Z$:
+If we are given additionally $\kernel{J}:X\times W\kto Y$, we can define a new Markov kernel $\kernel{N}:W\kto Z$:
 
 \begin{align}
 	\kernel{N} = \tikzfig{2comb_inserted}\label{eq:2comb_winsert}
 \end{align}
 
-For the following translation, we will apply the following shorthands: for arbitrary $\kernel{A}:X\times Y\to Z$, $\kernel{B}:W\to Y$
+
+We can translate Equation \ref{eq:2comb_winsert} to
 
 \begin{align}
- (\text{Id}_X\otimes \kernel{W})\kernel{A}(z|x,w) &= \sum_{y'\in Y, x'\in X}\llbracket x=x' \rrbracket \kernel{W}(y'|w) \kernel{B}(z|x',y')\\
-										   &= \sum_{y'\in Y} \kernel{W}(y'|w) \kernel{B}(z|x,y')
+	\kernel{N}(A\times B\times C|w) &= [\text{copy}_W(\kernel{K}\text{copy}^3_Y\otimes \text{id}_W)(\text{id}_Y\otimes\kernel{J}\otimes \text{id}_Y)(\text{id}_Y \otimes \text{copy}_X\otimes \text{id}_Y)(\kernel{L}\otimes \text{id}_X\otimes \text{id}_Y)] (A\times B\times C|w)\\
+					&= [(\kernel{K}\text{copy}^3_Y\otimes \text{id}_W)(\text{id}_Y\otimes\kernel{J}\otimes \text{id}_Y)(\text{id}_Y \otimes \text{copy}_X\otimes \text{id}_Y)(\kernel{L}\otimes \text{id}_X\otimes \text{id}_Y)] (A\times B\times C|w,w)\\
+					&= \int_X\int_Y\kernel{L}(C|x',w,y') \text{id}_X(A|x') \text{id}_Y(B|y') \kernel{J}(dy'|x',w)\kernel{K}(dx'|w)\\
+					&= \int_A\int_B\kernel{L}(C|x',w,y') \kernel{J}(dy'|x',w)\kernel{K}(dx'|w)
 \end{align}
 
-That is, an identity map passes along its input to the next kernel in the product. In addition, for arbitrary $\kernel{B}: X\times Y\times Y\to Z$ (where we apply the above shorthand immediately):
-
-\begin{align}
- (\text{Id}_X\otimes \text{copy}_Y)\kernel{B}(z|x,y) &= \sum_{y',y''\in Y}\text{copy}_Y(y',y''|y)\kernel{B}(z|x,y',y'')\\
-										   &= \kernel{B}(z|x,y,y)
-\end{align}
-
-That is, the copy map passes along two copies of its input to the next kernel in the product. Finally, for $\kernel{C}^n:Y^n\to Z$, define $(y)^{n}=(y|i\in[n])$:
-
-\begin{align}
-	\text{copy}^n_Y &:= \begin{cases}
-	\text{copy}^{n-1}_Y(\text{Id}_{Y^{n-2}}\otimes \text{copy}_Y) & n>2\\
-	\text{copy}_Y & n=2
-	\end{cases}\\
-	(\text{copy}^2_Y\kernel{C}^2)(z|y) &= \kernel{C}^2(z|y,y)\\
-	\text{ suppose for induction } (\text{copy}^{n-1}_Y\kernel{C}^{n-1})(z|y) &= \kernel{C}^{n-1}(z|(y)^{n-1})\\
-	\text{ then }(\text{copy}^n_Y\kernel{C}^n)(z|y) &= (\text{copy}^{n-1}_Y(\text{Id}_{Y^{n-2}}\otimes \text{copy}_Y)\kernel{C}^n)(z|y)\\
-									 &= \sum_{y'\in Y^{n-1}}(\text{Id}_{Y^{n-2}}\otimes \text{copy}_Y)(\mathbf{y}'|(y)^{n-1})\kernel{C}^n(z|\mathbf{y}')\\
-									 &= \kernel{C}^n(z|(y)^n)
-\end{align}
-
-Using these shorthands, we can translate Equation \ref{eq:2comb_winsert} to
-
-\begin{align}
-	\kernel{N}(z,x,y|w) &= [\kernel{K}\text{copy}^3_Y(\text{Id}_Y\otimes\kernel{J}\otimes \text{Id}_Y)(\text{Id}_Y \otimes \text{copy}_X\otimes \text{Id}_Y)(\kernel{L}\otimes \text{Id}_X\otimes \text{Id}_Y)] (z,x,y|w)\\
-					&= \sum_{y'\in Y} \kernel{K}(y'|w)  [(\text{Id}_Y\otimes\kernel{J}\otimes \text{Id}_Y)(\text{Id}_Y\otimes\text{copy}_X\otimes \text{Id}_Y)(\kernel{L}\otimes \text{Id}_X\otimes \text{Id}_Y)] (z,x,y|y',y',y')\\
-					&= \sum_{y'\in Y,x'\in X} \kernel{K}(y'|w)\kernel{J}(x'|y')[\kernel{L}\otimes \text{Id}_X\otimes \text{Id}_Y] (z,x,y|y',x',x',y')\\
-					&= \kernel{K}(y|w) \kernel{J}(x|y) \kernel{L}(z|y,x)\\
-\end{align}
 
 We say $\kernel{M}$ is a \emph{2-comb} after \citet{chiribella_quantum_2008}. Similar to the copy-product we defined between two appropriately typed Markov kernels, we can define an insert-product between a 2-comb and an appropriately defined insert.
 
 Specifically, given a 2-comb $\kernel{M}$ defined as in Equation \ref{eq:2comb_M} and a Markov kernel $\kernel{J}:Y\kto X$, we define $\text{Insert}(\kernel{M},\kernel{J})$ to be the right hand side of Equation \ref{eq:2comb_winsert}. We can depict this informally as follows:
 
 \begin{align}
-	\text{Insert}\left(\tikzfig{insert_opn2}\right) &= \tikzfig{2comb_inserted}\label{eq:insert_op}
+	\text{Insert}\left(\tikzfig{insert_opn2}\right) &= \tikzfig{2comb_inserted}\label{eq:insert_op}\\
+													&= \kernel{K}\odot \kernel{J}\odot \kernel{L}
 \end{align}
 
 The insert-product places $\kernel{J}$ in the matching slot in $\kernel{M}$, and also copies both the input and output of $\kernel{J}$ to the output of the result. Just as copy-products extend conditional probabilities, insert-products extend probability combs.
@@ -387,36 +399,41 @@ Note that if $W=Y=\{*\}$, then $\text{Insert}(\kernel{M},\kernel{J})\cong \kerne
 We will use probability 2-combs to define probability models with ``conditional probability shaped gaps''. Just as in Section \ref{sec:validity_of_gapprob}, our main concern is whether a probability 2-comb is \emph{validly extendable}.
 
 \begin{definition}[Probability 2-comb]
-Given $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:Y\kto X\times Z$ is a Markov kernel with components $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$ defined by
+Given $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:W\times Y\kto X\times Z$ is a Markov kernel such that there exist $\prob{P}^{\RV{X}|\RV{W}}:W\kto X$ and $\prob{P}^{\RV{Z}|\RV{WXY}}:W\times X\times Y\kto Z$ such that
 \begin{align}
 	\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}} &= \tikzfig{probability_2_comb}
 \end{align}
 \end{definition}
 
+The definition of a 2-comb in \citet{jacobs_causal_2019} requires only that $\prob{P}^{\RV{X}|\RV{W}}$ exists, and the existence of $\prob{P}^{\RV{Z}|\RV{WXY}}$ is proven by the existence of kernel disintegrations. We always want to use $\prob{P}^{\RV{Z}|\RV{WXY}}$ so we bake it into the definition.
+
 Inserting a conditional probability into a probability 2-comb yields a condiitonal probability.
 
 \begin{definition}[Valid probability 2-comb]
-Given $(\Omega,\sigalg{F})$, $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ a \emph{valid probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is a Markov kernel $Y\kto X\times Z$ such that:
-\begin{align}
-	\forall w\in W, A\in \sigalg{X}, y\in Y,C\in\sigalg{Z}: &\RV{W}^{-1}(w)\cap\RV{X}^{-1}(A)\cap \RV{Y}^{-1}(y)\cap \RV{Z}^{-1}(C) = \emptyset\\ 
-	\implies &\left(\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(A\times C|w,y) = 0\right) \lor \\
-	&\left(\RV{W}^{-1}(w)\cap\RV{X}^{-1}(A)\cap\RV{Y}^{-1}(y) = \emptyset\right)
-\end{align}
+Given $(\Omega,\sigalg{F})$, $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ a \emph{valid probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is a Markov kernel $Y\kto X\times Z$ such that for all valid $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$, $\text{insert}(\prob{P}_\alpha^{\RV{Y}|\RV{WX}},\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$ is valid.
 \end{definition}
 
 Calid conditional probabilities were precisely those that, given any valid probability distribution, could be extended to valid probability distributions. Analogously, valid probability 2-combs are precisely those that, given any valid conditional probability, can be extended to valid conditional probabilities.
 
 \begin{theorem}[Extension of valid probability 2-combs]
-Given $(\Omega,\sigalg{F})$, $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is valid if and only if for any valid conditional probability $\prob{P}^{\RV{Z}|\RV{X}}$, $\text{insert}(\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}},\prob{P}^{\RV{Z}|\RV{X}})$ is a valid conditional probability.
+Given $(\Omega,\sigalg{F})$, $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is valid if $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$ are valid.
 \end{theorem}
 
 \begin{proof}
-
+Because
+\begin{align}
+	\text{insert}(\prob{P}_\alpha^{\RV{Y}|\RV{WX}},\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}) = \prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}_\alpha^{\RV{Y}|\RV{WX}} \odot \prob{P}^{\RV{Z}|\RV{WXY}}
+\end{align}
+The validity of $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ follows from Lemma \ref{lem:valid_extendability}
 \end{proof}
 
-It appears that we may be able to extend this theory to $n$-combs, where valid $n$-combs are those that can have $n-1$-combs inserted to yield valid $n-1$-combs. We don't develop that theory here, though.
+The validity of $\prob{P}^{\RV{Z}|\RV{WXY}}$ is not necessary for validity of $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$. For example, $\prob{P}^{\RV{Z}|\RV{WXY}}$ may be arbitrary on some set of $\prob{P}^{\RV{X}|\RV{W}}$ measure 0.
+
+We may be able to extend this theory to $n$-combs, where valid $n$-combs are those that can have $n-1$-combs inserted to yield valid $n-1$-combs. We don't develop that theory here, though.
 
 \subsection{What goes wrong with truncated factorisation?}
+
+
 
 A \emph{model} is a collection of conditional probabilities. For example, we could have $\{\prob{P}^{\RV{X}|*},\prob{P}^{\RV{Y}|\RV{X}}\}$. We use the convention that conditional probabilities with the same base letter all belong to the same model. Whether a particular model is ``correct'' is a difficult question to answer, and indeed a difficult question to pose. However, we can specify some necessary conditions that must hold. Informally, these are:
 
@@ -485,7 +502,7 @@ We define the product of indexed Markov kenrnels $\kernel{K}:\RV{X}\kto \RV{Y}$ 
 
 Similarly, the tensor product of $\kernel{K}:\RV{X}\kto\RV{Y}$ and $\kernel{L}:\RV{W}\kto\RV{Z}$ is the triple $\kernel{K}\otimes\kernel{L}:=(\kernel{K}'\otimes\kernel{L}',(\RV{X},\RV{W}),(\RV{Y},\RV{Z}))$.
 
-We define $\text{Id}_{\RV{X}}$ to be the model $(\text{Id}_X,\RV{X},\RV{X})$, and similarly the indexed versions $\text{del}_{\RV{X}}$, $\text{copy}_{\RV{X}}$ and $\text{swap}_{\RV{X},\RV{Y}}$ are obtained by taking the unindexed versions of these maps and attaching the appropriate random variables as indices. Diagrams are the diagrams associated with the underlying kernel, with input and output wires annotated with input and output indices.
+We define $\text{id}_{\RV{X}}$ to be the model $(\text{id}_X,\RV{X},\RV{X})$, and similarly the indexed versions $\text{del}_{\RV{X}}$, $\text{copy}_{\RV{X}}$ and $\text{swap}_{\RV{X},\RV{Y}}$ are obtained by taking the unindexed versions of these maps and attaching the appropriate random variables as indices. Diagrams are the diagrams associated with the underlying kernel, with input and output wires annotated with input and output indices.
 
 The category of indexed Markov kernels as morphisms and variables as objects is a Markov category (Appendix \ref{sec:app_mcat}), and so a valid derivation based on the string diagram language for Markov categories corresponds to a valid theorem in this category. However, most of the diagrams we can form are not viable candidates for models of our variables. For example, if $\RV{X}$ takes values in $\{0,1\}$ we can propose an indexed Markov kernel $\kernel{K}:\RV{X}\kto\RV{X}$ with $\kernel{K}_a^{\prime b}=0.5$ for all $a, b$. However, this is not a useful model of the variable $\RV{X}$ -- it expresses something like ``if we know the value of $\RV{X}$, then we belive that $\RV{X}$ could take any value with equal probability''.
 
@@ -577,10 +594,10 @@ If $\model{L}$ is a model, then for any $x,x',y,z$,
 \end{align}
 \end{proof}
 
-Consistency along with the notion of marginal distributions implies that, given some $\RV{X}$ and some $\model{K}:\RV{Y}\kto\text{Id}_\Omega$, the pushforward $\model{K}\model{X}$ is the unique model $\RV{Y}\kto \RV{X}$ that can be paired (Definition \ref{def:pairing}) with $\model{K}$. This is shown in Lemma \ref{lem:pushforward}.
+Consistency along with the notion of marginal distributions implies that, given some $\RV{X}$ and some $\model{K}:\RV{Y}\kto\text{id}_\Omega$, the pushforward $\model{K}\model{X}$ is the unique model $\RV{Y}\kto \RV{X}$ that can be paired (Definition \ref{def:pairing}) with $\model{K}$. This is shown in Lemma \ref{lem:pushforward}.
 
 \begin{lemma}[Uniqueness of models with the sample space as a domain]\label{lem:uniq_model}
-For any $\RV{X}:\Omega\to A$, there is a unique model $\model{X}:\text{Id}_\Omega\kto \RV{X}$ given by $\model{X}:=(\RV{X},\text{Id}_\Omega,\RV{X})$.
+For any $\RV{X}:\Omega\to A$, there is a unique model $\model{X}:\text{id}_\Omega\kto \RV{X}$ given by $\model{X}:=(\RV{X},\text{id}_\Omega,\RV{X})$.
 \end{lemma}
 
 \begin{proof}
@@ -588,15 +605,15 @@ $\RV{X}$ is a Markov kernel mapping from $\Omega\to A$, so it is a valid underly
 
 For any $\omega\in \Omega$, $a\in A$
 \begin{align}
-	\max_{\omega\in \Omega}(\text{Id}_\Omega,\RV{X})_{\omega}^{\omega',a} &= \max_{\omega\in \Omega} \llbracket \omega = \omega' \rrbracket \llbracket \omega = f_{\RV{X}}(a) \rrbracket\\
+	\max_{\omega\in \Omega}(\text{id}_\Omega,\RV{X})_{\omega}^{\omega',a} &= \max_{\omega\in \Omega} \llbracket \omega = \omega' \rrbracket \llbracket \omega = f_{\RV{X}}(a) \rrbracket\\
 	&= \llbracket \omega = f_{\RV{X}}(a) \rrbracket\\
 	&= \kernel{X}_\omega^a
 \end{align}
 Thus $\model{X}$ satisfies consistency.
 
-Suppose there were some $\model{K}:\text{Id}_\Omega\kto \RV{X}$ not equal to $\RV{X}$. Then there must be some $\omega\in \Omega$, $b\in A$ such that $\model{K}_\omega^b\neq 0$ and $f_{\RV{X}}(\omega)\neq b$. Then
+Suppose there were some $\model{K}:\text{id}_\Omega\kto \RV{X}$ not equal to $\RV{X}$. Then there must be some $\omega\in \Omega$, $b\in A$ such that $\model{K}_\omega^b\neq 0$ and $f_{\RV{X}}(\omega)\neq b$. Then
 \begin{align}
-	\max_{\omega\in \Omega}(\text{Id}_\Omega,\RV{X})_{\omega}^{\omega',a} &= \max_{\omega\in \Omega} \llbracket \omega = \omega' \rrbracket \llbracket \omega = f_{\RV{X}}(b) \rrbracket\\
+	\max_{\omega\in \Omega}(\text{id}_\Omega,\RV{X})_{\omega}^{\omega',a} &= \max_{\omega\in \Omega} \llbracket \omega = \omega' \rrbracket \llbracket \omega = f_{\RV{X}}(b) \rrbracket\\
 	&= \llbracket \omega = f_{\RV{X}}(b) \rrbracket\\
 	&= 0\\
 	&< \model{K}_\omega^b
@@ -605,7 +622,7 @@ Thus $\model{K}$ doesn't satisfy consistency.
 \end{proof}
 
 % \begin{corollary}[Uniqueness of joint models]\label{cor:uniq_joint}
-% For any $\RV{X}:\Omega\to A$, there is a unique model $\model{X}:\text{Id}_\Omega\kto (\RV{X},\text{Id}_{\Omega})$.
+% For any $\RV{X}:\Omega\to A$, there is a unique model $\model{X}:\text{id}_\Omega\kto (\RV{X},\text{id}_{\Omega})$.
 % \end{corollary}
 
 % \begin{proof}
@@ -617,17 +634,17 @@ Two models $\model{K}:\RV{X}\kto \RV{Y}$ and $\model{L}:\RV{X}\kto \RV{Z}$ can b
 \end{definition}
 
 \begin{lemma}[Pushforward model]\label{lem:pushforward}
-Given any model $\model{K}:\RV{Y}\kto \text{Id}_\Omega$ and any $\RV{X}$, there is a unique $\model{L}:\RV{Y}\kto \RV{X}$ that can be paired with $\model{K}$, and it is given by $(\kernel{L}^a_b = \sum_{\omega\in f_{\RV{X}}^{-1}(a)} \kernel{K}_b^{\omega}$.
+Given any model $\model{K}:\RV{Y}\kto \text{id}_\Omega$ and any $\RV{X}$, there is a unique $\model{L}:\RV{Y}\kto \RV{X}$ that can be paired with $\model{K}$, and it is given by $(\kernel{L}^a_b = \sum_{\omega\in f_{\RV{X}}^{-1}(a)} \kernel{K}_b^{\omega}$.
 \end{lemma}
 
 \begin{proof}
-Suppose that there is some $\model{L}$ that can be paired with $\model{K}$ via some $\model{M}:\RV{Y}\kto(\text{Id}_\Omega,\RV{X})$. Then, by the existence of disintegrations, there must be some $\model{N}:\text{Id}_{\Omega}\kto \RV{X}$ such that
+Suppose that there is some $\model{L}$ that can be paired with $\model{K}$ via some $\model{M}:\RV{Y}\kto(\text{id}_\Omega,\RV{X})$. Then, by the existence of disintegrations, there must be some $\model{N}:\text{id}_{\Omega}\kto \RV{X}$ such that
 \begin{align}
 	\model{M}&=\tikzfig{disintegration_omega}
 \end{align}
-By Corollary \ref{cor:uniq_joint}, there is only one model $\model{N}:\text{Id}_{\Omega}\kto \RV{X}$ is unique and equal to $\model{X}:=(\RV{X},\text{Id}_\Omega,\RV{X})$.
+By Corollary \ref{cor:uniq_joint}, there is only one model $\model{N}:\text{id}_{\Omega}\kto \RV{X}$ is unique and equal to $\model{X}:=(\RV{X},\text{id}_\Omega,\RV{X})$.
 
-It remains to be shown that $\model{M}$ is also a model. We already know that $\model{K}$ is consistent with respect to $(\RV{Y},\text{Id}_\Omega)$ and $\model{L}$ is consistent with respect to $(\text{Id}_\Omega,\RV{X})$. $\model{M}$ must be consistent with respect to $(\RV{Y},\text{Id}_\Omega,\RV{X})$. Consider any $x\in X$, $\omega\in \Omega$, $y\in Y$ such that $f_{\RV{X}}^{-1}(x)\cap \{\omega\}\neq \emptyset$ and $f_{\RV{Y}}^{-1}(y)\cap\{\omega\}\neq \emptyset$. Trouble might arise if $f_{\RV{X}}^{-1}(x)\cap \{\omega\} \cap f_{\RV{Y}}^{-1}(y)=\emptyset$, but this is obviously impossible as $\omega\in f_{\RV{X}}^{-1}(x)$ and $\omega\in f_{\RV{Y}}^{-1}(y)$.
+It remains to be shown that $\model{M}$ is also a model. We already know that $\model{K}$ is consistent with respect to $(\RV{Y},\text{id}_\Omega)$ and $\model{L}$ is consistent with respect to $(\text{id}_\Omega,\RV{X})$. $\model{M}$ must be consistent with respect to $(\RV{Y},\text{id}_\Omega,\RV{X})$. Consider any $x\in X$, $\omega\in \Omega$, $y\in Y$ such that $f_{\RV{X}}^{-1}(x)\cap \{\omega\}\neq \emptyset$ and $f_{\RV{Y}}^{-1}(y)\cap\{\omega\}\neq \emptyset$. Trouble might arise if $f_{\RV{X}}^{-1}(x)\cap \{\omega\} \cap f_{\RV{Y}}^{-1}(y)=\emptyset$, but this is obviously impossible as $\omega\in f_{\RV{X}}^{-1}(x)$ and $\omega\in f_{\RV{Y}}^{-1}(y)$.
 
 Finally, for any $a\in A$, $b\in B$
 \begin{align}
@@ -638,11 +655,11 @@ Finally, for any $a\in A$, $b\in B$
 \end{proof}
 
 \begin{corollary}[Pushforward probability model]\label{corr:pushforward}
-Given any probability model $\model{P}:\RV{I}\kto \text{Id}_\Omega$, there is a unique model $\model{P}^{\RV{X}}:\RV{I}\kto \RV{X}$ such that $\model{P}^{\RV{X}}=\model{P}\model{Q}$ for some $\model{Q}:\text{Id}_\Omega\to \RV{X}$, and it is given by $(\model{P}^{\RV{X}})^a_b = \sum_{\omega\in f^{-1}(a)} \model{P}_b^{\omega}$.
+Given any probability model $\model{P}:\RV{I}\kto \text{id}_\Omega$, there is a unique model $\model{P}^{\RV{X}}:\RV{I}\kto \RV{X}$ such that $\model{P}^{\RV{X}}=\model{P}\model{Q}$ for some $\model{Q}:\text{id}_\Omega\to \RV{X}$, and it is given by $(\model{P}^{\RV{X}})^a_b = \sum_{\omega\in f^{-1}(a)} \model{P}_b^{\omega}$.
 \end{corollary}
 
 \begin{proof}
-Apply Lemma \ref{lem:pushforward} to a model $\model{P}:\RV{I}\kto\text{Id}_{\Omega}$.
+Apply Lemma \ref{lem:pushforward} to a model $\model{P}:\RV{I}\kto\text{id}_{\Omega}$.
 \end{proof}
 
 The following lemmas can help us check whether an indexed Markov kernel is a valid model.
@@ -701,10 +718,10 @@ If we want to use $\kernel{M}$, we want it at minimum to satisfy the consistency
 
 Instead of trying to assemble probability models as in Equation \ref{eq:tfac_labeled}, we might try to build probability models in a manner closer to the standard setup -- that is, we start with a sample space model (or a collection of sample space models) and work with marginal and conditional probabilities derived from these, without using any non-standard model assemblies.
 
-A sample space model is any model $\kernel{K}:\RV{X}\kto \text{Id}_\Omega$. We expect that the collection of models under consideration will usually be defined on some small collection of random variables, but every such model is the pushforward of some sample space model. Using sample space models allows us to stay close to the usual convention of probability modelling that starts with a sample space probability model.
+A sample space model is any model $\kernel{K}:\RV{X}\kto \text{id}_\Omega$. We expect that the collection of models under consideration will usually be defined on some small collection of random variables, but every such model is the pushforward of some sample space model. Using sample space models allows us to stay close to the usual convention of probability modelling that starts with a sample space probability model.
 
 \begin{lemma}[Existence of sample space model]\label{lem:ss_exist}
-Given any model $\model{K}:\RV{X}\kto \RV{Y}$, there is a sample space model $\model{L}:\RV{X}\kto\text{Id}_\Omega$ such that, defining $\model{Y}:=(\RV{Y},\text{Id}_\Omega,\RV{Y})$, $\model{L}\model{Y}=\model{K}$.
+Given any model $\model{K}:\RV{X}\kto \RV{Y}$, there is a sample space model $\model{L}:\RV{X}\kto\text{id}_\Omega$ such that, defining $\model{Y}:=(\RV{Y},\text{id}_\Omega,\RV{Y})$, $\model{L}\model{Y}=\model{K}$.
 \end{lemma}
 
 \begin{proof}
@@ -720,7 +737,7 @@ If $\RV{X}:\Omega\kto A$ and $\RV{Y}:\Omega\kto B$, take any $a\in A$ and $b\in 
 
 Note that for all $a\in A$, $\sum_{\omega\in \Omega}\kernel{L}^{\prime\omega}_a = \sum_{b\in B} \kernel{K}_a^{\prime b} = 1$.
 
-By construction, $(\kernel{L}',\text{Id}_\Omega,\RV{X})$ is free of contradiction. In addition
+By construction, $(\kernel{L}',\text{id}_\Omega,\RV{X})$ is free of contradiction. In addition
 \begin{align}
 	(\kernel{L}'\RV{Y})_a^b &= \sum_{\omega\in \Omega} \kernel{L}^{\prime \omega}_a \RV{Y}_\omega^b\\
 							&= \sum_{\omega\in f_{\RV{Y}}^{-1}(b)} \kernel{L}_a^{\prime \omega}\\
@@ -771,13 +788,13 @@ Then
 
 We define conditional independence in the following manner:
 
-For a \emph{probability model} $\model{P}:\RV{I}\kto \text{Id}_{\Omega}$ and variables $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\model{P}}\RV{B}|\RV{C}$, if
+For a \emph{probability model} $\model{P}:\RV{I}\kto \text{id}_{\Omega}$ and variables $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\model{P}}\RV{B}|\RV{C}$, if
 
 \begin{align}
 	\kernel{P}^{\RV{ABC}} &= \tikzfig{cond_indep1}
 \end{align}
 
-For an arbitrary model $\kernel{N}:\RV{X}\kto \text{Id}_{\Omega}$ where $\RV{X}:\Omega\kto X$, and some $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{N}}\RV{B}|\RV{C}$, if there is some $\model{O}:\RV{I}\kto \RV{X}$ such that $O^x>0$ for all $x\in f_{\RV{X}}^{-1}(X)$ and $\RV{A}\CI_{\model{O}\model{N}} \RV{B}|\RV{C}$.
+For an arbitrary model $\kernel{N}:\RV{X}\kto \text{id}_{\Omega}$ where $\RV{X}:\Omega\kto X$, and some $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{N}}\RV{B}|\RV{C}$, if there is some $\model{O}:\RV{I}\kto \RV{X}$ such that $O^x>0$ for all $x\in f_{\RV{X}}^{-1}(X)$ and $\RV{A}\CI_{\model{O}\model{N}} \RV{B}|\RV{C}$.
 
 This definition is inappliccable in the case where sets may be uncountably infinite, as no such $\kernel{O}$ can exist in this case. There may well be definitions of conditional independence that generalise better, and we refer to the discussions in \citet{fritz_synthetic_2020} and \citet{constantinou_extended_2017} for some discussion of alternative definitions. One advantage of this definition is that it matches the version given by \citet{cho_disintegration_2019} which they showed coincides with the standard notion of conditional independence and so we don't have to show this in our particular case.
 

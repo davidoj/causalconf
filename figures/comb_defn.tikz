@@ -1,0 +1,20 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (-5, 0) {$\model{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$};
+		\node [style=RLabel tikzit] (1) at (-2.25, 0.5) {$\RV{X}$};
+		\node [style=RLabel tikzit] (2) at (-2.25, -0.5) {};
+		\node [style=none] (3) at (-4, 0.25) {};
+		\node [style=none] (4) at (-4, -0.25) {};
+		\node [style=none] (5) at (-6, 0.25) {};
+		\node [style=none] (6) at (-6, -0.25) {};
+		\node [style=Llabel tikzit] (7) at (-7.75, 0.5) {$\RV{W}$};
+		\node [style=Llabel tikzit] (8) at (-7.75, -0.5) {$\RV{Y}$};
+		\node [style=none] (9) at (0, 0) {$=$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=-180, out=0] (7) to (5.center);
+		\draw [in=180, out=0, looseness=1.25] (8) to (6.center);
+		\draw [in=-180, out=0] (3.center) to (1);
+		\draw [style=delmap, in=180, out=0] (4.center) to (2);
+	\end{pgfonlayer}
+\end{tikzpicture}
