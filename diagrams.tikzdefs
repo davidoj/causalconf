@@ -23,3 +23,4 @@
 \newcommand{\indx}[1]{\ensuremath{\mathcal{#1}}}
 \newcommand{\nod}[1]{\ensuremath{\mathsfit{#1}}}
 \newcommand{\kto}{\ensuremath{\rightarrowtriangle}}
+\newcommand{\disint}[1]{\ensuremath{\overline{\prob{#1}}}}

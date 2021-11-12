@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=medium kernel tikzit] (0) at (-4, 0) {$\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$};
+		\node [style=none] (1) at (-3.5, 0.5) {};
+		\node [style=none] (2) at (-3.5, -0.5) {};
+		\node [style=RLabel tikzit] (3) at (-1.25, 0.5) {$\RV{X}$};
+		\node [style=RLabel tikzit] (4) at (-1.25, -0.5) {};
+		\node [style=Llabel tikzit] (5) at (-6.75, 0.5) {$\RV{W}$};
+		\node [style=Llabel tikzit] (6) at (-6.75, -0.5) {$\RV{Y}$};
+		\node [style=none] (7) at (-4.5, 0.5) {};
+		\node [style=none] (8) at (-4.5, -0.5) {};
+		\node [style=none] (9) at (0, 0) {$=$};
+		\node [style=small kernel tikzit] (10) at (3.25, 0.5) {$\prob{P}^{\RV{X}|\RV{W}}$};
+		\node [style=none] (11) at (3.25, -0.25) {};
+		\node [style=Llabel tikzit] (12) at (1.75, -0.25) {$\RV{Y}$};
+		\node [style=Llabel tikzit] (13) at (1.75, 0.5) {$\RV{W}$};
+		\node [style=RLabel tikzit] (14) at (4.75, 0.5) {$\RV{X}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (5) to (7.center);
+		\draw (6) to (8.center);
+		\draw (1.center) to (3);
+		\draw [style=delmap] (2.center) to (4);
+		\draw [style=delmap] (12) to (11.center);
+		\draw (10) to (14);
+		\draw (13) to (10);
+	\end{pgfonlayer}
+\end{tikzpicture}
