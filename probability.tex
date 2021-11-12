@@ -111,9 +111,9 @@ The swap map $\text{swap}_{X,Y}:X\times Y\kto Y\times X$ defined by $(\text{swap
 	\end{tikzpicture}
 \end{align}
 
-Because we anticipate that the graphical notation will be unfamiliar to many, we will also include translations to more familiar notation.
+Because we anticipate that the graphical notation will be unfamiliar, we will include some examples in the next section.
 
-\subsubsection{Shorthands}
+\subsubsection{Examples}
 
 When translating string diagram notation to integral notation, a number of identities can speed up the process.
 
@@ -143,17 +143,27 @@ For a collection of kernels $\kernel{K}^n:Y^n\to Z$, $n\in[n]$, define $(y)^{n}=
 	\text{copy}_Y & n=2
 	\end{cases}\\
 	(\text{copy}^2_Y\kernel{K}^2)(z|y) &= \kernel{K}^2(z|y,y)\\
-	\text{ suppose for induction } (\text{copy}^{n-1}_Y\kernel{K}^{n-1})(z|y) &= \kernel{K}^{n-1}(z|(y)^{n-1})\\
-	\text{ then }(\text{copy}^n_Y\kernel{K}^n)(z|y) &= (\text{copy}^{n-1}_Y(\text{id}_{Y^{n-2}}\otimes \text{copy}_Y)\kernel{K}^n)(z|y)\\
+\end{align}
+
+Suppose for induction
+\begin{align}
+(\text{copy}^{n-1}_Y\kernel{K}^{n-1})(z|y) &= \kernel{K}^{n-1}(z|(y)^{n-1})
+\end{align}
+
+then
+\begin{align}
+(\text{copy}^n_Y\kernel{K}^n)(z|y) &= (\text{copy}^{n-1}_Y(\text{id}_{Y^{n-2}}\otimes \text{copy}_Y)\kernel{K}^n)(z|y)\\
 									 &= \sum_{y'\in Y^{n-1}}(\text{id}_{Y^{n-2}}\otimes \text{copy}_Y)(\mathbf{y}'|(y)^{n-1})\kernel{K}^n(z|\mathbf{y}')\\
 									 &= \kernel{K}^n(z|(y)^n)
 \end{align}
 
 That is, we can define the $n$-fold copy map that passes along $n$ copies of its input to the next kernel in the product.
 
-\subsection{Example: using string diagrams to represent combs}
+\subsubsection{Example: comb insertion}
 
-Consider the Markov kernels $\kernel{K}:W\kto X$, $\kernel{L}:X\times W\times Y\kto Z$ and $\kernel{M}:W\times Y\kto X\times Z$ defined as
+The following examples illustrate 2-combs and the insertion operation, both of which we will define later. As an example in translating diagrams, we show how the diagrams for a 2-comb and 2-comb with an inserted Markov kernel can be translated to integral notation.
+
+Consider the Markov kernels $\kernel{K}:W\kto X$, $\kernel{L}:X\times W\times Y\kto Z$ and the 2-comb $\kernel{M}:W\times Y\kto X\times Z$ defined as
 
 \begin{align}
 	\kernel{M} = \tikzfig{2_comb}\label{eq:2comb_M}
@@ -162,49 +172,40 @@ Consider the Markov kernels $\kernel{K}:W\kto X$, $\kernel{L}:X\times W\times Y\
 Following the rules above, we can translate this to ordinary notation by first breaking it down into products and tensor products, and then evaluating these products
 
 \begin{align}
-	\kernel{M}(A\times B|w,y) &= [(\text{copy}_W\otimes \text{id}_Y)(\kernel{K}\otimes \text{id}_{W\times Y})(\text{copy}_X\otimes \text{id}_{W\times Y})(\text{id}_X\otimes\kernel{L})](A\times B|w,y)\\
-						&= [(\kernel{K}\otimes \text{id}_{W\times Y})(\text{copy}_X\otimes \text{id}_{W\times Y})(\text{id}_X\otimes\kernel{L})](A\times B|w,w,y)\\
-						&= \int_{X}  (\text{id}_X\otimes\kernel{L})(A\times B|x',w,y) \kernel{K} (dx'|w)
+	\kernel{M}(A\times B|w,y) = [&(\text{copy}_W\otimes \text{id}_Y)(\kernel{K}\otimes \text{id}_{W\times Y})\\
+	&(\text{copy}_X\otimes \text{id}_{W\times Y})(\text{id}_X\otimes\kernel{L})](A\times B|w,y)\\
+						= [&(\kernel{K}\otimes \text{id}_{W\times Y})(\text{copy}_X\otimes \text{id}_{W\times Y})\\
+						&(\text{id}_X\otimes\kernel{L})](A\times B|w,w,y)\\
+						= \;&\int_{X}  (\text{id}_X\otimes\kernel{L})(A\times B|x',w,y) \kernel{K} (dx'|w)
 						](y,z|y',x)\\
-						&= \int_X \text{id}_X(A|x') \kernel{L}(B|x',w,y)\kernel{K}(dx'|w)\\
-						&= \int_A \kernel{L}(B|x',w,y)\kernel{K}(dx'|w)
+						= \;&\int_X \text{id}_X(A|x') \kernel{L}(B|x',w,y)\kernel{K}(dx'|w)\\
+						= \;&\int_A \kernel{L}(B|x',w,y)\kernel{K}(dx'|w)
 \end{align}
 
-If we are given additionally $\kernel{J}:X\times W\kto Y$, we can define a new Markov kernel $\kernel{N}:W\kto Z$:
+If we are given additionally $\kernel{J}:X\times W\kto Y$, we can define a new Markov kernel $\kernel{N}:W\kto Z$ given by ``inserting'' $\kernel{J}$ into $\kernel{M}$:
 
 \begin{align}
-	\kernel{N} = \tikzfig{2comb_inserted}\label{eq:2comb_winsert}
+	\kernel{N} = \tikzfig{2comb_inserted_anon}\label{eq:2comb_winsert}
 \end{align}
 
 
 We can translate Equation \ref{eq:2comb_winsert} to
 
 \begin{align}
-	\kernel{N}(A\times B\times C|w) &= [\text{copy}_W(\kernel{K}\text{copy}^3_Y\otimes \text{id}_W)(\text{id}_Y\otimes\kernel{J}\otimes \text{id}_Y)(\text{id}_Y \otimes \text{copy}_X\otimes \text{id}_Y)(\kernel{L}\otimes \text{id}_X\otimes \text{id}_Y)] (A\times B\times C|w)\\
-					&= [(\kernel{K}\text{copy}^3_Y\otimes \text{id}_W)(\text{id}_Y\otimes\kernel{J}\otimes \text{id}_Y)(\text{id}_Y \otimes \text{copy}_X\otimes \text{id}_Y)(\kernel{L}\otimes \text{id}_X\otimes \text{id}_Y)] (A\times B\times C|w,w)\\
-					&= \int_X\int_Y\kernel{L}(C|x',w,y') \text{id}_X(A|x') \text{id}_Y(B|y') \kernel{J}(dy'|x',w)\kernel{K}(dx'|w)\\
-					&= \int_A\int_B\kernel{L}(C|x',w,y') \kernel{J}(dy'|x',w)\kernel{K}(dx'|w)
+	\kernel{N}(A\times B\times C|w) = &[\text{copy}_W(\kernel{K}\text{copy}^3_Y\otimes \text{id}_W)\\
+	&(\text{id}_Y\otimes\kernel{J}\otimes \text{id}_Y)(\text{id}_Y \otimes \text{copy}_X\otimes \text{id}_Y)\\
+	&(\kernel{L}\otimes \text{id}_X\otimes \text{id}_Y)] (A\times B\times C|w)\\
+					= &[(\kernel{K}\text{copy}^3_Y\otimes \text{id}_W)(\text{id}_Y\otimes\kernel{J}\otimes \text{id}_Y)\\
+					&(\text{id}_Y \otimes \text{copy}_X\otimes \text{id}_Y)\\
+					&(\kernel{L}\otimes \text{id}_X\otimes \text{id}_Y)] (A\times B\times C|w,w)\\
+					= &\int_X\int_Y\kernel{L}(C|x',w,y') \text{id}_X(A|x') \text{id}_Y(B|y') \kernel{J}(dy'|x',w)\kernel{K}(dx'|w)\\
+					= &\int_A\int_B\kernel{L}(C|x',w,y') \kernel{J}(dy'|x',w)\kernel{K}(dx'|w)
 \end{align}
-
-
-We say $\kernel{M}$ is a \emph{2-comb} after \citet{chiribella_quantum_2008}. Similar to the copy-product we defined between two appropriately typed Markov kernels, we can define an insert operation between a 2-comb and an appropriately defined insert.
-
-Specifically, given a 2-comb $\kernel{M}$ defined as in Equation \ref{eq:2comb_M} and a Markov kernel $\kernel{J}:Y\kto X$, we define $\text{Insert}(\kernel{M},\kernel{J})$ to be the right hand side of Equation \ref{eq:2comb_winsert}. We can depict this informally as follows:
-
-\begin{align}
-	\text{Insert}\left(\tikzfig{insert_opn2}\right) &= \tikzfig{2comb_inserted}\label{eq:insert_op}\\
-													&= \kernel{K}\odot \kernel{J}\odot \kernel{L}
-\end{align}
-
-The insert operation places $\kernel{J}$ in the matching slot in $\kernel{M}$, and also copies both the input and output of $\kernel{J}$ to the output of the result. Just as copy-products extend conditional probabilities, insert operations extend probability combs.
-
-Note that if $W=Y=\{*\}$, then $\text{Insert}(\kernel{M},\kernel{J})\cong \kernel{J}\odot \kernel{M}$.
-
 \subsection{Semantics of observed and unobserved variables}\label{sec:variables}
 
-We are interested in constructing \emph{probabilistic models} which explain some part of the world. In a model, variables play the role of ``pointing to the parts of the world the model is explaining''. Both observed an unobserved variables play important roles in causal modelling and we think it is worth clarifying what variables of either type refer to. Ultimately, our interpretation is largely the standard one: a probabilistic model is associated with an experiment or measurement procedure that yields values in a well-defined set. Observable variables are obtained by applying well-defined functions to the result of this total measurement. We explain how we can use a richer sample space that includes unobserved variables. Unobserved variables are formally modelled in exactly the same way as observed variables, but unlike observed variables we don't offer a standard interpretation of unobserved variables. 
+We are interested in constructing \emph{probabilistic models} which explain some part of the world. In a model, variables play the role of ``pointing to the parts of the world the model is explaining''. Both observed an unobserved variables play important roles in causal modelling and we think it is worth clarifying what variables of either type refer to. Our approach is a standard one: a probabilistic model is associated with an experiment or measurement procedure that yields values in a well-defined set. Observable variables are obtained by applying well-defined functions to the result of this total measurement. We use a richer sample space that includes ``unobserved variables'' that are formally treated the same way as observed variables, but aren't associated with any real-world counterparts.
 
-Consider Newton's second law in the form $\proc{F}=\proc{MA}$ as a simple example of a model that relates variables $\proc{F}$, $\proc{M}$ and $\proc{A}$. As \citet{feynman_feynman_1979} noted, this law is incomplete -- in order to understand it, we must bring some pre-existing understanding of force, mass and acceleration as independent things. Furthermore, the nature of this knowledge is somewhat perculiar. Acknowledging that physicists happen to know a great deal about determining the forces on an object, it remains true that in order to actually say what the net force on a real object is, even a highly knowledgeable physicist will still have to go and do some measurements, and the result of such measurements will be a vector representing the net forces on that object.
+Consider Newton's second law in the form $\proc{F}=\proc{MA}$ as a simple example of a model that relates variables $\proc{F}$, $\proc{M}$ and $\proc{A}$. As \citet{feynman_feynman_1979} noted, this law is incomplete -- in order to understand it, we must bring some pre-existing understanding of force, mass and acceleration as independent things. Furthermore, the nature of this knowledge is somewhat perculiar. Acknowledging that physicists happen to know a great deal about forces on an object, it remains true that in order to actually say what the net force on a real object is, even a highly knowledgeable physicist will still have to go and do some measurements, and the result of such measurements will be a vector representing the net forces on that object.
 
 This suggests that we can think about ``force'' $\proc{F}$ (or mass or acceleration) as a kind of procedure that we apply to a particular real world object and which returns a mathematical object (in this case, a vector). We will call $\proc{F}$ a \emph{procedure}. Our view of $\proc{F}$ is akin to \citet{menger_random_2003}'s notion of variables as ``consistent classes of quantities'' that consist of pairing between real-world objects and quantities of some type. Force $\proc{F}$ itself is not a well-defined mathematical thing, as measurement procedures are not mathematically well-defined. At the same time, the set of values it may yield \emph{are} well-defined mathematical things.
 
@@ -257,7 +258,7 @@ For measurable $A\in \sigalg{X}$, $\RV{X}\yields A=\bigcup_{x\in A} \RV{X}\yield
 
 Given $\RV{Y}:\Omega\to X$, we can define an append operation for variables: $(\RV{X},\RV{Y}):=\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega))$. $(\RV{X},\RV{Y})$ has the property that $(\RV{X},\RV{Y})\yields (x,y)= \RV{X}\yields x\cap \RV{Y}\yields y$, which supports the interpretation of $(\RV{X},\RV{Y})$ as the values yielded by $\RV{X}$ and $\RV{Y}$ together.
 
-It is common to use the symbol ``$=$'' instead of ``$\yields$'', but we want to avoid this because $\RV{Y}=y$ already has a meaning, namely that $\RV{Y}$ is a constant function everywhere equal to $y$.
+It is common to use the symbol $=$ instead of $\bowtie$, but we want to avoid this because $\RV{Y}=y$ already has a meaning, namely that $\RV{Y}$ is a constant function everywhere equal to $y$. 
 
 \subsection{Probabilistic models for causal inference}
 
@@ -403,15 +404,15 @@ Only if: suppose $\prob{T}^{\RV{Y}|\RV{X}}$ is invalid. Then there is some $x\in
 Hence $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is invalid.
 \end{proof}
 
-Given any two conditional probabilities $\prob{T}^{\RV{Y}|\RV{X}}$, $ \prob{U}^{\RV{Y}|\RV{X}}$ such that there is some $x\in \RV{X}(\Omega)$, $A\in \sigalg{Y}$ for which $\prob{T}^{\RV{Y}|\RV{X}}(A|x)\neq \prob{U}^{\RV{Y}|\RV{X}}(A|x)$, there exists some $\prob{Q}^{\RV{X}}$ such that $\prob{Q}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}\neq \prob{Q}^{\RV{X}}\odot \prob{U}^{\RV{Y}|\RV{X}}$.\todo{not proved for now} Thus if we are using conditional probability as a probability model with a gap, uniqueness requires that the conditional probability be represented by a Markov kernel that is unique up to the set of impossible values of the conditioning variable. In contrast, conditional probability derived from a standard probability model may be represented by a Markov kernel unique up to a measure zero set, which is a strictly weaker condition because the set of impossible values must be given measure 0 by any valid probability distribution.
+Given any two conditional probabilities $\prob{T}^{\RV{Y}|\RV{X}}$, $ \prob{U}^{\RV{Y}|\RV{X}}$ such that there is some $x\in \RV{X}(\Omega)$, $A\in \sigalg{Y}$ for which $\prob{T}^{\RV{Y}|\RV{X}}(A|x)\neq \prob{U}^{\RV{Y}|\RV{X}}(A|x)$, there exists some $\prob{Q}^{\RV{X}}$ such that $\prob{Q}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}\neq \prob{Q}^{\RV{X}}\odot \prob{U}^{\RV{Y}|\RV{X}}$. We can see this by letting $\prob{Q}^{\RV{X}}$ assign probability 1 to some value of $x$ on which $\prob{T}^{\RV{Y}|\RV{X}}$ and $\prob{U}^{\RV{Y}|\RV{X}}$ differ. Thus if we are using conditional probability as a probability model with a gap, uniqueness requires that the conditional probability be represented by a Markov kernel that is unique up to the set of impossible values of the conditioning variable. In contrast, conditional probability derived from a standard probability model may be represented by a Markov kernel unique up to a measure zero set, which is a strictly weaker condition because the set of impossible values must be given measure 0 by any valid probability distribution.
 
 \subsection{Order 2 gaps: probability combs}
 
-So far we have order-0 and order-1 gap models. Extending an order-1 gap model with an order-0 model yields an oder-0 model. We can continute to higher order models, such that an order-2 gap model can be extended with an order-1 gap model to yield an order-1 gap model. Order-2 gap models are \emph{probability 2-combs}. We will provide a working definition of probability 2-combs as a pair of conditional probabilities, and refine this definition later.
+So far we have order-0 and order-1 gap models. Extending an order-1 gap model with an order-0 model yields an oder-0 model. We can continute to higher order models, such that an order-2 gap model can be extended with an order-1 gap model to yield an order-1 gap model. Order-2 gap models are \emph{probability 2-combs} \citep{chiribella_quantum_2008,jacobs_causal_2019}. We will provide a working definition of probability 2-combs as a pair of conditional probabilities, and refine this definition later.
 
-Just as in Section \ref{sec:validity_of_gapprob}, a key concern for probability 2-combs is \emph{valid extendability}.
+We may be able to extend this theory to $n$-combs, where valid $n$-combs are those that can be extended to valid $n-1$-combs by valid $n-1$-combs. 2-combs are sufficient for our purposes, though.
 
-\begin{definition}[Probability 2-comb: working definition]
+\begin{definition}[Probability 2-comb]
 Given $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:W\times Y\kto X\times Z$ is a Markov kernel such that for some $\prob{P}^{\RV{X}|\RV{W}}:W\kto X$
 \begin{align}
 	\tikzfig{2_comb_properdef}
@@ -423,16 +424,43 @@ Coupled with the validity conditions
 \end{enumerate}
 \end{definition}
 
-With discrete sets, and in general wherever we have kernel disintegrations, there generally exists some $\disint{P}^{\RV{Z}|\RV{WXY}}:W\times X\times Y\kto Z$ (Lemma \ref{lem:disint_exist}) such that
+With discrete sets, and in general wherever we have kernel disintegrations, there exists some $\disint{P}^{\RV{Z}|\RV{WXY}}:W\times X\times Y\kto Z$ (Lemma \ref{lem:disint_exist}) such that
 \begin{align}
 	\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}} &= \tikzfig{probability_2_comb}
 \end{align}
 
-As we will show, we may consider an arbitrary representative $\disint{P}^{\RV{Z}|\RV{WXY}}$ without loss of generality.
+We define the operation $\text{insert}$ that takes a 2-comb and a conditional probability and returns a conditional probability.
 
-Inserting a conditional probability into a probability 2-comb yields a conditional probability.
+\begin{align}
+	\text{insert}(\prob{P}_\alpha^{\RV{Y}|\RV{XW}},\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}) = \prob{P}^{\RV{X}|\RV{W}}\odot\prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \disint{P}^{\RV{Z}|\RV{WXY}}\label{eq:insert}
+\end{align}
 
-\begin{theorem}[Extension of valid probability 2-combs]
+We can depict this operation graphically in a somewhat informal way as ``inserting'' $\prob{P}_\alpha^{\RV{Y}|\RV{XW}}$ into $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$:
+
+\begin{align}
+	\text{Insert}\left(\tikzfig{insert_opn2}\right)\\= \tikzfig{2comb_inserted}\label{eq:insert_op}
+\end{align}
+
+Just as in Section \ref{sec:validity_of_gapprob}, a key concern for probability 2-combs is \emph{valid extendability}. The insert operation we define for 2-combs is uniquely defined by Equation \ref{eq:insert} (Theorem \ref{th:equiv_insert}, and yields a valid conditional probability given any valid inputs (Theorem \ref{th:extension_2comb_valid}).
+
+\begin{theorem}[Equivalence of 2-comb disintegrations]\label{th:equiv_insert}
+Given a 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ and any two disintegrations $\disint{P}^{\RV{Z}|\RV{WXY}}_1$, $\disint{P}^{\RV{Z}|\RV{WXY}}_2$, for all valid extensions $\prob{P}_\alpha^{\RV{Y}|\RV{XW}}$
+\begin{align}
+	\prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \disint{P}^{\RV{Z}|\RV{WXY}}_1 = \prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \disint{P}^{\RV{Z}|\RV{WXY}}_2
+\end{align}
+\end{theorem}
+
+\begin{proof}
+For any $w,x,y,z$
+
+\begin{align}
+	(\prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \disint{P}^{\RV{Z}|\RV{WXY}}_1)(x,y,z|w) &= \prob{P}^{\RV{Y}|\RV{WX}}_\alpha(y|w,x)\prob{P}^{\RV{X}|\RV{W}}(x|w)\disint{P}_1^{\RV{Z}|\RV{XYW}}(z|x,y,w)\\
+	&= \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)\\
+	&= \prob{P}^{\RV{Y}|\RV{WX}}_\alpha(y|w,x)\prob{P}^{\RV{X}|\RV{W}}(x|w)\disint{P}_2^{\RV{Z}|\RV{XYW}}(z|x,y,w)
+\end{align}
+\end{proof}
+
+\begin{theorem}[Extension of valid probability 2-combs]\label{th:extension_2comb_valid}
 Given $\Omega$, $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is valid if and only if $\text{insert}(\prob{P}_\alpha^{\RV{Y}|\RV{WX}},\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$ is valid for all valid $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$.
 \end{theorem}
 
@@ -446,17 +474,11 @@ Note that
 	&= \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)\prob{P}_\alpha(y|x)
 \end{align}
 
-Suppose $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is valid. If $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)=\emptyset$ then either:
+Suppose $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is valid. If $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)=\emptyset$ then either $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)=0$ and hence $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$.
 
-$\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)=0$ and hence $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$.
+If $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$ then either $(\RV{W},\RV{X})\yields (w,x)\neq\emptyset$ and by validity $\prob{P}^{\RV{Y}|\RV{WX}}_\alpha(y|w,x)=0$ and so $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)=0$ or $(\RV{W},\RV{X})\yields(w,x)=\emptyset$.
 
-If $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$ then either:
-
-$(\RV{W},\RV{X})\yields (w,x)\neq\emptyset$ and by validity $\prob{P}^{\RV{Y}|\RV{WX}}_\alpha(y|w,x)=0$ and so $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)=0$ or $(\RV{W},\RV{X})\yields(w,x)=\emptyset$.
-
-If $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ then either:
-
-$\RV{W}\yields w\neq \emptyset$ and by validity $\prob{P}^{\RV{X}|\RV{W}}(x|w)=0$ and so $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)=0$ or $\RV{W}\yields w=\emptyset$, in which case $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)$ may take any value.
+If $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ then either $\RV{W}\yields w\neq \emptyset$ and by validity $\prob{P}^{\RV{X}|\RV{W}}(x|w)=0$ and so $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)=0$ or $\RV{W}\yields w=\emptyset$, in which case $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)$ may take any value.
 
 If:
 Suppose $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is invalid. Then either $\prob{P}^{\RV{X}|\RV{W}}$ is invalid or $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)>0$ on some $(w,x,y,z)$ such that $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)= \emptyset$ and $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)\neq \emptyset$.
@@ -482,72 +504,87 @@ By supposition, there is a valid $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ such that $\
 So $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}$ is invalid.
 \end{proof}
 
-The existence of disintegrations and the validity of 2-combs are two areas where the move from discrete to uncountable sets introduces difficulties.
+It is also the case that if we combine two valid conditional probabilities to form a 2-comb, the result is a valid 2-comb.
 
-\begin{theorem}[Equivalence of 2-comb disintegrations]
-Given a 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ and any two disintegrations $\disint{P}^{\RV{Z}|\RV{WXY}}_1$, $\disint{P}^{\RV{Z}|\RV{WXY}}_2$, for all valid extensions $\prob{P}_\alpha^{\RV{Y}|\RV{XW}}$
+\begin{theorem}[Valid conditional probabilities combine to a valid 2-comb]\label{lem:valid_conditionals}
+Given valid conditional probabilities $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$
 \begin{align}
-	\prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \disint{P}^{\RV{Z}|\RV{WXY}}_1 = \prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \disint{P}^{\RV{Z}|\RV{WXY}}_1
+	\tikzfig{probability_2_comb}
 \end{align}
+Is a valid 2-comb.
 \end{theorem}
 
 \begin{proof}
-For any $w,x,y,z$
-
-\begin{align}
-	(\prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \disint{P}^{\RV{Z}|\RV{WXY}}_1)(x,y,z|w) &= \prob{P}^{\RV{Y}|\RV{WX}}_\alpha(y|w,x)\prob{P}^{\RV{X}|\RV{W}}(x|w)\disint{P}_1^{\RV{Z}|\RV{XYW}}(z|x,y,w)\\
-	&= \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)\\
-	&= \prob{P}^{\RV{Y}|\RV{WX}}_\alpha(y|w,x)\prob{P}^{\RV{X}|\RV{W}}(x|w)\disint{P}_2^{\RV{Z}|\RV{XYW}}(z|x,y,w)
-\end{align}
+Validity of $\prob{P}^{\RV{X}|\RV{W}}$ is by assumption, and validity of $\prob{P}^{\RV{Z}|\RV{WXY}}$ means $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)=\emptyset$ implies $\prob{P}^{\RV{Z}|\RV{WXY}}(z|w,x,y)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$. This in turn implies $\prob{P}^{\RV{Z}|\RV{WXY}}(z|w,x,y)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$.
 \end{proof}
 
-We may be able to extend this theory to $n$-combs, where valid $n$-combs are those that can be extended to valid $n-1$-combs by valid $n-1$-combs. 2-combs are sufficient for our purposes, though.
 
 \subsection{Revisiting truncated factorisation}
 
-Suppose we have a 2-comb $\prob{P}^{\RV{Z}\square\RV{Y}|\RV{X}}$. Then we have some $\prob{P}^{\RV{Z}}$, $\disint{P}^{\RV{Z}|\RV{WXY}}$ unique up to equivalence such that
+We have established that, at least for discrete sets, probability 2-combs are a general kind of object that maps a conditional probability to a conditional probability. Thus they model choices that correspond to conditional probabilities, rather than probability distributions. We initially considered that a truncated factorisation might be a conditional probability -- that is, it could be used to model choices that correspond to probability distributions of the choice variable $\RV{U}$ that we introduced. If we instead consider the possibility that the model of ``interventions'' that Equation \ref{eq:truncated_fac} is suggesting is actually a probability 2-comb, we find that both of the problems we identified are automatically solved.
+
+Suppose we have a 2-comb $\prob{P}^{\RV{Z}\square\RV{Y}|\RV{X}}$. Then we have some $\prob{P}^{\RV{Z}}$, $\disint{P}^{\RV{Y}|\RV{XZ}}$ unique up to equivalence such that
 
 \begin{align}
-	\prob{P}^{\RV{Z}\square\RV{Y}|\RV{X}}(y,z|x) &= \disint{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)
+	\prob{P}^{\RV{Z}\square\RV{Y}|\RV{X}}(z,y|x) &= \disint{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)
 \end{align}
+
+By Lemma \ref{lem:nocopy2}, we also have
 
 \begin{align}
-	\prob{P}^{\RV{XYZ}}_{x}(x',y,z)=\prob{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x' \rrbracket\label{eq:truncated_fac}
+	\prob{P}^{\RV{Z}\square\RV{XY}|\RV{X}}(z,x',y|x) &= \disint{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x' \rrbracket\label{eq:2comb_cbn}
 \end{align}
 
+Compare this to Equation \ref{eq:truncated_fac}, which we reproduce here for convenience:
 
-We can always get a valid model by adding a copy map to a valid model, and conversely all valid models with repeated codomain variables must contain copy maps.
+\begin{align*}
+	\prob{P}^{\RV{XYZ}}_{x}(x',y,z)=\prob{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x' \rrbracket
+\end{align*}
+
+These equations look almost identical, and suggest an alternative approach to modelling intervention. Instead of \emph{defining} an interventional conditional probability via truncated factorisation, suppose we have an interventional model that is a probability 2-comb, and that satisfies
+\begin{align}
+	\prob{P}_{\text{obs}}^{\RV{XYZ}} = \text{insert}(\prob{P}_{\text{obs}}^{\RV{X}|\RV{Z}}, \prob{P}^{\RV{Z}\square\RV{XY}|\RV{X}})
+\end{align}
+For some observational insert $\prob{P}_{\text{obs}}^{\RV{X}|\RV{Z}}$.
+
+Under this view, we cannot necessarily derive $\prob{P}^{\RV{Z}\square\RV{XY}|\RV{X}}$ from the observational probability distribution $\prob{P}_{\text{obs}}^{\RV{XYZ}}$, as we cannot guarantee that any particular $\disint{P}_{\text{obs}}^{\RV{Y}|\RV{XZ}}$ is a representative of $\disint{P}^{\RV{Y}|\RV{XZ}}$. This is as it should be -- if we have meaningfully different choices of $\disint{P}_{\text{obs}}^{\RV{Y}|\RV{XZ}}$ arising from measure zero sets, we cannot decide which one will model interventions without more information. The 2-comb $\prob{P}^{\RV{Z}\square\RV{XY}|\RV{X}}$ itself stands for a unique map from interventions to probability distributions, rather than the potentially large set of different maps of this type.
+
+The second issue we raised was the nonexistence of $\prob{P}^{\RV{XYZ}}_{x}$ if, for example, $\RV{X}=f\circ \RV{Z}$. Because $\prob{P}_{\text{obs}}^{\RV{Z}}$ and $\disint{P}_{\text{obs}}^{\RV{Y}|\RV{XZ}}$ are both valid, Lemma \ref{lem:valid_conditionals} ensures that any 2-comb defined by any choice of these conditional probabilities is also valid, and so Equation \ref{eq:2comb_cbn} defines a valid object. Because we have a 2-comb which is extended by \emph{conditional probabilities} rather than by probability distributions, and these conditional probabilities \emph{must be valid}, we can validly extend $\prob{P}^{\RV{Z}\square\RV{XY}|\RV{X}}$ even when $\RV{X}=f\circ \RV{Z}$ -- it's just that validity requires that any extending conditional must be such that $\prob{P}_\alpha^{\RV{X}|\RV{Z}}(x|z)=\llbracket x=f(z) \rrbracket$.
+
+\todo[inline]{So: 2-combs do what we want truncated factorisation to do without breaking down in edge cases, except maybe when we go to uncountably infinite sets.}
+
+\subsection{Useful results}
+
+\subsubsection{Repeated variables}
+
+Lemmas \ref{lem:nocopy1} and \ref{lem:nocopy2} establish that models of repeated variables must connect the repetitions with a copy map.
 
 \begin{lemma}[Output copies of the same variable are identical]\label{lem:nocopy1}
-For any $\kernel{K}:\RV{X}\kto (\RV{Y},\RV{Y},\RV{Z})$, $\kernel{K}$ is a model iff there exists some $\model{L}:\RV{X}\kto (\RV{Y},\RV{Z})$ such that
+For any $\Omega$, $\RV{X},\RV{Y},\RV{Z}$ random variables on $\Omega$ and conditional probability $\model{K}^{\RV{YZ}|\RV{X}}$, there is a conditional probability $\kernel{K}^{\RV{YYZ}|\RV{X}}$ unique up to impossible values of $\RV{X}$ such that
 \begin{align}
-		\kernel{K} &= \tikzfig{compose_with_copymap}\\
+	\tikzfig{kyyz} = \model{K}^{\RV{YZ}|\RV{X}}
+\end{align}
+and it is given by
+\begin{align}
+		\kernel{K}^{\RV{YYZ}|\RV{X}} &= \tikzfig{compose_with_copymap}\\
 		&\iff \\
-		\kernel{K}_{x}^{\prime y,y',z} &= \llbracket y=y' \rrbracket\kernel{L}_{x}^{\prime y,z}\\
+		\kernel{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x) &= \llbracket y=y' \rrbracket\kernel{K}^{\RV{YZ}|\RV{X}}(y,z|x)\\
 \end{align}
 \end{lemma}
 
-
 \begin{proof}
-$\implies$
-For any $\omega,x,y,y',z$:
+If we have a valid $\model{K}^{\RV{YYZ}|\RV{X}}$, it must be the pushforward of $(\RV{Y},\RV{Y},\RV{Z})$ under some $\model{K}^{\RV{I}|\RV{X}}$. Furthermore, $\model{K}^{\RV{YZ}|\RV{X}}$ must be the pushforward of $(*,\RV{Y},\RV{Z})\cong (\RV{Y},\RV{Z})$ under the same $\model{K}^{\RV{I}|\RV{X}}$.
+
+For any $x\in \RV{X}(\Omega)$, validity requires $(\RV{X},\RV{Y},\RV{Y},\RV{Z})\yields (x,y,y',z)=\emptyset \implies \model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x)=0$. Clearly, whenever $y\neq y'$, $\model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x)=0$. Because $\model{K}^{\RV{YYZ}|\RV{X}}$ is a Markov kernel, there is some $\model{L}:X\kto X\times Z$ such that
 \begin{align}
-	(\RV{X},\RV{Y},\RV{Y},\RV{Z})_\omega^{x,y,y',z} &= \llbracket f_{\RV{Y}}(\omega)=y \rrbracket \llbracket f_{\RV{Y}}(\omega)=y' \rrbracket (\RV{X},\RV{Z})_\omega^{x,z} \\
-	&= \llbracket y=y' \rrbracket \llbracket f_{\RV{Y}}(\omega)=y \rrbracket(\RV{X},\RV{Z})_\omega^{x,z}
+ 	\model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x) = \llbracket y=y' \rrbracket \model{L}(y,z|x)\\
 \end{align}
-Therefore, by consistency, for any $x,y,y',z$, $y\neq y'\implies \kernel{K}_{x}^{\prime yy'z}=0$. Define $\kernel{L}$ by $\kernel{L}_x^{\prime y, z} := \kernel{K}_x^{\prime y y z}$. The fact that $\model{L}$ is a model follows from the assumption that $\model{K}$ is. Then
+But then
 \begin{align}
-	\kernel{K}_{x}^{\prime y,y',z} &= \llbracket y=y' \rrbracket\kernel{L}_{x}^{\prime y,z}
-\end{align}
-$\Leftarrow$
-If $\model{L}$ is a model, then for any $x,x',y,z$, 
-\begin{align}
-\llbracket y=y'\rrbracket \model{L}_{x}^{\prime y,z}>0&\implies y=y'\land \model{L}_{x}^{\prime y,z}>0\\
-													  &\implies \left(f_{\RV{X}}^{-1}(x)=\emptyset \right)\lor \left(f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y) \cap f_{\RV{Y}}^{-1}(y)\cap f_{\RV{Z}}^{-1}(z)\neq\emptyset \right)\\
+	\model{K}^{\RV{YZ}|\RV{X}}(y,z|x) &= \sum_{y'\in Y} \model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x)\\
+	&= \model{L}(y,z|x)\\
 \end{align}
 \end{proof}
-
-We can always get a valid model by copying the input to the output of a valid model, and conversely all valid models where there is a variable shared between the input and the output must copy that input to the output.
 
 \begin{lemma}[Copies shared between input and output are identical]\label{lem:nocopy2}
 For any $\kernel{K}:(\RV{X},\RV{Y})\kto (\RV{X},\RV{Z})$, $\kernel{K}$ is a model iff there exists some $\model{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ such that
@@ -556,26 +593,35 @@ For any $\kernel{K}:(\RV{X},\RV{Y})\kto (\RV{X},\RV{Z})$, $\kernel{K}$ is a mode
 	 &\iff\\
 	 \kernel{K}_{x,y}^{\prime x',z} &= \llbracket x=x'\rrbracket \kernel{L}_{\prime x,y}^{z}
 \end{align}
+
+For any $\Omega$, $\RV{X},\RV{Y},\RV{Z}$ random variables on $\Omega$ and conditional probability $\model{K}^{\RV{Z}|\RV{XY}}$, there is a conditional probability $\kernel{K}^{\RV{XZ}|\RV{XY}}$ unique up to impossible values of $(\RV{X},\RV{Y})$ such that
+\begin{align}
+	\tikzfig{kxyxz} = \kernel{K}^{\RV{XZ}|\RV{XY}}
+\end{align}
+and it is given by
+\begin{align}
+		\kernel{K}^{\RV{XZ}|\RV{XY}} &= \tikzfig{compose_with_copymap}\\
+		&\iff \\
+		\kernel{K}^{\RV{XZ}|\RV{XY}}(x,z|x',y) &= \llbracket x=x' \rrbracket\kernel{K}^{\RV{Z}|\RV{XY}}(z|x',y)\\
+\end{align}
+
 \end{lemma}
 
 \begin{proof}
-$\implies$
-For any $\omega,x,y,y',z$:
+If we have a valid $\model{K}^{\RV{XZ}|\RV{XY}}$, it must be the pushforward of $(\RV{X},\RV{Z})$ under some $\model{K}^{\RV{I}|\RV{XY}}$. Furthermore, $\model{K}^{\RV{Z}|\RV{XY}}$ must be the pushforward of $(*,\RV{Z})\cong (\RV{Z})$ under the same $\model{K}^{\RV{I}|\RV{X}}$.
+
+For any $(x,y)\in (\RV{X},\RV{Y})(\Omega)$, validity requires $(\RV{X},\RV{Y},\RV{X},\RV{Z})\yields (x,y,x',z)=\emptyset \implies \model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)=0$. Clearly, whenever $x\neq x'$, $\model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)=0$. Because $\model{K}^{\RV{XZ}|\RV{XY}}$ is a Markov kernel, there is some $\model{L}:X\times Y\kto Z$ such that
 \begin{align}
-	(\RV{X},\RV{Y},\RV{Y},\RV{Z})_\omega^{x,y,y',z} &= \llbracket f_{\RV{Y}}(\omega)=y \rrbracket \llbracket f_{\RV{Y}}(\omega)=y' \rrbracket (\RV{X},\RV{Z})_\omega^{x,z} \\
-	&= \llbracket y=y' \rrbracket \llbracket f_{\RV{Y}}(\omega)=y \rrbracket(\RV{X},\RV{Z})_\omega^{x,z}
+ 	\model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)=0 = \llbracket x=x' \rrbracket \model{L}(z|x,y)\\
 \end{align}
-Therefore, by consistency, for any $x,y,y',z$, $x\neq x'\implies \model{K}_{x,y}^{\prime x'z}=0$. Define $\kernel{L}$ by $\kernel{L}_{x,y}^{\prime x', z} := \model{K}_{x,y}^{\prime x, y}$. The fact that $\kernel{L}$ is a model follows from the assumption that $\model{K}$ is a model. Then
+But then
 \begin{align}
-	\kernel{K}_{x, y}^{\prime x', z} &= \llbracket x=x' \rrbracket\kernel{L}_{x,y}^{\prime z}
-\end{align}
-$\Leftarrow$
-If $\model{L}$ is a model, then for any $x,x',y,z$, 
-\begin{align}
-\llbracket x=x'\rrbracket \model{L}_{ x,y}^{\prime z}>0&\implies x=x'\land \model{L}_{ x,y}^{\prime z}>0\\
-													  &\implies \left( f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y)=\emptyset \right)\lor \left(f_{\RV{X}}^{-1}(x)\cap f_{\RV{X}}^{-1}(x)\cap f_{\RV{Y}}^{-1}(y)\cap f_{\RV{Z}}^{-1}(z)\neq\emptyset \right)\\
+	\model{K}^{\RV{Z}|\RV{XY}}(y,z|x) &= \sum_{x'\in X} \model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)\\
+	&= \model{L}(z|x,y)\\
 \end{align}
 \end{proof}
+
+\subsubsection{Disintegrations}
 
 \begin{lemma}[Disintegration existence]\label{lem:disint_exist}
 For any model $\model{K}:X\kto W\times Y$ where $X$, $W$, $Y$ are discrete, there exists $\model{L}:W\times X\kto Y$ such that
@@ -612,24 +658,24 @@ Given valid $\model{K}^{\RV{WY}|\RV{X}}$, there exists a valid conditional proba
 From Lemma \ref{lem:disint_exist}, we have the existence of some $\disint{L}^{\RV{Y}|\RV{WX}}:W\times X\to Y$. We need to check that $\disint{L}^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{K}^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{K}^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{K}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \disint{L}^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\disint{L}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
 \end{proof}
 
-\subsection{Conditional independence}\label{ssec:cond_indep}
+% \subsubsection{Conditional independence}\label{ssec:cond_indep}
 
-We define conditional independence in the following manner:
+% We define conditional independence in the following manner:
 
-For a \emph{probability model} $\model{P}:\RV{I}\kto \text{id}_{\Omega}$ and variables $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\model{P}}\RV{B}|\RV{C}$, if
+% For a \emph{probability model} $\model{P}:\RV{I}\kto \text{id}_{\Omega}$ and variables $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\model{P}}\RV{B}|\RV{C}$, if
 
-\begin{align}
-	\kernel{P}^{\RV{ABC}} &= \tikzfig{cond_indep1}
-\end{align}
+% \begin{align}
+% 	\kernel{P}^{\RV{ABC}} &= \tikzfig{cond_indep1}
+% \end{align}
 
-For an arbitrary model $\kernel{N}:\RV{X}\kto \text{id}_{\Omega}$ where $\RV{X}:\Omega\kto X$, and some $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{N}}\RV{B}|\RV{C}$, if there is some $\model{O}:\RV{I}\kto \RV{X}$ such that $O^x>0$ for all $x\in f_{\RV{X}}^{-1}(X)$ and $\RV{A}\CI_{\model{O}\model{N}} \RV{B}|\RV{C}$.
+% For an arbitrary model $\kernel{N}:\RV{X}\kto \text{id}_{\Omega}$ where $\RV{X}:\Omega\kto X$, and some $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{N}}\RV{B}|\RV{C}$, if there is some $\model{O}:\RV{I}\kto \RV{X}$ such that $O^x>0$ for all $x\in f_{\RV{X}}^{-1}(X)$ and $\RV{A}\CI_{\model{O}\model{N}} \RV{B}|\RV{C}$.
 
-This definition is inappliccable in the case where sets may be uncountably infinite, as no such $\kernel{O}$ can exist in this case. There may well be definitions of conditional independence that generalise better, and we refer to the discussions in \citet{fritz_synthetic_2020} and \citet{constantinou_extended_2017} for some discussion of alternative definitions. One advantage of this definition is that it matches the version given by \citet{cho_disintegration_2019} which they showed coincides with the standard notion of conditional independence and so we don't have to show this in our particular case.
+% This definition is inappliccable in the case where sets may be uncountably infinite, as no such $\kernel{O}$ can exist in this case. There may well be definitions of conditional independence that generalise better, and we refer to the discussions in \citet{fritz_synthetic_2020} and \citet{constantinou_extended_2017} for some discussion of alternative definitions. One advantage of this definition is that it matches the version given by \citet{cho_disintegration_2019} which they showed coincides with the standard notion of conditional independence and so we don't have to show this in our particular case.
 
-A particular case of interest is when a kernel $\kernel{K}:(\RV{X},\RV{W})\to \Delta(\RV{Y})$ can, for some $\kernel{L}:\RV{W}\to \Delta(\RV{Y})$, be written:
+% A particular case of interest is when a kernel $\kernel{K}:(\RV{X},\RV{W})\to \Delta(\RV{Y})$ can, for some $\kernel{L}:\RV{W}\to \Delta(\RV{Y})$, be written:
 
-\begin{align}
-	\kernel{K} = \tikzfig{ci_example}
-\end{align}
+% \begin{align}
+% 	\kernel{K} = \tikzfig{ci_example}
+% \end{align}
 
-Then $\RV{Y}\CI_{\kernel{K}}\RV{W}|\RV{X}$.
+% Then $\RV{Y}\CI_{\kernel{K}}\RV{W}|\RV{X}$.

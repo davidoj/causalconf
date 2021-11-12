@@ -1,6 +1,6 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=medium kernel tikzit] (0) at (0, 0) {$\model{L}$};
+		\node [style=medium kernel tikzit] (0) at (0, 0) {$\model{K}^{\RV{Z}|\RV{XY}}$};
 		\node [style=Llabel tikzit] (1) at (-2.5, 0.5) {$\RV{X}$};
 		\node [style=none] (2) at (-0.5, 0.5) {};
 		\node [style=none] (6) at (0.5, 0) {};

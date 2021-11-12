@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=medium kernel tikzit] (0) at (0, 0) {$\model{K}^{\RV{YYZ}|\RV{X}}$};
+		\node [style=Llabel tikzit] (1) at (-2.5, 0) {$\RV{X}$};
+		\node [style=none] (2) at (-0.5, 0) {};
+		\node [style=RLabel tikzit] (3) at (2.75, 0) {$\RV{Y}$};
+		\node [style=none] (4) at (0.5, 0) {};
+		\node [style=none] (5) at (0.5, -0.5) {};
+		\node [style=RLabel tikzit] (8) at (2.75, -0.5) {$\RV{Z}$};
+		\node [style=none] (9) at (0.5, 0.5) {};
+		\node [style=RLabel tikzit] (10) at (2.75, 0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (1) to (2.center);
+		\draw (5.center) to (8);
+		\draw [style=delmap] (9.center) to (10);
+		\draw (4.center) to (3);
+	\end{pgfonlayer}
+\end{tikzpicture}

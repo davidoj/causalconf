@@ -1,0 +1,37 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=Llabel tikzit] (0) at (-6.25, 0.25) {$W$};
+		\node [style=RLabel tikzit] (1) at (7.75, 0.75) {$Z$};
+		\node [style=small kernel tikzit] (2) at (-3.25, 0.25) {$\kernel{K}$};
+		\node [style=small kernel tikzit] (3) at (5.25, 0.75) {$\kernel{L}$};
+		\node [style=copymap tikzit] (4) at (-1.25, 0.25) {};
+		\node [style=none] (5) at (4.75, 0.75) {};
+		\node [style=none] (6) at (4.75, 0.5) {};
+		\node [style=small kernel tikzit] (7) at (0.75, 0.25) {$\kernel{J}$};
+		\node [style=none] (8) at (1, 1) {};
+		\node [style=RLabel tikzit] (9) at (7.75, -0.25) {$Y$};
+		\node [style=RLabel tikzit] (10) at (7.75, -1) {$X$};
+		\node [style=copymap tikzit] (11) at (2.25, 0.25) {};
+		\node [style=none] (12) at (0.25, 0.5) {};
+		\node [style=none] (13) at (0.25, 0) {};
+		\node [style=copymap tikzit] (14) at (-4.75, 0.25) {};
+		\node [style=none] (15) at (4.75, 1) {};
+		\node [style=none] (16) at (-1, 1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (2) to (4);
+		\draw (3) to (1);
+		\draw [in=180, out=75] (4) to (8.center);
+		\draw [in=180, out=0] (8.center) to (5.center);
+		\draw (7) to (11);
+		\draw [in=180, out=15] (11) to (6.center);
+		\draw [in=180, out=-60, looseness=0.50] (4) to (10);
+		\draw [in=-180, out=-30, looseness=0.75] (11) to (9);
+		\draw (0) to (14);
+		\draw (14) to (2);
+		\draw [in=180, out=-60] (14) to (13.center);
+		\draw [in=180, out=0] (4) to (12.center);
+		\draw [in=-180, out=60] (14) to (16.center);
+		\draw [in=180, out=0] (16.center) to (15.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

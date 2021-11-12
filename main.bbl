@@ -1,4 +1,4 @@
-\begin{thebibliography}{30}
+\begin{thebibliography}{28}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -19,16 +19,6 @@ Kenta Cho and Bart Jacobs.
   (7):\penalty0 938--971, August 2019.
 \newblock ISSN 0960-1295, 1469-8072.
 \newblock \doi{10.1017/S0960129518000488}.
-
-\bibitem[Constantinou and Dawid(2017)]{constantinou_extended_2017}
-Panayiota Constantinou and A.~Philip Dawid.
-\newblock {EXTENDED} {CONDITIONAL} {INDEPENDENCE} {AND} {APPLICATIONS} {IN}
-  {CAUSAL} {INFERENCE}.
-\newblock \emph{The Annals of Statistics}, 45\penalty0 (6):\penalty0
-  2618--2653, 2017.
-\newblock ISSN 0090-5364.
-\newblock URL \url{http://www.jstor.org/stable/26362953}.
-\newblock Publisher: Institute of Mathematical Statistics.
 
 \bibitem[Dawid(2020)]{dawid_decision-theoretic_2020}
 A.~Philip Dawid.
@@ -187,16 +177,6 @@ Donald~B. Rubin.
 \newblock ISSN 0162-1459.
 \newblock \doi{10.1198/016214504000001880}.
 \newblock URL \url{https://doi.org/10.1198/016214504000001880}.
-
-\bibitem[Rényi(1956)]{renyi_conditional_1956}
-A.~Rényi.
-\newblock On {Conditional} {Probability} {Spaces} {Generated} by a
-  {Dimensionally} {Ordered} {Set} of {Measures}.
-\newblock \emph{Theory of Probability \& Its Applications}, 1\penalty0
-  (1):\penalty0 55--64, January 1956.
-\newblock ISSN 0040-585X.
-\newblock \doi{10.1137/1101005}.
-\newblock URL \url{https://epubs.siam.org/doi/abs/10.1137/1101005}.
 
 \bibitem[Selinger(2010)]{selinger_survey_2010}
 Peter Selinger.
