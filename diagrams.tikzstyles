@@ -14,6 +14,7 @@
 \tikzstyle{erase tikzit}=[{-{Rays[n=8]}}]
 \tikzstyle{RLabel tikzit}=[anchor=west]
 \tikzstyle{Llabel tikzit}=[anchor=east]
+\tikzstyle{very small prob}=[fill=white, draw=black, shape=regular polygon, regular polygon sides=3, shape border rotate=90, minimum height=0.5cm, inner sep=-4pt]
 
 % Edge styles
 \tikzstyle{delmap}=[>={Rays[n=8]}, ->]

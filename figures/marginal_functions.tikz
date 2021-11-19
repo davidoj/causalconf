@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (1) at (-2.75, 0.5) {};
+		\node [style=none] (2) at (-2.75, -0.5) {};
+		\node [style=RLabel tikzit] (4) at (-1.25, 0.5) {$\RV{X}$};
+		\node [style=RLabel tikzit] (5) at (-1.25, -0.5) {};
+		\node [style=very small prob] (6) at (-3.5, 0) {$f(\prob{P}^{\RV{X}})$};
+		\node [style=small dist tikzit] (7) at (2, 0) {$\prob{P}^{\RV{X}}$};
+		\node [style=none] (8) at (0.25, 0) {$=$};
+		\node [style=RLabel tikzit] (9) at (3.75, 0) {$\RV{X}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (1.center) to (4);
+		\draw [style=delmap] (2.center) to (5);
+		\draw (7) to (9);
+	\end{pgfonlayer}
+\end{tikzpicture}

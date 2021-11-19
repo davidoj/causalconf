@@ -289,21 +289,53 @@ This might seem like an absurd model, but an analogous causal graph appears in \
 
 Our first aim is to offer a more careful theory of probability models with gaps in them, addressing these two shortcomings.
 
-\subsection{Order 0 gaps: probability distributions}
+\subsection{Probability gaps}
 
-At this point, we will make a substantial simplifying assumption: all sets, including the sample space $\Omega$ and any set of values a variable takes, are discrete sets. That is, they are at most countably infinite and the $\sigma$-algebra of measurable sets is the power set.
+Probability gap models are probability models that are missing key parts. What this means is that they are functions: provide a ``missing part'' or ``insert'' of the right type and you get a probability model. We also consider higher order gaps; an order 1 gap takes an insert and returns an order 0 gap, which in turn can be completed to a model without gaps. 
 
-Define $\RV{I}:\Omega\to \Omega$ as the identity function $\omega\mapsto \omega$. A \emph{standard probability model} on $\Omega$ is a probability distribution $\prob{P}^{\RV{I}}$ on $\Omega$. This terminology is motivated by the fact that probability models are often given by a collection of random variables along with a probability space, which is a triple of the form $(\prob{P}^{\RV{I}},\Omega,\sigalg{F})$ where $\sigalg{F}$ is a $\sigma$-algebra on $\Omega$.
+We consider in particular functions that are \emph{mixture homomorphic} -- calling a gap model on a mixture of inserts is the same the corresponding mixture of gap models of each insert -- and \emph{insert compatible}, which means that we can recover the insert from the probability model we end up with. This set of functions can be identified with Markov kernels of an appropriate type.
 
-A standard probability model has no gaps -- it associates a probability with every event $\RV{X}\yields A$ for every $\RV{X}$ and every $A\in\sigalg{X}$, and this probability is subject to no conditions.
+A key consideration with regard to probability gaps is that they are \emph{valid} -- that is, if we provide a valid insert what we end up with is either a probability distribution that can be completed to a probability measure on the sample space $\Omega$, or a valid gap model of lower order.
 
-Given a standard probability model $\prob{P}^{\RV{I}}$ and $\RV{X}:\Omega\to X$, the probability of the event $\RV{X}\yields A$ for $A\in\sigalg{X}$ is defined as $\prob{P}^{\RV{X}}(A):=\prob{P}^{\RV{I}}(\RV{X}\yields A)$. $\prob{P}^{\RV{X}}$ is known as the pushforward of $\prob{P}^{\RV{I}}$ via $\RV{X}$. We use the convention that the same base letter $\prob{P}$ appearing in $\prob{P}^{\RV{I}}$ and $\prob{P}^{\RV{X}}$ indicates $\prob{P}^{\RV{X}}$ is a pushforward of $\prob{P}^{\RV{I}}$. We say that $\prob{P}^{\RV{X}}$ is the distribution of $\RV{X}$ \emph{under} $\prob{P}^{\RV{I}}$.
+We will make a substantial simplifying assumption: all sets, including the sample space $\Omega$ and any set of values a variable takes, are discrete sets. That is, they are at most countably infinite and the $\sigma$-algebra of measurable sets is the power set. Because we are working with discrete sets we will by convention call probability measures on set elements: $\prob{P}^{\RV{X}}(x):=\prob{P}^{\RV{X}}(\{x\})$. 
 
-Any \emph{sample space valid} probability distribution $\prob{Q}^{\RV{X}}$ the distribution of $\RV{X}$ under some $\prob{Q}^{\RV{I}}$. A sample space valid probability distribution is a probability model with a 0th-order gap. Unless $\RV{X}$ is invertible it contains gaps. The distinguishing feature of a 0th-order gap model is that specifying $\prob{Q}^{\RV{X}}$ is equivalent to specifying $\RV{X}$ and any $\prob{Q}^{\RV{I}}$ that pushes forward to $\prob{Q}^{\RV{X}}$.
+\begin{definition}[Probability space]
+A probability space is a triple $(\prob{P}^{\Omega},\Omega,\sigalg{F})$, where $\mu$ is a probability measure on $\sigalg{F}$ which, as stated above, we take to be $\mathscr{P}(\Omega)$. We call $\prob{P}^{\Omega}$ the \emph{base measure}, and the superscript $\Omega$ is a convention we use to name base measures.
+\end{definition}
+
+Probability spaces along with random variables can be used to define probability distributions of those random variables. We call such distributions \emph{pushforwards}.
+
+\begin{definition}[Pushforward]
+Given a probability space and a random variable $\RV{X}:\Omega\to X$, we can define the probability distribution $\prob{P}^{\RV{X}}:\sigalg{X}\to [0,1]$ of $\RV{X}$ as the \emph{pushforward} of $\prob{P}^{\Omega}$ by $\RV{X}$. Specifically, for any $x\in X$, $\prob{P}^{\RV{X}}(x):=\prob{P}^\Omega(\RV{X}\yields x)$. 
+\end{definition}
+
+We can alternatively define the pushforward as a Markov kernel product. Let $\kernel{P}_{\RV{X}|\Omega}:\Omega\kto X$ be the Markov kernel $\kernel{P}_{\RV{X}|\Omega}(x|\omega)\mapsto \llbracket x = \RV{X}(\omega)$. Then
+\begin{align}
+	\prob{P}^{\RV{X}} = \prob{P}^\Omega\prob{P}^{\RV{X}|\Omega}
+\end{align}
+
+Instead of starting with a base measure and pushing it forward to find a probability distribution, we can start with a probability distribution and find base measures that pushforward to that distribution. We call such base measures \emph{completions} of our original distribution.
+
+\begin{definition}[Completion]
+Given $\RV{X}:\Omega\to X$, an arbitrary probability distribution $\prob{P}^{\RV{X}}:\sigalg{X}\to [0,1]$ and a sample space $\Omega$, there are typically a number of base measures $\prob{P}^\Omega_\alpha$ such that $\prob{P}^{\RV{X}}=\prob{P}_\alpha^\Omega \prob{P}^{\RV{X}|\Omega}$. We call any $\prob{P}^\Omega_\alpha$ with this property a \emph{completion} of $\prob{P}^{\RV{X}}$.
+\end{definition}
+
+\begin{definition}[Validity]
+Given $\RV{X}:\Omega\to X$, an arbitrary probability distribution $\prob{P}^{\RV{X}}:\sigalg{X}\to [0,1]$ and a sample space $\Omega$, $\prob{P}^{\RV{X}}$ is valid if it has at least one completion.
+\end{definition}
+
+Probability gap models have types, which indicate which kinds of inserts they accept and what kind of model you will get as a result. Types correspond to random variables; for the following suppose any uppercase sans serif letter $\RV{X}$ is a random variable $\Omega\to X$:
+\begin{itemize}
+	\item An order 0 type $\RV{X}$ probability gap model is a probability distribution $\prob{P}^{\RV{X}}$ that has at least one completion to a base measure on $\Omega$
+	\item An order 1 type $\RV{X};\RV{Y}$ probability gap model takes a valid order 0 $\RV{X}$ gap model and returns an order 0 $(\RV{X},\RV{Y})$ gap model
+	\item An order 2 type $\RV{W};\RV{X};\RV{Y};\RV{Z}$ probability gap model takes a valid order 1 $\RV{X};\RV{Y}$ gap model and returns an order 1 $\RV{W};(\RV{X},\RV{Y},\RV{Z})$ gap model
+\end{itemize}
+
+We will introduce order 1 gap models as \emph{conditional probabilities} and order 2 gap models as \emph{probability 2-combs}.
 
 \subsection{Order 1 gaps: conditional probabilities}\label{sec:validity_of_gapprob}
 
-A 1st-order gap model we call a \emph{conditional probability}. A conditional probability $\prob{P}^{\RV{Y}|\RV{X}}$ can be thought of as a linear operator that takes valid probability distributions $\prob{Q}^{\RV{X}}$ and returns valid probability distributions $\prob{R}^{\RV{XY}}$. Formally, we define it as a Markov kernel.
+We use the term \emph{conditional probability} to describe order 1 gap models. A conditional probability $\prob{P}^{\RV{Y}|\RV{X}}$ is a valid Markov kernel of the appropriate type.
 
 \begin{definition}[Valid conditional probability]\label{def:valid_conditional_prob}
 Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{valid conditional probability} $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$ such that it assigns probability 0 to contradictions:
@@ -312,7 +344,7 @@ Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{
 \end{align}
 \end{definition}
 
-The map induced by a conditional probability is defined via the ``copy-product'' $\odot$.
+We combine order 0 gap models (probability distributions) with order 1 gap models (conditional probabilities) using the ``copy-product'' $\odot$.
 
 \begin{definition}[Copy-product]\label{def:copyproduct}
 Given two Markov kernels $\prob{K}:X\kto Y$ and $\prob{L}:Y\times X\kto Z$, define the copy-product $\prob{K}\odot\prob{L}:X\to Y\times Z$ as
@@ -335,12 +367,12 @@ Arbitrary conditional probabilities do not necessarily extend to valid probabili
 \prob{Q}^{\RV{XY}}(x,x')&=\prob{Q}^{\RV{I}}(\RV{X}\yields x\cap\RV{X}\yields x')\\
 &= \llbracket x=x' \rrbracket
 \end{align}
-Thus $\prob{P}_\alpha^{\RV{XY}}$ is not sample space valid. Furthermore, it is surely absurd to suppose that a variable yields one value and then assign positive probability to the same variable yielding a different value. This is why we propose the validity condition in our definition of conditional probabilities.
+Thus $\prob{P}_\alpha^{\RV{XY}}$ is not valid.
 
-The key justification for our definition of validity is that valid conditional probabilities guarantee that we can extend the conditional probability to a standard probability model. In fact, Definition \ref{def:valid_conditional_prob} is equivalent to defining valid conditional probabilities as those that extend to valid probability distributions, given any valid probability distribution (Theorem \ref{th:valid_conditional_probability}). In addition, the defintion of sample space validity itself is equivalent to Definition \ref{def:valid_conditional_prob} under the identification of probability distributions with trivial conditional probabilities (Theorem \ref{th:valid_agree}).
+The key justification for our definition of validity is that valid conditional probabilities guarantee that we can extend the conditional probability to a base measure. In fact, Definition \ref{def:valid_conditional_prob} is equivalent to defining valid conditional probabilities as those that extend to valid probability distributions, given any valid probability distribution (Theorem \ref{th:valid_conditional_probability}). In addition, the defintion of validity itself is equivalent to Definition \ref{def:valid_conditional_prob} under the identification of probability distributions with trivial conditional probabilities (Theorem \ref{th:valid_agree}).
 
-\begin{theorem}[Agreement of validity criteria for probability distributions]\label{th:valid_agree}
-Given $\RV{X}:\Omega\to X$, with $\Omega$ and $X$ discrete, a probability $\prob{P}^{\RV{X}}$ is sample space-valid if and only if the conditional probability $\prob{P}^{\RV{X}|*}:=*\mapsto \prob{P}^{\RV{X}}$ is valid.
+\begin{theorem}[Agreement of validity criteria for conditional probabilities]\label{th:valid_agree}
+Given $\RV{X}:\Omega\to X$, with $\Omega$ and $X$ discrete, a probability $\prob{P}^{\RV{X}}$ is valid if and only if the conditional probability $\prob{P}^{\RV{X}|*}:=*\mapsto \prob{P}^{\RV{X}}$ is valid.
 \end{theorem}
 
 \begin{proof}
@@ -406,11 +438,58 @@ Hence $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is invalid.
 
 Given any two conditional probabilities $\prob{T}^{\RV{Y}|\RV{X}}$, $ \prob{U}^{\RV{Y}|\RV{X}}$ such that there is some $x\in \RV{X}(\Omega)$, $A\in \sigalg{Y}$ for which $\prob{T}^{\RV{Y}|\RV{X}}(A|x)\neq \prob{U}^{\RV{Y}|\RV{X}}(A|x)$, there exists some $\prob{Q}^{\RV{X}}$ such that $\prob{Q}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}\neq \prob{Q}^{\RV{X}}\odot \prob{U}^{\RV{Y}|\RV{X}}$. We can see this by letting $\prob{Q}^{\RV{X}}$ assign probability 1 to some value of $x$ on which $\prob{T}^{\RV{Y}|\RV{X}}$ and $\prob{U}^{\RV{Y}|\RV{X}}$ differ. Thus if we are using conditional probability as a probability model with a gap, uniqueness requires that the conditional probability be represented by a Markov kernel that is unique up to the set of impossible values of the conditioning variable. In contrast, conditional probability derived from a standard probability model may be represented by a Markov kernel unique up to a measure zero set, which is a strictly weaker condition because the set of impossible values must be given measure 0 by any valid probability distribution.
 
+We finally note that a conditional probability $\prob{P}^{\RV{Y}|\RV{X}}$ along with the copy-product $\odot$ corresponds precisely to the set of insert compatible mixture homomorphisms.
+
+\begin{definition}[Marginalisation]
+
+\end{definition}
+
+\begin{lemma}[Marginal probabilities are unique compatible submodels]
+
+\end{lemma}
+
+\begin{definition}[Delta notation]
+
+\end{definition}
+
+\begin{definition}[Order 1 insert compatibility]
+Given a function $f:\Delta(X)\to \Delta(X\times Y)$, $f$ is \emph{insert-compatible} if
+\begin{align}
+	\tikzfig{marginal_functions}
+\end{align}
+\end{definition}
+
+\begin{definition}[Mixture homomorphic]
+Given a function $f:\Delta(X)\to \Delta(X\times Y)$, $f$ is \emph{mixture homomorphic} if
+\begin{align}
+	f(a\prob{P}^{\RV{X}}_1 + (1-a)\prob{P}^{\RV{X}}_2) = af(\prob{P}^{\RV{X}}_1) + (1-a)f(\prob{P}^{\RV{X}}_2)
+\end{align}
+\end{definition}
+
+\emph{Proposition:} Every insert-compatible, mixture homomorphic function from $\Delta(X)\to \Delta(X\times Y)$ can be identified with a Markov kernel $X\kto X\times Y$.
+
+\emph{Proof sketch:} We can write any probability measure over a discrete space as a mixture of delta-measures. Define $\kernel{K}(x,y|x'):=f(\delta_{x'})(x,y)$. Then
+\begin{align}
+	f(\mu)(x,y) &= f(\sum_{i\in X}\mu(i)\delta_i)(x,y)\\
+			 &= \sum_{i\in X} \mu(i)f(\delta_i)(x,y)\\
+			 &= \sum_{i\in X} \mu(i)\kernel{K}(x,y|i)\\
+			 &= (\mu \kernel{K})(x,y)
+\end{align}
+
+Due to insert compatibility, we also require for some $\kernel{L}\in\Delta(Y)$
+\begin{align}
+	\sum_y f(\delta_{x'})(x,y) &= \llbracket x=x' \rrbracket\\
+	\implies f(\delta_{x'})(x,y) &= \llbracket x=x' \rrbracket\kernel{L}(y|x)
+\end{align}
+
+Thus
+\begin{align}
+	f(\mu) = \mu\odot \kernel{L}
+\end{align}
+
 \subsection{Order 2 gaps: probability combs}
 
-So far we have order-0 and order-1 gap models. Extending an order-1 gap model with an order-0 model yields an oder-0 model. We can continute to higher order models, such that an order-2 gap model can be extended with an order-1 gap model to yield an order-1 gap model. Order-2 gap models are \emph{probability 2-combs} \citep{chiribella_quantum_2008,jacobs_causal_2019}. We will provide a working definition of probability 2-combs as a pair of conditional probabilities, and refine this definition later.
-
-We may be able to extend this theory to $n$-combs, where valid $n$-combs are those that can be extended to valid $n-1$-combs by valid $n-1$-combs. 2-combs are sufficient for our purposes, though.
+An order-2 gap model can be extended with an order-1 gap model to yield an order-1 gap model. Order-2 gap models are \emph{probability 2-combs} \citep{chiribella_quantum_2008,jacobs_causal_2019}.
 
 \begin{definition}[Probability 2-comb]
 Given $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:W\times Y\kto X\times Z$ is a Markov kernel such that for some $\prob{P}^{\RV{X}|\RV{W}}:W\kto X$
