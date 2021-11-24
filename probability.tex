@@ -291,11 +291,11 @@ Our first aim is to offer a more careful theory of probability models with gaps 
 
 \subsection{Probability gaps}
 
-Probability gap models are probability models that are missing key parts. What this means is that they are functions: provide a ``missing part'' or ``insert'' of the right type and you get a probability model. We also consider higher order gaps; an order 1 gap takes an insert and returns an order 0 gap, which in turn can be completed to a model without gaps. 
+Probability gap models are probability models that are missing key parts. If we provide a ``missing part'' or ``insert'' of the right type then we get a probability model. We can think of probability as functions that map inserts to probability models, or as higher-order functions that map inserts to lower order probability gap models.
 
-We consider in particular functions that are \emph{mixture homomorphic} -- calling a gap model on a mixture of inserts is the same the corresponding mixture of gap models of each insert -- and \emph{insert compatible}, which means that we can recover the insert from the probability model we end up with. This set of functions can be identified with Markov kernels of an appropriate type.
+Not every function of this type is a probability gap model; the probability model you get in the end has to break into a ``fixed part'', which stays the same regardless of the insert provided and additionally the insert. For a concrete example: a conditional probability $\prob{P}^{\RV{Y}|\RV{X}}$ is a kind of probability gap model, and when we provide an insert $\prob{Q}_\alpha^{\RV{X}}$ we get a probability model $\prob{P}_\alpha^{\RV{XY}}$ which depends on the $\prob{Q}_\alpha^{\RV{X}}$ chosen. In turn, $\prob{P}_\alpha^{\RV{XY}}$ contains the insert $\prob{Q}_\alpha^{\RV{X}}$ via marginalisation and the fixed $\prob{P}^{\RV{Y}|\RV{X}}$ via disintegration.
 
-A key consideration with regard to probability gaps is that they are \emph{valid} -- that is, if we provide a valid insert what we end up with is either a probability distribution that can be completed to a probability measure on the sample space $\Omega$, or a valid gap model of lower order.
+Probability gap models must be \emph{valid}. A conditional probability $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$, but not every Markov kernel $X\kto Y$ can be extended to a probability model. Those that can extend to a probability model, given a valid insert, are valid probability gap models.
 
 We will make a substantial simplifying assumption: all sets, including the sample space $\Omega$ and any set of values a variable takes, are discrete sets. That is, they are at most countably infinite and the $\sigma$-algebra of measurable sets is the power set. Because we are working with discrete sets we will by convention call probability measures on set elements: $\prob{P}^{\RV{X}}(x):=\prob{P}^{\RV{X}}(\{x\})$. 
 
@@ -741,11 +741,12 @@ From Lemma \ref{lem:disint_exist}, we have the existence of some $\disint{L}^{\R
 
 Conditional independence has a familiar definition in probability models. For gappy probability models, $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$ just when that conditional independence holds for all possible extensions to a standard probability model.
 
+\begin{definition}[Order 0 conditional independence]
 For a \emph{probability model} $\model{P}^{\RV{I}}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}}\RV{A}|\RV{C}$, if
-
 \begin{align}
 	\kernel{P}^{\RV{ABC}} &= \tikzfig{cond_indep1}
 \end{align}
+\end{definition}
 
 For any $\disint{P}^{\RV{B}|\RV{C}}$ and $\disint{P}^{\RV{A}|\RV{C}}$. \citet{cho_disintegration_2019} have shown that this definition coincides with the standard notion of conditional independence. In particular, it satisfies the \emph{semi-graphoid axioms}
 
@@ -756,22 +757,26 @@ For any $\disint{P}^{\RV{B}|\RV{C}}$ and $\disint{P}^{\RV{A}|\RV{C}}$. \citet{ch
 	\item Contraction: $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$
 \end{enumerate}
 
-Conditional independence holds for an arbitrary probability distribution $\model{P}^{\RV{W}}$ if it holds for all probability models $\prob{P}^{\RV{I}}_\alpha$ that pushforward to $\prob{P}^{\RV{W}}$ (this might happen when, for example, $(\RV{A},\RV{B},\RV{C})=\RV{W}$).
+Conditional independence $\RV{A}\CI_{\prob{P}}\RV{B}|\RV{C}$ holds for an arbitrary probability distribution $\model{P}^{\RV{W}}$ if it holds for all probability models $\prob{P}^{\RV{I}}_\alpha$ that pushforward to $\prob{P}^{\RV{W}}$. This might happen when, for example, $(\RV{A},\RV{B},\RV{C})=\RV{W}$. Thus we define order 0 conditional independence with respct to an arbitrary probability distribution as well.
 
-For a \emph{conditional probability model} $\prob{P}^{\RV{V}|\RV{W}}$, define $\prob{P}_{\beta}^{\RV{VW}}:=\prob{P}_{\beta}^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$. Then say $\RV{B}$ is order 1 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\prob{P}}\RV{A}|\RV{C}$ if for all extending probability distributions $\prob{P}_\beta^{\RV{C}}$, $\RV{B}\CI_{\prob{P}_\beta}\RV{A}|\RV{C}$.
+\begin{definition}[Order 1 conditional independence]
+For a \emph{conditional probability model} $\prob{P}^{\RV{V}|\RV{W}}$, define $\prob{P}_{\beta}^{\RV{VW}}:=\prob{P}_{\beta}^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$. Then say $\RV{B}$ is order 1 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI^1_{\prob{P}}\RV{A}|\RV{C}$ if for all $\beta$, $\RV{B}\CI_{\prob{P}_\beta}\RV{A}|\RV{C}$.
+\end{definition}
 
-For a \emph{probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{P}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$. Then say $\RV{B}$ is order 2 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\prob{P}}\RV{A}|\RV{C}$ if for all extending conditional probabilities $\prob{P}_\gamma^{\RV{C}}$, $\RV{B}\CI_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
+\begin{definition}[Order 2 conditional independence]
+For a \emph{probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{Q}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$. Then say $\RV{B}$ is order 2 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\prob{P}}^2\RV{A}|\RV{C}$ if for all $\gamma$, $\RV{B}\CI^1_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
+\end{definition}
 
 In each case, the semi-graphoid axioms hold for each lower level extension $\prob{P}^{\RV{I}}_\alpha$, $\prob{P}^{\RV{VW}}_\beta$ and $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}$, and so they also hold for the higher level definition of conditional probability.
 
-In the case of a conditional probability model $\prob{P}^{\RV{V}|\RV{W}}$, we note that we can view $\prob{P}^{\RV{V}|\RV{W}}$ as a collection of probability distributions $\{\prob{P}^{\RV{V}}_w:=A\mapsto \prob{P}^{\RV{V}|\RV{W}}(A|w)|w\in W\}$. We can then consider $\RV{W}$ to be what \citet{constantinou_extended_2017} call ``the regime indicator'' and $\RV{V}$ what they call a ``stochastic variable''. That paper introduces a notion of \emph{extended conditional independence}, which can be applied to models containing combination of stochastic variables and regime variables like $\prob{P}^{\RV{V}|\RV{W}}$.  Theorem 4.4 of that work proves the following claim:
+In the case of a conditional probability model $\prob{P}^{\RV{V}|\RV{W}}$, we can view $\prob{P}^{\RV{V}|\RV{W}}$ as a collection of probability distributions $\{\prob{P}^{\RV{V}}_w:=A\mapsto \prob{P}^{\RV{V}|\RV{W}}(A|w)|w\in W\}$. We can then consider $\RV{W}$ to be what \citet{constantinou_extended_2017} call ``the regime indicator'' and $\RV{V}$ what they call a ``stochastic variable''. That paper introduces a notion of \emph{extended conditional independence}, which can be applied to models containing combination of stochastic variables and regime variables like $\prob{P}^{\RV{V}|\RV{W}}$.  Theorem 4.4 of that work proves the following claim:
 
 \begin{theorem}\label{th:dawid_constantionou}
-Let $\RV{A}^*=\RV{A}\circ \RV{V}$, $\RV{B}^*=\RV{B}\circ\RV{V}$, $\RV{C}^*=\RV{C}\circ \RV{V}$ ($(\RV{A},\RV{B},\RV{C})$ are $\sigalg{V}$-measurable) and $\RV{D}^*=\RV{D}\circ \RV{W}$,$\RV{E}^*=\RV{E}\circ \RV{W}$ where $W$ is discrete and $\RV{W}=(\RV{D}^*,\RV{E}^*)$. In addition, let $\prob{P}_\alpha^{\RV{W}}$ be some probability distribution on $\RV{W}$ such that $w\in\RV{W}(\Omega)\implies \prob{P}_\alpha^{\RV{W}}$. Then, denoting extended conditional independence with $\CI_{\prob{P},\text{ext}}$ and $\prob{P}_\alpha^{\RV{VW}}:=\prob{P}_\alpha^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$
+Let $\RV{A}^*=\RV{A}\circ \RV{V}$, $\RV{B}^*=\RV{B}\circ\RV{V}$, $\RV{C}^*=\RV{C}\circ \RV{V}$ ($(\RV{A},\RV{B},\RV{C})$ are $\sigalg{V}$-measurable) and $\RV{D}^*=\RV{D}\circ \RV{W}$,$\RV{E}^*=\RV{E}\circ \RV{W}$ where $W$ is discrete and $\RV{W}=(\RV{D}^*,\RV{E}^*)$. In addition, let $\prob{P}_\alpha^{\RV{W}}$ be some probability distribution on $\RV{W}$ such that $w\in\RV{W}(\Omega)\implies \prob{P}_\alpha^{\RV{W}}(w)>0$. Then, denoting extended conditional independence with $\CI_{\prob{P},\text{ext}}$ and $\prob{P}_\alpha^{\RV{VW}}:=\prob{P}_\alpha^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$
 \begin{align}
 	\RV{A}\CI_{\prob{P},\text{ext}}(\RV{B},\RV{D})|(\RV{C},\RV{E})\iff \RV{A}^*\CI_{\prob{P}_\alpha}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)
 \end{align}
-Where $\CI_{\prob{P}_\alpha}$ is ``order 1'' conditional independence.
+Where $\CI_{\prob{P}_\alpha}$ is order 0 conditional independence.
 \end{theorem}
 
 We can strengthen this result using order 2 condtional independence:
@@ -779,15 +784,14 @@ We can strengthen this result using order 2 condtional independence:
 \begin{theorem}
 Let $\RV{A}^*=\RV{A}\circ \RV{V}$, $\RV{B}^*=\RV{B}\circ\RV{V}$, $\RV{C}^*=\RV{C}\circ \RV{V}$ ($(\RV{A},\RV{B},\RV{C})$ are $\sigalg{V}$-measurable) and $\RV{D}^*=\RV{D}\circ \RV{W}$,$\RV{E}^*=\RV{E}\circ \RV{W}$ where $V,W$ are discrete and $\RV{W}=(\RV{D}^*,\RV{E}^*)$. Then letting $\prob{P}_\alpha^{\RV{VW}}:=\prob{P}_\alpha^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$
 \begin{align}
-	\RV{A}\CI_{\prob{P},\text{ext}}(\RV{B},\RV{D})|(\RV{C},\RV{E})\iff \RV{A}^*\CI_{\prob{P}}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)
+	\RV{A}\CI^1_{\prob{P},\text{ext}}(\RV{B},\RV{D})|(\RV{C},\RV{E})\iff \RV{A}^*\CI_{\prob{P}}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)
 \end{align}
-Where $\CI_{\prob{P}}$ is order 2 conditional independence.
 \end{theorem}
 
 \begin{proof}
 If:
 
-By assumption, $\RV{A}^*\CI_{\prob{P}_\alpha}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)$ for all $\prob{P}_\alpha^{\RV{D^*E^*}}$. In particular, this holds for some $\prob{P}_\alpha^{\RV{D^*E^*}}$ such that $(d,e)\in (\RV{D}^*,\RV{E}^*)(\Omega)\implies \prob{P}_\alpha^{\RV{D^*E^*}} >0$. Then by Theorem \ref{th:dawid_constantionou}, $\RV{A}\CI_{\prob{P},\text{ext}}(\RV{B},\RV{D})|(\RV{C},\RV{E})$.
+By assumption, $\RV{A}^*\CI_{\prob{P}_\alpha}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)$ for all $\prob{P}_\alpha^{\RV{D^*E^*}}$. In particular, this holds for some $\prob{P}_\alpha^{\RV{D^*E^*}}$ such that $(d,e)\in (\RV{D}^*,\RV{E}^*)(\Omega)\implies \prob{P}_\alpha^{\RV{D^*E^*}}(d,e) >0$. Then by Theorem \ref{th:dawid_constantionou}, $\RV{A}\CI_{\prob{P},\text{ext}}(\RV{B},\RV{D})|(\RV{C},\RV{E})$.
 
 Only if:
 
@@ -811,14 +815,25 @@ By independence, for some version of $\disint{P}^{\RV{A}|\RV{BCDE}}$:
 
 Thus for any $(a,b,c,d,e)\in A\times B\times C\times D\times E$ such that $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0$, $\disint{P}^{\RV{A}^*|\RV{B^*C^*D^*E^*}}(a|b,c,d,e) = \disint{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$ for any version of the disintegration. However, by assumption, $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0 \implies \prob{P}_\beta^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0$, and so $\disint{P}_\beta^{\RV{A}^*|\RV{B^*C^*D^*E^*}}\overset{a.s.}{=}disint{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$ also. But then
 
-\todo[inline]{I actually haven't shown almost sure equality}
+\todo[inline]{I actually haven't shown almost sure equality of disintegrations}
 
 \begin{align}
 	\prob{P}_\beta^{\RV{A^*B^*C^*}\RV{D^*E^*}} &= \tikzfig{indep_strengthen_3}\\
 	&= \tikzfig{indep_strengthen_4}
 \end{align}
-
 \end{proof}
+
+\subsubsection{Restricted 2-combs and conditional independence}
+
+We're often interested in a subset of inserts to a 2-comb. We're interested in particular in inserts that depend on a subset of the ``available'' variables. There are in general many restrictions we could consider, but some we are more interested in than others. For a 2-comb restricted to a generic subset $A$ of inserts, we will write $\prob{P}^{\RV{X}|\RV{W}\framebox{A} \RV{Y}|\RV{D}}$. 
+
+Given $\prob{P}^{\RV{X}|\RV{W}\square \RV{Y}|\RV{D}}$ and some random variable $\RV{V}=f\circ(\RV{W},\RV{X})$, define the subset of inserts that depend only on $\RV{V}$ as those $\prob{Q}_\alpha^{\RV{D}|\RV{XW}}$ such that $\RV{D}\CI^1_{\model{Q}}(\RV{W},\RV{X})|\RV{V}$. Define $B$ as the set of all inserts exhibiting this conditional independence. Then write  $\prob{P}^{\RV{X}|\RV{W}\framebox{\RV{V}} \RV{Y}|\RV{D}}$ for the restriction of $\prob{P}^{\RV{X}|\RV{W}\square \RV{Y}|\RV{D}}$ to this set. Note that $B$ may be empty if there are no valid inserts with the required conditional independence. When we consider restrictions, we will assume that this set is non-empty.
+
+A special case of some interest is the restriction $\prob{P}^{\RV{X}|\RV{W}\framebox{*} \RV{Y}|\RV{D}}$. For any $(\RV{X},\RV{W})$, $*=\text{erase}_{X\times W} \circ (\RV{X},\RV{W})$, so this is a well-defined restriction. However, we must still assume that there exists at lease one $\prob{Q}_\alpha^{\RV{D}|\RV{XW}}$ such that $\RV{D}\CI^1_{\model{Q}}(\RV{W},\RV{X})|*$, which may not always be true (consider the example of height, weight and BMI above; there is no valid conditional probability in which BMI is independent of height and weight). This restriction is useful because conditional independences with respect to the restricted map can be interpreted as expressing the property that ``unless we deliberately induce dependence, these variables are conditionally independent''.
+
+\begin{definition}[Restricted order 2 conditional independence]
+For a \emph{restricted probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\framebox{E}\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{Q}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$ for any $\prob{Q}_\gamma\in E$. Then $\RV{B}$ is restricted order 2 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI^{2|E}_{\prob{P}}\RV{A}|\RV{C}$ if for all $\gamma\in E$, $\RV{B}\CI^1_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
+\end{definition}
 
 
 % For an arbitrary model $\kernel{N}:\RV{X}\kto \text{id}_{\Omega}$ where $\RV{X}:\Omega\kto X$, and some $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{N}}\RV{B}|\RV{C}$, if there is some $\model{O}:\RV{I}\kto \RV{X}$ such that $O^x>0$ for all $x\in f_{\RV{X}}^{-1}(X)$ and $\RV{A}\CI_{\model{O}\model{N}} \RV{B}|\RV{C}$.

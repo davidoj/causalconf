@@ -3,25 +3,36 @@
 
 \section{Causal Bayesian Networks}\label{sec:CBN}
 
-When do causal relationships as defined by causal Bayesian networks exist? We will consider a simplified case where a single node may be intervened on, and find the implied see-do model. With this condition, according to \citet{pearl_causality:_2009}, a causal Bayesian network is a probability model $\prob{P}$, a collection of interventional probability models $\{\prob{P}_{\RV{X}=a}|a\in X_i\}$ and a directed acyclic graph $\mathcal{G}$ whose nodes are identified with some collection of variables, which we can group into three variables $\{\RV{W},\RV{X},\RV{Y}\}$, where $\RV{W}$ is the sequence of variables associated with the parents of $\RV{X}$ in $\mathcal{G}$, $\RV{X}$ is the ``intervenable'' node of $\mathcal{G}$ and $\RV{Y}$ are associated with the other nodes. The interventional probability models must all obey the truncated factorisation condition with respect to $\mathcal{G}$:
+Like some of the causal modelling frameworks discussed in the previous section, including see-do models, Causal Bayesian Networks (CBNs) represent both ``observations'' and ``consequences of interventions''. It seems reasonable to think that the real-world things that the see-do framework and the CBN framework address are sometimes the same. The question we have here is: if we have a decision problem represented by a see-do model, when can we represent the same problem with a CBN?
+
+In order to answer this question, we have to deal with the fact that neither theory is formally contained by the other, so there's no precise way, for example, for decisions to correspond to interventions. The correspondence exists in the territory, the world that is inhabited by measurement processes, not the precise mathematical world that is inhabited by random variables. We therefore have to make some choices about what corresponds to what that seem to be reasonable given our understanding of what these models are used for.
+
+First, we will consider what kind of see-do model is represented by a CBN. We will assume a sample space $\Omega$ and a collection of variables, and we will consider a simplified kind of CBN where a single variable may be intervened on. With this condition, according to \citet{pearl_causality:_2009}, a causal Bayesian network is a probability model $\prob{P}$, a collection of interventional probability models $\{\prob{P}_{\RV{X}=a}|a\in X_i\}$ and a directed acyclic graph $\mathcal{G}$ whose nodes are identified with variables. Given one intervenable variable, we can in general consider just three variables $\{\RV{W},\RV{X},\RV{Y}\}$, where $\RV{W}$ is all of the ancestors of $\RV{X}$ in $\mathcal{G}$, $\RV{X}$ is the ``intervenable'' variable and $\RV{Y}$ are all the other variables associated with nodes of $\mathcal{G}$. The interventional probability models must all obey the truncated factorisation condition with respect to $\mathcal{G}$:
 \begin{align}
-    \prob{P}_{\RV{X}=a}^{\RV{W}\RV{X}\RV{Y}}(w,x,y) &= \prob{P}^{\RV{W}}(w)\prob{P}^{\RV{Y}|\RV{XW}}(y|x,w)\llbracket x=a \rrbracket\label{eq:truncated_fac2}
+    \prob{P}_{\RV{X}\set a}^{\RV{W}\RV{X}\RV{Y}}(w,x,y) &= \prob{P}^{\RV{W}}(w)\prob{P}^{\RV{Y}|\RV{XW}}(y|x,w)\llbracket x=a \rrbracket\label{eq:truncated_fac2}
 \end{align}
 
-A standard interpretation of the observational and interventional probability distributions is that we have a sequence of observations modeled by $\RV{V}_A:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in A}$ mutually independent and identically distributed according to $\prob{P}^{\RV{WXY}}$, and a sequence of consequences modeled by $\RV{V}_B:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in B}$ mutually independent and identically distributed according to $\prob{P}_{\RV{X}=a}^{\RV{WXY}}$, and $\prob{P}$ and $\prob{P}_{\RV{X}=a}$ are coupled by Equation \ref{eq:truncated_fac2}. What it means for $\prob{P}$ and $\prob{P}_{\RV{X}=a}$ to be coupled is: if $\prob{P}$ is the ``actual'' distribution of observations, then $\prob{P}_{\RV{X}=a}$ is the ``actual'' distribution of consequences. This can be explicitly represented by introducing a variable $\RV{H}$ representing the ``actual'' distribution of observations, and we introduce a model $\model{U}^{\cdot|\RV{H}}$ such that
-\begin{align}
-    \prob{P}^{\RV{V}_i}&:=\model{U}^{\RV{V}_i|\RV{H}}(v|h)\text{ for some }h\in H\text{ and any }i\in A, v\in W\times X\times Y\label{eq:what_is_p}\\
-    \prob{P}_{\RV{X}_j=a}^{\RV{V}_j}&:=\model{U}^{\RV{V}_j|\RV{HX}_j}(v|h,a)\text{ for some }h\in H\text{ and any }j\in B, v\in W\times X\times Y\label{eq:what_is_do}
-\end{align}
-We justify line \ref{eq:what_is_do} by noting that $\model{U}^{\RV{V}_i|\RV{HX}}$ is a Markov kernel $H\times X\kto W\times X\times Y$, which is the same type as the map $\kernel{Q}:=h,a\mapsto \prob{P}_{\RV{X}=a}$, and in addition Equation \ref{eq:truncated_fac2} ensures that defining $\model{U}^{\RV{V}_i|\RV{HX}}:=\kernel{Q}$ is consistent via Lemma \ref{lem:nocopy2}.
+We will interpret observations and interventions as follows: we have a sequence of ``observation'' variables $\RV{V}_[n]:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in [n]}$ mutually independent and identically distributed and a sequence of ``consequence'' variables modeled by $\RV{V}_{[n,m]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in [n,m]}$ mutually independent and identically distributed for any choice of intervention $\RV{X}\set a$. We furthermore have an oracle that tells us that each observation is distributed according to $\prob{P}^{\RV{WXY}}\in \Delta(W\times X\times Y)$. Given $\prob{P}^{\RV{WXY}}\in \Delta(W\times X\times Y)$ and some $\RV{X}\set a$, the consequences will each be distributed according to $\prob{P}_{\RV{X}\set a}^{\RV{W}\RV{X}\RV{Y}}\in \Delta(W\times X\times Y)$, related to $\prob{P}^{\RV{WXY}}$ via Equation \ref{eq:truncated_fac2}.
 
-Note that the assumptions of mutual independence $\RV{V}_i\CI \RV{V}_{A\cup B\setminus \{i\}}|\RV{H}$ for $i\in A$ and $\RV{V}_j\CI \RV{V}_{A\cup B\setminus \{j\}}|\RV{HX}_j$ for $j\in B$ are required for the existence of $\model{U}^{\RV{V}_i|\RV{H}}$ and $\model{U}^{\RV{V}_j|\RV{HX}_j}$ respectively.
+The proposition ``there is an oracle that tells us $\prob{P}^{\RV{WXY}}$'' sounds a bit like we have a measurment process for determining $\prob{P}^{\RV{WXY}}$ -- namely, consult the oracle. However this is not an actual process; instead, the injunction to consult the oracle is actually saying \emph{if we had a measurement process for} $\prob{P}^{\RV{WXY}}$, then here is how we would proceed. In the previous section, we represented a gap in our knowledge of this type with a hypothesis variable $\RV{H}$ along with a model $\prob{T}$ such that $\prob{T}^{\RV{H}}$ is a probability gap, and what is referred to by the CBN setup as $\prob{P}^{\RV{WXY}}$ corresponds to $\prob{T}^{\RV{WXY}|\RV{H}}(\cdot|h)$ -- that is, the probability distribution that we would use for $(\RV{W,X,Y})$ if the oracle told us that $\RV{H}\yields h$.
+
+To represent this as a see-do model $\prob{T}^{\RV{V}_[n]|\RV{H}\square \RV{V}_{[n,m]}|\RV{D}}$, we identify the following:
+\begin{itemize}
+    \item The hypothesis $\RV{H}$ determines the ``actual'' observational distribution, which by Equation \ref{eq:truncated_fac2} also determines the ``actual'' collection of interventional consequences
+    \item The observational distribution $\prob{P}^{\RV{V}_{[n]}}$ is identified with $\disint{T}^{\RV{V}_i|\RV{H}}$, where the uncertainty over the 
+\end{itemize}
+
+ represent this relation within the model if we introduce a hypothesis variable $\RV{H}$. Recall that $\RV{H}$ stood in for a gap in our knowledge regarding which probabilistic model we should use to model our problem. Thus we suppose that $\prob{P}^{\RV{V}_n}$ is the probability distribution given by some $\model{T}^{\RV{V}_[n]|\RV{H}}$ for some $h\in H$ and likewise $\prob{P}_{\RV{X}\set a}^{\RV{W}\RV{X}\RV{Y}}$ for some $\model{U}^{\RV{V}_{[n,m]}|\RV{H}\RV{X}_{[n,m]}}$ and some $h\in H$, $a\in X^{m-n}$ like so:
+\begin{align}
+    \prob{P}^{\RV{V}_i}(v)&:=\model{T}^{\RV{V}_i|\RV{H}}(v|h)\text{ for some }h\in H\text{ and any }i\in [n], v\in W\times X\times Y\label{eq:what_is_p}\\
+    \prob{P}_{\RV{X}_j\set a}^{\RV{V}_j}&:=\model{U}^{\RV{V}_j|\RV{HX}_j}(v|h,a)\text{ for some }h\in H\text{ and any }j\in B, v\in W\times X\times Y\label{eq:what_is_do}
+\end{align}
+For line \ref{eq:what_is_do}, note that $\model{U}^{\RV{V}_i|\RV{HX}_i}$ is a Markov kernel $H\times X\kto W\times X\times Y$, which is the same type as the map $\kernel{Q}:=h,a\mapsto \prob{P}_{\RV{X}=a}$, and in addition Equation \ref{eq:truncated_fac2} ensures that defining $\model{U}^{\RV{V}_i|\RV{HX}_i}:=\kernel{Q}$ is consistent via Lemma \ref{lem:nocopy2}.
 
 Then Equation \ref{eq:truncated_fac2} becomes
 \begin{align}
-    \model{U}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{HX}_j}(w,x,y|h,a) &= \model{U}^{\RV{W}_i|\RV{H}}(w)\model{U}^{\RV{Y}_i|\RV{X_iW_iH}}(y|x,w,h)\llbracket x=a \rrbracket & i\in A, j\in B \label{eq:truncated_fac3}
+    \model{U}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{HX}_j}(w,x,y|h,a) &= \model{T}^{\RV{W}_i|\RV{H}}(w)\model{U}^{\RV{Y}_i|\RV{X_iW_iH}}(y|x,w,h)\llbracket x=a \rrbracket & i\in A, j\in B \label{eq:truncated_fac3}
 \end{align}
-The only difference here is that the coupling between distributions of observations and consequences via $\RV{H}$ is explicit. 
 
 In most situations, $A$ will be disjoint from $B$. While we don't necessarily want to rule out considering consequences to be equal to observations, we usually want to consider consequences that may take different values from observations.
 
@@ -46,7 +57,7 @@ However, we have not at this point assumed that we have a convex set of strategi
 
 \todo[inline]{I think reusing the same $\RV{H}$ between $\RV{U}$ and $\RV{T}$ is a mistake here. Maybe not a big problem, but ideally one would check!}
 \begin{theorem}\label{th:seedo_rep}
-Given a standard see-do model $\mathscr{M}:=\{\model{T}^{\RV{O}\RV{V}_B|\RV{HD}},\{\model{S}_\alpha^{\RV{D}|\RV{V}_A}|\alpha\in \mathscr{A}\}\}$ and a CBN model $\model{U}^{\RV{V}_A\RV{V}_j|\RV{HX}_j}$ as defined in Equation \ref{eq:cbn_maybe_comb}, assuming $\RV{W}_j$ is a pre-choice variable, then there exists a see-do model $\{\model{U}^{\RV{V}_i\RV{V}_j|\RV{HX}_j},\{\model{R}_\alpha^{\RV{X}_j|\RV{V}_A\RV{W}_j\RV{H}}|\alpha\in \mathscr{A}\}\}$ consistent with $\mathscr{M}$ if and only if
+Given a standard see-do model $\mathscr{M}:=\{\model{T}^{\RV{O}\RV{V}_B|\RV{HD}},\{\model{S}_\alpha^{\RV{D}|\RV{V}_A}|\alpha\in \mathscr{A}\}\}$ and a CBN model $\model{U}^{\RV{V}_A\RV{V}_j|\RV{HX}_j}$ as defined in Equation \ref{eq:cbn_maybe_comb}, then there exists a see-do model $\{\model{U}^{\RV{V}_i\RV{V}_j|\RV{HX}_j},\{\model{R}_\alpha^{\RV{X}_j|\RV{V}_A\RV{W}_j\RV{H}}|\alpha\in \mathscr{A}\}\}$ consistent with $\mathscr{M}$ if and only if
 \begin{enumerate}
     \item $\RV{W}_j$ is a pre-choice variable, i.e. $(\RV{V}_A,\RV{W}_j)\CI_{\model{T}} \RV{D}|\RV{H}$
     \item $\model{T}^{\RV{V}_A\RV{W}_j|\RV{H}} = \model{U}^{\RV{V}_A\RV{W}_j|\RV{H}}$
