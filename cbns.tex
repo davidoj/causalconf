@@ -7,46 +7,44 @@ Like some of the causal modelling frameworks discussed in the previous section, 
 
 In order to answer this question, we have to deal with the fact that neither theory is formally contained by the other, so there's no precise way, for example, for decisions to correspond to interventions. The correspondence exists in the territory, the world that is inhabited by measurement processes, not the precise mathematical world that is inhabited by random variables. We therefore have to make some choices about what corresponds to what that seem to be reasonable given our understanding of what these models are used for.
 
-First, we will consider what kind of see-do model is represented by a CBN. We will assume a sample space $\Omega$ and a collection of variables, and we will consider a simplified kind of CBN where a single variable may be intervened on. With this condition, according to \citet{pearl_causality:_2009}, a causal Bayesian network is a probability model $\prob{P}$, a collection of interventional probability models $\{\prob{P}_{\RV{X}=a}|a\in X_i\}$ and a directed acyclic graph $\mathcal{G}$ whose nodes are identified with variables. Given one intervenable variable, we can in general consider just three variables $\{\RV{W},\RV{X},\RV{Y}\}$, where $\RV{W}$ is all of the ancestors of $\RV{X}$ in $\mathcal{G}$, $\RV{X}$ is the ``intervenable'' variable and $\RV{Y}$ are all the other variables associated with nodes of $\mathcal{G}$. The interventional probability models must all obey the truncated factorisation condition with respect to $\mathcal{G}$:
+First, we will consider what kind of model is represented by a CBN; we will argue that they are in general probability models with order 2 gaps. We will assume a sample space $\Omega$ and a collection of variables, and we will consider a simplified kind of CBN where a single variable may be intervened on. With this condition, according to \citet{pearl_causality:_2009}, a causal Bayesian network is a probability model $\prob{P}$, a collection of interventional probability models $\{\prob{P}_{\RV{X}=a}|a\in X_i\}$ and a directed acyclic graph $\mathcal{G}$ whose nodes are identified with variables. Given one intervenable variable, we can in general consider just three variables $\{\RV{W},\RV{X},\RV{Y}\}$, where $\RV{W}$ is all of the ancestors of $\RV{X}$ in $\mathcal{G}$, $\RV{X}$ is the ``intervenable'' variable and $\RV{Y}$ are all the other variables associated with nodes of $\mathcal{G}$. The interventional probability models must all obey the truncated factorisation condition with respect to $\mathcal{G}$:
 \begin{align}
     \prob{P}_{\RV{X}\set a}^{\RV{W}\RV{X}\RV{Y}}(w,x,y) &= \prob{P}^{\RV{W}}(w)\prob{P}^{\RV{Y}|\RV{XW}}(y|x,w)\llbracket x=a \rrbracket\label{eq:truncated_fac2}
 \end{align}
 
-We will interpret observations and interventions as follows: we have a sequence of ``observation'' variables $\RV{V}_[n]:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in [n]}$ mutually independent and identically distributed and a sequence of ``consequence'' variables modeled by $\RV{V}_{[n,m]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in [n,m]}$ mutually independent and identically distributed for any choice of intervention $\RV{X}\set a$. We furthermore have an oracle that tells us that each observation is distributed according to $\prob{P}^{\RV{WXY}}\in \Delta(W\times X\times Y)$. Given $\prob{P}^{\RV{WXY}}\in \Delta(W\times X\times Y)$ and some $\RV{X}\set a$, the consequences will each be distributed according to $\prob{P}_{\RV{X}\set a}^{\RV{W}\RV{X}\RV{Y}}\in \Delta(W\times X\times Y)$, related to $\prob{P}^{\RV{WXY}}$ via Equation \ref{eq:truncated_fac2}.
+We will interpret observations and interventions as follows: we have a sequence of ``observation'' variables $\RV{V}_{[n]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in [n]}$ mutually independent and identically distributed and a sequence of ``consequence'' variables modeled by $\RV{V}_{[n,m]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in [n,m]}$ mutually independent and identically distributed for any choice of intervention $\RV{X}\set a$, and also independent of $\RV{V}_{[n]}$ given a choice of intervention. If we were given the fact that the observations were distributed according to $\prob{P}^{\RV{WXY}}\in \Delta(W\times X\times Y)$, then for any $\RV{X}\set a$ the consequences will each be distributed according to $\prob{P}_{\RV{X}\set a}^{\RV{W}\RV{X}\RV{Y}}\in \Delta(W\times X\times Y)$, related to $\prob{P}^{\RV{WXY}}$ via Equation \ref{eq:truncated_fac2}.
 
-The proposition ``there is an oracle that tells us $\prob{P}^{\RV{WXY}}$'' sounds a bit like we have a measurment process for determining $\prob{P}^{\RV{WXY}}$ -- namely, consult the oracle. However this is not an actual process; instead, the injunction to consult the oracle is actually saying \emph{if we had a measurement process for} $\prob{P}^{\RV{WXY}}$, then here is how we would proceed. In the previous section, we represented a gap in our knowledge of this type with a hypothesis variable $\RV{H}$ along with a model $\prob{T}$ such that $\prob{T}^{\RV{H}}$ is a probability gap, and what is referred to by the CBN setup as $\prob{P}^{\RV{WXY}}$ corresponds to $\prob{T}^{\RV{WXY}|\RV{H}}(\cdot|h)$ -- that is, the probability distribution that we would use for $(\RV{W,X,Y})$ if the oracle told us that $\RV{H}\yields h$.
+If we want some model $\model{T}$ of the variables $\RV{V}_{[m]}$, we therefore have for $i\in [n]$, $j\in [m,n]$:
 
-To represent this as a see-do model $\prob{T}^{\RV{V}_[n]|\RV{H}\square \RV{V}_{[n,m]}|\RV{D}}$, we identify the following:
-\begin{itemize}
-    \item The hypothesis $\RV{H}$ determines the ``actual'' observational distribution, which by Equation \ref{eq:truncated_fac2} also determines the ``actual'' collection of interventional consequences
-    \item The observational distribution $\prob{P}^{\RV{V}_{[n]}}$ is identified with $\disint{T}^{\RV{V}_i|\RV{H}}$, where the uncertainty over the 
-\end{itemize}
-
- represent this relation within the model if we introduce a hypothesis variable $\RV{H}$. Recall that $\RV{H}$ stood in for a gap in our knowledge regarding which probabilistic model we should use to model our problem. Thus we suppose that $\prob{P}^{\RV{V}_n}$ is the probability distribution given by some $\model{T}^{\RV{V}_[n]|\RV{H}}$ for some $h\in H$ and likewise $\prob{P}_{\RV{X}\set a}^{\RV{W}\RV{X}\RV{Y}}$ for some $\model{U}^{\RV{V}_{[n,m]}|\RV{H}\RV{X}_{[n,m]}}$ and some $h\in H$, $a\in X^{m-n}$ like so:
 \begin{align}
-    \prob{P}^{\RV{V}_i}(v)&:=\model{T}^{\RV{V}_i|\RV{H}}(v|h)\text{ for some }h\in H\text{ and any }i\in [n], v\in W\times X\times Y\label{eq:what_is_p}\\
-    \prob{P}_{\RV{X}_j\set a}^{\RV{V}_j}&:=\model{U}^{\RV{V}_j|\RV{HX}_j}(v|h,a)\text{ for some }h\in H\text{ and any }j\in B, v\in W\times X\times Y\label{eq:what_is_do}
-\end{align}
-For line \ref{eq:what_is_do}, note that $\model{U}^{\RV{V}_i|\RV{HX}_i}$ is a Markov kernel $H\times X\kto W\times X\times Y$, which is the same type as the map $\kernel{Q}:=h,a\mapsto \prob{P}_{\RV{X}=a}$, and in addition Equation \ref{eq:truncated_fac2} ensures that defining $\model{U}^{\RV{V}_i|\RV{HX}_i}:=\kernel{Q}$ is consistent via Lemma \ref{lem:nocopy2}.
-
-Then Equation \ref{eq:truncated_fac2} becomes
-\begin{align}
-    \model{U}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{HX}_j}(w,x,y|h,a) &= \model{T}^{\RV{W}_i|\RV{H}}(w)\model{U}^{\RV{Y}_i|\RV{X_iW_iH}}(y|x,w,h)\llbracket x=a \rrbracket & i\in A, j\in B \label{eq:truncated_fac3}
+    \prob{T}^{\RV{X_iW_iY_i}}&= \prob{P}^{\RV{WXY}}\\
+    \prob{T}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{X}_j}(w,x,y|a) &= \prob{P}_{\RV{X}\set a}^{\RV{W}\RV{X}\RV{Y}}(w,x,y)\\
+    \implies \disint{T}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{X}_j} &= \prob{T}^{\RV{W}_i}(w)\prob{T}^{\RV{Y}_i|\RV{X_iW_i}}(y|x,w)\llbracket x=x \rrbracket \label{eq:seedo_nohyp}
 \end{align}
 
-In most situations, $A$ will be disjoint from $B$. While we don't necessarily want to rule out considering consequences to be equal to observations, we usually want to consider consequences that may take different values from observations.
 
-For $i\in A$, $j\in B$, we can write $\model{U}^{\RV{V}_{i}\RV{V}_j|\RV{HX}_{j}}$ as follows
+
+We assumed independence of $\RV{V}_j$s from $\RV{V}_{[n]}$ for $j\in [n,m]$; that is $\RV{V}_{[n,m]}\CI^2_{\prob{T}} \RV[V]_{[n]}|\RV{X}_{[n,m]}$. 
+
 \begin{align}
-    \model{U}^{\RV{V}_{i}\RV{V}_j|\RV{HX}_{j}} &= \tikzfig{cbn_sd2}\\
-    \model{U}^{\RV{V}_j|\RV{HX}_j} &= \tikzfig{truncated_fac_definition}\\
-    \implies \model{U}^{\RV{V}_A\RV{V}_j|\RV{HX}_{j}} &= \tikzfig{cbn_sd23}\label{eq:cbn_maybe_comb}
+    \prob{T}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{X}_j}
 \end{align}
 
-Note that we replace the single observation $\RV{V}_i$ with the full observations $\RV{V}_A$ as we will make use of them subsequently, and we can do this without issue due to the assumption of conditional independence among the $\RV{V}_k$s. It will be sufficient to consider a single consequence $\RV{V}_j$. Equation \ref{eq:cbn_maybe_comb} defines a model $\model{U}^{\cdot|\RV{HX}_j}$ which relates observations to consequences in the manner suggested by Equation \ref{eq:truncated_fac2}. We will call $\model{U}$ a ``CBN model''. We note that the model in Equation \ref{eq:cbn_maybe_comb} looks like a 2-comb:
+These equations tell us that if we were given $\prob{P}^{\RV{WXY}}$ by an oracle, then we would have a proabibility 2-comb $\prob{T}^{\RV{V}_{[n]}\square\RV{V}_{[n,m]}|\RV{X}_{[n,m]}}$. However, ``if we were given $\prob{P}^{\RV{WXY}}$ by an oracle'' is much the same as saying ``$\prob{P}^{\RV{WXY}}$ is a probability gap''. 
+
+
+
+The proposition ``there is an oracle that tells us $\prob{P}^{\RV{WXY}}$'' sounds a bit like we have a measurment process for determining $\prob{P}^{\RV{WXY}}$ -- namely, consult the oracle. However this is not an actual process; instead, the injunction to consult the oracle is actually saying \emph{if we had a measurement process for} $\prob{P}^{\RV{WXY}}$, then here is how we would proceed. In the previous section, we represented a gap in our knowledge of this type with a hypothesis variable $\RV{H}$ along with a model $\prob{T}$ such that $\prob{T}^{\RV{H}}$ is a probability gap, and what is referred to by the CBN setup as $\prob{P}^{\RV{WXY}}$ corresponds to $\prob{T}^{\RV{W_iX_iY_i}|\RV{H}}(\cdot|h)$ for $i\in [n]$ -- that is, the probability distribution that we would use for $(\RV{W_i,X_i,Y_i})$ if the oracle told us that $\RV{H}\yields h$.
+
+We have variables $\RV{V}_{[n]}$, $\RV{V}_{[n,m]}$ and $\RV{H}$ with some model $\prob{T}$ that has a probability gap for $\prob{T}^{\RV{H}}$. What kind of model is $\prob{T}$? We think it is appropriate to consider that it has an additional probability gap.  Equation \ref{eq:truncated_fac2} allows us to define $\prob{T}^{\RV{V}_{[n,m]}|\RV{H}\RV{X}_{[n,m]}}$ from $\prob{T}^{\RV{V}_{[n]}|\RV{H}}$. In particular, for any $i\in [n]$, $j\in [n,m]$
+
 \begin{align}
-    \tikzfig{cbn_sd_2comb} \label{eq:cbn_2comb}
+    \prob{T}^{\RV{V}_{j}|\RV{H}\RV{X}_{[n,m]}}(w,x',y|h,x) &= \prob{T}^{\RV{W}_i|\RV{H}}(w|h)\prob{T}^{\RV{Y}_i|\RV{X_iW_i}}(y|x,w)\llbracket x=x \rrbracket
 \end{align}
+
+$\prob{T}^{\RV{V}_{[n,m]}|\RV{H}\RV{X}_{[n,m]}}$ and $\prob{T}^{\RV{V}_{[n]}|\RV{H}}$ together define a probability 2-comb $\prob{T}^{\RV{V}_{[n]}|\RV{H}\square \RV{V}_{[n,m]}|\RV{X}_{[n,m]}}$. The family of inserts for this 2-comb are conditional probabilities of the form $\prob{U}_\alpha^{\RV{X}_{[n,m]}|\RV{H}\RV{V}_{[n]}\RV{W}_{[n,m]}}$.
+
+Decision rules do not necessarily take the form $\prob{U}_\alpha^{\RV{X}_{[n,m]}|\RV{H}\RV{V}_{[n]}\RV{W}_{[n,m]}}$. 
 
 However, we have not at this point assumed that we have a convex set of strategies. Suppose we have some standard see-do model $\mathscr{M}:=\{\model{T}^{\RV{O}\RV{V}_B|\RV{HD}},\{\model{S}_\alpha^{\RV{D}|\RV{O}}|\alpha\in \mathscr{A}\}\}$. The question we want to ask is: when can we posit a see-do model $\{\model{U}^{\RV{V}_A\RV{V}_j|\RV{HX}_j},\{\model{R}_\alpha^{\RV{X}_j|\RV{V}_A\RV{W}_j\RV{H}}|\alpha\in \mathscr{A}\}\}$ consistent with $\mathscr{M}$ in the sense that, for all $\alpha\in \mathscr{A}$:
 \begin{align}
@@ -55,7 +53,6 @@ However, we have not at this point assumed that we have a convex set of strategi
     &=: \model{Q}^{\RV{V}_B|\RV{H}}_\alpha
 \end{align}
 
-\todo[inline]{I think reusing the same $\RV{H}$ between $\RV{U}$ and $\RV{T}$ is a mistake here. Maybe not a big problem, but ideally one would check!}
 \begin{theorem}\label{th:seedo_rep}
 Given a standard see-do model $\mathscr{M}:=\{\model{T}^{\RV{O}\RV{V}_B|\RV{HD}},\{\model{S}_\alpha^{\RV{D}|\RV{V}_A}|\alpha\in \mathscr{A}\}\}$ and a CBN model $\model{U}^{\RV{V}_A\RV{V}_j|\RV{HX}_j}$ as defined in Equation \ref{eq:cbn_maybe_comb}, then there exists a see-do model $\{\model{U}^{\RV{V}_i\RV{V}_j|\RV{HX}_j},\{\model{R}_\alpha^{\RV{X}_j|\RV{V}_A\RV{W}_j\RV{H}}|\alpha\in \mathscr{A}\}\}$ consistent with $\mathscr{M}$ if and only if
 \begin{enumerate}
