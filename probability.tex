@@ -759,6 +759,10 @@ For any $\disint{P}^{\RV{B}|\RV{C}}$ and $\disint{P}^{\RV{A}|\RV{C}}$. \citet{ch
 
 Conditional independence $\RV{A}\CI_{\prob{P}}\RV{B}|\RV{C}$ holds for an arbitrary probability distribution $\model{P}^{\RV{W}}$ if it holds for all probability models $\prob{P}^{\RV{I}}_\alpha$ that pushforward to $\prob{P}^{\RV{W}}$. This might happen when, for example, $(\RV{A},\RV{B},\RV{C})=\RV{W}$. Thus we define order 0 conditional independence with respct to an arbitrary probability distribution as well.
 
+\begin{theorem}\label{th:cho_ci_equiv}
+\todo[inline]{Equivalence of different statements of conditional independence}
+\end{theorem}
+
 \begin{definition}[Order 1 conditional independence]
 For a \emph{conditional probability model} $\prob{P}^{\RV{V}|\RV{W}}$, define $\prob{P}_{\beta}^{\RV{VW}}:=\prob{P}_{\beta}^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$. Then say $\RV{B}$ is order 1 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI^1_{\prob{P}}\RV{A}|\RV{C}$ if for all $\beta$, $\RV{B}\CI_{\prob{P}_\beta}\RV{A}|\RV{C}$.
 \end{definition}
@@ -827,11 +831,40 @@ In each case, the semi-graphoid axioms hold for each lower level extension $\pro
 
 It is well-known that directed acyclic graphs are able to represent some conditional independence properties of probability models via the graphical property of \emph{d-separation}. String diagrams are similar to directed acyclic graphs, and string diagrams can be translated into directed acyclic graphs and vise-versa \citep{fong_causal_2013}. Thus we expect that a property analogous to d-separation can be defined for string diagrams.
 
-We can reason from graphical properties of model disintegrations to graphical properties of models as Theorem \ref{th:cons_ci}. A general theory akin to d-separation for string diagrams may facilitate a more general theory of appliccability of conditional independence properties.
+We can reason from graphical properties of model disintegrations to graphical properties of models as Theorem \ref{th:cons_ci}. A general theory akin to d-separation for string diagrams may facilitate a more general understanding of how conditional independence properties of a model relate to conditional independence properties of its components.
 
 \begin{theorem}\label{th:cons_ci}
-Given a probability 2-comb $\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}}$, $\RV{Y}\CI_{\model{P}}^2\RV{V}|\RV{WX}$ if and only if there is a version of $\disint{P}^{\RV{Y}|\RV{XVW}}$ and some $\disint{P}^{\RV{Y}|\RV{WX}}$
+Given a probability 2-comb $\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}}$, $\RV{Y}\CI_{\model{P}}^2\RV{V}|\RV{WX}$ if and only if there is a version of $\disint{P}^{\RV{Y}|\RV{WXV}}$ and some $\disint{P}^{\RV{Y}|\RV{WX}}$ such that
+\begin{align}
+	\disint{P}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence}
+\end{align}
 \end{theorem}
+
+\begin{proof}
+If: For any $\model{K}:X\times V\times W\kto Y$, $\model{J}:\{*\}\kto W$
+\begin{align}
+	\model{L} :&= \model{J}\odot \text{insert}(\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}},\model{K})\\
+	 &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} \odot \disint{P}^{\RV{Y}|\RV{WXV}}\\
+\end{align}
+
+That is, $\disint{P}^{\RV{Y}|\RV{WXV}}$ is a version of $\disint{L}^{\RV{Y}|\RV{WXV}}$ for any extension $\model{L}$ of $\model{P}$. Then by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\model{L}}\RV{V}|\RV{WX}$ and so, by definition, $\RV{Y}\CI_{\model{P}}^2\RV{V}|\RV{WX}$.
+Only if:
+
+Let $\model{L}:\{*\}\kto W\times X\times V\times Y$ be an extension of $\model{P}$ to a 0-order model such that $\model{L}^{\RV{WXV}}\gg \model{M}^{\RV{WXV}}$ for any other extension $\model{M}$. Because $\RV{Y}\CI_{\model{L}}\RV{V}|\RV{WX}$, by Theorem \ref{th:cho_ci_equiv} there is some $\disint{L}^{\RV{Y}|\RV{WXV}}$ and $\disint{L}^{\RV{Y}|\RV{WX}}$ such that
+\begin{align}
+	\disint{L}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence_l}
+\end{align}
+
+As $\model{L}$ is an extension of $\model{P}$, there must be some $\model{J}$, $\model{K}$ such that for any $\disint{P}^{\RV{Y}|\RV{WXV}}$
+
+\begin{align}
+	\model{L} :&= \model{J}\odot \text{insert}(\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}},\model{K})\\
+	 &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} \odot \disint{P}^{\RV{Y}|\RV{WXV}}\\
+	 \model{L}^{\RV{WXV}} &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K}
+\end{align}
+
+Thus for any $(w,x,v)$ such that $\model{L}^{\RV{WXV}}>0$, $\disint{P}^{\RV{Y}|\RV{WXV}}\overset{\model{L}}{\cong}\disint{L}^{\RV{Y}|\RV{WXV}}$. The set on which they may disagree is precisely the set of $(w,x,v)$ such that $\model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} = 0$ for all $\model{J}$, $\model{K}$, but this means that $\disint{P}^{\RV{Y}|\RV{WXV}}\overset{\model{P}}{\cong}\disint{L}^{\RV{Y}|\RV{WXV}}$ also.
+\end{proof}
 
 \subsubsection{Restricted 2-combs}
 

@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (0, 0.5) {$\disint{P}^{\RV{Y}|\RV{W}\RV{X}}$};
+		\node [style=none] (1) at (0, -0.5) {};
+		\node [style=RLabel tikzit] (5) at (1.75, 0.5) {$\RV{Y}$};
+		\node [style=none] (6) at (-0.75, 0.75) {};
+		\node [style=none] (7) at (-0.75, 0.25) {};
+		\node [style=copymap tikzit] (8) at (-5.5, 0.75) {};
+		\node [style=small kernel tikzit] (9) at (-4.5, 0) {$\model{L}$};
+		\node [style=copymap tikzit] (10) at (-3, 0.25) {};
+		\node [style=copymap tikzit] (11) at (-3, -0.25) {};
+		\node [style=none] (12) at (-4, 0.25) {};
+		\node [style=none] (13) at (-4, -0.25) {};
+		\node [style=RLabel tikzit] (14) at (1.75, -1.25) {$\RV{X}$};
+		\node [style=RLabel tikzit] (15) at (1.75, -2) {$\RV{V}$};
+		\node [style=small dist tikzit] (16) at (-7.25, 0.75) {$\model{J}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0) to (5);
+		\draw [in=180, out=-45] (8) to (9);
+		\draw [in=180, out=0] (8) to (6.center);
+		\draw (12.center) to (10);
+		\draw (13.center) to (11);
+		\draw (10) to (7.center);
+		\draw [in=180, out=-15] (10) to (14);
+		\draw [in=180, out=-15] (11) to (15);
+		\draw [style=delmap, in=180, out=0] (11) to (1.center);
+		\draw (16) to (8);
+	\end{pgfonlayer}
+\end{tikzpicture}

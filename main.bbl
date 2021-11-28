@@ -1,9 +1,19 @@
-\begin{thebibliography}{28}
+\begin{thebibliography}{32}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bolker(1966)]{bolker_functions_1966}
+Ethan~D. Bolker.
+\newblock Functions {Resembling} {Quotients} of {Measures}.
+\newblock \emph{Transactions of the American Mathematical Society},
+  124\penalty0 (2):\penalty0 292--312, 1966.
+\newblock ISSN 0002-9947.
+\newblock \doi{10.2307/1994401}.
+\newblock URL \url{https://www.jstor.org/stable/1994401}.
+\newblock Publisher: American Mathematical Society.
 
 \bibitem[Chiribella et~al.(2008)Chiribella, D'Ariano, and
   Perinotti]{chiribella_quantum_2008}
@@ -19,6 +29,16 @@ Kenta Cho and Bart Jacobs.
   (7):\penalty0 938--971, August 2019.
 \newblock ISSN 0960-1295, 1469-8072.
 \newblock \doi{10.1017/S0960129518000488}.
+
+\bibitem[Constantinou and Dawid(2017)]{constantinou_extended_2017}
+Panayiota Constantinou and A.~Philip Dawid.
+\newblock {EXTENDED} {CONDITIONAL} {INDEPENDENCE} {AND} {APPLICATIONS} {IN}
+  {CAUSAL} {INFERENCE}.
+\newblock \emph{The Annals of Statistics}, 45\penalty0 (6):\penalty0
+  2618--2653, 2017.
+\newblock ISSN 0090-5364.
+\newblock URL \url{http://www.jstor.org/stable/26362953}.
+\newblock Publisher: Institute of Mathematical Statistics.
 
 \bibitem[Dawid(2020)]{dawid_decision-theoretic_2020}
 A.~Philip Dawid.
@@ -98,6 +118,18 @@ Bart Jacobs, Aleks Kissinger, and Fabio Zanasi.
   2019.
 \newblock ISBN 978-3-030-17127-8.
 
+\bibitem[Jeffrey(1965)]{jeffrey_logic_1990}
+Richard~C. Jeffrey.
+\newblock \emph{The {Logic} of {Decision}}.
+\newblock University of Chicago Press, July 1965.
+\newblock ISBN 978-0-226-39582-1.
+
+\bibitem[Joyce(1999)]{joyce_foundations_1999}
+James~M. Joyce.
+\newblock \emph{The {Foundations} of {Causal} {Decision} {Theory}}.
+\newblock Cambridge University Press, Cambridge ; New York, April 1999.
+\newblock ISBN 978-0-521-64164-7.
+
 \bibitem[Korzybski(1933)]{korzybski_science_1933}
 Alfred Korzybski.
 \newblock \emph{Science and sanity; an introduction to {Non}-{Aristotelian}
@@ -121,14 +153,10 @@ Finnian Lattimore and David Rohde.
 \newblock URL \url{http://arxiv.org/abs/1906.07125}.
 \newblock arXiv: 1906.07125.
 
-\bibitem[Lewis(1981)]{lewis_causal_1981}
-David Lewis.
-\newblock Causal decision theory.
-\newblock \emph{Australasian Journal of Philosophy}, 59\penalty0 (1):\penalty0
-  5--30, March 1981.
-\newblock ISSN 0004-8402.
-\newblock \doi{10.1080/00048408112340011}.
-\newblock URL \url{https://doi.org/10.1080/00048408112340011}.
+\bibitem[Lewis(1986)]{lewis_causation_1986}
+David~K Lewis.
+\newblock Causation.
+\newblock \emph{Journal of Philosophy}, 1986.
 
 \bibitem[Menger(2003)]{menger_random_2003}
 Karl Menger.
@@ -142,18 +170,15 @@ Karl Menger.
 \newblock \doi{10.1007/978-3-7091-6045-9_31}.
 \newblock URL \url{https://doi.org/10.1007/978-3-7091-6045-9_31}.
 
-\bibitem[Mueller et~al.(2021)Mueller, Li, and Pearl]{mueller_causes_2021}
-Scott Mueller, Ang Li, and Judea Pearl.
-\newblock Causes of {Effects}: {Learning} individual responses from population
-  data.
-\newblock \emph{arXiv:2104.13730 [cs, stat]}, May 2021.
-\newblock URL \url{http://arxiv.org/abs/2104.13730}.
-\newblock arXiv: 2104.13730.
-
-\bibitem[{Paul F. Christiano}(2018)]{paul_f_christiano_edt_2018}
-{Paul F. Christiano}.
-\newblock {EDT} vs {CDT}, September 2018.
-\newblock URL \url{https://sideways-view.com/2018/09/19/edt-vs-cdt/}.
+\bibitem[Nozick(1969)]{nozick_newcombs_1969}
+Robert Nozick.
+\newblock Newcomb’s {Problem} and {Two} {Principles} of {Choice}.
+\newblock In Nicholas Rescher, editor, \emph{Essays in {Honor} of {Carl} {G}.
+  {Hempel}: {A} {Tribute} on the {Occasion} of his {Sixty}-{Fifth} {Birthday}},
+  Synthese {Library}, pages 114--146. Springer Netherlands, Dordrecht, 1969.
+\newblock ISBN 978-94-017-1466-2.
+\newblock \doi{10.1007/978-94-017-1466-2_7}.
+\newblock URL \url{https://doi.org/10.1007/978-94-017-1466-2_7}.
 
 \bibitem[Pearl(2009)]{pearl_causality:_2009}
 Judea Pearl.
@@ -169,6 +194,17 @@ Judea Pearl.
 \newblock URL
   \url{https://www.degruyter.com/view/j/jci.2018.6.issue-2/jci-2018-2001/jci-2018-2001.xml}.
 
+\bibitem[Ramsey(2016)]{ramsey_truth_2016}
+Frank~P. Ramsey.
+\newblock Truth and {Probability}.
+\newblock In Horacio Arló-Costa, Vincent~F. Hendricks, and Johan van Benthem,
+  editors, \emph{Readings in {Formal} {Epistemology}: {Sourcebook}}, Springer
+  {Graduate} {Texts} in {Philosophy}, pages 21--45. Springer International
+  Publishing, Cham, 2016.
+\newblock ISBN 978-3-319-20451-2.
+\newblock \doi{10.1007/978-3-319-20451-2_3}.
+\newblock URL \url{https://doi.org/10.1007/978-3-319-20451-2_3}.
+
 \bibitem[Rubin(2005)]{rubin_causal_2005}
 Donald~B. Rubin.
 \newblock Causal {Inference} {Using} {Potential} {Outcomes}.
@@ -177,6 +213,11 @@ Donald~B. Rubin.
 \newblock ISSN 0162-1459.
 \newblock \doi{10.1198/016214504000001880}.
 \newblock URL \url{https://doi.org/10.1198/016214504000001880}.
+
+\bibitem[Savage(1954)]{savage_foundations_1954}
+Leonard~J. Savage.
+\newblock \emph{The {Foundations} of {Statistics}}.
+\newblock Wiley Publications in Statistics, 1954.
 
 \bibitem[Selinger(2010)]{selinger_survey_2010}
 Peter Selinger.
@@ -194,15 +235,6 @@ Eyal Shahar.
   957--958, October 2009.
 \newblock ISSN 1476-6256.
 \newblock \doi{10.1093/aje/kwp292}.
-
-\bibitem[Tian and Pearl(2000)]{tian_probabilities_2000}
-Jin Tian and Judea Pearl.
-\newblock Probabilities of causation: {Bounds} and identification.
-\newblock \emph{Annals of Mathematics and Artificial Intelligence}, 28\penalty0
-  (1):\penalty0 287--313, October 2000.
-\newblock ISSN 1573-7470.
-\newblock \doi{10.1023/A:1018912507879}.
-\newblock URL \url{https://doi.org/10.1023/A:1018912507879}.
 
 \bibitem[Tian and Pearl(2002)]{tian2002general}
 Jin Tian and Judea Pearl.

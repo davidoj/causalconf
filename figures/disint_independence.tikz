@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (0, 0.5) {$\disint{P}^{\RV{Y}|\RV{W}\RV{X}}$};
+		\node [style=none] (1) at (0, -0.5) {};
+		\node [style=Llabel tikzit] (2) at (-2, 1) {$\RV{W}$};
+		\node [style=Llabel tikzit] (3) at (-2, 0.25) {$\RV{X}$};
+		\node [style=Llabel tikzit] (4) at (-2, -0.5) {$\RV{V}$};
+		\node [style=RLabel tikzit] (5) at (1.75, 0.5) {$\RV{Y}$};
+		\node [style=none] (6) at (-0.75, 0.75) {};
+		\node [style=none] (7) at (-0.75, 0.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=-180, out=0, looseness=1.25] (2) to (6.center);
+		\draw (3) to (7.center);
+		\draw (0) to (5);
+		\draw [style=delmap] (4) to (1.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
