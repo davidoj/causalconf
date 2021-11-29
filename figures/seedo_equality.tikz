@@ -1,26 +1,29 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=small kernel tikzit] (0) at (-16, 0.25) {$\model{U}^{\RV{V}_A\RV{W}_j|\RV{H}}$};
-		\node [style=Llabel tikzit] (1) at (-19, 0.25) {$\RV{H}$};
-		\node [style=copymap tikzit] (3) at (-18.25, 0.25) {};
-		\node [style=small kernel tikzit] (5) at (-4.5, -0.25) {$\model{U}^{\RV{Y}_j|\RV{X_jW_jH}}$};
-		\node [style=RLabel tikzit] (8) at (-2.25, -0.25) {$\RV{Y}_j$};
-		\node [style=none] (10) at (-6, -0.25) {};
-		\node [style=none] (11) at (-6, -0.75) {};
-		\node [style=copymap tikzit] (12) at (-7, 0.25) {};
-		\node [style=RLabel tikzit] (13) at (-2.25, 0.5) {$\RV{X}_j$};
+		\node [style=small kernel tikzit] (0) at (-16, 0.25) {$\model{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}}$};
+		\node [style=Llabel tikzit] (1) at (-19.75, 0.25) {$\RV{H}$};
+		\node [style=copymap tikzit] (3) at (-19, 0.25) {};
+		\node [style=small kernel tikzit] (5) at (-1, 0) {$\model{U}^{\RV{Y}_{(n,m]}|\RV{X_{(n,m]}W_{(n,m]}H}}$};
+		\node [style=RLabel tikzit] (8) at (3.25, 0) {$\RV{Y}_{(n,m]}$};
+		\node [style=none] (10) at (-4, 0) {};
+		\node [style=none] (11) at (-4, -0.5) {};
+		\node [style=copymap tikzit] (12) at (-5, 0.5) {};
+		\node [style=RLabel tikzit] (13) at (3.25, 0.75) {$\RV{X}_{(n,m]}$};
 		\node [style=copymap tikzit] (14) at (-13, -0.25) {};
-		\node [style=none] (15) at (-6, 0.25) {};
-		\node [style=none] (16) at (-9.25, -0.75) {};
-		\node [style=none] (17) at (-15.5, -1.75) {};
-		\node [style=small kernel tikzit] (18) at (-9.75, 0.25) {$\model{R}_\alpha^{\RV{X}_j|\RV{H}\RV{V}_A\RV{W}_j}$};
-		\node [style=none] (19) at (-11, 0.5) {};
-		\node [style=none] (20) at (-11, 0.25) {};
-		\node [style=none] (21) at (-11, 0) {};
-		\node [style=RLabel tikzit] (49) at (-2.25, -1) {$\RV{W}_j$};
-		\node [style=none] (50) at (-10, -1.5) {};
-		\node [style=none] (51) at (-15.5, 0.5) {};
-		\node [style=none] (52) at (-15.5, 0) {};
+		\node [style=none] (15) at (-4, 0.5) {};
+		\node [style=none] (16) at (-8.25, -0.5) {};
+		\node [style=none] (17) at (-14.75, -1.25) {};
+		\node [style=small kernel tikzit] (18) at (-9, 0.5) {$\model{Q}_\alpha^{\RV{X}_{(n,m]}|\RV{H}\RV{V}_{[n]}\RV{W}_{(n,m]}}$};
+		\node [style=none] (19) at (-11, 0.75) {};
+		\node [style=none] (20) at (-11, 0.5) {};
+		\node [style=none] (21) at (-11, 0.25) {};
+		\node [style=RLabel tikzit] (49) at (3.25, -0.75) {$\RV{W}_{(n,m]}$};
+		\node [style=none] (50) at (-8.25, -1.25) {};
+		\node [style=none] (51) at (-14.75, 0.5) {};
+		\node [style=none] (52) at (-14.75, 0) {};
+		\node [style=copymap tikzit] (53) at (-13.25, 0.5) {};
+		\node [style=RLabel tikzit] (54) at (3.25, 1.5) {$\RV{V}_{[n]}$};
+		\node [style=none] (55) at (-6, 1.5) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (1) to (3);
@@ -38,6 +41,9 @@
 		\draw [in=180, out=0] (50.center) to (49);
 		\draw [in=180, out=-45, looseness=0.75] (3) to (17.center);
 		\draw [in=180, out=0] (52.center) to (14);
-		\draw [in=180, out=0] (51.center) to (20.center);
+		\draw (51.center) to (53);
+		\draw (53) to (20.center);
+		\draw [in=-180, out=45, looseness=0.75] (53) to (55.center);
+		\draw (55.center) to (54);
 	\end{pgfonlayer}
 \end{tikzpicture}

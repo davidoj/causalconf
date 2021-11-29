@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (2.5, -0.25) {$\disint{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}}$};
+		\node [style=none] (1) at (2.5, -1.25) {};
+		\node [style=Llabel tikzit] (2) at (-0.5, 0.25) {$\RV{W}_i$};
+		\node [style=Llabel tikzit] (3) at (-0.5, -0.5) {$\RV{X}_i$};
+		\node [style=Llabel tikzit] (4) at (-0.5, -1.25) {$\RV{V}_{[n]}$};
+		\node [style=RLabel tikzit] (5) at (5.25, -0.25) {$\RV{Y}_i$};
+		\node [style=none] (6) at (1.75, 0) {};
+		\node [style=none] (7) at (1.75, -0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=-180, out=0, looseness=1.25] (2) to (6.center);
+		\draw (3) to (7.center);
+		\draw (0) to (5);
+		\draw [style=delmap] (4) to (1.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,36 +1,38 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=small kernel tikzit] (0) at (-5.25, 0.5) {$\model{T}^{\RV{V}_A|\RV{H}}$};
+		\node [style=small kernel tikzit] (0) at (-5.25, 0.5) {$\model{T}^{\RV{V}_{[n]}|\RV{H}}$};
 		\node [style=Llabel tikzit] (1) at (-7.75, 0.5) {$\RV{H}$};
 		\node [style=copymap tikzit] (2) at (-7, 0.5) {};
-		\node [style=small kernel tikzit] (3) at (6, 0.25) {$\model{T}^{\RV{V}_j|\RV{DV}_A\RV{H}}$};
-		\node [style=RLabel tikzit] (4) at (8.75, 0.25) {$\RV{Y}_j$};
-		\node [style=none] (5) at (5, 0.25) {};
-		\node [style=none] (6) at (5, 0) {};
-		\node [style=none] (7) at (5, 0.5) {};
-		\node [style=none] (8) at (-2.25, -1.25) {};
-		\node [style=small kernel tikzit] (9) at (1, 0.5) {$\model{S}_\alpha^{\RV{D}_j|\RV{V}_A}$};
-		\node [style=none] (10) at (0.5, 0.5) {};
-		\node [style=copymap tikzit] (11) at (-3, 0.5) {};
-		\node [style=none] (12) at (0.25, -0.75) {};
-		\node [style=RLabel tikzit] (13) at (8.75, 1) {$\RV{X}_j$};
-		\node [style=RLabel tikzit] (14) at (8.75, -0.5) {$\RV{W}_j$};
-		\node [style=none] (15) at (7, 0.5) {};
-		\node [style=none] (16) at (7, 0.25) {};
-		\node [style=none] (17) at (7, 0) {};
+		\node [style=small kernel tikzit] (3) at (3.25, 0.25) {$\model{T}^{\RV{V}_{(n,m]}|\RV{DV}_A\RV{H}}$};
+		\node [style=RLabel tikzit] (4) at (6.5, 0.25) {$\RV{Y}_{(n,m]}$};
+		\node [style=none] (5) at (1.25, 0.25) {};
+		\node [style=none] (6) at (1.25, 0) {};
+		\node [style=none] (7) at (1.25, 0.5) {};
+		\node [style=none] (8) at (-1, -1.25) {};
+		\node [style=small kernel tikzit] (9) at (-1, 0.5) {$\model{T}_\alpha^{\RV{D}|\RV{V}_{[n]}}$};
+		\node [style=none] (10) at (-1.5, 0.5) {};
+		\node [style=copymap tikzit] (11) at (-3.5, 0.5) {};
+		\node [style=none] (12) at (-0.75, -0.75) {};
+		\node [style=RLabel tikzit] (13) at (6.5, 1) {$\RV{X}_{(n,m]}$};
+		\node [style=RLabel tikzit] (14) at (6.5, -0.5) {$\RV{W}_{(n,m]}$};
+		\node [style=none] (15) at (5, 0.5) {};
+		\node [style=none] (16) at (5, 0.25) {};
+		\node [style=none] (17) at (5, 0) {};
+		\node [style=RLabel tikzit] (18) at (6.5, 2) {$\RV{V}_{[n]}$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (1) to (2);
 		\draw (2) to (0);
-		\draw [in=210, out=0] (8.center) to (6.center);
+		\draw [in=-180, out=0] (8.center) to (6.center);
 		\draw [in=-180, out=-60] (2) to (8.center);
 		\draw [in=180, out=-30] (11) to (12.center);
 		\draw (11) to (10.center);
 		\draw (0) to (11);
-		\draw [in=180, out=0, looseness=1.50] (12.center) to (5.center);
+		\draw [in=180, out=0] (12.center) to (5.center);
 		\draw (10.center) to (7.center);
 		\draw [in=-180, out=0] (15.center) to (13);
 		\draw (16.center) to (4);
 		\draw [in=-180, out=0] (17.center) to (14);
+		\draw [in=-180, out=60, looseness=0.50] (11) to (18);
 	\end{pgfonlayer}
 \end{tikzpicture}
