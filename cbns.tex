@@ -21,38 +21,61 @@ Then, given a probability model $\prob{P}^{\RV{WXY}}:\{*\}\kto W\times X\times Y
 
 This is slightly different to the typical definition, which holds that a causal Bayesian network itself includes some $\prob{P}^{\RV{WXY}}$. However, in applications of CBNs $\prob{P}^{\RV{WXY}}$ is almost always treated as unknown and must be inferred from data, and the role of the CBN is to relate $\prob{P}^{\RV{WXY}}$ to $\prob{P}_{\RV{X}\set a}^{\RV{W}\RV{X}\RV{Y}}$, not to tell us what $\prob{P}^{\RV{WXY}}$ is to begin with.
 
-In order to relate causal Bayesian networks to see-do models, we have to interpret the previous setup as somehow defining a joint model of observations and consequences of actions. We do this as follows: $\Phi$ is a ``dummy probability set'' that allows us to define all the Markov kernels we want to have. We are actually interested in modelling a sequence of ``observation'' variables $\RV{V}_{[n]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in [n]}$ and a sequence of ``consequence'' variables modeled by $\RV{V}_{(n,m]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in (n,m]}$ both defined on the probability set $\Omega$ (assume $n<m$).
+In order to relate causal Bayesian networks to see-do models, we have to interpret the previous setup as somehow defining a joint model of observations and consequences of actions. We do this as follows: $\Phi$ is a ``dummy probability set'' that allows us to define all the Markov kernels we want to have. We are actually interested in modelling a sequence of ``observation'' variables $\RV{V}_{[n]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in [n]}$ and a sequence of ``consequence'' variables modeled by $\RV{V}_{(n,m]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in (n,m]}$ both defined on the probability set $\Omega$ (assume $n<m$). Suppose for all $i$, $\RV{W}_i:\Omega\to W$, $\RV{X}_i:\Omega\to X$, $\RV{Y}_i:\Omega\to Y$.
 
-We assume that all variables $\RV{V}_i$ for $i\in [n]$ are mutually independent conditional and identically distributed conditional on an unobserved hypothesis $\RV{H}$ according to $\prob{Q}^{\RV{W_1X_1Y_1}|\RV{H}}$. $\RV{H}$ represents the model of observations and interventions we ``ought'' to use, and the fact that it is unobserved means that we haven't specified how to tell which model we ought to use (that is, we are not assuming that there is some measurement procedure whose result is associated with $\RV{H}$ yielding a particualr value).
+We will interpret the CBN above as defining a gappy probability model of some type. If we suppose further that, conditional on an unobserved hypothesis hypothesis $\RV{H}$, observations and consequences are jointly mutually independent, observations are identically distributed and the probability of consequences $\RV{V}_j$ conditional on $\RV{X}_j$ is given by Equation \ref{eq:truncated_fac2}, we will see that a CBN defines a probability 2-comb of the form $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$.
 
-If we perform an intervention and $\RV{X}_{j}$ for $j\in [n,m]$ takes value $a$, then $\RV{V}_j$ will be distributed according to
+Specifically, suppose that observations $\RV{V}_i$ for $i\in [n]$ are mutually independent conditional and identically distributed conditional on $\RV{H}$ according to $\prob{Q}^{\RV{W_1X_1Y_1}|\RV{H}}$. Note that $\RV{H}$ being unobserved represents another type of gap in our knowledge -- we are not saying what, exactly, it means for $\RV{H}$ to yield a particular value $h$.
+
+Suppose also that, if we perform an intervention and $\RV{X}_{j}$ for $j\in [n,m]$ takes value $a$, then $\RV{V}_j$ will be distributed according to $\disint{Q}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{X}_j\RV{H}}$ satisfying
 
 \begin{align}
     \disint{Q}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{X}_j\RV{H}}(w,x,y|a,h) &= \prob{Q}^{\RV{W}_1|\RV{H}}(w|h)\disint{Q}^{\RV{Y}_1|\RV{X_1W_1H}}(y|x,w,h)\llbracket x=a \rrbracket\label{eq:truncated_to_seedo}
 \end{align}
 
-\todo[inline]{Define ``in-frame'' and ``out-of-frame'' disintegrations; here it's out of frame so we need to say something about uniqueness}
+For any $w,x,y,a,h$ and some $\disint{Q}^{\RV{Y}_1|\RV{X_1W_1H}}$ and some $\disint{Q}^{\RV{Y}_1|\RV{X_1W_1H}}$.
 
-For any $w,x,y,a,h$ and some $\disint{Q}^{\RV{Y}_1|\RV{X_1W_1H}}$. Where there is ambiguity, we assume some method of choosing a $\disint{Q}^{\RV{Y}_1|\RV{X_1W_1H}}$ unique up to equivalence\todo{I think you can generally do this by defining a way to expand the hypothesis class $H$ to account for additional possibilities and then choosing some assignment of possibilities to hypotheses}. Equation \ref{eq:truncated_to_seedo} is the relation between the observation model and the consequence model imposed by the original causal Bayesian network.
-
-By marginalisation, we can see for $j\in (n,m]$
+By marginalisation of $\disint{Q}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{X}_j\RV{H}}$, we can see for $j\in (n,m]$
 
 \begin{align}
     \disint{Q}^{\RV{W}_j|\RV{X}_j\RV{H}}(w|a,h) &= \prob{Q}^{\RV{W}_1|\RV{H}}(w|h)\\
-    &:= \disint{Q}^{\RV{W}_j|\RV{H}}(w|h)
+    \implies \disint{Q}^{\RV{W}_j|\RV{X}_j\RV{H}} = \prob{Q}^{\RV{W}_1|\RV{H}}\otimes \text{erase}_{X}
 \end{align}
 
-And by disintegration
+Thus there exists $\disint{Q}^{\RV{W}_j|\RV{H}}$ for $j\in (n,m]$ and
+
+\begin{align}
+    \disint{Q}^{\RV{W}_j|\RV{X}_j} &= \prob{Q}^{\RV{W}_1|\RV{H}}
+\end{align}
+
+And by disintegration of $\disint{Q}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{X}_j\RV{H}}$ (and Theorem \ref{th:recursive-disint})
 
 \begin{align}
     \disint{Q}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}} &= \disint{Q}^{\RV{Y}_1|\RV{X_1W_1H}}
 \end{align}
 
-We assume that $\RV{W}_{i}$ are mutually independent conditional on $\RV{H}$ for all $i\in m$ (note that this is for $m$, which includes consequences, not $n$ which is limited to observations). With this assumption, together with Equation \ref{eq:truncated_to_seedo}, we have a partial model $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}}$. Recall that a general probability 2-comb $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ can be specified by $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}}$ and $\prob{Q}^{\RV{Y}_{(n,m]}|\RV{H}\RV{X}_{(n,m]}\RV{V}_{[n]}\RV{W}_{(n,m]}}$. If we assume mutual independence of the $\RV{V}_i$ for all $i\in [m]$ conditional on $\RV{H}$ given any insert -- that is, $\RV{V}_i\CI^2_\prob{Q} \RV{V}_{[m]\setminus\{i\}}|\RV{H}$ for all $i\in[m]$ -- then in particular we have $\RV{Y}_i\CI^2_\prob{Q} \RV{V}_{[i-1]}|\RV{H}$ for $i\in(n,m]$. Thus, by Theorem \ref{th:cons_ci}, there is some $\disint{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}}$ such that
+Thus the probability gap model $\prob{Q}$ defined by the CBN features a collection of conditional probabilities:
+
+\begin{itemize}
+    \item $\disint{Q}^{\RV{V}_{i}|\RV{H}}$, $i\in [n]$
+    \item $\disint{Q}^{\RV{W}_i|\RV{H}}$, $i\in [m]$
+    \item $\disint{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}}$, $i\in [m]$
+\end{itemize}
+
+To this, we add the assumption of mutual conditional independence: $\RV{V}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus\{i\}}|\RV{H}$. Then we have
+
+\todo[inline]{Representation of conditional IID models; can I just quote something here?}
+
+\begin{align}
+    \disint{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}} &= \text{copy}^m_H\left((\bigotimes_{i\in[n]} \disint{Q}^{\RV{V}_{i}|\RV{H}}) \otimes (\bigotimes \disint{Q}^{\RV{W}_i|\RV{H}})\right)\\
+    \disint{Q}^{\RV{Y}_{(n,m]}|\RV{X}_{(n,m]}\RV{W}_{(n,m]}\RV{V}_{[n]}\RV{H}} &= \text{copy}^{m-n}_H\otimes \text{id}_{XWV}(\disint{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}}\otimes \text{erase}_{V^n})
+\end{align}
 
 \begin{align}
     \prob{Q}^{\RV{Y}_i|\RV{H}\RV{X}_i\RV{V}_{[n]}\RV{W}_i} &= \tikzfig{cond_indep_disint_Qcbn}
 \end{align}
+
+At this point, we note that $\disint{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}}$ and $\disint{Q}^{\RV{Y}_{(n,m]}|\RV{X}_{(n,m]}\RV{W}_{(n,m]}\RV{V}_{[n]}\RV{H}}$ together define a probability 2-comb $\disint{Q}$, which motivates the following definition
 
 \begin{definition}[CBN probability 2-comb]
 A CBN probability 2-comb is a probability 2-comb $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ where $\RV{V}_{i} = (\RV{W}_i,\RV{X}_i,\RV{Y}_i)$ for $i\in [m]$, such that $\RV{V}_i\CI^2_{\prob{Q}} \RV{V}_{[m]\setminus\{i\}} |\RV{H}$, for all $i\in [m]$ 
@@ -70,9 +93,7 @@ for $i,j\in\[m]$ and there exists some $\disint{Q}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV
 For all $i\in (n,m]$, some $\disint{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}\RV{V}_{<i}}$.
 \end{definition}
 
-\todo[inline]{Representation of conditional IID models; can I just quote something here?}
-
-Equation \ref{eq:truncated_to_seedo} in combination with $\prob{Q}^{\RV{V}_1|\RV{H}}$ and the assumption of mutual independence conditional on $\RV{H}$ gives us both $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}}$ and $\prob{Q}^{\RV{Y}_{(n,m]}|\RV{H}\RV{X}_{(n,m]}\RV{W}_{(n,m]}\RV{V}_{[n]}}$, which together define a probability 2-comb $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$. Inserts for this 2-comb take the form $\prob{Q}_\alpha^{\RV{X}_{(n,m]}|\RV{V}_{[n]}\RV{W}_{(n,m]}\RV{H}}$. Such inserts are not necessarily decision rules as defined in the previous section, and in most practical cases only a subset of Markov kernels of this form will correspond to choices we can actually make. However, we might be able to specify a see-do model for which the inserts are decision rules in such a manner that each decision rule corresponds to some insert $\prob{Q}_\alpha$ in our CBN.
+Inserts for a CBN 2-comb take the form $\prob{Q}_\alpha^{\RV{X}_{(n,m]}|\RV{V}_{[n]}\RV{W}_{(n,m]}\RV{H}}$. Such inserts are not necessarily decision rules as defined in the previous section -- they don't necessarily admit an interpretation ``if I see $(\RV{V}_{[n]},\RV{W}_{(n,m]},\RV{H})$ then I do this to $\RV{X}_{(n,m]}$'', not the least because $\RV{H}$ is by definition unobserved. The question we will now ask is: under what conditions can we specify a see-do model for which the inserts \emph{do} admit such an interpretation as decision rules and each decision rule corresponds to some insert $\prob{Q}_\alpha$ in our CBN.
 
 \subsection{See-do models compatible with causal Bayesian networks}
 

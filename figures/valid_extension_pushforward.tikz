@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small dist tikzit] (0) at (-2, 0) {$\kernel{J}$};
+		\node [style=small kernel tikzit] (1) at (0.5, 0) {$\kernel{K}$};
+		\node [style=small kernel tikzit] (2) at (2.5, 0) {$\kernel{F}_{\RV{X}}$};
+		\node [style=RLabel tikzit] (3) at (4.25, 0) {$\RV{X}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0) to (1);
+		\draw (1) to (2);
+		\draw (2) to (3);
+	\end{pgfonlayer}
+\end{tikzpicture}
