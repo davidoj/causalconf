@@ -272,7 +272,7 @@ As an initial example of a probability gap in causal inference, we will consider
 
 Suppose we have a causal Bayesian network $(\prob{P}^{\RV{XYZ}},\mathcal{G})$ where $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ are variables, $\prob{P}^{\RV{XYZ}}$ is a probability measure on $X\times Y\times Z$ that we call ``a probability model of $(\RV{X},\RV{Y},\RV{Z})$'' and $\mathcal{G}$ is a Directed Acyclic Graph whose vertices we identify with $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ that contains the edges $\RV{X}\longrightarrowRHD \RV{Y}$ and $\RV{X}\longleftarrowRHD \RV{Z} \longrightarrowRHD \RV{Y}$. ``Setting $\RV{X}$ to $x$'' is an operation that takes as inputs $\prob{P}^{\RV{XYZ}}$, $\mathcal{G}$ and some $x\in X$ and returns a new probability measure $\prob{P}_x^{\RV{XYZ}}$ on $X\times Y\times Z$ given by \citep[page ~24]{pearl_causality:_2009}:
 \begin{align}
-	\prob{P}^{\RV{XYZ}}_{x}(x',y,z)=\prob{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x' \rrbracket\label{eq:truncated_fac}
+	\prob{P}^{\RV{XYZ}}_{x}(x',y,z)=\disint{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x' \rrbracket\label{eq:truncated_fac}
 \end{align}
 
 Equation \ref{eq:truncated_fac} embodies three assumptions about a model of the operation of ``setting $\RV{X}$ to $x$''. First, such a model must assign probability 1 to the proposition that $\RV{X}$ yields $x$. Second, such a model must assign the same marginal probability distribution to $\RV{Z}$ as the input distribution; $\prob{P}^{\RV{Z}}=\prob{P}_{x}^{\RV{Z}}$. Finally, our model must also assign the same conditional probability to $\RV{Y}$ given $\RV{X}$ and $\RV{Z}$; $\prob{P}^{\RV{Y}|\RV{XZ}}=\prob{P}_x^{\RV{Y}|\RV{XZ}}$.
@@ -445,7 +445,7 @@ An order 1 probability gap model $\prob{P}$ is defined by variables $\RV{X}:\Ome
 \begin{align}
 	\prob{P}_{\alpha}^{\RV{XY}} = \prob{P}_\alpha^{\RV{X}}\odot\prob{P}^{\RV{Y}|\RV{X}}
 \end{align}
-for any valid $\RV{X}$ probability distribution $\prob{P}_\alpha^{\RV{X}}$.
+for any valid $\RV{X}$ probability distribution $\prob{P}_\alpha^{\RV{X}}$. The notation $\prob{P}^{\square \RV{Y}|\RV{X}}$ is shorthand for the model $\prob{P}$ defined by a conditional probability $\disint{P}^{\RV{Y}|\RV{X}}$ (it is useful to distinguish a model from a disintegration of a model).
 \end{definition}
 
 Note that the same model $\prob{P}$ may be represented by different $\disint{P}^{\RV{Y}|\RV{X}}$; this can happen wherever $\text{Range}(\RV{X})\neq X$ (for example, $\RV{X}=(\RV{Z},\RV{Z})$ for some $\RV{Z}$). 
@@ -605,16 +605,14 @@ We can depict this operation graphically in a somewhat informal way as ``inserti
 \end{align}
 
 \begin{definition}[Order 2 probability gap model]
-An order 1 probability gap model $\prob{P}$ is defined by variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{X}:\Omega\to Z$ and a valid conditional probability 2-comb $\disint{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, and $\prob{P}$ is the map from valid $\RV{Y}|\RV{X}$ conditional probabilities to valid $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditional probabilities given by
+An order 1 probability gap model $\prob{P}$ is defined by variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{X}:\Omega\to Z$ and a valid conditional probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, and $\prob{P}$ is the map from valid $\RV{Y}|\RV{X}$ conditional probabilities to valid $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditional probabilities given by
 \begin{align}
 	\disint{P}_{\alpha}^{\RV{XYZ}|\RV{W}} = \disint{P}^{\RV{X}|\RV{W}}\odot\disint{P}^{\RV{Y}|\RV{X}}_\alpha \odot \disint{P}^{\RV{Z}|\RV{WXY}}
 \end{align}
 for any valid $\RV{Y}|\RV{X}$ conditional probability $\disint{P}_\alpha^{\RV{Y}|\RV{X}}$.
 \end{definition}
 
-We can equivalently define an order 2 probability gap model by the pair $\disint{P}^{\RV{X}|\RV{W}}$ and $\disint{P}^{\RV{Z}|\RV{WXY}}$.
-
-Just as in Section \ref{sec:validity_of_gapprob}, a key concern for probability 2-combs is \emph{valid extendability}. The insert operation yields a valid conditional probability given any valid inputs (Theorem \ref{th:extension_2comb_valid}).
+An order 2 probability gap model $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ can be defined by a pair of disintegrations $\disint{P}^{\RV{X}|\RV{W}}$ and $\disint{P}^{\RV{Z}|\RV{WXY}}$. Just as with order 1 probability gap models, the two conditional probabilities defining a probability 2-comb must be \emph{valid}. Theorem \ref{th:extension_2comb_valid} shows that the insert operation yields a valid conditional probability given any valid inputs.
 
 % \begin{theorem}[Equivalence of 2-comb disintegrations]\label{th:equiv_insert}
 % Given a 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ and any two disintegrations $\disint{P}^{\RV{Z}|\RV{WXY}}_1$, $\disint{P}^{\RV{Z}|\RV{WXY}}_2$, for all valid extensions $\prob{P}_\alpha^{\RV{Y}|\RV{XW}}$
@@ -691,53 +689,36 @@ Is a valid 2-comb.
 Validity of $\disint{P}^{\RV{X}|\RV{W}}$ is by assumption, and validity of $\disint{P}^{\RV{Z}|\RV{WXY}}$ means $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)=\emptyset$ implies $\disint{P}^{\RV{Z}|\RV{WXY}}(z|w,x,y)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$. This in turn implies $\disint{P}^{\RV{Z}|\RV{WXY}}(z|w,x,y)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$.
 \end{proof}
 
-\subsection{Recursive disintegration}
+\subsection{Revisiting truncated factorisation}\label{sec:truncated_fac_again}
 
-A useful property of probability gap models is \emph{recursive disintegration}. If we have a probability gap model $\prob{P}$ and a disintegration $\disint{P}^{\RV{Y}|\RV{X}}$, then defining a new order 1 probability gap model $\prob{Q}$ represented by $\disint{Q}^{\RV{Y}|\RV{X}}=\disint{P}^{\RV{Y}|\RV{X}}$, we can show that disintegrations of $\prob{Q}$ are themselves disintegrations of $\prob{P}$.
+In our original look at truncated factorisation, we noted a few problems with Equation \ref{eq:truncated_fac} being a \emph{definition} of interventional probability models. In particular:
 
-\begin{theorem}[Recursive disintegration]\label{th:recursive-disint}
-Suppose we have a fundamental probability set $\Omega$, a set of inserts $A$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$ such that $\disint{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ disintegration of $\prob{P}$. Define an order 1 probability gap model $\prob{Q}$ represented by $\disint{Q}^{\RV{Y}|\RV{X}}=\disint{P}^{\RV{Y}|\RV{X}}$. Then if $\disint{Q}^{\RV{Z}|\RV{W}}$ is a $\RV{Z}|\RV{W}$ disintegration of $\prob{Q}$, it is also a $\RV{Z}|\RV{W}$ disintegration of $\prob{P}$.
-\end{theorem}
+\begin{itemize}
+	\item There may be multiple different probability models that satisfy Equation \ref{eq:truncated_fac} for different versions of the disintegration $\disint{P}^{\RV{Y|XZ}}$
+	\item There may be no probability models that satisfy Equation \ref{eq:truncated_fac}
+\end{itemize}
 
-\begin{proof}
-The range of $\prob{Q}$ is all base measures on $\Omega$ for which $\disint{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ disintegration. By assumption, then $\text{Range}(\prob{Q})\supset\text{Range}(\prob{P})$. By definition, $\disint{Q}^{\RV{Z}|\RV{W}}$ is a $\RV{Z}|\RV{W}$ disintegration of every base measure in $\text{Range}(\prob{Q})$ and so it is also a $\RV{Z}|\RV{W}$ disintegration of every base measure in $\text{Range}(\prob{P})$.
-\end{proof}
+We propose a different way to define interventional probability models
 
-\begin{corollary}[Recursive independence]
+\begin{itemize}
+	\item An interventional probability model is a probability 2-comb $\prob{Q}^{\RV{Z}\square\RV{Y}|\RV{X}}$
+	\item Observations are distributed according to $\prob{Q}_{\text{obs}}:=\text{insert}(\disint{Q}_{\text{obs}}^{\RV{X}|\RV{Z}},\prob{Q}^{\RV{Z}\square\RV{Y}|\RV{X}})$
+\end{itemize}
 
-\end{corollary}
-
-\subsection{Revisiting truncated factorisation}
-
-We have established that, at least for discrete sets, probability 2-combs are a general kind of object that maps a conditional probability to a conditional probability. Thus they model choices that correspond to conditional probabilities, rather than probability distributions. We initially considered that a truncated factorisation might be a conditional probability -- that is, it could be used to model choices that correspond to probability distributions of the choice variable $\RV{U}$ that we introduced. If we instead consider the possibility that the model of ``interventions'' that Equation \ref{eq:truncated_fac} is suggesting is actually a probability 2-comb, we find that both of the problems we identified are automatically solved.
-
-Suppose we have a 2-comb $\prob{P}^{\RV{Z}\square\RV{Y}|\RV{X}}$. Then we have some $\prob{P}^{\RV{Z}}$, $\disint{P}^{\RV{Y}|\RV{XZ}}$ unique up to equivalence such that
+In this case, we have
 
 \begin{align}
-	\prob{P}^{\RV{Z}\square\RV{Y}|\RV{X}}(z,y|x) &= \disint{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)
+	\prob{Q}_{\text{obs}}^{\RV{Z}} &= \prob{Q}^{\RV{Z}}\\
+	\disint{Q}^{\RV{Y}|\RV{XZ}}&\subset \disint{Q}_{\text{obs}}^{\RV{Y}|\RV{XZ}}
 \end{align}
 
-By Lemma \ref{lem:nocopy2}, we also have
+Now, for $x\in X$ \emph{if the deterministic insert} $\prob{Q}_{x}^{\RV{X}|\RV{Z}}$ defined by $\prob{Q}_{x}^{\RV{X}|\RV{Z}}(x'|z) == \llbracket x=x' \rrbracket$ \emph{is a valid conditional probability}, then \emph{for some version of } $\disint{Q}^{\RV{Y}|\RV{XZ}}$ the following holds:
 
 \begin{align}
-	\prob{P}^{\RV{Z}\square\RV{XY}|\RV{X}}(z,x',y|x) &= \disint{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x' \rrbracket\label{eq:2comb_cbn}
+	\prob{T}_x^{\RV{XYZ}} = \prob{Q}_{\text{obs}}^{\RV{Y|XZ}}(y|x,z)\prob{Q}_{\text{obs}}^{\RV{Z}}(z)\llbracket x=x' \rrbracket
 \end{align}
 
-Compare this to Equation \ref{eq:truncated_fac}, which we reproduce here for convenience:
-
-\begin{align*}
-	\prob{P}^{\RV{XYZ}}_{x}(x',y,z)=\prob{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x' \rrbracket
-\end{align*}
-
-These equations look almost identical, and suggest an alternative approach to modelling intervention. Instead of \emph{defining} an interventional conditional probability via truncated factorisation, suppose we have an interventional model that is a probability 2-comb, and that satisfies
-\begin{align}
-	\prob{P}_{\text{obs}}^{\RV{XYZ}} = \text{insert}(\prob{P}_{\text{obs}}^{\RV{X}|\RV{Z}}, \prob{P}^{\RV{Z}\square\RV{XY}|\RV{X}})
-\end{align}
-For some observational insert $\prob{P}_{\text{obs}}^{\RV{X}|\RV{Z}}$.
-
-Under this view, we cannot necessarily derive $\prob{P}^{\RV{Z}\square\RV{XY}|\RV{X}}$ from the observational probability distribution $\prob{P}_{\text{obs}}^{\RV{XYZ}}$, as we cannot guarantee that any particular $\disint{P}_{\text{obs}}^{\RV{Y}|\RV{XZ}}$ is a representative of $\disint{P}^{\RV{Y}|\RV{XZ}}$. This is as it should be -- if we have meaningfully different choices of $\disint{P}_{\text{obs}}^{\RV{Y}|\RV{XZ}}$ arising from measure zero sets, we cannot decide which one is appropriate to model interventions without more information. The 2-comb $\prob{P}^{\RV{Z}\square\RV{XY}|\RV{X}}$ itself stands for a unique map from interventions to probability distributions, rather than the potentially large set of different maps of this type.
-
-The second issue we raised was the nonexistence of $\prob{P}^{\RV{XYZ}}_{x}$ if, for example, $\RV{X}=f\circ \RV{Z}$. Because $\prob{P}_{\text{obs}}^{\RV{Z}}$ and $\disint{P}_{\text{obs}}^{\RV{Y}|\RV{XZ}}$ are both valid, Lemma \ref{lem:valid_conditionals} ensures that any 2-comb defined by any choice of these conditional probabilities is also valid, and so Equation \ref{eq:2comb_cbn} defines a valid object. Because we have a 2-comb which is extended by \emph{conditional probabilities} rather than by probability distributions, and these conditional probabilities \emph{must be valid}, we can validly extend $\prob{P}^{\RV{Z}\square\RV{XY}|\RV{X}}$ even when $\RV{X}=f\circ \RV{Z}$ -- it's just that validity requires that any extending conditional must be such that $\prob{P}_\alpha^{\RV{X}|\RV{Z}}(x|z)=\llbracket x=f(z) \rrbracket$.
+This identical in form to Equation \ref{eq:truncated_fac}, but we have made explicit two assumptions that were implicit in that equation - namely, the validity of hard interventions on $\RV{X}$ and the possibility of appropriately choosing a version of $\disint{Q}^{\RV{Y}|\RV{XZ}}$.
 
 \subsection{Useful results}
 
@@ -809,11 +790,11 @@ But then
 
 \subsubsection{Disintegrations}
 
-\begin{lemma}[Disintegration existence]\label{lem:disint_exist}
-For any model $\model{K}:X\kto W\times Y$ where $X$, $W$, $Y$ are discrete, there exists $\model{L}:W\times X\kto Y$ such that
+\begin{lemma}[Disintegration existence in discrete Markov kernels]\label{lem:disint_exist}
+For any Markov kernel $\kernel{K}:X\kto W\times Y$ and $X$, $W$, $Y$ are discrete, there exists $\kernel{L}:W\times X\kto Y$ such that
 
 \begin{align}
-	\model{K} = \tikzfig{disintegration_existence}
+	\kernel{K} = \tikzfig{disintegration_existence}
 \end{align}
 \end{lemma}
 
@@ -833,20 +814,28 @@ Then
 In general there are many indexed Markov kernels that satisfy this.
 \end{proof}
 
-\begin{theorem}[Valid disintegration choice]\label{th:valid_disint}
-Given valid $\model{K}^{\RV{WY}|\RV{X}}$, there exists a valid conditional probability $\disint{L}^{\RV{Y}|\RV{WX}}$ such that 
-\begin{align}
-	\model{K}^{\RV{WY}|\RV{X}}=\model{K}^{\RV{W}|\RV{X}}\odot \model{L}^{\RV{Y}|\RV{WX}}
-\end{align}
+\begin{theorem}[Existence of conditional probabilities]\label{th:valid_disint}
+Given valid $\model{K}^{\square \RV{WY}|\RV{X}}$, there exists a valid conditional probability $\disint{K}^{\RV{Y}|\RV{WX}}$.
 \end{theorem}
 
 \begin{proof}
-From Lemma \ref{lem:disint_exist}, we have the existence of some $\disint{L}^{\RV{Y}|\RV{WX}}:W\times X\to Y$. We need to check that $\disint{L}^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{K}^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{K}^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{K}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \disint{L}^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\disint{L}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
+From Lemma \ref{lem:disint_exist}, we have the existence of some Markov kernel $\disint{K}^{\RV{Y}|\RV{WX}}:W\times X\to Y$ such that
+\begin{align}
+	\disint{K}^{\RV{WY}|\RV{X}}=\disint{K}^{\RV{W}|\RV{X}}\odot \disint{K}^{\RV{Y}|\RV{WX}}\label{eq:k_disint}
+\end{align}
+We need to check that $\disint{K}^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{K}^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{K}^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{K}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \disint{K}^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\disint{K}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
+
+Given that $\disint{K}^{\RV{Y}|\RV{WX}}$ is valid, we also require that for all completions $\model{K}_\alpha^{\RV{XWY}}$ of $\model{K}^{\square \RV{WY}|\RV{X}}$,
+\begin{align}
+	\model{K}_\alpha^{\RV{XWY}}=\disint{K}_\alpha^{\RV{XW}}\odot \disint{K}^{\RV{Y}|\RV{WX}}
+\end{align}
+
+Noting that $\model{K}_\alpha^{\RV{XWY}}= \disint{K}^{\RV{W}|\RV{X}}\odot \disint{K}^{\RV{Y}|\RV{WX}}$, this follows directly from Equation \ref{eq:k_disint}.
 \end{proof}
 
 \subsubsection{Conditional independence}\label{ssec:cond_indep}
 
-Conditional independence has a familiar definition in probability models. For models with probability gaps, we propose the convention that a conditional independence statement for such a model is a claim that conditional independence holds for the whole set of probability models it is associated with. That is, $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$ just when that conditional independence holds for all possible extensions to a standard probability model. This convention could also be applied to other kinds of incomplete probability models beyond the hierarchy proposed here.
+Conditional independence has a familiar definition in probability models. A conditional independence in models with probability gaps is equivalent to the claim that the given conditional independence holds for all base measure that the model can be extended to. In order 1 probability gap models, this definition is closely related to the idea of \emph{extended conditional independence} proposed by \citet{constantinou_extended_2017}.
 
 \begin{definition}[Order 0 conditional independence]
 For a \emph{probability model} $\model{P}^{\RV{I}}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}}\RV{A}|\RV{C}$, if
@@ -933,6 +922,28 @@ For a \emph{probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, 
 \end{definition}
 
 In each case, the semi-graphoid axioms hold for each lower level extension $\prob{P}^{\RV{I}}_\alpha$, $\prob{P}^{\RV{VW}}_\beta$ and $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}$, and so they also hold for the higher level definition of conditional probability.
+
+
+\subsection{Recursive disintegration}
+
+A useful property of probability gap models is \emph{recursive disintegration}. If we have any probability gap model $\prob{P}$ and a disintegration $\disint{P}^{\RV{Y}|\RV{X}}$, then defining a new order 1 probability gap model $\prob{Q}^{\square\RV{Y}|\RV{X}}$ such that $\disint{Q}^{\RV{Y}|\RV{X}}=\disint{P}^{\RV{Y}|\RV{X}}$, disintegrations of $\prob{Q}$ are themselves disintegrations of $\prob{P}$.
+
+\begin{theorem}[Recursive disintegration]\label{th:recursive-disint}
+Suppose we have a fundamental probability set $\Omega$, a set of inserts $A$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$ such that $\disint{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ disintegration of $\prob{P}$. Define an order 1 probability gap model $\prob{Q}^{\square \RV{Y}|\RV{X}}$ such that $\disint{Q}^{\RV{Y}|\RV{X}}=\disint{P}^{\RV{Y}|\RV{X}}$. Then if $\disint{Q}^{\RV{Z}|\RV{W}}$ is a $\RV{Z}|\RV{W}$ disintegration of $\prob{Q}$, it is also a $\RV{Z}|\RV{W}$ disintegration of $\prob{P}$.
+\end{theorem}
+
+\begin{proof}
+The range of $\prob{Q}$ is all base measures on $\Omega$ for which $\disint{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ disintegration. By assumption, then $\text{Range}(\prob{Q})\supset\text{Range}(\prob{P})$. By definition, $\disint{Q}^{\RV{Z}|\RV{W}}$ is a $\RV{Z}|\RV{W}$ disintegration of every base measure in $\text{Range}(\prob{Q})$ and so it is also a $\RV{Z}|\RV{W}$ disintegration of every base measure in $\text{Range}(\prob{P})$.
+\end{proof}
+
+\begin{corollary}[Recursive independence]
+begin{theorem}[Recursive disintegration]\label{th:recursive-disint}
+Suppose we have a fundamental probability set $\Omega$, a set of inserts $A$, variables $\RV{V}:\Omega\to V$, $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ such that $\RV{Y}=(\RV{Z},\RV{W})$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$ such that $\disint{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ disintegration of $\prob{P}$. Define an order 1 probability gap model $\prob{Q}^{\square \RV{Y}|\RV{X}}$ such that $\disint{Q}^{\RV{Y}|\RV{X}}=\disint{P}^{\RV{Y}|\RV{X}}$. If $\RV{Z}\CI_{\prob{Q}}\RV{W}|\RV{V}$ then $\RV{Z}\CI_{\prob{P}}\RV{W}|\RV{V}$.
+\end{corollary}
+
+\begin{proof}
+If $\RV{Z}\CI_{\prob{Q}}\RV{W}|\RV{V}$ then both $\disint{Q}^{\RV{Z}|\RV{WV}}$ and $\disint{Q}^{\RV{Z}|\RV{V}}$ exist and $\disint{Q}^{\RV{Z}|\RV{WV}}=\disint{Q}^{\RV{Z}|\RV{V}}\otimes\text{erase}_{W}$ and hence $\disint{P}^{\RV{Z}|\RV{WV}}=\disint{P}^{\RV{Z}|\RV{V}}\otimes\text{erase}_{W}$.
+\end{proof}
 
 \subsubsection{Graphical properties of conditional independence}
 
