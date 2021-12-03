@@ -13,49 +13,50 @@ To compare CBNs to see-do models, we will argue that CBNs can be understood as d
 
 Consider a simplified kind of CBN where a single variable may be intervened on. Note that the structure of the previous section -- $\RV{X}\longrightarrowRHD \RV{Y}$ and $\RV{X}\longleftarrowRHD \RV{W} \longrightarrowRHD \RV{Y}$ -- is generically appliccable to such a model if we identify $\RV{W}$ with the variable formed by taking a sequence of all of the ancestors of $\RV{X}$ and $\RV{Y}$ with the variable formed by taking a sequence of all non-ancestors of $\RV{X}$. The existence of an edge from $\RV{X}$ to $\RV{Y}$ in such a case does no harm as if $\RV{Y}$ is not ``actually'' a descendent of $\RV{X}$ then it will be independent conditional on $\RV{Z}$ (see \citet{pearl_book_2018} for a detailed treatment of when two graphs may or may not imply the same underlying model).
 
-We will adopt the ``definitional inversion'' discussed in Section \ref{sec:truncated_fac_again}, where we take the causal Bayesian network to express the assumption that the result of intervention is modeled by the probability gap model $\prob{Q}^{\RV{W}\square \RV{Y}|\RV{X}}$ and the observations are distributed according to $\text{insert}(\disint{Q}_{\text{obs}}^{\RV{X}|\RV{Z}},\prob{Q}^{\RV{W}\square\RV{Y}|\RV{X}})$ for some $\disint{Q}_{\text{obs}}^{\RV{X}|\RV{Z}}$.
+We will adopt the ``definitional inversion'' discussed in Section \ref{sec:truncated_fac_again}, where we take the causal Bayesian network to express the assumption that the result of intervention is modeled by the order 2 model $\prob{Q}^{\RV{W}\square \RV{Y}|\RV{X}}$ and the observations are distributed according to $\text{insert}(\model{Q}_{\text{obs}}^{\RV{X}|\RV{Z}},\prob{Q}^{\RV{W}\square\RV{Y}|\RV{X}})$ for some $\model{Q}_{\text{obs}}^{\RV{X}|\RV{Z}}$.
 
-We also want to define the fundamental probability set and the variables that we are modelling with the causal Bayesian network. We are actually interested in modelling a sequence of ``observation'' variables $\RV{V}_{[n]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in [n]}$ and a sequence of ``consequence'' variables modeled by $\RV{V}_{(n,m]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in (n,m]}$ both defined on the probability set $\Omega$ (assume $n<m$). We suppose that a causal Bayesian network defines a probability gap model $\model{Q}$ of some type for these variables. Suppose for all $i$, $\RV{W}_i:\Omega\to W$, $\RV{X}_i:\Omega\to X$, $\RV{Y}_i:\Omega\to Y$.
+We also want to define the fundamental probability set and the variables that we are modelling. We have a sequence of ``observation'' variables $\RV{V}_{[n]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in [n]}$ and a sequence of ``consequence'' variables modeled by $\RV{V}_{(n,m]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in (n,m]}$ both defined on the probability set $\Omega$ (assume $n<m$). We suppose that a causal Bayesian network defines a probability gap model $\model{Q}$ of some type for these variables. Suppose for all $i$, $\RV{W}_i:\Omega\to W$, $\RV{X}_i:\Omega\to X$, $\RV{Y}_i:\Omega\to Y$.
 
-Beyond the choice of intervention, when we have a causal Bayesian network there is a second gap in our knowledge -- in particular, we do not know what $\disint{Q}_{\text{obs}}^{\RV{X}|\RV{Z}}$ and $\prob{Q}^{\RV{W}\square\RV{Y}|\RV{X}}$ are. We address this ignorance of the ``correct'' probability model as we did in Section \ref{sec:seedo_models} by introducing an unobserved hypothesis $\RV{H}$. We further assume that, conditional on $\RV{H}$, observations are mutually independent; that is, $\RV{V}_i\CI_{\model{Q}} \RV{V}_{[n]\setminus \{i\}}|\RV{H}$ for $i\in [n]$. When we say ``observations are distributed according to $\disint{Q}_{\text{obs}}^{\RV{W_1X_1Y_1}|\RV{H}}$'', we mean that each $\RV{V}_i$ $i\in [n]$ is distributed according to $\model{Q}_{\text{obs}}^{\RV{W_1X_1Y_1}|\RV{H}}$ (we add the subscripts to avoid ambiguity over what the subscript-less variables refer to). Furthermore, with subscripts in place, the assumption relating observations to consequences reads
+Beyond the choice of intervention, when we have a causal Bayesian network there is a second gap in our knowledge -- in particular, we do not know what $\model{Q}_{\text{obs}}^{\RV{X}|\RV{Z}}$ and $\prob{Q}^{\RV{W}\square\RV{Y}|\RV{X}}$ are. We address this ignorance of the ``correct'' probability model as we did in Section \ref{sec:seedo_models} by introducing an unobserved hypothesis $\RV{H}$. We further assume that, conditional on $\RV{H}$, observations are mutually independent; that is, $\RV{V}_i\CI_{\model{Q}} \RV{V}_{[n]\setminus \{i\}}|\RV{H}$ for $i\in [n]$. Each $\RV{V}_i$ $i\in [n]$ is assumed to be distributed according to $\model{Q}_{\text{obs}}^{\RV{W_1X_1Y_1}|\RV{H}}$ (we add the subscripts to avoid ambiguity over what the subscript-less variables refer to). Furthermore, with subscripts in place, the assumption relating observations to consequences reads
 
 \begin{align}
-    \disint{Q}_{\text{obs}}^{\RV{W_1X_1Y_1}|\RV{H}} &= \text{insert}(\disint{Q}_{\text{obs}}^{\RV{X}_{n+1}|\RV{HW}_{n+1}},\prob{Q}^{\RV{W}_{n+1}\square\RV{Y}_{n+1}|\RV{X}_{n+1}})
+    \model{Q}_{\text{obs}}^{\RV{W_1X_1Y_1}|\RV{H}} &= \text{insert}(\model{Q}_{\text{obs}}^{\RV{X}_{n+1}|\RV{HW}_{n+1}},\prob{Q}^{\RV{W}_{n+1}\square\RV{Y}_{n+1}|\RV{X}_{n+1}})
 \end{align}
 
-We make similar ``mutually independent and identially distributed'' assumptions for consequences, but they are a bit more subtle to state. We assume that, conditional on $\RV{H}$, $\RV{W}_j$ are mutually independent for all $j\in [m]$ and conditional on $\RV{H}$ and $\RV{X}_j$, $\RV{Y}_j$ are mutually independent for all $j\in [m]$. That is, $\RV{W}_j\CI_{\model{Q}} \RV{V}_{[m]\setminus \{j\}}|\RV{H}$ and $\RV{Y}$ and $\RV{Y}_j\CI_{\model{Q}} \RV{V}_{[m]\setminus\{j\}}|(\RV{H},\RV{X}_j)$. Furthermore, when we say ``$\prob{Q}^{\RV{W}_1|\RV{H}\square\RV{Y}_1|\RV{X}_1}$ is a model of interventions'' we mean, given an insert $\disint{Q}_{\alpha}^{\RV{X}_j|\RV{W}_j\RV{H}}$, $\RV{V}_j$ will be distributed according to $\text{insert}(\disint{Q}_{\alpha}^{\RV{X}_{n+1}|\RV{W}_{n+1}\RV{H}},\prob{Q}^{\RV{W}_{n+1}|\RV{H}\square\RV{Y}_{n+1}|\RV{X}_{n+1}})$.
+We make similar ``mutually independent and identially distributed'' assumptions for consequences, but they are a bit more subtle to state. We assume that, conditional on $\RV{H}$, $\RV{W}_j$ are mutually independent for all $j\in [m]$ and conditional on $\RV{H}$ and $\RV{X}_j$, $\RV{Y}_j$ are mutually independent for all $j\in [m]$. That is, $\RV{W}_j\CI_{\model{Q}} \RV{V}_{[m]\setminus \{j\}}|\RV{H}$ and $\RV{Y}$ and $\RV{Y}_j\CI_{\model{Q}} \RV{V}_{[m]\setminus\{j\}}|(\RV{H},\RV{X}_j)$. Given an insert $\model{Q}_{\alpha}^{\RV{X}_j|\RV{W}_j\RV{H}}$, $\RV{V}_j$ is assumed to be be distributed according to $\text{insert}(\model{Q}_{\alpha}^{\RV{X}_{n+1}|\RV{W}_{n+1}\RV{H}},\prob{Q}^{\RV{W}_{n+1}|\RV{H}\square\RV{Y}_{n+1}|\RV{X}_{n+1}})$.
 
 There seems to be one outstanding issue here: in general, we are interested in decision rules influencing $\RV{X}_j$ that may depend on the observations $\RV{V}_{[n]}$ in addition to possible dependence on $\RV{H}$ and $\RV{W}_j$, but we have only defined how consequences will be distributed given a subset of these inserts -- namely, those that have no dependence on $\RV{V}_{[n]}$. 
 
 However, by the mutual independence assumptions we make of consequences, we have for \emph{any} insert $\alpha$
 
 \begin{align}
-    \text{insert}(\disint{Q}_{\alpha}^{\RV{X}_{n+1}|\RV{HW}_{n+1}\RV{V}_{[n]}},\prob{Q}^{\RV{W}_{n+1}\RV{V}_{[n]}|\RV{H}\square\RV{Y}_{n+1}|\RV{X}_{n+1}}) &= \disint{Q}^{\RV{W}_{n+1}\RV{V}_{[n]}|\RV{H}_{n+1}}\odot \disint{Q}_{\alpha}^{\RV{X}_{n+1}|\RV{HW}_{n+1}\RV{V}_{[n]}}\odot \model{Q}^{\RV{Y}_{n+1}|\RV{HW}_{n+1}\RV{X}_{n+1}\RV{V}_{[n}}\\
+    &\text{insert}(\model{Q}_{\alpha}^{\RV{X}_{n+1}|\RV{HW}_{n+1}\RV{V}_{[n]}},\prob{Q}^{\RV{W}_{n+1}\RV{V}_{[n]}|\RV{H}\square\RV{Y}_{n+1}|\RV{X}_{n+1}})\\
+     = &\model{Q}^{\RV{W}_{n+1}\RV{V}_{[n]}|\RV{H}_{n+1}}\odot \model{Q}_{\alpha}^{\RV{X}_{n+1}|\RV{HW}_{n+1}\RV{V}_{[n]}}\odot \model{Q}^{\RV{Y}_{n+1}|\RV{HW}_{n+1}\RV{X}_{n+1}\RV{V}_{[n}}\\
 \end{align}
 
 \begin{align}
-    \disint{Q}^{\RV{W}_j|\RV{X}_j\RV{H}}(w|a,h) &= \prob{Q}^{\RV{W}_1|\RV{H}}(w|h)\\
-    \implies \disint{Q}^{\RV{W}_j|\RV{X}_j\RV{H}} = \prob{Q}^{\RV{W}_1|\RV{H}}\otimes \text{erase}_{X}
+    \model{Q}^{\RV{W}_j|\RV{X}_j\RV{H}}(w|a,h) &= \prob{Q}^{\RV{W}_1|\RV{H}}(w|h)\\
+    \implies \model{Q}^{\RV{W}_j|\RV{X}_j\RV{H}} &= \prob{Q}^{\RV{W}_1|\RV{H}}\otimes \text{erase}_{X}
 \end{align}
 
-Thus there exists $\disint{Q}^{\RV{W}_j|\RV{H}}$ for $j\in (n,m]$ and
+Thus there exists $\model{Q}^{\RV{W}_j|\RV{H}}$ for $j\in (n,m]$ and
 
 \begin{align}
-    \disint{Q}^{\RV{W}_j|\RV{X}_j} &= \prob{Q}^{\RV{W}_1|\RV{H}}
+    \model{Q}^{\RV{W}_j|\RV{X}_j} &= \prob{Q}^{\RV{W}_1|\RV{H}}
 \end{align}
 
-And by disintegration of $\disint{Q}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{X}_j\RV{H}}$ (and Theorem \ref{th:recursive-disint})
+And by disintegration of $\model{Q}^{\RV{W}_j\RV{X}_j\RV{Y}_j|\RV{X}_j\RV{H}}$ (and Theorem \ref{th:recursive-disint})
 
 \begin{align}
-    \disint{Q}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}} &= \disint{Q}^{\RV{Y}_1|\RV{X_1W_1H}}
+    \model{Q}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}} &= \model{Q}^{\RV{Y}_1|\RV{X_1W_1H}}
 \end{align}
 
 Thus the probability gap model $\prob{Q}$ defined by the CBN features a collection of conditional probabilities:
 
 \begin{itemize}
-    \item $\disint{Q}^{\RV{V}_{i}|\RV{H}}$, $i\in [n]$
-    \item $\disint{Q}^{\RV{W}_i|\RV{H}}$, $i\in [m]$
-    \item $\disint{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}}$, $i\in [m]$
+    \item $\model{Q}^{\RV{V}_{i}|\RV{H}}$, $i\in [n]$
+    \item $\model{Q}^{\RV{W}_i|\RV{H}}$, $i\in [m]$
+    \item $\model{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}}$, $i\in [m]$
 \end{itemize}
 
 To this, we add the assumption of mutual conditional independence: $\RV{V}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus\{i\}}|\RV{H}$. Then we have
@@ -63,30 +64,30 @@ To this, we add the assumption of mutual conditional independence: $\RV{V}_i\CI_
 \todo[inline]{Representation of conditional IID models; can I just quote something here?}
 
 \begin{align}
-    \disint{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}} &= \text{copy}^m_H\left((\bigotimes_{i\in[n]} \disint{Q}^{\RV{V}_{i}|\RV{H}}) \otimes (\bigotimes \disint{Q}^{\RV{W}_i|\RV{H}})\right)\\
-    \disint{Q}^{\RV{Y}_{(n,m]}|\RV{X}_{(n,m]}\RV{W}_{(n,m]}\RV{V}_{[n]}\RV{H}} &= \text{copy}^{m-n}_H\otimes \text{id}_{XWV}(\disint{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}}\otimes \text{erase}_{V^n})
+    \model{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}} &= \text{copy}^m_H\left((\bigotimes_{i\in[n]} \model{Q}^{\RV{V}_{i}|\RV{H}}) \otimes (\bigotimes \model{Q}^{\RV{W}_i|\RV{H}})\right)\\
+    \model{Q}^{\RV{Y}_{(n,m]}|\RV{X}_{(n,m]}\RV{W}_{(n,m]}\RV{V}_{[n]}\RV{H}} &= \text{copy}^{m-n}_H\otimes \text{id}_{XWV}(\model{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}}\otimes \text{erase}_{V^n})
 \end{align}
 
 \begin{align}
     \prob{Q}^{\RV{Y}_i|\RV{H}\RV{X}_i\RV{V}_{[n]}\RV{W}_i} &= \tikzfig{cond_indep_disint_Qcbn}
 \end{align}
 
-At this point, we note that $\disint{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}}$ and $\disint{Q}^{\RV{Y}_{(n,m]}|\RV{X}_{(n,m]}\RV{W}_{(n,m]}\RV{V}_{[n]}\RV{H}}$ together define a probability 2-comb $\disint{Q}$, which motivates the following definition
+At this point, we note that $\model{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}}$ and $\model{Q}^{\RV{Y}_{(n,m]}|\RV{X}_{(n,m]}\RV{W}_{(n,m]}\RV{V}_{[n]}\RV{H}}$ together define a probability 2-comb $\model{Q}$, which motivates the following definition
 
 \begin{definition}[CBN probability 2-comb]
 A CBN probability 2-comb is a probability 2-comb $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ where $\RV{V}_{i} = (\RV{W}_i,\RV{X}_i,\RV{Y}_i)$ for $i\in [m]$, such that $\RV{V}_i\CI^2_{\prob{Q}} \RV{V}_{[m]\setminus\{i\}} |\RV{H}$, for all $i\in [m]$ 
 \begin{align}
-    \prob{Q}^{\RV{V}_{i}|\RV{H}} = \prob{Q}^{\R{V}_j|\RV{H}}
+    \prob{Q}^{\RV{V}_{i}|\RV{H}} = \prob{Q}^{\RV{V}_j|\RV{H}}
 \end{align}
 for $i,j\in [n]$,
 \begin{align}
     \prob{Q}^{\RV{W}_i|\RV{H}} = \prob{Q}^{\RV{W}_j|\RV{H}}
 \end{align}
-for $i,j\in\[m]$ and there exists some $\disint{Q}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}$, $j\in [n]$ such that
+for $i,j\in [m]$ and there exists some $\model{Q}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}$, $j\in [n]$ such that
 \begin{align}
-    \disint{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}\RV{V}_{<i}} &= \disint{Q}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}\otimes \text{erase}_{V^{i-1}}
+    \model{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}\RV{V}_{<i}} &= \model{Q}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}\otimes \text{erase}_{V^{i-1}}
 \end{align}
-For all $i\in (n,m]$, some $\disint{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}\RV{V}_{<i}}$.
+For all $i\in (n,m]$, some $\model{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}\RV{V}_{<i}}$.
 \end{definition}
 
 Inserts for a CBN 2-comb take the form $\prob{Q}_\alpha^{\RV{X}_{(n,m]}|\RV{V}_{[n]}\RV{W}_{(n,m]}\RV{H}}$. Such inserts are not necessarily decision rules as defined in the previous section -- they don't necessarily admit an interpretation ``if I see $(\RV{V}_{[n]},\RV{W}_{(n,m]},\RV{H})$ then I do this to $\RV{X}_{(n,m]}$'', not the least because $\RV{H}$ is by definition unobserved. The question we will now ask is: under what conditions can we specify a see-do model for which the inserts \emph{do} admit such an interpretation as decision rules and each decision rule corresponds to some insert $\prob{Q}_\alpha$ in our CBN.

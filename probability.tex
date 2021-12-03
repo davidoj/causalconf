@@ -5,19 +5,19 @@
 
 \subsection{Section outline}
 
-This section introduces the mathematical foundations for the reasoning in the following sections. The first subsection briefly introduces probability theory, which is likely to be familiar to many readers, as well as how string diagrams can be used to represent probabilistic functions (or \emph{Markov kernels}), which may be less familiar. We use string diagrams for probabilstic reasoning in a number of places, and this section is intended to help interpret mathematical statements in this form.
+This section introduces the mathematical foundations used throughout the rest of the paper. The first subsection briefly introduces probability theory, which is likely to be familiar to many readers, as well as how string diagrams can be used to represent probabilistic functions (or \emph{Markov kernels}), which may be less familiar. We use string diagrams for probabilstic reasoning in a number of places, and this section is intended to help interpret mathematical statements in this form.
 
-The second subsection discusses the interpretation of probabilistic variables. Our formalisation of probabilistic variables is standard -- we define them as measurable functions on a fundamental probability set $\Omega$. This section discusses how this formalisation can be connected to statements about the real world via \emph{measurement processes}, and distinguishes observed variables (which are associated with measurement processes) from unobserved variables (which are not associated with measurement processes). This section is not part of the mathematical theory of probability gap models, but it is relevant when one wants to apply this theory to real problems or to understand how the theory of probability gap models relates to other theories of causal inference.
+The second subsection discusses the interpretation of probabilistic variables. Our formalisation of probabilistic variables is standard -- we define them as measurable functions on a fundamental probability set $\Omega$. We discusses how this formalisation can be connected to statements about the real world via \emph{measurement processes}, and distinguishes observed variables (which are associated with measurement processes) from unobserved variables (which are not associated with measurement processes). This section is not part of the mathematical theory of probability gap models, but it is relevant when one wants to apply this theory to real problems or to understand how the theory of probability gap models relates to other theories of causal inference.
 
 Finally, we introduce \emph{probability gap models}. Probability gap models are a generalisation of probability models, and to understand the rest of this paper a reader needs to understand what a probability gap model is, how we define the common kinds of probability gap models used in this paper and what conditional probabilities and conditional independence statements mean for probability gap models.
 
 \subsubsection{Brief outline of probability gap models}
 
-Just like everybody else, we consider a probability model to be a probability space $(\Omega,\sigalg{F},\mu)$ along with a collection of random variables. However, if I want to use probabilistic models to support decision making, I need something different to a probability model; I need function from options to probability models. For example, suppose I have two options $A=\{0,1\}$, and I want to compare these options based on what I expect to happen if I choose them. If I choose option $0$, then I can (perhaps) represent my expectations about the consequences with one probability model, and if I choose option $1$ I can represent my expectations about the consequences with a different probability model. I can compare the two consequences, then decide which option seems to be better. To make this comparison, I need to have a function from elements of $A$ to probability models. A function that takes elements of some set as inputs (which may or may not be decisions) and returns probability models is a \emph{probability gap model}, and the set of inputs it accepts is a \emph{probability gap}.
+We consider a probability model to be a probability space $(\Omega,\sigalg{F},\mu)$ along with a collection of random variables. However, if I want to use probabilistic models to support decision making, then I need function from options to probability models. For example, suppose I have two options $A=\{0,1\}$, and I want to compare these options based on what I expect to happen if I choose them. If I choose option $0$, then I can (perhaps) represent my expectations about the consequences with a probability model, and if I choose option $1$ I can represent my expectations about the consequences with a different probability model. I can compare the two consequences, then decide which option seems to be better. To make this comparison, I have used a function from elements of $A$ to probability models. A function that takes elements of some set as inputs (which may or may not be decisions) and returns probability models is a \emph{probability gap model}, and the set of inputs it accepts is a \emph{probability gap}.
 
-We are particularly interested in probability gap models where the consequences of all inputs share some marginal or conditional probabilities. The simplest example of a model like this can be represented by a probability distribution $\prob{P}^{\RV{X}}$ for some variable $\RV{X}:\Omega\to X$. Such a probability distribution is consistent with many base measures on the sample space $\Omega$, and so we can define a probability gap model $\prob{P}$ that takes inputs in $A$ and maps them to base measures with the particular property that the marginal distribution of $\RV{X}$ is equal to $\prob{P}^{\RV{X}}$ for any base measure in the image $\prob{P}(A)$. Just like everybody else, we don't often explicitly define the sample space, and we don't regard the particular choice of base measure as a particularly interesting question. Nonetheless, we begin by investigating this kind of probability gap model because it raises an important issue: not every probability distribution over $X$ is a \emph{valid} marginal probability. In particular, we need $\prob{P}^{\RV{X}}$ to assign probability 0 to outcomes that are mathematically impossible according to the definition of $\RV{X}$ to ensure that there is some base measure that features $\prob{P}^{\RV{X}}$ as a marginal. We call probability gap models represented by probability distributions \emph{order 0 probability gap models}.
+We are particularly interested in probability gap models where the consequences of all inputs share some marginal or conditional probabilities. The simplest example of a model like this can be represented by a probability distribution $\prob{P}^{\RV{X}}$ for some variable $\RV{X}:\Omega\to X$. Such a probability distribution is consistent with many base measures on the fundamental probability set $\Omega$, and so we can consider the choice of base measure to be a probability gap. Not every probability distribution over $X$ can define a probability gap model in this way. In particular, we need $\prob{P}^{\RV{X}}$ to assign probability 0 to outcomes that are mathematically impossible according to the definition of $\RV{X}$ to ensure that there is some base measure that features $\prob{P}^{\RV{X}}$ as a marginal. We call probability gap models represented by probability distributions \emph{order 0 probability gap models}.
 
-More interesting probability gap models are those that can be represented by conditional probabilities $\prob{P}^{\RV{Y}|\RV{X}}$ or pairs of conditional probabilities $\{\prob{P}^{\RV{X}|\RV{W}},\prob{P}^{\RV{Z}|\RV{WXY}}\}$, which we call \emph{order 1} and \emph{order 2} models respectively. Probability gaps in order 2 models correspond to decision functions in some kinds of decision problem, which is the reason we wanted to investigate probability gap models in the first place. These too need to be valid, and we define conditions for validity and prove that they are sufficient to ensure that models represented by conditional probabilities can in fact be mapped to base measures on the sample space.
+Higher order probability gap models can be represented by conditional probabilities $\prob{P}^{\RV{Y}|\RV{X}}$ or pairs of conditional probabilities $\{\prob{P}^{\RV{X}|\RV{W}},\prob{P}^{\RV{Z}|\RV{WXY}}\}$, which we call \emph{order 1} and \emph{order 2} models respectively. Decision functions in data-driven decision problems correspond to probability gaps in order 2 models, as we discuss in Section \ref{sec:seedo_models}, which makes this type of model particularly interesting for our purposes. We also require these to be valid, and we define conditions for validity and prove that they are sufficient to ensure that models represented by conditional probabilities can in fact be mapped to base measures on the fundamental probability set.
 
 A conditional independence statement in a probability gap model means that the corresponding conditional independence statement holds for all base measures in the range of the function defined by the model. It is possible to deduce conditional independences from ``independences'' in the conditional probabilities that we use to represent these models, and conditional independences can imply the existence of conditional probabilities with certain independence properties.
 
@@ -224,7 +224,7 @@ We can translate Equation \ref{eq:2comb_winsert} to
 \end{align}
 \subsection{Semantics of observed and unobserved variables}\label{sec:variables}
 
-We are interested in constructing \emph{probabilistic models} which explain some part of the world. In a model, variables play the role of ``pointing to the parts of the world the model is explaining''. Both observed an unobserved variables play important roles in causal modelling and we think it is worth clarifying what variables of either type refer to. Our approach is a standard one: a probabilistic model is associated with an experiment or measurement procedure that yields values in a well-defined set. Observable variables are obtained by applying well-defined functions to the result of this total measurement. We use a richer sample space that includes ``unobserved variables'' that are formally treated the same way as observed variables, but aren't associated with any real-world counterparts.
+We are interested in constructing \emph{probabilistic models} which explain some part of the world. In a model, variables play the role of ``pointing to the parts of the world the model is explaining''. Both observed an unobserved variables play important roles in causal modelling and we think it is worth clarifying what variables of either type refer to. Our approach is a standard one: a probabilistic model is associated with an experiment or measurement procedure that yields values in a well-defined set. Observable variables are obtained by applying well-defined functions to the result of this total measurement. We use a richer fundamental probability set that includes ``unobserved variables'' that are formally treated the same way as observed variables, but aren't associated with any real-world counterparts.
 
 Consider Newton's second law in the form $\proc{F}=\proc{MA}$ as a simple example of a model that relates variables $\proc{F}$, $\proc{M}$ and $\proc{A}$. As \citet{feynman_feynman_1979} noted, this law is incomplete -- in order to understand it, we must bring some pre-existing understanding of force, mass and acceleration as independent things. Furthermore, the nature of this knowledge is somewhat perculiar. Acknowledging that physicists happen to know a great deal about forces on an object, it remains true that in order to actually say what the net force on a real object is, even a highly knowledgeable physicist will still have to go and do some measurements, and the result of such measurements will be a vector representing the net forces on that object.
 
@@ -246,9 +246,9 @@ One might whether there is also some kind of ``append'' operation that takes a s
 
 For the model $\proc{F}=\proc{MA}$, for example, we could assume $\proc{F}=f\circ \proc{S}$ for some $f$ and $(\proc{M},\proc{A})=g\circ \proc{S}$ for some $g$. In this case, we can get $\proc{MA}=h\circ(\proc{M},\proc{A})=(h\circ g)\circ\proc{S}$. Note that each procedure is associated with a unique function with domain $\Psi$.
 
-Thus far, $\Psi$ is a ``sample space'' that only contains observable variables. To include unobserved variables, we posit a richer sample space $\Omega$ such that the measurement $\proc{S}$ determines an element of some partition of $\Omega$ rather than an element of $\Omega$ itself. Then, by analogy to procedures defined with respect to $\proc{S}$, we identify variables in general with measurable functions defined on the domain $\Omega$. 
+Thus far, $\Psi$ is a ``fundamental probability set'' that only contains observable variables. To include unobserved variables, we posit a richer fundamental probability set $\Omega$ such that the measurement $\proc{S}$ determines an element of some partition of $\Omega$ rather than an element of $\Omega$ itself. Then, by analogy to procedures defined with respect to $\proc{S}$, we identify variables in general with measurable functions defined on the domain $\Omega$. 
 
-Specifically, suppose $\proc{S}$ takes values in $\Psi$. Then we can propose a sample space $\Omega$ such that $|\Omega|\geq |\Psi|$ and a surjective function $\RV{S}:\Omega\to \Psi$ associated with $\proc{S}$. We connect $\Omega$, $\RV{S}$ and $\proc{S}$ with the notion of \emph{consistency with obseravation}:
+Specifically, suppose $\proc{S}$ takes values in $\Psi$. Then we can propose a fundamental probability set $\Omega$ such that $|\Omega|\geq |\Psi|$ and a surjective function $\RV{S}:\Omega\to \Psi$ associated with $\proc{S}$. We connect $\Omega$, $\RV{S}$ and $\proc{S}$ with the notion of \emph{consistency with obseravation}:
 
 \begin{align}
  &\omega\in \Omega\text{ is \emph{consistent with observation} iff the result yielded by }\proc{S}\text{ is equal to }\RV{S}(\omega)\label{def:observable}
@@ -256,7 +256,7 @@ Specifically, suppose $\proc{S}$ takes values in $\Psi$. Then we can propose a s
 
 Thus the procedure $\proc{S}$ eventually restricts the observationally consistent elements of $\Omega$. If $\proc{S}$ yield the result $s$, then the consistent values of $\Omega$ will be $\RV{S}^{-1}(s)$.
 
-One thing to note in this setup is that two different sets of measurement outcomes $\Psi$ and $\Psi'$ entail a different mesurement procedures $\proc{S}$ and $\proc{S}'$, but different sample spaces $\Omega$ and $\Omega'$ may be used to model a single procedure $\proc{S}$. We will sometimes consider different models of the same observable procedures.
+One thing to note in this setup is that two different sets of measurement outcomes $\Psi$ and $\Psi'$ entail a different mesurement procedures $\proc{S}$ and $\proc{S}'$, but different fundamental probability sets $\Omega$ and $\Omega'$ may be used to model a single procedure $\proc{S}$. We will sometimes consider different models of the same observable procedures.
 
 As far as we know, distinguishing variables from procedures is somewhat nonstandard, but it is a useful distinction to make. While they may not be explicitly distinguished, both variables and procedures are often discussed in statistical texts. For example, \citet{pearl_causality:_2009} offers the following two, purportedly equivalent, definitions of variables:
 \begin{quote}
@@ -264,14 +264,14 @@ By a \emph{variable} we will mean an attribute, measurement or inquiry that may 
 \end{quote}
 
 \begin{quote}
-This is a minor generalization of the textbook definition, according to which a random variable is a mapping from the sample space (e.g., the set of elementary events) to the real line. In our definition, the mapping is from the sample space to any set of objects called ``values,'' which may or may not be ordered.
+This is a minor generalization of the textbook definition, according to which a random variable is a mapping from the fundamental probability set (e.g., the set of elementary events) to the real line. In our definition, the mapping is from the fundamental probability set to any set of objects called ``values,'' which may or may not be ordered.
 \end{quote}
 
 Our view is that the first definition is a definition of a procedure, while the second is a definition of a variable. Variables model procedures, but they are not the same thing. We can establish this by noting that, under our definition, every procedure of interest -- that is, all procedures that can be written $f\circ \proc{S}$ for some $f$ -- is modeled by a variable, but there may be variables defined on $\Omega$ that do not factorise through $\proc{S}$, and these variables do not model procedures.
 
 \subsection{Events}
 
-To recap, we have a procedure $\proc{S}$ yielding values in $\Psi$ that measures everything we are interested in, a sample space $\Omega$ and a function $\RV{S}$ that models $\proc{S}$ in the sense of Definition \ref{def:observable}. We assume also that $\Psi$ has a $\sigma$-algebra $\sigalg{E}$ (this may be the power set of $\Psi$, as measurement procedures are typically limited to finite precision). $\Omega$ is equipped with a $\sigma$-algebra $\sigalg{F}$ such that $\sigma(\RV{S})\subset \sigalg{F}$. If a procedure $\proc{X}=f\circ \RV{S}$ then we define $\RV{X}:\Omega\to X$ by $\RV{X}:=f\circ\RV{S}$.
+To recap, we have a procedure $\proc{S}$ yielding values in $\Psi$ that measures everything we are interested in, a fundamental probability set $\Omega$ and a function $\RV{S}$ that models $\proc{S}$ in the sense of Definition \ref{def:observable}. We assume also that $\Psi$ has a $\sigma$-algebra $\sigalg{E}$ (this may be the power set of $\Psi$, as measurement procedures are typically limited to finite precision). $\Omega$ is equipped with a $\sigma$-algebra $\sigalg{F}$ such that $\sigma(\RV{S})\subset \sigalg{F}$. If a procedure $\proc{X}=f\circ \RV{S}$ then we define $\RV{X}:\Omega\to X$ by $\RV{X}:=f\circ\RV{S}$.
 
 If a particular procedure $\proc{X}=f\circ \proc{S}$ eventually yields a value $x$, then the values of $\Omega$ consistent with observation must be a subset of $\RV{X}^{-1}(x)$. We define an \emph{event} $\RV{X}\yields x:\equiv \RV{X}^{-1}(x)$, which we read ``the event that $\RV{X}$ yields x''. An event $\RV{X}\yields x$ occurs if the consistent values of $\Omega$ are a subset of $\RV{X}\yields x$, thus ``the event that $\RV{X}$ yields x occurs$\equiv \proc{X}$ yields $x$''. The definition of events applies to all types of variables, not just observables, but we only provide an interpretation of events ``occurring'' when the variable $\RV{X}$ is associated with some $\proc{X}$.
 
@@ -302,53 +302,58 @@ Equation \ref{eq:truncated_fac} embodies three assumptions about a model of the 
 
 The operation of ``setting $\RV{X}$ to $x$'' is often referred to as an \emph{intervention}. Interventions are things we can choose to do, or not to do. We can also consider choosing to do or not do an intervention based on the output of some random process. We need some kind of model that can tell us which result we are likely to see for any choice of interventions, random or nonrandom. This means that we need a model with a \emph{probability gap} for the choice of interventions. For a nonrandom choice of intervention $x$, we can consider the map $x\mapsto \prob{P}^{\RV{XYZ}}_{x}$ such a model, and if we include random choices we can consider $\prob{Q}:\prob{P}_\alpha^{\RV{X}}\mapsto \sum_{x} \prob{P}_\alpha^{\RV{X}}(x) \prob{P}^{\RV{XYZ}}_{x}$ to be such a model.
 
-$\prob{Q}$, as we have defined it so far, is not quite an ideal candidate for a probability gap model. Firstly, conditional probabilities are arbitrary on sets of measure zero with regard to $\prob{P}^{\RV{XYZ}}$, definition \ref{eq:truncated_fac} can be satisfied by multiple probability distributions that differ in meaningful ways. Suppose $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ are binary, $\prob{P}^{\RV{Z}}(1)=1$ and $\prob{P}(\RV{X}\yields \RV{Z})=1$. Then we can consistently choose $\prob{P}^{\RV{Y|XZ}}(1|0,1)=1$ or $\prob{P}^{\RV{Y|XZ}}(1|0,1)=0$ because $\{0,1\}$ is a measure zero event. However, the first choice gives us  $\prob{P}^{\RV{XYZ}}_{0}(0,1,1)=1$ while the second gives us $\prob{P}^{\RV{XYZ}}_{0}(0,1,1)=0$, which are very different opinions regarding ``the result of setting $\RV{X}$ to $1$''.
+$\prob{Q}$, as we have defined it, is not quite an ideal candidate for a probability gap model. Firstly, theconditional probability $\disint{P}^{\RV{Y}|\RV{XZ}}$ may be chosen arbitrarily on a set of measure zero with regard to $\prob{P}^{\RV{XZ}}$. As a result, depending on the choice of $\disint{P}^{\RV{Y}|\RV{XZ}}$, Equation \ref{eq:truncated_fac} can be satisfied by multiple probability distributions that differ in meaningful ways. For example, suppose $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ are binary and $\prob{P}((\RV{X}, \RV{Z})\yields (1,1))=1$. Then we can consistently choose $\prob{P}^{\RV{Y|XZ}}(1|0,1)=1$ or $\prob{P}^{\RV{Y|XZ}}(1|0,1)=0$ because $\{0,1\}$ is a measure zero event. However, the first choice gives us  $\prob{P}^{\RV{XYZ}}_{0}(0,1,1)=1$ while the second gives us $\prob{P}^{\RV{XYZ}}_{0}(0,1,1)=0$, which are very different opinions regarding ``the result of setting $\RV{X}$ to $1$''.
 
 Secondly, there may be no probability model at all that satisfies Equation \ref{eq:truncated_fac}. For example, suppose $\RV{X}=f\circ\RV{Z}$ for some $f$. Then we must have $\prob{P}^{\RV{X}}_x(x')=\prob{P}^{\RV{Z}}_x(f^{-1}(x'))$ for any $x$. However, we also have $\prob{P}^{\RV{X}}_x(x')=\llbracket x = x' \rrbracket$ for all $x,x'$ and $\prob{P}^{\RV{Z}}_x=\prob{P}^{\RV{Z}}$ for all $x$. Thus if $\RV{X}$ can more than one value, there is at least one choice of $x$ that cannot simultaneously satisfy these requirements.
 
-This might seem like an absurd model, but an analogous causal graph appears in \citet{shahar_association_2009} where $\RV{Z}=(\RV{H},\RV{W})$, representing a person's height and weight, and $\RV{X}$ represents their body mass index, which is to say $\RV{X}=\frac{\RV{W}}{\RV{H}^2}$. Furthermore, this paper uses this model to argue that body mass index cannot have a causal effect. Such an argument cannot be supported by Equation \ref{eq:truncated_fac} because by that equation there is no probability model corresponding to an intervention on $\RV{X}$.
+A more subtle example of this latter problem appears in \citet{shahar_association_2009}. A causal graph in that paper features an arrow $\RV{Z}\longrightarrowRHD \RV{X}$ where $\RV{Z}=(\RV{H},\RV{W})$, representing a person's height and weight, and $\RV{X}$ represents their body mass index. This causal model is used to draw conclusions about the result of intervening on $\RV{X}$. By definition, $\RV{X}=\frac{\RV{W}}{\RV{H}^2}$. While we don't have $\RV{X}$ equal to $\RV{Z}$, it must still be a deterministic function of $\RV{Z}$.  However, any intervention on $\RV{X}$ along the lines of Equation \ref{eq:truncated_fac} will yield $\RV{X}$ independent of $(\RV{H},\RV{W})$, and unless $(\RV{H},\RV{W})$ is determistically equal to a constant and the intervention on $\RV{X}$ is carefully chosen, there is no probability model at all that has this independence.
 
-Our first aim is to offer a more careful theory of probability models with gaps in them, addressing these two shortcomings.
+The theory of probability gap models allows us to model things like interventions and it does not share these problems of non-uniqueness and non-existence with models defined via truncated factorisation.
 
 \subsection{Probability gaps}
 
-Probability gap models are probability models that are missing key parts. If we provide a ``missing part'' or ``insert'' of the right type then we get a probability model. That is, a probability gap model is in general a function from something to a probability model. We consider specific kinds of probability gap models that take marginal probabilities or conditional probabilities to probability models.
+A probability gap model is a function that maps ``inserts'' to probability models. We think of the set of inserts as different ways we can fill the probability gap. The particular kinds of inserts we want to consider here are marginal probabilities and conditional probabilities.
 
 \begin{definition}[Probability gap model]
 Given a fundamental probability set $\Omega$ and a set of inserts $A$, a probability gap model $\prob{P}:A\to \Delta(\Omega)$ is a function that sends an element of $A$ to a probability measure on $\Omega$, which we call a \emph{base measure}.
 \end{definition}
 
-We will make a substantial simplifying assumption: all sets, including the sample space $\Omega$ and any set of values a variable takes, are discrete sets. That is, they are at most countably infinite and the $\sigma$-algebra of measurable sets is the power set. Because we are working with discrete sets we will by convention call probability measures on set elements: $\prob{P}^{\RV{X}}(x):=\prob{P}^{\RV{X}}(\{x\})$. 
+We will make a substantial simplifying assumption: all sets, including the fundamental probability set $\Omega$ and any set of values a variable takes, are discrete sets. That is, they are at most countably infinite and the $\sigma$-algebra of measurable sets is the power set. Because we are working with discrete sets we will by convention call probability measures on set elements: $\prob{P}^{\RV{X}}(x):=\prob{P}^{\RV{X}}(\{x\})$.
 
 \begin{definition}[Probability space]
-A probability space is a triple $(\mu,\Omega,\sigalg{F})$, where $\mu$ is a probability measure on $\sigalg{F}$ which we here take to be $\mathscr{P}(\Omega)$. We call $\mu$ the \emph{base measure}.
+A probability space is a triple $(\mu,\Omega,\sigalg{F})$, where $\mu$ is a base measure on $\sigalg{F}$ which we here take to be $\mathscr{P}(\Omega)$.
 \end{definition}
 
-Probability spaces along with random variables can be used to define probability distributions of those random variables. We call such distributions \emph{pushforwards}.
+Probability spaces along with random variables can be used to define \emph{marginal probability distributions} of those random variables.
 
-\begin{definition}[Pushforward]\label{def:pushforward}
-Given a probability space $(\mu,\Omega)$ and a random variable $\RV{X}:\Omega\to X$, we can define the probability distribution $\mu^{\RV{X}}:\sigalg{X}\to [0,1]$ of $\RV{X}$ as the \emph{pushforward} of $\mu$ by $\RV{X}$. Specifically, for any $x\in X$, $\mu^{\RV{X}}(x):=\mu(\RV{X}\yields x)$. 
-\end{definition}
-
-A $\RV{Y}|\RV{X}$-\emph{disintegration} is ``the probability of $\RV{Y}$ given $\RV{X}$ relative to $\mu$''. It is a Markov kernel that maps a pushforward of $\RV{X}$ to the pushforward of the sequence $(\RV{X},\RV{Y})$.
-
-\begin{definition}[Disintegration]\label{def:disint}
-Given a probability space $(\mu,\Omega)$ and random variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, the disintegration $\overline{\mu}^{\RV{Y}|\RV{X}}:X\kto Y$ is any Markov kernel such that
+\begin{definition}[Marginal distribution with respect to a probability space]\label{def:pushforward}
+Given a probability space $(\mu,\Omega)$ and a random variable $\RV{X}:\Omega\to X$, we can define the \emph{marginal distribution} of $\RV{X}$ with respect to $\mu$, $\mu^{\RV{X}}:\sigalg{X}\to [0,1]$ of $\RV{X}$ by $\mu^{\RV{X}}(x):=\mu(\RV{X}\yields x)$ for any $x\in X$. Equivalently, if we define the Markov kernel $\kernel{F}_{\RV{X}}:\Omega\kto X$ associated with the function $\RV{X}$ by $\kernel{F}_{\RV{X}}(x|\omega)=\llbracket \RV{X}(\omega)=x\rrbracket$, then
 \begin{align}
-	\mu^{\RV{X}}(x)\overline{\mu}^{\RV{Y}|\RV{X}}(y|x)&= \mu^{\RV{XY}}(x,y) &\forall x\in X, y\in Y\\
+	\mu^{\RV{X}} = \mu\kernel{F}_{\RV{X}}
+\end{align}
+\end{definition}
+
+A $\RV{Y}|\RV{X}$-\emph{conditional probability} is ``the probability of $\RV{Y}$ given $\RV{X}$ relative to $\mu$''. It is a Markov kernel that maps the marginal distribution of $\RV{X}$ to the marginal distribution of the sequence $(\RV{X},\RV{Y})$.
+
+\begin{definition}[Conditional probability with respect to a probability space]\label{def:disint}
+Given a probability space $(\mu,\Omega)$ and random variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, the disintegration $\mu^{\RV{Y}|\RV{X}}:X\kto Y$ is any Markov kernel such that
+\begin{align}
+	\mu^{\RV{X}}(x)\mu^{\RV{Y}|\RV{X}}(y|x)&= \mu^{\RV{XY}}(x,y) &\forall x\in X, y\in Y\\
 	&\iff\\
 	\tikzfig{disint_def} &= \mu^{\RV{XY}}
 \end{align}
 Because in general disintegrations are non-unique and we sometimes need to account for this fact, we use a bar over the top of the letter to indicate that it is an arbitrary element of the set of disintegrations.
 \end{definition}
 
-Given a probability gap model $\prob{P}$, we define pushforwards and disintegrations as probability measures and Markov kernels that satisfy Definitions \ref{def:pushforward} and \ref{def:disint} respectively for all base measures in the range of $\prob{P}$.
+Given a probability gap model $\prob{P}$, we define marginal and conditional probabilities as probability measures and Markov kernels that satisfy Definitions \ref{def:pushforward} and \ref{def:disint} respectively for \emph{all} base measures in the range of $\prob{P}$. 
 
-\begin{definition}[Pushforward - probability gap model]
-Given a fundamental probability set $\Omega$, a set of inserts $A$, a variable $\RV{X}:\Omega\to X$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$, if $\prob{P}_a^{\RV{X}}=\prob{P}_{a'}^{\RV{X}}$ for all $a,a'\in A$, the pushforward $\prob{P}^{\RV{X}}=\prob{P}_a\right)^{\RV{X}}$ for any $a$. Otherwise, it is undefined.
+Even though there are generally multiple Markov kernels that satisfy the properties of a conditional probability with respect to a probability gap model, this definition ensures that any choice will map the same marginal distribution to the same joint distribution \emph{no matter which insert we choose}. This is different to the example of truncated factorisation we started with, where different choices of $\disint{P}^{\RV{Y}|\RV{XZ}}$ gave different joint probabilities for some insert choices. This is because $\disint{P}^{\RV{Y}|\RV{XZ}}$ is a conditional probability with respect to the distribution of observations, and it is not a conditional probability with respect to the probability gap model of interventions.
+
+\begin{definition}[Marginal probability with respect to a probability gap model]
+Given a fundamental probability set $\Omega$, a set of inserts $A$, a variable $\RV{X}:\Omega\to X$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$, if $\prob{P}_a^{\RV{X}}=\prob{P}_{a'}^{\RV{X}}$ for all $a,a'\in A$, the marginal distribution $\prob{P}^{\RV{X}}=\prob{P}_a^{\RV{X}}$ for any $a$. Otherwise, it is undefined.
 \end{definition}
 
-\begin{definition}[Disintegration - probability gap model]
+\begin{definition}[Conditional probability with respect to a probability gap model]
 Given a fundamental probability set $\Omega$, a set of inserts $A$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$, $\prob{P}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that for all $\prob{P}_a:=\prob{P}(a)$, $a\in A$
 \begin{align}
 	\prob{P}_a^{\RV{X}}(x)\prob{P}^{\RV{Y}|\RV{X}}(y|x)&= \prob{P}_a^{\RV{XY}}(x,y) &\forall x\in X, y\in Y
@@ -356,10 +361,10 @@ Given a fundamental probability set $\Omega$, a set of inserts $A$, variables $\
 If no such Markov kernel exists, $\prob{P}^{\RV{Y}|\RV{X}}$ is undefined.
 \end{definition}
 
-Given a disintegration of a probability gap model, we can find other disintegrations by pushing forward.
+Given a conditional probability with respect to a probability gap model, we can find other conditional probabilities by ``pushing forward'' via a function.
 
 \begin{theorem}[Recursive pushforward]\label{th:recurs_pushf}
-Suppose we have a fundamental probability set $\Omega$, a set of inserts $A$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$ such that $\prob{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ disintegration of $\prob{P}$ and $\RV{Z}=f\circ \RV{Y}$ for some $f:Y\to Z$. Then there exists a pushforward $\prob{P}^{\RV{Z}|\RV{Z}}$ defined by $\prob{P}^{\RV{Z}|\RV{Z}}(z|x):=\prob{P}^{\RV{Y}|\RV{X}}(f^{-1}(z)|x)$.
+Suppose we have a fundamental probability set $\Omega$, a set of inserts $A$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$ such that $\prob{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability of $\prob{P}$ and $\RV{Z}=f\circ \RV{Y}$ for some $f:Y\to Z$. Then there exists a $\RV{Z}|\RV{X}$ conditional probability of $\prob{P}$ defined by $\prob{P}^{\RV{Z}|\RV{Z}}(z|x):=\prob{P}^{\RV{Y}|\RV{X}}(f^{-1}(z)|x)$.
 \end{theorem}
 
 \begin{proof}
@@ -372,11 +377,23 @@ For any $a\in A$, $x,z$
 \end{align}
 \end{proof}
 
-\subsection{Probability gap models defined by disintegrations and pushforwards}
+Given a conditional probability with respect to a probability gap model, we can also find additional conditional probabilities by disintegrating the original conditional probability.
 
-In the previous section we saw how we can define disintegrations and pushforwards of probability gap models. Here, we will see how to define probability gap models by specifying a collection of disintegratons and pushforwards. In fact, we will define a hierarchy of gap models -- a model specified by a probability distribution is an order zero gap model while a model specified by a conditional probability is an order 1 gap model. An order $n$ gap model maps its inserts to order $n-1$ gap models. 
+\todo[inline]{Copy-paste the relevant theorems}
 
-To develop this idea, it will be helpful to define an operation $\odot$ that combines Markov kernels in the manner of Definition \ref{def:disint}.
+\begin{theorem}[Recursive disintegration]\label{th:recursive-disint}
+Suppose we have a fundamental probability set $\Omega$, a set of inserts $A$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$ such that $\prob{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ disintegration of $\prob{P}$. Define an order 1 probability gap model $\prob{Q}^{\square \RV{Y}|\RV{X}}$ such that $\prob{Q}^{\RV{Y}|\RV{X}}=\prob{P}^{\RV{Y}|\RV{X}}$. Then if $\prob{Q}^{\RV{Z}|\RV{W}}$ is a $\RV{Z}|\RV{W}$ disintegration of $\prob{Q}$, it is also a $\RV{Z}|\RV{W}$ disintegration of $\prob{P}$.
+\end{theorem}
+
+\begin{proof}
+The range of $\prob{Q}$ is all base measures on $\Omega$ for which $\prob{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ disintegration. By assumption, then $\text{Range}(\prob{Q})\supset\text{Range}(\prob{P})$. By definition, $\prob{Q}^{\RV{Z}|\RV{W}}$ is a $\RV{Z}|\RV{W}$ disintegration of every base measure in $\text{Range}(\prob{Q})$ and so it is also a $\RV{Z}|\RV{W}$ disintegration of every base measure in $\text{Range}(\prob{P})$.
+\end{proof}
+
+\subsection{Probability gap models defined by marginal and conditional probabilities}
+
+In the previous section we defined marginal and conditional probabilities for probability gap models. We can in turn define probability gap models by specifying a collection of marginal and/or conditional probabilities along with a set of inserts. In fact, we will define a hierarchy of probability gap models -- order 0 gap models are specified by marginal probabilities and map inserts to base measures, while order 1 gap models are specified by conditional probabilities and map inserts to order 0 gap models.
+
+It is helpful to define an operation $\odot$ that combines Markov kernels in the same that Definition \ref{def:disint} combined marginals and conditionals to a joint probability.
 
 \begin{definition}[Copy-product]\label{def:copyproduct}
 Given two Markov kernels $\prob{K}:X\kto Y$ and $\prob{L}:Y\times X\kto Z$, define the copy-product $\prob{K}\odot\prob{L}:X\to Y\times Z$ as
@@ -388,39 +405,43 @@ Given two Markov kernels $\prob{K}:X\kto Y$ and $\prob{L}:Y\times X\kto Z$, defi
 \end{align}
 \end{definition}
 
-Given a variable $\RV{X}:\Omega\to X$ and an arbitrary probability measure on $X$ which we will call $\prob{P}^{\RV{X}}$, we want $\prob{P}:A\to \Delta(\Omega)$ to be some probability gap model such that $\prob{P}^{\RV{X}}$ is a pushforward of $\prob{P}$. Note that for any $a\in A$, defining $\RV{I}:\Omega\to \Omega$ to be the variable given by the identity function on $\Omega$, by the existence of disintegrations (Lemma \ref{lem:disint_exist}) there exists some $\prob{P}_a^{\RV{I}|\RV{X}}$ such that $\prob{P}_a^{\RV{X}\RV{I}}=\prob{P}^{\RV{X}}\odot \prob{P}^{\RV{I}|\RV{X}}$. 
+We will first consider ``order 0'' probability gap models defined by marginal probabilities. These serve as a base kind of probability gap model that we use to define higher order models. The ``probability gap'' in this case relates to the particular choice of base measure that yields this marginal probability. Like most statistical work, we don't typically explicitly define the fundamental probability set $\Omega$, nor do we explicitly care about the base measure on it. Thus, unlike higher order probability gap models, we're not particularly interested in the probability gaps in order 0 models. Nevertheless, they serve as a base type for the purposes of defining higher order models.
 
-Alternatively, we could \emph{define} $\prob{P}$ to be a function from Markov kernels $X\kto \Omega$ to probability distributions on $\Omega$ such that for some $\kernel{K}:X\kto \Omega$, $\prob{P}(\kernel{K})=\prob{P}^{\RV{X}}\odot \prob{K}$. However, $\prob{P}$ cannot in general be defined for \emph{every} Markov kernel $X\kto \Omega$, as for many such kernels the product $\prob{P}^{\RV{X}}\odot \prob{K}$ will not be the pushforward of any base measure on $\Omega$. For example, let $X=\Omega=\{0,1\}$ and $\RV{X}=\RV{I}$ and $\kernel{K}(\omega|x) = \llbracket 1 - x \rrbracket$. Then if we suppose $\prob{P}^{\RV{X}}\odot \prob{K}=\prob{P}_{\prob{K}}^{\RV{XX}}$, we find that $\prob{P}_{\prob{K}}^{\RV{XX}}(x,x)=\prob{P}_{\prob{K}}(\RV{X}\yields x)=0$ for all $x\in X$, so this is not possible.
+We define an order 0 probability gap model $\prob{P}$ to be a function from some set of Markov kernels $X\kto \Omega$ to probability measures on $\Omega$ such that for some $\kernel{K}:X\kto \Omega$, $\prob{P}(\kernel{K})=\prob{P}^{\RV{X}}\prob{K}$ for some probability distribution $\prob{P}^{\RV{X}}$. Not every Markov kernel $X\kto \Omega$ will yield a base measure on $\Omega$ that pushes forward to $\prob{P}^{\RV{X}}$ by this operation. For example, let $X=\Omega=\{0,1\}$ and $\RV{X}=\RV{I}$, the identity function on $\Omega$, $\prob{P}^{\RV{X}}(x)=\llbracket x=1 \rrbracket$ and $\kernel{K}(\omega|x) = \llbracket 1 - x \rrbracket$. Then letting $\mu:=(\prob{P}^{\RV{X}} \prob{K})$, $\mu^{\RV{X}}(x)=\mu(x)=\llbracket x=0 \rrbracket$ which is not equal to $\prob{P}^{\RV{X}}(x)$. Instead we define $\prob{P}$ on the set of \emph{valid candidate conditionals}, which is a subset of Markov kernels $X\kto \Omega$.
 
-It is also sometimes possible to find probability measures $\prob{P}^{\RV{X}}$ on $\Delta(X)$ such that no base measure on $\Omega$ pushes forward via $\RV{X}$ to $\prob{P}^{\RV{X}}$. Consider, for example, $\RV{X}=(\RV{Y},\RV{Y})$ for some $\RV{Y}$ and any measure that assigns nonzero probability to $(\RV{Y},\RV{Y})\yields (y,y')$ for $y\neq y'$.
+Not all probability measures $\prob{P}^{\RV{X}}$ on $X$ map to base measures $\mu$ via a valid candidate conditional that yield back $\prob{P}^{\RV{X}}$ as marginals. Consider, for example, $\RV{X}=(\RV{Y},\RV{Y})$ for some $\RV{Y}$ and any measure $\prob{P}^{\RV{YY}}$ that assigns nonzero probability to $(\RV{Y},\RV{Y})\yields (y,y')$ for $y\neq y'$. Then there is no base measure that pushes forward to $\prob{P}^{\RV{YY}}$. Thus we restrict our attention to \emph{valid candidate distributions} that can serve as definitions for order 0 probability gaps.
 
-We can, however, define a probability gap model $\prob{P}$ induced by some \emph{valid probability distribution} $\prob{P}^{\RV{X}}\in \Delta(X)$ to be the map from all \emph{valid completions} $X\kto \Omega$ to probability measues on $\Omega$. 
-
-\begin{definition}[Valid probability distribution]\label{def:valid_dist}
+\begin{definition}[Valid canditate distribution]\label{def:valid_dist}
 A valid $\RV{X}$ probability distribution $\prob{P}^{\RV{X}}$ is any probability mesure on $\Delta(X)$ such that $\RV{X}^{-1}(x)=\emptyset\implies \prob{P}^{\RV{X}}(x) = 0$.
 \end{definition}
 
-\begin{definition}[Valid conditional probability]\label{def:valid_conditional_prob}
+\begin{definition}[Valid candidate conditional]\label{def:valid_conditional_prob}
 Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{valid $\RV{Y}|\RV{X}$ conditional probability} $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$ such that it assigns probability 0 to contradictions:
 \begin{align}
 	\forall y\in Y, x\in X: (\RV{X},\RV{Y})\yields(x,y) = \emptyset \implies \left(\prob{P}^{\RV{Y}|\RV{X}}(y|x) = 0\right) \lor \left(\RV{X}\yields (x) = \emptyset\right)
 \end{align}
 \end{definition}
 
-The typical definition of conditional probability allows for conditional probabilities that are invalid by this definition. See Theorem \ref{th:valid_disint} for a proof that it is at least always possible to choose a valid conditional probability from among the options available under the usual definition. See also \citet{hajek_what_2003} for arguments in favour of requiring conditional distributions satisfy something like Definition \ref{def:valid_conditional_prob}.
+The definition of conditional probability (Definition \ref{def:disint}) allows in some cases for conditional probabilities that are not valid candidate conditionals. In Theorem \ref{th:valid_disint} we prove that it is always possible to choose a version of a conditional probability that is also a valid candidate conditional. See also \citet{hajek_what_2003} for an argument that conditional probabilities should always satisfy the property of being valid candidate conditionals.
+
+With valid candidate distributions and valid candidate conditionals, we can define order 0 probability gap models.
 
 \begin{definition}[Order 0 probability gap model]
-An order 0 probability gap model $\prob{P}$ is defined by a variable $\RV{X}:\Omega\to X$ and a valid probability distribution $\prob{P}^{\RV{X}}$, and is the map from valid conditional probabilities $X\kto \Omega$ to base measures given by
-\begin{align}
-	\prob{P}_{\kernel{K}} = \prob{P}^{\RV{X}}\odot\kernel{K}$
-\end{align}
-for any valid conditional probability $\kernel{K}$.
+Given probability set $\Omega$ and variable $\RV{X}:\Omega \to X$, define the valid candidate conditionals $A\subset \Delta(\Omega)^X$. An order 0 probability gap model is a function $\prob{P}:A\to \Delta(\Omega)$ such that some $\prob{P}^{\RV{X}}\in \Delta(X)$ is a marginal distribution with respect to $\prob{P}$.
 \end{definition}
 
-Theorem \ref{th:completion} shows that these definitions are sufficient to ensure that $\prob{P}$ is a well-defined probability gap model that has the pushforward $\prob{P}^{\RV{X}}$, and the validity of $\model{J}$ is necessary.
+\begin{definition}[Order 0 model associated with a given marginal]\label{def:order_0_marg}
+Given probability set $\Omega$ and variable $\RV{X}:\Omega \to X$, valid candidate conditionals $A\subset \Delta(\Omega)^X$ and a valid candidate distribution $\prob{P}^{\RV{X}}\in \Delta(X)$, define $\prob{P}:A\to \Delta(\Omega)$ by $\kernel{K}\in A$, $\prob{P}$ is given by
+\begin{align}
+	\prob{P}: \kernel{K}\mapsto \prob{P}^{\RV{X}}\kernel{K}
+\end{align}
+for any valid candidate conditional $\kernel{K}\in A$.
+\end{definition}
+
+Theorem \ref{th:completion} shows that Definition \ref{def:order_0_marg} does actually define an order 0 model with marginal $\prob{P}^{\RV{X}}$.
 
 \begin{theorem}[Completion]\label{th:completion}
-Given $\RV{X}:\Omega\to X$, $\kernel{J}\in \Delta(X)$ and $\kernel{K}:X\kto \Omega$, there exists some $\mu$ $\RV{Y}:\Omega\to Y$ such that $\kernel{J}\odot \kernel{K}=\mu^{\RV{Y}}$ and $\mu^{\RV{X}}=\kernel{J}$ if $\kernel{J}$ is a valid probability distribution and $\kernel{K}$ is a valid conditional probability, and only if $\kernel{J}$ is a valid probability distribution.
+Given $\RV{X}:\Omega\to X$, $\kernel{J}\in \Delta(X)$ and $\kernel{K}:X\kto \Omega$, there exists some $\mu\in \Delta(\Omega)$ and $\RV{Y}:\Omega\to Y$ such that $\kernel{J}\odot \kernel{K}=\mu^{\RV{Y}}$ and $\mu^{\RV{X}}=\kernel{J}$ if $\kernel{J}$ is a valid candidate distribution and $\kernel{K}$ is a valid candidate conditional, and only if $\kernel{J}$ is a valid candidate distribution.
 \end{theorem}
 
 \begin{proof}
@@ -439,7 +460,7 @@ Then
 and, letting $\RV{Y}=(\RV{X},\RV{I})$, for any $x\in X$, $\omega\in \Omega$
 \begin{align}
 	\mu^{\RV{Y}}(x,\omega) &= \mu^{\RV{XI}}(x,\omega)\\
-	&= \mu(\omega)\overline{\mu}^{\RV{X}|\RV{I}}(x|\omega)\\
+	&= \mu(\omega)\mu^{\RV{X}|\RV{I}}(x|\omega)\\
 	&= \sum_{x'\in X} (\kernel{J}\odot \kernel{K})(x',\omega) \llbracket \RV{X}(\omega) = x \rrbracket\\
 	&= (\kernel{J}\odot \kernel{K})(x,\omega)\\
 	&\iff\\
@@ -457,26 +478,30 @@ Suppose $\kernel{J}$ is not a valid probability distribution. Then there is some
 
 \subsection{Higher order gap models}\label{sec:validity_of_gapprob}
 
-Order 1 gap models are represented by \emph{conditional probabilities} and order 2 gap models by \emph{probability 2-combs}. We combine order 0 gap models (probability distributions) with order 1 gap models (conditional probabilities) using the ``copy-product'' $\odot$ to yield an order 0 gap model, and combine order 1 gap models with order 2 gap models usint the ``insert'' operation to yield order 1 gap models.
+Order 1 gap models are represented by \emph{conditional probabilities} and order 2 gap models by \emph{probability 2-combs}. Order 1 models take valid candidate distributions and map to order 0 gap models using the ``copy-product'' $\odot$. Order 2 models take valid candidate conditionals and, via the ``insert'' operation, yield oer 1 models.
 
-\textbf{A note on terminology:} We notate probability gap models with blackboard letters $\prob{P}$ and the Markov kernels that represent them with superscripts such as $\prob{P}^{\RV{Y}|\RV{X}}$. We use subscripts to indicate application of the model to an insert $\prob{P}_\alpha:=\prob{P}(\prob{P}^{\RV{X}}_\alpha)$, and $\prob{P}_\alpha$ is also a model of lower order. The same base letter with different superscripts $\prob{P}^{\RV{A}|\RV{B}}$ indicates a disintegration of $\prob{P}$, and $\RV{A}\CI_{\prob{P}} \RV{B}$ is a statement of independence with respect to the model $\prob{P}$.
+\textbf{A note on terminology:} Probability gap models are written with blackboard letters $\prob{P}$. The same base letter with different superscripts $\prob{P}^{\RV{A}|\RV{B}}$ indicates a conditional probability with respect to $\prob{P}$. We use subscripts to indicate application of the model to an insert $\prob{P}_\alpha:=\prob{P}(\prob{P}^{\RV{X}}_\alpha)$, and $\prob{P}_\alpha$ is the resulting model of lower order. The same base letter with different superscripts $\prob{P}^{\RV{A}|\RV{B}}$ indicates a conditional probability with respect to $\prob{P}$, and $\RV{A}\CI_{\prob{P}} \RV{B}$ is a statement of independence with respect to the model $\prob{P}$.
 
 \begin{definition}[Order 1 probability gap model]
-An order 1 probability gap model $\prob{P}$ is defined by variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a valid conditional probability distribution $\prob{P}^{\RV{Y}|\RV{X}}$, and $\prob{P}$ is the map from valid $\RV{X}$ probability distributions to valid $(\RV{X},\RV{Y})$ probability distributions given by
-\begin{align}
-	\prob{P}_{\alpha}^{\RV{XY}} = \prob{P}_\alpha^{\RV{X}}\odot\prob{P}^{\RV{Y}|\RV{X}}
-\end{align}
-for any valid $\RV{X}$ probability distribution $\prob{P}_\alpha^{\RV{X}}$. The notation $\prob{P}^{\square \RV{Y}|\RV{X}}$ is shorthand for the model $\prob{P}$ defined by a conditional probability $\prob{P}^{\RV{Y}|\RV{X}}$ (it is useful to distinguish a model from a disintegration of a model).
+Given probability set $\Omega$ and variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, denote by $A$ the set of valid candidate distributions on $X$. Then an order 1 probability gap model $\prob{P}$ is a function from $A\to \Delta(X\times Y)$ such that some $\prob{P}^{\RV{Y}|\RV{X}}:X\kto Y$ is a conditional probability with respect to $\prob{P}$.
 \end{definition}
 
-Note that the same model $\prob{P}$ may be represented by different $\prob{P}^{\RV{Y}|\RV{X}}$; this can happen wherever $\text{Range}(\RV{X})\neq X$ (for example, $\RV{X}=(\RV{Z},\RV{Z})$ for some $\RV{Z}$). 
+\begin{definition}[Order 1 model defined by a conditional]\label{def:order1_bycond}
+Given probability set $\Omega$ and variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $A$ the set of valid candidate distributions on $X$ and valid candidate conditional $\prob{P}^{\RV{Y}|\RV{X}}$, define $\prob{P}:A\to \Delta(X\times Y)$ to be the order 1 model such that defined by
+\begin{align}
+	\prob{P}_\alpha^{\RV{X}} \mapsto \prob{P}_\alpha^{\RV{X}}\odot\prob{P}^{\RV{Y}|\RV{X}}
+\end{align}
+For any valid candidate distribution $\prob{P}_\alpha^{\RV{X}}\in A$.
+\end{definition}
 
-We required order 0 probability gap models to be valid so that they extended to base measures in the appropriate way, and we similarly require a property of validity in order to ensure that an order 1 probability gap model $\prob{P}$ returns valid order 0 probability gap models $\prob{P}_\alpha$. Theorem \ref{th:valid_conditional_probability} shows that the property of validity (Definition \ref{def:valid_conditional_prob}) is necessary and sufficient for $\prob{P}$ to return valid order 0 probability gap models.
+The notation $\prob{P}^{\square \RV{Y}|\RV{X}}$ is shorthand for an order 1 model $\prob{P}$ defined by a conditional $\prob{P}^{\RV{Y}|\RV{X}}$.
+
+Theorem \ref{th:valid_conditional_probability} shows that Definition \ref{def:order1_bycond} is indeed an order 1 model.
 
 First, we show that Definitions \ref{def:valid_dist} and \ref{def:valid_conditional_prob} define equivalent notions of validity.
 
 \begin{lemma}[Equivalence of validity definitions]\label{th:valid_agree}
-Given $\RV{X}:\Omega\to X$, with $\Omega$ and $X$ discrete, a probability distribution $\prob{P}^{\RV{X}}$ is valid if and only if the conditional probability $\prob{P}^{\RV{X}|*}:=*\mapsto \prob{P}^{\RV{X}}$ is valid.
+Given $\RV{X}:\Omega\to X$, with $\Omega$ and $X$ discrete, a probability measure $\prob{P}^{\RV{X}}\in \Delta(X)$ is valid if and only if the conditional $\prob{P}^{\RV{X}|*}:=*\mapsto \prob{P}^{\RV{X}}$ is valid.
 \end{lemma}
 
 \begin{proof}
@@ -494,9 +519,9 @@ Only if: If $\RV{X}\yields x=\emptyset$ then $\prob{P}^{\RV{X}}(x)=\prob{P}^{\RV
 
 Next, we show that 
 
-\begin{theorem}[Product of valid conditional probabilities is valid]\label{lem:valid_extendability}
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and any valid conditional probabilities $\prob{P}^{\RV{Y}|\RV{X}}$ and $\prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$, $ \prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$ is also a valid conditional probability.
-\end{theorem}
+\begin{lemma}[Product of valid candidate conditionals is valid]\label{lem:valid_extendability}
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and any valid candidate conditional $\prob{P}^{\RV{Y}|\RV{X}}$ and $\prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$, $ \prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$ is also a valid candidate conditional.
+\end{lemma}
 
 \begin{proof}
 Let $\prob{R}^{\RV{YZ}|\RV{X}}:=\prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$.
@@ -517,8 +542,8 @@ For all $(x,y)\in (\RV{X},\RV{Y})(\Omega)$, $z\in Z$ such that $(\RV{X},\RV{Y},\
 \end{align}
 \end{proof}
 
-\begin{corollary}[Valid conditional probability is validly extendable to a probability distribution]\label{corr:valid_extend_order1}
-Given $\Omega$, $\RV{U}:\Omega\to U$, $\RV{W}:\Omega\to W$ and a valid conditional probability $\prob{T}^{\RV{W}|\RV{U}}$, then for any valid conditional probability $\prob{V}^{\RV{U}}$, $\prob{V}^{\RV{U}}\odot \prob{T}^{\RV{W}|\RV{U}}$ is a valid probability distribution.
+\begin{corollary}[Valid candidate conditional is validly extendable to a valid candidate distribution]\label{corr:valid_extend_order1}
+Given $\Omega$, $\RV{U}:\Omega\to U$, $\RV{W}:\Omega\to W$ and a valid candidate conditional $\prob{T}^{\RV{W}|\RV{U}}$, then for any valid candidate conditional $\prob{V}^{\RV{U}}$, $\prob{V}^{\RV{U}}\odot \prob{T}^{\RV{W}|\RV{U}}$ is a valid candidate probability.
 \end{corollary}
 
 \begin{proof}
@@ -526,7 +551,7 @@ Applying Lemma \ref{lem:valid_extendability} choosing $\RV{X}=*$, $\RV{Y}=\RV{U}
 \end{proof}
 
 \begin{theorem}[Validity of conditional probabilities]\label{th:valid_conditional_probability}
-Suppose we have $\Omega$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, with $\Omega$, $X$, $Y$ discrete. A conditional probability $\prob{T}^{\RV{Y}|\RV{X}}$ is valid if and only if for all valid probability distributions $\prob{V}^{\RV{X}}$, $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is a valid probability distribution.
+Suppose we have $\Omega$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, with $\Omega$, $X$, $Y$ discrete. A conditional $\prob{T}^{\RV{Y}|\RV{X}}$ is valid if and only if for all valid candidate distributions $\prob{V}^{\RV{X}}$, $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is also a valid candidate distribution.
 \end{theorem}
 
 \begin{proof}
@@ -631,6 +656,10 @@ An order 1 probability gap model $\prob{P}$ is defined by variables $\RV{W}:\Ome
 	\prob{P}_{\alpha}^{\RV{XYZ}|\RV{W}} = \prob{P}^{\RV{X}|\RV{W}}\odot\prob{P}^{\RV{Y}|\RV{X}}_\alpha \odot \prob{P}^{\RV{Z}|\RV{WXY}}
 \end{align}
 for any valid $\RV{Y}|\RV{X}$ conditional probability $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
+\end{definition}
+
+\begin{definition}[Order 2 model defined by a 2-comb]
+
 \end{definition}
 
 An order 2 probability gap model $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ can be defined by a pair of disintegrations $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$. Just as with order 1 probability gap models, the two conditional probabilities defining a probability 2-comb must be \emph{valid}. Theorem \ref{th:extension_2comb_valid} shows that the insert operation yields a valid conditional probability given any valid inputs.
@@ -741,73 +770,6 @@ Now, for $x\in X$ \emph{if the deterministic insert} $\prob{Q}_{x}^{\RV{X}|\RV{Z
 
 This identical in form to Equation \ref{eq:truncated_fac}, but we have made explicit two assumptions that were implicit in that equation - namely, the validity of hard interventions on $\RV{X}$ and the possibility of appropriately choosing a version of $\prob{Q}^{\RV{Y}|\RV{XZ}}$.
 
-\subsection{Useful results}
-
-\subsubsection{Repeated variables}
-
-Lemmas \ref{lem:nocopy1} and \ref{lem:nocopy2} establish that models of repeated variables must connect the repetitions with a copy map.
-
-\begin{lemma}[Output copies of the same variable are identical]\label{lem:nocopy1}
-For any $\Omega$, $\RV{X},\RV{Y},\RV{Z}$ random variables on $\Omega$ and conditional probability $\model{K}^{\RV{YZ}|\RV{X}}$, there is a conditional probability $\kernel{K}^{\RV{YYZ}|\RV{X}}$ unique up to impossible values of $\RV{X}$ such that
-\begin{align}
-	\tikzfig{kyyz} = \model{K}^{\RV{YZ}|\RV{X}}
-\end{align}
-and it is given by
-\begin{align}
-		\kernel{K}^{\RV{YYZ}|\RV{X}} &= \tikzfig{compose_with_copymap}\\
-		&\iff \\
-		\kernel{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x) &= \llbracket y=y' \rrbracket\kernel{K}^{\RV{YZ}|\RV{X}}(y,z|x)\\
-\end{align}
-\end{lemma}
-
-\begin{proof}
-If we have a valid $\model{K}^{\RV{YYZ}|\RV{X}}$, it must be the pushforward of $(\RV{Y},\RV{Y},\RV{Z})$ under some $\model{K}^{\RV{I}|\RV{X}}$. Furthermore, $\model{K}^{\RV{YZ}|\RV{X}}$ must be the pushforward of $(*,\RV{Y},\RV{Z})\cong (\RV{Y},\RV{Z})$ under the same $\model{K}^{\RV{I}|\RV{X}}$.
-
-For any $x\in \RV{X}(\Omega)$, validity requires $(\RV{X},\RV{Y},\RV{Y},\RV{Z})\yields (x,y,y',z)=\emptyset \implies \model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x)=0$. Clearly, whenever $y\neq y'$, $\model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x)=0$. Because $\model{K}^{\RV{YYZ}|\RV{X}}$ is a Markov kernel, there is some $\model{L}:X\kto X\times Z$ such that
-\begin{align}
- 	\model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x) = \llbracket y=y' \rrbracket \model{L}(y,z|x)\\
-\end{align}
-But then
-\begin{align}
-	\model{K}^{\RV{YZ}|\RV{X}}(y,z|x) &= \sum_{y'\in Y} \model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x)\\
-	&= \model{L}(y,z|x)\\
-\end{align}
-\end{proof}
-
-\begin{lemma}[Copies shared between input and output are identical]\label{lem:nocopy2}
-For any $\kernel{K}:(\RV{X},\RV{Y})\kto (\RV{X},\RV{Z})$, $\kernel{K}$ is a model iff there exists some $\model{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ such that
-\begin{align}
-	 \kernel{K} &= \tikzfig{precompose_with_copymap}\\
-	 &\iff\\
-	 \kernel{K}_{x,y}^{\prime x',z} &= \llbracket x=x'\rrbracket \kernel{L}_{\prime x,y}^{z}
-\end{align}
-
-For any $\Omega$, $\RV{X},\RV{Y},\RV{Z}$ random variables on $\Omega$ and conditional probability $\model{K}^{\RV{Z}|\RV{XY}}$, there is a conditional probability $\kernel{K}^{\RV{XZ}|\RV{XY}}$ unique up to impossible values of $(\RV{X},\RV{Y})$ such that
-\begin{align}
-	\tikzfig{kxyxz} = \kernel{K}^{\RV{XZ}|\RV{XY}}
-\end{align}
-and it is given by
-\begin{align}
-		\kernel{K}^{\RV{XZ}|\RV{XY}} &= \tikzfig{compose_with_copymap}\\
-		&\iff \\
-		\kernel{K}^{\RV{XZ}|\RV{XY}}(x,z|x',y) &= \llbracket x=x' \rrbracket\kernel{K}^{\RV{Z}|\RV{XY}}(z|x',y)\\
-\end{align}
-
-\end{lemma}
-
-\begin{proof}
-If we have a valid $\model{K}^{\RV{XZ}|\RV{XY}}$, it must be the pushforward of $(\RV{X},\RV{Z})$ under some $\model{K}^{\RV{I}|\RV{XY}}$. Furthermore, $\model{K}^{\RV{Z}|\RV{XY}}$ must be the pushforward of $(*,\RV{Z})\cong (\RV{Z})$ under the same $\model{K}^{\RV{I}|\RV{X}}$.
-
-For any $(x,y)\in (\RV{X},\RV{Y})(\Omega)$, validity requires $(\RV{X},\RV{Y},\RV{X},\RV{Z})\yields (x,y,x',z)=\emptyset \implies \model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)=0$. Clearly, whenever $x\neq x'$, $\model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)=0$. Because $\model{K}^{\RV{XZ}|\RV{XY}}$ is a Markov kernel, there is some $\model{L}:X\times Y\kto Z$ such that
-\begin{align}
- 	\model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)=0 = \llbracket x=x' \rrbracket \model{L}(z|x,y)\\
-\end{align}
-But then
-\begin{align}
-	\model{K}^{\RV{Z}|\RV{XY}}(y,z|x) &= \sum_{x'\in X} \model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)\\
-	&= \model{L}(z|x,y)\\
-\end{align}
-\end{proof}
 
 \subsubsection{Disintegrations}
 
@@ -928,10 +890,8 @@ By independence, for some version of $\prob{P}^{\RV{A}|\RV{BCDE}}$:
 	&= \prob{P}_\alpha^{\RV{C^*E^*}}\odot \prob{P}_\alpha^{\RV{B^*D^*}|\RV{C^*E^*}}\odot (\prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}\otimes\text{erase}_{BD})
 \end{align}
 
-Thus for any $(a,b,c,d,e)\in A\times B\times C\times D\times E$ such that $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0$, $\prob{P}^{\RV{A}^*|\RV{B^*C^*D^*E^*}}(a|b,c,d,e) = \prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$ for any version of the disintegration. However, by assumption, $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0 \implies \prob{P}_\beta^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0$, and so $\prob{P}_\beta^{\RV{A}^*|\RV{B^*C^*D^*E^*}}\overset{a.s.}{=}disint{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$ also. But then
-
-\todo[inline]{I actually haven't shown almost sure equality of disintegrations}
-
+Thus for any $(a,b,c,d,e)\in A\times B\times C\times D\times E$ such that $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0$, $\prob{P}^{\RV{A}^*|\RV{B^*C^*D^*E^*}}(a|b,c,d,e) = \prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$ for any version of the disintegration. However, by assumption, $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0 \implies \prob{P}_\beta^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0$, and so $\prob{P}_\beta^{\RV{A}^*|\RV{B^*C^*D^*E^*}}\cong \prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$ also. But then
+	
 \begin{align}
 	\prob{P}_\beta^{\RV{A^*B^*C^*}\RV{D^*E^*}} &= \tikzfig{indep_strengthen_3}\\
 	&= \tikzfig{indep_strengthen_4}
@@ -949,16 +909,8 @@ In each case, the semi-graphoid axioms hold for each lower level extension $\pro
 
 A useful property of probability gap models is \emph{recursive disintegration}. If we have any probability gap model $\prob{P}$ and a disintegration $\prob{P}^{\RV{Y}|\RV{X}}$, then defining a new order 1 probability gap model $\prob{Q}^{\square\RV{Y}|\RV{X}}$ such that $\prob{Q}^{\RV{Y}|\RV{X}}=\prob{P}^{\RV{Y}|\RV{X}}$, disintegrations of $\prob{Q}$ are themselves disintegrations of $\prob{P}$.
 
-\begin{theorem}[Recursive disintegration]\label{th:recursive-disint}
-Suppose we have a fundamental probability set $\Omega$, a set of inserts $A$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$ such that $\prob{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ disintegration of $\prob{P}$. Define an order 1 probability gap model $\prob{Q}^{\square \RV{Y}|\RV{X}}$ such that $\prob{Q}^{\RV{Y}|\RV{X}}=\prob{P}^{\RV{Y}|\RV{X}}$. Then if $\prob{Q}^{\RV{Z}|\RV{W}}$ is a $\RV{Z}|\RV{W}$ disintegration of $\prob{Q}$, it is also a $\RV{Z}|\RV{W}$ disintegration of $\prob{P}$.
-\end{theorem}
-
-\begin{proof}
-The range of $\prob{Q}$ is all base measures on $\Omega$ for which $\prob{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ disintegration. By assumption, then $\text{Range}(\prob{Q})\supset\text{Range}(\prob{P})$. By definition, $\prob{Q}^{\RV{Z}|\RV{W}}$ is a $\RV{Z}|\RV{W}$ disintegration of every base measure in $\text{Range}(\prob{Q})$ and so it is also a $\RV{Z}|\RV{W}$ disintegration of every base measure in $\text{Range}(\prob{P})$.
-\end{proof}
 
 \begin{corollary}[Recursive independence]
-begin{theorem}[Recursive disintegration]\label{th:recursive-disint}
 Suppose we have a fundamental probability set $\Omega$, a set of inserts $A$, variables $\RV{V}:\Omega\to V$, $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ such that $\RV{Y}=(\RV{Z},\RV{W})$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$ such that $\prob{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ disintegration of $\prob{P}$. Define an order 1 probability gap model $\prob{Q}^{\square \RV{Y}|\RV{X}}$ such that $\prob{Q}^{\RV{Y}|\RV{X}}=\prob{P}^{\RV{Y}|\RV{X}}$. If $\RV{Z}\CI_{\prob{Q}}\RV{W}|\RV{V}$ then $\RV{Z}\CI_{\prob{P}}\RV{W}|\RV{V}$.
 \end{corollary}
 
@@ -1007,6 +959,8 @@ Thus for any $(w,x,v)$ such that $\model{L}^{\RV{WXV}}>0$, $\prob{P}^{\RV{Y}|\RV
 
 \subsubsection{Restricted 2-combs}
 
+\todo[inline]{this notation sucks}
+
 We're often interested in a subset of inserts to a 2-comb. We're interested in particular in inserts that depend on a subset of the ``available'' variables. There are in general many restrictions we could consider, but some we are more interested in than others. For a 2-comb restricted to a generic subset $A$ of inserts, we will write $\prob{P}^{\RV{X}|\RV{W}\framebox{A} \RV{Y}|\RV{D}}$. 
 
 Given $\prob{P}^{\RV{X}|\RV{W}\square \RV{Y}|\RV{D}}$ and some random variable $\RV{V}=f\circ(\RV{W},\RV{X})$, define the subset of inserts that depend only on $\RV{V}$ as those $\prob{Q}_\alpha^{\RV{D}|\RV{XW}}$ such that $\RV{D}\CI^1_{\model{Q}}(\RV{W},\RV{X})|\RV{V}$. Define $B$ as the set of all inserts exhibiting this conditional independence. Then write  $\prob{P}^{\RV{X}|\RV{W}\framebox{\RV{V}} \RV{Y}|\RV{D}}$ for the restriction of $\prob{P}^{\RV{X}|\RV{W}\square \RV{Y}|\RV{D}}$ to this set. Note that $B$ may be empty if there are no valid inserts with the required conditional independence. When we consider restrictions, we will assume that this set is non-empty.
@@ -1016,6 +970,77 @@ A special case of some interest is the restriction $\prob{P}^{\RV{X}|\RV{W}\fram
 \begin{definition}[Restricted order 2 conditional independence]
 For a \emph{restricted probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\framebox{E}\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{Q}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$ for any $\prob{Q}_\gamma\in E$. Then $\RV{B}$ is restricted order 2 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI^{2|E}_{\prob{P}}\RV{A}|\RV{C}$ if for all $\gamma\in E$, $\RV{B}\CI^1_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
 \end{definition}
+
+\subsection{Results I use that don't really fit into the flow of the text}
+
+\subsubsection{Repeated variables}
+
+Lemmas \ref{lem:nocopy1} and \ref{lem:nocopy2} establish that models of repeated variables must connect the repetitions with a copy map.
+
+\begin{lemma}[Output copies of the same variable are identical]\label{lem:nocopy1}
+For any $\Omega$, $\RV{X},\RV{Y},\RV{Z}$ random variables on $\Omega$ and conditional probability $\model{K}^{\RV{YZ}|\RV{X}}$, there is a conditional probability $\kernel{K}^{\RV{YYZ}|\RV{X}}$ unique up to impossible values of $\RV{X}$ such that
+\begin{align}
+	\tikzfig{kyyz} = \model{K}^{\RV{YZ}|\RV{X}}
+\end{align}
+and it is given by
+\begin{align}
+		\kernel{K}^{\RV{YYZ}|\RV{X}} &= \tikzfig{compose_with_copymap}\\
+		&\iff \\
+		\kernel{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x) &= \llbracket y=y' \rrbracket\kernel{K}^{\RV{YZ}|\RV{X}}(y,z|x)\\
+\end{align}
+\end{lemma}
+
+\begin{proof}
+If we have a valid $\model{K}^{\RV{YYZ}|\RV{X}}$, it must be the pushforward of $(\RV{Y},\RV{Y},\RV{Z})$ under some $\model{K}^{\RV{I}|\RV{X}}$. Furthermore, $\model{K}^{\RV{YZ}|\RV{X}}$ must be the pushforward of $(*,\RV{Y},\RV{Z})\cong (\RV{Y},\RV{Z})$ under the same $\model{K}^{\RV{I}|\RV{X}}$.
+
+For any $x\in \RV{X}(\Omega)$, validity requires $(\RV{X},\RV{Y},\RV{Y},\RV{Z})\yields (x,y,y',z)=\emptyset \implies \model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x)=0$. Clearly, whenever $y\neq y'$, $\model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x)=0$. Because $\model{K}^{\RV{YYZ}|\RV{X}}$ is a Markov kernel, there is some $\model{L}:X\kto X\times Z$ such that
+\begin{align}
+ 	\model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x) = \llbracket y=y' \rrbracket \model{L}(y,z|x)\\
+\end{align}
+But then
+\begin{align}
+	\model{K}^{\RV{YZ}|\RV{X}}(y,z|x) &= \sum_{y'\in Y} \model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x)\\
+	&= \model{L}(y,z|x)\\
+\end{align}
+\end{proof}
+
+\begin{lemma}[Copies shared between input and output are identical]\label{lem:nocopy2}
+
+\todo[inline]{This got mixed up at some point and needs ot be unmixed-up}
+For any $\kernel{K}:(\RV{X},\RV{Y})\kto (\RV{X},\RV{Z})$, $\kernel{K}$ is a model iff there exists some $\model{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ such that
+\begin{align}
+	 \kernel{K} &= \tikzfig{precompose_with_copymap}\\
+	 &\iff\\
+	 \kernel{K}_{x,y}^{\prime x',z} &= \llbracket x=x'\rrbracket \kernel{L}_{\prime x,y}^{z}
+\end{align}
+
+For any $\Omega$, $\RV{X},\RV{Y},\RV{Z}$ random variables on $\Omega$ and conditional probability $\model{K}^{\RV{Z}|\RV{XY}}$, there is a conditional probability $\kernel{K}^{\RV{XZ}|\RV{XY}}$ unique up to impossible values of $(\RV{X},\RV{Y})$ such that
+\begin{align}
+	\tikzfig{kxyxz} = \kernel{K}^{\RV{XZ}|\RV{XY}}
+\end{align}
+and it is given by
+\begin{align}
+		\kernel{K}^{\RV{XZ}|\RV{XY}} &= \tikzfig{compose_with_copymap}\\
+		&\iff \\
+		\kernel{K}^{\RV{XZ}|\RV{XY}}(x,z|x',y) &= \llbracket x=x' \rrbracket\kernel{K}^{\RV{Z}|\RV{XY}}(z|x',y)\\
+\end{align}
+
+\end{lemma}
+
+\begin{proof}
+If we have a valid $\model{K}^{\RV{XZ}|\RV{XY}}$, it must be the pushforward of $(\RV{X},\RV{Z})$ under some $\model{K}^{\RV{I}|\RV{XY}}$. Furthermore, $\model{K}^{\RV{Z}|\RV{XY}}$ must be the pushforward of $(*,\RV{Z})\cong (\RV{Z})$ under the same $\model{K}^{\RV{I}|\RV{X}}$.
+
+For any $(x,y)\in (\RV{X},\RV{Y})(\Omega)$, validity requires $(\RV{X},\RV{Y},\RV{X},\RV{Z})\yields (x,y,x',z)=\emptyset \implies \model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)=0$. Clearly, whenever $x\neq x'$, $\model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)=0$. Because $\model{K}^{\RV{XZ}|\RV{XY}}$ is a Markov kernel, there is some $\model{L}:X\times Y\kto Z$ such that
+\begin{align}
+ 	\model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)=0 = \llbracket x=x' \rrbracket \model{L}(z|x,y)\\
+\end{align}
+But then
+\begin{align}
+	\model{K}^{\RV{Z}|\RV{XY}}(y,z|x) &= \sum_{x'\in X} \model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)\\
+	&= \model{L}(z|x,y)\\
+\end{align}
+\end{proof}
+
 
 
 % For an arbitrary model $\kernel{N}:\RV{X}\kto \text{id}_{\Omega}$ where $\RV{X}:\Omega\kto X$, and some $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{N}}\RV{B}|\RV{C}$, if there is some $\model{O}:\RV{I}\kto \RV{X}$ such that $O^x>0$ for all $x\in f_{\RV{X}}^{-1}(X)$ and $\RV{A}\CI_{\model{O}\model{N}} \RV{B}|\RV{C}$.

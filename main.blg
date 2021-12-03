@@ -1,51 +1,51 @@
-This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2021)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
 Database file #1: references.bib
-Repeated entry---line 1729 of file references.bib
+Repeated entry---line 1745 of file references.bib
  : @article{fong_causal_2013
  :                          ,
 I'm skipping whatever remains of this entry
-You've used 32 entries,
+You've used 33 entries,
             2773 wiz_defined-function locations,
-            855 strings with 11538 characters,
-and the built_in function-call counts, 13623 in all, are:
-= -- 1340
-> -- 501
-< -- 35
-+ -- 180
-- -- 147
-* -- 980
-:= -- 2149
-add.period$ -- 164
-call.type$ -- 32
-change.case$ -- 134
-chr.to.int$ -- 31
-cite$ -- 64
-duplicate$ -- 701
-empty$ -- 1222
-format.name$ -- 195
-if$ -- 2913
+            862 strings with 11696 characters,
+and the built_in function-call counts, 14007 in all, are:
+= -- 1374
+> -- 522
+< -- 36
++ -- 187
+- -- 153
+* -- 1009
+:= -- 2211
+add.period$ -- 168
+call.type$ -- 33
+change.case$ -- 139
+chr.to.int$ -- 32
+cite$ -- 66
+duplicate$ -- 721
+empty$ -- 1254
+format.name$ -- 204
+if$ -- 2994
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 40
-newline$ -- 228
-num.names$ -- 138
-pop$ -- 237
+missing$ -- 42
+newline$ -- 234
+num.names$ -- 142
+pop$ -- 247
 preamble$ -- 1
-purify$ -- 108
+purify$ -- 112
 quote$ -- 0
-skip$ -- 476
+skip$ -- 490
 stack$ -- 0
-substring$ -- 505
-swap$ -- 95
+substring$ -- 507
+swap$ -- 97
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 312
+type$ -- 318
 warning$ -- 0
-while$ -- 138
+while$ -- 141
 width$ -- 0
-write$ -- 549
+write$ -- 565
 (There was 1 error message)
