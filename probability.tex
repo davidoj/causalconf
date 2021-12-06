@@ -651,15 +651,15 @@ We can depict this operation graphically in a somewhat informal way as ``inserti
 \end{align}
 
 \begin{definition}[Order 2 probability gap model]
-An order 1 probability gap model $\prob{P}$ is defined by variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{X}:\Omega\to Z$ and a valid conditional probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, and $\prob{P}$ is the map from valid $\RV{Y}|\RV{X}$ conditional probabilities to valid $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditional probabilities given by
+Given probability set $\Omega$ and variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and $A$ the set of valid candidate $\RV{Y}|\RV{X}$ conditionals and B the set of valid candidate $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditionals, an order 2 probability gap model is a map $\prob{P}:A\to B$ such that there exists some conditional probabilities $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$
+\end{definition}
+
+\begin{definition}[Order 2 model defined by a 2-comb]
+Given a valid conditional probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, and $\prob{P}$ is the map from valid $\RV{Y}|\RV{X}$ conditional probabilities to valid $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditional probabilities given by
 \begin{align}
 	\prob{P}_{\alpha}^{\RV{XYZ}|\RV{W}} = \prob{P}^{\RV{X}|\RV{W}}\odot\prob{P}^{\RV{Y}|\RV{X}}_\alpha \odot \prob{P}^{\RV{Z}|\RV{WXY}}
 \end{align}
 for any valid $\RV{Y}|\RV{X}$ conditional probability $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
-\end{definition}
-
-\begin{definition}[Order 2 model defined by a 2-comb]
-
 \end{definition}
 
 An order 2 probability gap model $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ can be defined by a pair of disintegrations $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$. Just as with order 1 probability gap models, the two conditional probabilities defining a probability 2-comb must be \emph{valid}. Theorem \ref{th:extension_2comb_valid} shows that the insert operation yields a valid conditional probability given any valid inputs.
