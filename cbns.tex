@@ -38,9 +38,9 @@ The first condition says that the observations $\RV{V}_{[n]}$ are mutually indep
 \begin{definition}[Order 2 model associated with the CBN in question]\label{def:cbn_o2}
 A CBN order 2 model $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ where $\RV{V}_{i} = (\RV{W}_i,\RV{X}_i,\RV{Y}_i)$ for $i\in [m]$, such that the CBN mutual independences hold:
 \begin{align}
-    \RV{V}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [n]\\
-    \RV{W}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [m]\\
-    \RV{Y}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{HX}_i&\forall i\in [m]\\
+    \RV{V}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [n]\label{eq:cbn_ci1}\\
+    \RV{W}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [m]\label{eq:cbn_ci2}\\
+    \RV{Y}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{HX}_i&\forall i\in [m]\label{eq:cbn_ci3}\\
 \end{align}
 and
 \begin{align}
@@ -50,11 +50,23 @@ and
 for all $i\in[n]$, $j\in (n,m]$.
 \end{definition}
 
-Equation \ref{eq:cbn_insert} has a number of implications which we will use in the upcoming Theorem \ref{th:seedo_rep}. Firstly
+
+\subsubsections{Properties of CBN probability gap models}
+Order 2 models $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ have the following conditional probabilities:
 \begin{align}
-   & \prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m])}|\RV{H}}&\text{exists}\\
-   & \prob{Q}^{\RV{Y}_{(n,m]}|\RV{X}_{(n,m]}\RV{W}_{(n,m]}\RV{V}_{[n]}\RV{H}}&\text{exists}
+   & \prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m])}|\RV{H}}&\text{exists}\label{eq:obs_cbn_existence}\\
+   & \prob{Q}^{\RV{Y}_{(n,m]}|\RV{X}_{(n,m]}\RV{W}_{(n,m]}\RV{V}_{[n]}\RV{H}}&\text{exists}\label{eq:int_cbn_existence}
 \end{align}
+
+Together with Equations \ref{eq:cbn_ci1} and \ref{eq:cbn_ci2}, we have 
+
+\begin{align}
+    \prob{Q}^{\RV{V}_i|\RV{H}\RV{V}_{[m]\setminus\{i\}}}&=\prob{Q}^{\RV{V}_i|\RV{H}}\otimes \text{erase}_\\
+    \prob{Q}
+\end{align}
+
+Equation \ref{eq:cbn_insert} implies
+
 Secondly, for all inserts $\alpha$
 \begin{align}
     \prob{Q}_\alpha^{\RV{V}_{i}|\RV{H}} = \prob{Q}_\alpha^{\RV{V}_j|\RV{H}}
