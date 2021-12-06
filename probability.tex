@@ -222,17 +222,26 @@ We can translate Equation \ref{eq:2comb_winsert} to
 					= &\int_X\int_Y\kernel{L}(C|x',w,y') \text{id}_X(A|x') \text{id}_Y(B|y') \kernel{J}(dy'|x',w)\kernel{K}(dx'|w)\\
 					= &\int_A\int_B\kernel{L}(C|x',w,y') \kernel{J}(dy'|x',w)\kernel{K}(dx'|w)
 \end{align}
+
 \subsection{Semantics of observed and unobserved variables}\label{sec:variables}
 
 We are interested in constructing \emph{probabilistic models} which explain some part of the world. In a model, variables play the role of ``pointing to the parts of the world the model is explaining''. Both observed an unobserved variables play important roles in causal modelling and we think it is worth clarifying what variables of either type refer to. Our approach is a standard one: a probabilistic model is associated with an experiment or measurement procedure that yields values in a well-defined set. Observable variables are obtained by applying well-defined functions to the result of this total measurement. We use a richer fundamental probability set that includes ``unobserved variables'' that are formally treated the same way as observed variables, but aren't associated with any real-world counterparts.
 
-Consider Newton's second law in the form $\proc{F}=\proc{MA}$ as a simple example of a model that relates variables $\proc{F}$, $\proc{M}$ and $\proc{A}$. As \citet{feynman_feynman_1979} noted, this law is incomplete -- in order to understand it, we must bring some pre-existing understanding of force, mass and acceleration as independent things. Furthermore, the nature of this knowledge is somewhat perculiar. Acknowledging that physicists happen to know a great deal about forces on an object, it remains true that in order to actually say what the net force on a real object is, even a highly knowledgeable physicist will still have to go and do some measurements, and the result of such measurements will be a vector representing the net forces on that object.
+Consider Newton's second law in the form $\proc{F}=\proc{MA}$ as a simple example of a model that relates ``variables'' $\proc{F}$, $\proc{M}$ and $\proc{A}$. As \citet{feynman_feynman_1979} noted, this law is incomplete -- in order to understand it, we must bring some pre-existing understanding of force, mass and acceleration as independent things. Furthermore, the nature of this knowledge is somewhat perculiar. Acknowledging that physicists happen to know a great deal about forces on an object, it remains true that in order to actually say what the net force on a real object is, even a highly knowledgeable physicist will still have to go and do some measurements, and the result of such measurements will be a vector representing the net forces on that object.
 
-This suggests that we can think about ``force'' $\proc{F}$ (or mass or acceleration) as a kind of procedure that we apply to a particular real world object and which returns a mathematical object (in this case, a vector). We will call $\proc{F}$ a \emph{procedure}. Our view of $\proc{F}$ is akin to \citet{menger_random_2003}'s notion of variables as ``consistent classes of quantities'' that consist of pairing between real-world objects and quantities of some type. Force $\proc{F}$ itself is not a well-defined mathematical thing, as measurement procedures are not mathematically well-defined. At the same time, the set of values it may yield \emph{are} well-defined mathematical things.
+This suggests that we can think about ``force'' $\proc{F}$ (or mass or acceleration) as a kind of procedure that we apply to a particular real world object and which returns a mathematical object (in this case, a vector). We will call $\proc{F}$ a \emph{procedure}. Our view of $\proc{F}$ is akin to \citet{menger_random_2003}'s notion of variables as ``consistent classes of quantities'' that consist of pairing between real-world objects and quantities of some type. Force $\proc{F}$ itself is not a well-defined mathematical thing, as measurement procedures are not mathematically well-defined. At the same time, the set of values it may yield \emph{are} well-defined mathematical things. No actual procedure can be guaranteed to return elements of a mathematical set known in advance -- anything can fail -- but we assume that we can study procedures reliable enough that we don't lose much by making this assumption.
 
-We will assume that any procedure will eventually yield an unambiguous value in a defined mathematical set. No actual procedure can be guaranteed to have this property -- any apparatus, however robust, could suffer catastrophic failure -- but we assume that we can study procedures reliable enough that we don't lose much by making this assumption. This assumption allows us to say a procedure $\proc{B}$ yields values in $B$. $\proc{B}\yields x$ is the proposition that $\proc{B}$, when completed, yields the value $x\in B$, and by assumption exactly one of these propositions is true. For $A\subset B$, $\proc{B}\yields A$ is the proposition $\lor_{x\in A} \proc{B}\yields x$. Two procedures $\proc{B}$ and $\proc{C}$ are the same if $\proc{B}\yields x\iff \proc{C}\yields x$ for all $x\in B$. 
+\begin{definition}[Measurement procedure]
+A \emph{measurement procedure} is a procedure that involves interacting with the real world somehow and delivering an element of a mathematical set as a result. The set of possible values is known prior to the measurement taking place, but the value that it will yield is not known. A procedure is given the font $\proc{B}$, we say it takes values in $X$ and $\proc{B}\yields x$ is the proposition that the the procedure $\proc{B}$ will yield the value $x\in X$. $\proc{B}\yields A$ for $A\subset X$ is the proposition $\lor_{x\in A} \proc{B}\yields x$. Two procedures $\proc{B}$ and $\proc{C}$ are the same if $\proc{B}\yields x\iff \proc{C}\yields x$ for all $x\in B$ (note that $\proc{B}$ and $\proc{C}$ could involve different actions in the real world).
+\end{definition}
 
-The notion of ``yielding values'' allows us to define an operation akin to function composition. If I have a procedure $\proc{B}$ that takes values in some set $B$, and a function $f:B\to C$, define the ``composition'' $f\circ \proc{B}$ to be the procedure $\proc{C}$ that yields $f(x)$ whenever $\proc{B}$ yields $x$. For example, $\proc{MA}$ is the composition of $h:(x,y)\mapsto xy$ with the procedure $(\proc{M},\proc{A})$ that yields the mass and acceleration of the same object. Composition is associative - for all $x\in B$: 
+Measurement procedures are like functions without well-defined domains. We can compose measurement procedures with functions to produce new measurement procedures.
+
+\begin{definition}[Composition of functions with procedures]
+Given a procedure $\proc{B}$ that takes values in some set $B$, and a function $f:B\to C$, define the ``composition'' $f\circ \proc{B}$ to be any procedure $\proc{C}$ that yields $f(x)$ whenever $\proc{B}$ yields $x$. We can construct such a procedure by describing the steps: first, do $\proc{B}$ and secondly, apply $f$ to the value yielded by $\proc{B}$.
+\end{definition}
+
+For example, $\proc{MA}$ is the composition of $h:(x,y)\mapsto xy$ with the procedure $(\proc{M},\proc{A})$ that yields the mass and acceleration of the same object. Measurement procedure composition is associative:
 
 \begin{align}
 	(g\circ f)\circ\proc{B}\text{ yields } x &\iff B\text{ yields } (g\circ f)^{-1}(x) \\
@@ -242,23 +251,25 @@ The notion of ``yielding values'' allows us to define an operation akin to funct
 \end{align}
 
 
-One might whether there is also some kind of ``append'' operation that takes a standalone $\proc{M}$ and a standalone $\proc{A}$ and returns a procedure $(\proc{M},\proc{A})$. Unlike function composition, this would be an operation that acts on two procedures rather than a procedure and a function. Rather than attempt to define any operation of this type, we simply assume that somehow a procedure has been devised that measures everything of interest, which we will call $\proc{S}$ which takes values in $\Psi$. We assume $\proc{S}$ is such that any procedure of interest can be written as $f\circ \proc{S}$ for some $f$.
+One might whether there is also some kind of ``append'' operation that takes a standalone $\proc{M}$ and a standalone $\proc{A}$ and returns a procedure $(\proc{M},\proc{A})$. Unlike function composition, this would be an operation that acts on two procedures rather than a procedure and a function. Unlike composition, we can't easily reason about such an operation mathematically, because of the fact that measurment procedures have a foot in the real world. Our approach here is to suppose that there is some master measurement procedure $\proc{S}$ which takes values in $\Psi$ that handles all of the ``real world'' interaction relevant to our problem. Specifically, we assume that any measurement procedure of interest to our problem can be written as the composition $f\circ \proc{S}$ for some $f$.
 
 For the model $\proc{F}=\proc{MA}$, for example, we could assume $\proc{F}=f\circ \proc{S}$ for some $f$ and $(\proc{M},\proc{A})=g\circ \proc{S}$ for some $g$. In this case, we can get $\proc{MA}=h\circ(\proc{M},\proc{A})=(h\circ g)\circ\proc{S}$. Note that each procedure is associated with a unique function with domain $\Psi$.
 
-Thus far, $\Psi$ is a ``fundamental probability set'' that only contains observable variables. To include unobserved variables, we posit a richer fundamental probability set $\Omega$ such that the measurement $\proc{S}$ determines an element of some partition of $\Omega$ rather than an element of $\Omega$ itself. Then, by analogy to procedures defined with respect to $\proc{S}$, we identify variables in general with measurable functions defined on the domain $\Omega$. 
+Thus far we have defined by $\Psi$ a ``fundamental probability set'' limited to observable variables -- which is to say, limited to variables that are associated with measurement procedures. Unobserved variables need not be associated with measurement procedures, and to accommodate these we use instead of $\Psi$ a richer fundamental probability set $\Omega$ which represents both observed and unobserved variables.
 
-Specifically, suppose $\proc{S}$ takes values in $\Psi$. Then we can propose a fundamental probability set $\Omega$ such that $|\Omega|\geq |\Psi|$ and a surjective function $\RV{S}:\Omega\to \Psi$ associated with $\proc{S}$. We connect $\Omega$, $\RV{S}$ and $\proc{S}$ with the notion of \emph{consistency with obseravation}:
+\begin{definition}[Fundamental probability set]
+The fundamental probability set (or \emph{sample space}) $\Omega$ is a measurable set with $\sigma$-algebra $\sigalg{F}$.
+\end{definition}
 
-\begin{align}
- &\omega\in \Omega\text{ is \emph{consistent with observation} iff the result yielded by }\proc{S}\text{ is equal to }\RV{S}(\omega)\label{def:observable}
-\end{align}
+Observables are represented by a function $\RV{S}:\Omega\to \Psi$, and values of $\omega$ are related to propositions about measurement procedures via the criterion of \emph{consistency with observation}.
 
-Thus the procedure $\proc{S}$ eventually restricts the observationally consistent elements of $\Omega$. If $\proc{S}$ yield the result $s$, then the consistent values of $\Omega$ will be $\RV{S}^{-1}(s)$.
+\begin{definition}[Consistency with observation]
+An element $\omega\in \Omega$ is is \emph{consistent with observation} if the result yielded by $\proc{S}\yields \RV{S}(\omega)$
+\end{definition}
 
-One thing to note in this setup is that two different sets of measurement outcomes $\Psi$ and $\Psi'$ entail a different mesurement procedures $\proc{S}$ and $\proc{S}'$, but different fundamental probability sets $\Omega$ and $\Omega'$ may be used to model a single procedure $\proc{S}$. We will sometimes consider different models of the same observable procedures.
+Thus the procedure $\proc{S}$ restricts the observationally consistent elements of $\Omega$. If $\proc{S}$ yield the result $s$, then the consistent values of $\Omega$ will be $\RV{S}^{-1}(s)$. While two different sets of measurement outcomes $\Psi$ and $\Psi'$ entail a different mesurement procedures $\proc{S}$ and $\proc{S}'$, but different fundamental probability sets $\Omega$ and $\Omega'$ may be used to model a single procedure $\proc{S}$.
 
-As far as we know, distinguishing variables from procedures is somewhat nonstandard, but it is a useful distinction to make. While they may not be explicitly distinguished, both variables and procedures are often discussed in statistical texts. For example, \citet{pearl_causality:_2009} offers the following two, purportedly equivalent, definitions of variables:
+As far as we know, distinguishing variables from procedures is somewhat nonstandard, but we feel it is useful to distinguish the formal elements of our theory (variables) from the semi-formal elements (measurement procedures). Both variables and procedures are often discussed in statistical texts. For example, \citet{pearl_causality:_2009} offers the following two, purportedly equivalent, definitions of variables:
 \begin{quote}
 By a \emph{variable} we will mean an attribute, measurement or inquiry that may take on one of several possible outcomes, or values, from a specified domain. If we have beliefs (i.e., probabilities) attached to the possible values that a variable may attain, we will call that variable a random variable.
 \end{quote}
@@ -363,8 +374,29 @@ If no such Markov kernel exists, $\prob{P}^{\RV{Y}|\RV{X}}$ is undefined.
 
 Given a conditional probability with respect to a probability gap model, we can find other conditional probabilities by ``pushing forward'' via a function.
 
+\begin{lemma}[Equivalence of pushforward definitions]\lable{lem:prod_pushf}
+Given a probability space $\kernel{M}:W\to \Omega$ and $\RV{X}:\Omega\to X$, define $\kernel{K}^{\RV{X}|\RV{W}}:W\kto X$ by $\kernel{K}^{\RV{X}|\RV{W}}(x|w):=\kernel{M}(\RV{X}\yields x|w)$ for any $x\in X$m $w\in W$ and $\kernel{L}^{\RV{X}}:W\kto X$ by
+\begin{align}
+	\kernel{L}^{\RV{X}}^{\RV{X}|\RV{W}} = \kernel{M}\kernel{F}_{\RV{X}}
+\end{align}
+Then
+\begin{align}
+\kernel{L}^{\RV{X}|\RV{W}} =\kernel{K}^{\RV{X}|\RV{W}}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+For any $x\in X$, $w\in W$
+\begin{align}
+	\kernel{L}^{\RV{X}|\RV{W}}(x|w) &= \sum_{\omega\in \Omega} \llbracket x=\RV{X}(\omega)\rrbracket \kernel{M}(\omega|w)\\
+									&= \sum_{\omega\in \RV{X}^{-1}(x)} \kernel{M}(\omega|w)\\
+									&= \kernel{M}(\RV{X}\yields x|w)\\
+									&= \kernel{K}^{\RV{X}|\RV{W}}(x|w)
+\end{align}
+\end{proof}
+
 \begin{theorem}[Recursive pushforward]\label{th:recurs_pushf}
-Suppose we have a fundamental probability set $\Omega$, a set of inserts $A$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$ such that $\prob{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability of $\prob{P}$ and $\RV{Z}=f\circ \RV{Y}$ for some $f:Y\to Z$. Then there exists a $\RV{Z}|\RV{X}$ conditional probability of $\prob{P}$ defined by $\prob{P}^{\RV{Z}|\RV{Z}}(z|x):=\prob{P}^{\RV{Y}|\RV{X}}(f^{-1}(z)|x)$.
+Suppose we have a fundamental probability set $\Omega$, a set of inserts $A$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$ such that $\prob{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability of $\prob{P}$ and $\RV{Z}=f\circ \RV{Y}$ for some $f:Y\to Z$. Then there exists a $\RV{Z}|\RV{X}$ conditional probability of $\prob{P}$ given by $\prob{P}^{\RV{Z}|\RV{X}}=\prob{P}^{\RV{Y}|\RV{X}}\kernel{F}_{f}$.
 \end{theorem}
 
 \begin{proof}
@@ -748,37 +780,37 @@ In our original look at truncated factorisation, we noted a few problems with Eq
 	\item There may be no probability models that satisfy Equation \ref{eq:truncated_fac}
 \end{itemize}
 
-We propose a different way to define interventional probability models
+We propose a different way to define interventional probability models:
 
 \begin{itemize}
-	\item An interventional probability model is a probability 2-comb $\prob{Q}^{\RV{Z}\square\RV{Y}|\RV{X}}$
-	\item Observations are distributed according to $\prob{Q}_{\text{obs}}:=\text{insert}(\prob{Q}_{\text{obs}}^{\RV{X}|\RV{Z}},\prob{Q}^{\RV{Z}\square\RV{Y}|\RV{X}})$
+	\item The interventional probability model is some probability 2-comb 
+	\begin{align}
+		\prob{Q}^{\RV{Z}\square\RV{Y}|\RV{X}}
+	\end{align}
+	\item For some observational conditional probability $\prob{Q}_{\text{obs}}^{\RV{X}|\RV{Z}}$, observations are distributed according to 
+	\begin{align}
+	\prob{Q}_{\text{obs}}:=\text{insert}(\prob{Q}_{\text{obs}}^{\RV{X}|\RV{Z}},\prob{Q}^{\RV{Z}\square\RV{Y}|\RV{X}})\label{eq:int_to_obs}
+	\end{align}
 \end{itemize}
 
-In this case, we have
+Note that, by definition, $\prob{Q}^{\RV{Y}|\RV{XZ}}$ exists and all versions of it are also versions of $\prob{Q}_{\text{obs}}^{\RV{Y}|\RV{XZ}}$. If in addition, for every $x\in X$, the deterministic insert $\prob{Q}_{x}^{\RV{X}|\RV{Z}}$ defined by $\prob{Q}_{x}^{\RV{X}|\RV{Z}}(x'|z) == \llbracket x=x' \rrbracket$ is a valid conditional probability, then there exists a version of $\prob{Q}_{\text{obs}}^{\RV{Y}|\RV{XZ}}$ such that:
 
 \begin{align}
-	\prob{Q}_{\text{obs}}^{\RV{Z}} &= \prob{Q}^{\RV{Z}}\\
-	\prob{Q}^{\RV{Y}|\RV{XZ}}&\subset \prob{Q}_{\text{obs}}^{\RV{Y}|\RV{XZ}}
+	\prob{Q}_x^{\RV{XYZ}} = \prob{Q}_{\text{obs}}^{\RV{Y|XZ}}(y|x,z)\prob{Q}_{\text{obs}}^{\RV{Z}}(z)\llbracket x=x' \rrbracket
 \end{align}
 
-Now, for $x\in X$ \emph{if the deterministic insert} $\prob{Q}_{x}^{\RV{X}|\RV{Z}}$ defined by $\prob{Q}_{x}^{\RV{X}|\RV{Z}}(x'|z) == \llbracket x=x' \rrbracket$ \emph{is a valid conditional probability}, then \emph{for some version of } $\prob{Q}^{\RV{Y}|\RV{XZ}}$ the following holds:
-
-\begin{align}
-	\prob{T}_x^{\RV{XYZ}} = \prob{Q}_{\text{obs}}^{\RV{Y|XZ}}(y|x,z)\prob{Q}_{\text{obs}}^{\RV{Z}}(z)\llbracket x=x' \rrbracket
-\end{align}
-
-This identical in form to Equation \ref{eq:truncated_fac}, but we have made explicit two assumptions that were implicit in that equation - namely, the validity of hard interventions on $\RV{X}$ and the possibility of appropriately choosing a version of $\prob{Q}^{\RV{Y}|\RV{XZ}}$.
-
+This is similar to Equation \ref{eq:truncated_fac}. The two key differences are that this is existentially quantified over $\prob{Q}_{\text{obs}}^{\RV{Y|XZ}}$ and we have made explicit the assumptions that hard interventions on $\RV{X}$ are valid inserts.
 
 \subsubsection{Disintegrations}
 
+Markov kernels that map to product spaces can be ``disintegrated'' into a pair of kernels that map to each element of the product space. We can find conditional probabilities using disintegrations.
+
 \begin{lemma}[Disintegration existence in discrete Markov kernels]\label{lem:disint_exist}
 For any Markov kernel $\kernel{K}:X\kto W\times Y$ and $X$, $W$, $Y$ are discrete, there exists $\kernel{L}:W\times X\kto Y$ such that
-
 \begin{align}
 	\kernel{K} = \tikzfig{disintegration_existence}
 \end{align}
+$\kernel{L}$ is a \emph{disintegration} of $\kernel{K}$.
 \end{lemma}
 
 \begin{proof}
@@ -797,30 +829,57 @@ Then
 In general there are many indexed Markov kernels that satisfy this.
 \end{proof}
 
+We can
+
 \begin{theorem}[Existence of conditional probabilities]\label{th:valid_disint}
-Given valid $\model{K}^{\square \RV{WY}|\RV{X}}$, there exists a valid conditional probability $\prob{K}^{\RV{Y}|\RV{WX}}$.
+Given a probability gap model $\prob{P}:A\to \Delta(\Omega)$ along with a valid conditional probability $\model{P}^{\RV{XY}|\RV{W}}$, there exists a valid conditional probability $\prob{P}^{\RV{Y}|\RV{WX}}$.
 \end{theorem}
 
 \begin{proof}
-From Lemma \ref{lem:disint_exist}, we have the existence of some Markov kernel $\prob{K}^{\RV{Y}|\RV{WX}}:W\times X\to Y$ such that
+From Lemma \ref{lem:disint_exist}, we have the existence of some Markov kernel $\prob{P}^{\RV{Y}|\RV{WX}}:W\times X\to Y$ such that
 \begin{align}
-	\prob{K}^{\RV{WY}|\RV{X}}=\prob{K}^{\RV{W}|\RV{X}}\odot \prob{K}^{\RV{Y}|\RV{WX}}\label{eq:k_disint}
-\end{align}
-We need to check that $\prob{K}^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{K}^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{K}^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{K}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \prob{K}^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\prob{K}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
-
-Given that $\prob{K}^{\RV{Y}|\RV{WX}}$ is valid, we also require that for all completions $\model{K}_\alpha^{\RV{XWY}}$ of $\model{K}^{\square \RV{WY}|\RV{X}}$,
-\begin{align}
-	\model{K}_\alpha^{\RV{XWY}}=\prob{K}_\alpha^{\RV{XW}}\odot \prob{K}^{\RV{Y}|\RV{WX}}
+	\prob{P}^{\RV{XY}|\RV{W}}=\prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}^{\RV{Y}|\RV{WX}}\label{eq:k_disint}
 \end{align}
 
-Noting that $\model{K}_\alpha^{\RV{XWY}}= \prob{K}^{\RV{W}|\RV{X}}\odot \prob{K}^{\RV{Y}|\RV{WX}}$, this follows directly from Equation \ref{eq:k_disint}.
+By definition of conditional probability , for any insert $\alpha\in A$, letting $\prob{P}_\alpha=\prob{P}(\alpha)$, there exists $\prob{P}_\alpha^{\RV{W}}\in\Delta(W)$ such that
+
+\begin{align}
+	\prob{P}_\alpha^{\RV{WXY}}=\prob{P}_\alpha^{\RV{W}}\odot\prob{P}^{\RV{XY}|\RV{W}}
+\end{align}
+
+Thus
+
+\begin{align}
+\prob{P}_\alpha^{\RV{WXY}}&= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}^{\RV{Y}|\RV{WX}})\\
+&= (\prob{P}_\alpha^{\RV{W}}\odot\prob{P}^{\RV{X}|\RV{W}})\odot \prob{P}^{\RV{Y}|\RV{WX}})
+\end{align}
+
+Let $\text{erasef}_Y:Y\to \{*\}$ be the erase function on $Y$ (as opposed to the erase kernel) and $\text{idf}_{W\times X}$ be the identity function on $W\times X$. Noting that $(\RV{W},\RV{X})&=(\text{idf}_{W\times X}\otimes \text{erasef}_Y)\circ (\RV{W},\RV{X},\RV{Y})$, by Lemma \ref{lem:prod_pushf} together with Theorem \ref{th:recurs_pushf} we have for all $\alpha$:
+
+\begin{align}
+	\prob{P}_\alpha^{\RV{XW}} &= \prob{P}_\alpha^{\RV{WXY}}(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
+							  &= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}^{\RV{Y}|\RV{WX}})(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
+							  &= \prob{P}_\alpha^{\RV{W}}\odot\prob{P}^{\RV{X}|\RV{W}}
+\end{align}
+
+Then
+
+\begin{align}
+\prob{P}_\alpha^{\RV{XWY}}&= (\prob{P}_\alpha^{\RV{XW}})\odot \prob{P}^{\RV{Y}|\RV{WX}})
+\end{align}
+
+And so $\prob{P}^{\RV{Y}|\RV{WX}})$ is a $\RV{Y}|\RV{WX}$ conditional probability. We also want it to be valid, so we will verify that it can be chosen as such.
+
+We also need to check that $\prob{P}^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{P}^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{P}^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{P}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \prob{P}^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\prob{P}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
 \end{proof}
+
+
 
 \subsubsection{Conditional independence}\label{ssec:cond_indep}
 
 Conditional independence has a familiar definition in probability models. A conditional independence in models with probability gaps is equivalent to the claim that the given conditional independence holds for all base measure that the model can be extended to. In order 1 probability gap models, this definition is closely related to the idea of \emph{extended conditional independence} proposed by \citet{constantinou_extended_2017}.
 
-\begin{definition}[Order 0 conditional independence]
+\begin{definition}[Conditional independence with respect to a probability model]
 For a \emph{probability model} $\model{P}^{\RV{I}}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}}\RV{A}|\RV{C}$, if
 \begin{align}
 	\kernel{P}^{\RV{ABC}} &= \tikzfig{cond_indep1}
@@ -836,15 +895,89 @@ For any $\prob{P}^{\RV{B}|\RV{C}}$ and $\prob{P}^{\RV{A}|\RV{C}}$. \citet{cho_di
 	\item Contraction: $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$
 \end{enumerate}
 
-Conditional independence $\RV{A}\CI_{\prob{P}}\RV{B}|\RV{C}$ holds for an arbitrary probability distribution $\model{P}^{\RV{W}}$ if it holds for all probability models $\prob{P}^{\RV{I}}_\alpha$ that pushforward to $\prob{P}^{\RV{W}}$. This might happen when, for example, $(\RV{A},\RV{B},\RV{C})=\RV{W}$. Thus we define order 0 conditional independence with respct to an arbitrary probability distribution as well.
-
 \begin{theorem}\label{th:cho_ci_equiv}
-\todo[inline]{Equivalence of different statements of conditional independence}
+Given discrete $\Omega$ and a probability model $\prob{P}$ and variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$ if and only if ther exists some version of $\prob{P}^{\RV{Y}|\RV{WX}}$ and $\prob{P}^{\RV{Y}|\RV{W}}$ such that
+\begin{align}
+	\prob{P}^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase}\\
+	\iff
+	\prob{P}^{\RV{Y}|\RV{WX}}(y|w,x) &= \prob{P}^{\RV{Y}|\RV{W}}(y|w)
+\end{align}
 \end{theorem}
+
+\begin{proof}
+See \citet{cho_disintegration_2019}.
+\end{proof}
+
+
+\begin{definition}[Conditional independence with respect to a probability gap model]
+Conditional independence $\RV{A}\CI_{\prob{P}}\RV{B}|\RV{C}$ holds for an arbitrary probability gap model $\model{P}:A\to \Delta(\Omega)$ if $\RV{A}\CI_{\prob{P}_\alpha}\RV{B}|\RV{C}$ holds for all probability models $\prob{P}_\alpha$, $\alpha\in A$.
+\end{definition}
+
+We can define conditional independence in order 1 and order 2 models in terms of conditional independence in lower order models.
 
 \begin{definition}[Order 1 conditional independence]
 For a \emph{conditional probability model} $\prob{P}^{\RV{V}|\RV{W}}$, define $\prob{P}_{\beta}^{\RV{VW}}:=\prob{P}_{\beta}^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$. Then say $\RV{B}$ is order 1 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI^1_{\prob{P}}\RV{A}|\RV{C}$ if for all $\beta$, $\RV{B}\CI_{\prob{P}_\beta}\RV{A}|\RV{C}$.
 \end{definition}
+
+\begin{definition}[Order 2 conditional independence]
+For a \emph{probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{Q}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$. Then say $\RV{B}$ is order 2 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\prob{P}}^2\RV{A}|\RV{C}$ if for all $\gamma$, $\RV{B}\CI^1_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
+\end{definition}
+
+Conditional independence is already a complicated property of probability models, and the quantification over the range of probability gap models makes it even more complicated. One case where we can deduce conditional independences in probability gap models is when conditional probabilities exist and they are \emph{unresponsive} to some input variables.
+
+\begin{theorem}[Conditional independence from kernel unresponsiveness]
+Given discrete $\Omega$, a probability gap model $\prob{P}:A\to \Delta(\Omega)$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, if there is some version of the conditional probability $\prob{P}^{\RV{Y}|\RV{WX}}$ such that
+\begin{align}
+	\prob{P}^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase} \label{eq:higherorder_ci_erase}
+\end{align}
+then $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$. Furthermore, if there is some $\alpha\in A$ such that $\prob{P}_{\beta}(B)>0\implies \prob{P}_{\alpha}(B)>0$ for all $\beta\in A$, $B\subset \Omega$, then $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$ implies Equation \ref{eq:higherorder_ci_erase}.
+\end{theorem}
+
+\begin{proof}
+If:
+For every $\alpha\in A$ we can write
+\begin{align}
+	\prob{P}_\alpha^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase_alpha}
+\end{align}
+And so, by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\prob{P}_\alpha}\RV{X}|\RV{W}$ for all $\alpha\in A$, and so $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$.
+\end{proof}
+
+The reverse implication does not hold. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{AB}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{AB}}$ is a flip of a biased coin followed by a flip of a fair coin, then $\RV{A}\CI_{\prob{P}}\RV{B}$ but $\prob{P}^{\RV{AB}}$ does not exist. If we consider order 1 or order 2 models, then we can say that the reverse implication holds for particular collections of variables.
+
+\begin{theorem}\label{th:cons_ci}
+Given a probability 2-comb $\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}}$, $\RV{Y}\CI_{\model{P}}^2\RV{V}|\RV{WX}$ if and only if there is a version of $\prob{P}^{\RV{Y}|\RV{WXV}}$ and some $\prob{P}^{\RV{Y}|\RV{WX}}$ such that
+\begin{align}
+	\prob{P}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+If: For any $\model{K}:X\times V\times W\kto Y$, $\model{J}:\{*\}\kto W$
+\begin{align}
+	\model{L} :&= \model{J}\odot \text{insert}(\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}},\model{K})\\
+	 &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} \odot \prob{P}^{\RV{Y}|\RV{WXV}}\\
+\end{align}
+
+That is, $\prob{P}^{\RV{Y}|\RV{WXV}}$ is a version of $\prob{L}^{\RV{Y}|\RV{WXV}}$ for any extension $\model{L}$ of $\model{P}$. Then by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\model{L}}\RV{V}|\RV{WX}$ and so, by definition, $\RV{Y}\CI_{\model{P}}^2\RV{V}|\RV{WX}$.
+Only if:
+
+Let $\model{L}:\{*\}\kto W\times X\times V\times Y$ be an extension of $\model{P}$ to a 0-order model such that $\model{L}^{\RV{WXV}}\gg \model{M}^{\RV{WXV}}$ for any other extension $\model{M}$. Because $\RV{Y}\CI_{\model{L}}\RV{V}|\RV{WX}$, by Theorem \ref{th:cho_ci_equiv} there is some $\prob{L}^{\RV{Y}|\RV{WXV}}$ and $\prob{L}^{\RV{Y}|\RV{WX}}$ such that
+\begin{align}
+	\prob{L}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence_l}
+\end{align}
+
+As $\model{L}$ is an extension of $\model{P}$, there must be some $\model{J}$, $\model{K}$ such that for any $\prob{P}^{\RV{Y}|\RV{WXV}}$
+
+\begin{align}
+	\model{L} :&= \model{J}\odot \text{insert}(\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}},\model{K})\\
+	 &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} \odot \prob{P}^{\RV{Y}|\RV{WXV}}\\
+	 \model{L}^{\RV{WXV}} &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K}
+\end{align}
+
+Thus for any $(w,x,v)$ such that $\model{L}^{\RV{WXV}}>0$, $\prob{P}^{\RV{Y}|\RV{WXV}}\overset{\model{L}}{\cong}\prob{L}^{\RV{Y}|\RV{WXV}}$. The set on which they may disagree is precisely the set of $(w,x,v)$ such that $\model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} = 0$ for all $\model{J}$, $\model{K}$, but this means that $\prob{P}^{\RV{Y}|\RV{WXV}}\overset{\model{P}}{\cong}\prob{L}^{\RV{Y}|\RV{WXV}}$ also.
+\end{proof}
+
+\subsubsection{Extended conditional independence}
 
 In the case of a conditional probability model $\prob{P}^{\RV{V}|\RV{W}}$, we can view $\prob{P}^{\RV{V}|\RV{W}}$ as a collection of probability distributions $\{\prob{P}^{\RV{V}}_w:=A\mapsto \prob{P}^{\RV{V}|\RV{W}}(A|w)|w\in W\}$. We can then consider $\RV{W}$ to be what \citet{constantinou_extended_2017} call ``the regime indicator'' and $\RV{V}$ what they call a ``stochastic variable''. That paper introduces a notion of \emph{extended conditional independence}, which can be applied to models containing combination of stochastic variables and regime variables like $\prob{P}^{\RV{V}|\RV{W}}$.  Theorem 4.4 of that work proves the following claim:
 
@@ -890,20 +1023,13 @@ By independence, for some version of $\prob{P}^{\RV{A}|\RV{BCDE}}$:
 	&= \prob{P}_\alpha^{\RV{C^*E^*}}\odot \prob{P}_\alpha^{\RV{B^*D^*}|\RV{C^*E^*}}\odot (\prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}\otimes\text{erase}_{BD})
 \end{align}
 
-Thus for any $(a,b,c,d,e)\in A\times B\times C\times D\times E$ such that $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0$, $\prob{P}^{\RV{A}^*|\RV{B^*C^*D^*E^*}}(a|b,c,d,e) = \prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$ for any version of the disintegration. However, by assumption, $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0 \implies \prob{P}_\beta^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0$, and so $\prob{P}_\beta^{\RV{A}^*|\RV{B^*C^*D^*E^*}}\cong \prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$ also. But then
+Thus for any $(a,b,c,d,e)\in A\times B\times C\times D\times E$ such that $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0$, $\prob{P}^{\RV{A}^*|\RV{B^*C^*D^*E^*}}(a|b,c,d,e) = \prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$. However, by assumption, $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)=0 \implies \prob{P}_\beta^{\RV{B^*C^*D^*E^*}}(b,c,d,e)=0$, and so $\prob{P}_\beta^{\RV{A}^*|\RV{B^*C^*D^*E^*}}= \prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$ everywhere except a set of $\prob{P}_\beta$-measure 0. Thus
 	
 \begin{align}
 	\prob{P}_\beta^{\RV{A^*B^*C^*}\RV{D^*E^*}} &= \tikzfig{indep_strengthen_3}\\
 	&= \tikzfig{indep_strengthen_4}
 \end{align}
 \end{proof}
-
-\begin{definition}[Order 2 conditional independence]
-For a \emph{probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{Q}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$. Then say $\RV{B}$ is order 2 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\prob{P}}^2\RV{A}|\RV{C}$ if for all $\gamma$, $\RV{B}\CI^1_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
-\end{definition}
-
-In each case, the semi-graphoid axioms hold for each lower level extension $\prob{P}^{\RV{I}}_\alpha$, $\prob{P}^{\RV{VW}}_\beta$ and $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}$, and so they also hold for the higher level definition of conditional probability.
-
 
 \subsection{Recursive disintegration}
 
@@ -924,52 +1050,20 @@ It is well-known that directed acyclic graphs are able to represent some conditi
 
 We can reason from graphical properties of model disintegrations to graphical properties of models as Theorem \ref{th:cons_ci}. A general theory akin to d-separation for string diagrams may facilitate a more general understanding of how conditional independence properties of a model relate to conditional independence properties of its components.
 
-\begin{theorem}\label{th:cons_ci}
-Given a probability 2-comb $\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}}$, $\RV{Y}\CI_{\model{P}}^2\RV{V}|\RV{WX}$ if and only if there is a version of $\prob{P}^{\RV{Y}|\RV{WXV}}$ and some $\prob{P}^{\RV{Y}|\RV{WX}}$ such that
-\begin{align}
-	\prob{P}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence}
-\end{align}
-\end{theorem}
 
-\begin{proof}
-If: For any $\model{K}:X\times V\times W\kto Y$, $\model{J}:\{*\}\kto W$
-\begin{align}
-	\model{L} :&= \model{J}\odot \text{insert}(\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}},\model{K})\\
-	 &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} \odot \prob{P}^{\RV{Y}|\RV{WXV}}\\
-\end{align}
+% \subsubsection{Restricted 2-combs}
 
-That is, $\prob{P}^{\RV{Y}|\RV{WXV}}$ is a version of $\prob{L}^{\RV{Y}|\RV{WXV}}$ for any extension $\model{L}$ of $\model{P}$. Then by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\model{L}}\RV{V}|\RV{WX}$ and so, by definition, $\RV{Y}\CI_{\model{P}}^2\RV{V}|\RV{WX}$.
-Only if:
+% \todo[inline]{this notation sucks}
 
-Let $\model{L}:\{*\}\kto W\times X\times V\times Y$ be an extension of $\model{P}$ to a 0-order model such that $\model{L}^{\RV{WXV}}\gg \model{M}^{\RV{WXV}}$ for any other extension $\model{M}$. Because $\RV{Y}\CI_{\model{L}}\RV{V}|\RV{WX}$, by Theorem \ref{th:cho_ci_equiv} there is some $\prob{L}^{\RV{Y}|\RV{WXV}}$ and $\prob{L}^{\RV{Y}|\RV{WX}}$ such that
-\begin{align}
-	\prob{L}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence_l}
-\end{align}
+% We're often interested in a subset of inserts to a 2-comb. We're interested in particular in inserts that depend on a subset of the ``available'' variables. There are in general many restrictions we could consider, but some we are more interested in than others. For a 2-comb restricted to a generic subset $A$ of inserts, we will write $\prob{P}^{\RV{X}|\RV{W}\framebox{A} \RV{Y}|\RV{D}}$. 
 
-As $\model{L}$ is an extension of $\model{P}$, there must be some $\model{J}$, $\model{K}$ such that for any $\prob{P}^{\RV{Y}|\RV{WXV}}$
+% Given $\prob{P}^{\RV{X}|\RV{W}\square \RV{Y}|\RV{D}}$ and some random variable $\RV{V}=f\circ(\RV{W},\RV{X})$, define the subset of inserts that depend only on $\RV{V}$ as those $\prob{Q}_\alpha^{\RV{D}|\RV{XW}}$ such that $\RV{D}\CI^1_{\model{Q}}(\RV{W},\RV{X})|\RV{V}$. Define $B$ as the set of all inserts exhibiting this conditional independence. Then write  $\prob{P}^{\RV{X}|\RV{W}\framebox{\RV{V}} \RV{Y}|\RV{D}}$ for the restriction of $\prob{P}^{\RV{X}|\RV{W}\square \RV{Y}|\RV{D}}$ to this set. Note that $B$ may be empty if there are no valid inserts with the required conditional independence. When we consider restrictions, we will assume that this set is non-empty.
 
-\begin{align}
-	\model{L} :&= \model{J}\odot \text{insert}(\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}},\model{K})\\
-	 &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} \odot \prob{P}^{\RV{Y}|\RV{WXV}}\\
-	 \model{L}^{\RV{WXV}} &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K}
-\end{align}
+% A special case of some interest is the restriction $\prob{P}^{\RV{X}|\RV{W}\framebox{*} \RV{Y}|\RV{D}}$. For any $(\RV{X},\RV{W})$, $*=\text{erase}_{X\times W} \circ (\RV{X},\RV{W})$, so this is a well-defined restriction. However, we must still assume that there exists at lease one $\prob{Q}_\alpha^{\RV{D}|\RV{XW}}$ such that $\RV{D}\CI^1_{\model{Q}}(\RV{W},\RV{X})|*$, which may not always be true (consider the example of height, weight and BMI above; there is no valid conditional probability in which BMI is independent of height and weight). This restriction is useful because conditional independences with respect to the restricted map can be interpreted as expressing the property that ``unless we deliberately induce dependence, these variables are conditionally independent''.
 
-Thus for any $(w,x,v)$ such that $\model{L}^{\RV{WXV}}>0$, $\prob{P}^{\RV{Y}|\RV{WXV}}\overset{\model{L}}{\cong}\prob{L}^{\RV{Y}|\RV{WXV}}$. The set on which they may disagree is precisely the set of $(w,x,v)$ such that $\model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} = 0$ for all $\model{J}$, $\model{K}$, but this means that $\prob{P}^{\RV{Y}|\RV{WXV}}\overset{\model{P}}{\cong}\prob{L}^{\RV{Y}|\RV{WXV}}$ also.
-\end{proof}
-
-\subsubsection{Restricted 2-combs}
-
-\todo[inline]{this notation sucks}
-
-We're often interested in a subset of inserts to a 2-comb. We're interested in particular in inserts that depend on a subset of the ``available'' variables. There are in general many restrictions we could consider, but some we are more interested in than others. For a 2-comb restricted to a generic subset $A$ of inserts, we will write $\prob{P}^{\RV{X}|\RV{W}\framebox{A} \RV{Y}|\RV{D}}$. 
-
-Given $\prob{P}^{\RV{X}|\RV{W}\square \RV{Y}|\RV{D}}$ and some random variable $\RV{V}=f\circ(\RV{W},\RV{X})$, define the subset of inserts that depend only on $\RV{V}$ as those $\prob{Q}_\alpha^{\RV{D}|\RV{XW}}$ such that $\RV{D}\CI^1_{\model{Q}}(\RV{W},\RV{X})|\RV{V}$. Define $B$ as the set of all inserts exhibiting this conditional independence. Then write  $\prob{P}^{\RV{X}|\RV{W}\framebox{\RV{V}} \RV{Y}|\RV{D}}$ for the restriction of $\prob{P}^{\RV{X}|\RV{W}\square \RV{Y}|\RV{D}}$ to this set. Note that $B$ may be empty if there are no valid inserts with the required conditional independence. When we consider restrictions, we will assume that this set is non-empty.
-
-A special case of some interest is the restriction $\prob{P}^{\RV{X}|\RV{W}\framebox{*} \RV{Y}|\RV{D}}$. For any $(\RV{X},\RV{W})$, $*=\text{erase}_{X\times W} \circ (\RV{X},\RV{W})$, so this is a well-defined restriction. However, we must still assume that there exists at lease one $\prob{Q}_\alpha^{\RV{D}|\RV{XW}}$ such that $\RV{D}\CI^1_{\model{Q}}(\RV{W},\RV{X})|*$, which may not always be true (consider the example of height, weight and BMI above; there is no valid conditional probability in which BMI is independent of height and weight). This restriction is useful because conditional independences with respect to the restricted map can be interpreted as expressing the property that ``unless we deliberately induce dependence, these variables are conditionally independent''.
-
-\begin{definition}[Restricted order 2 conditional independence]
-For a \emph{restricted probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\framebox{E}\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{Q}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$ for any $\prob{Q}_\gamma\in E$. Then $\RV{B}$ is restricted order 2 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI^{2|E}_{\prob{P}}\RV{A}|\RV{C}$ if for all $\gamma\in E$, $\RV{B}\CI^1_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
-\end{definition}
+% \begin{definition}[Restricted order 2 conditional independence]
+% For a \emph{restricted probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\framebox{E}\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{Q}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$ for any $\prob{Q}_\gamma\in E$. Then $\RV{B}$ is restricted order 2 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI^{2|E}_{\prob{P}}\RV{A}|\RV{C}$ if for all $\gamma\in E$, $\RV{B}\CI^1_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
+% \end{definition}
 
 \subsection{Results I use that don't really fit into the flow of the text}
 
