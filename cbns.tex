@@ -50,19 +50,22 @@ and
 for all $i\in[n]$, $j\in (n,m]$.
 \end{definition}
 
-Equation \ref{eq:cbn_insert} has a number of implications which we will use in the upcoming Theorem \ref{th:seedo_rep}:
-
-For all $i,j\in [n]$
+Equation \ref{eq:cbn_insert} has a number of implications which we will use in the upcoming Theorem \ref{th:seedo_rep}. Firstly
 \begin{align}
-    \prob{Q}^{\RV{V}_{i}|\RV{H}} = \prob{Q}^{\RV{V}_j|\RV{H}}& \text{and both conditional probabilities exist}
+   & \prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m])}|\RV{H}}&\text{exists}\\
+   & \prob{Q}^{\RV{Y}_{(n,m]}|\RV{X}_{(n,m]}\RV{W}_{(n,m]}\RV{V}_{[n]}\RV{H}}&\text{exists}
+\end{align}
+Secondly, for all inserts $\alpha$
+\begin{align}
+    \prob{Q}_\alpha^{\RV{V}_{i}|\RV{H}} = \prob{Q}_\alpha^{\RV{V}_j|\RV{H}}
 \end{align}
 for $i,j\in [m]$,
 \begin{align}
-    \prob{Q}^{\RV{W}_i|\RV{H}} = \prob{Q}^{\RV{W}_j|\RV{H}}& \text{and both conditional probabilities exist}
+    \prob{Q}_\alpha^{\RV{W}_i|\RV{H}} = \prob{Q}_\alpha^{\RV{W}_j|\RV{H}}& \text{and both conditional probabilities exist}
 \end{align}
 for $i,j\in [m]$
 \begin{align}
-    \model{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}} &= \model{Q}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}&\text{ and both conditional probabilities exist}
+    \model{Q}_\alpha^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}} &= \model{Q}_\alpha^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}&\text{ and both conditional probabilities exist}
 \end{align}
 
 
@@ -144,7 +147,7 @@ Then
 \begin{align}
     \model{T}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j}(y|w,v,h,x)&= \model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x,d)\\
     &\neq \model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x,d')\\
-    &= \model{T}_{d'}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x)\\
+    &= \model{T}_{d'}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j}(y|w,v,h,x)\\
     \implies \model{T}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x) &\neq \model{Q}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x)\\
     \text{or } \model{T}_{d'}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x) &\neq \model{Q}_{d'}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x)
 \end{align}
