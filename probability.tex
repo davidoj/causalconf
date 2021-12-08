@@ -374,10 +374,10 @@ If no such Markov kernel exists, $\prob{P}^{\RV{Y}|\RV{X}}$ is undefined.
 
 Given a conditional probability with respect to a probability gap model, we can find other conditional probabilities by ``pushing forward'' via a function.
 
-\begin{lemma}[Equivalence of pushforward definitions]\lable{lem:prod_pushf}
+\begin{lemma}[Equivalence of pushforward definitions]\label{lem:prod_pushf}
 Given a probability space $\kernel{M}:W\to \Omega$ and $\RV{X}:\Omega\to X$, define $\kernel{K}^{\RV{X}|\RV{W}}:W\kto X$ by $\kernel{K}^{\RV{X}|\RV{W}}(x|w):=\kernel{M}(\RV{X}\yields x|w)$ for any $x\in X$m $w\in W$ and $\kernel{L}^{\RV{X}}:W\kto X$ by
 \begin{align}
-	\kernel{L}^{\RV{X}}^{\RV{X}|\RV{W}} = \kernel{M}\kernel{F}_{\RV{X}}
+	\kernel{L}^{\RV{X}|\RV{W}} = \kernel{M}\kernel{F}_{\RV{X}}
 \end{align}
 Then
 \begin{align}
@@ -854,7 +854,11 @@ Thus
 &= (\prob{P}_\alpha^{\RV{W}}\odot\prob{P}^{\RV{X}|\RV{W}})\odot \prob{P}^{\RV{Y}|\RV{WX}})
 \end{align}
 
-Let $\text{erasef}_Y:Y\to \{*\}$ be the erase function on $Y$ (as opposed to the erase kernel) and $\text{idf}_{W\times X}$ be the identity function on $W\times X$. Noting that $(\RV{W},\RV{X})&=(\text{idf}_{W\times X}\otimes \text{erasef}_Y)\circ (\RV{W},\RV{X},\RV{Y})$, by Lemma \ref{lem:prod_pushf} together with Theorem \ref{th:recurs_pushf} we have for all $\alpha$:
+Let $\text{erasef}_Y:Y\to \{*\}$ be the erase function on $Y$ (as opposed to the erase kernel) and $\text{idf}_{W\times X}$ be the identity function on $W\times X$. Noting that 
+\begin{align}
+(\RV{W},\RV{X})&=(\text{idf}_{W\times X}\otimes \text{erasef}_Y)\circ (\RV{W},\RV{X},\RV{Y})
+\end{align}
+By Lemma \ref{lem:prod_pushf} together with Theorem \ref{th:recurs_pushf} we have for all $\alpha$:
 
 \begin{align}
 	\prob{P}_\alpha^{\RV{XW}} &= \prob{P}_\alpha^{\RV{WXY}}(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
@@ -916,11 +920,11 @@ Conditional independence $\RV{A}\CI_{\prob{P}}\RV{B}|\RV{C}$ holds for an arbitr
 We can define conditional independence in order 1 and order 2 models in terms of conditional independence in lower order models.
 
 \begin{definition}[Order 1 conditional independence]
-For a \emph{conditional probability model} $\prob{P}^{\RV{V}|\RV{W}}$, define $\prob{P}_{\beta}^{\RV{VW}}:=\prob{P}_{\beta}^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$. Then say $\RV{B}$ is order 1 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI^1_{\prob{P}}\RV{A}|\RV{C}$ if for all $\beta$, $\RV{B}\CI_{\prob{P}_\beta}\RV{A}|\RV{C}$.
+For a \emph{conditional probability model} $\prob{P}^{\RV{V}|\RV{W}}$, define $\prob{P}_{\beta}^{\RV{VW}}:=\prob{P}_{\beta}^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$. Then say $\RV{B}$ is order 1 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\prob{P}}\RV{A}|\RV{C}$ if for all $\beta$, $\RV{B}\CI_{\prob{P}_\beta}\RV{A}|\RV{C}$.
 \end{definition}
 
 \begin{definition}[Order 2 conditional independence]
-For a \emph{probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{Q}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$. Then say $\RV{B}$ is order 2 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\prob{P}}^2\RV{A}|\RV{C}$ if for all $\gamma$, $\RV{B}\CI^1_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
+For a \emph{probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{Q}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$. Then say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\prob{P}}\RV{A}|\RV{C}$ if for all $\gamma$, $\RV{B}\CI^1_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
 \end{definition}
 
 Conditional independence is already a complicated property of probability models, and the quantification over the range of probability gap models makes it even more complicated. One case where we can deduce conditional independences in probability gap models is when conditional probabilities exist and they are \emph{unresponsive} to some input variables.
@@ -945,7 +949,7 @@ And so, by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\prob{P}_\alpha}\RV{X}|\RV
 The reverse implication does not hold. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{AB}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{AB}}$ is a flip of a biased coin followed by a flip of a fair coin, then $\RV{A}\CI_{\prob{P}}\RV{B}$ but $\prob{P}^{\RV{AB}}$ does not exist. If we consider order 1 or order 2 models, then we can say that the reverse implication holds for particular collections of variables.
 
 \begin{theorem}\label{th:cons_ci}
-Given a probability 2-comb $\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}}$, $\RV{Y}\CI_{\model{P}}^2\RV{V}|\RV{WX}$ if and only if there is a version of $\prob{P}^{\RV{Y}|\RV{WXV}}$ and some $\prob{P}^{\RV{Y}|\RV{WX}}$ such that
+Given an order 2 model $\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}}$, $\RV{Y}\CI_{\model{P}}\RV{V}|\RV{WX}$ if and only if there is a version of $\prob{P}^{\RV{Y}|\RV{WXV}}$ and some $\prob{P}^{\RV{Y}|\RV{WX}}$ such that
 \begin{align}
 	\prob{P}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence}
 \end{align}

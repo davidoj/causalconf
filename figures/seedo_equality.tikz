@@ -3,7 +3,7 @@
 		\node [style=small kernel tikzit] (0) at (-16, 0.25) {$\model{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}}$};
 		\node [style=Llabel tikzit] (1) at (-19.75, 0.25) {$\RV{H}$};
 		\node [style=copymap tikzit] (3) at (-19, 0.25) {};
-		\node [style=small kernel tikzit] (5) at (-1, 0) {$\model{U}^{\RV{Y}_{(n,m]}|\RV{X_{(n,m]}W_{(n,m]}H}}$};
+		\node [style=small kernel tikzit] (5) at (-1, 0) {$\model{Q}^{\RV{Y}_{(n,m]}|\RV{X_{(n,m]}W_{(n,m]}H}}$};
 		\node [style=RLabel tikzit] (8) at (3.25, 0) {$\RV{Y}_{(n,m]}$};
 		\node [style=none] (10) at (-4, 0) {};
 		\node [style=none] (11) at (-4, -0.5) {};

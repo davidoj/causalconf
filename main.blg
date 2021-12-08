@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2021)
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
@@ -9,43 +9,43 @@ Repeated entry---line 1745 of file references.bib
 I'm skipping whatever remains of this entry
 You've used 33 entries,
             2773 wiz_defined-function locations,
-            862 strings with 11696 characters,
-and the built_in function-call counts, 14007 in all, are:
-= -- 1374
+            865 strings with 11762 characters,
+and the built_in function-call counts, 14122 in all, are:
+= -- 1393
 > -- 522
 < -- 36
 + -- 187
 - -- 153
-* -- 1009
-:= -- 2211
-add.period$ -- 168
+* -- 1024
+:= -- 2226
+add.period$ -- 170
 call.type$ -- 33
 change.case$ -- 139
 chr.to.int$ -- 32
 cite$ -- 66
 duplicate$ -- 721
-empty$ -- 1254
+empty$ -- 1262
 format.name$ -- 204
-if$ -- 2994
+if$ -- 3018
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 42
-newline$ -- 234
+missing$ -- 41
+newline$ -- 236
 num.names$ -- 142
-pop$ -- 247
+pop$ -- 242
 preamble$ -- 1
 purify$ -- 112
 quote$ -- 0
-skip$ -- 490
+skip$ -- 491
 stack$ -- 0
-substring$ -- 507
+substring$ -- 532
 swap$ -- 97
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 318
+type$ -- 323
 warning$ -- 0
-while$ -- 141
+while$ -- 143
 width$ -- 0
-write$ -- 565
+write$ -- 568
 (There was 1 error message)

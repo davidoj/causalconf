@@ -40,88 +40,97 @@ A CBN order 2 model $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{
 \begin{align}
     \RV{V}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [n]\label{eq:cbn_ci1}\\
     \RV{W}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [m]\label{eq:cbn_ci2}\\
-    \RV{Y}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{HX}_i&\forall i\in [m]\label{eq:cbn_ci3}\\
+    \RV{Y}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|(\RV{H,X}_i,\RV{W}_i)&\forall i\in [m]\label{eq:cbn_ci3}\\
 \end{align}
-and
+Under these assumptions $\prob{Q}^{\RV{W}_i|\RV{H}}$ and $\prob{Q}^{\RV{Y}_i|\RV{H}\RV{X}_i\RV{W}_i}$ exist, and for all $i\in [n],j,k\in [m]$
 \begin{align}
-    \model{Q}_{\text{obs}}^{\RV{W_iX_iY_i}|\RV{H}} &= \text{insert}(\model{Q}_{\text{obs}}^{\RV{X}_{j}|\RV{HW}_{j}},\prob{Q}^{\RV{W}_{j}|\RV{H}\square\RV{Y}_{j}|\RV{X}_{j}})\label{eq:cbn_insert}
+    \model{Q}^{\RV{W}_{j}|\RV{H}\square\RV{Y}_{j}|\RV{X}_{j}}&=\model{Q}^{\RV{W}_{k}|\RV{H}\square\RV{Y}_{k}|\RV{X}_{k}}\label{eq:identically_distributed}\\
+    \model{Q}^{\RV{W_iX_iY_i}|\RV{H}} &= \text{insert}(\model{Q}_{\text{obs}}^{\RV{X}_{j}|\RV{HW}_{j}},\prob{Q}^{\RV{W}_{j}|\RV{H}\square\RV{Y}_{j}|\RV{X}_{j}})\label{eq:cbn_insert}
 \end{align}
-
 for all $i\in[n]$, $j\in (n,m]$.
 \end{definition}
 
 
-\subsubsections{Properties of CBN probability gap models}
+\begin{theorem}[Existence of CBN 2-comb]\label{th:cbn_2comb_exist}
+Given a CBN order 2 model $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ in accordance with Definition \ref{def:cbn_o2}, there exist conditional probabilities $\prob{Q}^{\RV{W}_i|\RV{H}}$ and $\prob{Q}^{\RV{Y}_i|\RV{H}\RV{X}_i\RV{W}_i}$ for all $i$.
+\end{theorem}
+
+\begin{proof}
 Order 2 models $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ have the following conditional probabilities:
 \begin{align}
    & \prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m])}|\RV{H}}&\text{exists}\label{eq:obs_cbn_existence}\\
    & \prob{Q}^{\RV{Y}_{(n,m]}|\RV{X}_{(n,m]}\RV{W}_{(n,m]}\RV{V}_{[n]}\RV{H}}&\text{exists}\label{eq:int_cbn_existence}
 \end{align}
 
-Together with Equations \ref{eq:cbn_ci1} and \ref{eq:cbn_ci2}, we have 
+Equations \ref{eq:obs_cbn_existence} and \ref{eq:int_cbn_existence} together with conditional independences \ref{eq:cbn_ci1}, \ref{eq:cbn_ci2}, \ref{eq:cbn_ci3} and Theorem \ref{th:cons_ci} imply there exist versions of the following conditional proabilities such that
 
 \begin{align}
-    \prob{Q}^{\RV{V}_i|\RV{H}\RV{V}_{[m]\setminus\{i\}}}&=\prob{Q}^{\RV{V}_i|\RV{H}}\otimes \text{erase}_\\
-    \prob{Q}
+    \prob{Q}^{\RV{V}_i|\RV{H}\RV{V}_{[m]\setminus\{i\}}}&=\prob{Q}^{\RV{V}_i|\RV{H}}\otimes \text{erase}_{V^{m-1}} & \forall i\in[n]\\
+    \prob{Q}^{\RV{W}_i|\RV{H}\RV{V}_{[m]\setminus\{i\}}}&=\prob{Q}^{\RV{W}_i|\RV{H}}\otimes \text{erase}_{V^{m-1}} & \forall i\in[m]\\
+    \prob{Q}^{\RV{Y}_i|\RV{H}\RV{X}_i\RV{W}_i\RV{V}_{[m]\setminus\{i\}}}&= \prob{Q}^{\RV{Y}_i|\RV{H}\RV{X}_i\RV{W}_i}\otimes \text{erase}_{V^{m-1}} & \forall i\in [m]
 \end{align}
+\end{proof}
 
-Equation \ref{eq:cbn_insert} implies
-
-Secondly, for all inserts $\alpha$
+Note also that Equation \ref{eq:identically_distributed} implies that the conditional probabilities from Theorem \ref{th:cbn_2comb_exist} can be chosen to be equal for all $i,j\in [m]$:
 \begin{align}
-    \prob{Q}_\alpha^{\RV{V}_{i}|\RV{H}} = \prob{Q}_\alpha^{\RV{V}_j|\RV{H}}
-\end{align}
-for $i,j\in [m]$,
-\begin{align}
-    \prob{Q}_\alpha^{\RV{W}_i|\RV{H}} = \prob{Q}_\alpha^{\RV{W}_j|\RV{H}}& \text{and both conditional probabilities exist}
-\end{align}
-for $i,j\in [m]$
-\begin{align}
-    \model{Q}_\alpha^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}} &= \model{Q}_\alpha^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}&\text{ and both conditional probabilities exist}
+    \prob{Q}^{\RV{W}_i|\RV{H}} = \prob{Q}^{\RV{W}_j|\RV{H}}\label{eq:identical_1}
+    \model{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}} &= \model{Q}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}\label{eq:identical_2}
 \end{align}
 
+\begin{theorem}[CBN observations are identically distributed]
+Given a CBN order 2 model $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ in accordance with Definition \ref{def:cbn_o2}, there exists $\prob{Q}^{\RV{V}_{i}|\RV{H}}$ for $i\in [n]$ and for all $i,j\in [n]$
+\begin{align}
+    \prob{Q}^{\RV{V}_i|\RV{H}} = \prob{Q}^{\RV{V}_j|\RV{H}}\label{eq:identical_3}
+\end{align}
+\end{theorem}
 
-Inserts for a CBN order 2 model are of the type $\prob{Q}_\alpha^{\RV{X}_{(n,m]}|\RV{V}_{[n]}\RV{W}_{(n,m]}\RV{H}}$. Such inserts are not necessarily decision rules as defined in the previous section. They don't necessarily admit an interpretation ``if I see $(\RV{V}_{[n]},\RV{W}_{(n,m]},\RV{H})$ then I do this to $\RV{X}_{(n,m]}$''. For example, $\RV{H}$ is by definition unobserved and so it would be odd to consider rules that depend on direct knowledge of $\RV{H}$. However, some subset of inserts of this type may correspond to decision rules that may be chosen. Specifically, we may be able to construct a see-do model such that each decision rule in the see-do model corresponds to a particular insert of the type $\prob{Q}_\alpha^{\RV{X}_{(n,m]}|\RV{V}_{[n]}\RV{W}_{(n,m]}\RV{H}}$ in the CBN model. The question we will now ask is: what kinds of see-do models allow for this?
+\begin{proof}
+Existence follows from the fact that $\RV{V}_i=\pi_i\circ\RV{V}_{[n]}$ with $\pi_i$ the function $V^n\to V$ that projects the $i$th index. Theorem \ref{th:recurs_pushf} then implies $\prob{Q}^{\RV{V}_i|\RV{H}}=\prob{Q}^{\RV{V}_{[n]}|\RV{H}}\kernel{F}_{\pi_i}$.
+
+Equality follows from the fact that for all $i,j\in[n]$
+\begin{align}
+    \model{Q}^{\RV{V}_i|\RV{H}} &= \text{insert}(\model{Q}_{\text{obs}}^{\RV{X}_{j}|\RV{HW}_{j}},\prob{Q}^{\RV{W}_{j}|\RV{H}\square\RV{Y}_{j}|\RV{X}_{j}})\\
+    &= \model{Q}^{\RV{V}_j|\RV{H}}
+\end{align}
+\end{proof}
 
 \subsection{See-do models corresponding to causal Bayesian networks}
 
-When does a see-do model $\prob{T}^{\RV{V}_{[n]}|\RV{H}\square \RV{V}_{(n,m]}|\RV{D}}$ with decision rules of type $\{\prob{T}_\alpha^{\RV{D}|\RV{V}_{[n]}}\}_{\alpha\in A}$ correspond to a CBN probability 2-comb $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ with inserts of type $\{\prob{Q}_\alpha^{\RV{X}_{(n,m]}|\RV{V}_{[n]}\RV{W}_{(n,m]}\RV{H}}\}_{\alpha\in A}$? 
+We have defined a class of order 2 probability gap models associated with causal Bayesian networks. We next want to ask: when does a see-do model induce an order 2 model associated with a CBN? Specificially, given a see-do model $\prob{T}^{\RV{V}_{[n]}|\RV{H}\square \RV{V}_{(n,m]}|\RV{D}}$ with decision rules of type $\{\prob{T}_\alpha^{\RV{D}|\RV{V}_{[n]}}\}_{\alpha\in A}$, when is there a CBN model $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ with inserts of type $\{\prob{Q}_\alpha^{\RV{X}_{(n,m]}|\RV{V}_{[n]}\RV{W}_{(n,m]}\RV{H}}\}_{\alpha\in A}$ such that marginalising $\prob{T}_\alpha$ over $\RV{D}$ yields $\prob{Q}_\alpha$ for all $\alpha\in A$?
 
-By correspondence, we mean that for each $\alpha\in A$, the probabilistic model given by $\text{insert}(\prob{T}^{\RV{V}_{[n]}|\RV{H}\square \RV{V}_{(n,m]}|\RV{D}},\prob{T}_\alpha^{\RV{D}|\RV{V}_{[n]}})$ followed by marginalising over $\RV{D}$ is the same as the model given by $\text{insert}(\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}},\prob{Q}_\alpha^{\RV{X}_{(n,m]}|\RV{V}_{[n]}\RV{W}_{(n,m]}\RV{H}})$
 \begin{align}
-    \model{T}^{\RV{V}_{[m]}|\RV{H}}_\alpha&:=\tikzfig{seedo_equality2}\\
+    \model{T}^{\RV{V}_{[m]}|\RV{H}}_\alpha&=\tikzfig{seedo_equality2}\\
     &=\tikzfig{seedo_equality} \label{eq:consistent}\\
-    &=: \model{Q}^{\RV{V}_{[m]}|\RV{H}}_\alpha
+    &= \model{Q}^{\RV{V}_{[m]}|\RV{H}}_\alpha
 \end{align}
+
+We need a number of conditions to hold for this to be true of any $\prob{T}$; first, $\prob{T}$ needs to satisfy the CBN versions of ``mutually independent'' (Eqs. \ref{eq:cbn_ci1}-\ref{eq:cbn_ci3}) as well as the CBN version of ``identically distributed'' (Eqs. \ref{eq:identical_1}, \ref{eq:identical_2} and \ref{eq:identical_3}). Finally, we require decisions $\RV{D}$ to act as ``interventions'' on $\RV{X}$ in an appropriate way.
 
 Theorem \ref{th:seedo_rep} shows that this correspondence holds exactly when:
 \begin{itemize}
     \item The CBN mutual indpendences (Definition \ref{def:cbn_o2}) hold for the $\prob{T}$
+    \item For all $i\in (n,m]$, $\RV{W}_i\CI_{\prob{T}}\RV{D}|\RV{H}$
     \item For all $i\in [m]$, $\RV{Y}_i\CI_{\prob{T}}\RV{D}|(\RV{W}_i,\RV{X}_i,\RV{H})$; we say that under conditions of perfect information, $(\RV{W}_i,\RV{X}_i)$ control $\RV{Y}_i$ by proxy
 \end{itemize}
 
 \begin{theorem}\label{th:seedo_rep}
-Given a see-do model $\prob{T}^{\RV{V}_{[n]}|\RV{H}\square \RV{V}_{(n,m]}|\RV{D}}$ there exists a corresponding CBN probability 2-comb $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ if and only if the CBN mutual independences hold
+Given a see-do model $\prob{T}^{\RV{V}_{[n]}|\RV{H}\square \RV{V}_{(n,m]}|\RV{D}}$ there exists a corresponding CBN probability 2-comb $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ if and only if (1) the CBN mutual independences hold
 \begin{align}
     \RV{V}_i\CI_{\prob{T}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [n]\\
     \RV{W}_i\CI_{\prob{T}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [m]\\
     \RV{Y}_i\CI_{\prob{T}} \RV{V}_{[m]\setminus \{i\}}|\RV{HX}_i&\forall i\in [m]\\
 \end{align}
-
-as well as the identical conditionals
+(2) for every insert $\alpha$ the following conditional probabilities are identical
 \begin{align}
-    \prob{T}^{\RV{V}_{i}|\RV{H}} = \prob{T}^{\RV{V}_j|\RV{H}}& \text{and both conditional probabilities exist}
+    \prob{T}_\alpha^{\RV{V}_i|\RV{H}} &= \prob{T}_\alpha^{\RV{V}_j|\RV{H}}&\forall i,j\in [n]\\
+    \prob{T}_\alpha^{\RV{W}_i|\RV{H}} &= \prob{T}_\alpha^{\RV{W}_j|\RV{H}}&\forall i,j\in [m]\\
+    \model{T}_\alpha^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}} &= \model{T}_\alpha^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}&\forall i,j\in [m]
 \end{align}
-for $i,j\in [m]$,
+(3) $\RV{W}_i$ is unaffected by $\RV{D}$
 \begin{align}
-    \prob{T}^{\RV{W}_i|\RV{H}} = \prob{T}^{\RV{W}_j|\RV{H}}& \text{and both conditional probabilities exist}
+    \RV{W}_i\CI_{\prob{D}}
 \end{align}
-for $i,j\in [m]$
-\begin{align}
-    \model{T}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}} &= \model{T}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}&\text{ and both conditional probabilities exist}
-\end{align}
-
-And under conditions of perfect information, $(\RV{W}_i,\RV{X}_i,\RV{V}_{[n]})$ control $\RV{Y}_i$ by proxy:
+And (4) under conditions of perfect information, $(\RV{W}_i,\RV{X}_i,\RV{V}_{[n]})$ control $\RV{Y}_i$ by proxy:
 \begin{align}
     \RV{Y}_i\CI_{\prob{T}}\RV{D}|(\RV{W}_i,\RV{X}_i,\RV{H},\RV{V}_{[n]})&\forall i\in [m]
 \end{align}
@@ -144,7 +153,9 @@ Then
     &= \tikzfig{seedo_equality}
 \end{align}
 \textbf{Only if:}
-Suppose the CBN mutual independences or identical conditionals do not hold for $\prob{T}$. Then there must be some $\alpha$ such that one of these assumptions is violated for $\prob{T}_\alpha$, but these assumptions hold for all $\prob{Q}_\beta$, $\beta\in A$, so there is no corresponding insert for $\prob{T}_\alpha$.
+Suppose the CBN mutual independences do not hold for $\prob{T}$. Then there must be some $\alpha$ such that one of these conditional independences does not hold for $\prob{T}_\alpha$. By construction of CBN order 2 models, these indepenences hold for every probability model in the range of every CBN order 2 model $\prob{Q}$. Thus there is no CBN model corresponding to $\prob{T}$.
+
+Suppose for some $\alpha$ and $i,j\in [n]$ we have $\prob{T}_\alpha^{\RV{V}_i|\RV{H}} &\neq \prob{T}_\alpha^{\RV{V}_j|\RV{H}}$. 
 
 Suppose the assumption of proxy control does not hold for $\prob{T}$. Then there is some $d,d'\in D$, $w\in W$, $h\in H$, $v\in V^{n}$, $x\in X$ and $y\in Y$ such that
 \begin{align}
