@@ -1,5 +1,59 @@
 %!TEX root = main.tex
 
+\section{Repeatable experiments}
+
+While there are types of measurement processes we could consider, statistical inference usually proceeds from repeatable measurement processes. A common precise notion of repeatability is the assumption of \emph{exchangeability}. The term ``exchangeability'', like the term random variable, is used to refer to both \emph{measurement processes} and \emph{probability models}. If I say a measurement process $\proc{S}$ taking values in $S^n$ is exchangeable, I mean:
+\begin{itemize}
+    \item I believe that there is some probabilistic model $(\prob{P},\Omega,\sigalg{F})$ and random variable $\R{S}$ appropriate for modelling $\proc{S}$ and
+    \begin{enumerate}
+        \item The same model and random variable is appropriate for modelling any process that first peforms $\proc{S}$ and secondly shuffles the results according to a permutation $\text{swap}:S^n\to S^n$
+        \item The same model and random variable is appropriate for modelling any process related to $\proc{S}$ by interchanging experimental units or subjects in the real world
+    \end{enumerate} 
+\end{itemize}
+
+On the other hand, if I say a probability model $(\prob{P},S^{|A|},\sigalg{S}^{|A|})$ is exchangeable, I mean
+
+\begin{itemize}
+    \item For any finite permutation $\text{swap}:S^{|A|}\kto S^{|A|}$, $\prob{P}^{\RV{S}}\text{swap}_{a} = \prob{P}^{\RV{S}}$
+\end{itemize}
+
+If I believe a measurement process is exchangeable in the first sense, that implies an exchangeable probability model is appropriate to model it. Measurement process exchangeability in the second sense, which is the kind encountered in literature on causal modelling requires us to make explicit what the mathematical analogue of ``interchanging experimental units'' is.
+
+Causal models, both in the potential outcomes and Causal Bayesian Network tradition, both give us 
+
+Take $S=\{0,1\}$ and identify the space $\Delta(S)$ of probability measures on $S$ with the interval $[0,1]$. De Finetti showed that any infinite exchangeable probability measure $\prob{P}_\alpha$ on $\{0,1\}^\mathbb{N}$ can be represented by a prior $\prob{P}_\alpha^{\RV{H}}\in [0,1]$ and a conditional probability $\prob{P}^{\RV{S}_0|\RV{H}}:[0,1]\kto \{0,1\}$ such that
+
+\begin{align}
+    \prob{P}_\alpha &= \tikzfig{de_finetti_rep0}
+\end{align}
+
+Here $\prob{P}^{\RV{S}_0|\RV{H}}$ can be defined concretely by $\prob{P}^{\RV{S}_0|\RV{H}}(1|h)=h$.
+
+We can equivalently say that the probability gap model on $S^\mathbb{N}$ defined by the assumption of exchangeability is equivalent to the probability gap model defined by the conditional probability
+
+\begin{align}
+    \prob{P}^{\RV{S}|\RV{H}} = \tikzfig{de_finetti_conditional}
+\end{align}
+
+That is, there is some hypothesis $\RV{H}$ and conditional on $\RV{H}$ the measurements are independent and identically distributed. The proof of this is constructive -- $\RV{H}$ is a function of $\RV{S}$.
+
+While the assumption of exchangeability seems to express a useful notion about some measurement processes -- that one element returned by the process is in some sense just like any other -- the assumption of infinite exchangeability cannot apply to measurement processes. There exist approximate versions of De Finetti's theorem for finite measurement processes
+
+What we want to do is come up with reasonable notions of repeatability for consequences and see-do models. Exchangeability is rarely a reasonable assumption in this context. Consider a ``measurement process'' where we have three local restaurants that we represent with the set $R=\{r_1,r_2,r_3\}$, and we do the following:
+
+\begin{itemize}
+    \item Choose a restaurant $r\in R$ on day 1, write down a rating in $[10]$
+    \item Choose a restaurant $r\in R$ on day 2, write down a rating in $[10]$
+    \item ...
+\end{itemize}
+
+It will rarely be the case that we can consider this sequence exchangeable. If we know the restaurante we chose on day 1, we perhaps can't say much about our choice on day 11. On the other hand, if we know the restaurant we chose on day 11 we may make some reasonable guesses about the restaurant chosen on day 21. Thus we can't assume we can swap the order of variables without changing our model of the sequence.
+
+A more sophisticated version is that exchangeable actions yield exchangeable results and it's \todo{sort of not really} an open question whether this yields a representation like \ref{eq:repeatable_expt} with a prior (it does!).
+
+Note that decision functions for \ref{eq:repeatable_expt} are themselves 2-combs -- we can choose $\RV{D}_1$, then choose $\RV{D}_2$ based on $\RV{D}_1$ and $\RV{X}_1$. We can turn \ref{eq:repeatable_expt} into a see-do model by considering the model $\prob{Q}$, the restriction of $\prob{P}$ to subset of decision functions that apply a fixed strategy for $\RV{D}_1$ and choose $\RV{D}_2$ based on $(\RV{D}_1,\RV{X})$.
+
+
 
 \section{Causal Bayesian Networks}\label{sec:CBN}
 

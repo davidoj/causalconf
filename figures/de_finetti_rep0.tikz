@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (2.5, 0.5) {$\prob{P}^{\RV{S}_0|\RV{H}}$};
+		\node [style=small dist tikzit] (1) at (0, 0.5) {$\prob{P}_\alpha^{\RV{H}}$};
+		\node [style=RLabel tikzit] (2) at (4, 0.5) {$\RV{S}_i$};
+		\node [style=none] (3) at (1, 1.75) {};
+		\node [style=none] (4) at (1, -1.5) {};
+		\node [style=none] (5) at (5, -1.5) {};
+		\node [style=none] (6) at (5, 1.75) {};
+		\node [style=copymap tikzit] (7) at (1, 0.5) {};
+		\node [style=none] (8) at (4, -1) {$i\in\mathbb{N}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0) to (2);
+		\draw (3.center) to (6.center);
+		\draw (1) to (7);
+		\draw (7) to (0);
+		\draw (7) to (4.center);
+		\draw (4.center) to (5.center);
+		\draw (5.center) to (6.center);
+		\draw (3.center) to (7);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  7 DEC 2021 16:31
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  10 DEC 2021 17:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1142,12 +1142,17 @@ n/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 b; c; d; e\OT1/cmr/m/n/10 ) =
 LaTeX Warning: Reference `eq:see_do_query' on page 39 undefined on input line 8
 2.
 
-) (./cbns.tex [39] [40]
-Overfull \hbox (74.44989pt too wide) in paragraph at lines 55--56
-[][]\T1/lmr/bx/n/10 Theorem 4.2 \T1/lmr/m/n/10 (Ex-is-tence of CBN 2-comb)\T1/l
+) (./cbns.tex (./figures/de_finetti_rep0.tikz) (./figures/de_finetti_rep0.tikz)
+[39] (./figures/de_finetti_conditional.tikz)
+(./figures/de_finetti_conditional.tikz) (./figures/exchangeable_schematic.tikz)
+(./figures/exchangeable_schematic.tikz) (./figures/repeatable_experiment.tikz)
+(./figures/repeatable_experiment.tikz) [40] [41]
+Overfull \hbox (74.44989pt too wide) in paragraph at lines 100--101
+[][]\T1/lmr/bx/n/10 Theorem 5.2 \T1/lmr/m/n/10 (Ex-is-tence of CBN 2-comb)\T1/l
 mr/bx/n/10 . []\T1/lmr/m/it/10 Given a CBN or-der 2 model $\U/msb/m/n/10 Q[]$
  []
 
+[42]
 
 ! Package amsmath Error: Multiple \label's: label 'eq:identical_1' will be lost
 .
@@ -1156,46 +1161,56 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.78 \end{align}
-                
+l.123 \end{align}
+                 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-[41] (./figures/seedo_equality2.tikz) (./figures/seedo_equality.tikz)
+[43] (./figures/seedo_equality2.tikz) (./figures/seedo_equality.tikz)
 (./figures/seedo_equality2.tikz) (./figures/seedo_equality.tikz)
-Overfull \hbox (76.521pt too wide) detected at line 105
+Overfull \hbox (76.521pt too wide) detected at line 150
 []
  []
 
 
-LaTeX Warning: Reference `eq:identical_1' on page 42 undefined on input line 10
-7.
+LaTeX Warning: Reference `eq:identical_1' on page 44 undefined on input line 15
+2.
 
-[42] (./figures/t_vs_u.tikz) (./figures/t_vs_u.tikz) (./figures/defn_ra.tikz)
+[44] (./figures/t_vs_u.tikz) (./figures/t_vs_u.tikz) (./figures/defn_ra.tikz)
 (./figures/defn_ra.tikz) (./figures/seedo_equality2.tikz)
 (./figures/seedo_cbn_with_s.tikz) (./figures/seedo_equality.tikz)
 (./figures/seedo_equality2.tikz) (./figures/seedo_cbn_with_s.tikz)
 (./figures/seedo_equality.tikz)
-Overfull \hbox (46.10287pt too wide) detected at line 154
+Overfull \hbox (46.10287pt too wide) detected at line 199
 []
  []
 
-[43] [44] (./figures/strong_identifiability.tikz)
+! Misplaced alignment tab character &.
+l.203 ...have $\prob{T}_\alpha^{\RV{V}_i|\RV{H}} &
+                                                  \neq \prob{T}_\alpha^{\RV{...
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+[45] [46] (./figures/strong_identifiability.tikz)
 (./figures/strong_identifiability2.tikz) (./figures/strong_identifiability.tikz
 ) (./figures/strong_identifiability2.tikz)
-Overfull \hbox (56.9191pt too wide) detected at line 194
+Overfull \hbox (56.9191pt too wide) detected at line 241
 []
  []
 
 Missing character: There is no — in font ec-lmr10!
 Missing character: There is no — in font ec-lmr10!
-[45]) (./potential_outcomes.tex [46]
+) (./potential_outcomes.tex [47] [48]
 
-LaTeX Warning: Reference `lem:subm_exist' on page 47 undefined on input line 38
+LaTeX Warning: Reference `lem:subm_exist' on page 49 undefined on input line 38
 .
 
-(./figures/po_probmodel.tikz) (./figures/po_probmodel.tikz) [47]
+(./figures/po_probmodel.tikz) (./figures/po_probmodel.tikz)
 (./figures/multiplexer.tikz) (./figures/multiplexer.tikz)
 Overfull \hbox (2.22739pt too wide) in paragraph at lines 57--58
 \OT1/cmr/m/n/10 (\OT1/cmss/m/n/10 Y[]\OT1/cmr/m/n/10 )[](\OML/cmm/m/it/10 y[]\O
@@ -1208,9 +1223,9 @@ sy/m/n/10 \ \OT1/cmss/m/n/10 W[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n
 /10 ) =
  []
 
-[48]
+[49]
 Overfull \hbox (3.6853pt too wide) in paragraph at lines 73--74
-[][]\T1/lmr/bx/n/10 Example 5.7. []\T1/lmr/m/n/10 Sup-pose we have a stan-dard 
+[][]\T1/lmr/bx/n/10 Example 6.7. []\T1/lmr/m/n/10 Sup-pose we have a stan-dard 
 de-ci-sion prob-lem $\OMS/cmsy/m/n/10 f\U/msb/m/n/10 T[]\OML/cmm/m/it/10 ; \OMS
 /cmsy/m/n/10 f\U/msb/m/n/10 S[]\OMS/cmsy/m/n/10 g[]g$
  []
@@ -1231,7 +1246,7 @@ Overfull \hbox (31.99535pt too wide) detected at line 82
 []
  []
 
-[49]) (./appendix.tex [50]
+[50]) (./appendix.tex [51]
 Overfull \hbox (21.56874pt too wide) in paragraph at lines 19--20
 []\T1/lmr/m/it/10 Then there ex-ists a unique see-do model $\OT1/cmr/m/n/10 (\U
 /msb/m/n/10 T\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 H[]\OML/cmm/m/it/10 ; \OT1/cms
@@ -1241,10 +1256,10 @@ cmr/m/n/10 [[]][] =
  []
 
 
-LaTeX Warning: Reference `ssec:disintegration' on page 51 undefined on input li
+LaTeX Warning: Reference `ssec:disintegration' on page 52 undefined on input li
 ne 23.
 
-[51]
+[52]
 Overfull \hbox (31.85356pt too wide) in paragraph at lines 84--85
 \T1/lmr/m/it/10 al-lel po-ten-tial out-come sub-model \T1/lmr/m/n/10 if $\U/msb
 /m/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/1
@@ -1254,29 +1269,29 @@ j\OT1/cmss/m/n/10 W[]Y\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 W\OT1/cmr/m/n/10 )][] =
 
  []
 
-[52]
+[53]
 Overfull \hbox (1.61238pt too wide) in paragraph at lines 98--99
 \T1/lmr/m/n/10 con-di-tion-ally in-de-pen-dent and iden-ti-cally dis-tributed M
 arkov ker-nel $\U/msb/m/n/10 P\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/
 n/10 j\OT1/cmss/m/n/10 J\OT1/cmr/m/n/10 ][] =
  []
 
-
+[54]
 Overfull \hbox (0.19667pt too wide) in paragraph at lines 113--114
-[][]\T1/lmr/bx/n/10 Definition 7.3 \T1/lmr/m/n/10 (Ex-ten-sion)\T1/lmr/bx/n/10 
+[][]\T1/lmr/bx/n/10 Definition 8.3 \T1/lmr/m/n/10 (Ex-ten-sion)\T1/lmr/bx/n/10 
 . []\T1/lmr/m/n/10 Given a Markov ker-nel space $\OT1/cmr/m/n/10 (\U/msb/m/n/10
  K\OML/cmm/m/it/10 ; E; F\OT1/cmr/m/n/10 )$\T1/lmr/m/n/10 , $\OT1/cmr/m/n/10 (\
 U/msb/m/n/10 K[]\OML/cmm/m/it/10 ; E[]; F[]\OT1/cmr/m/n/10 )$
  []
 
-[53]
+
 Overfull \hbox (15.22702pt too wide) in paragraph at lines 121--122
-[][]\T1/lmr/bx/n/10 Definition 7.4 \T1/lmr/m/n/10 (Ex-tend-ably ex-change-able)
+[][]\T1/lmr/bx/n/10 Definition 8.4 \T1/lmr/m/n/10 (Ex-tend-ably ex-change-able)
 \T1/lmr/bx/n/10 . []\T1/lmr/m/n/10 Given a Markov ker-nel space $\OT1/cmr/m/n/1
 0 (\U/msb/m/n/10 K\OML/cmm/m/it/10 ; E; F\OT1/cmr/m/n/10 )$\T1/lmr/m/n/10 ,
  []
 
-
+[55]
 Overfull \hbox (35.32014pt too wide) in paragraph at lines 140--141
 []\T1/lmr/m/n/10 Let $\OML/cmm/m/it/10 e \OT1/cmr/m/n/10 = (\OML/cmm/m/it/10 e[
 ]\OT1/cmr/m/n/10 )[]$\T1/lmr/m/n/10 . In-tro-duce the vari-able $\OT1/cmss/m/n/
@@ -1287,22 +1302,22 @@ at $\U/msb/m/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y\OT1/cmr/m/n/10 (\OML/cmm
 10 ][] =
  []
 
-[54]
+[56]
 
-LaTeX Warning: Reference `eq:extn2' on page 55 undefined on input line 168.
+LaTeX Warning: Reference `eq:extn2' on page 57 undefined on input line 168.
 
-[55]
+[57]
 Overfull \hbox (6.8483pt too wide) detected at line 329
 []
  []
 
-[56]
+[58]
 Overfull \hbox (26.14803pt too wide) detected at line 415
 []
  []
 
-[57] (./figures/ccom_lhs.tikz) (./figures/ccom_rhs.tikz)
-(./figures/ccom_lhs.tikz) (./figures/ccom_rhs.tikz) (./figures/ccom2_lhs.tikz)
+(./figures/ccom_lhs.tikz) (./figures/ccom_rhs.tikz) (./figures/ccom_lhs.tikz)
+(./figures/ccom_rhs.tikz) [59] (./figures/ccom2_lhs.tikz)
 (./figures/ccom2_mhs.tikz) (./figures/ccom2_rhs.tikz) (./figures/ccom2_lhs.tikz
 ) (./figures/ccom2_mhs.tikz) (./figures/ccom2_rhs.tikz)
 (./figures/ccom3_lhs.tikz) (./figures/ccom3_rhs.tikz) (./figures/ccom3_lhs.tikz
@@ -1310,13 +1325,13 @@ Overfull \hbox (26.14803pt too wide) detected at line 415
 (./figures/mstruct1_rhs.tikz) (./figures/mstruct2_lhs.tikz)
 (./figures/mstruct2_rhs.tikz) (./figures/mstruct1_lhs.tikz)
 (./figures/mstruct1_rhs.tikz) (./figures/mstruct2_lhs.tikz)
-(./figures/mstruct2_rhs.tikz) [58] (./figures/naturality_lhs.tikz)
+(./figures/mstruct2_rhs.tikz) (./figures/naturality_lhs.tikz)
 (./figures/naturality_rhs.tikz) (./figures/naturality_lhs.tikz)
-(./figures/naturality_rhs.tikz)
+(./figures/naturality_rhs.tikz) [60]
 
-LaTeX Warning: Reference `lem:se_id' on page 59 undefined on input line 496.
+LaTeX Warning: Reference `lem:se_id' on page 61 undefined on input line 496.
 
-[59]) (./main.bbl
+) (./main.bbl
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
 5.
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
@@ -1326,20 +1341,19 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [60]
+ [61] [62]
 Missing character: There is no ł in font ec-lmr10!
 Missing character: There is no ń in font ec-lmr10!
- [61]
 Missing character: There is no ’ in font ec-lmr10!
- [62])
-[63] [64]
+ [63])
+[64] [65]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 228.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 228.
  (./main.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 228.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 228.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E6120DF3D5EECC52C3B76862819BF65E;3529.
+(rerunfilecheck)             Checksum: 4474A77970708B765A2013FF63B749AC;3591.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1350,12 +1364,12 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 228.
  ) 
 Here is how much of TeX's memory you used:
- 29848 strings out of 479819
- 565676 string characters out of 5895847
- 935150 words of memory out of 5000000
- 46127 multiletter control sequences out of 15000+600000
+ 29916 strings out of 479819
+ 567451 string characters out of 5895847
+ 926429 words of memory out of 5000000
+ 46175 multiletter control sequences out of 15000+600000
  595050 words of font info for 104 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 68i,16n,83p,1528b,971s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 68i,16n,83p,1528b,978s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.xdv (64 pages, 748816 bytes).
+Output written on main.xdv (65 pages, 778120 bytes).
