@@ -17,19 +17,25 @@ On the other hand, if I say a probability model $(\prob{P},S^{|A|},\sigalg{S}^{|
     \item For any finite permutation $\text{swap}:S^{|A|}\kto S^{|A|}$, $\prob{P}^{\RV{S}}\text{swap}_{a} = \prob{P}^{\RV{S}}$
 \end{itemize}
 
-If I believe a measurement process is exchangeable in the first sense, that implies an exchangeable probability model is appropriate to model it. Measurement process exchangeability in the second sense, which is the kind encountered in literature on causal modelling requires us to make explicit what the mathematical analogue of ``interchanging experimental units'' is.
+If I believe a measurement process is exchangeable in the first sense, that implies an exchangeable probability model is appropriate to model it. Measurement process exchangeability in the second sense, which is the kind encountered in literature on causal modelling requires us to make explicit what the mathematical implications of ``interchanging experimental units'' are.
 
-Causal models, both in the potential outcomes and Causal Bayesian Network tradition, both give us 
+The precise mathematical implication of the first kind of measurement process exchangeability facilitated De Finetti's well-known representation theorem; in our language, De Finetti's representation theorem shows the equivalence between the probability gap models defined by ``the random variables $\RV{X}_i$ are an infinite exchangeable sequence'' and model defined by ``the random variables $\RV{X}_i$ are independent and identically distributed condtional on the hypothesis $\RV{H}$'' (proofs of De Finetti's theorem provide definitions $\RV{H}$).
 
-Take $S=\{0,1\}$ and identify the space $\Delta(S)$ of probability measures on $S$ with the interval $[0,1]$. De Finetti showed that any infinite exchangeable probability measure $\prob{P}_\alpha$ on $\{0,1\}^\mathbb{N}$ can be represented by a prior $\prob{P}_\alpha^{\RV{H}}\in [0,1]$ and a conditional probability $\prob{P}^{\RV{S}_0|\RV{H}}:[0,1]\kto \{0,1\}$ such that
+De Finetti's theorem connected the measurement process assumption of measurement process exchangeability with the model assumption of conditionally independent and identically distributed random variables. The question arises: can we make precise a notion of ``interchanging experimental units'' that corresponds to modelling assumptions found in Causal Bayesian Network and potential outcomes literature? Answering this question is complicated by the fact that some of the modelling assumptions we are seeking to reproduce have, at best, only been stated informally.
+
+We will consider two different notions of ``interchangeable experimental units'' and their mathematical implications. The first notion we consider will be \emph{causal exchangeability}, which is the assumption that jointly shuffling actions and consequences should not alter the appropriate model. The second notion is \emph{causal contractibility}, where two different seqeunces of actions with matching subsequences should yield the same models when we restrict our attention to the consequences corresponding to the matching subsequences.
+
+Neither assumption implies the other but, when taken together, they yield the types of models found in CBN and PO literature.
+
+Another way to see where we are going is to consider graphical statements of our and De Finetti's result.
+
+Take $S=\{0,1\}$ and identify the space $\Delta(S)$ of probability measures on $S$ with the interval $[0,1]$. De Finetti showed that any infinite exchangeable probability measure $\prob{P}_\alpha$ on $\{0,1\}^\mathbb{N}$ can be represented by a prior $\prob{P}_\alpha^{\RV{H}}\in [0,1]$ for some $\RV{H}:\Omega\to H$ and a conditional probability $\prob{P}^{\RV{S}_0|\RV{H}}:[0,1]\kto \{0,1\}$ such that
 
 \begin{align}
-    \prob{P}_\alpha &= \tikzfig{de_finetti_rep0}
+    \prob{P}_\alpha &= \tikzfig{de_finetti_rep0}\label{eq:definettirep}
 \end{align}
 
-Here $\prob{P}^{\RV{S}_0|\RV{H}}$ can be defined concretely by $\prob{P}^{\RV{S}_0|\RV{H}}(1|h)=h$.
-
-We can equivalently say that the probability gap model on $S^\mathbb{N}$ defined by the assumption of exchangeability is equivalent to the probability gap model defined by the conditional probability
+Here $\prob{P}^{\RV{S}_0|\RV{H}}$ can be defined concretely by $\prob{P}^{\RV{S}_0|\RV{H}}(1|h)=h$. Equivalently, the probability gap model on $S^\mathbb{N}$ defined by the assumption of exchangeability is equivalent to the probability gap model defined by the conditional probability
 
 \begin{align}
     \prob{P}^{\RV{S}|\RV{H}} = \tikzfig{de_finetti_conditional}
@@ -37,22 +43,25 @@ We can equivalently say that the probability gap model on $S^\mathbb{N}$ defined
 
 That is, there is some hypothesis $\RV{H}$ and conditional on $\RV{H}$ the measurements are independent and identically distributed. The proof of this is constructive -- $\RV{H}$ is a function of $\RV{S}$.
 
-While the assumption of exchangeability seems to express a useful notion about some measurement processes -- that one element returned by the process is in some sense just like any other -- the assumption of infinite exchangeability cannot apply to measurement processes. There exist approximate versions of De Finetti's theorem for finite measurement processes
+A ``do-model'' is a see-do model $\prob{P}^{\RV{X}|\RV{H}\square \RV{Y}|\RV{D}}$ with trivial observations $\RV{X}=*$. We show that do-models that are both causally contractible and causally exchangeable are the probability gap models defined by the conditional probability 
 
-What we want to do is come up with reasonable notions of repeatability for consequences and see-do models. Exchangeability is rarely a reasonable assumption in this context. Consider a ``measurement process'' where we have three local restaurants that we represent with the set $R=\{r_1,r_2,r_3\}$, and we do the following:
+\begin{align}
+    \prob{P}^{\RV{Y}|\RV{HD}} = \tikzfig{do_model_representation}
+\end{align}
 
-\begin{itemize}
-    \item Choose a restaurant $r\in R$ on day 1, write down a rating in $[10]$
-    \item Choose a restaurant $r\in R$ on day 2, write down a rating in $[10]$
-    \item ...
-\end{itemize}
+We will further argue that the class of see-do models considered in CBN and potential outcomes literature is equivalent to the family of causally contractible and exchangeable do-models where the decision rule for the first $n$ places is fixed to an unknown value, and may be freely chosen thereafter.
 
-It will rarely be the case that we can consider this sequence exchangeable. If we know the restaurante we chose on day 1, we perhaps can't say much about our choice on day 11. On the other hand, if we know the restaurant we chose on day 11 we may make some reasonable guesses about the restaurant chosen on day 21. Thus we can't assume we can swap the order of variables without changing our model of the sequence.
+\subsection{Causal contractibility}
 
-A more sophisticated version is that exchangeable actions yield exchangeable results and it's \todo{sort of not really} an open question whether this yields a representation like \ref{eq:repeatable_expt} with a prior (it does!).
+Suppose we have a fundamental probability set $\Omega$ and an infinite sequence of decisions $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and consequences $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. Suppose furthermore we have a do model $\prob{P}:\framebox{D}\RV{Y}$ such that for any two decision rules $\prob{P}_\alpha^{\RV{D}}$ and $\prob{P}_\beta^{\RV{D}}$ and any indices $i_1,i_2,...i_n$, $j_1,j_2,...j_n$: such that $k<l\implies i_k<i_l$ and $j_k<j_l$:
 
-Note that decision functions for \ref{eq:repeatable_expt} are themselves 2-combs -- we can choose $\RV{D}_1$, then choose $\RV{D}_2$ based on $\RV{D}_1$ and $\RV{X}_1$. We can turn \ref{eq:repeatable_expt} into a see-do model by considering the model $\prob{Q}$, the restriction of $\prob{P}$ to subset of decision functions that apply a fixed strategy for $\RV{D}_1$ and choose $\RV{D}_2$ based on $(\RV{D}_1,\RV{X})$.
+\begin{align}
+    \prob{P}_\alpha^{\RV{D}_{[i_k]_n}}=\prob{P}_\beta^{\RV{D}_{[j_k]}_n}\implies \prob{P}_\alpha=\prob{P}_\beta
+\end{align}
 
+Then $\prob{P}$ is \emph{causally contractible}. 
+
+Causal contractibility facilitates a tabular representation of $\prob{P}$.
 
 
 \section{Causal Bayesian Networks}\label{sec:CBN}

@@ -443,6 +443,8 @@ We define an order 0 probability gap model $\prob{P}$ to be a function from some
 
 Not all probability measures $\prob{P}^{\RV{X}}$ on $X$ map to base measures $\mu$ via a valid candidate conditional that yield back $\prob{P}^{\RV{X}}$ as marginals. Consider, for example, $\RV{X}=(\RV{Y},\RV{Y})$ for some $\RV{Y}$ and any measure $\prob{P}^{\RV{YY}}$ that assigns nonzero probability to $(\RV{Y},\RV{Y})\yields (y,y')$ for $y\neq y'$. Then there is no base measure that pushes forward to $\prob{P}^{\RV{YY}}$. Thus we restrict our attention to \emph{valid candidate distributions} that can serve as definitions for order 0 probability gaps.
 
+\todo[inline]{Mention Kolmogorov consistency}
+
 \begin{definition}[Valid canditate distribution]\label{def:valid_dist}
 A valid $\RV{X}$ probability distribution $\prob{P}^{\RV{X}}$ is any probability mesure on $\Delta(X)$ such that $\RV{X}^{-1}(x)=\emptyset\implies \prob{P}^{\RV{X}}(x) = 0$.
 \end{definition}

@@ -16,6 +16,8 @@ We want a model that allows us to compare different stochastic \emph{decision fu
 
 We consider an additional kind of gap in our probability model. The nature of this gap is: we don't know exactly which order 2 model $\kernel{P}^{\RV{X}\square \RV{Y}|\RV{D}}$ we ``ought'' to use. To represent this gap we include an unobserved variable $\RV{H}$, the \emph{hypothesis}. We can interpret $\RV{H}$ as expressing the fac that, if we knew the value of $\RV{H}$ then we would know that our decision problem was represented by a unique order 2 model $\kernel{P}_h^{\RV{X}\square \RV{Y}|\RV{D}}$. However, $\RV{H}$ is not known and in fact we do not know how to determine $\RV{H}$ (this is the nature of an \emph{unoserved} variable -- there is no process available to find the value it yields). Our model is thus given by $\kernel{P}^{\RV{X}|\RV{H}\square \RV{Y}|\RV{D}}$.
 
+\todo[inline]{$\RV{H}$ parametrises observations and consequences together; not just a function of observations so req. slight generalisation of De Finetti}
+
 \begin{definition}[Ordinary decision problem]
 An ordinary decision problem $(\prob{P},\Omega,\RV{H},(\RV{X},\proc{X}),(\RV{D},\proc{D}),(\RV{Y},\proc{Y}))$ consists of a fundamental probability set $\Omega$, hypotheses $\RV{H}:\Omega\to H$, observations $\RV{X}\Omega\to X$, decisions $\RV{D}:\Omega\to D$ and consequences $\RV{Y}:\Omega\to Y$, and the latter three random variables are associated with measurement processes. It is equipped with a probability gap model $\prob{P}:\Delta(D)^X\to \Delta(\Omega)^H$ where $\Delta(D)^X$ is the set of valid $\RV{D}|\RV{X}$ Markov kernels $X\kto D$ and $\Delta(\Omega)^H$ is the set of valid Markov kernels $H\kto \Omega$. We require of $\prob{P}$:
 \begin{enumerate}
