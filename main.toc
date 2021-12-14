@@ -5,10 +5,10 @@
 \contentsline {subsection}{\numberline {2.2}Probability distributions, Markov kernels and string diagrams}{5}{subsection.2.2}%
 \contentsline {subsubsection}{\numberline {2.2.1}Examples}{7}{subsubsection.2.2.1}%
 \contentsline {subsubsection}{\numberline {2.2.2}Example: comb insertion}{8}{subsubsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.3}Semantics of observed and unobserved variables}{9}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.3}Semantics of observed and unobserved variables}{10}{subsection.2.3}%
 \contentsline {subsection}{\numberline {2.4}Events}{12}{subsection.2.4}%
 \contentsline {subsection}{\numberline {2.5}Probabilistic models for causal inference}{13}{subsection.2.5}%
-\contentsline {subsection}{\numberline {2.6}Probability gaps}{14}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.6}Probability gaps}{15}{subsection.2.6}%
 \contentsline {subsection}{\numberline {2.7}Probability gap models defined by marginal and conditional probabilities}{17}{subsection.2.7}%
 \contentsline {subsection}{\numberline {2.8}Higher order gap models}{20}{subsection.2.8}%
 \contentsline {subsection}{\numberline {2.9}Order 2 gaps: probability combs}{22}{subsection.2.9}%
@@ -22,18 +22,20 @@
 \contentsline {subsubsection}{\numberline {2.12.1}Repeated variables}{33}{subsubsection.2.12.1}%
 \contentsline {section}{\numberline {3}Decision theoretic causal inference}{35}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Decision problems}{35}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}What should a probability model represent? Controversies about decision theories}{36}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Causal models similar to see-do models}{37}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}See-do models and classical statistics}{38}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Repeatable experiments}{39}{section.4}%
-\contentsline {section}{\numberline {5}Causal Bayesian Networks}{41}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Probability 2-combs represented by causal Bayesian networks}{41}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}See-do models corresponding to causal Bayesian networks}{43}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Proxy control}{46}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Potential outcomes}{47}{section.6}%
-\contentsline {section}{\numberline {7}Appendix:see-do model representation}{52}{section.7}%
-\contentsline {section}{\numberline {8}Appendix: Counterfactual representation}{53}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Parallel potential outcomes representation theorem}{54}{subsection.8.1}%
-\contentsline {section}{\numberline {9}Appendix: Connection is associative}{57}{section.9}%
-\contentsline {section}{\numberline {10}Appendix: String Diagram Examples}{58}{section.10}%
-\contentsline {section}{\numberline {11}Markov variable maps and variables form a Markov category}{59}{section.11}%
+\contentsline {subsection}{\numberline {3.2}What should a probability model represent? Controversies about decision theories}{37}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Decisions as measurement procedures}{37}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Causal models similar to see-do models}{38}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}See-do models and classical statistics}{39}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Repeatable experiments}{40}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Assumptions of repeatability and their consequences}{42}{subsection.4.1}%
+\contentsline {section}{\numberline {5}Causal Bayesian Networks}{44}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Probability 2-combs represented by causal Bayesian networks}{45}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}See-do models corresponding to causal Bayesian networks}{47}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Proxy control}{50}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Potential outcomes}{51}{section.6}%
+\contentsline {section}{\numberline {7}Appendix:see-do model representation}{56}{section.7}%
+\contentsline {section}{\numberline {8}Appendix: Counterfactual representation}{57}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Parallel potential outcomes representation theorem}{58}{subsection.8.1}%
+\contentsline {section}{\numberline {9}Appendix: Connection is associative}{61}{section.9}%
+\contentsline {section}{\numberline {10}Appendix: String Diagram Examples}{62}{section.10}%
+\contentsline {section}{\numberline {11}Markov variable maps and variables form a Markov category}{63}{section.11}%

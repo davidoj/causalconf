@@ -2,12 +2,12 @@
 
 \section{Repeatable experiments}
 
-While there are types of measurement processes we could consider, statistical inference usually proceeds from repeatable measurement processes. A common precise notion of repeatability is the assumption of \emph{exchangeability}. The term ``exchangeability'', like the term random variable, is used to refer to both \emph{measurement processes} and \emph{probability models}. If I say a measurement process $\proc{S}$ taking values in $S^n$ is exchangeable, I mean:
+While there are types of measurement processes we could consider, statistical inference usually proceeds from repeatable measurement processes. A common precise notion of repeatability is the assumption of \emph{exchangeability}. The term ``exchangeability'', like the term random variable, is used to refer to both \emph{measurement processes} and \emph{probability models}. If I say a measurement process $\proc{S}$ taking values in $S^n$ is exchangeable, I might mean mean:
 \begin{itemize}
-    \item I believe that there is some probabilistic model $(\prob{P},\Omega,\sigalg{F})$ and random variable $\R{S}$ appropriate for modelling $\proc{S}$ and
+    \item I believe that there is some probabilistic model $(\prob{P},\Omega,\sigalg{F})$ and random variable $\RV{S}$ appropriate for modelling $\proc{S}$ and
     \begin{enumerate}
-        \item The same model and random variable is appropriate for modelling any process that first peforms $\proc{S}$ and secondly shuffles the results according to a permutation $\text{swap}:S^n\to S^n$
-        \item The same model and random variable is appropriate for modelling any process related to $\proc{S}$ by interchanging experimental units or subjects in the real world
+        \item The same model is appropriate for any measurement process that first peforms $\proc{S}$ and subsequently shuffles the results according to a permutation $\text{swap}:S^n\to S^n$ or
+        \item The same model is appropriate for any measurement process related to $\proc{S}$ by interchanging experimental units or subjects in the real world
     \end{enumerate} 
 \end{itemize}
 
@@ -17,51 +17,254 @@ On the other hand, if I say a probability model $(\prob{P},S^{|A|},\sigalg{S}^{|
     \item For any finite permutation $\text{swap}:S^{|A|}\kto S^{|A|}$, $\prob{P}^{\RV{S}}\text{swap}_{a} = \prob{P}^{\RV{S}}$
 \end{itemize}
 
-If I believe a measurement process is exchangeable in the first sense, that implies an exchangeable probability model is appropriate to model it. Measurement process exchangeability in the second sense, which is the kind encountered in literature on causal modelling requires us to make explicit what the mathematical implications of ``interchanging experimental units'' are.
+If I believe a measurement process is exchangeable in the first sense, it implies an exchangeable probability model is appropriate to model it. Measurement process exchangeability in the second sense, which is what is usually meant by ``exchangeable'' when it is mentioned in literature on causal modelling, requires us to make explicit what the mathematical implications of ``interchanging experimental units'' are, because experimental units are parts of the real world and not directly elements of any model.
 
-The precise mathematical implication of the first kind of measurement process exchangeability facilitated De Finetti's well-known representation theorem; in our language, De Finetti's representation theorem shows the equivalence between the probability gap models defined by ``the random variables $\RV{X}_i$ are an infinite exchangeable sequence'' and model defined by ``the random variables $\RV{X}_i$ are independent and identically distributed condtional on the hypothesis $\RV{H}$'' (proofs of De Finetti's theorem provide definitions $\RV{H}$).
+The precise mathematical implication of the first kind of measurement process exchangeability facilitated the proof of De Finetti's well-known representation theorem; in our language, De Finetti's representation theorem shows the equivalence between the probability gap models defined by ``the random variables $\RV{X}_i$ are an infinite exchangeable sequence'' and model defined by ``the random variables $\RV{X}_i$ are independent and identically distributed condtional on the hypothesis $\RV{H}$'' (proofs of De Finetti's theorem provide definitions $\RV{H}$).
 
-De Finetti's theorem connected the measurement process assumption of measurement process exchangeability with the model assumption of conditionally independent and identically distributed random variables. The question arises: can we make precise a notion of ``interchanging experimental units'' that corresponds to modelling assumptions found in Causal Bayesian Network and potential outcomes literature? Answering this question is complicated by the fact that some of the modelling assumptions we are seeking to reproduce have, at best, only been stated informally.
+De Finetti's theorem shows that the assumption of measurement process exchangeability implies a model of conditionally independent and identically distributed random variables. The question arises: can we make precise a notion of ``interchanging experimental units'' that implies common causal modelling assumptions found in causal Bayesian network and potential outcomes literature? Answering this question is complicated by the fact that some of the modelling assumptions we are seeking to reproduce have often only been stated informally.
 
-We will consider two different notions of ``interchangeable experimental units'' and their mathematical implications. The first notion we consider will be \emph{causal exchangeability}, which is the assumption that jointly shuffling actions and consequences should not alter the appropriate model. The second notion is \emph{causal contractibility}, where two different seqeunces of actions with matching subsequences should yield the same models when we restrict our attention to the consequences corresponding to the matching subsequences.
+In this section, we will consider \emph{do-models}; these are see-do models $(\prob{P},\RV{X},\RV{D},\RV{Y},R)$ for which the observations are trivial $\RV{X}=*$. These models cannot be compared directly to common causal models, which are generally see-do models with nontrivial observations. We ignore observations because they allow us to focus on the question of how to construct models of repeatable experiments involving both decisions and consequences. Once we know how to do this, we can introduce nontrivial observations and see how the resulting models correspond to certain types of causal Bayesian network and potential outcomes models.
 
-Neither assumption implies the other but, when taken together, they yield the types of models found in CBN and PO literature.
+We will consider two different notions of ``interchangeable experimental units'' and their mathematical implications. Both require a sequence of ``decisions'' to be made, which we can think about as a series of experiments with different setting choices available. The first notion we consider will be \emph{commutativity of exchange} -- we consider the same model appropriate if we alter our experiment by swapping the experimental settings, or if we make analogous swaps to the experimental results. This assumption could be considered a version of the assumption that experimental units can be interchanged. Consider an experiment involving handing out money or not to person A or person B. Commutativity of exchange says that we should expect the same results from 
+\begin{itemize}
+    \item Applying A's choice to B and examining the consequences for B
+    \item Applying A's choice to A and examining the consequences for A
+\end{itemize}
 
-Another way to see where we are going is to consider graphical statements of our and De Finetti's result.
+Under the assumption of commutativity of exchange, consequences of decisions for one ``unit'' may still depend on decisions made for other ``units''. Consider again the experiment above, except instead of two people it is a whole country of people. It might be reasonable to posit that the consequences of giving money to A and not to anyone else are a permutation of the consequences of giving money to B and not to anybody else (supposing we know nothing else about A and B). However, giving money to A and everyone else will have different consequences for A than giving money to A and no-one else; in the former case, we will create inflation that is not created in the latter.
 
-Take $S=\{0,1\}$ and identify the space $\Delta(S)$ of probability measures on $S$ with the interval $[0,1]$. De Finetti showed that any infinite exchangeable probability measure $\prob{P}_\alpha$ on $\{0,1\}^\mathbb{N}$ can be represented by a prior $\prob{P}_\alpha^{\RV{H}}\in [0,1]$ for some $\RV{H}:\Omega\to H$ and a conditional probability $\prob{P}^{\RV{S}_0|\RV{H}}:[0,1]\kto \{0,1\}$ such that
+The second notion of ``interchangeable experimental units'' is \emph{piecewise replicability}. This assumption implies not only that experimental units are interchangeable, but that they are also unaffected by decisions not immediately relevant to them. Specifically, piecewise replicability is the assumption that, given two different sequences of decisions, if we can select a sequence of indicies for each so that the decisions match on these indices, then the corresponding subsequences of consequences share the same model. Piecewise replicability implies commutativity of exchange.
+
+Piecewise replicability is equivalent to the existence of an exchangeable potential outcomes representation of the model of consequences. The potential outcomes in this case need not be assigned any interpretation in terms of hypothetically exact repetition of experiments. That is, the use of an exchangeable potential outcomes model corresponds exactly to the assumption of piecewise replicability of consequences. \citet{greenland_identifiability_1986} discuss exchangeably potential outcomes models at length, but they discuss this assumption in terms of nontrivial see-do models. The discussion of the relationship between exchangeable potential outcomes do model and exchangeable potential outcomes see-do models will therefore have to wait until we introduce nontrivial observations.
+
+% Another way to see where we are going is to consider graphical statements of our and De Finetti's result.
+
+% Take $S=\{0,1\}$ and identify the space $\Delta(S)$ of probability measures on $S$ with the interval $[0,1]$. De Finetti showed that any infinite exchangeable probability measure $\prob{P}_\alpha$ on $\{0,1\}^\mathbb{N}$ can be represented by a prior $\prob{P}_\alpha^{\RV{H}}\in [0,1]$ for some $\RV{H}:\Omega\to H$ and a conditional probability $\prob{P}^{\RV{S}_0|\RV{H}}:[0,1]\kto \{0,1\}$ such that
+
+% \begin{align}
+%     \prob{P}_\alpha &= \tikzfig{de_finetti_rep0}\label{eq:definettirep}
+% \end{align}
+
+% Here $\prob{P}^{\RV{S}_0|\RV{H}}$ can be defined concretely by $\prob{P}^{\RV{S}_0|\RV{H}}(1|h)=h$. Equivalently, the probability gap model on $S^\mathbb{N}$ defined by the assumption of exchangeability is equivalent to the probability gap model defined by the conditional probability
+
+% \begin{align}
+%     \prob{P}^{\RV{S}|\RV{H}} = \tikzfig{de_finetti_conditional}
+% \end{align}
+
+% That is, there is some hypothesis $\RV{H}$ and conditional on $\RV{H}$ the measurements are independent and identically distributed. The proof of this is constructive -- $\RV{H}$ is a function of $\RV{S}$.
+
+
+
+% \begin{align}
+%     \prob{P}^{\RV{Y}|\RV{HD}} = \tikzfig{do_model_representation}
+% \end{align}
+
+% We will further argue that the class of see-do models considered in CBN and potential outcomes literature is equivalent to the family of causally contractible and exchangeable do-models where the decision rule for the first $n$ places is fixed to an unknown value, and may be freely chosen thereafter.
+
+\subsection{Assumptions of repeatability and their consequences}
+
+A do model is a see-do model with nothing to see. It is purely a model of decisions and consequences.
+
+\begin{definition}[Do model]\label{def:domodel}
+A \emph{do-model} is a see-do model $(\prob{P},\RV{X},\RV{D},\RV{Y},R)$ with trivial observations $\RV{X}=*$; we omit $\RV{X}$ and define it by $(\prob{P},\RV{D},\RV{Y},R)$.
+\end{definition}
+
+A do model ``commutes with exchange'' if exchanging decisions or exchanging consequences yields the same model for any finite permuation. The term \emph{commute} comes from the notion that we can apply the exchange before the model $\prob{P}$ or after it and get the same result.
+
+\begin{definition}[Commutativity of exchange]\label{def:caus_exch}
+Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. For a finite permutation $\rho:\mathbb{N}\to\mathbb{N}$, define $\text{swap}_{\rho(D)}:D\kto D$ by $(d_i)_{i\in\mathbb{N}}\mapsto \delta_{(d_{\rho(i)})_{i\in\mathbb{N}}}$ and $\text{swap}_{\rho(D\times Y)}:D\times Y\kto D\times Y$ by $(x_i)_{i\in\mathbb{N}}\mapsto \delta_{(x_{\rho(i)})_{i\in\mathbb{N}}}$. If, for any two decision rules $\alpha,\beta \in R$,
+\begin{align}
+    \prob{P}_\alpha^{\RV{D}}\text{swap}_{\rho(D)} &= \prob{P}_{\beta}^{\RV{D}}\\
+    \implies  \prob{P}_\alpha\text{swap}_{\rho(D\times Y)}&=\prob{P}_\beta
+\end{align}
+Then $\prob{P}$ \emph{commutes with exchanges}.
+\end{definition}
+
+Piecewise replicability is a stronger condition that requires a model give identical results for any identical subsequences of two decisions when we limit our attention to the corresponding subsequences of consequences. For example, if we have $\RV{D}=(\RV{D}_1,\RV{D}_2,\RV{D}_3)$ and $\RV{Y}=(\RV{Y}_1,\RV{Y}_2,\RV{Y}_3)$ and $\prob{P}_\alpha^{\RV{D}_1\RV{D}_3}=\prob{P}_\beta^{\RV{D}_3\RV{D}_2}$ then $\prob{P}_{\alpha}^{\RV{Y}_1\RV{Y}_3}=\prob{P}_\beta^{\RV{Y}_3\RV{Y}_2}$.
+
+\begin{definition}[Piecewise replicability]\label{def:caus_cont}
+Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. If for any $\alpha,\beta\in R$ and any indices $P,Q\subset\mathbb{N}$:
+\begin{align}
+    \prob{P}_\alpha^{\RV{D}_{P}}=\prob{P}_\beta^{\RV{D}_{Q}}\implies \prob{P}_\alpha^{(\RV{D_i,Y_i})_{i\in P}}=\prob{P}_\beta^{(\RV{D_i,Y_i})_{i\in Q}}
+\end{align}
+then $\prob{P}$ is \emph{piecewise replicable}.
+\end{definition}
+
+\begin{theorem}
+Piecewise replicability implies commutativity of exchange.
+\end{theorem}
+
+\begin{proof}
+Consider $\alpha,\beta\in R$ such that $\prob{P}_\alpha^{\RV{D}}\text{swap}_{\rho(D)} s= \prob{P}_{\beta}^{\RV{D}}$. Then  $\prob{P}_\alpha^{\RV{D}_{\rho(\mathbb{N})}} = \prob{P}_{\beta}^{\RV{D}}$ also. For any finite $A\subset \mathbb{N}$
+\begin{align}
+    \prob{P}_\alpha^{\RV{D}_{\rho(A)}} = \prob{P}_{\beta}^{\RV{D}_A}
+\end{align}
+so by piecewise replicability
+\begin{align}
+    \prob{P}_\alpha^{(\RV{D}_i,\RV{Y}_i)_{i\in \rho(A)}} = \prob{P}_{\beta}^{(\RV{D}_i,\RV{Y}_i)_{i\in A}}
+\end{align}
+Thus by Kolmogorov's extension theorem
+\begin{align}
+    ^{(\RV{D}_i,\RV{Y}_i)_{i\in \rho(\mathbb{N})}} &= \prob{P}_\alpha^{(\RV{D}_i,\RV{Y}_i)_{i\in \mathbb{N}}}\text{swap}_{\rho(D\times A)}\\
+                                         &= \prob{P}_{\beta}^{(\RV{D}_i,\RV{Y}_i)_{i\in \mathbb{N}}}
+\end{align}
+\end{proof}
+
+Commutativity of exchange does not imply piecewise replicability. Each consequence $\RV{Y}_i$ can depend on a symmetric function of $\RV{D}$ as well as $\RV{D}_i$. For example, suppose $|D|=2$, $D=Y=\{0,1\}$ and we have a do-model $\prob{P}$ such that for all $\alpha\in R$
 
 \begin{align}
-    \prob{P}_\alpha &= \tikzfig{de_finetti_rep0}\label{eq:definettirep}
+    \prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(y_1,y_2|d_1,d_2) &= \llbracket (y_1,y_2)= (d_1+d_2,d_1+d_2) \rrbracket
 \end{align}
 
-Here $\prob{P}^{\RV{S}_0|\RV{H}}$ can be defined concretely by $\prob{P}^{\RV{S}_0|\RV{H}}(1|h)=h$. Equivalently, the probability gap model on $S^\mathbb{N}$ defined by the assumption of exchangeability is equivalent to the probability gap model defined by the conditional probability
+Then $\prob{P}_{00}^{\RV{Y}_1}(y_1) = \llbracket y_1=0\rrbracket$ while $\prob{P}_{01}^{\RV{Y}_1} = \llbracket y_1=1 \rrbracket$, so $\prob{P}$ is not piecewise replicable. However, taking $(d_i,d_j)$ to be the decision function that deterministically chooses $(d_i,d_j)$,
 
 \begin{align}
-    \prob{P}^{\RV{S}|\RV{H}} = \tikzfig{de_finetti_conditional}
+    \prob{P}_{d_2,d_1}^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(y_1,y_2) &= \llbracket (y_1,y_2)= (d_2+d_1,d_2+d_1) \rrbracket\\
+    &= \llbracket (y_2,y_1)= (d_1+d_2,d_1+d_2) \rrbracket\\
+    &= \prob{P}_{d_1,d_2}^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(y_2,y_1)
 \end{align}
 
-That is, there is some hypothesis $\RV{H}$ and conditional on $\RV{H}$ the measurements are independent and identically distributed. The proof of this is constructive -- $\RV{H}$ is a function of $\RV{S}$.
+so $\prob{P}$ commutes with exchange.
 
-A ``do-model'' is a see-do model $\prob{P}^{\RV{X}|\RV{H}\square \RV{Y}|\RV{D}}$ with trivial observations $\RV{X}=*$. We show that do-models that are both causally contractible and causally exchangeable are the probability gap models defined by the conditional probability 
+There is a representation theorem for models that commute with exchange which implies that for $\prob{P}$ that commutes with exchange, $\RV{Y}_i\CI_{\prob{P}}(\RV{D}_j,\RV{Y}_j)_{j\in \mathbb{N}}\setminus \{i\}|\RV{H}\RV{D}_i$, where $\RV{H}$ is a symmetric function of $(\RV{Y}_i,\RV{D}_i)_{i\in\mathbb{N}}$.
+
+% \begin{proposition}[Representation of do-models that commute with exchange]
+% Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$ where $\prob{P}$ commutes with exchange and there is some $\alpha^*\in R$ such that $\prob{P}^{\alpha^*}\gg\prob{P}_\beta$ for all $\beta in R$. Then there exists a symmetric function $\RV{H}:(Y\times D)^\mathbb{N}\to H$ such that  $\prob{P}^{\RV{Y}|\RV{DH}}$ exists and $\RV{Y}_i\CI_{\prob{P}}(\RV{D}_j,\RV{Y}_j)_{j\in \mathbb{N}}\setminus \{i\}|\RV{H}\RV{D}_i$, or equivalently 
+% \begin{align}
+%     \prob{P}^{\RV{Y}} &= \tikzfig{do_model_representation}
+% \end{align}
+% \end{proposition}
+
+% % \begin{lemma}[Contraction and independence]
+% % Let $\RV{J}$, $\RV{K}$ and $\RV{L}$ be variables on $\Omega$ and $\prob{Q}\in \Delta(\Omega)$ a base measure such that $\prob{Q}^{\RV{JK}}=\prob{Q}^{\RV{JL}}$ and $\sigma{K}\subset \sigma{L}$. Then $\RV{J}\CI\RV{L}|\RV{K}$. 
+% % \end{lemma}
+
+% % \begin{proof}
+% % From Lemma 1.3 in \citet{kallenberg_basic_2005}.
+% % \end{proof}
+
+% \begin{proof}
+% If $\prob{P}$ commutes with exchange, then for any $\alpha\in R$ such that $\prob{P}_\alpha^{\RV{D}}$ is exchangeable then $\prob{P}_\alpha$ is also exchangeable. Then there exists $\RV{H}$ a symmetric function of $(\RV{Y}_i,\RV{D}_i)_{i\in\mathbb{N}}$ such that $\RV{Y}_i\CI_{\prob{P}}(\RV{D}_j,\RV{Y}_j)_{j\in \mathbb{N}}\setminus \{i\}|\RV{H}\RV{D}_i$. This is De Finetti's representation theorem, and many proofs exists, see for example \citep{kallenberg_basic_2005}.
+
+% In particular, let 
+
+% \begin{align}
+%     \RV{H}:=A\times B\mapsto \lim_{n\to\infty} \frac{1}{n}\sum_{i\in n} \mathds{1}_{A\times B}((\RV{Y}_i, \RV{D}_i))
+% \end{align}
+
+% Then for all $\alpha\in R$,
+% \begin{align}
+%     \prob{P}_\alpha^{(\RV{Y}_i,\RV{D}_i)_{i\in\mathbb{N}}|\RV{H}}(A\times B|h) \overset{a.s.}{=} h(A\times B)\label{eq:given_h}
+% \end{align}
+
+% The proof that the limit exists and the above equality holds can again be found int \citep{kallenberg_basic_2005}.
+% \end{proof}
+
+If we have a do model $\prob{P}$ that is piecewise replicable, we can represent it with a table and a lookup function in precisely the manner that potential outcome models are typically defined.
+
+\begin{theorem}[Table representation of piecewise replicable functions]
+Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. $\prob{P}$ is piecewise replicable if and only if 
+\begin{align}
+    \prob{P}^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
+\end{align}
+Where $\prob{P}^{\RV{Y}^D}$ is a column exchangeable probability measure on $Y^{D\times\mathbb{N}}$ and $\prob{L}^{\RV{D},\RV{Y}^D}$ is the Markov kernel associated with the lookup function
+\begin{align}
+    l:D^\mathbb{N}\times Y^{D\times \mathbb{N}}&\to Y^\mathbb{N}\\
+    ((d_i)_\mathbb{N},(y_{jk})_{D\times\mathbb{N}})&\mapsto (y_{d_i i})_\mathbb{N}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+Only if:
+Choose $e:=(e_ij)_{i\in |D|,j\in\mathbb{N}}\in D^{\mathbb{N}}$ such that $e_{ij} = d_i$, and abusing notation write $e$ for the decision function that chooses $e$ deterministically.
+
+Define
+\begin{align}
+    \prob{P}^{\RV{Y}^D}((y_{ij})_{D\times \mathbb{N}}):=\prob{P}_e^{\RV{Y}}((y_{ij})_{D\times \mathbb{N}})
+\end{align}
+
+First we will show $\prob{P}^{\RV{Y}^D}$ is column exchangeable. Consider some $\rho:D\times \mathbb{N}\to D\times \mathbb{N}$ that sends $(i,j)\mapsto (i,\nu(j))$ for some finite permutation $\nu$. Then
 
 \begin{align}
-    \prob{P}^{\RV{Y}|\RV{HD}} = \tikzfig{do_model_representation}
+    \prob{P}_e^{\RV{Y}}\text{swap}_{\rho} ((y_{ij})_{D\times \mathbb{N}})&= \prob{P}_e^{\RV{Y}} ((y_{i\nu(j)})_{D\times \mathbb{N}})\\
+    &= \prob{P}_{\rho(e)}^{\RV{Y}}((y_{ij})_{D\times \mathbb{N}})&\text{by commutativity with exchange}
 \end{align}
 
-We will further argue that the class of see-do models considered in CBN and potential outcomes literature is equivalent to the family of causally contractible and exchangeable do-models where the decision rule for the first $n$ places is fixed to an unknown value, and may be freely chosen thereafter.
-
-\subsection{Causal contractibility}
-
-Suppose we have a fundamental probability set $\Omega$ and an infinite sequence of decisions $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and consequences $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. Suppose furthermore we have a do model $\prob{P}:\framebox{D}\RV{Y}$ such that for any two decision rules $\prob{P}_\alpha^{\RV{D}}$ and $\prob{P}_\beta^{\RV{D}}$ and any indices $i_1,i_2,...i_n$, $j_1,j_2,...j_n$: such that $k<l\implies i_k<i_l$ and $j_k<j_l$:
+But by construction $\rho(e) = e$, so 
 
 \begin{align}
-    \prob{P}_\alpha^{\RV{D}_{[i_k]_n}}=\prob{P}_\beta^{\RV{D}_{[j_k]}_n}\implies \prob{P}_\alpha=\prob{P}_\beta
+    \prob{P}_e^{\RV{Y}}\text{swap}_{\rho} ((y_{ij})_{D\times \mathbb{N}}) &= \prob{P}_{e}^{\RV{Y}}((y_{ij})_{D\times \mathbb{N}})
 \end{align}
 
-Then $\prob{P}$ is \emph{causally contractible}. 
+Thus $\prob{P}^{\RV{Y}^D}$ is column exchangeable.
 
-Causal contractibility facilitates a tabular representation of $\prob{P}$.
+Now consider any $d:=(d_j)_{j\in \mathbb{N}}\in D^{\mathbb{N}}$. By definition of $e$, $e_{id_j}=d_j$ for any $i,j\in \mathbb{N}$. Define the lookup function
+
+\begin{align}
+    l_{DD}:D^\mathbb{N}\times D^{D\times \mathbb{N}}&\to D^\mathbb{N}\\
+    ((d_i)_\mathbb{N},(e_{jk})_{D\times\mathbb{N}})&\mapsto (e_{d_i i})_\mathbb{N}
+\end{align}
+
+Thus
+
+\begin{align}
+    l_{DD}(d,e) = d
+\end{align}
+
+Define
+
+\begin{align}
+    \prob{Q}:D\kto Y\\
+    \prob{Q}:= \tikzfig{lookup_representation}
+\end{align}
+
+and consider some finite $A\subset \mathbb{N}$ and $B:= (d_i,i)_{i\in A}$. Then, 
+
+
+\begin{align}
+    \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{Q}(y|d) &= \sum_{y\in \RV{Y}^{-1}(y_A)} \sum_{y^{\prime D}\in Y^D} \llbracket l_{DY}(d,y^{\prime D}) = y \rrbracket \prob{P}^{\RV{Y}^{D\times \mathbb{N}}}(y^{\prime D})\\
+    &= \sum_{y\in \RV{Y}^{-1}(y_A)} \sum_{y^{\prime D}\in Y^{D\times \mathbb{N}}} \llbracket l_{DY}(d,y^{\prime D}) = y \rrbracket \prob{P}_e^{\RV{Y}}(y^{\prime D})\\
+    &= \sum_{y\in \RV{Y}^{-1}(y_A)}\prod_{i\in A}\sum_{y'\in Y} \llbracket y'_{d_i i} = y_i \rrbracket \prob{P}_e^{\RV{Y}_i}(y')\\
+    &= \sum_{y\in \RV{Y}^{-1}(y_A)}\prob{P}_e^{\RV{Y}_{B}}(y)\\
+    &= \prob{P}_e^{\RV{Y}_{B}}(y_A)\\
+    &= \prob{P}_{l_{DD}(d,e)}^{\RV{Y}_A}(y_A)&\text{by piecewise replicability}\\
+    &= \prob{P}_d^{\RV{Y}_A}(y_A)
+\end{align}
+
+Because this holds for all $A\subset\mathbb{N}$, by the Kolmogorov extension theorem
+
+\begin{align}
+    \prob{Q}(y|d) &= \prob{P}_d^{\RV{Y}}(y)
+\end{align}
+
+Because $d$ is the decision function that deterministically chooses $d$, for all $d\in D$
+
+\begin{align}
+    \prob{Q}(y|d) &= \prob{P}_d^{\RV{Y}|\RV{D}}(y|d)
+\end{align}
+
+And because $\prob{P}_d^{\RV{Y}|\RV{D}}(y|d)$ is unique for all $d\in D^{\mathbb{N}}$ and $\prob{P}^{\RV{Y}|\RV{D}}$ exists by assumption
+
+\begin{align}
+    \prob{P}^{\RV{Y}|\RV{D}}=\prob{Q}
+\end{align}
+
+If:
+
+Consider $d,d'\in D^{\mathbb{N}}$. If 
+Consider arbitrary $e'\in D$ and some length $|A|$ subsequence of consequences $(\RV{Y}_{i_j})_{j\in A}$
+\end{proof}
+
+Let the elements of $D$ be denoted by $d_i$, $i\in |D|$ and , and set out $\RV{Y}$ in a table as follows:
+
+\begin{center}
+\begin{tabular}{ c c c }
+ $\RV{Y}_{f(1,1)}$ & $\RV{Y}_{f(1,2)}$ & $\RV{Y}_{f(1,3)}$ \\ 
+ $\RV{Y}_{f(2,1)}$ & $\RV{Y}_{f(2,2)}$ & $\RV{Y}_{f(2,3)}$ \\  
+ $\RV{Y}_{f(3,1)}$ & $\RV{Y}_{f(3,2)}$ & $\RV{Y}_{f(3,3)}$    
+\end{tabular}
+\end{center}
+
 
 
 \section{Causal Bayesian Networks}\label{sec:CBN}
@@ -136,7 +339,7 @@ Equations \ref{eq:obs_cbn_existence} and \ref{eq:int_cbn_existence} together wit
 
 Note also that Equation \ref{eq:identically_distributed} implies that the conditional probabilities from Theorem \ref{th:cbn_2comb_exist} can be chosen to be equal for all $i,j\in [m]$:
 \begin{align}
-    \prob{Q}^{\RV{W}_i|\RV{H}} = \prob{Q}^{\RV{W}_j|\RV{H}}\label{eq:identical_1}
+    \prob{Q}^{\RV{W}_i|\RV{H}} = \prob{Q}^{\RV{W}_j|\RV{H}}\label{eq:identical_1}\\
     \model{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}} &= \model{Q}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}\label{eq:identical_2}
 \end{align}
 

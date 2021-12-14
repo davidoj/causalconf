@@ -3,49 +3,49 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
 Database file #1: references.bib
-Repeated entry---line 1745 of file references.bib
+Repeated entry---line 1762 of file references.bib
  : @article{fong_causal_2013
  :                          ,
 I'm skipping whatever remains of this entry
-You've used 33 entries,
+You've used 34 entries,
             2773 wiz_defined-function locations,
-            865 strings with 11762 characters,
-and the built_in function-call counts, 14122 in all, are:
-= -- 1393
-> -- 522
-< -- 36
-+ -- 187
-- -- 153
-* -- 1024
-:= -- 2226
-add.period$ -- 170
-call.type$ -- 33
-change.case$ -- 139
-chr.to.int$ -- 32
-cite$ -- 66
-duplicate$ -- 721
-empty$ -- 1262
-format.name$ -- 204
-if$ -- 3018
+            874 strings with 12012 characters,
+and the built_in function-call counts, 14621 in all, are:
+= -- 1446
+> -- 543
+< -- 37
++ -- 194
+- -- 159
+* -- 1068
+:= -- 2303
+add.period$ -- 176
+call.type$ -- 34
+change.case$ -- 144
+chr.to.int$ -- 33
+cite$ -- 68
+duplicate$ -- 741
+empty$ -- 1302
+format.name$ -- 213
+if$ -- 3123
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 41
-newline$ -- 236
-num.names$ -- 142
-pop$ -- 242
+missing$ -- 42
+newline$ -- 244
+num.names$ -- 146
+pop$ -- 247
 preamble$ -- 1
-purify$ -- 112
+purify$ -- 116
 quote$ -- 0
-skip$ -- 491
+skip$ -- 506
 stack$ -- 0
-substring$ -- 532
-swap$ -- 97
+substring$ -- 559
+swap$ -- 99
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 323
+type$ -- 334
 warning$ -- 0
-while$ -- 143
+while$ -- 148
 width$ -- 0
-write$ -- 568
+write$ -- 587
 (There was 1 error message)
