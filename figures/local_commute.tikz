@@ -1,0 +1,69 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.25, 0.5) {$=$};
+		\node [style=small dist tikzit] (1) at (-4.5, 4) {$\prob{P}_\alpha^{\RV{D}}$};
+		\node [style=none] (2) at (-0.25, 2.25) {$\Rightarrow$};
+		\node [style=none] (3) at (-0.25, 4) {$=$};
+		\node [style=small dist tikzit] (4) at (2.75, 4) {$\prob{P}_\beta^{\RV{D}}$};
+		\node [style=none] (5) at (-4, 3.5) {};
+		\node [style=none] (6) at (-4, 4) {};
+		\node [style=none] (7) at (-4, 4.5) {};
+		\node [style=none] (8) at (3.25, 3.5) {};
+		\node [style=none] (9) at (3.25, 4) {};
+		\node [style=none] (10) at (3.25, 4.5) {};
+		\node [style=RLabel tikzit] (11) at (-1.75, 4.5) {};
+		\node [style=RLabel tikzit] (12) at (-1.75, 4) {};
+		\node [style=RLabel tikzit] (13) at (-1.75, 3.5) {};
+		\node [style=RLabel tikzit] (14) at (5.75, 4.5) {};
+		\node [style=RLabel tikzit] (15) at (5.75, 4) {};
+		\node [style=RLabel tikzit] (16) at (5.75, 3.5) {};
+		\node [style=small dist tikzit] (17) at (-4.5, 0.25) {$\prob{P}_\alpha^{\RV{YD}}$};
+		\node [style=small dist tikzit] (18) at (3.25, 0.25) {$\prob{P}_\beta^{\RV{YD}}$};
+		\node [style=none] (19) at (-4, 1.25) {};
+		\node [style=none] (20) at (-4, 1) {};
+		\node [style=none] (21) at (-4, 0.5) {};
+		\node [style=none] (22) at (-4, 0.25) {};
+		\node [style=none] (23) at (-4, -0.25) {};
+		\node [style=none] (24) at (-4, -0.5) {};
+		\node [style=none] (25) at (3.75, 1.25) {};
+		\node [style=none] (26) at (3.75, 1) {};
+		\node [style=none] (27) at (3.75, 0.5) {};
+		\node [style=none] (28) at (3.75, 0.25) {};
+		\node [style=none] (29) at (3.75, -0.25) {};
+		\node [style=none] (30) at (3.75, -0.5) {};
+		\node [style=RLabel tikzit] (31) at (-1.75, -0.5) {};
+		\node [style=RLabel tikzit] (32) at (-1.75, -0.25) {};
+		\node [style=RLabel tikzit] (33) at (-1.75, 0.25) {};
+		\node [style=RLabel tikzit] (34) at (-1.75, 0.5) {};
+		\node [style=RLabel tikzit] (35) at (-1.75, 1) {};
+		\node [style=RLabel tikzit] (36) at (-1.75, 1.25) {};
+		\node [style=RLabel tikzit] (37) at (5.5, -0.5) {};
+		\node [style=RLabel tikzit] (38) at (5.5, -0.25) {};
+		\node [style=RLabel tikzit] (39) at (5.5, 0.25) {};
+		\node [style=RLabel tikzit] (40) at (5.5, 0.5) {};
+		\node [style=RLabel tikzit] (41) at (5.5, 1) {};
+		\node [style=RLabel tikzit] (42) at (5.5, 1.25) {};
+		\node [style=none] (43) at (0, 6.75) {Match any part of input via a swap $\Rightarrow$ corresponding output matches};
+		\node [style=none] (44) at (0, 6) {(Piecewise replicability?)};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=-180, out=0] (5.center) to (12);
+		\draw (9.center) to (15);
+		\draw (8.center) to (16);
+		\draw (27.center) to (40);
+		\draw (28.center) to (39);
+		\draw (29.center) to (38);
+		\draw (30.center) to (37);
+		\draw [in=-180, out=0] (7.center) to (13);
+		\draw [style=delmap, in=180, out=0] (6.center) to (11);
+		\draw [style=delmap] (10.center) to (14);
+		\draw [style=delmap] (25.center) to (42);
+		\draw [style=delmap] (26.center) to (41);
+		\draw [style=delmap, in=180, out=0] (21.center) to (36);
+		\draw [style=delmap, in=180, out=0] (22.center) to (35);
+		\draw [in=180, out=0] (19.center) to (32);
+		\draw [in=180, out=0] (20.center) to (31);
+		\draw [in=-180, out=0] (23.center) to (34);
+		\draw [in=-180, out=0] (24.center) to (33);
+	\end{pgfonlayer}
+\end{tikzpicture}
