@@ -28,14 +28,14 @@
 \contentsline {subsection}{\numberline {3.5}See-do models and classical statistics}{39}{subsection.3.5}%
 \contentsline {section}{\numberline {4}Repeatable experiments}{40}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Assumptions of repeatability and their consequences}{42}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Causal Bayesian Networks}{44}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Probability 2-combs represented by causal Bayesian networks}{45}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}See-do models corresponding to causal Bayesian networks}{47}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Proxy control}{50}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Potential outcomes}{51}{section.6}%
-\contentsline {section}{\numberline {7}Appendix:see-do model representation}{56}{section.7}%
-\contentsline {section}{\numberline {8}Appendix: Counterfactual representation}{57}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Parallel potential outcomes representation theorem}{58}{subsection.8.1}%
-\contentsline {section}{\numberline {9}Appendix: Connection is associative}{61}{section.9}%
-\contentsline {section}{\numberline {10}Appendix: String Diagram Examples}{62}{section.10}%
-\contentsline {section}{\numberline {11}Markov variable maps and variables form a Markov category}{63}{section.11}%
+\contentsline {section}{\numberline {5}Causal Bayesian Networks}{46}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Probability 2-combs represented by causal Bayesian networks}{47}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}See-do models corresponding to causal Bayesian networks}{49}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Proxy control}{52}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Potential outcomes}{53}{section.6}%
+\contentsline {section}{\numberline {7}Appendix:see-do model representation}{58}{section.7}%
+\contentsline {section}{\numberline {8}Appendix: Counterfactual representation}{59}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Parallel potential outcomes representation theorem}{60}{subsection.8.1}%
+\contentsline {section}{\numberline {9}Appendix: Connection is associative}{63}{section.9}%
+\contentsline {section}{\numberline {10}Appendix: String Diagram Examples}{64}{section.10}%
+\contentsline {section}{\numberline {11}Markov variable maps and variables form a Markov category}{65}{section.11}%

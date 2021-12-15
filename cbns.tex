@@ -241,26 +241,32 @@ And because $\prob{P}_d^{\RV{Y}|\RV{D}}(y|d)$ is unique for all $d\in D^{\mathbb
     \prob{P}^{\RV{Y}|\RV{D}}=\prob{Q}
 \end{align}
 
-Next we will show $\prob{P}^{\RV{Y}^D}$ is contractible. Consider any subsequence $\RV{Y}^D_S$ of $\RV{Y}^D$. Let $\RV{Y}_{\rho(S)} = (y_{|D|i+j})_{i\in S,j\in D}$, $\RV{Y}_{|S|}=(y_i)_{i\in [|S|]}$, $\rho(e_S)=(e_ij)_{i\in D,j\in S}$. By construction, $\rho(e_S)=(e_ij)_{i\in D,j\in [|S|]}$ also; that is, 
+Next we will show $\prob{P}^{\RV{Y}^D}$ is contractible. Consider any subsequences $\RV{Y}^D_S$ and $\RV{Y}^D_T$ of $\RV{Y}^D$ with $|S|=|T|$. Let $\rho(S)$ be the ``expansion'' of the indices $S$, i.e. $\rho(S)=(|D|i+j)_{i\in S,j\in D}$. Then by construction of $e$, $e_{\rho(S)}=e_{\rho(T)}$ and therefore
 
 \begin{align}
     \prob{P}^{\RV{Y}^D_S}&= \prob{P}_e^{\RV{Y}_{\rho(S)}})\\
-    &= \prob{P}_{\rho(e)}^{\RV{Y}}((y_{ij})_{D\times \mathbb{N}})&\text{by commutativity with exchange}
+    &= \prob{P}_e^{\RV{Y}_{\rho(T)}})&\text{by contractibility of }\prob{P}\text{ and the equality } e_{\rho(S)}=e_{\rho(T)}\\
+    &= \prob{P}^{\RV{Y}^D_T}
 \end{align}
-
-But by construction $\rho(e) = e$, so 
-
-\begin{align}
-    \prob{P}_e^{\RV{Y}}\text{swap}_{\rho} ((y_{ij})_{D\times \mathbb{N}}) &= \prob{P}_{e}^{\RV{Y}}((y_{ij})_{D\times \mathbb{N}})
-\end{align}
-
-Thus $\prob{P}^{\RV{Y}^D}$ is column exchangeable.
 
 
 If:
+Suppose 
+\begin{align}
+    \prob{P}^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
+\end{align}
 
-Consider $d,d'\in D^{\mathbb{N}}$. If 
-Consider arbitrary $e'\in D$ and some length $|A|$ subsequence of consequences $(\RV{Y}_{i_j})_{j\in A}$
+and consider any two deterministic decision functions $d,d'\in D^{\mathbb{N}}$ such that some subsequences are equal $d_S=d'_T$.
+
+Let $\RV{Y}^{d_S}=(\RV{Y}_{d_i i})_{i\in S}$.
+
+By definition,
+
+\begin{align}
+    \prob{P}^{\RV{Y}_S|\RV{D}}(y_S|d) &= \sum_{y^D_S\in Y^{|D|\times |S|}}\prob{P}^{\RV{Y}^D_S}(y^D_S)\prob{L}^{\RV{D}_S,\RV{Y}^S}(y_S|d,y^D_S)\\
+    &= \sum_{y^D_S\in Y^{|D|\times |T|}}\prob{P}^{\RV{Y}^D_T}(y^D_S)\prob{L}^{\RV{D}_S,\RV{Y}^S}(y_S|d,y^D_S)&\text{ by contractibility of }\prob{P}^{\RV{Y}^D_T}\\
+    &= \prob{P}^{\RV{Y}_T|\RV{D}}(y_S|d)
+\end{align}
 \end{proof}
 
 Let the elements of $D$ be denoted by $d_i$, $i\in |D|$ and , and set out $\RV{Y}$ in a table as follows:
