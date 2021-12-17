@@ -306,6 +306,10 @@ This scheme raises the possibility that the model, the insert, or the intersecti
 
 \subsection{Probability sets}
 
+\todo[inline]{Note for proofreading}
+I've been adding decorations $\prob{P}$, $\prob{P}_{\{\}}$ and $\prob{P}_{\square}$ to denote probability models, probability sets and probability gap models respectively, but I'm not close to adding them everywhere they are needed yet.
+\todo[inline]{end note}
+
 A probability set is a set of gap model is a function that maps ``inserts'' to probability models. We think of the set of inserts as different ways we can fill the probability gap. The particular kinds of inserts we want to consider here are marginal probabilities and conditional probabilities.
 
 \begin{definition}[Probability space]
@@ -395,97 +399,40 @@ For any $\prob{P}_a\in \prob{P}_{\{\}}$, $x,z$
 \end{align}
 \end{proof}
 
-Given a conditional probability with respect to a probability gap model, we can also find additional conditional probabilities by disintegrating the original conditional probability.
+% \begin{theorem}[Disintegrations are conditional probabilities]
+% Suppose we have a fundamental probability set $\Omega$ variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ such that $\prob{P}_{\{\}}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability and there is some $\kernel{K}^{\RV{$
+% \end{theorem}
 
-\begin{theorem}[Recursive disintegration]\label{th:recursive-disint}
-Suppose we have a fundamental probability set $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ such that $\prob{P}_{\{\}}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability of $\prob{P}_{\{\}}$. Define $\prob{Q}_{\{\}}$ as the largest probability set such that $\prob{Q}_{\{\}}^{\RV{Y}|\RV{X}}=\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$. Then if $\prob{Q}_{\{\}}^{\RV{Z}|\RV{W}}$ is a $\RV{Z}|\RV{W}$ conditional probability of $\prob{Q}_{\{\}}$, it is also a $\RV{Z}|\RV{W}$ conditional probability of $\prob{P}_{\{\}}$.
-\end{theorem}
+% Given a conditional probability with respect to a probability gap model, we can also find additional conditional probabilities by disintegrating the original conditional probability.
 
-\begin{proof}
-$\prob{Q}_{\{\}}\supset \prob{P}_{\{\}}$, so any conditional probability of $\prob{Q}_{\{\}}$ is also a conditional probability of $\prob{P}_{\{\}}$.
-\end{proof}
+% \begin{lemma}[Recursive disintegration]
+% Suppose we have a fundamental probability set $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ such that $\prob{P}_{\{\}}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability. Define $\prob{Q}_{\{\}}$ as the largest probability set such that $\prob{Q}_{\{\}}^{\RV{Y}|\RV{X}}=\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$. Then if $\prob{Q}_{\{\}}^{\RV{Z}|\RV{W}}$ is a $\RV{Z}|\RV{W}$ conditional probability of $\prob{Q}_{\{\}}$, it is also a $\RV{Z}|\RV{W}$ conditional probability of $\prob{P}_{\{\}}$.
+% \end{lemma}
 
-\subsection{Probability gap models defined by marginal and conditional probabilities}
+% \begin{proof}
+% $\prob{Q}_{\{\}}\supset \prob{P}_{\{\}}$, so any conditional probability of $\prob{Q}_{\{\}}$ is also a conditional probability of $\prob{P}_{\{\}}$.
+% \end{proof}
 
-In the previous section we defined marginal and conditional probabilities for probability gap models. We can in turn define probability gap models by specifying a collection of marginal and/or conditional probabilities along with a set of inserts. In fact, we will define a hierarchy of probability gap models -- order 0 gap models are specified by marginal probabilities and map inserts to base measures, while order 1 gap models are specified by conditional probabilities and map inserts to order 0 gap models.
+\subsection{Probability sets defined by marginal and conditional probabilities}
 
-It is helpful to define an operation $\odot$ that combines Markov kernels in the same that Definition \ref{def:disint} combined marginals and conditionals to a joint probability.
+In the previous section we defined marginal and conditional probabilities for probability sets. We can define probability sets by marginal or conditional probabilities as the set of all probability models that share those marginals or conditionals.
 
-\begin{definition}[Copy-product]\label{def:copyproduct}
-Given two Markov kernels $\prob{K}:X\kto Y$ and $\prob{L}:Y\times X\kto Z$, define the copy-product $\prob{K}\odot\prob{L}:X\to Y\times Z$ as
-\begin{align}
-	\prob{K}\odot\prob{L}:&= \text{copy}_X(\prob{K}\otimes \text{id}_X)(\text{copy}_Y\otimes\text{id}_X )(\text{id}_Y \otimes \prob{L})\\
-							&= \tikzfig{copy_product}\\
-							&\iff\\
-	(\prob{K}\odot\prob{L})(y,z|x) &= \prob{L}(z|y,x)\prob{K}(y|x)
-\end{align}
-\end{definition}
-
-We will first consider ``order 0'' probability gap models defined by marginal probabilities. These serve as a base kind of probability gap model that we use to define higher order models. The ``probability gap'' in this case relates to the particular choice of base measure that yields this marginal probability. Like most statistical work, we don't typically explicitly define the fundamental probability set $\Omega$, nor do we explicitly care about the base measure on it. Thus, unlike higher order probability gap models, we're not particularly interested in the probability gaps in order 0 models. Nevertheless, they serve as a base type for the purposes of defining higher order models.
-
-We define an order 0 probability gap model $\prob{P}$ to be a function from some set of Markov kernels $X\kto \Omega$ to probability measures on $\Omega$ such that for some $\kernel{K}:X\kto \Omega$, $\prob{P}(\kernel{K})=\prob{P}^{\RV{X}}\prob{K}$ for some probability distribution $\prob{P}^{\RV{X}}$. Not every Markov kernel $X\kto \Omega$ will yield a base measure on $\Omega$ that pushes forward to $\prob{P}^{\RV{X}}$ by this operation. For example, let $X=\Omega=\{0,1\}$ and $\RV{X}=\RV{I}$, the identity function on $\Omega$, $\prob{P}^{\RV{X}}(x)=\llbracket x=1 \rrbracket$ and $\kernel{K}(\omega|x) = \llbracket 1 - x \rrbracket$. Then letting $\mu:=(\prob{P}^{\RV{X}} \prob{K})$, $\mu^{\RV{X}}(x)=\mu(x)=\llbracket x=0 \rrbracket$ which is not equal to $\prob{P}^{\RV{X}}(x)$. Instead we define $\prob{P}$ on the set of \emph{valid candidate conditionals}, which is a subset of Markov kernels $X\kto \Omega$.
-
-Not all probability measures $\prob{P}^{\RV{X}}$ on $X$ map to base measures $\mu$ via a valid candidate conditional that yield back $\prob{P}^{\RV{X}}$ as marginals. Consider, for example, $\RV{X}=(\RV{Y},\RV{Y})$ for some $\RV{Y}$ and any measure $\prob{P}^{\RV{YY}}$ that assigns nonzero probability to $(\RV{Y},\RV{Y})\yields (y,y')$ for $y\neq y'$. Then there is no base measure that pushes forward to $\prob{P}^{\RV{YY}}$. Thus we restrict our attention to \emph{valid candidate distributions} that can serve as definitions for order 0 probability gaps.
-
-\todo[inline]{Mention Kolmogorov consistency}
+Not all probability measures $\prob{Q}^{\RV{X}}$ on $X$ define nonempty sets of probability measures on $\Omega$. Consider, for example, $\RV{X}=(\RV{Y},\RV{Y})$ for some $\RV{Y}:\Omega\to Y$ and any measure $\prob{Q}^{\RV{YY}}$ that assigns nonzero probability to the event $(\RV{Y},\RV{Y})\yields (y,y')$ for $y\neq y'$. Then there is no base measure that pushes forward to $\prob{P}^{\RV{YY}}$. A \emph{valid candidate distribution} is a distribution associated with a particular variable that defines a nonempty set of base measures on $\Omega$.
 
 \begin{definition}[Valid canditate distribution]\label{def:valid_dist}
-A valid $\RV{X}$ probability distribution $\prob{P}^{\RV{X}}$ is any probability mesure on $\Delta(X)$ such that $\RV{X}^{-1}(x)=\emptyset\implies \prob{P}^{\RV{X}}(x) = 0$.
+A valid $\RV{X}$-probability distribution $\prob{P}^{\RV{X}}$ is any probability mesure on $\Delta(X)$ such that $\RV{X}^{-1}(A)=\emptyset\implies \prob{P}^{\RV{X}}(A) = 0$ for all $A\in\sigalg{X}$.
 \end{definition}
 
-\begin{definition}[Valid candidate conditional]\label{def:valid_conditional_prob}
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{valid $\RV{Y}|\RV{X}$ conditional probability} $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$ such that it assigns probability 0 to contradictions:
-\begin{align}
-	\forall y\in Y, x\in X: (\RV{X},\RV{Y})\yields(x,y) = \emptyset \implies \left(\prob{P}^{\RV{Y}|\RV{X}}(y|x) = 0\right) \lor \left(\RV{X}\yields (x) = \emptyset\right)
-\end{align}
-\end{definition}
 
-The definition of conditional probability (Definition \ref{def:disint}) allows in some cases for conditional probabilities that are not valid candidate conditionals. In Theorem \ref{th:valid_disint} we prove that it is always possible to choose a version of a conditional probability that is also a valid candidate conditional. See also \citet{hajek_what_2003} for an argument that conditional probabilities should always satisfy the property of being valid candidate conditionals.
-
-With valid candidate distributions and valid candidate conditionals, we can define order 0 probability gap models.
-
-\begin{definition}[Order 0 probability gap model]
-Given probability set $\Omega$ and variable $\RV{X}:\Omega \to X$, define the valid candidate conditionals $A\subset \Delta(\Omega)^X$. An order 0 probability gap model is a function $\prob{P}:A\to \Delta(\Omega)$ such that some $\prob{P}^{\RV{X}}\in \Delta(X)$ is a marginal distribution with respect to $\prob{P}$.
-\end{definition}
-
-\begin{definition}[Order 0 model associated with a given marginal]\label{def:order_0_marg}
-Given probability set $\Omega$ and variable $\RV{X}:\Omega \to X$, valid candidate conditionals $A\subset \Delta(\Omega)^X$ and a valid candidate distribution $\prob{P}^{\RV{X}}\in \Delta(X)$, define $\prob{P}:A\to \Delta(\Omega)$ by $\kernel{K}\in A$, $\prob{P}$ is given by
-\begin{align}
-	\prob{P}: \kernel{K}\mapsto \prob{P}^{\RV{X}}\kernel{K}
-\end{align}
-for any valid candidate conditional $\kernel{K}\in A$.
-\end{definition}
-
-Theorem \ref{th:completion} shows that Definition \ref{def:order_0_marg} does actually define an order 0 model with marginal $\prob{P}^{\RV{X}}$.
-
-\begin{theorem}[Completion]\label{th:completion}
-Given $\RV{X}:\Omega\to X$, $\kernel{J}\in \Delta(X)$ and $\kernel{K}:X\kto \Omega$, there exists some $\mu\in \Delta(\Omega)$ and $\RV{Y}:\Omega\to Y$ such that $\kernel{J}\odot \kernel{K}=\mu^{\RV{Y}}$ and $\mu^{\RV{X}}=\kernel{J}$ if $\kernel{J}$ is a valid candidate distribution and $\kernel{K}$ is a valid candidate conditional, and only if $\kernel{J}$ is a valid candidate distribution.
+\begin{theorem}[Validity]\label{th:completion}
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\kernel{J}\in \Delta(X)$ with $\Omega$ and $X$ standard measurable, there exists some $\mu\in \Delta(\Omega)$ such that $\mu^{\RV{X}}=\kernel{J}$ if and only if $\kernel{J}$ is a valid candidate distribution.
 \end{theorem}
 
 \begin{proof}
 If:
-Define $\mu$ by
-\begin{align}
-	\mu(\omega) &= \sum_{x\in X} (\kernel{J}\odot \kernel{K})(x,\omega)
-\end{align}
-Then
-\begin{align}
-	\mu^{\RV{X}}(x) &= \mu (\RV{X}\yields x)\\
-	&= \sum_{x'\in X} \kernel{J}(x') \kernel{K}(\RV{X}\yields x|x')\\
-	&= \sum_{x'\in X} \kernel{J}(x') \llbracket x=x'\rrbracket&\text{if }\RV{X}\yields x \neq \emptyset\\
-	&= \kernel{J}(x)
-\end{align}
-and, letting $\RV{Y}=(\RV{X},\RV{I})$, for any $x\in X$, $\omega\in \Omega$
-\begin{align}
-	\mu^{\RV{Y}}(x,\omega) &= \mu^{\RV{XI}}(x,\omega)\\
-	&= \mu(\omega)\mu^{\RV{X}|\RV{I}}(x|\omega)\\
-	&= \sum_{x'\in X} (\kernel{J}\odot \kernel{K})(x',\omega) \llbracket \RV{X}(\omega) = x \rrbracket\\
-	&= (\kernel{J}\odot \kernel{K})(x,\omega)\\
-	&\iff\\
-	\kernel{J}\odot \kernel{K}&=\mu^{\RV{Y}}
-\end{align}
+This is a Theorem 2.5 of \citet{ershov_extension_1975}.
 Only if:
-Suppose $\kernel{J}$ is not a valid probability distribution. Then there is some $x\in X$ such that $\RV{X}\yields x = \emptyset$ but $\kernel{J}(x)>0$. Then
+This is also found in \citet{ershov_extension_1975}, but is simple enough to reproduce here. Suppose $\kernel{J}$ is not a valid probability distribution. Then there is some $x\in X$ such that $\RV{X}\yields x = \emptyset$ but $\kernel{J}(x)>0$. Then
 \begin{align}
 	\mu^{\RV{X}}(x) &= \mu (\RV{X}\yields x)\\
 	&= \sum_{x'\in X} \kernel{J}(x') \kernel{K}(\RV{X}\yields x|x')\\
@@ -494,69 +441,80 @@ Suppose $\kernel{J}$ is not a valid probability distribution. Then there is some
 \end{align}
 \end{proof}
 
-\subsection{Higher order gap models}\label{sec:validity_of_gapprob}
-
-Order 1 gap models are represented by \emph{conditional probabilities} and order 2 gap models by \emph{probability 2-combs}. Order 1 models take valid candidate distributions and map to order 0 gap models using the ``copy-product'' $\odot$. Order 2 models take valid candidate conditionals and, via the ``insert'' operation, yield oer 1 models.
-
-\textbf{A note on terminology:} Probability gap models are written with blackboard letters $\prob{P}$. The same base letter with different superscripts $\prob{P}^{\RV{A}|\RV{B}}$ indicates a conditional probability with respect to $\prob{P}$. We use subscripts to indicate application of the model to an insert $\prob{P}_\alpha:=\prob{P}(\prob{P}^{\RV{X}}_\alpha)$, and $\prob{P}_\alpha$ is the resulting model of lower order. The same base letter with different superscripts $\prob{P}^{\RV{A}|\RV{B}}$ indicates a conditional probability with respect to $\prob{P}$, and $\RV{A}\CI_{\prob{P}} \RV{B}$ is a statement of independence with respect to the model $\prob{P}$.
-
-\begin{definition}[Order 1 probability gap model]
-Given probability set $\Omega$ and variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, denote by $A$ the set of valid candidate distributions on $X$. Then an order 1 probability gap model $\prob{P}$ is a function from $A\to \Delta(X\times Y)$ such that some $\prob{P}^{\RV{Y}|\RV{X}}:X\kto Y$ is a conditional probability with respect to $\prob{P}$.
-\end{definition}
-
-\begin{definition}[Order 1 model defined by a conditional]\label{def:order1_bycond}
-Given probability set $\Omega$ and variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $A$ the set of valid candidate distributions on $X$ and valid candidate conditional $\prob{P}^{\RV{Y}|\RV{X}}$, define $\prob{P}:A\to \Delta(X\times Y)$ to be the order 1 model such that defined by
+\begin{definition}[Valid candidate conditional]\label{def:valid_conditional_prob}
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{valid $\RV{Y}|\RV{X}$ conditional probability} $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$ such that it assigns probability 0 to contradictions:
 \begin{align}
-	\prob{P}_\alpha^{\RV{X}} \mapsto \prob{P}_\alpha^{\RV{X}}\odot\prob{P}^{\RV{Y}|\RV{X}}
+	\forall B\in \sigalg{Y}, x\in \sigalg{X}: (\RV{X},\RV{Y})\yields \{x\}\times B = \emptyset \implies \left(\prob{P}^{\RV{Y}|\RV{X}}(A|x) = 0\right) \lor \left(\RV{X}\yields \{x\} = \emptyset\right)
 \end{align}
-For any valid candidate distribution $\prob{P}_\alpha^{\RV{X}}\in A$.
 \end{definition}
 
-The notation $\prob{P}^{\square \RV{Y}|\RV{X}}$ is shorthand for an order 1 model $\prob{P}$ defined by a conditional $\prob{P}^{\RV{Y}|\RV{X}}$.
+The definition of conditional probability (Definition \ref{def:disint}) allows in some cases for conditional probabilities that are not valid candidate conditionals. In Theorem \ref{th:valid_disint} we prove that it is always possible to choose a version of a conditional probability that is also a valid candidate conditional. See also \citet{hajek_what_2003} for an argument that conditional probabilities should always satisfy the property of being valid candidate conditionals.
 
-Theorem \ref{th:valid_conditional_probability} shows that Definition \ref{def:order1_bycond} is indeed an order 1 model.
+The particular property we show for valid candidate conditionals is that if we combine them with other valid candidate conditionals via the operation $\odot$ (Definition \ref{def:copyproduct}) then we are left with a valid candidate conditional (Theorem \ref{th:valid_conditional_probability}). This reduces to a valid candidate distribution in the case of conditioning on the trivial variable $*$ (Lemma \ref{th:valid_agree}). Because $\odot$ leaves us with a subset of the intersection of the probability sets defined by the two inputs (Theorem \ref{th:intersection}), this also shows that valid candidate conditionals define non-empty probability sets.
 
-First, we show that Definitions \ref{def:valid_dist} and \ref{def:valid_conditional_prob} define equivalent notions of validity.
+Therefore, as long as we limit ourselves to valid candidate conditionals, we can use them to represent probability sets and intersect the sets using $\odot$ and we are guaranteed not to end up with empty probability sets.
+
+\begin{definition}[Copy-product]\label{def:copyproduct}
+Given two Markov kernels $\prob{K}:X\kto Y$ and $\prob{L}:Y\times X\kto Z$, define the copy-product $\prob{K}\odot\prob{L}:X\to Y\times Z$ as
+\begin{align}
+	\prob{K}\odot\prob{L}:&= \text{copy}_X(\prob{K}\otimes \text{id}_X)(\text{copy}_Y\otimes\text{id}_X )(\text{id}_Y \otimes \prob{L})\\
+							&= \tikzfig{copy_product}\\
+							&\iff\\
+	(\prob{K}\odot\prob{L})(A\times B|x) &= \int_B \prob{L}(A|y,x)\prob{K}(dy|x)
+\end{align}
+\end{definition}
+
+\begin{theorem}[Copy-product is an intersection of probability sets]\label{th:intersection}
+Given $\Omega$, $\RV{X}$, $\RV{Y}$, $\RV{Z}$ all standard measurable, and valid candidate conditionals $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}$ with $\prob{P}_{\{\}}$ the largest probability set with conditional $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{Q}_{\{\}}$ the largest probability set with conditional $\prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}$, then the largest probability set $\prob{R}_{\{\}}$ with conditional $\prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}=\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}$ is equal to $\prob{R}_{\{\}}=\prob{P}_{\{\}}\cap\prob{Q}_{\{\}}$.
+\end{theorem}
+
+\todo[inline]{Make sure this works for a.s. equality}
+
+\begin{proof}
+By Theorem \ref{th:recurs_pushf}, $\prob{R}_{\{\}}^{\RV{Y}|\RV{X}}=\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ so $\prob{R}_{\{\}}\subset\prob{P}_{\{\}}$. Furthermore by construction $\prob{R}_{\{\}}^{\RV{Z}|\RV{YX}}=\prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}$ so $\prob{R}_{\{\}}\subset \prob{P}_{\{\}}\cap\prob{Q}_{\{\}}$.
+
+Suppose there's an element $\prob{S}$ of $\prob{P}_{\{\}}\cap\prob{Q}_{\{\}}$ not in $\prob{R}_{\{\}}$. Then $\prob{S}^{\RV{YZ}|\RV{X}}\neq \prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}$. But by assumption $\prob{S}^{\RV{Z}|\RV{YX}} = \prob{R}_{\{\}}^{\RV{Z}|\RV{YX}}$ and $\prob{S}^{\RV{Y}|\RV{X}} = \prob{R}_{\{\}}^{\RV{Y}|\RV{X}}$. But then $\prob{S}^{\RV{YX}|\RV{X}} = \prob{R}_{\{\}}^{\RV{Y}|\RV{X}} \odot \prob{R}_{\{\}}^{\RV{Z}|\RV{YX}} = \prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}$, contradiction.
+\end{proof}
 
 \begin{lemma}[Equivalence of validity definitions]\label{th:valid_agree}
-Given $\RV{X}:\Omega\to X$, with $\Omega$ and $X$ discrete, a probability measure $\prob{P}^{\RV{X}}\in \Delta(X)$ is valid if and only if the conditional $\prob{P}^{\RV{X}|*}:=*\mapsto \prob{P}^{\RV{X}}$ is valid.
+Given $\RV{X}:\Omega\to X$, with $\Omega$ and $X$ standard measurable, a probability measure $\prob{P}^{\RV{X}}\in \Delta(X)$ is valid if and only if the conditional $\prob{P}^{\RV{X}|*}:=*\mapsto \prob{P}^{\RV{X}}$ is valid.
 \end{lemma}
 
 \begin{proof}
 $*\yields *=\Omega$ necessarily. Thus validity of $\prob{P}^{\RV{X}|*}$ means 
 
 \begin{align}
-	\forall x\in X: \RV{X}\yields (x)=\emptyset \implies \prob{P}^{\RV{X}|*}(x|*)&=0\\
-	&= \prob{P}^{\RV{X}}(x)\label{eq:nec_and_suff}
+	\forall A\in \sigalg{X}: \RV{X}\yields A=\emptyset \implies \prob{P}^{\RV{X}|*}(A|*)&=0
 \end{align}
 
-If: We refer to \citet{ershov_extension_1975} Theorem 2.5 for the proof that Equation \ref{eq:nec_and_suff} is necessary and sufficient for the existence of $\prob{P}^{\RV{I}}$ such that $\prob{P}^{\RV{I}}(\RV{X}^{-1}(A))=\prob{P}^{\RV{X}}(A)$ for all $A\in \sigalg{X}$ when $(\Omega,\sigalg{F})$ and $(X,\sigalg{X})$ are standard measurable. If $\Omega$ and $X$ are discrete, then they are standard measurable.
+But $\prob{P}^{\RV{X}|*}(A|*)=\prob{P}^{\RV{X}}(A)$ by definition, so this is equivalent to
 
-Only if: If $\RV{X}\yields x=\emptyset$ then $\prob{P}^{\RV{X}}(x)=\prob{P}^{\RV{I}}(\emptyset)=0$.
+\begin{align}
+	\forall A\in \sigalg{X}: \RV{X}\yields A=\emptyset \implies \prob{P}^{\RV{X}}(A)&=0
+\end{align}
 \end{proof}
 
-Next, we show that 
 
-\begin{lemma}[Product of valid candidate conditionals is valid]\label{lem:valid_extendability}
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and any valid candidate conditional $\prob{P}^{\RV{Y}|\RV{X}}$ and $\prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$, $ \prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$ is also a valid candidate conditional.
+\begin{lemma}[Copy-product of valid candidate conditionals is valid]\label{lem:valid_extendability}
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ (all spaces standard measurable) and any valid candidate conditional $\prob{P}^{\RV{Y}|\RV{X}}$ and $\prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$, $ \prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$ is also a valid candidate conditional.
 \end{lemma}
 
 \begin{proof}
 Let $\prob{R}^{\RV{YZ}|\RV{X}}:=\prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$.
 
-We only need to check validity in $x\in \RV{X}(\Omega)$, as it is automatically satisfied for other values of $\RV{X}$.
+We only need to check validity for each $x\in \RV{X}(\Omega)$, as it is automatically satisfied for other values of $\RV{X}$.
 
-For all $x\in \RV{X}(\Omega)$, $\RV{X}\yields x\cap\RV{Y}\yields y=\emptyset$, $\prob{P}^{\RV{Y}|\RV{X}}(y|x)=0$ by validity. Thus
+For all $x\in \RV{X}(\Omega)$, $B\in \sigalg{Y}$ such that $\RV{X}\yields \{x\}\cap\RV{Y}\yields B=\emptyset$, $\prob{P}^{\RV{Y}|\RV{X}}(B|x)=0$ by validity. Thus for arbitrary $C\in \sigalg{Z}$
 \begin{align}
-	\prob{R}^{\RV{YZ}|\RV{X}}(y,z|x) &= \prob{Q}^{\RV{Z}|\RV{YX}}(z|y,x)\prob{P}^{\RV{Y}|\RV{X}}(y|x)\\
-								  &\leq \prob{P}^{\RV{Y}|\RV{X}}(y|x)\\
+	\prob{R}^{\RV{YZ}|\RV{X}}(B\times C|x) &= \int_B \prob{Q}^{\RV{Z}|\RV{YX}}(C|y,x)\prob{P}^{\RV{Y}|\RV{X}}(dy|x)\\
+								  &\leq \prob{P}^{\RV{Y}|\RV{X}}(B|x)\\
 								  &=0
 \end{align}
 
-For all $(x,y)\in (\RV{X},\RV{Y})(\Omega)$, $z\in Z$ such that $(\RV{X},\RV{Y},\RV{Z})\yields (x,y,z)=\emptyset$, $\prob{Q}^{\RV{Z}|\RV{YX}}(z|y,x)=0$ by validity. Thus for any such $(x,y,z)$:
+For all $\{x\}\times B$such that $\RV{X}\yields \{x\}\cap\RV{Y}\yields B\neq \emptyset$ and $C\in \sigalg{Z}$ such that $(\RV{X},\RV{Y},\RV{Z})\yields \{x\}\times B\times C=\emptyset$, $\prob{Q}^{\RV{Z}|\RV{YX}}(C|y,x)=0$ for all $y\in B$ by validity. Thus:
 \begin{align}
-	\prob{R}^{\RV{YZ}|\RV{X}}(y,z|x) &= \prob{Q}^{\RV{Z}|\RV{YX}}(z|y,x)\prob{P}^{\RV{Y}|\RV{X}}(y|x)\\
-								  &=0
+	\prob{R}^{\RV{YZ}|\RV{X}}(B\times C|x) &= \int_B \prob{Q}^{\RV{Z}|\RV{YX}}(C|y,x)\prob{P}^{\RV{Y}|\RV{X}}(dy|x)\\
+								  			&=0
 \end{align}
 \end{proof}
 
@@ -583,6 +541,88 @@ Only if: suppose $\prob{T}^{\RV{Y}|\RV{X}}$ is invalid. Then there is some $x\in
 \end{align}
 Hence $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is invalid.
 \end{proof}
+
+\subsection{Probability gap models}
+
+A probability gap model is a probability set equipped with a domain, which is a set of probability sets and we refer to it as a \emph{probability gap}. Here we focus on probability sets that can be intersected using the operation $\odot$ (see Theorem \ref{th:intersection}). Thus we can equivalently view probability gap models as ``incomplete sequences'' of conditional probabilities, and probability gaps as sets of alternative conditional probabilities that complete the sequences.
+
+\textbf{A note on terminology:} Probability gap models are written with blackboard letters $\prob{P}_\square$. The same base letter with different superscripts $\prob{P}_\square^{\RV{A}|\RV{B}}$ indicates a conditional probability with respect to $\prob{P}_\square$. We use subscripts to indicate both the model obtained by applying particular choices of insert $\prob{P}_\alpha:=\prob{P}_\square \cap \alpha$. $\RV{A}\CI_{\prob{P}_\square} \RV{B}$ is a statement of independence with respect to the model $\prob{P}_\square$.
+
+We define order 1 and order 2 probability gap models explicitly.
+
+\begin{definition}[Order 1 probability gap model]\label{def:order1_bycond}
+Given probability set $\Omega$ and variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a set $A$ of valid candidate distributions on $X$, an order 1 probability gap model $\prob{P}_\square: A\to \mathscr{P}(\Delta(\Omega))$ is map from $A$ to probability sets on $\Omega$ defined by a valid candidate conditional $\prob{P}_\square^{\RV{Y}|\RV{X}}$ such that for all $\alpha\in A$
+\begin{align}
+	\alpha &\overset{\prob{P}_\square}{\mapsto} \alpha\odot\prob{P}_\square^{\RV{Y}|\RV{X}}\\
+	&=: \prob{P}_\alpha^{\RV{XY}}
+\end{align}
+As a shorthand, we will use $(\prob{P}_\square^{\RV{Y}|\RV{X}},A)$ to represent an order 1 model.
+\end{definition}
+
+
+\todo[inline]{The following is a placeholder definition for order 2 models}
+
+\begin{definition}[Order 2 probability gap model]
+Given probability set $\Omega$ and variables $\RV{W}:\Omega\to X$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega \to Z$ and a set $A$ of valid candidate conditionals on $X\kto Y$, an order 2 probability gap model $\prob{P}_\square: A\to \mathscr{P}(\Delta(\Omega))$ is map from $A$ to probability sets on $\Omega$ defined by a pair of valid candidate conditionals $(\prob{P}_\square^{\RV{X}|\RV{W}},\prob{P}_\square^{\RV{Z}|\RV{WXY}})$ such that for all $\alpha\in A$
+\begin{align}
+	\alpha &\overset{\prob{P}_\square}{\mapsto} \prob{P}_\square^{\RV{X}|\RV{W}} \odot \alpha\odot\prob{P}_\square^{\RV{Y}|\RV{X}}\\
+	&=: \prob{P}_\alpha^{\RV{XYZ}|\RV{W}}
+\end{align}
+As a shorthand, we will use $(\prob{P}_\square^{\RV{X}|\RV{W}},\prob{P}_\square^{\RV{Z}|\RV{WXY}},A)$ to represent an order 1 model with a probability gap $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$
+\end{definition}
+
+\todo[inline]{The following defininitions and results are quite important, but they are not up to date with the rest of the paper}
+
+Order-2 gap models are models that take conditional probabilities as inputs, and that are represented by pairs of conditional probabilities where the second conditional probability has a missing input. More precisely, they can be represented with \emph{probability 2-combs} \citep{chiribella_quantum_2008,jacobs_causal_2019}.
+
+\begin{definition}[Probability 2-comb]
+Given $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:W\times Y\kto X\times Z$ is a Markov kernel such that for some $\prob{P}^{\RV{X}|\RV{W}}:W\kto X$
+\begin{align}
+	\tikzfig{2_comb_properdef}
+\end{align}
+\end{definition}
+
+The validity criteria for probability 2-combs can be relaxed slightly from the validity criteria for a pair of valid conditional probabilities \todo{but I don't think this is a very important point and I have struggled to generalise it to standard measurable sets.}
+
+\begin{definition}[Valid probability 2-comb]
+$\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:W\times Y\kto X\times Z$, all sets discrete, is a valid probability 2-comb if
+\begin{enumerate}
+	\item $\prob{P}^{\RV{X}|\RV{W}}$ is a valid conditional probability
+	\item $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)=\emptyset$ implies $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$
+\end{enumerate}
+\end{definition}
+
+Wherever we have kernel disintegrations, there exists some $\prob{P}^{\RV{Z}|\RV{WXY}}:W\times X\times Y\kto Z$ (Lemma \ref{lem:disint_exist}) such that
+\begin{align}
+	\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}} &= \tikzfig{probability_2_comb}
+\end{align}
+
+We define the operation $\text{insert}$ that takes a 2-comb and a conditional probability and returns a conditional probability.
+
+\begin{align}
+	\text{insert}(\prob{P}_\alpha^{\RV{Y}|\RV{XW}},\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}) = \prob{P}^{\RV{X}|\RV{W}}\odot\prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \prob{P}^{\RV{Z}|\RV{WXY}}\label{eq:insert}
+\end{align}
+
+We can depict this operation graphically in a somewhat informal way as ``inserting'' $\prob{P}_\alpha^{\RV{Y}|\RV{XW}}$ into $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$:
+
+\begin{align}
+	\text{Insert}\left(\tikzfig{insert_opn2}\right)\\= \tikzfig{2comb_inserted}\label{eq:insert_op}
+\end{align}
+
+\begin{definition}[Order 2 probability gap model]
+Given probability set $\Omega$ and variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and $A$ the set of valid candidate $\RV{Y}|\RV{X}$ conditionals and B the set of valid candidate $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditionals, an order 2 probability gap model is a map $\prob{P}:A\to B$ such that there exists some conditional probabilities $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$
+\end{definition}
+
+\begin{definition}[Order 2 model defined by a 2-comb]
+Given a valid conditional probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, and $\prob{P}$ is the map from valid $\RV{Y}|\RV{X}$ conditional probabilities to valid $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditional probabilities given by
+\begin{align}
+	\prob{P}_{\alpha}^{\RV{XYZ}|\RV{W}} = \prob{P}^{\RV{X}|\RV{W}}\odot\prob{P}^{\RV{Y}|\RV{X}}_\alpha \odot \prob{P}^{\RV{Z}|\RV{WXY}}
+\end{align}
+for any valid $\RV{Y}|\RV{X}$ conditional probability $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
+\end{definition}
+
+An order 2 probability gap model $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ can be defined by a pair of disintegrations $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$. Just as with order 1 probability gap models, the two conditional probabilities defining a probability 2-comb must be \emph{valid}. Theorem \ref{th:extension_2comb_valid} shows that the insert operation yields a valid conditional probability given any valid inputs.
+
 % We finally note that a conditional probability $\prob{P}^{\RV{Y}|\RV{X}}$ along with the copy-product $\odot$ corresponds precisely to the set of insert compatible mixture homomorphisms.
 
 % \begin{definition}[Marginalisation]
@@ -632,55 +672,6 @@ Hence $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is invalid.
 % 	f(\mu) = \mu\odot \kernel{L}
 % \end{align}
 
-\subsection{Order 2 gaps: probability combs}
-
-An order-2 gap model can be extended with an order-1 gap model to yield an order-1 gap model. Order-2 gap models are represented by \emph{probability 2-combs} \citep{chiribella_quantum_2008,jacobs_causal_2019}.
-
-\begin{definition}[Probability 2-comb]
-Given $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:W\times Y\kto X\times Z$ is a Markov kernel such that for some $\prob{P}^{\RV{X}|\RV{W}}:W\kto X$
-\begin{align}
-	\tikzfig{2_comb_properdef}
-\end{align}
-\end{definition}
-
-\begin{definition}[Valid probability 2-comb]
-$\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:W\times Y\kto X\times Z$ is a valid probability 2-comb if
-\begin{enumerate}
-	\item $\prob{P}^{\RV{X}|\RV{W}}$ is a valid conditional probability
-	\item $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)=\emptyset$ implies $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$
-\end{enumerate}
-\end{definition}
-
-With discrete sets, and in general wherever we have kernel disintegrations, there exists some $\prob{P}^{\RV{Z}|\RV{WXY}}:W\times X\times Y\kto Z$ (Lemma \ref{lem:disint_exist}) such that
-\begin{align}
-	\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}} &= \tikzfig{probability_2_comb}
-\end{align}
-
-We define the operation $\text{insert}$ that takes a 2-comb and a conditional probability and returns a conditional probability.
-
-\begin{align}
-	\text{insert}(\prob{P}_\alpha^{\RV{Y}|\RV{XW}},\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}) = \prob{P}^{\RV{X}|\RV{W}}\odot\prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \prob{P}^{\RV{Z}|\RV{WXY}}\label{eq:insert}
-\end{align}
-
-We can depict this operation graphically in a somewhat informal way as ``inserting'' $\prob{P}_\alpha^{\RV{Y}|\RV{XW}}$ into $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$:
-
-\begin{align}
-	\text{Insert}\left(\tikzfig{insert_opn2}\right)\\= \tikzfig{2comb_inserted}\label{eq:insert_op}
-\end{align}
-
-\begin{definition}[Order 2 probability gap model]
-Given probability set $\Omega$ and variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and $A$ the set of valid candidate $\RV{Y}|\RV{X}$ conditionals and B the set of valid candidate $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditionals, an order 2 probability gap model is a map $\prob{P}:A\to B$ such that there exists some conditional probabilities $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$
-\end{definition}
-
-\begin{definition}[Order 2 model defined by a 2-comb]
-Given a valid conditional probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, and $\prob{P}$ is the map from valid $\RV{Y}|\RV{X}$ conditional probabilities to valid $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditional probabilities given by
-\begin{align}
-	\prob{P}_{\alpha}^{\RV{XYZ}|\RV{W}} = \prob{P}^{\RV{X}|\RV{W}}\odot\prob{P}^{\RV{Y}|\RV{X}}_\alpha \odot \prob{P}^{\RV{Z}|\RV{WXY}}
-\end{align}
-for any valid $\RV{Y}|\RV{X}$ conditional probability $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
-\end{definition}
-
-An order 2 probability gap model $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ can be defined by a pair of disintegrations $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$. Just as with order 1 probability gap models, the two conditional probabilities defining a probability 2-comb must be \emph{valid}. Theorem \ref{th:extension_2comb_valid} shows that the insert operation yields a valid conditional probability given any valid inputs.
 
 % \begin{theorem}[Equivalence of 2-comb disintegrations]\label{th:equiv_insert}
 % Given a 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ and any two disintegrations $\prob{P}^{\RV{Z}|\RV{WXY}}_1$, $\prob{P}^{\RV{Z}|\RV{WXY}}_2$, for all valid extensions $\prob{P}_\alpha^{\RV{Y}|\RV{XW}}$
@@ -990,10 +981,6 @@ Thus for any $(a,b,c,d,e)\in A\times B\times C\times D\times E$ such that $\prob
 	&= \tikzfig{indep_strengthen_4}
 \end{align}
 \end{proof}
-
-\subsection{Recursive disintegration}
-
-A useful property of probability gap models is \emph{recursive disintegration}. If we have any probability gap model $\prob{P}$ and a disintegration $\prob{P}^{\RV{Y}|\RV{X}}$, then defining a new order 1 probability gap model $\prob{Q}^{\square\RV{Y}|\RV{X}}$ such that $\prob{Q}^{\RV{Y}|\RV{X}}=\prob{P}^{\RV{Y}|\RV{X}}$, disintegrations of $\prob{Q}$ are themselves disintegrations of $\prob{P}$.
 
 
 \begin{corollary}[Recursive independence]
