@@ -2,11 +2,11 @@
 
 \section{Repeatable experiments}
 
-While there are types of measurement processes we could consider, statistical inference usually proceeds from repeatable measurement processes. A common precise notion of repeatability is the assumption of \emph{exchangeability}. The term ``exchangeability'', like the term random variable, is used to refer to both \emph{measurement processes} and \emph{probability models}. If I say a measurement process $\proc{S}$ taking values in $S^n$ is exchangeable, I might mean mean:
+While there are types of measurement processes we could consider, statistical inference usually proceeds from repeatable measurement processes. A common precise notion of repeatability is the assumption of \emph{exchangeability}. The term ``exchangeability'', like the term random variable, is used to refer to assumptions about \emph{measurement processes} as well as properties of \emph{probability models}. If I say a measurement process $\proc{S}$ taking values in $S^n$ is exchangeable, I might mean:
 \begin{itemize}
     \item I believe that there is some probabilistic model $(\prob{P},\Omega,\sigalg{F})$ and random variable $\RV{S}$ appropriate for modelling $\proc{S}$ and
     \begin{enumerate}
-        \item The same model is appropriate for any measurement process that first peforms $\proc{S}$ and subsequently shuffles the results according to a permutation $\text{swap}:S^n\to S^n$ or
+        \item The same model is appropriate for any measurement process that first peforms $\proc{S}$ and subsequently shuffles the results according to any permutation $\text{swap}_a:S^n\to S^n$ or
         \item The same model is appropriate for any measurement process related to $\proc{S}$ by interchanging experimental units or subjects in the real world
     \end{enumerate} 
 \end{itemize}
@@ -14,28 +14,25 @@ While there are types of measurement processes we could consider, statistical in
 On the other hand, if I say a probability model $(\prob{P},S^{|A|},\sigalg{S}^{|A|})$ is exchangeable, I mean
 
 \begin{itemize}
-    \item For any finite permutation $\text{swap}:S^{|A|}\kto S^{|A|}$, $\prob{P}^{\RV{S}}\text{swap}_{a} = \prob{P}^{\RV{S}}$
+    \item For any finite permutation $\text{swap}_A:S^{|A|}\kto S^{|A|}$, $\prob{P}^{\RV{S}}\text{swap}_{a} = \prob{P}^{\RV{S}}$
 \end{itemize}
 
-If I believe a measurement process is exchangeable in the first sense, it implies an exchangeable probability model is appropriate to model it. Measurement process exchangeability in the second sense, which is what is usually meant by ``exchangeable'' when it is mentioned in literature on causal modelling, requires us to make explicit what the mathematical implications of ``interchanging experimental units'' are, because experimental units are parts of the real world and not directly elements of any model.
+If I believe a measurement process is exchangeable in the first sense, then this implies that the same probability model is appropriate to model $\proc{S}$ as to model $\text{swap}_a\circ \proc{S}$, which implies that $\prob{P}^{\RV{S}}$ should be an exchangeable probability model. Measurement process exchangeability in the second sense requires us to make explicit the mathematical implications of ``interchanging experimental units'', as our semantics of random variables do not say anything about swapping things in the real world. However, the second kind of measurement process exchangeability is more interesting in the context of causal modelling. When we are \emph{acting} on the world, our future actions will often depend on what we have observed in the past, which will often rule out exchangeability in the first sense. Furthermore, our actions have consequences and so permuting the \emph{labels} associated with actions while not actually changing the actions we take is not a particularly interesting operation. Rather, we are interested in how a model might or might not change if we swap the \emph{actual actions} we take. Swapping experimental units while holding actions constant is one way to achieve this, as it changes the identity of which unit receives which action. See \citet{dawid_decision-theoretic_2020} and \citet{greenland_identifiability_1986} for further discussions of exchangeability in the context of causal modelling, and note that both authors consider exchanging to be an operation that alters which person receives which treatment.
 
-The precise mathematical implication of the first kind of measurement process exchangeability facilitated the proof of De Finetti's well-known representation theorem; in our language, De Finetti's representation theorem shows the equivalence between the probability gap models defined by ``the random variables $\RV{X}_i$ are an infinite exchangeable sequence'' and model defined by ``the random variables $\RV{X}_i$ are independent and identically distributed condtional on the hypothesis $\RV{H}$'' (proofs of De Finetti's theorem provide definitions $\RV{H}$).
+De Finetti's well-known representation theorem shows that exchangeable probability models feature a ``hypothesis'' $\RV{H}$ such that the sequence $\RV{S}$ is independent and identically distributed conditional on $\RV{H}$. That is: a measurement process that is exchangeable in the first sense should be modelled by a conditionally indpendent and identically distributed sequence of random variables. The question we want to address here is whether measurement processes that are exchangeable in the second sense imply causal models with particular structure. The answer is yes, although as we discuss the key assumption is \emph{causal contractibility} rather than exchangeability.
 
-De Finetti's theorem shows that the assumption of measurement process exchangeability implies a model of conditionally independent and identically distributed random variables. The question arises: can we make precise a notion of ``interchanging experimental units'' that implies common causal modelling assumptions found in causal Bayesian network and potential outcomes literature? Answering this question is complicated by the fact that some of the modelling assumptions we are seeking to reproduce have often only been stated informally.
+In this section, we will consider \emph{do-models}; these are see-do models $(\prob{P},\RV{X},\RV{D},\RV{Y},R)$ for which the observations are trivial $\RV{X}=*$. Because observations are things of a different type to consequences -- they are not affected by actions -- to explore ideas related to symmetries of actions and consequences it is substantially simpler to ignore them. We will investigate how we can add observations to symmetric consequence models.
 
-In this section, we will consider \emph{do-models}; these are see-do models $(\prob{P},\RV{X},\RV{D},\RV{Y},R)$ for which the observations are trivial $\RV{X}=*$. These models cannot be compared directly to common causal models, which are generally see-do models with nontrivial observations. We ignore observations because they allow us to focus on the question of how to construct models of repeatable experiments involving both decisions and consequences. Once we know how to do this, we can introduce nontrivial observations and see how the resulting models correspond to certain types of causal Bayesian network and potential outcomes models.
-
-We will consider two different notions of ``repeatable experiments''. Both require a sequence of ``decisions'' to be made and a sequence of consequences, and we assume that each decision corresponds to a single consequence. One could think about these paired sqeuences as a series of experiments each with different setting choices available; the decisions are the setting choices and the consequences are the results of each experiment. The first notion we consider will be \emph{commutativity of exchange} -- we consider the same model appropriate if we alter our experiment by swapping the experimental settings, or if we make analogous swaps to the experimental results. This assumption could be considered a version of the assumption that experimental units can be interchanged. Consider an experiment involving handing out money or not to person A or person B. Commutativity of exchange says that we should expect the same results from 
+We will consider two different notions of ``repeatable experiments''. Both require a sequence of ``decisions'' to be made and a sequence of consequences, and we assume that each decision corresponds to a single consequence. One could think about these paired sqeuences as a series of experiments each with different setting choices available; the decisions are the setting choices and the consequences are the results of each experiment. The first notion we consider will be \emph{commutativity of exchange} -- we consider the same model appropriate if we alter our experiment by swapping the experimental settings, or if we make analogous swaps to the experimental results. This assumption could be considered a version of the assumption that experimental units can be interchanged. Consider an experiment involving handing out money or not to person A or person B. Commutativity of exchange says that we should use the same probability model to represent the following two predictions: 
 \begin{itemize}
-    \item Applying A's choice to B and examining the consequences for B
-    \item Applying A's choice to A and examining the consequences for A
+    \item Applying choice 1 to A and choice 2 to B and predicting the vector (consequences for A, consequences for B)
+    \item Applying choice 2 to A and choice 1 to B and predicting the vector (consequences for B, consequences for A)
 \end{itemize}
 
-Under the assumption of commutativity of exchange, consequences of decisions for one ``unit'' may still depend on decisions made for other ``units''. Consider again the experiment above, except instead of two people it is a whole country of people. It might be reasonable to posit that the consequences of giving money to A and not to anyone else are a permutation of the consequences of giving money to B and not to anybody else (supposing we know nothing else about A and B). However, giving money to A and everyone else will have different consequences for A than giving money to A and no-one else; in the former case, we will create inflation that is not created in the latter.
+Under the assumption of commutativity of exchange, consequences of decisions for one ``experimental unit'' may still depend on decisions made for other ``experimental units''. Consider again the experiment above, except instead of two people we are considering giving money to everyone in a particular country. Supposing we don't otherwise know much about the people we are giving money to, it might be reasonable to posit that a model of the consequences should observe commutativity of exchange. However, giving money to A as well as everyone else will have different consequences for A than giving money to A and no-one else; in the former case, we will create more inflation than in the latter.
 
 The second notion of ``repeatable experiments'' is \emph{causal contractibility}, a strictly stronger assumption than commutativity of exchange. Causal contractibility is the assumption that, given two different sequences of decisions, the marginal model of consequences corresponding to matching subsequences of decisions will be equal. A causally contractibly model says that, if I make the same choice for any subcollection of experiments, I expect the same results from those experiments regardless of whatever choices I make elsewhere.
 
-Causal contractibility is equivalent to the existence of an exchangeable ``table lookup'' model that is has much in common with potential outcomes based causal models. The assumption of exchangeability of the lookup table is weaker than the assumption of ``exchangeable potential outcomes'' found in, for example, \citet{greenland_identifiability_1986}; this latter assumption could be called ``conditional exchangeability''.
 
 % Another way to see where we are going is to consider graphical statements of our and De Finetti's result.
 
@@ -61,9 +58,11 @@ Causal contractibility is equivalent to the existence of an exchangeable ``table
 
 % We will further argue that the class of see-do models considered in CBN and potential outcomes literature is equivalent to the family of causally contractible and exchangeable do-models where the decision rule for the first $n$ places is fixed to an unknown value, and may be freely chosen thereafter.
 
-\subsection{Assumptions of repeatability and their consequences}
+\subsection{Assumptions of repeatability applicable to models of decisions and consequences}
 
-A do model is a see-do model with nothing to see. It is purely a model of decisions and consequences.
+In this section we formalise the notion of commutativity of exchange and causal contractibility. We will then go on to prove two representation theorems for causally contractible models -- firstly, that they can be represented with a tabular probability model and a lookup function, a construction that is very similar to the kinds of causal models employed by the potential outcomes framework. Secondly, we will show that contractible causal models can also be represented by jointly independent repetitions of a ``unit-level consequence map'', indexed by a hypothesis $\RV{H}$.
+
+To begin with, we will define do models, which are see-do models with nothing to see.
 
 \begin{definition}[Do model]\label{def:domodel}
 A \emph{do-model} is a see-do model $(\prob{P},\RV{X},\RV{D},\RV{Y},R)$ with trivial observations $\RV{X}=*$; we omit $\RV{X}$ and define it by $(\prob{P},\RV{D},\RV{Y},R)$.
@@ -80,7 +79,7 @@ Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P}
 Then $\prob{P}$ \emph{commutes with exchanges}.
 \end{definition}
 
-A do model with causal contractibility must give identical results for any identical subsequences of two decisions when we limit our attention to the corresponding subsequences of consequences. For example, if we have $\RV{D}=(\RV{D}_1,\RV{D}_2,\RV{D}_3)$ and $\RV{Y}=(\RV{Y}_1,\RV{Y}_2,\RV{Y}_3)$ and $\prob{P}_\alpha^{\RV{D}_1\RV{D}_3}=\prob{P}_\beta^{\RV{D}_3\RV{D}_2}$ then $\prob{P}_{\alpha}^{\RV{Y}_1\RV{Y}_3}=\prob{P}_\beta^{\RV{Y}_3\RV{Y}_2}$.
+A do model is causally contractible if it gives identical results for any identical subsequences of two decisions when we limit our attention to the corresponding subsequences of consequences. For example, if we have $\RV{D}=(\RV{D}_1,\RV{D}_2,\RV{D}_3)$ and $\RV{Y}=(\RV{Y}_1,\RV{Y}_2,\RV{Y}_3)$ and $\prob{P}_\alpha^{\RV{D}_1\RV{D}_3}=\prob{P}_\beta^{\RV{D}_3\RV{D}_2}$ then $\prob{P}_{\alpha}^{\RV{Y}_1\RV{Y}_3}=\prob{P}_\beta^{\RV{Y}_3\RV{Y}_2}$.
 
 \begin{definition}[Causal contractibility]\label{def:caus_cont}
 Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. For any $A=(s_i)_{i\in A}$, $T=(t_i)_{i\in A}$, $A\subset\mathbb{N}$ and $i<j\implies p_i<p_j \And q_i<q_j$, let $\RV{D}_S:=(\RV{D}_i)_{i\in S}$ and $\RV{D}_T:=(\RV{D}_i)_{i\in T}$. If for any $\alpha,\beta\in R$
@@ -91,7 +90,7 @@ then $\prob{P}$ is \emph{causally contractible}.
 \end{definition}
 
 \begin{theorem}
-Piecewise replicability implies commutativity of exchange.
+Causal contractibility implies commutativity of exchange.
 \end{theorem}
 
 \begin{proof}
@@ -110,7 +109,7 @@ Thus by Kolmogorov's extension theorem
 \end{align}
 \end{proof}
 
-Commutativity of exchange does not imply piecewise replicability. Each consequence $\RV{Y}_i$ can depend on a symmetric function of $\RV{D}$ as well as $\RV{D}_i$. For example, suppose $|D|=2$, $D=Y=\{0,1\}$ and we have a do-model $\prob{P}$ such that for all $\alpha\in R$
+Commutativity of exchange does not imply causal contractibility. For example, suppose $|D|=2$, $D=Y=\{0,1\}$ and we have a do-model $\prob{P}$ such that for all $\alpha\in R$
 
 \begin{align}
     \prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(y_1,y_2|d_1,d_2) &= \llbracket (y_1,y_2)= (d_1+d_2,d_1+d_2) \rrbracket
@@ -160,6 +159,10 @@ There is a representation theorem for models that commute with exchange which im
 % The proof that the limit exists and the above equality holds can again be found int \citep{kallenberg_basic_2005}.
 % \end{proof}
 
+\subsection{Representations of contractible probability models}
+
+We prove two representation theorems for causally contractible do models. Theorem \ref{th:table_rep} shows that a do model is contractible if and only if it can be represented with a contractible probability distribution over a ``table of variables''\todo{matrix of variables?} and a lookup function. This is interesting in its own right, as tabular probability distributions and lookup functions are core elements of the potential outcomes approach. Furthermore, we make use of this theorem in proving Theorem \ref{th:iid_rep}, which shows a do model is contractible if and only if it can be represented by independent copies of a unit level consequence map jointly parametrised by a hypothesis. We will argue in the next section that jointly parametrised consequence maps are fundamental to all approaches to causal inference.
+
 \begin{definition}[Contractible probability distribution]
 Given a fundamental probability set $\Omega$, variable $\RV{X}:=(\RV{X}_i)_{i\in \mathbb{N}}$ and a probability distribution $\prob{P}^{\RV{X}}\in\Delta(X^{\mathbb{N}})$, any $S=(s_i)_{i\in A}$, $T=(t_i)_{i\in A}$ with $A\subset\mathbb{N}$ and $i<j\implies s_i<s_j \land t_i<t_j$, let $\RV{X}_S:=(\RV{X}_i)_{i\in S}$ and $\RV{X}_T:=(\RV{X}_i)_{i\in T}$. If
 \begin{align}
@@ -168,59 +171,64 @@ Given a fundamental probability set $\Omega$, variable $\RV{X}:=(\RV{X}_i)_{i\in
  $\prob{P}$ is contractible.
 \end{definition}
 
-If we have a do model $\prob{P}$ that is causally contractible, we can represent it as an exchangeable probability distribution and a lookup function. This representation is very similar to the representation of causal models used by the potential outcomes literature.
+If we have a do model $\prob{P}$ that is causally contractible, we can represent it as an exchangeable probability distribution and a lookup function.
 
-\begin{theorem}[Table representation of causally contractible do models]
-Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. $\prob{P}$ is piecewise replicable if and only if 
+\todo[inline]{The following can be deduced from the theorems after it, but I thought it might be helpful to have the explanation.}
+
+That is, we can define a variable $\RV{Y}^D:\Omega\to Y^{D\times\mathbb{N}}$ which can be represented as a matrix of variables $\RV{Y}_{ij}$
+
 \begin{align}
-    \prob{P}^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
+    \RV{Y}^D &= \tikzfig{Y_table_representation}
 \end{align}
-Where $\prob{P}^{\RV{Y}^D}$ is a contractible probability measure on $Y^{D\times\mathbb{N}}$ with respect to the sequence $\RV{Y}^D:=(\RV{Y}_i^D)_{i\in \mathbb{N}}$ and $\prob{L}^{\RV{D},\RV{Y}^D}$ is the Markov kernel associated with the lookup function
+
+and, given any deterministic decision function $\delta_d$, $d=(d_i)_{i\in\mathbb{N}}\in D^{\mathbb{N}}$, we can find $\prob{P}^{\RV{Y}|\RV{D}}$ by ``looking up'' $d$ in the table. For example, if $d=(1,2,3,2,...)$, Equation \ref{eq:table_lookup_example} illustrates the idea of ``looking up'' the relevant elements of $\RV{Y}^D$ and Equation \ref{eq:table_lookup_cons} illustrates the resulting value of $\prob{P}^{\RV{Y}|\RV{D}}$.
+
 \begin{align}
-    l:D^\mathbb{N}\times Y^{D\times \mathbb{N}}&\to Y^\mathbb{N}\\
-    ((d_i)_\mathbb{N},(y_{jk})_{D\times\mathbb{N}})&\mapsto (y_{d_i i})_\mathbb{N}
+    \tikzfig{Y_table_lookup}\label{eq:table_lookup_example}\\
+    \prob{P}^{\RV{Y}|\RV{D}}(y|(1,2,3,2,...)) = \prob{P}^{\RV{Y}_11\RV{Y}_22\RV{Y}_{33}\RV{Y}_{24}...}(y)\label{eq:table_lookup_cons}
+\end{align}
+
+The contractibility of $\prob{P}^{\RV{Y}^D}$ means that any two subcollections of columns of the same size are equal in distribution, and the exchangeability of $\prob{P}^{\RV{Y}^D}$ means that the random variable obtained by permuting its columns is also equal in distribution to $\RV{Y}^D$.
+
+This representation is very similar to the potential outcomes representation of causal models, with two points of friction. Firstly, we used the assumption of contractibility to derive the contractible table representation, and so we make no claims about what kind of do-model is represented by a non-contractible table lookup. Secondly, we do not yet include any notion of observations, which is a key element of potential outcomes models.
+
+\begin{theorem}[Table representation of causally contractible do models]\label{th:table_rep}
+Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. $\prob{P}$ is causally contractible if and only if 
+\begin{align}
+    \prob{P}^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
+    &\iff\\
+    \prob{P}^{\RV{Y}|\RV{D}}(y|d) &= \prob{P}^{(\RV{Y}^D_{d_i i})_{\mathbb{N}}}(y)
+\end{align}
+Where $\prob{P}^{\RV{Y}^D}$ is a contractible probability measure on $Y^{D\times\mathbb{N}}$ with respect to the sequence $\RV{Y}^D:=(\RV{Y}_{ij}^D)_{i\in D,j\in \mathbb{N}}$ and $\prob{L}^{\RV{D},\RV{Y}^D}$ is the Markov kernel associated with the lookup function
+\begin{align}
+    l:D^\mathbb{N}\times Y^{D\times \mathbb{N}}&\to Y\\
+    ((d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}})&\mapsto y_{d_i i}
 \end{align}
 \end{theorem}
 
 \begin{proof}
 Only if:
-Choose $e:=(e_ij)_{i\in D,j\in\mathbb{N}}\in D^{\mathbb{N}}$ such that $e_{ij} = d_i$, and abusing notation write $e$ for the decision function that chooses $e$ deterministically. Note that the rank order of an element $e_{ij}$ of $e$ is given by the rank function $f:(i,j)\mapsto |D|i+j$.
+Choose $e:=(e_i)_{i\in\mathbb{N}}$ such that $e_{|D|i+j}$ is the $i$th element of $D$ for all $i,j\in \mathbb{N}$. Abusing notation, write $e$ also for the decision function that chooses $e$ deterministically.
 
 Define
 \begin{align}
-    \prob{P}^{\RV{Y}^D}((y_{ij})_{D\times \mathbb{N}}):=\prob{P}_e^{\RV{Y}}((y_{ij})_{D\times \mathbb{N}})
+    \prob{P}^{\RV{Y}^D}((y_{ij})_{D\times \mathbb{N}}):=\prob{P}_e^{\RV{Y}}((y_{|D|i+j})_{i\in D, j\in \mathbb{N}})
 \end{align}
 
-Now consider any $d:=(d_j)_{j\in \mathbb{N}}\in D^{\mathbb{N}}$. By definition of $e$, $e_{id_j}=d_j$ for any $i,j\in \mathbb{N}$. Define the lookup function
-
-\begin{align}
-    l_{DD}:D^\mathbb{N}\times D^{D\times \mathbb{N}}&\to D^\mathbb{N}\\
-    ((d_i)_\mathbb{N},(e_{jk})_{D\times\mathbb{N}})&\mapsto (e_{d_i i})_\mathbb{N}
-\end{align}
-
-Thus
-
-\begin{align}
-    l_{DD}(d,e) = d
-\end{align}
-
-Define
+Now consider any $d:=(d_i)_{i\in \mathbb{N}}\in D^{\mathbb{N}}$. By definition of $e$, $e_{|D|d_i + i}=d_i$ for any $i,j\in \mathbb{N}$.
 
 \begin{align}
     \prob{Q}:D\kto Y\\
     \prob{Q}:= \tikzfig{lookup_representation}
 \end{align}
 
-and consider some ordered sequence $A\subset \mathbb{N}$ and $B:= ((d_i,i))_{i\in A}$. Note that $B$ is also ordered according to the rank function $f:(i,j)\mapsto |D|i+j$. Then 
+and consider some ordered sequence $A\subset \mathbb{N}$ and $B:= ((|D|d_i+i))_{i\in A}$. Note that $e_B:=(e_{|D|d_i +i})_{i\in B}=d_A=(d_i)_{i\in A}$. Then 
 
 \begin{align}
-    \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{Q}(y|d) &= \sum_{y\in \RV{Y}^{-1}(y_A)} \sum_{y^{\prime D}\in Y^D} \llbracket l_{DY}(d,y^{\prime D}) = y \rrbracket \prob{P}^{\RV{Y}^{D\times \mathbb{N}}}(y^{\prime D})\\
-    &= \sum_{y\in \RV{Y}^{-1}(y_A)} \sum_{y^{\prime D}\in Y^{D\times \mathbb{N}}} \llbracket l_{DY}(d,y^{\prime D}) = y \rrbracket \prob{P}_e^{\RV{Y}}(y^{\prime D})\\
-    &= \sum_{y\in \RV{Y}^{-1}(y_A)}\prod_{i\in A}\sum_{y'\in Y} \llbracket y'_{d_i i} = y_i \rrbracket \prob{P}_e^{\RV{Y}_i}(y')\\
-    &= \sum_{y\in \RV{Y}^{-1}(y_A)}\prob{P}_e^{\RV{Y}_{B}}(y)\\
+    \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{Q}(y|d) &= \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{P}^{(\RV{Y}^{D}_{d_ii})_{A}}(y) \\
+    &= \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{P}_e^{(\RV{Y}_{|D|d_i+i})_{A}}(y)\\
     &= \prob{P}_e^{\RV{Y}_{B}}(y_A)\\
-    &= \prob{P}_{l_{DD}(d,e)}^{\RV{Y}_A}(y_A)&\text{by piecewise replicability}\\
-    &= \prob{P}_d^{\RV{Y}_A}(y_A)
+    &= \prob{P}_{d}^{\RV{Y}_A}(y_A)&\text{by causal contractibility}
 \end{align}
 
 Because this holds for all $A\subset\mathbb{N}$, by the Kolmogorov extension theorem
@@ -269,15 +277,159 @@ By definition,
 \end{align}
 \end{proof}
 
-Let the elements of $D$ be denoted by $d_i$, $i\in |D|$ and , and set out $\RV{Y}$ in a table as follows:
+Note that in some versions of potential outcomes, for example \citet{rubin_causal_2005}, potential outcomes are defined as table-and-lookup models, except without the assumption that the probability distribution over the table is contractible. We speculate that this corresponds to the assumption that if two decisions $d,d'$ correspond on \emph{the same subset of indices} $d_S=d'_S$ then $\prob{P}_d^{\RV{Y}_S}=\prob{P}_{d'}^{\RV{Y}_S}$. This is a weaker assumption than causal contractibility -- contractibility requires that we can equate consequecne models when any subsequence of the first decision matches any subsequence of the second, while this condition only requires that consequence models are equal when a subsequence of the first decision matches \emph{the same} subsequence of the second. It is an open question whether this correspondence does in fact hold.
 
-\begin{center}
-\begin{tabular}{ c c c }
- $\RV{Y}_{f(1,1)}$ & $\RV{Y}_{f(1,2)}$ & $\RV{Y}_{f(1,3)}$ \\ 
- $\RV{Y}_{f(2,1)}$ & $\RV{Y}_{f(2,2)}$ & $\RV{Y}_{f(2,3)}$ \\  
- $\RV{Y}_{f(3,1)}$ & $\RV{Y}_{f(3,2)}$ & $\RV{Y}_{f(3,3)}$    
-\end{tabular}
-\end{center}
+\todo[inline]{I think that perhaps the ``tidiest'' set of assumptions is to consider the above assumption to express the notion of ``same local action->same local consequences'' and exchangeability to express interchangeability of choices. Contractibility might then be the conjunction of both assumptions.}
+
+Theorem \ref{th:contractibility_commutativity} establishes a claim made earlier: that contractibility is strictly stronger than commutativity of exchange.
+
+\begin{theorem}\label{th:contractibility_commutativity}
+Causal contractibility implies commutativity of exchange.
+\end{theorem}
+
+\begin{proof}
+Given a finite permutation $\rho:\mathbb{N}\to\mathbb{N}$ and any sequence $x:=(x_i)_{i\in \mathbb{N}}$ let $\rho(x)=(x_{\rho(i)})_{i\in\mathbb{N}}$ or equivalently $(x_{i})_{i\in\rho(\mathbb{N})}$. Then for any $d=(d_{i})_{i\in\mathbb{N}}$ and $y^D:=(y_{ij})_{i\in D,j\in \mathbb{N}}$:
+
+\begin{align}
+    l(\rho(d),y^D) &= (y_{d_{\rho(i)} i})_{i\in\mathbb{N}}\\
+                 &= (y_{d_i \rho^{-1}(i)})_{i\in \rho(\mathbb{N})}\\
+                 &= \rho(l(d,\rho^{-1}(y^D)))
+\end{align}
+
+Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ with $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$ and $\prob{P}$ causally contractible. Then
+\begin{align}
+    \prob{P}^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
+\end{align}
+For contractible $\prob{P}^{\RV{Y}^D}$. Therefore $\prob{P}^{\RV{Y}^D}$ is also exchangeable \citet{kallenberg_basic_2005}. But then, given a decision function $d$ and a finite permutation $\rho:\mathbb{N}\to \mathbb{N}$
+\begin{align}
+    \prob{P}_{\rho(d)}^{\RV{Y}}(y) &= \sum_{y^{\prime D}\in Y^{D\times \mathbb{N}}} \llbracket l_{DY}(\rho(d),y^{\prime D}) = y \rrbracket \prob{P}^{\RV{Y}^D}(y^{\prime D})\\
+                                &= \sum_{y^{\prime D}\in Y^{D\times \mathbb{N}}} \llbracket l_{DY}(d,\rho^{-1}(y^{\prime D})) = \rho^{-1}(y) \rrbracket \prob{P}^{\RV{Y}^D}(y^{\prime D})\\
+                                &= \sum_{y^{\prime D}\in Y^{D\times \mathbb{N}}} \llbracket l_{DY}(d,\rho^{-1}(y^{\prime D})) = \rho^{-1}(y) \rrbracket \prob{P}^{\RV{Y}^D}(\rho^{-1}(y^{\prime D}))\\
+                                &= \prob{P}_{\rho(d)}^{\RV{Y}}(\rho^{-1}(y))
+\end{align}
+\end{proof}
+
+We can also represent contractible do-models as a Markov kernels that map from decisions to probability distributions over consequences copied $\mathbb{N}$ times and jointly parametrised by a hypothesis $\RV{H}$. 
+
+\begin{theorem}\label{th:iid_rep}
+Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. $\prob{P}$ is causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exists for all $i\in \mathbb{N}$ and
+\begin{align}
+    \prob{P}^{\RV{Y}|\RV{H}\RV{D}} &= \tikzfig{do_model_representation}\\
+    &\iff\\
+    \RV{Y}_i&\CI_{\prob{P}} \RV{Y}_{\mathbb{N}\setminus i},\RV{D}_{\mathbb{N}\setminus i}|\RV{H}\RV{D}_i&\forall i\in \mathbb{N}\\
+    \land \prob{P}^{\RV{Y}_i|\RV{H}\RV{D}_i} &= \prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0} & \forall i\in \mathbb{N}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+If:
+By the assumptions of independence and identical conditionals, for any deterministic decision functions $d,d'\in D$ with equal subsequences $d_S=d'_T$
+\begin{align}
+    \prob{P}_d^{\RV{Y}_S|\RV{H}\RV{D}}(y|d) &= \int_H\prod_{i\in S}\prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0}(y_i|h,d_i)d\prob{P}^{\RV{H}}(h)\\
+                                          &= \int_{H}\prod_{i\in T}\prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0}(y_i|h,d'_i)d\prob{P}^{\RV{H}}(h) & \text{by equality of subsequences}\\
+                                          &= \prob{P}_{d'}^{\RV{Y}_T|\RV{H}\RV{D}}(y|d)
+\end{align}
+
+Only if:
+We have
+\begin{align}
+    \prob{P}^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
+\end{align}
+
+Also, by contractibility of $\prob{P}^{\RV{Y}^D}$ and De Finetti's theorem, there is some $\RV{H}$ such that
+
+\begin{align}
+    \prob{P}^{\RV{Y}^\RV{D}} &= \tikzfig{de_finetti_potential_outcomes}
+\end{align}
+
+In particular, let $\RV{Y}^D_{\cdot i}:=(\RV{Y}^D_{ji})_{j\in D}$ and $\RV{Y}^D_{\cdot \{i\}^C} = (\RV{Y}^D_{jk})_{j\in D, k\in \mathbb{N}\setminus \{i\}}$, and
+
+\begin{align}
+    &\RV{Y}^D_{\cdot i} \CI_{\prob{P}} \RV{Y}^D_{\cdot \{i\}^C} |\RV{H} & \text{ representation theorem}\label{eq:pci_1}\\
+    &\RV{Y}^D\RV{H} \CI_{\prob{P}} \RV{D} &\text{ by Theorem \ref{th:cons_ci} and existence of }\prob{P}^{\RV{Y}^D\RV{H}}\label{eq:pci_2}\\
+    &\RV{Y}^D_{\cdot i}\CI_{\prob{P}} \RV{D} |\RV{Y}^D_{\cdot \{i\}^C}\RV{H}&\text{ weak union on Eq. }\ref{eq:pci_2}\\
+    &\RV{Y}^D_{\cdot i}\CI_{\prob{P}} \RV{D}\RV{Y}^D_{\cdot \{i\}^C} |\RV{H}&\text{ contraction on Eqs. \ref{eq:pci_1} and \ref{eq:pci_2}}\label{eq:pci_4}\\
+    &\RV{Y}^D_{\cdot i}\CI_{\prob{P}} \RV{D}_{\{i\}^C}\RV{Y}^D_{\cdot \{i\}^C} |\RV{H}\RV{D}_i&\text{ weak union on Eq. \ref{eq:pci_4}}\label{eq:pci_5}\\
+    &\RV{D}_{i} \CI_{\prob{P}}\RV{Y}^D_{\cdot \{i\}^C} \RV{D}_{\{i\}^C} |\RV{H}\RV{D}_i \RV{Y}^D_{\cdot i}&\text{ due to conditioning on }\RV{D}_i\label{eq:pci_6}\\
+    &\RV{Y}^D_{i}\RV{D}_i \CI_{\prob{P}} \RV{D}_{\{i\}^C}\RV{Y}^D_{\cdot \{i\}^C} |\RV{H}\RV{D}_i&\text{ contraction on Eqs. \ref{eq:pci_5} and \ref{eq:pci_6}}\label{eq:pci_7}\\
+\end{align}
+
+Now, note that $(\RV{Y}_i,\RV{D}_i)$ is a deterministic function of $(\RV{Y}^D_{i},\RV{D}_i)$ and $(\RV{Y}_{\{i\}^C},\RV{D}_{\{i\}^C})$ is a deterministic function of $(\RV{Y}^D_{\{i\}^C},\RV{D}_{\{i\}^C})$. Therefore
+
+\begin{align}
+    &\RV{Y}_i \CI_{\prob{P}} \RV{D}_{\{i\}^C}\RV{Y}_{\{i\}^C} |\RV{H}\RV{D}_i&
+\end{align}
+
+So, by Theorem \ref{th:cons_ci}, $\prob{P}^{\RV{Y}_i|\RV{HD}}$ exists and by contractibility of $\prob{P}^{\RV{Y}^D}$, for any $i,j\in\mathbb{N}$
+
+\begin{align}
+    \prob{P}^{\RV{Y}_i|\RV{HD_i}}(y_i|h,d_i) &= \prob{P}^{\RV{Y}^D_{d_i i}|\RV{H}}(y_i|h) \\
+    &= \prob{P}^{\RV{Y}^D_{d_i j}|\RV{H}}(y_i|h)\\
+    &= \prob{P}^{\RV{Y}_j|\RV{HD}_j}(y_i|h,d_i)
+\end{align}
+\end{proof}
+
+\subsection{Copied consequence models with observations}
+
+We can derive the truncated factorisation rule from assuming 1) a causally contractible do model and 2) an unobserved, exchangeable ``observational decision function''. This derivation is attractive because
+\begin{itemize}
+    \item If we assume there is a unique interventional distribution, it cannot be defined by causal relationships, an observational distribution and the truncated factorisation rule. Why? Because truncated factorisation rule sometimes defines things that don't exist, and sometimes multiple things satisfy the requirements it imposes
+    \item On the other hand, by the representation theorem above, a unique ``IID'' interventional distribution $\iff$ a causally contractible do-model
+    \item Furthermore, causally contractible do-model + exchangeable observational decision rule $\implies$ truncated factorisation (but not the other way around!)
+\end{itemize}
+
+
+
+\todo[inline]{todo, below is just copied and pasted for now}
+
+We will consider a motivating example initially posed using the language of causal Bayesian networks. For this example, we will assume that the reader is familiar enough with causal Bayesian networks to follow along. We will offer more careful definitions later.
+
+Suppose we have a causal Bayesian network $(\prob{P}^{\RV{XYZ}},\mathcal{G})$ where $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ are variables, $\prob{P}^{\RV{XYZ}}$ is a probability measure on $X\times Y\times Z$, $\mathcal{G}$ is a Directed Acyclic Graph whose vertices we identify with $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ which contains the edges $\RV{X}\longrightarrowRHD \RV{Y}$ and $\RV{X}\longleftarrowRHD \RV{Z} \longrightarrowRHD \RV{Y}$. ``Setting $\RV{X}$ to $x$'' is an operation that takes as inputs $\prob{P}^{\RV{XYZ}}$, $\mathcal{G}$ and some $x\in X$ and returns a new probability measure $\prob{P}_x^{\RV{XYZ}}$ on $X\times Y\times Z$ given by \citep[page ~24]{pearl_causality:_2009}:
+\begin{align}
+    \prob{P}^{\RV{XYZ}}_{x}(x',y,z)=\disint{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x' \rrbracket\label{eq:truncated_fac}
+\end{align}
+
+Equation \ref{eq:truncated_fac} embodies three assumptions about a model of the operation of ``setting $\RV{X}$ to $x$''. First, such a model must assign probability 1 to the proposition that $\RV{X}$ yields $x$. Second, such a model must assign the same marginal probability distribution to $\RV{Z}$ as the input distribution; $\prob{P}^{\RV{Z}}=\prob{P}_{x}^{\RV{Z}}$. Finally, there must be some version of the interventional conditional probability $\RV{Y}|(\RV{X},\RV{Z})$ that is equal to some version of the observational conditional probability $\RV{Y}|(\RV{X},\RV{Z})$; there exists $\disint{P}^{\RV{Y}|\RV{XZ}}$ and $\disint{P}_x^{\RV{Y}|\RV{XZ}}$ such that $\disint{P}^{\RV{Y}|\RV{XZ}}=\disint{P}_x^{\RV{Y}|\RV{XZ}}$. We use the overbars here to indicate that, unlike in familiar cases, the particular choice of $\disint{P}^{\RV{Y}|\RV{XZ}}$ can matter here.
+
+% Notice that the map $x\mapsto \prob{P}^{\RV{XYZ}}_x$ itself ``looks like'' a conditional probability. It maps each $x\in X$ to a probability distribution over $(\RV{X},\RV{Y},\RV{Z})$. In fact, a popular alternative notation for $\prob{P}^{\RV{XYZ}}_x$ this map is $\prob{P}^{\RV{XYZ}|do(\RV{X}=x)}$, which is clearly suggestive of an interpretation as a kind of conditional probability. We will take this interpretation seriously: we will posit some variable $\RV{U}$ (which may or may not be observable) and a probabilisitic model $\prob{Q}^{\RV{XYZ}|\RV{U}}:=x\mapsto \prob{P}^{\RV{XYZ}}_x$.
+
+The operation of ``setting $\RV{X}$ to $x$'' is often referred to as an \emph{intervention}. Interventions are things we can choose to do, or not to do. We can also consider choosing to do or not do an intervention based on the output of some random process. We need some kind of model that can tell us which result we are likely to see for any choice of interventions, random or nonrandom. This means that we need a model with a \emph{probability gap} for the choice of interventions. For a nonrandom choice of intervention $x$, we can consider the map $x\mapsto \prob{P}^{\RV{XYZ}}_{x}$ such a model, and if we include random choices we can consider $\prob{Q}:\prob{P}_\alpha^{\RV{X}}\mapsto \sum_{x} \prob{P}_\alpha^{\RV{X}}(x) \prob{P}^{\RV{XYZ}}_{x}$ to be such a model.
+
+$\prob{Q}$, as we have defined it, is not quite an ideal candidate for a probability gap model. Firstly, theconditional probability $\disint{P}^{\RV{Y}|\RV{XZ}}$ may be chosen arbitrarily on a set of measure zero with regard to $\prob{P}^{\RV{XZ}}$. As a result, depending on the choice of $\disint{P}^{\RV{Y}|\RV{XZ}}$, Equation \ref{eq:truncated_fac} can be satisfied by multiple probability distributions that differ in meaningful ways. For example, suppose $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ are binary and $\prob{P}((\RV{X}, \RV{Z})\yields (1,1))=1$. Then we can consistently choose $\prob{P}^{\RV{Y|XZ}}(1|0,1)=1$ or $\prob{P}^{\RV{Y|XZ}}(1|0,1)=0$ because $\{0,1\}$ is a measure zero event. However, the first choice gives us  $\prob{P}^{\RV{XYZ}}_{0}(0,1,1)=1$ while the second gives us $\prob{P}^{\RV{XYZ}}_{0}(0,1,1)=0$, which are very different opinions regarding ``the result of setting $\RV{X}$ to $1$''.
+
+Secondly, there may be no probability model at all that satisfies Equation \ref{eq:truncated_fac}. For example, suppose $\RV{X}=f\circ\RV{Z}$ for some $f$. Then we must have $\prob{P}^{\RV{X}}_x(x')=\prob{P}^{\RV{Z}}_x(f^{-1}(x'))$ for any $x$. However, we also have $\prob{P}^{\RV{X}}_x(x')=\llbracket x = x' \rrbracket$ for all $x,x'$ and $\prob{P}^{\RV{Z}}_x=\prob{P}^{\RV{Z}}$ for all $x$. Thus if $\RV{X}$ can more than one value, there is at least one choice of $x$ that cannot simultaneously satisfy these requirements.
+
+A more subtle example of this latter problem appears in \citet{shahar_association_2009}. A causal graph in that paper features an arrow $\RV{Z}\longrightarrowRHD \RV{X}$ where $\RV{Z}=(\RV{H},\RV{W})$, representing a person's height and weight, and $\RV{X}$ represents their body mass index. This causal model is used to draw conclusions about the result of intervening on $\RV{X}$. By definition, $\RV{X}=\frac{\RV{W}}{\RV{H}^2}$. While we don't have $\RV{X}$ equal to $\RV{Z}$, it must still be a deterministic function of $\RV{Z}$.  However, any intervention on $\RV{X}$ along the lines of Equation \ref{eq:truncated_fac} will yield $\RV{X}$ independent of $(\RV{H},\RV{W})$, and unless $(\RV{H},\RV{W})$ is determistically equal to a constant and the intervention on $\RV{X}$ is carefully chosen, there is no probability model at all that has this independence.
+
+The theory of probability gap models allows us to model things like interventions and it does not share these problems of non-uniqueness and non-existence with models defined via truncated factorisation.
+
+In our original look at truncated factorisation, we noted a few problems with Equation \ref{eq:truncated_fac} being a \emph{definition} of interventional probability models. In particular:
+
+\begin{itemize}
+    \item There may be multiple different probability models that satisfy Equation \ref{eq:truncated_fac} for different versions of the disintegration $\prob{P}^{\RV{Y|XZ}}$
+    \item There may be no probability models that satisfy Equation \ref{eq:truncated_fac}
+\end{itemize}
+
+We propose a different way to define interventional probability models:
+
+\begin{itemize}
+    \item The interventional probability model is some probability 2-comb 
+    \begin{align}
+        \prob{Q}^{\RV{Z}\square\RV{Y}|\RV{X}}
+    \end{align}
+    \item For some observational conditional probability $\prob{Q}_{\text{obs}}^{\RV{X}|\RV{Z}}$, observations are distributed according to 
+    \begin{align}
+    \prob{Q}_{\text{obs}}:=\text{insert}(\prob{Q}_{\text{obs}}^{\RV{X}|\RV{Z}},\prob{Q}^{\RV{Z}\square\RV{Y}|\RV{X}})\label{eq:int_to_obs}
+    \end{align}
+\end{itemize}
+
+Note that, by definition, $\prob{Q}^{\RV{Y}|\RV{XZ}}$ exists and all versions of it are also versions of $\prob{Q}_{\text{obs}}^{\RV{Y}|\RV{XZ}}$. If in addition, for every $x\in X$, the deterministic insert $\prob{Q}_{x}^{\RV{X}|\RV{Z}}$ defined by $\prob{Q}_{x}^{\RV{X}|\RV{Z}}(x'|z) == \llbracket x=x' \rrbracket$ is a valid conditional probability, then there exists a version of $\prob{Q}_{\text{obs}}^{\RV{Y}|\RV{XZ}}$ such that:
+
+\begin{align}
+    \prob{Q}_x^{\RV{XYZ}} = \prob{Q}_{\text{obs}}^{\RV{Y|XZ}}(y|x,z)\prob{Q}_{\text{obs}}^{\RV{Z}}(z)\llbracket x=x' \rrbracket
+\end{align}
+
+This is similar to Equation \ref{eq:truncated_fac}. The two key differences are that this is existentially quantified over $\prob{Q}_{\text{obs}}^{\RV{Y|XZ}}$ and we have made explicit the assumptions that hard interventions on $\RV{X}$ are valid inserts.
 
 
 

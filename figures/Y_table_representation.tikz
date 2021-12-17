@@ -1,0 +1,27 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-2.5, 3) {$\RV{Y}_{11}$};
+		\node [style=none] (1) at (-1, 3) {$\RV{Y}_{12}$};
+		\node [style=none] (2) at (0.5, 3) {$\RV{Y}_{13}$};
+		\node [style=none] (3) at (2, 3) {$\RV{Y}_{14}$};
+		\node [style=none] (4) at (-2.5, 1.5) {$\RV{Y}_{21}$};
+		\node [style=none] (5) at (-1, 1.5) {$\RV{Y}_{22}$};
+		\node [style=none] (6) at (0.5, 1.5) {$\RV{Y}_{23}$};
+		\node [style=none] (7) at (2, 1.5) {$\RV{Y}_{24}$};
+		\node [style=none] (8) at (-2.5, 0) {$\RV{Y}_{31}$};
+		\node [style=none] (9) at (-1, 0) {$\RV{Y}_{32}$};
+		\node [style=none] (10) at (0.5, 0) {$\RV{Y}_{33}$};
+		\node [style=none] (11) at (2, 0) {$\RV{Y}_{34}$};
+		\node [style=none] (12) at (-4, 3) {};
+		\node [style=none] (13) at (-4, 0) {};
+		\node [style=none] (14) at (-5.5, 1.5) {$|D|$ rows};
+		\node [style=none] (15) at (-2.5, 4) {};
+		\node [style=none] (16) at (2, 4) {};
+		\node [style=none] (17) at (-0.75, 4.5) {$\mathbb{N}$ columns};
+		\node [style=none] (18) at (3.5, 1.5) {$...$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style={arrows_double}] (12.center) to (13.center);
+		\draw [style={arrows_double}] (15.center) to (16.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

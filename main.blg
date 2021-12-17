@@ -7,45 +7,47 @@ Repeated entry---line 1779 of file references.bib
  : @article{fong_causal_2013
  :                          ,
 I'm skipping whatever remains of this entry
-You've used 34 entries,
+Warning--to sort, need author or key in kallenberg_basic_2005
+Warning--empty author in kallenberg_basic_2005
+You've used 35 entries,
             2773 wiz_defined-function locations,
-            874 strings with 12012 characters,
-and the built_in function-call counts, 14621 in all, are:
-= -- 1446
-> -- 543
-< -- 37
-+ -- 194
-- -- 159
-* -- 1068
-:= -- 2303
-add.period$ -- 176
-call.type$ -- 34
-change.case$ -- 144
-chr.to.int$ -- 33
-cite$ -- 68
-duplicate$ -- 741
-empty$ -- 1302
-format.name$ -- 213
-if$ -- 3123
+            884 strings with 12262 characters,
+and the built_in function-call counts, 15127 in all, are:
+= -- 1505
+> -- 547
+< -- 38
++ -- 196
+- -- 160
+* -- 1108
+:= -- 2362
+add.period$ -- 182
+call.type$ -- 35
+change.case$ -- 147
+chr.to.int$ -- 34
+cite$ -- 73
+duplicate$ -- 772
+empty$ -- 1356
+format.name$ -- 214
+if$ -- 3247
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 42
-newline$ -- 244
-num.names$ -- 146
-pop$ -- 247
+missing$ -- 43
+newline$ -- 251
+num.names$ -- 148
+pop$ -- 254
 preamble$ -- 1
-purify$ -- 116
+purify$ -- 118
 quote$ -- 0
-skip$ -- 506
+skip$ -- 528
 stack$ -- 0
-substring$ -- 559
-swap$ -- 99
-text.length$ -- 5
+substring$ -- 586
+swap$ -- 107
+text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 334
-warning$ -- 0
-while$ -- 148
+type$ -- 345
+warning$ -- 2
+while$ -- 152
 width$ -- 0
-write$ -- 587
+write$ -- 607
 (There was 1 error message)

@@ -1,7 +1,7 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
 		\node [style=small kernel tikzit] (0) at (3, 0.5) {$\prob{P}^{\RV{Y}_0|\RV{HD}_0}$};
-		\node [style=RLabel tikzit] (2) at (4.75, 0.5) {$\RV{S}_i$};
+		\node [style=RLabel tikzit] (2) at (4.75, 0.5) {$\RV{Y}_i$};
 		\node [style=none] (3) at (-0.75, 1.75) {};
 		\node [style=none] (4) at (-0.75, -1.5) {};
 		\node [style=none] (5) at (5.75, -1.5) {};

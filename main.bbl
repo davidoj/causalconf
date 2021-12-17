@@ -1,9 +1,18 @@
-\begin{thebibliography}{34}
+\begin{thebibliography}{35}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[kal(2005)]{kallenberg_basic_2005}
+The {Basic} {Symmetries}.
+\newblock In Olav Kallenberg, editor, \emph{Probabilistic {Symmetries} and
+  {Invariance} {Principles}}, Probability and {Its} {Applications}, pages
+  24--68. Springer, New York, NY, 2005.
+\newblock ISBN 978-0-387-28861-1.
+\newblock \doi{10.1007/0-387-28861-9_2}.
+\newblock URL \url{https://doi.org/10.1007/0-387-28861-9_2}.
 
 \bibitem[Bolker(1966)]{bolker_functions_1966}
 Ethan~D. Bolker.

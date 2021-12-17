@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (1) at (0.25, 1.5) {$\RV{Y}_{12}$};
+		\node [style=none] (2) at (1.75, 1.5) {$\RV{Y}_{13}$};
+		\node [style=none] (3) at (3.25, 1.5) {$\RV{Y}_{14}$};
+		\node [style=none] (4) at (-1.25, 0) {$\RV{Y}_{21}$};
+		\node [style=none] (6) at (1.75, 0) {$\RV{Y}_{23}$};
+		\node [style=none] (8) at (-1.25, -1.5) {$\RV{Y}_{31}$};
+		\node [style=none] (9) at (0.25, -1.5) {$\RV{Y}_{32}$};
+		\node [style=none] (11) at (3.25, -1.5) {$\RV{Y}_{34}$};
+		\node [style=none] (18) at (4.75, 0) {$...$};
+		\node [style=none] (19) at (-3, 3) {$d=$};
+		\node [style=none] (24) at (4.75, 3) {$...$};
+		\node [style=Circle around node] (25) at (-1.25, 1.5) {$\RV{Y}_{11}$};
+		\node [style=Circle around node] (26) at (0, 0) {$\RV{Y}_{22}$};
+		\node [style=Circle around node] (27) at (1.75, -1.5) {$\RV{Y}_{33}$};
+		\node [style=Circle around node] (28) at (3.25, 0) {$\RV{Y}_{24}$};
+		\node [style=none] (29) at (-3.25, 0.25) {$\RV{Y}^D=$};
+		\node [style=Circle around node] (30) at (-1.25, 3) {$1$};
+		\node [style=Circle around node] (31) at (0.25, 3) {$2$};
+		\node [style=Circle around node] (32) at (1.75, 3) {$3$};
+		\node [style=Circle around node] (33) at (3.25, 3) {$2$};
+	\end{pgfonlayer}
+\end{tikzpicture}
