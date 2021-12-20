@@ -4,11 +4,11 @@
 		\node [style=Llabel tikzit] (2) at (-2, 0.75) {$\RV{W}$};
 		\node [style=Llabel tikzit] (3) at (-2, -0.75) {$\RV{X}$};
 		\node [style=RLabel tikzit] (4) at (2.5, 0.75) {$\RV{Y}$};
-		\node [style=small kernel tikzit] (5) at (0, 0.75) {$\prob{P}^{\RV{Y}|\RV{W}}$};
+		\node [style=small kernel tikzit] (5) at (0, 0.75) {$\prob{P}_\square^{\RV{Y}|\RV{W}}$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=delmap] (3) to (1.center);
 		\draw (2) to (5);
-		\draw (5) to (4);
+		\draw [in=180, out=0] (5) to (4);
 	\end{pgfonlayer}
 \end{tikzpicture}

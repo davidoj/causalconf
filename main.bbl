@@ -1,4 +1,4 @@
-\begin{thebibliography}{35}
+\begin{thebibliography}{32}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -172,11 +172,6 @@ Finnian Lattimore and David Rohde.
 \newblock URL \url{http://arxiv.org/abs/1906.07125}.
 \newblock arXiv: 1906.07125.
 
-\bibitem[Lewis(1986)]{lewis_causation_1986}
-David~K Lewis.
-\newblock Causation.
-\newblock \emph{Journal of Philosophy}, 1986.
-
 \bibitem[Menger(2003)]{menger_random_2003}
 Karl Menger.
 \newblock Random {Variables} from the {Point} of {View} of a {General} {Theory}
@@ -188,16 +183,6 @@ Karl Menger.
 \newblock ISBN 978-3-7091-6045-9.
 \newblock \doi{10.1007/978-3-7091-6045-9_31}.
 \newblock URL \url{https://doi.org/10.1007/978-3-7091-6045-9_31}.
-
-\bibitem[Nozick(1969)]{nozick_newcombs_1969}
-Robert Nozick.
-\newblock Newcomb’s {Problem} and {Two} {Principles} of {Choice}.
-\newblock In Nicholas Rescher, editor, \emph{Essays in {Honor} of {Carl} {G}.
-  {Hempel}: {A} {Tribute} on the {Occasion} of his {Sixty}-{Fifth} {Birthday}},
-  Synthese {Library}, pages 114--146. Springer Netherlands, Dordrecht, 1969.
-\newblock ISBN 978-94-017-1466-2.
-\newblock \doi{10.1007/978-94-017-1466-2_7}.
-\newblock URL \url{https://doi.org/10.1007/978-94-017-1466-2_7}.
 
 \bibitem[Pearl(2009)]{pearl_causality:_2009}
 Judea Pearl.
@@ -280,14 +265,5 @@ J.~Von~Neumann and O.~Morgenstern.
 Abraham Wald.
 \newblock \emph{Statistical decision functions}.
 \newblock Statistical decision functions. Wiley, Oxford, England, 1950.
-
-\bibitem[Weirich(2016)]{weirich_causal_2016}
-Paul Weirich.
-\newblock Causal {Decision} {Theory}.
-\newblock In Edward~N. Zalta, editor, \emph{The {Stanford} {Encyclopedia} of
-  {Philosophy}}. Metaphysics Research Lab, Stanford University, winter 2016
-  edition, 2016.
-\newblock URL
-  \url{https://plato.stanford.edu/archives/win2016/entries/decision-causal/}.
 
 \end{thebibliography}

@@ -1,0 +1,104 @@
+clippings
+
+
+\begin{definition}[Probability 2-comb]
+Given $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:W\times Y\kto X\times Z$ is a Markov kernel such that for some $\prob{P}^{\RV{X}|\RV{W}}:W\kto X$
+\begin{align}
+    \tikzfig{2_comb_properdef}
+\end{align}
+\end{definition}
+
+The validity criteria for probability 2-combs can be relaxed slightly from the validity criteria for a pair of valid conditional probabilities \todo{but I don't think this is a very important point and I have struggled to generalise it to standard measurable sets.}
+
+\begin{definition}[Valid probability 2-comb]
+$\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:W\times Y\kto X\times Z$, all sets discrete, is a valid probability 2-comb if
+\begin{enumerate}
+    \item $\prob{P}^{\RV{X}|\RV{W}}$ is a valid conditional probability
+    \item $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)=\emptyset$ implies $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$
+\end{enumerate}
+\end{definition}
+
+Wherever we have kernel disintegrations, there exists some $\prob{P}^{\RV{Z}|\RV{WXY}}:W\times X\times Y\kto Z$ (Lemma \ref{lem:disint_exist}) such that
+\begin{align}
+    \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}} &= \tikzfig{probability_2_comb}
+\end{align}
+
+We define the operation $\text{insert}$ that takes a 2-comb and a conditional probability and returns a conditional probability.
+
+\begin{align}
+    \text{insert}(\prob{P}_\alpha^{\RV{Y}|\RV{XW}},\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}) = \prob{P}^{\RV{X}|\RV{W}}\odot\prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \prob{P}^{\RV{Z}|\RV{WXY}}\label{eq:insert}
+\end{align}
+
+
+\begin{definition}[Order 2 probability gap model]
+Given probability set $\Omega$ and variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and $A$ the set of valid candidate $\RV{Y}|\RV{X}$ conditionals and B the set of valid candidate $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditionals, an order 2 probability gap model is a map $\prob{P}:A\to B$ such that there exists some conditional probabilities $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$
+\end{definition}
+
+\begin{definition}[Order 2 model defined by a 2-comb]
+Given a valid conditional probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, and $\prob{P}$ is the map from valid $\RV{Y}|\RV{X}$ conditional probabilities to valid $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditional probabilities given by
+\begin{align}
+    \prob{P}_{\alpha}^{\RV{XYZ}|\RV{W}} = \prob{P}^{\RV{X}|\RV{W}}\odot\prob{P}^{\RV{Y}|\RV{X}}_\alpha \odot \prob{P}^{\RV{Z}|\RV{WXY}}
+\end{align}
+for any valid $\RV{Y}|\RV{X}$ conditional probability $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
+\end{definition}
+
+An order 2 probability gap model $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ can be defined by a pair of disintegrations $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$. Just as with order 1 probability gap models, the two conditional probabilities defining a probability 2-comb must be \emph{valid}. Theorem \ref{th:extension_2comb_valid} shows that the insert operation yields a valid conditional probability given any valid inputs.
+
+
+\begin{theorem}[Extension of valid probability 2-combs]\label{th:extension_2comb_valid}
+Given $\Omega$, $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is valid if and only if $\text{insert}(\prob{P}_\alpha^{\RV{Y}|\RV{WX}},\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$ is valid for all valid $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$.
+\end{theorem}
+
+\begin{proof}
+Only if:
+
+Note that
+\begin{align}
+    \prob{P}_\alpha^{\RV{XYZ}|\RV{W}}&:=\text{insert}(\prob{P}_\alpha^{\RV{Y}|\RV{WX}},\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})\\
+    \prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w) &= \prob{P}^{\RV{Y}|\RV{WX}}_\alpha(y|w,x)\prob{P}^{\RV{X}|\RV{W}}(x|w)\prob{P}^{\RV{Z}|\RV{XYW}}(z|x,y,w)\\
+    &= \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)\prob{P}_\alpha(y|x)
+\end{align}
+
+Suppose $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is valid. If $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)=\emptyset$ then either $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)=0$ and hence $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$.
+
+If $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$ then either $(\RV{W},\RV{X})\yields (w,x)\neq\emptyset$ and by validity $\prob{P}^{\RV{Y}|\RV{WX}}_\alpha(y|w,x)=0$ and so $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)=0$ or $(\RV{W},\RV{X})\yields(w,x)=\emptyset$.
+
+If $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ then either $\RV{W}\yields w\neq \emptyset$ and by validity $\prob{P}^{\RV{X}|\RV{W}}(x|w)=0$ and so $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)=0$ or $\RV{W}\yields w=\emptyset$, in which case $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)$ may take any value.
+
+If:
+Suppose $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is invalid. Then either $\prob{P}^{\RV{X}|\RV{W}}$ is invalid or $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)>0$ on some $(w,x,y,z)$ such that $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)= \emptyset$ and $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)\neq \emptyset$.
+
+Suppose $\prob{P}^{\RV{X}|\RV{W}}$ is invalid. Then
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{X}|\RV{W}}(x|w) &= \sum_{y\in Y,z\in Z}\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)\\
+                                         &= \prob{P}^{\RV{X}|\RV{W}}(x|w)
+\end{align}
+
+Thus $\prob{P}_\alpha^{\RV{X}|\RV{W}}(x|w)$ is invalid and therefore so too is $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}$.
+
+Suppose we have some $(w,x,y,z)$ such that $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)= \emptyset$, $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)\neq \emptyset$ and $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)>0$.
+
+By supposition, there is a valid $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ such that $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}(y|w,x)=1$. Then
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w) &= \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)\prob{P}_\alpha(y|x)\\
+                                             &= \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)\\
+                                             &>0
+\end{align}
+So $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}$ is invalid.
+\end{proof}
+
+It is also the case that if we combine two valid conditional probabilities to form a 2-comb, the result is a valid 2-comb.
+
+\begin{theorem}[Valid conditional probabilities combine to a valid 2-comb]\label{lem:valid_conditionals}
+Given valid conditional probabilities $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$
+\begin{align}
+    \tikzfig{probability_2_comb}
+\end{align}
+Is a valid 2-comb.
+\end{theorem}
+
+\begin{proof}
+Validity of $\prob{P}^{\RV{X}|\RV{W}}$ is by assumption, and validity of $\prob{P}^{\RV{Z}|\RV{WXY}}$ means $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)=\emptyset$ implies $\prob{P}^{\RV{Z}|\RV{WXY}}(z|w,x,y)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$. This in turn implies $\prob{P}^{\RV{Z}|\RV{WXY}}(z|w,x,y)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$.
+\end{proof}

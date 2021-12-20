@@ -1,0 +1,39 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Variables and Probability Models}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Section outline}{3}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Brief outline of probability gap models}{4}{subsubsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.2}Probability distributions, Markov kernels and string diagrams}{5}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Examples}{7}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Example: comb insertion}{8}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}Semantics of observed and unobserved variables}{9}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Events}{12}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Probabilistic models for causal inference}{13}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Probability sets}{14}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Probability sets defined by marginal and conditional probabilities}{16}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}Probability gap models}{20}{subsection.2.8}%
+\contentsline {subsubsection}{\numberline {2.8.1}Disintegrations}{21}{subsubsection.2.8.1}%
+\contentsline {subsubsection}{\numberline {2.8.2}Conditional independence}{23}{subsubsection.2.8.2}%
+\contentsline {subsubsection}{\numberline {2.8.3}Extended conditional independence}{25}{subsubsection.2.8.3}%
+\contentsline {subsubsection}{\numberline {2.8.4}Graphical properties of conditional independence}{27}{subsubsection.2.8.4}%
+\contentsline {subsection}{\numberline {2.9}Results I use that don't really fit into the flow of the text}{28}{subsection.2.9}%
+\contentsline {subsubsection}{\numberline {2.9.1}Repeated variables}{28}{subsubsection.2.9.1}%
+\contentsline {section}{\numberline {3}Decision theoretic causal inference}{30}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Decision problems}{30}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Decisions as measurement procedures}{32}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Causal models similar to see-do models}{32}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}See-do models and classical statistics}{33}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Repeatable experiments}{34}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Assumptions of repeatability applicable to models of decisions and consequences}{36}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Representations of contractible probability models}{38}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Copied consequence models with observations}{44}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Causal Bayesian Networks}{47}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Probability 2-combs represented by causal Bayesian networks}{47}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}See-do models corresponding to causal Bayesian networks}{50}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Proxy control}{53}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Potential outcomes}{54}{section.6}%
+\contentsline {section}{\numberline {7}Appendix:see-do model representation}{58}{section.7}%
+\contentsline {section}{\numberline {8}Appendix: Counterfactual representation}{60}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Parallel potential outcomes representation theorem}{61}{subsection.8.1}%
+\contentsline {section}{\numberline {9}Appendix: Connection is associative}{63}{section.9}%
+\contentsline {section}{\numberline {10}Appendix: String Diagram Examples}{65}{section.10}%
+\contentsline {section}{\numberline {11}Markov variable maps and variables form a Markov category}{66}{section.11}%

@@ -399,6 +399,12 @@ For any $\prob{P}_a\in \prob{P}_{\{\}}$, $x,z$
 \end{align}
 \end{proof}
 
+We also generalise the notion of almost sure equality with respect to a probability set to mean almost sure equality with respect to every base measure in the set
+
+\begin{definition}[Almost sure equality]
+Two functions $f:\Omega\to X$ and $g:\Omega\to Y$ are almost surely equal with respect to a probability set $\prob{P}_{\{\}}$ if they are almost surely equal with respect to every base measure $\prob{P}\in \prob{P}_{\{\}}$.
+\end{definition}
+
 % \begin{theorem}[Disintegrations are conditional probabilities]
 % Suppose we have a fundamental probability set $\Omega$ variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ such that $\prob{P}_{\{\}}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability and there is some $\kernel{K}^{\RV{$
 % \end{theorem}
@@ -544,84 +550,49 @@ Hence $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is invalid.
 
 \subsection{Probability gap models}
 
+\todo[inline]{I need a statement like: probability gap model of type $X|Y$ with insert $Z|X$}
+
 A probability gap model is a probability set equipped with a domain, which is a set of probability sets and we refer to it as a \emph{probability gap}. Here we focus on probability sets that can be intersected using the operation $\odot$ (see Theorem \ref{th:intersection}). Thus we can equivalently view probability gap models as ``incomplete sequences'' of conditional probabilities, and probability gaps as sets of alternative conditional probabilities that complete the sequences.
 
 \textbf{A note on terminology:} Probability gap models are written with blackboard letters $\prob{P}_\square$. The same base letter with different superscripts $\prob{P}_\square^{\RV{A}|\RV{B}}$ indicates a conditional probability with respect to $\prob{P}_\square$. We use subscripts to indicate both the model obtained by applying particular choices of insert $\prob{P}_\alpha:=\prob{P}_\square \cap \alpha$. $\RV{A}\CI_{\prob{P}_\square} \RV{B}$ is a statement of independence with respect to the model $\prob{P}_\square$.
 
-We define order 1 and order 2 probability gap models explicitly.
+The important features of probability gap models are their types -- what kind of probabaility sets they accept, and what kind of probability set we end up with as a result. We will limit our attention to probability sets defined by conditional probabilities, so that the intersection operation corresponds to the product of conditional probabilities via $\odot$. The general form of such models are collections of conditional probabilities with some conditional probabilities missing -- the set of conditional probabilities that could fill in the missing parts is the probability gap.
 
-\begin{definition}[Order 1 probability gap model]\label{def:order1_bycond}
-Given probability set $\Omega$ and variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a set $A$ of valid candidate distributions on $X$, an order 1 probability gap model $\prob{P}_\square: A\to \mathscr{P}(\Delta(\Omega))$ is map from $A$ to probability sets on $\Omega$ defined by a valid candidate conditional $\prob{P}_\square^{\RV{Y}|\RV{X}}$ such that for all $\alpha\in A$
+\begin{definition}[Marginal probability gap model]\label{def:order1_bycond}
+Given probability set $\Omega$ and variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a set $A$ of valid candidate distributions on $X$, a probability gap model with respect to $\RV{X}$, written $\prob{P}_\square: A\to \mathscr{P}(\Delta(\Omega))$, is map from $A$ to probability sets on $\Omega$ and is defined by a valid candidate conditional $\prob{P}_\square^{\RV{Y}|\RV{X}}$ and implements the map
 \begin{align}
 	\alpha &\overset{\prob{P}_\square}{\mapsto} \alpha\odot\prob{P}_\square^{\RV{Y}|\RV{X}}\\
 	&=: \prob{P}_\alpha^{\RV{XY}}
 \end{align}
-As a shorthand, we will use $(\prob{P}_\square^{\RV{Y}|\RV{X}},A)$ to represent an order 1 model.
+For all $\alpha\in A$.
 \end{definition}
 
+We can think of a marginal probability gap model as a probability model ``$\prob{P}$'' that is missing the marginal probability ``$\prob{P}^{\RV{X}}$''. We can insert any of a number of different options $\prob{P}_\alpha^{\RV{X}}$ for each $\alpha\in A$, an operation that yields the probability set defined by $\prob{P}_\alpha^{\RV{X}\RV{Y}}$ (which, if the sample space is just $X\times Y$, is just a probability model).
 
-\todo[inline]{The following is a placeholder definition for order 2 models}
+Applying the same idea, but with a missing conditional $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$ yields what we call a conditional probability gap model. A conditional gap model $\prob{P}_\square$ is defined by $(\prob{P}_\square^{\RV{X}},\prob{P}_\square^{\RV{Z}|\RV{YX}},A)$. Note that $\prob{P}_\square^{\RV{X}}$ and $\prob{P}_\square^{\RV{Z}|\RV{YX}}$ are of the wrong type to combine using $\odot$; we need a conditional probability $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$ to fill the ``gap'' between them.
 
-\begin{definition}[Order 2 probability gap model]
-Given probability set $\Omega$ and variables $\RV{W}:\Omega\to X$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega \to Z$ and a set $A$ of valid candidate conditionals on $X\kto Y$, an order 2 probability gap model $\prob{P}_\square: A\to \mathscr{P}(\Delta(\Omega))$ is map from $A$ to probability sets on $\Omega$ defined by a pair of valid candidate conditionals $(\prob{P}_\square^{\RV{X}|\RV{W}},\prob{P}_\square^{\RV{Z}|\RV{WXY}})$ such that for all $\alpha\in A$
+\begin{definition}[Conditional probability gap model]
+Given probability set $\Omega$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega \to Z$ and a set $A$ of valid candidate conditionals on $X\kto Y$, an order 2 probability gap model $\prob{P}_\square: A\to \mathscr{P}(\Delta(\Omega))$ is map from $A$ to probability sets on $\Omega$, is defined by a valid pair $(\prob{P}_\square^{\RV{X}},\prob{P}_\square^{\RV{Z}|\RV{XY}})$ and implements the map
 \begin{align}
-	\alpha &\overset{\prob{P}_\square}{\mapsto} \prob{P}_\square^{\RV{X}|\RV{W}} \odot \alpha\odot\prob{P}_\square^{\RV{Y}|\RV{X}}\\
-	&=: \prob{P}_\alpha^{\RV{XYZ}|\RV{W}}
+	\alpha &\overset{\prob{P}_\square}{\mapsto} (\prob{P}_\square^{\RV{X}} \odot \alpha)\odot\prob{P}_\square^{\RV{Z}|\RV{XY}}\\
+	&=: \prob{P}_\alpha^{\RV{XYZ}}
 \end{align}
-As a shorthand, we will use $(\prob{P}_\square^{\RV{X}|\RV{W}},\prob{P}_\square^{\RV{Z}|\RV{WXY}},A)$ to represent an order 1 model with a probability gap $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$
+for all $\alpha\in A$.
 \end{definition}
 
-\todo[inline]{The following defininitions and results are quite important, but they are not up to date with the rest of the paper}
-
-Order-2 gap models are models that take conditional probabilities as inputs, and that are represented by pairs of conditional probabilities where the second conditional probability has a missing input. More precisely, they can be represented with \emph{probability 2-combs} \citep{chiribella_quantum_2008,jacobs_causal_2019}.
-
-\begin{definition}[Probability 2-comb]
-Given $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:W\times Y\kto X\times Z$ is a Markov kernel such that for some $\prob{P}^{\RV{X}|\RV{W}}:W\kto X$
-\begin{align}
-	\tikzfig{2_comb_properdef}
-\end{align}
-\end{definition}
-
-The validity criteria for probability 2-combs can be relaxed slightly from the validity criteria for a pair of valid conditional probabilities \todo{but I don't think this is a very important point and I have struggled to generalise it to standard measurable sets.}
-
-\begin{definition}[Valid probability 2-comb]
-$\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}:W\times Y\kto X\times Z$, all sets discrete, is a valid probability 2-comb if
-\begin{enumerate}
-	\item $\prob{P}^{\RV{X}|\RV{W}}$ is a valid conditional probability
-	\item $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)=\emptyset$ implies $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$
-\end{enumerate}
-\end{definition}
-
-Wherever we have kernel disintegrations, there exists some $\prob{P}^{\RV{Z}|\RV{WXY}}:W\times X\times Y\kto Z$ (Lemma \ref{lem:disint_exist}) such that
-\begin{align}
-	\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}} &= \tikzfig{probability_2_comb}
-\end{align}
-
-We define the operation $\text{insert}$ that takes a 2-comb and a conditional probability and returns a conditional probability.
-
-\begin{align}
-	\text{insert}(\prob{P}_\alpha^{\RV{Y}|\RV{XW}},\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}) = \prob{P}^{\RV{X}|\RV{W}}\odot\prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \prob{P}^{\RV{Z}|\RV{WXY}}\label{eq:insert}
-\end{align}
-
-We can depict this operation graphically in a somewhat informal way as ``inserting'' $\prob{P}_\alpha^{\RV{Y}|\RV{XW}}$ into $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$:
+A pair of conditional probabilities with a gap between them are sometimes called a \emph{probability 2-combs} \citep{chiribella_quantum_2008,jacobs_causal_2019}. We can depict the map associated with a conditonal gap model graphically in an informal way as ``inserting'' $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$ into $\prob{P}^{\RV{X}\square\RV{Z}|\RV{Y}}$:
 
 \begin{align}
 	\text{Insert}\left(\tikzfig{insert_opn2}\right)\\= \tikzfig{2comb_inserted}\label{eq:insert_op}
 \end{align}
 
-\begin{definition}[Order 2 probability gap model]
-Given probability set $\Omega$ and variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and $A$ the set of valid candidate $\RV{Y}|\RV{X}$ conditionals and B the set of valid candidate $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditionals, an order 2 probability gap model is a map $\prob{P}:A\to B$ such that there exists some conditional probabilities $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$
-\end{definition}
+We can generalise the idea of conditional probabilities with gaps between them. For example, we could have a probability gap model defined by a triple of conditional probabilities $(\prob{P}_\square^{\RV{X}_1},\prob{P}_\square^{\RV{X}_3|\RV{X_1X_2}},\prob{P}_\square^{\RV{X}_5|\RV{X}_1\RV{X}_2\RV{X}_3\RV{X}_4},A)$ with inserts of type $(\prob{P}_\alpha^{\RV{X}_1},\prob{P}_\alpha^{\RV{X}_4||\RV{X}_1\RV{X}_2\RV{X}_3})$, and the map is given by selecting conditionals alternately from the model and the insert recursively applying $\odot$
 
-\begin{definition}[Order 2 model defined by a 2-comb]
-Given a valid conditional probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, and $\prob{P}$ is the map from valid $\RV{Y}|\RV{X}$ conditional probabilities to valid $(\RV{X},\RV{Y},\RV{Z})|\RV{W}$ conditional probabilities given by
 \begin{align}
-	\prob{P}_{\alpha}^{\RV{XYZ}|\RV{W}} = \prob{P}^{\RV{X}|\RV{W}}\odot\prob{P}^{\RV{Y}|\RV{X}}_\alpha \odot \prob{P}^{\RV{Z}|\RV{WXY}}
+	\alpha\overset{\prob{P}_\square}{\mapsto}&(((\prob{P}_\square^{\RV{X}_1}\odot \prob{P}_\alpha^{\RV{X}_1})\\
+		&\odot\prob{P}_\square^{\RV{X}_3|\RV{X}_1\RV{X}_2} )\odot\prob{P}_\alpha^{\RV{X}_4||\RV{X}_1\RV{X}_2\RV{X}_3})\\ 
+		&\odot \prob{P}_\square^{\RV{X}_5|\RV{X}_1\RV{X}_2\RV{X}_3\RV{X}_4}\\
 \end{align}
-for any valid $\RV{Y}|\RV{X}$ conditional probability $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
-\end{definition}
-
-An order 2 probability gap model $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ can be defined by a pair of disintegrations $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$. Just as with order 1 probability gap models, the two conditional probabilities defining a probability 2-comb must be \emph{valid}. Theorem \ref{th:extension_2comb_valid} shows that the insert operation yields a valid conditional probability given any valid inputs.
 
 % We finally note that a conditional probability $\prob{P}^{\RV{Y}|\RV{X}}$ along with the copy-product $\odot$ corresponds precisely to the set of insert compatible mixture homomorphisms.
 
@@ -690,70 +661,12 @@ An order 2 probability gap model $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ 
 % \end{align}
 % \end{proof}
 
-\begin{theorem}[Extension of valid probability 2-combs]\label{th:extension_2comb_valid}
-Given $\Omega$, $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$, a probability 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is valid if and only if $\text{insert}(\prob{P}_\alpha^{\RV{Y}|\RV{WX}},\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$ is valid for all valid $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$.
-\end{theorem}
-
-\begin{proof}
-Only if:
-
-Note that
-\begin{align}
-	\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}&:=\text{insert}(\prob{P}_\alpha^{\RV{Y}|\RV{WX}},\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})\\
-	\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w) &= \prob{P}^{\RV{Y}|\RV{WX}}_\alpha(y|w,x)\prob{P}^{\RV{X}|\RV{W}}(x|w)\prob{P}^{\RV{Z}|\RV{XYW}}(z|x,y,w)\\
-	&= \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)\prob{P}_\alpha(y|x)
-\end{align}
-
-Suppose $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is valid. If $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)=\emptyset$ then either $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)=0$ and hence $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$.
-
-If $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$ then either $(\RV{W},\RV{X})\yields (w,x)\neq\emptyset$ and by validity $\prob{P}^{\RV{Y}|\RV{WX}}_\alpha(y|w,x)=0$ and so $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)=0$ or $(\RV{W},\RV{X})\yields(w,x)=\emptyset$.
-
-If $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ then either $\RV{W}\yields w\neq \emptyset$ and by validity $\prob{P}^{\RV{X}|\RV{W}}(x|w)=0$ and so $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)=0$ or $\RV{W}\yields w=\emptyset$, in which case $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)$ may take any value.
-
-If:
-Suppose $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ is invalid. Then either $\prob{P}^{\RV{X}|\RV{W}}$ is invalid or $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)>0$ on some $(w,x,y,z)$ such that $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)= \emptyset$ and $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)\neq \emptyset$.
-
-Suppose $\prob{P}^{\RV{X}|\RV{W}}$ is invalid. Then
-
-\begin{align}
-	\prob{P}_\alpha^{\RV{X}|\RV{W}}(x|w) &= \sum_{y\in Y,z\in Z}\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w)\\
-										 &= \prob{P}^{\RV{X}|\RV{W}}(x|w)
-\end{align}
-
-Thus $\prob{P}_\alpha^{\RV{X}|\RV{W}}(x|w)$ is invalid and therefore so too is $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}$.
-
-Suppose we have some $(w,x,y,z)$ such that $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)= \emptyset$, $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)\neq \emptyset$ and $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)>0$.
-
-By supposition, there is a valid $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ such that $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}(y|w,x)=1$. Then
-
-\begin{align}
-	\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}(xyz|w) &= \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)\prob{P}_\alpha(y|x)\\
-											 &= \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)\\
-											 &>0
-\end{align}
-So $\prob{P}_\alpha^{\RV{XYZ}|\RV{W}}$ is invalid.
-\end{proof}
-
-It is also the case that if we combine two valid conditional probabilities to form a 2-comb, the result is a valid 2-comb.
-
-\begin{theorem}[Valid conditional probabilities combine to a valid 2-comb]\label{lem:valid_conditionals}
-Given valid conditional probabilities $\prob{P}^{\RV{X}|\RV{W}}$ and $\prob{P}^{\RV{Z}|\RV{WXY}}$
-\begin{align}
-	\tikzfig{probability_2_comb}
-\end{align}
-Is a valid 2-comb.
-\end{theorem}
-
-\begin{proof}
-Validity of $\prob{P}^{\RV{X}|\RV{W}}$ is by assumption, and validity of $\prob{P}^{\RV{Z}|\RV{WXY}}$ means $(\RV{W},\RV{X},\RV{Y},\RV{Z})\yields(w,x,y,z)=\emptyset$ implies $\prob{P}^{\RV{Z}|\RV{WXY}}(z|w,x,y)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$. This in turn implies $\prob{P}^{\RV{Z}|\RV{WXY}}(z|w,x,y)=0$ or $(\RV{W},\RV{X},\RV{Y})\yields(w,x,y)=\emptyset$.
-\end{proof}
-
 \subsubsection{Disintegrations}
 
-Markov kernels that map to product spaces can be ``disintegrated'' into a pair of kernels that map to each element of the product space. We can find conditional probabilities using disintegrations.
+Markov kernels on standard measurable spaces can be disintegrated into a pairs of kernels that yield the original kernel when composed with $\odot$. We can find conditional probabilities using disintegrations.
 
 \begin{lemma}[Disintegration existence in discrete Markov kernels]\label{lem:disint_exist}
-For any Markov kernel $\kernel{K}:X\kto W\times Y$ and $X$, $W$, $Y$ are discrete, there exists $\kernel{L}:W\times X\kto Y$ such that
+For any Markov kernel $\kernel{K}:X\kto W\times Y$ and $X$, $W$, $Y$ are standard measurable, there exists $\kernel{L}:W\times X\kto Y$ such that
 \begin{align}
 	\kernel{K} = \tikzfig{disintegration_existence}
 \end{align}
@@ -761,44 +674,45 @@ $\kernel{L}$ is a \emph{disintegration} of $\kernel{K}$.
 \end{lemma}
 
 \begin{proof}
-Consider any Markov kernel $\kernel{L}:W\times X\kto Y$ with the property
-\begin{align}
-	\model{L}(y|w,x) = \frac{\model{K}(w,y|x)}{\sum_{y\in Y}\model{K}(w,y|x)}\qquad\forall {x,w}:\text{ the denominator is positive}
-\end{align}
-Then
-\begin{align}
-	\sum_{y\in Y}\model{K}(w,y|x) \model{L}(y|w,x) &= \sum_{y\in Y}\model{K}(w,y|x) \frac{\model{K}(w,y|x)}{\sum_{y\in Y}\model{K}(w,y|x)} &\text{ if }\sum_{y\in Y}\model{K}(w,y|x)>0\\
-												   &= \model{K}(w,y|x) &\text{ if }\sum_{y\in Y}\model{K}(w,y|x)>0\\
-												   &= 0 &\text{otherwise}\\
-												   &= \model{K}(w,y|x) &\text{otherwise}
-\end{align}
+\citet{cho_disintegration_2019} Theorem 3.11
+% Consider any Markov kernel $\kernel{L}:W\times X\kto Y$ with the property
+% \begin{align}
+% 	\model{L}(y|w,x) = \frac{\model{K}(w,y|x)}{\sum_{y\in Y}\model{K}(w,y|x)}\qquad\forall {x,w}:\text{ the denominator is positive}
+% \end{align}
+% Then
+% \begin{align}
+% 	\sum_{y\in Y}\model{K}(w,y|x) \model{L}(y|w,x) &= \sum_{y\in Y}\model{K}(w,y|x) \frac{\model{K}(w,y|x)}{\sum_{y\in Y}\model{K}(w,y|x)} &\text{ if }\sum_{y\in Y}\model{K}(w,y|x)>0\\
+% 												   &= \model{K}(w,y|x) &\text{ if }\sum_{y\in Y}\model{K}(w,y|x)>0\\
+% 												   &= 0 &\text{otherwise}\\
+% 												   &= \model{K}(w,y|x) &\text{otherwise}
+% \end{align}
 
-In general there are many indexed Markov kernels that satisfy this.
+% In general there are many indexed Markov kernels that satisfy this.
 \end{proof}
 
 We can
 
 \begin{theorem}[Existence of conditional probabilities]\label{th:valid_disint}
-Given a probability gap model $\prob{P}:A\to \Delta(\Omega)$ along with a valid conditional probability $\model{P}^{\RV{XY}|\RV{W}}$, there exists a valid conditional probability $\prob{P}^{\RV{Y}|\RV{WX}}$.
+Given a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$ along with a valid conditional probability $\model{P}_\square^{\RV{XY}|\RV{W}}$, there exists a valid conditional probability $\prob{P}_\square^{\RV{Y}|\RV{WX}}$.
 \end{theorem}
 
 \begin{proof}
-From Lemma \ref{lem:disint_exist}, we have the existence of some Markov kernel $\prob{P}^{\RV{Y}|\RV{WX}}:W\times X\to Y$ such that
+From Lemma \ref{lem:disint_exist}, we have the existence of some Markov kernel $\prob{P}_\square^{\RV{Y}|\RV{WX}}:W\times X\to Y$ such that
 \begin{align}
-	\prob{P}^{\RV{XY}|\RV{W}}=\prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}^{\RV{Y}|\RV{WX}}\label{eq:k_disint}
+	\prob{P}_\square^{\RV{XY}|\RV{W}}=\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}}\label{eq:k_disint}
 \end{align}
 
-By definition of conditional probability , for any insert $\alpha\in A$, letting $\prob{P}_\alpha=\prob{P}(\alpha)$, there exists $\prob{P}_\alpha^{\RV{W}}\in\Delta(W)$ such that
+By definition of conditional probability , for any insert $\alpha\in A$ there exists $\prob{P}_\alpha^{\RV{W}}\in\Delta(W)$ such that
 
 \begin{align}
-	\prob{P}_\alpha^{\RV{WXY}}=\prob{P}_\alpha^{\RV{W}}\odot\prob{P}^{\RV{XY}|\RV{W}}
+	\prob{P}_\alpha^{\RV{WXY}}=\prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{XY}|\RV{W}}
 \end{align}
 
 Thus
 
 \begin{align}
-\prob{P}_\alpha^{\RV{WXY}}&= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}^{\RV{Y}|\RV{WX}})\\
-&= (\prob{P}_\alpha^{\RV{W}}\odot\prob{P}^{\RV{X}|\RV{W}})\odot \prob{P}^{\RV{Y}|\RV{WX}})
+\prob{P}_\alpha^{\RV{WXY}}&= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})\\
+&= (\prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{X}|\RV{W}})\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})
 \end{align}
 
 Let $\text{erasef}_Y:Y\to \{*\}$ be the erase function on $Y$ (as opposed to the erase kernel) and $\text{idf}_{W\times X}$ be the identity function on $W\times X$. Noting that 
@@ -809,49 +723,49 @@ By Lemma \ref{lem:prod_pushf} together with Theorem \ref{th:recurs_pushf} we hav
 
 \begin{align}
 	\prob{P}_\alpha^{\RV{XW}} &= \prob{P}_\alpha^{\RV{WXY}}(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
-							  &= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}^{\RV{Y}|\RV{WX}})(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
-							  &= \prob{P}_\alpha^{\RV{W}}\odot\prob{P}^{\RV{X}|\RV{W}}
+							  &= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
+							  &= \prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{X}|\RV{W}}
 \end{align}
 
 Then
 
 \begin{align}
-\prob{P}_\alpha^{\RV{XWY}}&= (\prob{P}_\alpha^{\RV{XW}})\odot \prob{P}^{\RV{Y}|\RV{WX}})
+\prob{P}_\alpha^{\RV{XWY}}&= (\prob{P}_\alpha^{\RV{XW}})\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})
 \end{align}
 
-And so $\prob{P}^{\RV{Y}|\RV{WX}})$ is a $\RV{Y}|\RV{WX}$ conditional probability. We also want it to be valid, so we will verify that it can be chosen as such.
+And so $\prob{P}_\square^{\RV{Y}|\RV{WX}})$ is a $\RV{Y}|\RV{WX}$ conditional probability. We also want it to be valid, so we will verify that it can be chosen as such.
 
-We also need to check that $\prob{P}^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{P}^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{P}^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{P}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \prob{P}^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\prob{P}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
+We also need to check that $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{P}_\square^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{P}_\square^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{P}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \prob{P}_\square^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\prob{P}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
 \end{proof}
 
 
 
 \subsubsection{Conditional independence}\label{ssec:cond_indep}
 
-Conditional independence has a familiar definition in probability models. A conditional independence in models with probability gaps is equivalent to the claim that the given conditional independence holds for all base measure that the model can be extended to. In order 1 probability gap models, this definition is closely related to the idea of \emph{extended conditional independence} proposed by \citet{constantinou_extended_2017}.
+Conditional independence has a familiar definition in probability models. We define conditional independence with respect to a probability gap model to be equivalent to conditional independence with resepect to every base measure in the range of the model. This definition is closely related to the idea of \emph{extended conditional independence} proposed by \citet{constantinou_extended_2017}.
 
 \begin{definition}[Conditional independence with respect to a probability model]
-For a \emph{probability model} $\model{P}^{\RV{I}}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}}\RV{A}|\RV{C}$, if
+For a \emph{probability model} $\model{P}_\square^{\RV{I}}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_\square}\RV{A}|\RV{C}$, if
 \begin{align}
-	\kernel{P}^{\RV{ABC}} &= \tikzfig{cond_indep1}
+	\kernel{P}_\square^{\RV{ABC}} &= \tikzfig{cond_indep1}
 \end{align}
 \end{definition}
 
-For any $\prob{P}^{\RV{B}|\RV{C}}$ and $\prob{P}^{\RV{A}|\RV{C}}$. \citet{cho_disintegration_2019} have shown that this definition coincides with the standard notion of conditional independence. In particular, it satisfies the \emph{semi-graphoid axioms}
+For any $\prob{P}_\square^{\RV{B}|\RV{C}}$ and $\prob{P}_\square^{\RV{A}|\RV{C}}$. \citet{cho_disintegration_2019} have shown that this definition coincides with the standard notion of conditional independence. In particular, it satisfies the \emph{semi-graphoid axioms}
 
 \begin{enumerate}
-	\item Symmetry: $\RV{A}\CI_{\prob{P}} \RV{B}|\RV{C}$ iff $\RV{B}\CI_{\prob{P}} \RV{A}|\RV{C}$
-	\item Decomposition: $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}}\RV{Y}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$
-	\item Weak union: $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$
-	\item Contraction: $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$
+	\item Symmetry: $\RV{A}\CI_{\prob{P}_\square} \RV{B}|\RV{C}$ iff $\RV{B}\CI_{\prob{P}_\square} \RV{A}|\RV{C}$
+	\item Decomposition: $\RV{A}\CI_{\prob{P}_\square} (\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}_\square}\RV{Y}|\RV{W}$ and $\RV{A}\CI_{\prob{P}_\square}\RV{C}|\RV{W}$
+	\item Weak union: $\RV{A}\CI_{\prob{P}_\square}(\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}_\square}\RV{B}|(\RV{C},\RV{W})$
+	\item Contraction: $\RV{A}\CI_{\prob{P}_\square}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}_\square}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CI_{\prob{P}_\square}(\RV{B},\RV{C})|\RV{W}$
 \end{enumerate}
 
 \begin{theorem}\label{th:cho_ci_equiv}
-Given discrete $\Omega$ and a probability model $\prob{P}$ and variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$ if and only if ther exists some version of $\prob{P}^{\RV{Y}|\RV{WX}}$ and $\prob{P}^{\RV{Y}|\RV{W}}$ such that
+Given discrete $\Omega$ and a probability model $\prob{P}_\square$ and variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ if and only if there exists some version of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ and $\prob{P}_\square^{\RV{Y}|\RV{W}}$ such that
 \begin{align}
-	\prob{P}^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase}\\
+	\prob{P}_\square^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase}\\
 	\iff
-	\prob{P}^{\RV{Y}|\RV{WX}}(y|w,x) &= \prob{P}^{\RV{Y}|\RV{W}}(y|w)
+	\prob{P}_\square^{\RV{Y}|\RV{WX}}(y|w,x) &= \prob{P}^{\RV{Y}|\RV{W}}(y|w)
 \end{align}
 \end{theorem}
 
@@ -861,27 +775,36 @@ See \citet{cho_disintegration_2019}.
 
 
 \begin{definition}[Conditional independence with respect to a probability gap model]
-Conditional independence $\RV{A}\CI_{\prob{P}}\RV{B}|\RV{C}$ holds for an arbitrary probability gap model $\model{P}:A\to \Delta(\Omega)$ if $\RV{A}\CI_{\prob{P}_\alpha}\RV{B}|\RV{C}$ holds for all probability models $\prob{P}_\alpha$, $\alpha\in A$.
+Conditional independence $\RV{A}\CI_{\prob{P}_\square}\RV{B}|\RV{C}$ holds for an arbitrary probability gap model $\model{P}_\square:A\to \mathscr{P}(\Delta(\Omega))$ if $\RV{A}\CI_{\prob{P}_\alpha}\RV{B}|\RV{C}$ holds for all probability models $\prob{P}_\alpha$, $\alpha\in A$.
 \end{definition}
 
-We can define conditional independence in order 1 and order 2 models in terms of conditional independence in lower order models.
+% We can define conditional independence in order 1 and order 2 models in terms of conditional independence in lower order models.
 
-\begin{definition}[Order 1 conditional independence]
-For a \emph{conditional probability model} $\prob{P}^{\RV{V}|\RV{W}}$, define $\prob{P}_{\beta}^{\RV{VW}}:=\prob{P}_{\beta}^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$. Then say $\RV{B}$ is order 1 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\prob{P}}\RV{A}|\RV{C}$ if for all $\beta$, $\RV{B}\CI_{\prob{P}_\beta}\RV{A}|\RV{C}$.
-\end{definition}
+% \begin{definition}[Order 1 conditional independence]
+% For a \emph{conditional probability model} $\prob{P}^{\RV{V}|\RV{W}}$, define $\prob{P}_{\beta}^{\RV{VW}}:=\prob{P}_{\beta}^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$. Then say $\RV{B}$ is order 1 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\prob{P}}\RV{A}|\RV{C}$ if for all $\beta$, $\RV{B}\CI_{\prob{P}_\beta}\RV{A}|\RV{C}$.
+% \end{definition}
 
-\begin{definition}[Order 2 conditional independence]
-For a \emph{probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{Q}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$. Then say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\prob{P}}\RV{A}|\RV{C}$ if for all $\gamma$, $\RV{B}\CI^1_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
-\end{definition}
+% \begin{definition}[Order 2 conditional independence]
+% For a \emph{probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{Q}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$. Then say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\prob{P}}\RV{A}|\RV{C}$ if for all $\gamma$, $\RV{B}\CI^1_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
+% \end{definition}
 
-Conditional independence is already a complicated property of probability models, and the quantification over the range of probability gap models makes it even more complicated. One case where we can deduce conditional independences in probability gap models is when conditional probabilities exist and they are \emph{unresponsive} to some input variables.
+One case where we can deduce conditional independences in probability gap models is when conditional probabilities exist and they are \emph{unresponsive} to some input variables.
 
-\begin{theorem}[Conditional independence from kernel unresponsiveness]
-Given discrete $\Omega$, a probability gap model $\prob{P}:A\to \Delta(\Omega)$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, if there is some version of the conditional probability $\prob{P}^{\RV{Y}|\RV{WX}}$ such that
+\begin{definition}[Unresponsiveness]
+Given discrete $\Omega$, a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, if there is some version of the conditional probability $\prob{P}^{\RV{Y}|\RV{WX}}$ and $\prob{P}_\square^{\RV{Y}|\RV{W}}$ such that
 \begin{align}
-	\prob{P}^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase} \label{eq:higherorder_ci_erase}
+	\prob{P}_\square^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase} \label{eq:higherorder_ci_erase}
 \end{align}
-then $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$. Furthermore, if there is some $\alpha\in A$ such that $\prob{P}_{\beta}(B)>0\implies \prob{P}_{\alpha}(B)>0$ for all $\beta\in A$, $B\subset \Omega$, then $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$ implies Equation \ref{eq:higherorder_ci_erase}.
+then $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ is \emph{unresponsive} to $\RV{X}$.
+\end{definition}
+
+\begin{definition}[Domination]
+Given a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$, $\alpha\in A$ dominates $A$ if $\prob{P}_\beta(B)>0\implies \prob{P}_\alpha(B)>0$ for all $\beta in A$, $B\in \sigalg{F}$.
+\end{definition}
+
+\begin{theorem}[Conditional independence from kernel unresponsiveness]\label{th:cons_ci}
+Given discrete $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$ with conditional probability $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ and such that there is $\alpha\in A$ dominating $A$, $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ if and only if $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ is unresponsive to $\RV{W}$. 
+% Furthermore, if there is some $\alpha\in A$ such that $\prob{P}_{\beta}(B)>0\implies \prob{P}_{\alpha}(B)>0$ for all $\beta\in A$, $B\subset \Omega$, then $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$ also implies $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ is unresponsive to $\RV{W}$.
 \end{theorem}
 
 \begin{proof}
@@ -890,47 +813,51 @@ For every $\alpha\in A$ we can write
 \begin{align}
 	\prob{P}_\alpha^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase_alpha}
 \end{align}
-And so, by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\prob{P}_\alpha}\RV{X}|\RV{W}$ for all $\alpha\in A$, and so $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$.
-\end{proof}
-
-The reverse implication does not hold. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{AB}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{AB}}$ is a flip of a biased coin followed by a flip of a fair coin, then $\RV{A}\CI_{\prob{P}}\RV{B}$ but $\prob{P}^{\RV{AB}}$ does not exist. If we consider order 1 or order 2 models, then we can say that the reverse implication holds for particular collections of variables.
-
-\begin{theorem}\label{th:cons_ci}
-Given an order 2 model $\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}}$, $\RV{Y}\CI_{\model{P}}\RV{V}|\RV{WX}$ if and only if there is a version of $\prob{P}^{\RV{Y}|\RV{WXV}}$ and some $\prob{P}^{\RV{Y}|\RV{WX}}$ such that
-\begin{align}
-	\prob{P}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence}
-\end{align}
-\end{theorem}
-
-\begin{proof}
-If: For any $\model{K}:X\times V\times W\kto Y$, $\model{J}:\{*\}\kto W$
-\begin{align}
-	\model{L} :&= \model{J}\odot \text{insert}(\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}},\model{K})\\
-	 &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} \odot \prob{P}^{\RV{Y}|\RV{WXV}}\\
-\end{align}
-
-That is, $\prob{P}^{\RV{Y}|\RV{WXV}}$ is a version of $\prob{L}^{\RV{Y}|\RV{WXV}}$ for any extension $\model{L}$ of $\model{P}$. Then by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\model{L}}\RV{V}|\RV{WX}$ and so, by definition, $\RV{Y}\CI_{\model{P}}^2\RV{V}|\RV{WX}$.
+And so, by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\prob{P}_\alpha}\RV{X}|\RV{W}$ for all $\alpha\in A$, and so $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$.
 Only if:
-
-Let $\model{L}:\{*\}\kto W\times X\times V\times Y$ be an extension of $\model{P}$ to a 0-order model such that $\model{L}^{\RV{WXV}}\gg \model{M}^{\RV{WXV}}$ for any other extension $\model{M}$. Because $\RV{Y}\CI_{\model{L}}\RV{V}|\RV{WX}$, by Theorem \ref{th:cho_ci_equiv} there is some $\prob{L}^{\RV{Y}|\RV{WXV}}$ and $\prob{L}^{\RV{Y}|\RV{WX}}$ such that
-\begin{align}
-	\prob{L}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence_l}
-\end{align}
-
-As $\model{L}$ is an extension of $\model{P}$, there must be some $\model{J}$, $\model{K}$ such that for any $\prob{P}^{\RV{Y}|\RV{WXV}}$
-
-\begin{align}
-	\model{L} :&= \model{J}\odot \text{insert}(\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}},\model{K})\\
-	 &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} \odot \prob{P}^{\RV{Y}|\RV{WXV}}\\
-	 \model{L}^{\RV{WXV}} &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K}
-\end{align}
-
-Thus for any $(w,x,v)$ such that $\model{L}^{\RV{WXV}}>0$, $\prob{P}^{\RV{Y}|\RV{WXV}}\overset{\model{L}}{\cong}\prob{L}^{\RV{Y}|\RV{WXV}}$. The set on which they may disagree is precisely the set of $(w,x,v)$ such that $\model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} = 0$ for all $\model{J}$, $\model{K}$, but this means that $\prob{P}^{\RV{Y}|\RV{WXV}}\overset{\model{P}}{\cong}\prob{L}^{\RV{Y}|\RV{WXV}}$ also.
+By Theorem \ref{th:cho_ci_equiv}, there exists a version of $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ unresponsive to $\RV{W}$. Because $\alpha$ dominates $A$, every version of $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ is a version of $\prob{P}_\beta^{\RV{Y}|\RV{WX}}$ for all $\beta in A$, thus it is a version of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ also.
 \end{proof}
+
+Note that $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ does \emph{not} imply the existence of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{AB}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{AB}}$ is a flip of a biased coin followed by a flip of a fair coin, then $\RV{A}\CI_{\prob{P}}\RV{B}$ but $\prob{P}^{\RV{AB}}$ does not exist.
+
+We also need the domination condition. Consider $A$ a collection of inserts that all deterministically set a variable $\RV{X}$; then for any variable $\RV{Y}$ $\RV{Y}\CI_{\prob{P}_\square} \RV{X}$ because $\RV{X}$ is deterministic for any $\alpha\in A$. But $\prob{P}_\square^{\RV{Y}|\RV{X}}$ is not necessarily unresponsive to $\RV{X}$.
+
+% \begin{theorem}\label{th:cons_ci}
+% Given an order 2 model $\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}}$, $\RV{Y}\CI_{\model{P}}\RV{V}|\RV{WX}$ if and only if there is a version of $\prob{P}^{\RV{Y}|\RV{WXV}}$ and some $\prob{P}^{\RV{Y}|\RV{WX}}$ such that
+% \begin{align}
+% 	\prob{P}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence}
+% \end{align}
+% \end{theorem}
+
+% \begin{proof}
+% If: For any $\model{K}:X\times V\times W\kto Y$, $\model{J}:\{*\}\kto W$
+% \begin{align}
+% 	\model{L} :&= \model{J}\odot \text{insert}(\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}},\model{K})\\
+% 	 &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} \odot \prob{P}^{\RV{Y}|\RV{WXV}}\\
+% \end{align}
+
+% That is, $\prob{P}^{\RV{Y}|\RV{WXV}}$ is a version of $\prob{L}^{\RV{Y}|\RV{WXV}}$ for any extension $\model{L}$ of $\model{P}$. Then by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\model{L}}\RV{V}|\RV{WX}$ and so, by definition, $\RV{Y}\CI_{\model{P}}^2\RV{V}|\RV{WX}$.
+% Only if:
+
+% Let $\model{L}:\{*\}\kto W\times X\times V\times Y$ be an extension of $\model{P}$ to a 0-order model such that $\model{L}^{\RV{WXV}}\gg \model{M}^{\RV{WXV}}$ for any other extension $\model{M}$. Because $\RV{Y}\CI_{\model{L}}\RV{V}|\RV{WX}$, by Theorem \ref{th:cho_ci_equiv} there is some $\prob{L}^{\RV{Y}|\RV{WXV}}$ and $\prob{L}^{\RV{Y}|\RV{WX}}$ such that
+% \begin{align}
+% 	\prob{L}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence_l}
+% \end{align}
+
+% As $\model{L}$ is an extension of $\model{P}$, there must be some $\model{J}$, $\model{K}$ such that for any $\prob{P}^{\RV{Y}|\RV{WXV}}$
+
+% \begin{align}
+% 	\model{L} :&= \model{J}\odot \text{insert}(\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}},\model{K})\\
+% 	 &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} \odot \prob{P}^{\RV{Y}|\RV{WXV}}\\
+% 	 \model{L}^{\RV{WXV}} &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K}
+% \end{align}
+
+% Thus for any $(w,x,v)$ such that $\model{L}^{\RV{WXV}}>0$, $\prob{P}^{\RV{Y}|\RV{WXV}}\overset{\model{L}}{\cong}\prob{L}^{\RV{Y}|\RV{WXV}}$. The set on which they may disagree is precisely the set of $(w,x,v)$ such that $\model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} = 0$ for all $\model{J}$, $\model{K}$, but this means that $\prob{P}^{\RV{Y}|\RV{WXV}}\overset{\model{P}}{\cong}\prob{L}^{\RV{Y}|\RV{WXV}}$ also.
+% \end{proof}
 
 \subsubsection{Extended conditional independence}
 
-In the case of a conditional probability model $\prob{P}^{\RV{V}|\RV{W}}$, we can view $\prob{P}^{\RV{V}|\RV{W}}$ as a collection of probability distributions $\{\prob{P}^{\RV{V}}_w:=A\mapsto \prob{P}^{\RV{V}|\RV{W}}(A|w)|w\in W\}$. We can then consider $\RV{W}$ to be what \citet{constantinou_extended_2017} call ``the regime indicator'' and $\RV{V}$ what they call a ``stochastic variable''. That paper introduces a notion of \emph{extended conditional independence}, which can be applied to models containing combination of stochastic variables and regime variables like $\prob{P}^{\RV{V}|\RV{W}}$.  Theorem 4.4 of that work proves the following claim:
+In the case of a probability gap model $(\prob{P}_{\square}^{\RV{V}|\RV{W}},A)$ where there is some $\alpha\in A$ dominating $A$, we can relate conditional independence with respect to $\prob{P}_\square$ to what \citet{constantinou_extended_2017} \emph{extended conditional independence}, which is a notion they define with respect to a Markov kernel. These concepts may differ if $A$ is not dominated. Theorem 4.4 of \citet{constantinou_extended_2017} proves the following claim:
 
 \begin{theorem}\label{th:dawid_constantionou}
 Let $\RV{A}^*=\RV{A}\circ \RV{V}$, $\RV{B}^*=\RV{B}\circ\RV{V}$, $\RV{C}^*=\RV{C}\circ \RV{V}$ ($(\RV{A},\RV{B},\RV{C})$ are $\sigalg{V}$-measurable) and $\RV{D}^*=\RV{D}\circ \RV{W}$,$\RV{E}^*=\RV{E}\circ \RV{W}$ where $W$ is discrete and $\RV{W}=(\RV{D}^*,\RV{E}^*)$. In addition, let $\prob{P}_\alpha^{\RV{W}}$ be some probability distribution on $\RV{W}$ such that $w\in\RV{W}(\Omega)\implies \prob{P}_\alpha^{\RV{W}}(w)>0$. Then, denoting extended conditional independence with $\CI_{\prob{P},\text{ext}}$ and $\prob{P}_\alpha^{\RV{VW}}:=\prob{P}_\alpha^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$
@@ -980,15 +907,6 @@ Thus for any $(a,b,c,d,e)\in A\times B\times C\times D\times E$ such that $\prob
 	\prob{P}_\beta^{\RV{A^*B^*C^*}\RV{D^*E^*}} &= \tikzfig{indep_strengthen_3}\\
 	&= \tikzfig{indep_strengthen_4}
 \end{align}
-\end{proof}
-
-
-\begin{corollary}[Recursive independence]
-Suppose we have a fundamental probability set $\Omega$, a set of inserts $A$, variables $\RV{V}:\Omega\to V$, $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ such that $\RV{Y}=(\RV{Z},\RV{W})$ and a probability gap model $\prob{P}:A\to \Delta(\Omega)$ such that $\prob{P}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ disintegration of $\prob{P}$. Define an order 1 probability gap model $\prob{Q}^{\square \RV{Y}|\RV{X}}$ such that $\prob{Q}^{\RV{Y}|\RV{X}}=\prob{P}^{\RV{Y}|\RV{X}}$. If $\RV{Z}\CI_{\prob{Q}}\RV{W}|\RV{V}$ then $\RV{Z}\CI_{\prob{P}}\RV{W}|\RV{V}$.
-\end{corollary}
-
-\begin{proof}
-If $\RV{Z}\CI_{\prob{Q}}\RV{W}|\RV{V}$ then both $\prob{Q}^{\RV{Z}|\RV{WV}}$ and $\prob{Q}^{\RV{Z}|\RV{V}}$ exist and $\prob{Q}^{\RV{Z}|\RV{WV}}=\prob{Q}^{\RV{Z}|\RV{V}}\otimes\text{erase}_{W}$ and hence $\prob{P}^{\RV{Z}|\RV{WV}}=\prob{P}^{\RV{Z}|\RV{V}}\otimes\text{erase}_{W}$.
 \end{proof}
 
 \subsubsection{Graphical properties of conditional independence}
