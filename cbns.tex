@@ -369,7 +369,22 @@ So, by Theorem \ref{th:cons_ci}, $\prob{P}^{\RV{Y}_i|\RV{HD}}$ exists and by con
 \end{align}
 \end{proof}
 
-\subsection{Copied consequence models with observations}
+\subsection{Extending contractible do models with observations}
+
+If we are planning to conduct a series of experiments, we think a causally contractible do model is appropriate for these experiments and we have a decision function chosen, then we can restrict the do model to a model of observations by inserting the decision function. If we fix a decision function for the first $[n]$ experiments and leave the remaining decisions as a probability gap, then we get a see-do model. Combined with assumptions of full support, this see-do model is identificable. Thus the pair of assumptions
+\begin{itemize}
+    \item We can get the same result from performing the same action
+    \item We have a specific plan for which actions to perform
+\end{itemize}
+imply identifiability, making them similar in consequence to the assumptions of ignorability (potential outcomes are independent of choices) or causal sufficiency (all causes necessary for identification are observed). However, we may have different reasons for considering these different assumptions to be justified -- or not.
+
+There may be many cases where we feel that the first assumption is justifiable but causal identifiability is not licensed. Thus (perhaps surprisingly) the second assumption is quite crucial to the property of identifiability. When we weaken this assumption, we recover familiar rules of causal inference and (non)-identifiability. That is, in this view it is \emph{not} causal contractibility but the existence of a decision function that distinguishes identifiable from non-identifiable models.
+
+Causal identifiability is considered more sound in RCTs, and also people say ``surely we can't define causes by reference to RCTs''. RCTs ensure the existence of a known decision function. We suggest that observational causal inference may proceed from weaker assumptions regarding the decision function.
+
+
+
+
 
 We can derive the truncated factorisation rule from assuming 1) a causally contractible do model and 2) an unobserved, exchangeable ``observational decision function''. This derivation is attractive because
 \begin{itemize}
