@@ -1,4 +1,4 @@
-\begin{thebibliography}{32}
+\begin{thebibliography}{33}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -119,6 +119,14 @@ M.~A. Hernán and S.~L. Taubman.
 \newblock ISSN 1476-5497.
 \newblock \doi{10.1038/ijo.2008.82}.
 \newblock URL \url{https://www.nature.com/articles/ijo200882}.
+
+\bibitem[Hutter(2004)]{hutter_universal_2004}
+Marcus Hutter.
+\newblock \emph{Universal {Artificial} {Intelligence}: {Sequential} {Decisions}
+  {Based} on {Algorithmic} {Probability}}.
+\newblock Springer Science \& Business Media, October 2004.
+\newblock ISBN 978-3-540-22139-5.
+\newblock Google-Books-ID: ziLLYu7oIkQC.
 
 \bibitem[Hájek(2003)]{hajek_what_2003}
 Alan Hájek.

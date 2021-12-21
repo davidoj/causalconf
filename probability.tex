@@ -580,7 +580,7 @@ Given probability set $\Omega$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omeg
 for all $\alpha\in A$.
 \end{definition}
 
-A pair of conditional probabilities with a gap between them are sometimes called a \emph{probability 2-combs} \citep{chiribella_quantum_2008,jacobs_causal_2019}. We can depict the map associated with a conditonal gap model graphically in an informal way as ``inserting'' $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$ into $\prob{P}^{\RV{X}\square\RV{Z}|\RV{Y}}$:
+A pair of conditional probabilities with a gap between them induces a \emph{probability 2-combs} \citep{chiribella_quantum_2008,jacobs_causal_2019}. We can depict the map associated with a conditonal gap model graphically in an informal way as ``inserting'' $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$ into $\prob{P}^{\RV{X}\square\RV{Z}|\RV{Y}}$:
 
 \begin{align}
 	\text{Insert}\left(\tikzfig{insert_opn2}\right)\\= \tikzfig{2comb_inserted}\label{eq:insert_op}
@@ -591,8 +591,24 @@ We can generalise the idea of conditional probabilities with gaps between them. 
 \begin{align}
 	\alpha\overset{\prob{P}_\square}{\mapsto}&(((\prob{P}_\square^{\RV{X}_1}\odot \prob{P}_\alpha^{\RV{X}_1})\\
 		&\odot\prob{P}_\square^{\RV{X}_3|\RV{X}_1\RV{X}_2} )\odot\prob{P}_\alpha^{\RV{X}_4||\RV{X}_1\RV{X}_2\RV{X}_3})\\ 
-		&\odot \prob{P}_\square^{\RV{X}_5|\RV{X}_1\RV{X}_2\RV{X}_3\RV{X}_4}\\
+		&\odot \prob{P}_\square^{\RV{X}_5|\RV{X}_1\RV{X}_2\RV{X}_3\RV{X}_4}\label{eq:intersperse_pgap}
 \end{align}
+
+History-based models of reinforcement found in \citet{hutter_universal_2004} are examples of probability gap models of this type. Such models posit sequences of variables $(\RV{A}_i,\RV{O}_i,\RV{R}_i)_{i\in \mathbb{N}}$ representing the $i$th action, observation and reward respectively. They also posit an \emph{agent} that implements a \emph{policy}, which is a collection of maps $\pi_i:O^i\times R^i\times A^i \kto A$ for all $i\in \mathbb{N}$ (mapping the history of actions, rewards and observations to the next action), and an \emph{environment} which is a collection of maps $e_i:O^i\times R^i\times A^{i+1}\kto O\times R$, mapping the history of actions, rewards, observations and the next action to the next observation and reward.
+
+zWe can identify the envirnoment $e_i$ with a probability gap model $\{\prob{P}_\square^{\RV{O}_{i}\RV{R}_{i}|\RV{O}_{<i}\RV{R}_{<i}\RV{A}_{i}}|i\in\mathbb{N}\}$ and the policy set with a probability gap $\{\prob{P}_\alpha^{\RV{A}_{i}|\RV{O}_{<i}\RV{R}_{<i}\RV{A}_{<i}}|i\in\mathbb{N},\alpha\in A\}$; the model of observations, actions and rewards arising from a particular choice $\alpha$ of policy is determined by the composition of environment and policy conditional probabilities as in Equation \ref{eq:intersperse_pgap}.
+
+We will define a shorthand for models of this type. A probability $n$-comb is a Markov kernel $\kernel{K}_n:\prod_{i\in [n-1]} A_i\kto \prod_{i\in [n-1]} B_i$ such that there is an $n-1$ comb $\kernel{K}_{n-1}:\prod_{i\in [n-1]} A_i\kto \prod_{i\in [n-1]} B_i$ satisfying
+
+\begin{align}
+	\tikzfig{n_comb_def} \label{eq:n_comb_def}
+\end{align}
+
+And a $1-comb$ is simply an arbitrary Markov kernel $\kernel{K}_1:A_1\kto B_1$. A probability $\mathbb{N}$-comb is a collection of $n$-combs $\kernel{K}_n$ for each $n\in \mathbb{N}$ such that $\kernel{K}_{n-1}$ is related to $\kernel{K}_n$ by Equation \ref{eq:n_comb_def}.
+
+We can specify a probability gap model $\prob{P}_\square$ associated with an infinite collection of conditionals $\{\prob{P}_\square^{\RV{X}_{2i+1}|\RV{X}_{i}}|i\in\mathbb{N}\}$ with an $\mathbb{N}$-comb $\{\kernel{K}_{i}:X^i\kto X^i|i\in\mathbb{N}\}$. Crucially, we can specify the \emph{signature} of this $\mathbb{N}$-comb in terms of which variables it takes as inputs and which it maps as outputs; in particular, it takes $(\RV{X}_{2i})_{i\in \mathbb{N}}$ as input and $(\RV{X}_{2i+1})_{\i\in\mathbb{N}}$ as output. Thus we can specify a \emph{probability sequence gap model} with an $\mathbb{N}$-comb, which we will write as $\prob{P}_\square^{\RV{X}_{2\mathbb{N}+1}\|\RV{X}_{2\mathbb{N}}}$, noting the double bar $\|$ to indicate that this is a comb rather than a conditional probability. This is in turn associated with probability gaps that are subsets of the set of $\mathbb{N}$-combs $\{\prob{P}_\alpha^{\RV{X}_{2\mathbb{N}}|\RV{X}_{2\mathbb{N}+1}}|\alpha\in A\}$.
+
+It's an open question whether we can represent the comb $\prob{P}_\square^{\RV{X}_{2\mathbb{N}+1}\|\RV{X}_{2\mathbb{N}}}$ with a single Markov kernel $\mathbb{N}\kto \mathbb{N}$ in the vein of Kolmogorov's representation theorem for probability measures.
 
 % We finally note that a conditional probability $\prob{P}^{\RV{Y}|\RV{X}}$ along with the copy-product $\odot$ corresponds precisely to the set of insert compatible mixture homomorphisms.
 

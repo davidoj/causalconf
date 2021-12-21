@@ -1,0 +1,45 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=very small prob] (0) at (-8.25, 1.5) {$\prob{P}_\alpha^{\RV{YD}_{[n-1]}}$};
+		\node [style=none] (1) at (-7.25, 1.75) {};
+		\node [style=none] (2) at (-7.25, 1.25) {};
+		\node [style=none] (3) at (-2.75, 2.25) {};
+		\node [style=none] (4) at (-3.5, 1.25) {};
+		\node [style=medium kernel tikzit] (6) at (4, 1.5) {$\prob{P}_\square^{\RV{Y}_n|\RV{Y}_{[n-1]}\RV{D}_{[n]}}$};
+		\node [style=none] (7) at (2.25, 2.25) {};
+		\node [style=none] (8) at (2.25, 1.5) {};
+		\node [style=none] (9) at (2.25, 0.75) {};
+		\node [style=copymap tikzit] (10) at (-6.25, 1.75) {};
+		\node [style=copymap tikzit] (11) at (-6.25, 1.25) {};
+		\node [style=RLabel tikzit] (12) at (8, 1.75) {$\RV{Y}_n$};
+		\node [style=RLabel tikzit] (13) at (8, 0.75) {$\RV{D}_n$};
+		\node [style=RLabel tikzit] (14) at (8, 0) {$\RV{Y}_{[n-1]}$};
+		\node [style=RLabel tikzit] (15) at (8, -0.75) {$\RV{D}_{[n-1]}$};
+		\node [style=none] (16) at (2.25, -0.25) {};
+		\node [style=none] (17) at (2.25, -0.75) {};
+		\node [style=copymap tikzit] (18) at (-0.25, 1.25) {};
+		\node [style=none] (19) at (3.75, 0) {};
+		\node [style=none] (20) at (-2, 2.75) {};
+		\node [style=none] (21) at (-2, 3.25) {};
+		\node [style=small kernel tikzit] (22) at (-2.5, 1.25) {$\prob{P}_\alpha^{\RV{D}_{n}|\RV{D}_{[n-1]}}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=-60, looseness=0.75] (10) to (16.center);
+		\draw [in=180, out=-60, looseness=0.75] (11) to (17.center);
+		\draw [in=180, out=0] (16.center) to (14);
+		\draw [in=180, out=0] (17.center) to (15);
+		\draw (11) to (4.center);
+		\draw (1.center) to (10);
+		\draw [in=180, out=-15] (18) to (9.center);
+		\draw [in=180, out=-45] (18) to (19.center);
+		\draw [in=180, out=0] (19.center) to (13);
+		\draw [in=180, out=0] (6) to (12);
+		\draw [in=180, out=75] (11) to (20.center);
+		\draw [in=180, out=75] (10) to (21.center);
+		\draw [in=180, out=0] (20.center) to (8.center);
+		\draw [in=180, out=0] (21.center) to (7.center);
+		\draw (2.center) to (11);
+		\draw [style=delmap, in=180, out=15] (10) to (3.center);
+		\draw [in=180, out=0] (22) to (18);
+	\end{pgfonlayer}
+\end{tikzpicture}

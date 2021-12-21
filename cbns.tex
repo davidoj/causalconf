@@ -65,8 +65,39 @@ In this section we formalise the notion of commutativity of exchange and causal 
 To begin with, we will define do models, which are see-do models with nothing to see.
 
 \begin{definition}[Do model]\label{def:domodel}
-A \emph{do-model} is a see-do model $(\prob{P},\RV{X},\RV{D},\RV{Y},R)$ with trivial observations $\RV{X}=*$; we omit $\RV{X}$ and define it by $(\prob{P},\RV{D},\RV{Y},R)$.
+A \emph{do model} is an infinite sequential probability gap model $(\prob{P}_{\square}^{\RV{Y}\|\RV{D}},R)$ where $R$ is a subset of the \emph{ignorant} combs: for all $n$, $\prob{P}_\alpha^{\RV{D}_{[n]}\|\RV{Y}_{[n-1]}}=\text{erase}_{Y^{n-1}}\otimes \prob{P}_\alpha^{\RV{D}_{[n]}}$ for some $\prob{P}_\alpha^{\RV{D}_{[n]}}\in\Delta(D^n)$. That is, we don't permit any decision $\RV{D}_i$ to depend on prior observations $\RV{Y}_i$s.
 \end{definition}
+
+Do models are useful because the $n-comb$ $\prob{P}_{\square}^{\RV{Y}_{[n]}\|\RV{D}_{[n]}}$ is also the conditional $\prob{P}_{\square}^{\RV{Y}|\RV{D}}$.
+
+\begin{theorem}[Existence of marginal]
+Given a do model $(\prob{P}_{\square}^{\RV{Y}\|\RV{D}},R)$, for all $\alpha\in R$, $n\in\mathbb{N}$
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}_{[n]}\RV{D}_i} = \prob{P}_\alpha^{\RV{D}_{[n]}}\odot \prob{P}_\square^{\RV{Y}_{[n]}\|\RV{D}_{[n]}}
+\end{align}
+That is, $\prob{P}_\square^{\RV{Y}_{[n]}\|\RV{D}_{[n]}}\cong \prob{P}_\square^{\RV{Y}_{[n]}|\RV{D}_{[n]}}$
+\end{theorem}
+
+\begin{proof}
+For any $n>1\in \mathbb{N}$, $\alpha\in R$
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}_{[n]}\RV{D}_{[n]}} &= \tikzfig{do_model_1}\\
+    &= \tikzfig{do_model_2}\\
+    &= \tikzfig{do_model_3}\\
+    &= \tikzfig{do_model_4}\\
+    \implies \prob{P}_\alpha^{\RV{Y}_{[n]}|\RV{D}_{[n]}} &= \tikzfig{do_model_5}\\
+    &= \prob{P}_\alpha^{\RV{Y}_{[n-1]}|\RV{D}_{[n-1]}}\combdot \prob{P}_\square^{\RV{Y}_n|\RV{Y}_{[n-1]}\RV{D}_n}
+\end{align}
+
+Applying this recursively with $\prob{P}_\alpha^{\RV{Y}_{[1]}|\RV{D}_{[1]}}=\prob{P}_\square^{\RV{Y}_{[1]}|\RV{D}_{[1]}}$ yields
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}_{[n]}|\RV{D}_{[n]}} = \prob{P}_\square^{\RV{Y}_{[n]}\|\RV{D}_{[n]}}
+\end{align}
+as desired.
+
+\end{proof}
 
 A do model ``commutes with exchange'' if exchanging decisions or exchanging consequences yields the same model for any finite permuation. The term \emph{commute} comes from the notion that we can apply the exchange before the model $\prob{P}$ or after it and get the same result.
 
@@ -370,6 +401,10 @@ So, by Theorem \ref{th:cons_ci}, $\prob{P}^{\RV{Y}_i|\RV{HD}}$ exists and by con
 \end{proof}
 
 \subsection{Extending contractible do models with observations}
+
+We have stipulated that, given a do model $\prob{P}_\square$ and a decision function $\alpha$, $\prob{P}_\alpha$ is a model of the observations given the choice of $\alpha$. We can obtain a model of observations and decisions by specifying ``half a decision function''. Define an equivalence class $\sim$ on decision functions $A$ such that $\alpha\sim\alpha'$ if $\prob{P}_\alpha^{\RV{D}_1}=\prob{P}_{\alpha'}^{\RV{D}_1}$. By contractibility, $\alpha\sim\alpha'\implies \prob{P}_\alpha^{\RV{D}_1\RV{Y}_1}=\prob{P}_{\alpha'}^{\RV{D}_1\RV{Y}_1}$. Take $B=A/\sim$; then for $b\in B$ we have $\prob{P}_b^{\RV{D}_1\RV{Y}_1}$ exists.
+
+Fixing some $b\in B$ fixes a distribution of observations for $(\RV{D}_1,\RV{Y}_1)$ and leaves the rest of the sequence unspecified.
 
 If we are planning to conduct a series of experiments, we think a causally contractible do model is appropriate for these experiments and we have a decision function chosen, then we can restrict the do model to a model of observations by inserting the decision function. If we fix a decision function for the first $[n]$ experiments and leave the remaining decisions as a probability gap, then we get a see-do model. Combined with assumptions of full support, this see-do model is identificable. Thus the pair of assumptions
 \begin{itemize}

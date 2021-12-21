@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (1) at (-3.75, 0.5) {};
+		\node [style=none] (2) at (-3.75, -0.5) {};
+		\node [style=none] (3) at (-4.75, 0.5) {};
+		\node [style=none] (4) at (-4.75, -0.5) {};
+		\node [style=Llabel tikzit] (5) at (-6.25, 0.5) {$A_{[n-1]}$};
+		\node [style=Llabel tikzit] (6) at (-6.25, -0.5) {$A_n$};
+		\node [style=RLabel tikzit] (7) at (-2.25, 0.5) {$B_{[n-1]}$};
+		\node [style=RLabel tikzit] (8) at (-2.25, -0.5) {};
+		\node [style=medium kernel tikzit] (9) at (-4.25, 0) {$\kernel{K}_n$};
+		\node [style=none] (10) at (6.25, 0.5) {};
+		\node [style=none] (12) at (5.25, 0.5) {};
+		\node [style=Llabel tikzit] (14) at (3.75, 0.5) {$A_{[n-1]}$};
+		\node [style=Llabel tikzit] (15) at (3.75, -0.5) {$A_n$};
+		\node [style=RLabel tikzit] (16) at (7.75, 0.5) {$B_{[n-1]}$};
+		\node [style=RLabel tikzit] (17) at (5.75, -0.5) {};
+		\node [style=none] (19) at (0.75, 0) {$=$};
+		\node [style=small kernel tikzit] (20) at (5.75, 0.5) {$\kernel{K}_{n-1}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (5) to (3.center);
+		\draw (1.center) to (7);
+		\draw (4.center) to (6);
+		\draw [style=delmap] (2.center) to (8);
+		\draw (14) to (12.center);
+		\draw (10.center) to (16);
+		\draw [style=delmap] (15) to (17);
+	\end{pgfonlayer}
+\end{tikzpicture}
