@@ -1,0 +1,280 @@
+
+\subsection{Extending contractible do models with observations}
+
+We have stipulated that, given a do model $\prob{P}_\square$ and a decision function $\alpha$, $\prob{P}_\alpha$ is a model of the observations given the choice of $\alpha$. We can obtain a model of observations and decisions by specifying ``half a decision function''. Define an equivalence class $\sim$ on decision functions $A$ such that $\alpha\sim\alpha'$ if $\prob{P}_\alpha^{\RV{D}_1}=\prob{P}_{\alpha'}^{\RV{D}_1}$. By contractibility, $\alpha\sim\alpha'\implies \prob{P}_\alpha^{\RV{D}_1\RV{Y}_1}=\prob{P}_{\alpha'}^{\RV{D}_1\RV{Y}_1}$. Take $B=A/\sim$; then for $b\in B$ we have $\prob{P}_b^{\RV{D}_1\RV{Y}_1}$ exists.
+
+Fixing some $b\in B$ fixes a distribution of observations for $(\RV{D}_1,\RV{Y}_1)$ and leaves the rest of the sequence unspecified.
+
+If we are planning to conduct a series of experiments, we think a causally contractible do model is appropriate for these experiments and we have a decision function chosen, then we can restrict the do model to a model of observations by inserting the decision function. If we fix a decision function for the first $[n]$ experiments and leave the remaining decisions as a probability gap, then we get a see-do model. Combined with assumptions of full support, this see-do model is identificable. Thus the pair of assumptions
+\begin{itemize}
+    \item We can get the same result from performing the same action
+    \item We have a specific plan for which actions to perform
+\end{itemize}
+imply identifiability, making them similar in consequence to the assumptions of ignorability (potential outcomes are independent of choices) or causal sufficiency (all causes necessary for identification are observed). However, we may have different reasons for considering these different assumptions to be justified -- or not.
+
+There may be many cases where we feel that the first assumption is justifiable but causal identifiability is not licensed. Thus (perhaps surprisingly) the second assumption is quite crucial to the property of identifiability. When we weaken this assumption, we recover familiar rules of causal inference and (non)-identifiability. That is, in this view it is \emph{not} causal contractibility but the existence of a decision function that distinguishes identifiable from non-identifiable models.
+
+Causal identifiability is considered more sound in RCTs, and also people say ``surely we can't define causes by reference to RCTs''. RCTs ensure the existence of a known decision function. We suggest that observational causal inference may proceed from weaker assumptions regarding the decision function.
+
+
+
+
+
+We can derive the truncated factorisation rule from assuming 1) a causally contractible do model and 2) an unobserved, exchangeable ``observational decision function''. This derivation is attractive because
+\begin{itemize}
+    \item If we assume there is a unique interventional distribution, it cannot be defined by causal relationships, an observational distribution and the truncated factorisation rule. Why? Because truncated factorisation rule sometimes defines things that don't exist, and sometimes multiple things satisfy the requirements it imposes
+    \item On the other hand, by the representation theorem above, a unique ``IID'' interventional distribution $\iff$ a causally contractible do-model
+    \item Furthermore, causally contractible do-model + exchangeable observational decision rule $\implies$ truncated factorisation (but not the other way around!)
+\end{itemize}
+
+\todo[inline]{todo, below is just copied and pasted for now}
+
+We will consider a motivating example initially posed using the language of causal Bayesian networks. For this example, we will assume that the reader is familiar enough with causal Bayesian networks to follow along. We will offer more careful definitions later.
+
+Suppose we have a causal Bayesian network $(\prob{P}^{\RV{XYZ}},\mathcal{G})$ where $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ are variables, $\prob{P}^{\RV{XYZ}}$ is a probability measure on $X\times Y\times Z$, $\mathcal{G}$ is a Directed Acyclic Graph whose vertices we identify with $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ which contains the edges $\RV{X}\longrightarrowRHD \RV{Y}$ and $\RV{X}\longleftarrowRHD \RV{Z} \longrightarrowRHD \RV{Y}$. ``Setting $\RV{X}$ to $x$'' is an operation that takes as inputs $\prob{P}^{\RV{XYZ}}$, $\mathcal{G}$ and some $x\in X$ and returns a new probability measure $\prob{P}_x^{\RV{XYZ}}$ on $X\times Y\times Z$ given by \citep[page ~24]{pearl_causality:_2009}:
+\begin{align}
+    \prob{P}^{\RV{XYZ}}_{x}(x',y,z)=\disint{P}^{\RV{Y|XZ}}(y|x,z)\prob{P}^{\RV{Z}}(z)\llbracket x=x' \rrbracket\label{eq:truncated_fac}
+\end{align}
+
+Equation \ref{eq:truncated_fac} embodies three assumptions about a model of the operation of ``setting $\RV{X}$ to $x$''. First, such a model must assign probability 1 to the proposition that $\RV{X}$ yields $x$. Second, such a model must assign the same marginal probability distribution to $\RV{Z}$ as the input distribution; $\prob{P}^{\RV{Z}}=\prob{P}_{x}^{\RV{Z}}$. Finally, there must be some version of the interventional conditional probability $\RV{Y}|(\RV{X},\RV{Z})$ that is equal to some version of the observational conditional probability $\RV{Y}|(\RV{X},\RV{Z})$; there exists $\disint{P}^{\RV{Y}|\RV{XZ}}$ and $\disint{P}_x^{\RV{Y}|\RV{XZ}}$ such that $\disint{P}^{\RV{Y}|\RV{XZ}}=\disint{P}_x^{\RV{Y}|\RV{XZ}}$. We use the overbars here to indicate that, unlike in familiar cases, the particular choice of $\disint{P}^{\RV{Y}|\RV{XZ}}$ can matter here.
+
+% Notice that the map $x\mapsto \prob{P}^{\RV{XYZ}}_x$ itself ``looks like'' a conditional probability. It maps each $x\in X$ to a probability distribution over $(\RV{X},\RV{Y},\RV{Z})$. In fact, a popular alternative notation for $\prob{P}^{\RV{XYZ}}_x$ this map is $\prob{P}^{\RV{XYZ}|do(\RV{X}=x)}$, which is clearly suggestive of an interpretation as a kind of conditional probability. We will take this interpretation seriously: we will posit some variable $\RV{U}$ (which may or may not be observable) and a probabilisitic model $\prob{Q}^{\RV{XYZ}|\RV{U}}:=x\mapsto \prob{P}^{\RV{XYZ}}_x$.
+
+The operation of ``setting $\RV{X}$ to $x$'' is often referred to as an \emph{intervention}. Interventions are things we can choose to do, or not to do. We can also consider choosing to do or not do an intervention based on the output of some random process. We need some kind of model that can tell us which result we are likely to see for any choice of interventions, random or nonrandom. This means that we need a model with a \emph{probability gap} for the choice of interventions. For a nonrandom choice of intervention $x$, we can consider the map $x\mapsto \prob{P}^{\RV{XYZ}}_{x}$ such a model, and if we include random choices we can consider $\prob{Q}:\prob{P}_\alpha^{\RV{X}}\mapsto \sum_{x} \prob{P}_\alpha^{\RV{X}}(x) \prob{P}^{\RV{XYZ}}_{x}$ to be such a model.
+
+$\prob{Q}$, as we have defined it, is not quite an ideal candidate for a probability gap model. Firstly, theconditional probability $\disint{P}^{\RV{Y}|\RV{XZ}}$ may be chosen arbitrarily on a set of measure zero with regard to $\prob{P}^{\RV{XZ}}$. As a result, depending on the choice of $\disint{P}^{\RV{Y}|\RV{XZ}}$, Equation \ref{eq:truncated_fac} can be satisfied by multiple probability distributions that differ in meaningful ways. For example, suppose $\RV{X}$, $\RV{Y}$ and $\RV{Z}$ are binary and $\prob{P}((\RV{X}, \RV{Z})\yields (1,1))=1$. Then we can consistently choose $\prob{P}^{\RV{Y|XZ}}(1|0,1)=1$ or $\prob{P}^{\RV{Y|XZ}}(1|0,1)=0$ because $\{0,1\}$ is a measure zero event. However, the first choice gives us  $\prob{P}^{\RV{XYZ}}_{0}(0,1,1)=1$ while the second gives us $\prob{P}^{\RV{XYZ}}_{0}(0,1,1)=0$, which are very different opinions regarding ``the result of setting $\RV{X}$ to $1$''.
+
+Secondly, there may be no probability model at all that satisfies Equation \ref{eq:truncated_fac}. For example, suppose $\RV{X}=f\circ\RV{Z}$ for some $f$. Then we must have $\prob{P}^{\RV{X}}_x(x')=\prob{P}^{\RV{Z}}_x(f^{-1}(x'))$ for any $x$. However, we also have $\prob{P}^{\RV{X}}_x(x')=\llbracket x = x' \rrbracket$ for all $x,x'$ and $\prob{P}^{\RV{Z}}_x=\prob{P}^{\RV{Z}}$ for all $x$. Thus if $\RV{X}$ can more than one value, there is at least one choice of $x$ that cannot simultaneously satisfy these requirements.
+
+A more subtle example of this latter problem appears in \citet{shahar_association_2009}. A causal graph in that paper features an arrow $\RV{Z}\longrightarrowRHD \RV{X}$ where $\RV{Z}=(\RV{H},\RV{W})$, representing a person's height and weight, and $\RV{X}$ represents their body mass index. This causal model is used to draw conclusions about the result of intervening on $\RV{X}$. By definition, $\RV{X}=\frac{\RV{W}}{\RV{H}^2}$. While we don't have $\RV{X}$ equal to $\RV{Z}$, it must still be a deterministic function of $\RV{Z}$.  However, any intervention on $\RV{X}$ along the lines of Equation \ref{eq:truncated_fac} will yield $\RV{X}$ independent of $(\RV{H},\RV{W})$, and unless $(\RV{H},\RV{W})$ is determistically equal to a constant and the intervention on $\RV{X}$ is carefully chosen, there is no probability model at all that has this independence.
+
+The theory of probability gap models allows us to model things like interventions and it does not share these problems of non-uniqueness and non-existence with models defined via truncated factorisation.
+
+In our original look at truncated factorisation, we noted a few problems with Equation \ref{eq:truncated_fac} being a \emph{definition} of interventional probability models. In particular:
+
+\begin{itemize}
+    \item There may be multiple different probability models that satisfy Equation \ref{eq:truncated_fac} for different versions of the disintegration $\prob{P}^{\RV{Y|XZ}}$
+    \item There may be no probability models that satisfy Equation \ref{eq:truncated_fac}
+\end{itemize}
+
+We propose a different way to define interventional probability models:
+
+\begin{itemize}
+    \item The interventional probability model is some probability 2-comb 
+    \begin{align}
+        \prob{Q}^{\RV{Z}\square\RV{Y}|\RV{X}}
+    \end{align}
+    \item For some observational conditional probability $\prob{Q}_{\text{obs}}^{\RV{X}|\RV{Z}}$, observations are distributed according to 
+    \begin{align}
+    \prob{Q}_{\text{obs}}:=\text{insert}(\prob{Q}_{\text{obs}}^{\RV{X}|\RV{Z}},\prob{Q}^{\RV{Z}\square\RV{Y}|\RV{X}})\label{eq:int_to_obs}
+    \end{align}
+\end{itemize}
+
+Note that, by definition, $\prob{Q}^{\RV{Y}|\RV{XZ}}$ exists and all versions of it are also versions of $\prob{Q}_{\text{obs}}^{\RV{Y}|\RV{XZ}}$. If in addition, for every $x\in X$, the deterministic insert $\prob{Q}_{x}^{\RV{X}|\RV{Z}}$ defined by $\prob{Q}_{x}^{\RV{X}|\RV{Z}}(x'|z) == \llbracket x=x' \rrbracket$ is a valid conditional probability, then there exists a version of $\prob{Q}_{\text{obs}}^{\RV{Y}|\RV{XZ}}$ such that:
+
+\begin{align}
+    \prob{Q}_x^{\RV{XYZ}} = \prob{Q}_{\text{obs}}^{\RV{Y|XZ}}(y|x,z)\prob{Q}_{\text{obs}}^{\RV{Z}}(z)\llbracket x=x' \rrbracket
+\end{align}
+
+This is similar to Equation \ref{eq:truncated_fac}. The two key differences are that this is existentially quantified over $\prob{Q}_{\text{obs}}^{\RV{Y|XZ}}$ and we have made explicit the assumptions that hard interventions on $\RV{X}$ are valid inserts.
+
+
+
+\section{Causal Bayesian Networks}\label{sec:CBN}
+
+Like some of the causal modelling frameworks discussed in the previous section, including see-do models, Causal Bayesian Networks (CBNs) represent both ``observations'' and ``consequences of interventions''. It seems reasonable to think that the real-world things that the see-do framework and the CBN framework address are sometimes the same. The question we have here is: if we have a decision problem represented by a see-do model, when can we represent the same problem with a CBN?
+
+In order to answer this question, we have to deal with the fact that neither theory is formally contained by the other, so for example there's no precise way in which decisions correspond to interventions. The correspondence exists in the territory, the world that is inhabited by measurement processes, not the mathematical world that is inhabited by random variables. We therefore have to make some choices about what corresponds to what that seem to be reasonable given our understanding of what these models are used for.
+
+To compare CBNs to see-do models, we will argue that CBNs can be understood as describing probabilistic models of observations and consequences, just like see-do models. Furthermore, CBNs feature an order-1 probability gap and so they describe a probability 2-comb over observations, interventions and consequences. If we suppose that there is some variable describing decisions that does not appear within the CBN, then we can posit a see-do model over observations, decisions and consequences. Finally, we ask: when is the see-do model compatible with the CBN 2-comb, or more precisely, when can we identify each \emph{decision rule} with a \emph{intervention rule} such that the probability model obtained by inserting a decision rule into the see-do model is identical to the probability model obtained by inserting an intervention rule into the CBN 2-comb. We show that see-do models that exhibit a particular type of symmetry are compatible with CBN 2-combs.
+
+\subsection{Probability 2-combs represented by causal Bayesian networks}
+
+Consider a simplified kind of CBN where a single variable may be intervened on. Note that the structure of the previous section -- $\RV{X}\longrightarrowRHD \RV{Y}$ and $\RV{X}\longleftarrowRHD \RV{W} \longrightarrowRHD \RV{Y}$ -- is generically appliccable to such a model if we identify $\RV{W}$ with the variable formed by taking a sequence of all of the ancestors of $\RV{X}$ and $\RV{Y}$ with the variable formed by taking a sequence of all non-ancestors of $\RV{X}$. The existence of an edge from $\RV{X}$ to $\RV{Y}$ in such a case does no harm as if $\RV{Y}$ is not ``actually'' a descendent of $\RV{X}$ then it will be independent conditional on $\RV{Z}$ (see \citet{peters_structural_2015} for a detailed treatment of when two graphs may or may not imply the same underlying model).
+
+We will adopt the definiton discussed in Section \ref{sec:truncated_fac_again}: we take the causal Bayesian network in question to express the assumption that the result of intervention is modeled by some probability 2-comb $\prob{P}^{\RV{W}\square \RV{Y}|\RV{X}}$ and the observations are distributed according to $\text{insert}(\model{P}_{\text{obs}}^{\RV{X}|\RV{Z}},\prob{P}^{\RV{W}\square\RV{Y}|\RV{X}})$ for some $\model{P}_{\text{obs}}^{\RV{X}|\RV{Z}}$.
+
+We are uncertain about the particular 2-comb $\prob{P}^{\RV{W}\square \RV{Y}|\RV{X}}$ that we should use to model interventions, as well as the particular $\model{P}_{\text{obs}}^{\RV{X}|\RV{Z}}$ appropriate for observations, so we will represent this uncertainty with an unobserved variable $\RV{H}$. Furthermore, if we are being precise about what is being modeled, we suppose that we have a sequence of ``observation'' variables $\RV{V}_{[n]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in [n]}$ and a sequence of ``consequence'' variables modeled by $\RV{V}_{(n,m]}:=(\RV{W}_i,\RV{X}_i,\RV{Y}_i)_{i\in (n,m]}$ both defined on a fundamental probability set $\Omega$ (assume $n<m$). 
+
+With this additional detail, we interpret Equation \ref{eq:int_to_obs} as saying
+
+\begin{align}
+    \model{Q}_{\text{obs}}^{\RV{W_iX_iY_i}|\RV{H}} &= \text{insert}(\model{Q}_{\text{obs}}^{\RV{X}_{j}|\RV{HW}_{j}},\prob{Q}^{\RV{W}_{j}|\RV{H}\square\RV{Y}_{j}|\RV{X}_{j}})
+\end{align}
+
+for all $i\in[n]$, $j\in (n,m]$.
+
+Because we are now considering sequences of observations and consequences, we also think it is reasonable to understand a CBN model as coming equipped with assumptions of mutual independence:
+
+\begin{align}
+    \RV{V}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [n]\\
+    \RV{W}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [m]\\
+    \RV{Y}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|(\RV{H},\RV{X}_i,\RV{W}_i)&\forall i\in [m]\\
+\end{align}
+
+The first condition says that the observations $\RV{V}_{[n]}$ are mutually independent, the second that if we ignore the $\RV{X}_i$s and $\RV{Y}_i$s, then the $\RV{W}_i$s are mutually independent for all $[m]$ and the third says that the $\RV{Y}_i$s are independent of the other variables in the sequence conditional on $(\RV{H},\RV{X}_i,\RV{W}_i)$. Note that we exclude $\RV{X}_i$ from these conditional independence assumptions. The reason for this is that we interpret $\RV{X}_i$ as a directly controlled variable and as such it may be chosen to be dependent on other variables in the sequence.
+
+\begin{definition}[Order 2 model associated with the CBN in question]\label{def:cbn_o2}
+A CBN order 2 model $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ where $\RV{V}_{i} = (\RV{W}_i,\RV{X}_i,\RV{Y}_i)$ for $i\in [m]$, such that the CBN mutual independences hold:
+\begin{align}
+    \RV{V}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [n]\label{eq:cbn_ci1}\\
+    \RV{W}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [m]\label{eq:cbn_ci2}\\
+    \RV{Y}_i\CI_{\prob{Q}} \RV{V}_{[m]\setminus \{i\}}|(\RV{H,X}_i,\RV{W}_i)&\forall i\in [m]\label{eq:cbn_ci3}\\
+\end{align}
+Under these assumptions $\prob{Q}^{\RV{W}_i|\RV{H}}$ and $\prob{Q}^{\RV{Y}_i|\RV{H}\RV{X}_i\RV{W}_i}$ exist, and for all $i\in [n],j,k\in [m]$
+\begin{align}
+    \model{Q}^{\RV{W}_{j}|\RV{H}\square\RV{Y}_{j}|\RV{X}_{j}}&=\model{Q}^{\RV{W}_{k}|\RV{H}\square\RV{Y}_{k}|\RV{X}_{k}}\label{eq:identically_distributed}\\
+    \model{Q}^{\RV{W_iX_iY_i}|\RV{H}} &= \text{insert}(\model{Q}_{\text{obs}}^{\RV{X}_{j}|\RV{HW}_{j}},\prob{Q}^{\RV{W}_{j}|\RV{H}\square\RV{Y}_{j}|\RV{X}_{j}})\label{eq:cbn_insert}
+\end{align}
+for all $i\in[n]$, $j\in (n,m]$.
+\end{definition}
+
+
+\begin{theorem}[Existence of CBN 2-comb]\label{th:cbn_2comb_exist}
+Given a CBN order 2 model $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ in accordance with Definition \ref{def:cbn_o2}, there exist conditional probabilities $\prob{Q}^{\RV{W}_i|\RV{H}}$ and $\prob{Q}^{\RV{Y}_i|\RV{H}\RV{X}_i\RV{W}_i}$ for all $i$.
+\end{theorem}
+
+\begin{proof}
+Order 2 models $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ have the following conditional probabilities:
+\begin{align}
+   & \prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m])}|\RV{H}}&\text{exists}\label{eq:obs_cbn_existence}\\
+   & \prob{Q}^{\RV{Y}_{(n,m]}|\RV{X}_{(n,m]}\RV{W}_{(n,m]}\RV{V}_{[n]}\RV{H}}&\text{exists}\label{eq:int_cbn_existence}
+\end{align}
+
+Equations \ref{eq:obs_cbn_existence} and \ref{eq:int_cbn_existence} together with conditional independences \ref{eq:cbn_ci1}, \ref{eq:cbn_ci2}, \ref{eq:cbn_ci3} and Theorem \ref{th:cons_ci} imply there exist versions of the following conditional proabilities such that
+
+\begin{align}
+    \prob{Q}^{\RV{V}_i|\RV{H}\RV{V}_{[m]\setminus\{i\}}}&=\prob{Q}^{\RV{V}_i|\RV{H}}\otimes \text{erase}_{V^{m-1}} & \forall i\in[n]\\
+    \prob{Q}^{\RV{W}_i|\RV{H}\RV{V}_{[m]\setminus\{i\}}}&=\prob{Q}^{\RV{W}_i|\RV{H}}\otimes \text{erase}_{V^{m-1}} & \forall i\in[m]\\
+    \prob{Q}^{\RV{Y}_i|\RV{H}\RV{X}_i\RV{W}_i\RV{V}_{[m]\setminus\{i\}}}&= \prob{Q}^{\RV{Y}_i|\RV{H}\RV{X}_i\RV{W}_i}\otimes \text{erase}_{V^{m-1}} & \forall i\in [m]
+\end{align}
+\end{proof}
+
+Note also that Equation \ref{eq:identically_distributed} implies that the conditional probabilities from Theorem \ref{th:cbn_2comb_exist} can be chosen to be equal for all $i,j\in [m]$:
+\begin{align}
+    \prob{Q}^{\RV{W}_i|\RV{H}} = \prob{Q}^{\RV{W}_j|\RV{H}}\label{eq:identical_1}\\
+    \model{Q}^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}} &= \model{Q}^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}\label{eq:identical_2}
+\end{align}
+
+\begin{theorem}[CBN observations are identically distributed]
+Given a CBN order 2 model $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ in accordance with Definition \ref{def:cbn_o2}, there exists $\prob{Q}^{\RV{V}_{i}|\RV{H}}$ for $i\in [n]$ and for all $i,j\in [n]$
+\begin{align}
+    \prob{Q}^{\RV{V}_i|\RV{H}} = \prob{Q}^{\RV{V}_j|\RV{H}}\label{eq:identical_3}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+Existence follows from the fact that $\RV{V}_i=\pi_i\circ\RV{V}_{[n]}$ with $\pi_i$ the function $V^n\to V$ that projects the $i$th index. Theorem \ref{th:recurs_pushf} then implies $\prob{Q}^{\RV{V}_i|\RV{H}}=\prob{Q}^{\RV{V}_{[n]}|\RV{H}}\kernel{F}_{\pi_i}$.
+
+Equality follows from the fact that for all $i,j\in[n]$
+\begin{align}
+    \model{Q}^{\RV{V}_i|\RV{H}} &= \text{insert}(\model{Q}_{\text{obs}}^{\RV{X}_{j}|\RV{HW}_{j}},\prob{Q}^{\RV{W}_{j}|\RV{H}\square\RV{Y}_{j}|\RV{X}_{j}})\\
+    &= \model{Q}^{\RV{V}_j|\RV{H}}
+\end{align}
+\end{proof}
+
+\subsection{See-do models corresponding to causal Bayesian networks}
+
+We have defined a class of order 2 probability gap models associated with causal Bayesian networks. We next want to ask: when does a see-do model induce an order 2 model associated with a CBN? Specificially, given a see-do model $\prob{T}^{\RV{V}_{[n]}|\RV{H}\square \RV{V}_{(n,m]}|\RV{D}}$ with decision rules of type $\{\prob{T}_\alpha^{\RV{D}|\RV{V}_{[n]}}\}_{\alpha\in A}$, when is there a CBN model $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ with inserts of type $\{\prob{Q}_\alpha^{\RV{X}_{(n,m]}|\RV{V}_{[n]}\RV{W}_{(n,m]}\RV{H}}\}_{\alpha\in A}$ such that marginalising $\prob{T}_\alpha$ over $\RV{D}$ yields $\prob{Q}_\alpha$ for all $\alpha\in A$?
+
+\begin{align}
+    \model{T}^{\RV{V}_{[m]}|\RV{H}}_\alpha&=\tikzfig{seedo_equality2}\\
+    &=\tikzfig{seedo_equality} \label{eq:consistent}\\
+    &= \model{Q}^{\RV{V}_{[m]}|\RV{H}}_\alpha
+\end{align}
+
+We need a number of conditions to hold for this to be true of any $\prob{T}$; first, $\prob{T}$ needs to satisfy the CBN versions of ``mutually independent'' (Eqs. \ref{eq:cbn_ci1}-\ref{eq:cbn_ci3}) as well as the CBN version of ``identically distributed'' (Eqs. \ref{eq:identical_1}, \ref{eq:identical_2} and \ref{eq:identical_3}). Finally, we require decisions $\RV{D}$ to act as ``interventions'' on $\RV{X}$ in an appropriate way.
+
+Theorem \ref{th:seedo_rep} shows that this correspondence holds exactly when:
+\begin{itemize}
+    \item The CBN mutual indpendences (Definition \ref{def:cbn_o2}) hold for the $\prob{T}$
+    \item For all $i\in (n,m]$, $\RV{W}_i\CI_{\prob{T}}\RV{D}|\RV{H}$
+    \item For all $i\in [m]$, $\RV{Y}_i\CI_{\prob{T}}\RV{D}|(\RV{W}_i,\RV{X}_i,\RV{H})$; we say that under conditions of perfect information, $(\RV{W}_i,\RV{X}_i)$ control $\RV{Y}_i$ by proxy
+\end{itemize}
+
+\begin{theorem}\label{th:seedo_rep}
+Given a see-do model $\prob{T}^{\RV{V}_{[n]}|\RV{H}\square \RV{V}_{(n,m]}|\RV{D}}$ there exists a corresponding CBN probability 2-comb $\prob{Q}^{\RV{V}_{[n]}\RV{W}_{(n,m]}|\RV{H}\square \RV{Y}_{(n,m]}|\RV{X}_{(n,m]}}$ if and only if (1) the CBN mutual independences hold
+\begin{align}
+    \RV{V}_i\CI_{\prob{T}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [n]\\
+    \RV{W}_i\CI_{\prob{T}} \RV{V}_{[m]\setminus \{i\}}|\RV{H}&\forall i\in [m]\\
+    \RV{Y}_i\CI_{\prob{T}} \RV{V}_{[m]\setminus \{i\}}|\RV{HX}_i&\forall i\in [m]\\
+\end{align}
+(2) for every insert $\alpha$ the following conditional probabilities are identical
+\begin{align}
+    \prob{T}_\alpha^{\RV{V}_i|\RV{H}} &= \prob{T}_\alpha^{\RV{V}_j|\RV{H}}&\forall i,j\in [n]\\
+    \prob{T}_\alpha^{\RV{W}_i|\RV{H}} &= \prob{T}_\alpha^{\RV{W}_j|\RV{H}}&\forall i,j\in [m]\\
+    \model{T}_\alpha^{\RV{Y}_i|\RV{X}_i\RV{W}_i\RV{H}} &= \model{T}_\alpha^{\RV{Y}_j|\RV{X}_j\RV{W}_j\RV{H}}&\forall i,j\in [m]
+\end{align}
+(3) $\RV{W}_i$ is unaffected by $\RV{D}$
+\begin{align}
+    \RV{W}_i\CI_{\prob{D}}
+\end{align}
+And (4) under conditions of perfect information, $(\RV{W}_i,\RV{X}_i,\RV{V}_{[n]})$ control $\RV{Y}_i$ by proxy:
+\begin{align}
+    \RV{Y}_i\CI_{\prob{T}}\RV{D}|(\RV{W}_i,\RV{X}_i,\RV{H},\RV{V}_{[n]})&\forall i\in [m]
+\end{align}
+\end{theorem}
+
+\begin{proof}
+\textbf{If:}
+If all assumptions hold, we can write
+\begin{align}
+    \model{T}^{\RV{V}_{[n]}\RV{V}_j|\RV{HD}} = \tikzfig{t_vs_u}
+\end{align}
+For each $\model{S}_\alpha^{\RV{D}|\RV{V}_{[n]}}$, define
+\begin{align}
+    \model{R}_\alpha^{\RV{X}_j|\RV{V}_{[n]}\RV{W}_j\RV{H}}:= \tikzfig{defn_ra}
+\end{align}
+Then
+\begin{align}
+    &\tikzfig{seedo_equality2}\\
+    &= \tikzfig{seedo_cbn_with_s}\\
+    &= \tikzfig{seedo_equality}
+\end{align}
+\textbf{Only if:}
+Suppose the CBN mutual independences do not hold for $\prob{T}$. Then there must be some $\alpha$ such that one of these conditional independences does not hold for $\prob{T}_\alpha$. By construction of CBN order 2 models, these indepenences hold for every probability model in the range of every CBN order 2 model $\prob{Q}$. Thus there is no CBN model corresponding to $\prob{T}$.
+
+Suppose for some $\alpha$ and $i,j\in [n]$ we have $\prob{T}_\alpha^{\RV{V}_i|\RV{H}} \neq \prob{T}_\alpha^{\RV{V}_j|\RV{H}}$. 
+
+Suppose the assumption of proxy control does not hold for $\prob{T}$. Then there is some $d,d'\in D$, $w\in W$, $h\in H$, $v\in V^{n}$, $x\in X$ and $y\in Y$ such that
+\begin{align}
+    \model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x,d) &\neq \model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x,d')\label{eq:not_indep}\\
+    &\text{and }\model{T}_\alpha^{\RV{X}_j\RV{W}_j\RV{V}_{[n]}|\RV{HD}}(x,w,v|h,d) >0\\
+    &\text{and }\model{T}_\alpha^{\RV{X}_j\RV{W}_j\RV{V}_{[n]}|\RV{HD}}(x,w,v|h,d') >0\\
+\end{align}
+
+If Equation \ref{eq:not_indep} only held on sets of measure 0 then we could choose versions of the conditional probabilities such that the independence held.
+
+Then
+\begin{align}
+    \model{T}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j}(y|w,v,h,x)&= \model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x,d)\\
+    &\neq \model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x,d')\\
+    &= \model{T}_{d'}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j}(y|w,v,h,x)\\
+    \implies \model{T}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x) &\neq \model{Q}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x)\\
+    \text{or } \model{T}_{d'}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x) &\neq \model{Q}_{d'}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x)
+\end{align}
+As the conditional probabilities disagree on a positive measure set, $\model{P}\neq\model{Q}$.
+
+Suppose assumption 3 holds but assumption 4 does not. Then for some $h\in H$, some $w\in W$, $v\in V^{|A|}$, $x\in X$ with positive measure and some $y\in Y$
+\begin{align}
+    \model{P}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x)&= \model{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j}(y|w,v,h,x)\\
+    &\neq \model{U}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j}(y|w,v,h,x)\\
+    &\neq model{Q}_d^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j\RV{D}}(y|w,v,h,x)
+\end{align}
+\end{proof}
+
+Conditional independences like $(\RV{V}_{[n]},\RV{W}_j)\CI_{\model{T}} \RV{D}|\RV{H}$ and $\RV{Y}_j\CI_{\model{T}}\RV{D}|\RV{W}_j\RV{V}_{[n]}\RV{HX}_j$ bear some resemblance to the condition of ``limited unresponsiveness'' proposed by \citet{heckerman_decision-theoretic_1995}. They are conceptually similar in that they indicate that a particular variable does not ``depend on'' a decision $\RV{D}$ in some sense. As Heckerman points out, however, limited unresponsiveness is not equivalent to conditional independence. We tentatively speculate that there may be a relation between our ``pre-choice variables'' $(\RV{W}_j,\RV{V}_{[n]},\RV{H})$ and the ``state'' in Heckerman's work crucial for defining limited unresponsiveness.
+
+\subsection{Proxy control}
+
+We say that $(\RV{V}_{[n]},\RV{W}_j)\CI_{\model{T}} \RV{D}|\RV{H}$ expresses the notion that $\RV{W}_j$ is a \emph{pre-choice variable} and $(\RV{W}_j,\RV{V}_{[n]},\RV{X}_j)$ are \emph{proxies for }$\RV{D}$ with respect to $\RV{Y}$ under conditions of full information. To justify this terminology, we note that under a strong assumption of identifiability $\RV{Y}_j\CI\RV{H}|\RV{W}_j\RV{V}_{[n]}\RV{X}_j$ (i.e. the observed data allow us to identify $\RV{H}$ for the purposes of determining $\RV{T}^{\RV{Y}_j|\RV{W}_j\RV{V}_{[n]}\RV{X}_j\RV{H}}$), then we can write
+\begin{align}
+    \model{T}^{\RV{V}_{[n]}\RV{V}_{(n,m]}|\RV{H}\RV{D}} &=\tikzfig{strong_identifiability}\\
+                                              &=\tikzfig{strong_identifiability2}
+                                              &= \model{T}^{\RV{V}_{[n]}\RV{W}_j\RV{X}_j|\RV{H}\RV{D}}\kernel{M}
+\end{align}
+
+That is, under conditions of full information, knowing how to control the proxies $(\RV{W}_j,\RV{V}_{[n]},\RV{X}_j)$ is sufficient to control $\RV{Y}$. This echoes \citet{pearl_does_2018}'s view on causal effects representing ``stable characteristics'':
+\begin{quote}
+Smoking cannot be stopped by any legal or educational means available to us today; cigarette advertising can. That does not stop researchers from aiming to estimate ``the effect of smoking on cancer,'' and doing so from experiments in which they vary the instrument—cigarette advertisement—not smoking. The reason they would be interested in the atomic intervention $P(\text{cancer}|do(\text{smoking}))$ rather than (or in addition to) $P(\text{cancer}|do(\text{advertising}))$ is that the former represents a stable biological characteristic of the population, uncontaminated by social factors that affect susceptibility to advertisement, thus rendering it transportable across cultures and environments. With the help of this stable characteristic, one can assess the effects of a wide variety of practical policies, each employing a different smoking-reduction instrument.
+\end{quote}
