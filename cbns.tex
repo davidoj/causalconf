@@ -60,12 +60,12 @@ The second notion of ``repeatable experiments'' is \emph{causal contractibility}
 
 \subsection{Assumptions of repeatability applicable to models of decisions and consequences}
 
-In this section we formalise the notion of commutativity of exchange and causal contractibility. We will then go on to prove two representation theorems for causally contractible models -- firstly, that they can be represented with a tabular probability model and a lookup function, a construction that is very similar to the kinds of causal models employed by the potential outcomes framework. Secondly, we will show that contractible causal models can also be represented by jointly independent repetitions of a ``unit-level consequence map'', indexed by a hypothesis $\RV{H}$.
+In this section we formalise the notion of commutativity of exchange and causal contractibility. We will then go on to prove two representation theorems for causally contractible models -- firstly, that they can be represented with a tabular probability model and a lookup function, a construction that is very similar to the kinds of causal models employed by the potential outcomes framework (although they do not necessarily share the semantics of potential outcomes). Secondly, we will show that contractible causal models can also be represented by jointly independent repetitions of a ``unit-level consequence map'', indexed by a hypothesis $\RV{H}$.
 
 To begin with, we will define do models, which are see-do models with nothing to see.
 
 \begin{definition}[Do model]\label{def:domodel}
-A \emph{do model} is an infinite sequential probability gap model $(\prob{P}_{\square}^{\RV{Y}\|\RV{D}},R)$ where $R$ is a subset of the \emph{ignorant} decision functions: for all $n$, $\prob{P}_\alpha^{\RV{D}_{[n]}\|\RV{Y}_{[n-1]}}=\text{erase}_{Y^{n-1}}\otimes \prob{P}_\alpha^{\RV{D}_{[n]}}$ for some $\prob{P}_\alpha^{\RV{D}_{[n]}}\in\Delta(D^n)$. That is, we don't permit any decision $\RV{D}_i$ to depend on prior observations $\RV{Y}_i$s.
+A \emph{do model} is an infinite sequential probability gap model $(\prob{P}_{\square}^{\RV{Y}\|\RV{D}},R)$ where $R$ is a subset of the \emph{blind} decision functions: for all $n$, $\prob{P}_\alpha^{\RV{D}_{[n]}\|\RV{Y}_{[n-1]}}=\text{erase}_{Y^{n-1}}\otimes \prob{P}_\alpha^{\RV{D}_{[n]}}$ for some $\prob{P}_\alpha^{\RV{D}_{[n]}}\in\Delta(D^n)$. That is, we don't permit any decision $\RV{D}_i$ to depend on prior observations $\RV{Y}_i$s.
 \end{definition}
 
 Do models are useful because the $n-comb$ $\prob{P}_{\square}^{\RV{Y}_{[n]}\|\RV{D}_{[n]}}$ is also the conditional $\prob{P}_{\square}^{\RV{Y}|\RV{D}}$ (which otherwise may not exist).
@@ -171,7 +171,7 @@ There is a representation theorem for models that commute with exchange which im
 
 \subsection{Representations of contractible probability models}
 
-We prove two representation theorems for causally contractible do models. Theorem \ref{th:table_rep} shows that a do model is contractible if and only if it can be represented with a contractible probability distribution over a ``table of variables''\todo{matrix of variables?} and a lookup function. This is interesting in its own right, as tabular probability distributions and lookup functions are core elements of the potential outcomes approach. Furthermore, we make use of this theorem in proving Theorem \ref{th:iid_rep}, which shows a do model is contractible if and only if it can be represented by independent copies of a unit level consequence map jointly parametrised by a hypothesis. We will argue in the next section that jointly parametrised consequence maps are fundamental to all approaches to causal inference.
+We prove two representation theorems for causally contractible do models. Theorem \ref{th:table_rep} shows that a do model is contractible if and only if it can be represented with a contractible probability distribution over a ``table of variables''\todo{matrix of variables?} and a lookup function. This is interesting in its own right, as tabular probability distributions and lookup functions are core elements of the potential outcomes approach. However, as we will point out, this lookup table may or may not support an interpretation as a table of potential outcomes. Furthermore, we make use of this theorem in proving Theorem \ref{th:iid_rep}, which shows a do model is contractible if and only if it can be represented by independent copies of a unit level consequence map jointly parametrised by a hypothesis. We will argue in the next section that jointly parametrised consequence maps are fundamental to all approaches to causal inference.
 
 \begin{definition}[Contractible probability distribution]
 Given a fundamental probability set $\Omega$, variable $\RV{X}:=(\RV{X}_i)_{i\in \mathbb{N}}$ and a probability distribution $\prob{P}^{\RV{X}}\in\Delta(X^{\mathbb{N}})$, any $S=(s_i)_{i\in A}$, $T=(t_i)_{i\in A}$ with $A\subset\mathbb{N}$ and $i<j\implies s_i<s_j \land t_i<t_j$, let $\RV{X}_S:=(\RV{X}_i)_{i\in S}$ and $\RV{X}_T:=(\RV{X}_i)_{i\in T}$. If
@@ -287,9 +287,9 @@ By definition,
 \end{align}
 \end{proof}
 
-Note that in some versions of potential outcomes, for example \citet{rubin_causal_2005}, potential outcomes are defined as table-and-lookup models, except without the assumption that the probability distribution over the table is contractible. We speculate that this corresponds to the assumption that if two decisions $d,d'$ correspond on \emph{the same subset of indices} $d_S=d'_S$ then $\prob{P}_d^{\RV{Y}_S}=\prob{P}_{d'}^{\RV{Y}_S}$. This is a weaker assumption than causal contractibility -- contractibility requires that we can equate consequecne models when any subsequence of the first decision matches any subsequence of the second, while this condition only requires that consequence models are equal when a subsequence of the first decision matches \emph{the same} subsequence of the second. It is an open question whether this correspondence does in fact hold.
+Note that in some versions of potential outcomes, for example \citet{rubin_causal_2005}, potential outcomes are defined as table-and-lookup models, except without the assumption that the probability distribution over the table is contractible. Our argument for a potential outcomes representation does not go through in this case, because it hinges on the fact that we can ``wrap'' the outcomes under a particular blind decision into a table, and then use contractibility to choose one outcome from each column, however using contractibility also gives us exchangeability of the columns.
 
-\todo[inline]{I think that perhaps the ``tidiest'' set of assumptions is to consider the above assumption to express the notion of ``same local action->same local consequences'' and exchangeability to express interchangeability of choices. Contractibility might then be the conjunction of both assumptions.}
+It is also worth noting that the lookup table does not need to have an interpretation as a collection of potential outcomes. For example, consider a series of bets on fair coinflips -- in this case, the consequence $\RV{Y}_i$ is uniform on $\{0,1\}$ for any decision $\RV{D}_i$. Tha $D=Y=\{0,1\}$ and $\prob{P}_\alpha^{\RV{Y}_n}(y)=\prod_{i\in [n]} 0.5$ for all $n$, $y\in Y^n$, $\alpha\in R$. Then the construction in Theorem \ref{th:table_rep} yields $\prob{P}^{Y^D_i}(y^D_i)=\prod_{j\in D} 0.5$ for all $y^D_i\in Y^D$. That is, $\RV{Y}^0_i$ and $\RV{Y}^1_i$ are independent and uniformly distributed. However, if we wanted $\RV{Y}^0_i$ to represent ``what would happen if I bet 0 on turn $i$'' and $\RV{Y}^1$ to represent ``what would happen if I bet 1 on turn $i$'', then we actually want $\RV{Y}^0_i = 1-\RV{Y}^1_i$. Thus the measurement table lookup is formally similar to the potential outcomes setup, but potential outcomes attributes additional semantics to the entries in the lookup table which can impose extra requirements on their distribution.
 
 Theorem \ref{th:contractibility_commutativity} establishes a claim made earlier: that contractibility is strictly stronger than commutativity of exchange.
 
@@ -378,3 +378,6 @@ So, by Theorem \ref{th:cons_ci}, $\prob{P}^{\RV{Y}_i|\RV{HD}}$ exists and by con
     &= \prob{P}^{\RV{Y}_j|\RV{HD}_j}(y_i|h,d_i)
 \end{align}
 \end{proof}
+
+\subsection{Potential outcomes}
+
