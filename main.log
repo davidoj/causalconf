@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  21 DEC 2021 16:02
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  28 DEC 2021 11:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -911,33 +911,33 @@ File: l3backend-xdvipdfmx.def 2020-02-03 L3 backend support: xdvipdfmx
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 177.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 178.
+LaTeX Font Info:    ... okay on input line 178.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 178.
+LaTeX Font Info:    ... okay on input line 178.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 178.
+LaTeX Font Info:    ... okay on input line 178.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 178.
+LaTeX Font Info:    ... okay on input line 178.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 178.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 1
-77.
+78.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    ... okay on input line 178.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 178.
+LaTeX Font Info:    ... okay on input line 178.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 178.
+LaTeX Font Info:    ... okay on input line 178.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 178.
+LaTeX Font Info:    ... okay on input line 178.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 178.
+LaTeX Font Info:    ... okay on input line 178.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 178.
+LaTeX Font Info:    ... okay on input line 178.
 \AtBeginShipoutBox=\box87
-Package hyperref Info: Link coloring OFF on input line 177.
+Package hyperref Info: Link coloring OFF on input line 178.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -950,15 +950,15 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count311
 )
-LaTeX Info: Redefining \ref on input line 177.
-LaTeX Info: Redefining \pageref on input line 177.
-LaTeX Info: Redefining \nameref on input line 177.
+LaTeX Info: Redefining \ref on input line 178.
+LaTeX Info: Redefining \pageref on input line 178.
+LaTeX Info: Redefining \nameref on input line 178.
 
 (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 177.
+LaTeX Info: Redefining \microtypecontext on input line 178.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: No adjustment of tracking.
@@ -970,7 +970,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (RS)
 )
 ABD: EveryShipout initializing macros
-LaTeX Font Info:    Trying to load font information for U+msa on input line 180
+LaTeX Font Info:    Trying to load font information for U+msa on input line 181
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -979,7 +979,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 180
+LaTeX Font Info:    Trying to load font information for U+msb on input line 181
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -989,18 +989,18 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for U+stmry on input line 1
-80.
+81.
 
 (/usr/share/texlive/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
 LaTeX Font Info:    Trying to load font information for U+wasy on input line 18
-0.
+1.
 
 (/usr/share/texlive/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 )
 
 LaTeX Font Warning: Font shape `U/stmry/b/n' undefined
-(Font)              using `U/stmry/m/n' instead on input line 180.
+(Font)              using `U/stmry/m/n' instead on input line 181.
 
 (./main.toc
 (/usr/share/texlive/texmf-dist/tex/generic/stringenc/se-ascii-print.def
@@ -1043,107 +1043,84 @@ File: ueus.fd 2013/01/14 v3.01 Euler Script
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-eus.cfg
 File: mt-eus.cfg 2006/07/28 v1.2 microtype config. file: AMS Euler Script (RS)
 ) [10] [11]
-[12]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 309.
- [13]
-Overfull \hbox (2.55861pt too wide) in paragraph at lines 329--330
+[12] [13]
+Overfull \hbox (2.55861pt too wide) in paragraph at lines 337--338
 []\T1/lmr/m/n/10 Probability spaces along with ran-dom vari-ables can be used t
 o de-fine \T1/lmr/m/it/10 marginal
  []
 
-(./figures/disint_def.tikz) (./figures/disint_def.tikz) [14] [15] [16] [17]
-(./figures/copy_product.tikz) (./figures/copy_product.tikz) [18] [19] [20]
-(./figures/insert_opn2.tikz) (./figures/2comb_inserted.tikz)
-(./figures/insert_opn2.tikz) (./figures/2comb_inserted.tikz)
-Overfull \hbox (32.99246pt too wide) in paragraph at lines 599--600
+
+LaTeX Warning: Reference `def:disint' on page 14 undefined on input line 344.
+
+[14] [15]
+
+LaTeX Warning: Reference `def:disint' on page 16 undefined on input line 452.
+
+[16] (./figures/copy_product.tikz) (./figures/copy_product.tikz)
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
+ine 472.
+ [17] [18]
+[19] (./figures/insert_opn2.tikz) (./figures/2comb_inserted.tikz)
+(./figures/insert_opn2.tikz) (./figures/2comb_inserted.tikz) [20]
+Overfull \hbox (32.99246pt too wide) in paragraph at lines 594--595
 []\T1/lmr/m/n/10 zWe can iden-tify the en-virnoment $\OML/cmm/m/it/10 e[]$ \T1/
 lmr/m/n/10 with a prob-a-bil-ity gap model $\OMS/cmsy/m/n/10 f\U/msb/m/n/10 P[]
 \OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 i \OMS/cmsy/m/n/10 2
  []
 
-[21] (./figures/n_comb_def.tikz) (./figures/n_comb_def.tikz)
+(./figures/n_comb_def.tikz) (./figures/n_comb_def.tikz)
 
-LaTeX Warning: Command \i invalid in math mode on input line 609.
+LaTeX Warning: Command \i invalid in math mode on input line 604.
 
-(./figures/disintegration_existence.tikz)
-(./figures/disintegration_existence.tikz) [22] [23]
-Overfull \hbox (2.92564pt too wide) in paragraph at lines 764--765
-[][]\T1/lmr/bx/n/10 Definition 2.30 \T1/lmr/m/n/10 (Con-di-tional in-de-pen-den
+[21] (./figures/disintegration_existence.tikz)
+(./figures/disintegration_existence.tikz) [22]
+Overfull \hbox (2.92564pt too wide) in paragraph at lines 680--681
+[][]\T1/lmr/bx/n/10 Definition 2.29 \T1/lmr/m/n/10 (Con-di-tional in-de-pen-den
 ce with re-spect to a prob-a-bil-ity model)\T1/lmr/bx/n/10 .
  []
 
-(./figures/cond_indep1.tikz) (./figures/cond_indep1.tikz)
+(./figures/cond_indep1.tikz) (./figures/cond_indep1.tikz) [23]
 (./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz)
-(./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz) [24]
-Overfull \hbox (5.11346pt too wide) in paragraph at lines 822--824
-[][]\T1/lmr/bx/n/10 Theorem 2.35 \T1/lmr/m/n/10 (Con-di-tional in-de-pen-dence 
+(./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz)
+Overfull \hbox (5.11346pt too wide) in paragraph at lines 728--729
+[][]\T1/lmr/bx/n/10 Theorem 2.34 \T1/lmr/m/n/10 (Con-di-tional in-de-pen-dence 
 from ker-nel un-re-spon-sive-ness)\T1/lmr/bx/n/10 . []\T1/lmr/m/it/10 Given
  []
 
 (./figures/cond_indep_erase_alpha.tikz) (./figures/cond_indep_erase_alpha.tikz)
-[25] (./figures/indep_strengthen_1.tikz) (./figures/indep_strengthen_2.tikz)
-(./figures/indep_strengthen_1.tikz) (./figures/indep_strengthen_2.tikz)
-Overfull \hbox (70.18008pt too wide) detected at line 918
-[]
- []
+[24]) (./seedo.tex [25] [26] [27] [28] [29]
 
-[26]
-Overfull \hbox (55.19177pt too wide) in paragraph at lines 920--921
-\OT1/cmr/m/n/10 0$\T1/lmr/m/n/10 , $\U/msb/m/n/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/
-m/it/10 a\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 b; c; d; e\OT1/cmr/m/n/10 ) = \U/ms
-b/m/n/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 a\OMS/cmsy/m/n/10 j\OML/cmm/m/it/
-10 c; e\OT1/cmr/m/n/10 )$\T1/lmr/m/n/10 . How-ever, by as-sump-tion, $\U/msb/m/
-n/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 b; c; d; e\OT1/cmr/m/n/10 ) =
- []
-
-(./figures/indep_strengthen_3.tikz) (./figures/indep_strengthen_4.tikz)
-(./figures/indep_strengthen_3.tikz) (./figures/indep_strengthen_4.tikz)
-[27] (./figures/kyyz.tikz) (./figures/kyyz.tikz)
-(./figures/compose_with_copymap.tikz) (./figures/compose_with_copymap.tikz)
-[28] (./figures/precompose_with_copymap.tikz)
-(./figures/precompose_with_copymap.tikz) (./figures/kxyxz.tikz)
-(./figures/kxyxz.tikz) (./figures/compose_with_copymap.tikz)
-(./figures/compose_with_copymap.tikz) [29]) (./seedo.tex [30] [31] [32]
-[33] [34]
-
-LaTeX Warning: Reference `eq:see_do_query' on page 35 undefined on input line 9
+LaTeX Warning: Reference `eq:see_do_query' on page 30 undefined on input line 9
 2.
 
-) (./cbns.tex [35]
-Overfull \hbox (26.47305pt too wide) in paragraph at lines 24--25
-[]\T1/lmr/m/n/10 In this sec-tion, we will con-sider \T1/lmr/m/it/10 do-models\
-T1/lmr/m/n/10 ; these are see-do mod-els $\OT1/cmr/m/n/10 (\U/msb/m/n/10 P[]\OM
-L/cmm/m/it/10 ; \U/msb/m/n/10 P[]\OML/cmm/m/it/10 ; A\OT1/cmr/m/n/10 )$
- []
-
-[36] (./figures/do_model_1.tikz) (./figures/do_model_2.tikz)
+) (./cbns.tex [30] [31] (./figures/do_model_1.tikz) (./figures/do_model_2.tikz)
 (./figures/do_model_3.tikz) (./figures/do_model_4.tikz)
 (./figures/do_model_5.tikz) (./figures/do_model_1.tikz)
 (./figures/do_model_2.tikz) (./figures/do_model_3.tikz)
 (./figures/do_model_4.tikz) (./figures/do_model_5.tikz)
-Overfull \hbox (93.94325pt too wide) detected at line 90
+Overfull \hbox (93.94325pt too wide) detected at line 91
 []
  []
 
-[37] [38] [39] (./figures/Y_table_representation.tikz)
-(./figures/Y_table_representation.tikz) [40] (./figures/Y_table_lookup.tikz)
+[32] [33] [34] (./figures/Y_table_representation.tikz)
+(./figures/Y_table_representation.tikz) [35] (./figures/Y_table_lookup.tikz)
 (./figures/Y_table_lookup.tikz) (./figures/lookup_representation.tikz)
-(./figures/lookup_representation.tikz) [41]
+(./figures/lookup_representation.tikz) [36]
 (./figures/lookup_representation.tikz) (./figures/lookup_representation.tikz)
-[42] (./figures/lookup_representation.tikz)
+[37] (./figures/lookup_representation.tikz)
 (./figures/lookup_representation.tikz)
-Overfull \hbox (2.13971pt too wide) detected at line 299
+Overfull \hbox (2.13971pt too wide) detected at line 287
 []
  []
 
-[43] (./figures/lookup_representation.tikz)
-(./figures/lookup_representation.tikz) (./figures/do_model_representation.tikz)
-(./figures/do_model_representation.tikz) [44]
-(./figures/lookup_representation.tikz) (./figures/lookup_representation.tikz)
+[38] (./figures/lookup_representation.tikz)
+(./figures/lookup_representation.tikz) [39]
+(./figures/do_model_representation.tikz)
+(./figures/do_model_representation.tikz) (./figures/lookup_representation.tikz)
+(./figures/lookup_representation.tikz)
 (./figures/de_finetti_potential_outcomes.tikz)
-(./figures/de_finetti_potential_outcomes.tikz) [45]
-Overfull \hbox (11.92598pt too wide) in paragraph at lines 379--380
+(./figures/de_finetti_potential_outcomes.tikz) [40]
+Overfull \hbox (11.92598pt too wide) in paragraph at lines 367--368
 []\T1/lmr/m/n/10 Now, note that $\OT1/cmr/m/n/10 (\OT1/cmss/m/n/10 Y[]\OML/cmm/
 m/it/10 ; \OT1/cmss/m/n/10 D[]\OT1/cmr/m/n/10 )$ \T1/lmr/m/n/10 is a de-ter-min
 -is-tic func-tion of $\OT1/cmr/m/n/10 (\OT1/cmss/m/n/10 Y[]\OML/cmm/m/it/10 ; \
@@ -1151,45 +1128,13 @@ OT1/cmss/m/n/10 D[]\OT1/cmr/m/n/10 )$ \T1/lmr/m/n/10 and $\OT1/cmr/m/n/10 (\OT1
 /cmss/m/n/10 Y[]\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 D[]\OT1/cmr/m/n/10 )$
  []
 
-[46] [47] [48] [49]
+) (./potential_outcomes.tex [41]
 
-LaTeX Warning: Reference `sec:truncated_fac_again' on page 50 undefined on inpu
-t line 487.
+LaTeX Warning: Reference `lem:nocopy1' on page 42 undefined on input line 25.
 
-[50]
-Overfull \hbox (74.44989pt too wide) in paragraph at lines 526--527
-[][]\T1/lmr/bx/n/10 Theorem 5.2 \T1/lmr/m/n/10 (Ex-is-tence of CBN 2-comb)\T1/l
-mr/bx/n/10 . []\T1/lmr/m/it/10 Given a CBN or-der 2 model $\U/msb/m/n/10 Q[]$
- []
+[42]
 
-[51] (./figures/seedo_equality2.tikz) (./figures/seedo_equality.tikz)
-(./figures/seedo_equality2.tikz) (./figures/seedo_equality.tikz)
-Overfull \hbox (76.521pt too wide) detected at line 576
-[]
- []
-
-[52] [53] (./figures/t_vs_u.tikz) (./figures/t_vs_u.tikz)
-(./figures/defn_ra.tikz) (./figures/defn_ra.tikz)
-(./figures/seedo_equality2.tikz) (./figures/seedo_cbn_with_s.tikz)
-(./figures/seedo_equality.tikz) (./figures/seedo_equality2.tikz)
-(./figures/seedo_cbn_with_s.tikz) (./figures/seedo_equality.tikz)
-Overfull \hbox (46.10287pt too wide) detected at line 625
-[]
- []
-
-[54] (./figures/strong_identifiability.tikz)
-(./figures/strong_identifiability2.tikz) (./figures/strong_identifiability.tikz
-) (./figures/strong_identifiability2.tikz)
-Overfull \hbox (56.9191pt too wide) detected at line 667
-[]
- []
-
-[55]
-Missing character: There is no — in font ec-lmr10!
-Missing character: There is no — in font ec-lmr10!
-) (./potential_outcomes.tex [56] [57]
-
-LaTeX Warning: Reference `lem:subm_exist' on page 58 undefined on input line 38
+LaTeX Warning: Reference `lem:subm_exist' on page 43 undefined on input line 38
 .
 
 (./figures/po_probmodel.tikz) (./figures/po_probmodel.tikz)
@@ -1205,9 +1150,9 @@ sy/m/n/10 \ \OT1/cmss/m/n/10 W[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n
 /10 ) =
  []
 
-[58]
+[43]
 Overfull \hbox (3.6853pt too wide) in paragraph at lines 73--74
-[][]\T1/lmr/bx/n/10 Example 6.7. []\T1/lmr/m/n/10 Sup-pose we have a stan-dard 
+[][]\T1/lmr/bx/n/10 Example 5.7. []\T1/lmr/m/n/10 Sup-pose we have a stan-dard 
 de-ci-sion prob-lem $\OMS/cmsy/m/n/10 f\U/msb/m/n/10 T[]\OML/cmm/m/it/10 ; \OMS
 /cmsy/m/n/10 f\U/msb/m/n/10 S[]\OMS/cmsy/m/n/10 g[]g$
  []
@@ -1228,7 +1173,7 @@ Overfull \hbox (31.99535pt too wide) detected at line 82
 []
  []
 
-[59]) (./appendix.tex [60]
+[44]) (./appendix.tex [45]
 Overfull \hbox (21.56874pt too wide) in paragraph at lines 19--20
 []\T1/lmr/m/it/10 Then there ex-ists a unique see-do model $\OT1/cmr/m/n/10 (\U
 /msb/m/n/10 T\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 H[]\OML/cmm/m/it/10 ; \OT1/cms
@@ -1238,10 +1183,10 @@ cmr/m/n/10 [[]][] =
  []
 
 
-LaTeX Warning: Reference `ssec:disintegration' on page 61 undefined on input li
+LaTeX Warning: Reference `ssec:disintegration' on page 46 undefined on input li
 ne 23.
 
-[61]
+[46]
 Overfull \hbox (31.85356pt too wide) in paragraph at lines 84--85
 \T1/lmr/m/it/10 al-lel po-ten-tial out-come sub-model \T1/lmr/m/n/10 if $\U/msb
 /m/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/n/10 j\OT1/cmss/m/n/1
@@ -1251,16 +1196,16 @@ j\OT1/cmss/m/n/10 W[]Y\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 W\OT1/cmr/m/n/10 )][] =
 
  []
 
-[62]
+[47]
 Overfull \hbox (1.61238pt too wide) in paragraph at lines 98--99
 \T1/lmr/m/n/10 con-di-tion-ally in-de-pen-dent and iden-ti-cally dis-tributed M
 arkov ker-nel $\U/msb/m/n/10 P\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y[]\OMS/cmsy/m/
 n/10 j\OT1/cmss/m/n/10 J\OT1/cmr/m/n/10 ][] =
  []
 
-[63]
+[48]
 Overfull \hbox (0.19667pt too wide) in paragraph at lines 113--114
-[][]\T1/lmr/bx/n/10 Definition 8.3 \T1/lmr/m/n/10 (Ex-ten-sion)\T1/lmr/bx/n/10 
+[][]\T1/lmr/bx/n/10 Definition 7.3 \T1/lmr/m/n/10 (Ex-ten-sion)\T1/lmr/bx/n/10 
 . []\T1/lmr/m/n/10 Given a Markov ker-nel space $\OT1/cmr/m/n/10 (\U/msb/m/n/10
  K\OML/cmm/m/it/10 ; E; F\OT1/cmr/m/n/10 )$\T1/lmr/m/n/10 , $\OT1/cmr/m/n/10 (\
 U/msb/m/n/10 K[]\OML/cmm/m/it/10 ; E[]; F[]\OT1/cmr/m/n/10 )$
@@ -1268,12 +1213,12 @@ U/msb/m/n/10 K[]\OML/cmm/m/it/10 ; E[]; F[]\OT1/cmr/m/n/10 )$
 
 
 Overfull \hbox (15.22702pt too wide) in paragraph at lines 121--122
-[][]\T1/lmr/bx/n/10 Definition 8.4 \T1/lmr/m/n/10 (Ex-tend-ably ex-change-able)
+[][]\T1/lmr/bx/n/10 Definition 7.4 \T1/lmr/m/n/10 (Ex-tend-ably ex-change-able)
 \T1/lmr/bx/n/10 . []\T1/lmr/m/n/10 Given a Markov ker-nel space $\OT1/cmr/m/n/1
 0 (\U/msb/m/n/10 K\OML/cmm/m/it/10 ; E; F\OT1/cmr/m/n/10 )$\T1/lmr/m/n/10 ,
  []
 
-[64]
+[49]
 Overfull \hbox (35.32014pt too wide) in paragraph at lines 140--141
 []\T1/lmr/m/n/10 Let $\OML/cmm/m/it/10 e \OT1/cmr/m/n/10 = (\OML/cmm/m/it/10 e[
 ]\OT1/cmr/m/n/10 )[]$\T1/lmr/m/n/10 . In-tro-duce the vari-able $\OT1/cmss/m/n/
@@ -1284,22 +1229,22 @@ at $\U/msb/m/n/10 K\OT1/cmr/m/n/10 [\OT1/cmss/m/n/10 Y\OT1/cmr/m/n/10 (\OML/cmm
 10 ][] =
  []
 
-[65]
+[50]
 
-LaTeX Warning: Reference `eq:extn2' on page 66 undefined on input line 168.
+LaTeX Warning: Reference `eq:extn2' on page 51 undefined on input line 168.
 
-[66]
+[51]
 Overfull \hbox (6.8483pt too wide) detected at line 329
 []
  []
 
-[67]
+[52]
 Overfull \hbox (26.14803pt too wide) detected at line 415
 []
  []
 
 (./figures/ccom_lhs.tikz) (./figures/ccom_rhs.tikz) (./figures/ccom_lhs.tikz)
-(./figures/ccom_rhs.tikz) [68] (./figures/ccom2_lhs.tikz)
+(./figures/ccom_rhs.tikz) [53] (./figures/ccom2_lhs.tikz)
 (./figures/ccom2_mhs.tikz) (./figures/ccom2_rhs.tikz) (./figures/ccom2_lhs.tikz
 ) (./figures/ccom2_mhs.tikz) (./figures/ccom2_rhs.tikz)
 (./figures/ccom3_lhs.tikz) (./figures/ccom3_rhs.tikz) (./figures/ccom3_lhs.tikz
@@ -1309,9 +1254,9 @@ Overfull \hbox (26.14803pt too wide) detected at line 415
 (./figures/mstruct1_rhs.tikz) (./figures/mstruct2_lhs.tikz)
 (./figures/mstruct2_rhs.tikz) (./figures/naturality_lhs.tikz)
 (./figures/naturality_rhs.tikz) (./figures/naturality_lhs.tikz)
-(./figures/naturality_rhs.tikz) [69]
+(./figures/naturality_rhs.tikz) [54]
 
-LaTeX Warning: Reference `lem:se_id' on page 70 undefined on input line 496.
+LaTeX Warning: Reference `lem:se_id' on page 55 undefined on input line 496.
 
 ) (./main.bbl
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
@@ -1323,18 +1268,18 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [70] [71]
+ [55] [56]
 Missing character: There is no ł in font ec-lmr10!
 Missing character: There is no ń in font ec-lmr10!
- [72] [73])
-[74] [75]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 228.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 228.
+ [57])
+[58] [59]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 229.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 229.
  (./main.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 228.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 228.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 229.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 229.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: AB0475C609D4A7BA9F319CA12F3C9C3A;3625.
+(rerunfilecheck)             Checksum: 54E474203D39FC0DCE7B3B3C2419A98A;2834.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1342,15 +1287,15 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 228.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 229.
  ) 
 Here is how much of TeX's memory you used:
- 30004 strings out of 479819
- 569760 string characters out of 5895847
- 931233 words of memory out of 5000000
- 46236 multiletter control sequences out of 15000+600000
+ 29749 strings out of 479819
+ 564017 string characters out of 5895847
+ 927189 words of memory out of 5000000
+ 46073 multiletter control sequences out of 15000+600000
  595050 words of font info for 104 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  68i,16n,83p,1630b,978s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.xdv (75 pages, 890476 bytes).
+Output written on main.xdv (59 pages, 640296 bytes).

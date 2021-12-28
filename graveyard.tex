@@ -1,0 +1,132 @@
+\subsection{Theorem: conditional independence from unresponsiveness}
+
+% \begin{theorem}\label{th:cons_ci}
+% Given an order 2 model $\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}}$, $\RV{Y}\CI_{\model{P}}\RV{V}|\RV{WX}$ if and only if there is a version of $\prob{P}^{\RV{Y}|\RV{WXV}}$ and some $\prob{P}^{\RV{Y}|\RV{WX}}$ such that
+% \begin{align}
+%   \prob{P}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence}
+% \end{align}
+% \end{theorem}
+
+% \begin{proof}
+% If: For any $\model{K}:X\times V\times W\kto Y$, $\model{J}:\{*\}\kto W$
+% \begin{align}
+%   \model{L} :&= \model{J}\odot \text{insert}(\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}},\model{K})\\
+%    &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} \odot \prob{P}^{\RV{Y}|\RV{WXV}}\\
+% \end{align}
+
+% That is, $\prob{P}^{\RV{Y}|\RV{WXV}}$ is a version of $\prob{L}^{\RV{Y}|\RV{WXV}}$ for any extension $\model{L}$ of $\model{P}$. Then by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\model{L}}\RV{V}|\RV{WX}$ and so, by definition, $\RV{Y}\CI_{\model{P}}^2\RV{V}|\RV{WX}$.
+% Only if:
+
+% Let $\model{L}:\{*\}\kto W\times X\times V\times Y$ be an extension of $\model{P}$ to a 0-order model such that $\model{L}^{\RV{WXV}}\gg \model{M}^{\RV{WXV}}$ for any other extension $\model{M}$. Because $\RV{Y}\CI_{\model{L}}\RV{V}|\RV{WX}$, by Theorem \ref{th:cho_ci_equiv} there is some $\prob{L}^{\RV{Y}|\RV{WXV}}$ and $\prob{L}^{\RV{Y}|\RV{WX}}$ such that
+% \begin{align}
+%   \prob{L}^{\RV{Y}|\RV{WXV}} = \tikzfig{disint_independence_l}
+% \end{align}
+
+% As $\model{L}$ is an extension of $\model{P}$, there must be some $\model{J}$, $\model{K}$ such that for any $\prob{P}^{\RV{Y}|\RV{WXV}}$
+
+% \begin{align}
+%   \model{L} :&= \model{J}\odot \text{insert}(\model{P}^{\RV{XV}|\RV{W}\square \RV{Y}|\RV{XV}},\model{K})\\
+%    &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} \odot \prob{P}^{\RV{Y}|\RV{WXV}}\\
+%    \model{L}^{\RV{WXV}} &= \model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K}
+% \end{align}
+
+% Thus for any $(w,x,v)$ such that $\model{L}^{\RV{WXV}}>0$, $\prob{P}^{\RV{Y}|\RV{WXV}}\overset{\model{L}}{\cong}\prob{L}^{\RV{Y}|\RV{WXV}}$. The set on which they may disagree is precisely the set of $(w,x,v)$ such that $\model{J}\odot \model{P}^{\RV{XV}|\RV{W}}\odot \model{K} = 0$ for all $\model{J}$, $\model{K}$, but this means that $\prob{P}^{\RV{Y}|\RV{WXV}}\overset{\model{P}}{\cong}\prob{L}^{\RV{Y}|\RV{WXV}}$ also.
+% \end{proof}
+
+
+% \subsubsection{Restricted 2-combs}
+
+% \todo[inline]{this notation sucks}
+
+% We're often interested in a subset of inserts to a 2-comb. We're interested in particular in inserts that depend on a subset of the ``available'' variables. There are in general many restrictions we could consider, but some we are more interested in than others. For a 2-comb restricted to a generic subset $A$ of inserts, we will write $\prob{P}^{\RV{X}|\RV{W}\framebox{A} \RV{Y}|\RV{D}}$. 
+
+% Given $\prob{P}^{\RV{X}|\RV{W}\square \RV{Y}|\RV{D}}$ and some random variable $\RV{V}=f\circ(\RV{W},\RV{X})$, define the subset of inserts that depend only on $\RV{V}$ as those $\prob{Q}_\alpha^{\RV{D}|\RV{XW}}$ such that $\RV{D}\CI^1_{\model{Q}}(\RV{W},\RV{X})|\RV{V}$. Define $B$ as the set of all inserts exhibiting this conditional independence. Then write  $\prob{P}^{\RV{X}|\RV{W}\framebox{\RV{V}} \RV{Y}|\RV{D}}$ for the restriction of $\prob{P}^{\RV{X}|\RV{W}\square \RV{Y}|\RV{D}}$ to this set. Note that $B$ may be empty if there are no valid inserts with the required conditional independence. When we consider restrictions, we will assume that this set is non-empty.
+
+% A special case of some interest is the restriction $\prob{P}^{\RV{X}|\RV{W}\framebox{*} \RV{Y}|\RV{D}}$. For any $(\RV{X},\RV{W})$, $*=\text{erase}_{X\times W} \circ (\RV{X},\RV{W})$, so this is a well-defined restriction. However, we must still assume that there exists at lease one $\prob{Q}_\alpha^{\RV{D}|\RV{XW}}$ such that $\RV{D}\CI^1_{\model{Q}}(\RV{W},\RV{X})|*$, which may not always be true (consider the example of height, weight and BMI above; there is no valid conditional probability in which BMI is independent of height and weight). This restriction is useful because conditional independences with respect to the restricted map can be interpreted as expressing the property that ``unless we deliberately induce dependence, these variables are conditionally independent''.
+
+% \begin{definition}[Restricted order 2 conditional independence]
+% For a \emph{restricted probability 2-comb} $\prob{P}^{\RV{X}|\RV{W}\framebox{E}\RV{Z}|\RV{Y}}$, define $\prob{P}_\gamma^{\RV{XYZ}|\RV{W}}:=\text{insert}(\prob{Q}_\gamma^{\RV{Y}|\RV{XW}}, \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}})$ for any $\prob{Q}_\gamma\in E$. Then $\RV{B}$ is restricted order 2 conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI^{2|E}_{\prob{P}}\RV{A}|\RV{C}$ if for all $\gamma\in E$, $\RV{B}\CI^1_{\prob{P}_\gamma}\RV{A}|\RV{C}$.
+% \end{definition}
+
+
+
+% For an arbitrary model $\kernel{N}:\RV{X}\kto \text{id}_{\Omega}$ where $\RV{X}:\Omega\kto X$, and some $(\RV{A},\RV{B},\RV{C})$, we say $\RV{A}$ is independent of $\RV{B}$ given $\RV{C}$, written $\RV{A}\CI_{\kernel{N}}\RV{B}|\RV{C}$, if there is some $\model{O}:\RV{I}\kto \RV{X}$ such that $O^x>0$ for all $x\in f_{\RV{X}}^{-1}(X)$ and $\RV{A}\CI_{\model{O}\model{N}} \RV{B}|\RV{C}$.
+
+% This definition is inappliccable in the case where sets may be uncountably infinite, as no such $\kernel{O}$ can exist in this case. There may well be definitions of conditional independence that generalise better, and we refer to the discussions in \citet{fritz_synthetic_2020} and \citet{constantinou_extended_2017} for some discussion of alternative definitions. One advantage of this definition is that it matches the version given by 
+
+% A particular case of interest is when a kernel $\kernel{K}:(\RV{X},\RV{W})\to \Delta(\RV{Y})$ can, for some $\kernel{L}:\RV{W}\to \Delta(\RV{Y})$, be written:
+
+% \begin{align}
+%   \kernel{K} = \tikzfig{ci_example}
+% \end{align}
+
+% Then $\RV{Y}\CI_{\kernel{K}}\RV{W}|\RV{X}$.
+
+
+
+% We finally note that a conditional probability $\prob{P}^{\RV{Y}|\RV{X}}$ along with the copy-product $\odot$ corresponds precisely to the set of insert compatible mixture homomorphisms.
+
+% \begin{definition}[Marginalisation]
+
+% \end{definition}
+
+% \begin{lemma}[Marginal probabilities are unique compatible submodels]
+
+% \end{lemma}
+
+% \begin{definition}[Delta notation]
+
+% \end{definition}
+
+% \begin{definition}[Order 1 insert compatibility]
+% Given a function $f:\Delta(X)\to \Delta(X\times Y)$, $f$ is \emph{insert-compatible} if
+% \begin{align}
+%   \tikzfig{marginal_functions}
+% \end{align}
+% \end{definition}
+
+% \begin{definition}[Mixture homomorphic]
+% Given a function $f:\Delta(X)\to \Delta(X\times Y)$, $f$ is \emph{mixture homomorphic} if
+% \begin{align}
+%   f(a\prob{P}^{\RV{X}}_1 + (1-a)\prob{P}^{\RV{X}}_2) = af(\prob{P}^{\RV{X}}_1) + (1-a)f(\prob{P}^{\RV{X}}_2)
+% \end{align}
+% \end{definition}
+
+% \emph{Proposition:} Every insert-compatible, mixture homomorphic function from $\Delta(X)\to \Delta(X\times Y)$ can be identified with a Markov kernel $X\kto X\times Y$.
+
+% \emph{Proof sketch:} We can write any probability measure over a discrete space as a mixture of delta-measures. Define $\kernel{K}(x,y|x'):=f(\delta_{x'})(x,y)$. Then
+% \begin{align}
+%   f(\mu)(x,y) &= f(\sum_{i\in X}\mu(i)\delta_i)(x,y)\\
+%            &= \sum_{i\in X} \mu(i)f(\delta_i)(x,y)\\
+%            &= \sum_{i\in X} \mu(i)\kernel{K}(x,y|i)\\
+%            &= (\mu \kernel{K})(x,y)
+% \end{align}
+
+% Due to insert compatibility, we also require for some $\kernel{L}\in\Delta(Y)$
+% \begin{align}
+%   \sum_y f(\delta_{x'})(x,y) &= \llbracket x=x' \rrbracket\\
+%   \implies f(\delta_{x'})(x,y) &= \llbracket x=x' \rrbracket\kernel{L}(y|x)
+% \end{align}
+
+% Thus
+% \begin{align}
+%   f(\mu) = \mu\odot \kernel{L}
+% \end{align}
+
+
+% \begin{theorem}[Equivalence of 2-comb disintegrations]\label{th:equiv_insert}
+% Given a 2-comb $\prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}$ and any two disintegrations $\prob{P}^{\RV{Z}|\RV{WXY}}_1$, $\prob{P}^{\RV{Z}|\RV{WXY}}_2$, for all valid extensions $\prob{P}_\alpha^{\RV{Y}|\RV{XW}}$
+% \begin{align}
+%   \prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \prob{P}^{\RV{Z}|\RV{WXY}}_1 = \prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \prob{P}^{\RV{Z}|\RV{WXY}}_2
+% \end{align}
+% \end{theorem}
+
+% \begin{proof}
+% For any $w,x,y,z$
+
+% \begin{align}
+%   (\prob{P}^{\RV{X}|\RV{W}}\odot \prob{P}_\alpha^{\RV{Y}|\RV{XW}} \odot \prob{P}^{\RV{Z}|\RV{WXY}}_1)(x,y,z|w) &= \prob{P}^{\RV{Y}|\RV{WX}}_\alpha(y|w,x)\prob{P}^{\RV{X}|\RV{W}}(x|w)\prob{P}_1^{\RV{Z}|\RV{XYW}}(z|x,y,w)\\
+%   &= \prob{P}^{\RV{X}|\RV{W}\square\RV{Z}|\RV{Y}}(x,z|w,y)\\
+%   &= \prob{P}^{\RV{Y}|\RV{WX}}_\alpha(y|w,x)\prob{P}^{\RV{X}|\RV{W}}(x|w)\prob{P}_2^{\RV{Z}|\RV{XYW}}(z|x,y,w)
+% \end{align}
+% \end{proof}

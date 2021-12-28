@@ -1,4 +1,4 @@
-\begin{thebibliography}{33}
+\begin{thebibliography}{32}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -205,16 +205,6 @@ Judea Pearl.
 \newblock \doi{10.1515/jci-2018-2001}.
 \newblock URL
   \url{https://www.degruyter.com/view/j/jci.2018.6.issue-2/jci-2018-2001/jci-2018-2001.xml}.
-
-\bibitem[Peters and Bühlmann(2015)]{peters_structural_2015}
-Jonas Peters and Peter Bühlmann.
-\newblock Structural {Intervention} {Distance} for {Evaluating} {Causal}
-  {Graphs}.
-\newblock \emph{Neural Computation}, 27\penalty0 (3):\penalty0 771--799,
-  January 2015.
-\newblock ISSN 0899-7667.
-\newblock \doi{10.1162/NECO_a_00708}.
-\newblock URL \url{https://doi.org/10.1162/NECO_a_00708}.
 
 \bibitem[Ramsey(2016)]{ramsey_truth_2016}
 Frank~P. Ramsey.
