@@ -172,33 +172,21 @@ $\kernel{L}$ is a \emph{disintegration} of $\kernel{K}$.
 \citet{cho_disintegration_2019} Theorem 3.11
 \end{proof}
 
-We define the copy-product $\odot$ as a shorthand for the operation in Equation \ref{eq:disint} that combines a marginal with a disintegration to get the original Markov kernel back.
-
-\begin{definition}[Copy-product]\label{def:copyproduct}
-Given two Markov kernels $\prob{K}:X\kto Y$ and $\prob{L}:Y\times X\kto Z$, define the copy-product $\prob{K}\odot\prob{L}:X\to Y\times Z$ as
-\begin{align}
-	\prob{K}\odot\prob{L}:&= \text{copy}_X(\prob{K}\otimes \text{id}_X)(\text{copy}_Y\otimes\text{id}_X )(\text{id}_Y \otimes \prob{L})\\
-							&= \tikzfig{copy_product}\\
-							&\iff\\
-	(\prob{K}\odot\prob{L})(A\times B|x) &= \int_B \prob{L}(A|y,x)\prob{K}(dy|x)
-\end{align}
-\end{definition}
-
 \subsection{Probabilistic models for causal inference}
 
 The sample space $(\Omega,\sigalg{F})$ along with our collection of variables is a ``model skeleton'' -- it tells us what kind of data we might see. The process $\proc{S}$ which tells us which part of the world we're interested in is related to the model $\Omega$ and the observable variables by the criterion of \emph{consistency with observation}. The kind of problem we are mainly interested in here is one where we make use of data to help make decisions under uncertainty. Probabilistic models have a long history of being used for this purpose, and our interest here is in constructing probabilistic models that can be attached to our variable ``skeleton''. 
 
-Given a model skeleton, a common approach to attaching a probabilistic model involves defining a base measure $\mu$ on $\Omega$ which yields a probability space $(\Omega,\sigalg{F},\mu)$. For causal inference, we need a to generalise this approach, because we need to handle \emph{gaps} in our model. \citet{hajek_what_2003} defines \emph{probability gaps} as propositions that do not have a probability assigned to them. Our view of probability gaps is slightly different -- in this work, a model with probability gaps as one that is missing some key parts or ``inserts''. If we complete such a model with an appropriate insert, we get a standard probability model.
+Given a model skeleton, a common approach to attaching a probabilistic model involves defining a base measure $\mu$ on $(\Omega,\sigalg{F})$ which yields a probability space $(\Omega,\sigalg{F},\mu)$. For causal inference, we need a to generalise this approach, because we need to handle \emph{choices}. If I have different options I can choose, and I want to use a model to compare the options according to some criteria, then I need a model that can accept a choice and output the expected result of that choice. According to this model, anything that we consider a ``consequence of a choice'' doesn't have a definite probability, because it depends on the choice we make.
 
-Probability gap models are particularly useful in for decision making. When I have a number of different options I could choose, I need a model that tells me what is likely to happen for each choice I could make. Thus I need a model that can take a provisional choice as an argument and return a probability model representing the results of this choice; in other words, the choices I may make are \emph{probability gaps}.
+In general, we might have arbitrary sets of choices that map to probability models in an arbitrary way. However, we are here interested in a simpler case: we suppose that there are a number of points at which we can act, and prior to acting we can observe some variables, and we are able to choose probabilistic maps from observations to acts. We also assume that, given the same observation and the same act, the same consequence is expected. That is, the consequences do not depend directly way on the choice of map from observations to acts.
 
-We formalize probability gap models in terms of probability sets. A probability set on $(\Omega,\sigalg{F})$ is a subset of probability measures on this space. A probability gap model consists of a particular probability set on $(\Omega,\sigalg{F})$, which we call the gap model, along with a collection of probability sets also on $(\Omega,\sigalg{F})$ which we call the domain. We can choose a particular proposition from the domain, and the result is given by the intersection of the gap model and the insert. We will typically consider probability sets represented by collections of conditional probabilities, and in this setting we will describe how the intersection operation corresponds to inserting the proposition into the ``gap'' in the gap model.
+These assumptions together imply that our model should contain a number of fixed conditional probabilities -- the probabilities of consequences given observations and acts -- and a number of ``choosable'' conditional probabilities -- the probabilities of acts given observations. The fixed conditional probabilities form a probability model with \emph{gaps}, and those gaps correspond to choices we can make. When we combine the fixed conditional probabilities and a choice of a conditional probability for each gap, we get a regular probability model. The terminology of ``probability gaps'' comes from \citet{hajek_what_2003}. 
 
-This scheme raises the possibility that the intersection of a model and an insert may be empty. We define the notion of \emph{validity} and show that it is sufficient that the probability model and the probability insert are valid for the intersection to be non-empty.
+To restate our general approach: we model decision problems with a collection of fixed conditional probabilities and a collection of choosable conditional probabilities, and combine the fixed conditionals with particular choices to get a probability measure. Two issues present themselves here: firstly, what \emph{is} a collection of conditional probabilities without a fixed underlying probability measure? Secondly, we need to ensure that our chosen collection of conditional probabilities actually does induce a probability model. We address these questions with \emph{probability sets}. A probability set is a collection of probability measures on $(\Omega,\sigalg{F})$, and we identify a collection of conditional probabilities with the set of probability measures that induce those conditional probabilities. We then define an operation $\odot$ for combining conditional probabilities, and a criterion of \emph{validity} such that a collection of valid conditional probabilities recursively combined using $\odot$ is guaranteed to corresponds to a non-empty probability set.
 
 \subsection{Probability sets}
 
-A probability set is a set of probability models.
+A probability set is a set of probability measures. This section establishes a number of useful properties of conditional probability with respect to probability sets. Unlike conditional probability with repsect to a probability space, conditional probabilities don't always exist for probability sets. Where they do, however, they are almost surely unique and we can marginalise and disintegrate them to obtain other conditional probabilities with respect to the same probability set.
 
 \begin{definition}[Probability set]
 A probability set $\prob{P}_{\{\}}$ on $(\Omega,\sigalg{F})$ is a collection of probability measures on $(\Omega,\sigalg{F})$. In other words it is a subset of $\mathscr{P}(\Delta(\Omega))$, where $\mathscr{P}$ indicates the power set.
@@ -251,7 +239,34 @@ For any $\prob{P}_a\in \prob{P}_{\{\}}$, $x,z$
 \end{align}
 \end{proof}
 
-We introduce a notion of ``almost sure equality'' for Markov kernels with respect to a probability set. In particular, two Markov kernels of the same are almost surely equal with respect to a probability set and a variable $\RV{X}$ if the copy product $\odot$ of all marginal probabilities of $\RV{X}$ with each Markov kernel is identical.
+We define the copy-product $\odot$ as a shorthand for the operation in Equation \ref{eq:disint} that combines a marginal with a disintegration to get the original Markov kernel back.
+
+\begin{definition}[Copy product]\label{def:copyproduct}
+Given $\prob{K}:X\kto Y$ and $\prob{L}:Y\times X\kto Z$, define the copy-product $\prob{K}\odot\prob{L}:X\to Y\times Z$ as
+\begin{align}
+	\prob{K}\odot\prob{L}:&= \text{copy}_X(\prob{K}\otimes \text{id}_X)(\text{copy}_Y\otimes\text{id}_X )(\text{id}_Y \otimes \prob{L})\\
+							&= \tikzfig{copy_product}\\
+							&\iff\\
+	(\prob{K}\odot\prob{L})(A\times B|x) &= \int_A \prob{L}(B|y,x)\prob{K}(dy|x)&A\in \sigalg{Y},B\in\sigalg{Z}
+\end{align}
+\end{definition}
+
+\begin{lemma}[Copy product is associative]
+Given $\prob{K}:X\kto Y$, $\prob{L}:Y\times X\kto Z$ and $\prob{M}:Z\times Y\times X\kto W$
+\begin{align}
+	(\prob{K}\odot \prob{L})\odot \prob{Z} &= \prob{K}\odot(\prob{L}\odot\prob{Z})\\
+\end{align}
+\end{lemma}
+
+\begin{proof}
+\begin{align}
+	(\prob{K}\odot \prob{L})\odot \prob{M} &= \tikzfig{odot_assoc_1}\\
+											&=  \tikzfig{odot_assoc_2}\\
+											&= \prob{K}\odot (\prob{L}\odot \prob{M})
+\end{align}
+\end{proof}
+
+Two Markov kernels are almost surely equal with respect to a probability set $\prop{P}_{\{\}}$ if the copy product $\odot$ of all marginal probabilities of $\RV{X}$ with each Markov kernel is identical.
 
 \begin{definition}[Almost sure equality]\label{def:asequal}
 Two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are almost surely equal $\overset{\prob{P}_{\{\}}}{\cong}$ with respect to a probability set $\prob{P}_{\{\}}$ and variable $\RV{X}:\Omega\to X$ if for all $\prob{P}_a \in \prob{P}_{\{\}}$,
@@ -261,16 +276,49 @@ Two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are almost sure
 \end{definition}
 
 \begin{lemma}[Conditional probabilities are almost surely equal]
-Given $\kernel{K}^{\RV{Y}|\RV{X}}$ and $\kernel{L}^{\RV{Y}|\RV{X}}$ both of which are versions of $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$, $\kernel{K}^{\RV{Y}|\RV{X}}\overset{\prob{P}_{\{\}}}{\cong}\kernel{L}^{\RV{Y}|\RV{X}}$
+If $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are both versions of $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$, $\kernel{K}\overset{\prob{P}_{\{\}}}{\cong}\kernel{L}$
 \end{lemma}
 
 \begin{proof}
 For all $\prob{P}_a \in \prob{P}_{\{\}}$
 \begin{align}
-	\prob{P}^{\RV{X}}_a\odot \kernel{K}^{\RV{Y}|\RV{X}} &= \prob{P}^{\RV{X}}_a\\
-	&= \prob{P}^{\RV{X}}_a\odot \kernel{L}^{\RV{Y}|\RV{X}}
+	\prob{P}^{\RV{X}}_a\odot \kernel{K} &= \prob{P}^{\RV{XY}}_a\\
+	&= \prob{P}^{\RV{X}}_a\odot \kernel{L}
 \end{align}
 \end{proof}
+
+\begin{lemma}[Substitution of almost surely equal Markov kernels]
+Given $\prob{P}_{\{\}}$, if $\kernel{K}:X\times Y \kto Z$ and $\kernel{L}:X\times Y \kto Z$ are almost surely equal $\kernel{K}\overset{\prob{P}_{\{\}}}{\cong}\kernel{L}$, then for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
+\begin{align}
+	\prob{P}_\alpha^{\RV{Y}|\RV{X}}\odot \kernel{K} &\overset{a.s.}{\cong} \prob{P}_\alpha^{\RV{Y}|\RV{X}}\odot \kernel{L}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+For any $\prob{P}_\alpha\in\prob{P}_{\{\}}$
+\begin{align}
+	\prob{P}_\alpha^{\RV{XY}}\odot \kernel{K} &= (\prob{P}_\alpha^{\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Y}|\RV{X}})\odot \kernel{K}\\
+											  &= \prob{P}_\alpha^{\RV{X}}\odot (\prob{P}__{\{\}}^{\RV{Y}|\RV{X}}\odot \kernel{K})\\
+											  &= \prob{P}_\alpha^{\RV{X}}\odot (\prob{P}__{\{\}}^{\RV{Y}|\RV{X}}\odot \kernel{L})
+\end{align}
+\end{proof}
+
+\begin{lemma}[Copy product of conditionals is a joint conditional]\label{lem:joint_conditional}
+Given a probability set $\prob{P}_{\{\}}$ on $(\Omega,\sigalg{F})$ along with conditional probabilities $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$, $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ exists and is equal to
+\begin{align}
+	\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}} &= \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}\\
+\end{align}
+\end{lemma}
+
+\begin{proof}
+By definition, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
+\begin{align}
+	\prob{P}_\alpha^{\RV{XYZ}} &= \prob{P}_\alpha^{\RV{X}}\odot \prob{P}_\alpha^{\RV{YZ}|\RV{X}}\\
+							   &= \prob{P}_\alpha^{\RV{X}}\odot(\prob{P}_\alpha^{\RV{Y}|\RV{X}}\odot \prob{P}_\alpha^{\RV{Z}|\RV{YX}})\\
+							   &= \prob{P}_\alpha^{\RV{X}}\odot(\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Z}|\RV{YX}})
+\end{align}
+\end{proof}
+
 
 
 % \begin{theorem}[Disintegrations are conditional probabilities]
@@ -304,13 +352,22 @@ Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{
 \end{align}
 \end{definition}
 
-This forms the basis of our theory of probability gaps. If we have a collection of valid conditional probabilities $\{\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}|i\in [n]\}$, we can take the $\odot$ product of each in turn $\prob{P}_1^{\RV{X}_1|\RV{X}_0}\odot\prob{P}_2^{\RV{X}_2|\RV{X}_{\{0,1\}}}\odot ...$ which will yield a conditional probability $\prob{Q}_^{\RV{X}_{[n]}|\RV{X}_0}$ which, by Lemma \ref{lem:valid_extendability} defines a non-empty probability set. We get a probability gap model when some of these conditional probabilities are ``missing'', and we have an insert set $R$ of alternative conditional probabilities we can use to fill the gap.
+Thus, given a collection of valid conditional probabilities $\{\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}|i\in [n]\}$ such that each adjacent pair can be combined with the $\odot$ product, the sequential product of each conditional probability is a valid conditional probability and there is a non-empty set of probability measures on the sample space that with that conditional probability. Collections of recursive conditional probabilities often arise in causal modelling -- in particular, they are the foundation of the structural equation modelling approach \citet{richardson2013single,pearl_causality:_2009}. Lemma \ref{lem:valid_extendability} establishes that recursive collections of conditional probabilities define non-empty probability sets as long as all the conditional probabilities in the collection are valid. 
 
-We focus in particular on \emph{probability *comb}. These are probability gap models defined by a collection of valid conditional probabilities with every even conditional ``missing''; the conditionals can be visualised as ``teeth of a *comb'', with the gaps between the teeth corresponding to the missing conditionals. The inserts are probability sets defined by different choices of missing conditionals. Given an insert, we slot the conditionals it provides into the gaps in the *comb and ``join'' them all using the $\odot$ product. Theorem \ref{th:intersection} shows that this operation corresponds to an intersection between probability sets and Lemma \ref{lem:valid_extendability} once again guarantees that the result is non-empty.
+\todo[inline]{We're making complicated models where we can choose many different combinations of conditional probabilities, validity is useful because we can check just the individual conditionals, don't need to check all the combinations. Also, there are examples in the wild of invalid collections -- see BMI example}
 
-\todo[inline]{If they weren't already called *combs, I'd call them zips}
+While structural equation models posit a complete collections of conditional probabilities with an operation, often called ``intervention'', that replaces some of them, we are interested in working with incomplete collections with a domain of choices that complete the collection; we call such objects ``probability gap models''. Structural equation models are like probability gap models with default choices -- if you don't replace anything, you get the basic set of structural equations, but you can also choose different conditionals from some domain.
 
-\subsection{Probability *combs}
+\subsection{Probability combs}
+
+We are interested in a a more precise kind of of ``incomplete collection of conditional probabilities'', and the specific kind of thing we are interested in is a \emph{probability comb}. We can think of a probability comb as a collection of conditional probabilities with every second element missing. The key result in this section is that probability combs can also be represented as a single Markov kernel, and this Markov kernel is itself a conditional probability with respect to the subset of \emph{blind} choices.
+
+In the following, $D$ is an index set which is equal to either $\{0\}\cup\mathbb{N}$ (if it is infinite) or $\{0\}\cup[n]$ for some $n\in \mathbb{N}$ (if it is finite). The indexing of the set of variables is arbitrary; it is just a means of addressing each variable.
+
+\begin{definition}[Probability comb]
+Given sample space $(\Omega,\sigalg{F})$ and a collection of $|D|$ variables $\RV{X}_{i}:\Omega\to (X_i,\sigalg{X}_i)$ for $i\in D$, let $B$ be the even elements of $D$ and $C$ be the odds. A $\RV{X}_C\comb \RV{X}_B$ \emph{probability comb}, written $\prob{P}_\square^{\RV{X}_C\comb \RV{X}_B}$, is a collection of valid conditional probabilities $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in C\}$ that jointly defines a probability set $\prob{P}_{\square}$.
+\end{definition}
+
 
 % \textbf{A note on terminology:} Probability gap models are written with blackboard letters $\prob{P}_\square$. The same base letter with different superscripts $\prob{P}_\square^{\RV{A}|\RV{B}}$ indicates a conditional probability with respect to $\prob{P}_\square$. We use subscripts to indicate both the model obtained by applying particular choices of insert $\prob{P}_\alpha:=\prob{P}_\square \cap \alpha$. $\RV{A}\CI_{\prob{P}_\square} \RV{B}$ is a statement of independence with respect to the model $\prob{P}_\square$.
 
