@@ -1,0 +1,42 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (-7.25, -0.25) {$\kernel{K}_i$};
+		\node [style=small kernel tikzit] (1) at (2.25, -0.75) {$\prob{P}_\square^{\RV{X}_{n}|\RV{X}_{[n-1]}}$};
+		\node [style=RLabel tikzit] (2) at (5.5, -0.75) {$\RV{X}_n$};
+		\node [style=RLabel tikzit] (3) at (5.5, 0) {$\RV{X}_{[n-1]}$};
+		\node [style=RLabel tikzit] (4) at (5.5, 1.75) {$\RV{X}_{[n-2]_{\mathrm{o}}}$};
+		\node [style=copymap tikzit] (5) at (-5.5, -0.25) {};
+		\node [style=copymap tikzit] (6) at (-9.5, 0.5) {};
+		\node [style=none] (7) at (-7.75, -0.25) {};
+		\node [style=none] (8) at (0.75, -0.5) {};
+		\node [style=none] (9) at (0.75, -1) {};
+		\node [style=none] (10) at (2.25, 1.75) {};
+		\node [style=none] (11) at (1, 0.25) {};
+		\node [style=none] (13) at (0.75, -0.75) {};
+		\node [style=none] (14) at (-6.75, -2) {};
+		\node [style=none] (15) at (-10.5, 0.5) {};
+		\node [style=RLabel tikzit] (18) at (5.5, 0.75) {$\RV{X}_{[n-2]_{\mathrm{e}}}$};
+		\node [style=none] (19) at (-3, 0.75) {};
+		\node [style=very small prob] (20) at (-11.25, 0.5) {$\prob{P}_\alpha^{\RV{X}_{[n-2]_\mathrm{e}}}$};
+		\node [style=small kernel tikzit] (21) at (-3.75, 1.75) {$\prob{P}_\square^{\RV{X}_{[n-2]_{\mathrm{o}}}\combbreak\RV{X}_{[n-1]_{\mathrm{e}}}}$};
+		\node [style=copymap tikzit] (22) at (-0.5, 1.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (10.center) to (4);
+		\draw [in=180, out=0] (5) to (8.center);
+		\draw [in=180, out=30, looseness=0.50] (5) to (11.center);
+		\draw [in=180, out=0] (11.center) to (3);
+		\draw (1) to (2);
+		\draw (0) to (5);
+		\draw [in=-180, out=0, looseness=0.75] (14.center) to (13.center);
+		\draw (15.center) to (6);
+		\draw [in=-180, out=-90, looseness=0.75] (6) to (14.center);
+		\draw (19.center) to (18);
+		\draw [in=180, out=45] (6) to (21);
+		\draw (21) to (22);
+		\draw (22) to (10.center);
+		\draw [in=-180, out=-30] (6) to (7.center);
+		\draw [in=180, out=0] (6) to (19.center);
+		\draw [in=-180, out=-75] (22) to (9.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

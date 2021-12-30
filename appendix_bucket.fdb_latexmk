@@ -1,0 +1,15 @@
+# Fdb version 3
+["xdvipdfmx"] 1640841620 "appendix_bucket.xdv" "appendix_bucket.pdf" "appendix_bucket" 1640841620
+  "appendix_bucket.xdv" 1640841619 6052 b98de831f17624a4ba94ab6b549ceb81 "xelatex"
+  (generated)
+  "appendix_bucket.pdf"
+["xelatex"] 1640841619 "appendix_bucket.tex" "appendix_bucket.xdv" "appendix_bucket" 1640841620
+  "/etc/texmf/web2c/texmf.cnf" 1590547021 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
+  "/usr/share/texmf/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
+  "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1599613219 4648586 d2b7c7b61735336533540bc8faab0630 ""
+  "appendix_bucket.aux" 1640841619 8 a94a2480d3289e625eea47cd1b285758 ""
+  "appendix_bucket.tex" 1640841619 26306 a7832ffe62830002e2697b4f6adeb107 ""
+  (generated)
+  "appendix_bucket.log"
+  "appendix_bucket.xdv"

@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (1) at (8.75, -1) {$\prob{P}_\square^{\RV{X}_{n}|\RV{X}_{[n-1]}}$};
+		\node [style=RLabel tikzit] (2) at (12, -1) {$\RV{X}_n$};
+		\node [style=RLabel tikzit] (4) at (12, 1.5) {$\RV{X}_{[n-2]_{\mathrm{o}}}$};
+		\node [style=copymap tikzit] (6) at (-3, 0.25) {};
+		\node [style=none] (8) at (7.25, -0.75) {};
+		\node [style=none] (9) at (7.25, -1.25) {};
+		\node [style=none] (10) at (8.75, 1.5) {};
+		\node [style=none] (12) at (7.25, -1) {};
+		\node [style=none] (13) at (0, -1.25) {};
+		\node [style=none] (14) at (-4, 0.25) {};
+		\node [style=RLabel tikzit] (15) at (12, 0.5) {$\RV{X}_{[n-1]_{\mathrm{e}}}$};
+		\node [style=none] (16) at (3.5, 0.5) {};
+		\node [style=very small prob] (17) at (-4.75, 0.25) {$\prob{P}_\alpha^{\RV{X}_{[n-1]_\mathrm{e}}}$};
+		\node [style=small kernel tikzit] (18) at (2.75, 1.5) {$\prob{P}_\square^{\RV{X}_{[n-2]_{\mathrm{o}}}\combbreak\RV{X}_{[n-1]_{\mathrm{e}}}}$};
+		\node [style=copymap tikzit] (19) at (6, 1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (10.center) to (4);
+		\draw (1) to (2);
+		\draw [in=-180, out=0, looseness=0.75] (13.center) to (12.center);
+		\draw (14.center) to (6);
+		\draw [in=-180, out=-90, looseness=0.75] (6) to (13.center);
+		\draw [in=180, out=0] (16.center) to (15);
+		\draw [in=180, out=45] (6) to (18);
+		\draw (18) to (19);
+		\draw (19) to (10.center);
+		\draw [in=180, out=0] (6) to (16.center);
+		\draw [in=-180, out=-75] (19) to (9.center);
+		\draw [in=180, out=-30, looseness=0.75] (6) to (8.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

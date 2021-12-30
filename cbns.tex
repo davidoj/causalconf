@@ -87,7 +87,7 @@ For any $n>1\in \mathbb{N}$, $\alpha\in R$
     &= \tikzfig{do_model_3}\\
     &= \tikzfig{do_model_4}\\
     \implies \prob{P}_\alpha^{\RV{Y}_{[n]}|\RV{D}_{[n]}} &= \tikzfig{do_model_5}\\
-    &= \prob{P}_\alpha^{\RV{Y}_{[n-1]}|\RV{D}_{[n-1]}}\combdot \prob{P}_\square^{\RV{Y}_n|\RV{Y}_{[n-1]}\RV{D}_n}
+    &= \prob{P}_\alpha^{\RV{Y}_{[n-1]}|\RV{D}_{[n-1]}}\combprod \prob{P}_\square^{\RV{Y}_n|\RV{Y}_{[n-1]}\RV{D}_n}
 \end{align}
 
 Applying this recursively with $\prob{P}_\alpha^{\RV{Y}_{[1]}|\RV{D}_{[1]}}=\prob{P}_\square^{\RV{Y}_{[1]}|\RV{D}_{[1]}}$ yields

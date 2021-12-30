@@ -21,3 +21,5 @@
 \tikzstyle{delmap}=[>={Rays[n=8]}, ->]
 \tikzstyle{arrows_double}=[<->]
 \tikzstyle{red}=[-, draw=red]
+\tikzstyle{left arrow}=[<-]
+\tikzstyle{right arrow}=[->]

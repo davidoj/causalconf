@@ -1,5 +1,7 @@
+%!TEX root = main.tex
 
-\subsubsection{Extended conditional independence}
+
+\subsubsection{Extended conditional independence}\label{ap:eci}
 
 \todo[inline]{Needs a support condition}
 
@@ -54,6 +56,39 @@ Thus for any $(a,b,c,d,e)\in A\times B\times C\times D\times E$ such that $\prob
     &= \tikzfig{indep_strengthen_4}
 \end{align}
 \end{proof}
+
+We can deduce conditional independences in probability combs when conditional probabilities exist and they are \emph{unresponsive} to some input variables.
+
+\begin{definition}[Unresponsiveness]
+Given discrete $\Omega$, a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, if there is some version of the conditional probability $\prob{P}^{\RV{Y}|\RV{WX}}$ and $\prob{P}_\square^{\RV{Y}|\RV{W}}$ such that
+\begin{align}
+  \prob{P}_\square^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase} \label{eq:higherorder_ci_erase}
+\end{align}
+then $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ is \emph{unresponsive} to $\RV{X}$.
+\end{definition}
+
+\begin{definition}[Domination]
+Given a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$, $\alpha\in A$ dominates $A$ if $\prob{P}_\beta(B)>0\implies \prob{P}_\alpha(B)>0$ for all $\beta in A$, $B\in \sigalg{F}$.
+\end{definition}
+
+\begin{theorem}[Conditional independence from kernel unresponsiveness]\label{th:cons_ci}
+Given discrete $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$ with conditional probability $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ and such that there is $\alpha\in A$ dominating $A$, $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ if and only if $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ is unresponsive to $\RV{W}$. 
+\end{theorem}
+
+\begin{proof}
+If:
+For every $\alpha\in A$ we can write
+\begin{align}
+  \prob{P}_\alpha^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase_alpha}
+\end{align}
+And so, by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\prob{P}_\alpha}\RV{X}|\RV{W}$ for all $\alpha\in A$, and so $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$.
+Only if:
+For $\alpha$ dominating $A$, by Theorem \ref{th:cho_ci_equiv}, there exists a version of $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ unresponsive to $\RV{W}$. Because $\alpha$ dominates $A$, every version of $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ is a version of $\prob{P}_\beta^{\RV{Y}|\RV{WX}}$ for all $\beta in A$, thus it is a version of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ also.
+\end{proof}
+
+Note that $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ does \emph{not} imply the existence of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{AB}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{AB}}$ is a flip of a biased coin followed by a flip of a fair coin, then $\RV{A}\CI_{\prob{P}}\RV{B}$ but $\prob{P}^{\RV{AB}}$ does not exist.
+
+We also need the domination condition. Consider $A$ a collection of inserts that all deterministically set a variable $\RV{X}$; then for any variable $\RV{Y}$ $\RV{Y}\CI_{\prob{P}_\square} \RV{X}$ because $\RV{X}$ is deterministic for any $\alpha\in A$. But $\prob{P}_\square^{\RV{Y}|\RV{X}}$ is not necessarily unresponsive to $\RV{X}$.
 
 
 \subsubsection{Graphical properties of conditional independence}
@@ -220,9 +255,9 @@ Therefore for any $\prob{R}_a\in\prob{R}_{\{\}}$
     \land \prob{R}_{a}^{\RV{XYZ}} &= \prob{R}_{a}^{\RV{XY}}\odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}
 \end{align}
 
-Thus $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is a version of $\prob{R}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\pro{Q}^{\RV{Z}|\RV{YX}}$ is a version of $\prob{R}_{\{\}}^{\RV{Z}|\RV{YX}}$ so $\prob{R}_{\{\}}\subset \prob{P}_{\{\}}\cap\prob{Q}_{\{\}}$.
+Thus $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is a version of $\prob{R}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{Q}^{\RV{Z}|\RV{YX}}$ is a version of $\prob{R}_{\{\}}^{\RV{Z}|\RV{YX}}$ so $\prob{R}_{\{\}}\subset \prob{P}_{\{\}}\cap\prob{Q}_{\{\}}$.
 
-Suppose there's an element $\prob{S}$ of $\prob{P}_{\{\}}\cap\prob{Q}_{\{\}}$ not in $\prob{R}_{\{\}}$. Then by definition of $\prob{R}_{\{\}}$, $\prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}$ is not a version of $\prob{S}_{\{\}}^{\RV{YZ}|\RV{X}}$. But by construction of $\prob{S}$, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$  is a version of $\prob{S}^{\RV{Y}|\RV{X}}$ and  $\pro{Q}^{\RV{Z}|\RV{YX}}$ is a version of $\prob{S}^{\RV{Z}|\RV{YX}}$. But then by the definition of disintegration, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}} \odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}$ is a version of $\prob{S}_{\{\}}^{\RV{YZ}|\RV{X}}$ and so $\prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}$ is a version of $\prob{S}_{\{\}}^{\RV{YZ}|\RV{X}}$, a contradiction.
+Suppose there's an element $\prob{S}$ of $\prob{P}_{\{\}}\cap\prob{Q}_{\{\}}$ not in $\prob{R}_{\{\}}$. Then by definition of $\prob{R}_{\{\}}$, $\prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}$ is not a version of $\prob{S}_{\{\}}^{\RV{YZ}|\RV{X}}$. But by construction of $\prob{S}$, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$  is a version of $\prob{S}^{\RV{Y}|\RV{X}}$ and  $\prob{Q}^{\RV{Z}|\RV{YX}}$ is a version of $\prob{S}^{\RV{Z}|\RV{YX}}$. But then by the definition of disintegration, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}} \odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}$ is a version of $\prob{S}_{\{\}}^{\RV{YZ}|\RV{X}}$ and so $\prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}$ is a version of $\prob{S}_{\{\}}^{\RV{YZ}|\RV{X}}$, a contradiction.
 \end{proof}
 
 
@@ -290,4 +325,39 @@ Only if: suppose $\prob{T}^{\RV{Y}|\RV{X}}$ is invalid. Then there is some $x\in
                                                                      &>0
 \end{align}
 Hence $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is invalid.
+\end{proof}
+
+\subsection{Combs}\label{ap:combs}
+
+\begin{reptheorem}{th:comb_equiv}[Equivalence of comb representations]
+Given sample space $(\Omega,\sigalg{F})$, a finite collection of variables $\RV{X}_{i}:\Omega\to (X_i,\sigalg{X}_i)$ for $i\in [n]$, $X_i$ discrete, and a disassembled probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\text{odd}}}\}$, for any $l\in [n]_{\mathrm{odd}}$ and any $\kernel{K}:X_{[l-1]}\kto X_l$
+\begin{align}
+    (\bigcombprod_{j\in [l-1]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}) \combprod \kernel{K} &\overset{\prob{P}_\square}{\cong} (\bigcombprod_{j\in [l]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}})\\
+    \implies \kernel{K} &\overset{\prob{P}_\square}{\cong} \prob{P}_\square^{\RV{X}_{l}|\RV{X}_{[l-1]}}
+\end{align}
+\end{reptheorem}
+
+\begin{proof}
+Equality is trivial for $l=1$. 
+
+For a sequence $x_{[l-2]}\in X_{[l-2]}$, let $e_{[l-2]}$ be the even indices of $x_{[l-2]}$ and $o_{[l-2]}$ be the odd indices.
+
+For any $e_{l-1}\in X_{l-1}$, $A\in X_{l}$ let $C^>_{A,e_{l-1}}\in \sigalg{X}_{[l-2]}$ be the set of points $C^>_{A,e_{l-1}}:=\{x_{[l-2]}| \kernel{K}(A|e_{l-1},x_{[l-2]})> \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}(A|e_{l-1},x_{[l-2]})\}$, and $C^<_{A,e_{l-1}}$ the obvious analog. Then, definining $C_{A,e_{l-1}}=C^>_{A,e_{l-1}}\cup C^<_{A,e_{l-1}}$,
+\begin{align}
+    (\bigcombprod_{j\in [l-1]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}})(A\times C^>_{A,e_{l-1}}|e_{[l-3]},e_{l-1}) &= 0\\
+    (\bigcombprod_{j\in [l-1]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}})(A\times C^<_{A,e_{l-1}}|e_{[l-3]},e_{l-1}) &= 0\\
+    \implies (\bigcombprod_{j\in [l-1]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}})(A\times C_{A,e_{l-1}}|e_{[l-3]},e_{l-1}) &= 0\\
+    &= \sum_{o_{[l-2]}\in C_{A,e_{l-1},\text{odd}}} \kernel{K}(A|e_{l-1},x_{[l-2]}) \prod_{j\in [l-2]_{\text{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}(o_{j}|o_{[j-2]},e_{[j-1]})
+\end{align}
+for all $e_{[l-3]}\in X_{[l-3]_{\text{even}}}$.
+
+Consider arbitrary $\prob{P}_\alpha\in \prob{P}_\square$, $A\subset X_l$, $C\subset X_{[l-1]}$:
+\begin{align}
+    \prob{P}_\alpha^{\RV{X}_{[l]}} (A\times C) =&  \sum_{x_{[l-2]}\in C} \kernel{P}_\square(A|e_{l-1},x_{[l-2]}) \prod_{j\in [l-2]_{\text{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}(x_{j}|o_{[j-2]},e_{[j-1]}) \prob{P}_\alpha^{\RV{X}_{j+1}|\RV{X}_{[j]}}(x_{j+1}|o_{[j]},e_{[j-1]})\\
+    =& \sum_{x_{[l-2]}\in C_{A,e_{l-1}}} \kernel{P}_\square(A|e_{l-1},x_{[l-2]}) \prod_{j\in [l-2]_{\text{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}(x_{j}|o_{[j-2]},e_{[j-1]}) \prob{P}_\alpha^{\RV{X}_{j+1}|\RV{X}_{[j]}}(x_{j+1}|o_{[j]},e_{[j-1]}) \\
+    &+ \sum_{x_{[l-2]}\in C^C_{A,e_{l-1}}} \kernel{P}_\square(A|e_{l-1},x_{[l-2]}) \prod_{j\in [l-2]_{\text{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}(x_{j}|o_{[j-2]},e_{[j-1]}) \prob{P}_\alpha^{\RV{X}_{j+1}|\RV{X}_{[j]}}(x_{j+1}|o_{[j]},e_{[j-1]})\\
+    =& 0 + \sum_{x_{[l-2]}\in C^C_{A,e_{l-1}}} \kernel{K}(A|e_{l-1},x_{[l-2]}) \prod_{j\in [l-2]_{\text{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}(x_{j}|o_{[j-2]},e_{[j-1]}) \prob{P}_\alpha^{\RV{X}_{j+1}|\RV{X}_{[j]}}(x_{j+1}|o_{[j]},e_{[j-1]})\\
+    =& \prob{P}_\alpha^{\RV{X}_{[l-1]}}\odot \kernel{K} (A\times C)\\
+    \implies \kernel{K} \overset{\prob{P}_\square}{\cong}& \prob{P}_\square^{\RV{X}_{l}|\RV{X}_{[l-1]}}
+\end{align}
 \end{proof}

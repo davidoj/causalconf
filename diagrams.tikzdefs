@@ -1,5 +1,27 @@
 \usetikzlibrary{arrows.meta}
 \usepackage{amsfonts}       % blackboard math symbols
+\usepackage[mathscr]{euscript}
+\usepackage{graphicx}
+\usepackage {tikz}
+\usetikzlibrary {positioning}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{intersections}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{stmaryrd }
+\usepackage{csquotes}
+\usepackage{wasysym}
+\usepackage[]{todonotes}
+\usepackage[shortlabels]{enumitem}
+\usepackage{bm}
+\usepackage{isomath}
+\usepackage{mathtools}
+
 
 \newcommand{\CI}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
 \newcommand{\CII}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp\mkern-10mu\perp$}}}}
@@ -24,3 +46,9 @@
 \newcommand{\nod}[1]{\ensuremath{\mathsfit{#1}}}
 \newcommand{\kto}{\ensuremath{\rightarrowtriangle}}
 \newcommand{\disint}[1]{\ensuremath{\overline{\prob{#1}}}}
+\newcommand{\set}{\ensuremath{\bowtie}}
+\newcommand{\cprod}{\ensuremath{\bigodot}}
+\newcommand{\bigcprod}{\ensuremath{\bigodot}}
+\newcommand{\combdot}{\ensuremath{\underline{\cprod}}}
+\newcommand{\combbreak}{\ensuremath{\wr}}
+\newcommand{\bigcombdot}{\ensuremath{\underline{\bigcprod}}}

@@ -9,45 +9,45 @@ Repeated entry---line 1794 of file references.bib
 I'm skipping whatever remains of this entry
 Warning--to sort, need author or key in kallenberg_basic_2005
 Warning--empty author in kallenberg_basic_2005
-You've used 32 entries,
+You've used 31 entries,
             2773 wiz_defined-function locations,
-            856 strings with 11591 characters,
-and the built_in function-call counts, 13662 in all, are:
-= -- 1351
-> -- 498
-< -- 34
-+ -- 179
+            844 strings with 11406 characters,
+and the built_in function-call counts, 13248 in all, are:
+= -- 1300
+> -- 499
+< -- 33
++ -- 178
 - -- 146
-* -- 1005
-:= -- 2138
-add.period$ -- 166
-call.type$ -- 32
-change.case$ -- 132
-chr.to.int$ -- 31
-cite$ -- 67
-duplicate$ -- 696
-empty$ -- 1223
-format.name$ -- 195
-if$ -- 2923
+* -- 977
+:= -- 2069
+add.period$ -- 157
+call.type$ -- 31
+change.case$ -- 129
+chr.to.int$ -- 30
+cite$ -- 65
+duplicate$ -- 676
+empty$ -- 1183
+format.name$ -- 196
+if$ -- 2836
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 41
-newline$ -- 231
-num.names$ -- 132
+missing$ -- 40
+newline$ -- 220
+num.names$ -- 128
 pop$ -- 233
 preamble$ -- 1
-purify$ -- 108
+purify$ -- 106
 quote$ -- 0
-skip$ -- 475
+skip$ -- 466
 stack$ -- 0
-substring$ -- 523
-swap$ -- 95
+substring$ -- 490
+swap$ -- 93
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 307
+type$ -- 296
 warning$ -- 2
-while$ -- 136
+while$ -- 131
 width$ -- 0
-write$ -- 554
+write$ -- 529
 (There was 1 error message)

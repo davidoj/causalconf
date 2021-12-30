@@ -1,4 +1,4 @@
-\begin{thebibliography}{32}
+\begin{thebibliography}{31}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -80,16 +80,6 @@ Brendan Fong.
 \newblock \emph{arXiv:1301.6201 [math]}, January 2013.
 \newblock URL \url{http://arxiv.org/abs/1301.6201}.
 \newblock arXiv: 1301.6201.
-
-\bibitem[Fritz(2020)]{fritz_synthetic_2020}
-Tobias Fritz.
-\newblock A synthetic approach to {Markov} kernels, conditional independence
-  and theorems on sufficient statistics.
-\newblock \emph{Advances in Mathematics}, 370:\penalty0 107239, August 2020.
-\newblock ISSN 0001-8708.
-\newblock \doi{10.1016/j.aim.2020.107239}.
-\newblock URL
-  \url{https://www.sciencedirect.com/science/article/pii/S0001870820302656}.
 
 \bibitem[GREENLAND and ROBINS(1986)]{greenland_identifiability_1986}
 SANDER GREENLAND and JAMES~M ROBINS.
@@ -217,6 +207,13 @@ Frank~P. Ramsey.
 \newblock \doi{10.1007/978-3-319-20451-2_3}.
 \newblock URL \url{https://doi.org/10.1007/978-3-319-20451-2_3}.
 
+\bibitem[Richardson and Robins(2013)]{richardson2013single}
+Thomas~S Richardson and James~M Robins.
+\newblock Single world intervention graphs (swigs): A unification of the
+  counterfactual and graphical approaches to causality.
+\newblock \emph{Center for the Statistics and the Social Sciences, University
+  of Washington Series. Working Paper}, 128\penalty0 (30):\penalty0 2013, 2013.
+
 \bibitem[Rubin(2005)]{rubin_causal_2005}
 Donald~B. Rubin.
 \newblock Causal {Inference} {Using} {Potential} {Outcomes}.
@@ -230,14 +227,6 @@ Donald~B. Rubin.
 Leonard~J. Savage.
 \newblock \emph{The {Foundations} of {Statistics}}.
 \newblock Wiley Publications in Statistics, 1954.
-
-\bibitem[Selinger(2010)]{selinger_survey_2010}
-Peter Selinger.
-\newblock A survey of graphical languages for monoidal categories.
-\newblock \emph{arXiv:0908.3347 [math]}, 813:\penalty0 289--355, 2010.
-\newblock \doi{10.1007/978-3-642-12821-9_4}.
-\newblock URL \url{http://arxiv.org/abs/0908.3347}.
-\newblock arXiv: 0908.3347.
 
 \bibitem[Shahar(2009)]{shahar_association_2009}
 Eyal Shahar.

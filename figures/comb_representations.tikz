@@ -1,0 +1,12 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (2) at (-0.5, 2) {assemble};
+		\node [style=none] (3) at (-0.5, -2.5) {disintegrate};
+		\node [style=RLabel tikzit] (4) at (4.25, -0.25) {$\prob{P}_\square^{\RV{X}_{[n]_{\text{odd}}}\combbreak \RV{X}_{[n]_{\mathrm{even}}}}$};
+		\node [style=Llabel tikzit] (5) at (-4.75, -0.25) {$\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\mathrm{odd}}}\}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=right arrow, bend left=15, looseness=1.25] (5) to (4);
+		\draw [style=right arrow, bend left=15, looseness=1.25] (4) to (5);
+	\end{pgfonlayer}
+\end{tikzpicture}
