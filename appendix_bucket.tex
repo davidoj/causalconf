@@ -361,3 +361,33 @@ Consider arbitrary $\prob{P}_\alpha\in \prob{P}_\square$, $A\subset X_l$, $C\sub
     \implies \kernel{K} \overset{\prob{P}_\square}{\cong}& \prob{P}_\square^{\RV{X}_{l}|\RV{X}_{[l-1]}}
 \end{align}
 \end{proof}
+
+\subsection{Comb conditional correspondence}\label{ap:ccc}
+
+\begin{reptheorem}{th:comb_conditional_correspondence}[Comb-conditional correspondence]
+Given a probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{odd}}}\}$ and a blind choice $\alpha$
+\begin{align}
+\prob{P}_\square^{\RV{X}_{D_{\text{odd}}}\combbreak \RV{X}_{D_{\text{even}}}}\cong{\prob{P}_\alpha}{=}\prob{P}_\alpha^{\RV{X}_{D_{\text{odd}}}| \RV{X}_{D_{\text{even}}}}
+\end{align}
+\end{reptheorem}
+
+\begin{proof}
+Consider $n\in D$. The correspondence is immediate for $n=1$:
+\begin{align}
+    \prob{P}_\square^{\RV{X}_{1}\combbreak \RV{X}_{0}}\overset{\prob{P}_\alpha}{\cong}\prob{P}_\alpha^{\RV{X}_{1}| \RV{X}_{0}}
+\end{align}
+
+Suppose for induction the correspondence holds for odd $n-2$. For any blind $\alpha$
+\begin{align}
+    \prob{P}_\alpha^{\RV{X}_{[n]}|\RV{X}_0} &= \tikzfig{comb_condi_corresp_1}\\
+    &= \tikzfig{comb_condi_corresp_2}\\
+    &= \tikzfig{comb_condi_corresp_3}\\
+    &= \tikzfig{comb_condi_corresp_4}\\
+    &= \tikzfig{comb_condi_corresp_5}
+\end{align}
+
+and we also have
+\begin{align}
+    (\prob{P}_\alpha^{\RV{X}_{[n]_{\text{even}}}|\RV{X}_0} \odot\prob{P}_\square^{\RV{X}_{D_{\text{odd}}}\combbreak \RV{X}_{D_{\text{even}}}})(A\times B|x) &= 
+\end{align}
+\end{proof}

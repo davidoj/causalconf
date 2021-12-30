@@ -469,29 +469,12 @@ Given a probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \R
 \end{theorem}
 
 \begin{proof}
-Consider $n\in D$. The correspondence is immediate for $n=1$:
-\begin{align}
-	\prob{P}_\square^{\RV{X}_{1}\combbreak \RV{X}_{0}}\overset{\prob{P}_\alpha}{\cong}\prob{P}_\alpha^{\RV{X}_{1}| \RV{X}_{0}}
-\end{align}
-
-Suppose for induction the correspondence holds for odd $n-2$. For any blind $\alpha$
-\begin{align}
-	\prob{P}_\alpha^{\RV{X}_{[n]}|\RV{X}_0} &= \tikzfig{comb_condi_corresp_1}\\
-	&= \tikzfig{comb_condi_corresp_2}\\
-	&= \tikzfig{comb_condi_corresp_3}\\
-	&= \tikzfig{comb_condi_corresp_4}\\
-	&= \tikzfig{comb_condi_corresp_5}
-\end{align}
-
-and we also have
-\begin{align}
-	(\prob{P}_\alpha^{\RV{X}_{[n]_{\text{even}}}|\RV{X}_0} \odot\prob{P}_\square^{\RV{X}_{D_{\text{odd}}}\combbreak \RV{X}_{D_{\text{even}}}})(A\times B|x) &= 
-\end{align}
+See Appendix \ref{ap:ccc}
 \end{proof}
 
 % \textbf{A note on terminology:} Probability gap models are written with blackboard letters $\prob{P}_\square$. The same base letter with different superscripts $\prob{P}_\square^{\RV{A}|\RV{B}}$ indicates a conditional probability with respect to $\prob{P}_\square$. We use subscripts to indicate both the model obtained by applying particular choices of insert $\prob{P}_\alpha:=\prob{P}_\square \cap \alpha$. $\RV{A}\CI_{\prob{P}_\square} \RV{B}$ is a statement of independence with respect to the model $\prob{P}_\square$.
 
-\subsubsection{Examples}
+\subsubsection{Examples of probability combs}
 
 History-based reinforcement as described in \citet{hutter_universal_2004} is an example of a probability comb model. Such models posit sequences of variables $(\RV{A}_i,\RV{O}_i,\RV{R}_i)_{i\in \mathbb{N}}$ representing the $i$th action, observation and reward respectively. They also posit an \emph{agent} that implements a \emph{policy}, which is a collection of Markov kernels $\pi_i:O^i\times R^i\times A^i \kto A$ for all $i\in \mathbb{N}$ (mapping the history of actions, rewards and observations to the next action), and an \emph{environment} which is a collection of Markov kernels $e_i:O^i\times R^i\times A^{i+1}\kto O\times R$, mapping the history of actions, rewards, observations and the next action to the next observation and reward.
 
@@ -541,3 +524,29 @@ The semi-graphoid axioms hold for all probability measures $\prob{P}$, so in par
 \begin{definition}[Conditional independence with respect to a probability comb]
 Conditional independence $\RV{A}\CI_{\prob{P}_\square}\RV{B}|\RV{C}$ holds for an arbitrary probability comb $\model{P}_\square:A\to \mathscr{P}(\Delta(\Omega))$ if $\RV{A}\CI_{\prob{P}_\alpha}\RV{B}|\RV{C}$ holds for all probability models $\prob{P}_\alpha$, $\alpha\in A$.
 \end{definition}
+
+\subsection{Curried Markov kernels}
+
+Given a function $f:X\times Y\to Z$, we can obtain a curried version $\lambda f:Y\to Z^X$. In particular, if $Y=\{*\}$ then $\lambda f:\{*\}\to Y^X$. At least for countable $X$, we can apply this construction to Markov kernels: given a kernel $\kernel{K}:X\kto Y$, define $\lambda \kernel{K}: \{*\}\kto Y^X$ by 
+\begin{align}
+	\lambda \kernel{K} ((y_i)_{i\in X}) &= \prod_{i\in X} \kernel{K}(y_i|i)
+\end{align}
+
+We can then define an evaluation map $\text{ev}:Y^X\times X\to Y$ by $\text{ev}((y_i)_{i\in X},x)=y_x$. Then
+
+\begin{align}
+	\kernel{K} = (\lambda \kernel{K}\otimes \text{id}_X) \kernel{F}_{\text{ev}}
+\end{align}
+
+Evaulation of a curried Markov kernel $\lambda \kernel{K}$ resembles the definition of \emph{potential outcomes}; for outcomes $\RV{Y}:\Omega\to Y$ and treatments $X:\Omega\to X$, potential outcomes are described by a probability distribution $\prob{P}^{\RV{Y}^X}$ on $Y^X$ and we have the relation
+
+\begin{align}
+	\RV{Y} \overset{a.s.}{=} \text{ev}(\RV{Y}^X,\RV{X})
+\end{align}
+
+Then
+\begin{align}
+	\prob{P}^{\RV{Y}^X}\kernel{F}_{\text{ev}}
+\end{align}
+
+Is some Markov kernel $X\kto Y$, which is equal to $\prob{P}^{\RV{Y}|\RV{X}}$ if $\RV{Y}^X\CI |\RV{X}$ which we will call the ``outcome kernel''. The random variable $\RV{Y}^X$ is often regarded as more than just a curried representation of outcomes, it is taken to express something like ``the outcomes that would have been observed, had $\RV{X}$ turned out differently''. Some authors have argued it is advantageous not to consider such interpretations unless they can be equivalently stated as assumptions about observable phenomena \citet{richardson2013single,dawid_causal_2000}, an approach we will stick to here.

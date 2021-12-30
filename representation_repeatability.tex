@@ -60,45 +60,37 @@ The second notion of ``repeatable experiments'' is \emph{causal contractibility}
 
 \subsection{Assumptions of repeatability applicable to models of decisions and consequences}
 
-In this section we formalise the notion of commutativity of exchange and causal contractibility. We will then go on to prove two representation theorems for causally contractible models -- firstly, that they can be represented with a tabular probability model and a lookup function, a construction that is very similar to the kinds of causal models employed by the potential outcomes framework (although they do not necessarily share the semantics of potential outcomes). Secondly, we will show that contractible causal models can also be represented by jointly independent repetitions of a ``unit-level consequence map'', indexed by a hypothesis $\RV{H}$.
+In this section we formalise the notion of commutativity of exchange and causal contractibility. We will go on to prove that contractible causal models can also be represented by jointly independent repetitions of a ``unit-level consequence map'', indexed by a hypothesis $\RV{H}$. By currying this consequence map, we can also obtain a ``potential outcomes-like'' representation of consequences.
 
-To begin with, we will define do models, which are see-do models with nothing to see.
+% \begin{theorem}[Existence of conditional in do models]
+% Given a do model $(\prob{P}_{\square}^{\RV{Y}\|\RV{D}},R)$, for all $\alpha\in R$, $n\in\mathbb{N}$
+% \begin{align}
+%     \prob{P}_\alpha^{\RV{Y}_{[n]}\RV{D}_i} = \prob{P}_\alpha^{\RV{D}_{[n]}}\odot \prob{P}_\square^{\RV{Y}_{[n]}\|\RV{D}_{[n]}}
+% \end{align}
+% That is, $\prob{P}_\square^{\RV{Y}_{[n]}\|\RV{D}_{[n]}}\cong \prob{P}_\square^{\RV{Y}_{[n]}|\RV{D}_{[n]}}$
+% \end{theorem}
 
-\begin{definition}[Do model]\label{def:domodel}
-A \emph{do model} is an infinite sequential probability gap model $(\prob{P}_{\square}^{\RV{Y}\|\RV{D}},R)$ where $R$ is a subset of the \emph{blind} decision functions: for all $n$, $\prob{P}_\alpha^{\RV{D}_{[n]}\|\RV{Y}_{[n-1]}}=\text{erase}_{Y^{n-1}}\otimes \prob{P}_\alpha^{\RV{D}_{[n]}}$ for some $\prob{P}_\alpha^{\RV{D}_{[n]}}\in\Delta(D^n)$. That is, we don't permit any decision $\RV{D}_i$ to depend on prior observations $\RV{Y}_i$s.
-\end{definition}
+% \begin{proof}
+% For any $n>1\in \mathbb{N}$, $\alpha\in R$
 
-Do models are useful because the $n-comb$ $\prob{P}_{\square}^{\RV{Y}_{[n]}\|\RV{D}_{[n]}}$ is also the conditional $\prob{P}_{\square}^{\RV{Y}|\RV{D}}$ (which otherwise may not exist).
+% \begin{align}
+%     \prob{P}_\alpha^{\RV{Y}_{[n]}\RV{D}_{[n]}} &= \tikzfig{do_model_1}\\
+%     &= \tikzfig{do_model_2}\\
+%     &= \tikzfig{do_model_3}\\
+%     &= \tikzfig{do_model_4}\\
+%     \implies \prob{P}_\alpha^{\RV{Y}_{[n]}|\RV{D}_{[n]}} &= \tikzfig{do_model_5}\\
+%     &= \prob{P}_\alpha^{\RV{Y}_{[n-1]}|\RV{D}_{[n-1]}}\combprod \prob{P}_\square^{\RV{Y}_n|\RV{Y}_{[n-1]}\RV{D}_n}
+% \end{align}
 
-\begin{theorem}[Existence of conditional in do models]
-Given a do model $(\prob{P}_{\square}^{\RV{Y}\|\RV{D}},R)$, for all $\alpha\in R$, $n\in\mathbb{N}$
-\begin{align}
-    \prob{P}_\alpha^{\RV{Y}_{[n]}\RV{D}_i} = \prob{P}_\alpha^{\RV{D}_{[n]}}\odot \prob{P}_\square^{\RV{Y}_{[n]}\|\RV{D}_{[n]}}
-\end{align}
-That is, $\prob{P}_\square^{\RV{Y}_{[n]}\|\RV{D}_{[n]}}\cong \prob{P}_\square^{\RV{Y}_{[n]}|\RV{D}_{[n]}}$
-\end{theorem}
+% Applying this recursively with $\prob{P}_\alpha^{\RV{Y}_{[1]}|\RV{D}_{[1]}}=\prob{P}_\square^{\RV{Y}_{[1]}|\RV{D}_{[1]}}$ yields
 
-\begin{proof}
-For any $n>1\in \mathbb{N}$, $\alpha\in R$
+% \begin{align}
+%     \prob{P}_\alpha^{\RV{Y}_{[n]}|\RV{D}_{[n]}} = \prob{P}_\square^{\RV{Y}_{[n]}\|\RV{D}_{[n]}}
+% \end{align}
+% as desired.
+% \end{proof}
 
-\begin{align}
-    \prob{P}_\alpha^{\RV{Y}_{[n]}\RV{D}_{[n]}} &= \tikzfig{do_model_1}\\
-    &= \tikzfig{do_model_2}\\
-    &= \tikzfig{do_model_3}\\
-    &= \tikzfig{do_model_4}\\
-    \implies \prob{P}_\alpha^{\RV{Y}_{[n]}|\RV{D}_{[n]}} &= \tikzfig{do_model_5}\\
-    &= \prob{P}_\alpha^{\RV{Y}_{[n-1]}|\RV{D}_{[n-1]}}\combprod \prob{P}_\square^{\RV{Y}_n|\RV{Y}_{[n-1]}\RV{D}_n}
-\end{align}
-
-Applying this recursively with $\prob{P}_\alpha^{\RV{Y}_{[1]}|\RV{D}_{[1]}}=\prob{P}_\square^{\RV{Y}_{[1]}|\RV{D}_{[1]}}$ yields
-
-\begin{align}
-    \prob{P}_\alpha^{\RV{Y}_{[n]}|\RV{D}_{[n]}} = \prob{P}_\square^{\RV{Y}_{[n]}\|\RV{D}_{[n]}}
-\end{align}
-as desired.
-\end{proof}
-
-A do model ``commutes with exchange'' if exchanging decisions or exchanging consequences yields the same model for any finite permuation. The term \emph{commute} comes from the notion that we can apply the exchange before the conditional $\prob{P}_{\square}^{\RV{Y}|\RV{D}}$ or after it and get the same result.
+A probability comb ``commutes with exchange'' if applying any finite permutation to blind choices or separately applying the corresponding permuation to consequences each yields the same result. The term \emph{commute} comes from the notion that we can apply the exchange ``before'' the conditional $\prob{P}_{\square}^{\RV{Y}|\RV{D}}$ or after it and get the same result.
 
 \begin{definition}[Commutativity of exchange]\label{def:caus_exch}
 Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P}_{\square}^{\RV{Y}|\RV{D}},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. For a finite permutation $\rho:\mathbb{N}\to\mathbb{N}$, define $\text{swap}_{\rho(D)}:D\kto D$ by $(d_i)_{i\in\mathbb{N}}\mapsto \delta_{(d_{\rho(i)})_{i\in\mathbb{N}}}$ and $\text{swap}_{\rho(D\times Y)}:D\times Y\kto D\times Y$ by $(x_i)_{i\in\mathbb{N}}\mapsto \delta_{(x_{\rho(i)})_{i\in\mathbb{N}}}$. If, for any two decision rules $\alpha,\beta \in R$,
