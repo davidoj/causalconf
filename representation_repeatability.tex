@@ -2,6 +2,25 @@
 
 \section{Repeatable experiments}
 
+One of the original questions motivating this line of work was ``when do potential outcomes exist?''. We cannot answer this question in general, but we can answer ``given a probability comb that models a decision problem, when can we define potential outcomes-like variables?''.
+
+We're particularly interested in sequences of potential outcomes-like variables, because the potential outcomes approach is typically used to analyse data from repeated experiments, which naturally produces sequences of variables. 
+
+\subsection{Potential outcomes-like variables and conditional probabilities}
+Section \ref{sec:curry} shows that there is a correspondence between Markov kernels and vector-valued probability distributions. We have a lot of helpful notation for talking about probability distributions over variables -- conditional independence statements, for example -- that we do not have for talking about probability distributions that are not associated with any variables. For this reason, if we want to talk about a vector-valued probability distribution as a part of our model, it's helpful to augment the sample space so we can define a collection of unobserved variables that we can attach to this probability distribution. In contrast to observed variables, these unobserved variables do not necessarily have any particular semantics -- they're just helpful ways to talk about a vector-valued probability distribution.
+
+When we talk about potential outcomes-like variables, this is the kind of variable we are talking about. They give us hooks that we can use to express properties of our probability model, but they don't come with any particular semantics built in.
+
+Section \ref{sec:curry} \emph{also} shows us that, given a probability comb $\prob{P}_\square^{\RV{Y}_{[n]}\combbreak \RV{D}_{[n]}}$, whenever a conditional probability $\prob{P}_\square^{\RV{Z}|\RV{W}}$ exists there also exists a vector-valued probability distribution $\prob{P}^{\RV{Z}^W}$ where $\RV{Z}^W$ is a potential outcomes-like variable. Unlike regular probability models, comb conditional probabilities $\prob{P}_\square^{\RV{Z}|\RV{W}}$ do not always exist.
+
+The conclusion is: potential outcomes-like variables $\RV{Z}^W$ exist whenever $\prob{P}_\square^{\RV{Z}|\RV{W}}$ exists. If $\prob{P}_\square^{\RV{Z}|\RV{W}}$ exists, it means the our model gives a unique conditional probability of $\RV{Z}|\RV{W}$, and this doesn't depend on anything that has not yet been specified.
+
+\subsection{Repeatable experiments}
+
+If we have a probability comb $\prob{P}_\square^{\RV{Y}_{[n]}\combbreak \RV{D}_{[n]}}$, what do we mean if we say it represents a sequence of repeatable experiments? Two possibilities come to mind. First, we might posit ``sequential repeatability'': for all the actions available, our experimental plan can repeat that action as many times as we like and get the same result each time. Secondly we might posit ``ensemble repeatability'': for any complete experimental plan, if the same action is executed at the $i$th step then the model agrees on the consequence of the $i$th step. These ideas result in two different constraints on a probability comb, and common causal models typically embody both assumptions taken together.
+
+We will actually consider a weaker notion of sequential repeatability which we call \emph{commutativity of exchange}. The relationship between the notion above -- repeating identical inputs gives identical outputs -- and commutativity of exchange is similar to the relationship between independent and identically distributed random variables and exchangeable random variables. Exchangeable random variables are collections of variables $(\RV{X}_i)_{i\in A}$ such that the model of  $(\RV{X}_i)_{i\in A}$ and the exchanged variables $(\RV{X}_{\pi(i)})_{i\in A}$ is identical for any finite permutation $\pi:A\to A$. Independent and identically distributed random variables are exchangeable -- the model of the exchanged variables is again independent and identically distributed, with the same distribution as the original. However, not all sequences of exchangeable variables are independent and identically distributed. For example, if we believe we have a sequence of variables that we are sure are independent and identically distributed but 
+
 While there are types of measurement processes we could consider, statistical inference usually proceeds from repeatable measurement processes. A common precise notion of repeatability is the assumption of \emph{exchangeability}. The term ``exchangeability'', like the term random variable, is used to refer to assumptions about \emph{measurement processes} as well as properties of \emph{probability models}. If I say a measurement process $\proc{S}$ taking values in $S^n$ is exchangeable, I might mean:
 \begin{itemize}
     \item I believe that there is some probabilistic model $(\prob{P},\Omega,\sigalg{F})$ and random variable $\RV{S}$ appropriate for modelling $\proc{S}$ and

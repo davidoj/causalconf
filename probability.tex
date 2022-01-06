@@ -58,7 +58,7 @@ For the model $\proc{F}=\proc{MA}$, for example, we could assume $\proc{F}=f\cir
 
 Given that measurement processes are in practice finite precision and with finite range, $\Psi$ will generally be a finite set. We can therefore equip $\Psi$ with the collection of measurable sets given by the power set $\sigalg{E}:=\mathscr{P}(\Psi)$, and $(\Psi,\sigalg{E})$ is a standard measurable space. $\sigalg{E}$ stands for a complete collection of logical propositions we can generate that depend on the results yielded by the measurement procedure $\proc{S}$.
 
-$(\Psi,\sigalg{E})$ defines is a ``sample space'' limited to observable variables. That is, $\Psi$ is associated with a measurement procedure. Unobserved variables need not be associated with measurement procedures, and to accommodate these we use instead of $\Psi$ a richer fundamental probability set $\Omega$ which represents both observed and unobserved variables.
+$(\Psi,\sigalg{E})$ defines is a ``sample space'' limited to observable variables. That is, $(\Psi,\sigalg{E})$ is associated with a measurement procedure. Unobserved variables need not be associated with measurement procedures, and to accommodate these we use instead of $(\Psi,\sigalg{E})$ a richer sample space $(\Omega,\sigalg{F})$ which represents both observed and unobserved variables.
 
 \begin{definition}[Sample space]
 The sample space $(\Omega,\sigalg{F})$ is a set $\Omega$ along with with a $\sigma$-algebra $\sigalg{F}$ of subsets of $\Omega$.
@@ -195,11 +195,11 @@ A probability set $\prob{P}_{\{\}}$ on $(\Omega,\sigalg{F})$ is a collection of 
 Given a probability set $\prob{P}_{\{\}}$, we define marginal and conditional probabilities as probability measures and Markov kernels that satisfy Definitions \ref{def:pushforward} and \ref{def:disint} respectively for \emph{all} base measures in $\prob{P}_{\{\}}$. There are generally multiple Markov kernels that satisfy the properties of a conditional probability with respect to a probability set, and this definition ensures that marginal and conditional probabilities are ``almost surely'' unique (Definition \ref{def:asequal}) with respect to probability sets.
 
 \begin{definition}[Marginal probability with respect to a probability set]
-Given a sample space $(\Omega,\sigalg{F})$, a variable $\RV{X}:\Omega\to X$ and a probability set $\prob{P}_{\{\}}$, the marginal distribution $\prob{P}_{\{\}}^{\RV{X}}=\prob{P}_a^{\RV{X}}$ for any $\prob{P}_a\in\prob{P}_{\{\}}$ if a distribution satisfying this condition exists. Otherwise, it is undefined.
+Given a sample space $(\Omega,\sigalg{F})$, a variable $\RV{X}:\Omega\to X$ and a probability set $\prob{P}_{\{\}}$, the marginal distribution $\prob{P}_{\{\}}^{\RV{X}}=\prob{P}_\alpha^{\RV{X}}$ for any $\prob{P}_\alpha\in\prob{P}_{\{\}}$ if a distribution satisfying this condition exists. Otherwise, it is undefined.
 \end{definition}
 
 \begin{definition}[Conditional probability with respect to a probability set]
-Given a fundamental probability set $\Omega$ variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}$, \emph{a version of} $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is an $X\kto Y$ disintegration of $\prob{P}_a^{\RV{XY}}$ for all $\prob{P}_a\in \prob{P}_{\{\}}$. If no such Markov kernel exists, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is undefined.
+Given a fundamental probability set $\Omega$ variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}$, \emph{a version of} $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is an $X\kto Y$ disintegration of $\prob{P}_\alpha^{\RV{XY}}$ for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. If no such Markov kernel exists, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is undefined.
 \end{definition}
 
 Given a conditional probability with respect to a probability set, we can find other conditional probabilities by ``pushing it forward''.
@@ -230,18 +230,18 @@ Suppose we have a sample space $\Omega$ variables $\RV{X}:\Omega\to X$ and $\RV{
 \end{theorem}
 
 \begin{proof}
-For any $\prob{P}_a\in \prob{P}_{\{\}}$, $x,z$
+For any $\prob{P}_\alpha\in \prob{P}_{\{\}}$, $x,z$
 \begin{align}
-\prob{P}_a^{\RV{X}}(x)\prob{P}_a^{\RV{Z}|\RV{X}}(z|x) &= \prob{P}_a(\RV{X}^{-1}(x)\cap\RV{Z}^{-1}(z))\\
-					   &= \prob{P}_a(\RV{X}^{-1}(x)\cap\RV{Y}^{-1}(f^{-1}(z)))\\
-					   &= \prob{P}_a^{\RV{X},\RV{Y}}(\{x\}\times f^{-1}(z))\\
-					   &= \prob{P}_a^{\RV{X}}(x)\prob{P}_a^{\RV{Y}|\RV{X}}(f^{-1}(z)|x)
+\prob{P}_\alpha^{\RV{X}}(x)\prob{P}_\alpha^{\RV{Z}|\RV{X}}(z|x) &= \prob{P}_\alpha(\RV{X}^{-1}(x)\cap\RV{Z}^{-1}(z))\\
+					   &= \prob{P}_\alpha(\RV{X}^{-1}(x)\cap\RV{Y}^{-1}(f^{-1}(z)))\\
+					   &= \prob{P}_\alpha^{\RV{X},\RV{Y}}(\{x\}\times f^{-1}(z))\\
+					   &= \prob{P}_\alpha^{\RV{X}}(x)\prob{P}_\alpha^{\RV{Y}|\RV{X}}(f^{-1}(z)|x)
 \end{align}
 \end{proof}
 
 We define the copy-product $\odot$ as a shorthand for the operation in Equation \ref{eq:disint} that combines a marginal with a disintegration to get the original Markov kernel back.
 
-\begin{definition}[Copy product]\label{def:copyproduct}
+\begin{definition}[Semidirect product]\label{def:copyproduct}
 Given $\prob{K}:X\kto Y$ and $\prob{L}:Y\times X\kto Z$, define the copy-product $\prob{K}\odot\prob{L}:X\to Y\times Z$ as
 \begin{align}
 	\prob{K}\odot\prob{L}:&= \text{copy}_X(\prob{K}\otimes \text{id}_X)(\text{copy}_Y\otimes\text{id}_X )(\text{id}_Y \otimes \prob{L})\\
@@ -251,7 +251,7 @@ Given $\prob{K}:X\kto Y$ and $\prob{L}:Y\times X\kto Z$, define the copy-product
 \end{align}
 \end{definition}
 
-\begin{lemma}[Copy product is associative]
+\begin{lemma}[Semidirect product is associative]
 Given $\prob{K}:X\kto Y$, $\prob{L}:Y\times X\kto Z$ and $\prob{M}:Z\times Y\times X\kto W$
 \begin{align}
 	(\prob{K}\odot \prob{L})\odot \prob{Z} &= \prob{K}\odot(\prob{L}\odot\prob{Z})\\
@@ -260,18 +260,18 @@ Given $\prob{K}:X\kto Y$, $\prob{L}:Y\times X\kto Z$ and $\prob{M}:Z\times Y\tim
 
 \begin{proof}
 \begin{align}
-	(\prob{K}\odot \prob{L})\odot \prob{M} &= \tikzfig{odot_assoc_1}\\
-											&=  \tikzfig{odot_assoc_2}\\
+	(\prob{K}\odot \prob{L})\odot \prob{M} &= \tikzfig{odot_\alphassoc_1}\\
+											&=  \tikzfig{odot_\alphassoc_2}\\
 											&= \prob{K}\odot (\prob{L}\odot \prob{M})
 \end{align}
 \end{proof}
 
-Two Markov kernels are almost surely equal with respect to a probability set $\prob{P}_{\{\}}$ if the copy product $\odot$ of all marginal probabilities of $\RV{X}$ with each Markov kernel is identical.
+Two Markov kernels are almost surely equal with respect to a probability set $\prob{P}_{\{\}}$ if the semidirect product $\odot$ of all marginal probabilities of $\RV{X}$ with each Markov kernel is identical.
 
 \begin{definition}[Almost sure equality]\label{def:asequal}
-Two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are almost surely equal $\overset{\prob{P}_{\{\}}}{\cong}$ with respect to a probability set $\prob{P}_{\{\}}$ and variable $\RV{X}:\Omega\to X$ if for all $\prob{P}_a \in \prob{P}_{\{\}}$,
+Two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are almost surely equal $\overset{\prob{P}_{\{\}}}{\cong}$ with respect to a probability set $\prob{P}_{\{\}}$ and variable $\RV{X}:\Omega\to X$ if for all $\prob{P}_\alpha \in \prob{P}_{\{\}}$,
 \begin{align}
-	\prob{P}^{\RV{X}}_a\odot \kernel{K}=\prob{P}^{\RV{X}}_a\odot \kernel{L}
+	\prob{P}^{\RV{X}}_\alpha\odot \kernel{K}=\prob{P}^{\RV{X}}_\alpha\odot \kernel{L}
 \end{align}
 \end{definition}
 
@@ -280,10 +280,10 @@ If $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are both versions of $\prob{P}_
 \end{lemma}
 
 \begin{proof}
-For all $\prob{P}_a \in \prob{P}_{\{\}}$
+For all $\prob{P}_\alpha \in \prob{P}_{\{\}}$
 \begin{align}
-	\prob{P}^{\RV{X}}_a\odot \kernel{K} &= \prob{P}^{\RV{XY}}_a\\
-	&= \prob{P}^{\RV{X}}_a\odot \kernel{L}
+	\prob{P}^{\RV{X}}_\alpha\odot \kernel{K} &= \prob{P}^{\RV{XY}}_\alpha\\
+	&= \prob{P}^{\RV{X}}_\alpha\odot \kernel{L}
 \end{align}
 \end{proof}
 
@@ -303,7 +303,7 @@ For any $\prob{P}_\alpha\in\prob{P}_{\{\}}$
 \end{align}
 \end{proof}
 
-\begin{lemma}[Copy product of conditionals is a joint conditional]\label{lem:joint_conditional}
+\begin{lemma}[Semidirect product of conditionals is a joint conditional]\label{lem:joint_conditional}
 Given a probability set $\prob{P}_{\{\}}$ on $(\Omega,\sigalg{F})$ along with conditional probabilities $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$, $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ exists and is equal to
 \begin{align}
 	\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}} &= \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}\\
@@ -355,136 +355,43 @@ Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{
 Thus, given a collection of valid conditional probabilities $\{\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}|i\in [n]\}$ such that each adjacent pair can be combined with the $\odot$ product, the sequential product of each conditional probability is a valid conditional probability and there is a non-empty set of probability measures on the sample space that with that conditional probability. Collections of recursive conditional probabilities often arise in causal modelling -- in particular, they are the foundation of the structural equation modelling approach \citet{richardson2013single,pearl_causality:_2009}. Lemma \ref{lem:valid_extendability} establishes that recursive collections of conditional probabilities define non-empty probability sets as long as all the conditional probabilities in the collection are valid. 
 
 \begin{definition}[Probability set defined by a valid conditional]
-Given a valid conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}:X\kto Y$, let $\prob{P}_{\{\}}$ be the probability set containing every $\mu\in \Delta(\Omega)$ such that $\mu^{\RV{Y}|\RV{X}}\overset{\mu}{\cong}\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$.
+If $\prob{P}_{\{\}}$ is a probability set such that there is a valid conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}:X\kto Y$ and for every $\mu\in \Delta(\Omega)$ such that $\mu^{\RV{Y}|\RV{X}}\overset{\mu}{\cong}\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$, we say $\prob{P}_{\{\}}^{\overline{\RV{Y}|\RV{X}}}:=\prob{P}_{\{\}}$ is the probability set defined by $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$.
 \end{definition}
 
-\todo[inline]{We're making complicated models where we can choose many different combinations of conditional probabilities, validity is useful because we can check just the individual conditionals, don't need to check all the combinations. Also, there are examples in the wild of invalid collections -- see BMI example}
+\subsection{Probability gap models}
+
+A probability set gives us a collection of different probability models that ``could'' model the consequences of an action. In addition to possibilities, we also want \emph{choices} and a model that tells us, given a particular choice, we realise a particular possibility. This is what we call a \emph{probability gap model}. The general form of a probability gap models is
+
+\begin{itemize}
+	\item A fixed probability set $\prob{P}_{\{\}}\subset \Delta(\Omega)$ which we call the \emph{model}
+	\item A collection of probability sets $A\subset \Delta(\Omega)$ that we call \emph{choices}
+	\item A map $\prob{P}_\square: A\to \mathscr{P}(\Delta(\Omega))$ defined by $\prob{P}_\alpha:=\prob{P}_\square(\alpha)=\prob{P}_{\{\}}\cap\alpha$
+\end{itemize}
+
+We require that the choices are compatible with the model in the sense that $\prob{P}_{\{\}}\cap\alpha\neq \emptyset$ for all $\alpha\in A$. Here, we will limit our attention to a a particular type of probability gap model, where we define the probability set $\prob{P}_{\{\}}$ is defined by a conditional probability and each choice is defined by a marginal probability relative to the same variable.
+
+\begin{definition}[Conditional probability model]
+A \emph{conditional probability model} $\prob{P}_\square$ is a probability gap model $(\prob{P}_{\{\}}^{\overline{\RV{Y}|\RV{X}}},A)$ such that each $\alpha\in A$ is some probability set  defined by an $\RV{X}$-valid marginal probability $\alpha^{\overline{\RV{X}}}$.
+\end{definition}
+
+If the conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and all the marginal probabilities $\alpha^{\overline{\RV{X}}}$ are valid, then by Lemma \ref{lem:valid_extendability} $\prob{P}_{\{\}}\cap\alpha \neq \emptyset$ for all $\alpha\in A$. Thus validity of all the individual parts is enough to ensure compatibility.
 
 While structural equation models posit a complete collections of conditional probabilities with an operation, often called ``intervention'', that replaces some of them, we are interested in working with incomplete collections with a domain of choices that complete the collection; we call such objects ``probability gap models''. Structural equation models are like probability gap models with default choices -- if you don't replace anything, you get the basic set of structural equations, but you can also choose different conditionals from some domain.
 
-\subsection{Probability combs}
+\subsection{Example: invalidity}
 
-We are interested in a a more precise kind of of ``incomplete collection of conditional probabilities'', and the specific kind of thing we are interested in is a \emph{probability comb}. Probability combs can be represented either as a collection of conditional probabilities with every second element missing -- the ``disassembled'' representation -- or as a single Markov kernel -- the ``assembled'' representation. The key result of this section is the equivalence of the two representations and the fact that assembled probability combs are conditional probabilities with respect to \emph{blind} choices (that is, choices for which the output does not depend on the input). This means that to specify a probability comb, under some conditions it is enough to specify the conditional probability with respect to a blind choice.
-
-In the following, $D$ is an index set which is equal to either $\mathbb{N}$ (if it is infinite) or $[n]$ for some $n\in \mathbb{N}$ (if it is finite). The indexing of the set of variables is arbitrary, it is just a means of addressing each variable. $D_{\text{even}}$ are the even elements of $D$ and $D_{\text{odd}}$ are the odd elements.
-
-\begin{definition}[Disassembled probability comb]
-Given sample space $(\Omega,\sigalg{F})$ and a collection of $|D|$ variables $\RV{X}_{i}:\Omega\to (X_i,\sigalg{X}_i)$ for $i\in D\cup\{0\}$. A $\RV{X}_{D_{\text{odd}}}\combbreak \RV{X}_{D_{\text{even}}}$ \emph{disassembled probability comb} is a collection of valid conditional probabilities $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{odd}}}\}$.
-\end{definition}
-
-To define the assembled form, it is helpful to define a new operation $\combprod$. Note that consecutive conditional probabilities in a disassembled probability comb have the form $\prob{P}_\square^{\RV{X}_i|\RV{X}_{[i-1]}},\prob{P}_\square^{\RV{X}_{i+2}|\RV{X}_{[i+1]}}$, and so they are not correctly typed to take the $\cprod$ product. However, we can take the $\cprod$ product of $\prob{P}_\square^{\RV{X}_i|\RV{X}_{[i-1]}}\otimes\mathrm{id}_{X_{i+1}}$ and $\prob{P}_\square^{\RV{X}_{i+2}|\RV{X}_{[i+1]}}$. The operation $\combprod$ is just this -- it takes the first Markov kernel tensored with the identity, then computes the $\cprod$ product of the resulting Markov kernels.
-
-\begin{definition}[Bypass copy product]
-Given two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\times Y\times Z\kto W$, $\kernel{K}\combprod \kernel{L}:X\times Z\kto X\times Y\times Z\times W$ is the Markov kernel equal to
+Body mass index is defined as a person's weight divided by the square of their height. Suppose we have a measurment process $\proc{S}=(\proc{W},\proc{H})$ and $\proc{B}=\frac{\proc{W}}{\proc{H}^2}$ - i.e. we figure out someone's body mass index first by measuring both their height and weight, and then passing the result through a function that divides the second by the square of the first. Thus, given the random variables $\RV{W},\RV{H}$ modelling $\proc{W},\proc{H}$, $\proc{B}$ is the function given by $\RV{B}=\frac{\RV{W}}{\RV{H}^2}$. Given $x\in \mathbb{R}$, consider the conditional probability
 \begin{align}
-	\kernel{K}\combprod \kernel{L} := \tikzfig{bypass_copy_product}
+	\nu^{\RV{B}|\RV{WH}} &= \tikzfig{invalid_BMI_model} \label{eq:bmi_example}
 \end{align}
-\end{definition}
-
-We will also use a series notation for a sequence of $\combprod$ products.
-
-\begin{definition}[Bypass copy product series notation]
-For a collection of Markov kernels $\{\kernel{K}_i|i\in D_{\text{odd}}\}$ with $\kernel{K}_i:X_{[i-1]}\kto X_i$ and $n\in\mathbb{N}$ a finite index set
+Then pick some $w,h\in\mathbb{R}$ such that $\frac{w}{h^2}\neq x$ and $(\RV{W},\RV{H})\yields (w,h)\neq \emptyset$ (our measurement procedure could possibly yield $(w,h)$ for a person's height and weight). We have $\nu^{\RV{B}|\RV{WH}}(x|w,h)=1$, but 
 \begin{align}
-	\bigcombprod_{i\in [n]_{\text{odd}}} \kernel{K}_i &= \kernel{K}_1 \combprod (\bigcombprod_{i\in [n]_{\text{odd}}\setminus\{1\}} \kernel{K}_i)
+	(\RV{B},\RV{W},\RV{H})\yields \{(x,w,h)\} &= \{\omega|(\RV{W},\RV{H})(\omega) = (w,h),\RV{B}(\omega) = \frac{w}{h^2}\}\\
+	&=\emptyset
 \end{align}
-with base case
-\begin{align}
-	\bigcombprod_{i\in \{x\}} \kernel{K}_i &= \kernel{K}_x
-\end{align}
-\end{definition}
+so $\nu^{\RV{B}|\RV{WH}}$ is invalid, and there is some valid $\mu^{\RV{X}}$ such that the probability set $\prob{P}_{\{\}}$ with $\prob{P}_{\{\}}^{\RV{XY}} = \mu^{\RV{X}}\odot \nu^{\RV{Y}|\RV{X}}$ is empty.
 
-\begin{definition}[Assembled probability comb]\label{def:assmbl_pcomb}
-Given sample space $(\Omega,\sigalg{F})$, $n\in \mathbb{N}$, $\RV{X}_{i}:\Omega\to (X_i,\sigalg{X}_i)$ for $i\in [n]$ and a disassembled probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\text{odd}}}\}$, the assembled probability comb
-\begin{align}
-	\prob{P}_\square^{\RV{X}_{[n]_{\text{odd}}}\combbreak \RV{X}_{[n]_{\text{even}}}} &= \bigcombprod_{i\in [n]_{\text{odd}}}\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}
-\end{align}
-\end{definition}
-
-Whether we can extend comb products and the following theorem to infinite collections of conditional probabilities is an open question.
-
-Theorem \ref{th:comb_equiv} establishes that there is a bijection, up to almost sure equality, between disassembled and assembled comb representations. We can assemble the collection of conditional probabilities as in Definition \ref{def:assmbl_pcomb} to get the assembled representation, and we can disintegrate an assembled probability comb to get a collection of conditional probabilities. Note that we only show this to hold for discrete sets and finite collections of conditional probabilities.
-
-\begin{theorem}[Equivalence of comb representations]\label{th:comb_equiv}
-Given sample space $(\Omega,\sigalg{F})$, a finite collection of variables $\RV{X}_{i}:\Omega\to (X_i,\sigalg{X}_i)$ for $i\in [n]$, $X_i$ discrete, and a disassembled probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\text{odd}}}\}$, for any $l\in [n]_{\mathrm{odd}}$ and any $\kernel{K}:X_{[l-1]}\kto X_l$
-\begin{align}
-	(\bigcombprod_{j\in [l-1]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}) \combprod \kernel{K} &\overset{\prob{P}_\square}{\cong} (\bigcombprod_{j\in [l]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}})\\
-	\implies \kernel{K} &\overset{\prob{P}_\square}{\cong} \prob{P}_\square^{\RV{X}_{l}|\RV{X}_{[l-1]}}
-\end{align}
-\end{theorem}
-
-\begin{proof}
-The argument is that $\kernel{K}$ and $\prob{P}_\square^{\RV{X}_{l}|\RV{X}_{[l-1]}}$ must agree except on a collection of measure 0 sets, and because the sets the union of these sets is also measure 0. See Appendix \ref{ap:combs}.
-\end{proof}
-
-If disintegrations exist, $\kernel{K}$ is a disintegration of $\prob{P}_\square^{\RV{X}_{[n]_{\text{odd}}}\combbreak \RV{X}_{[n]_{\text{even}}}}$. Thus we can get $\prob{P}_\square^{\RV{X}_{[n]_{\text{odd}}}\combbreak \RV{X}_{[n]_{\text{even}}}}$ from $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\text{odd}}}\}$ by assembling and go in the reverse direction by disintegrating.
-
-\begin{align*}
-\tikzfig{comb_representations}
-\end{align*}
-
-
-\begin{definition}[choices]
-Given a probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{odd}}}\}$, a \emph{choice} is a probabilty comb $\{\alpha^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{even}}\setminus \{0\}}\}$.
-\end{definition}
-
-Probability combs define a map from choices to probability sets.
-
-\begin{definition}[map defined by a probability comb]
-Given a probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\text{odd}}}\}$ and the set of associated choices $A$, we define a map $m:A\to \mathscr{P}(\Delta(\Omega))$ by
-\begin{align}
-	\{\gamma^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\text{even}}}\}&\mapsto  \bigcprod_{i\in [n]} \prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}\gamma^{\RV{X}_{i+i}|\RV{X}_{[i]}}\\
-	&:= \prob{P}_\gamma^{\RV{X}_{[n]}|\RV{X}_0}
-\end{align}
-\end{definition}
-
-In the case of an infinite index set $\mathbb{N}$, given $x_0\in X_0$ and $\prob{P}_\gamma^{\RV{X}_{[n]}|\RV{X}_0}$ for all $n\in \mathbb{N}$, the Kolmogorov representation theorem guarantees that there is a unique probability $\prob{P}_{\gamma,x_0}^{\RV{X}_{\mathbb{N}}}\in \Delta(X^{\mathbb{N}})$ such that for all $n\in \mathbb{N}$, $A\in \sigalg{X}_{[n]}$
-\begin{align}
-	\prob{P}_{\gamma,x_0}^{\RV{X}_{[n]}} &= \prob{P}_\gamma^{\RV{X}_{[n]}|\RV{X}_0}(A|x_0)
-\end{align}
-
-If $X_0$ is discrete, the map $x_0\mapsto \prob{P}_{\gamma,x_0}^{\RV{X}_{[n]}}$ is a Markov kernel, and we define it to be $\prob{P}_\gamma^{\RV{X}_{\mathbb{N}}|\RV{X}_0}$.
-
-Blind choices are choices that ``don't depend on anything''.
-
-\begin{definition}[blind choices]
-Given a probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{odd}}}\}$, a blind choice is a probabilty comb $\{\prob{P}_\alpha^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{even}}\setminus \{0\}}\}$ such that for all $i\in D_{\text{even}}$ there exists $\kernel{K}_i:X_{[i-1]_\mathrm{even}}\kto X_i$ such that, up to swap isomorphism,
-\begin{align}
-	\alpha^{\RV{X}_{i}|\RV{X}_{[i-1]}} &= \mathrm{erase}_{X_{[i-1]_{\text{odd}}}} \otimes \kernel{K}_i
-\end{align}
-\end{definition}
-
-Theorem \ref{th:comb_equiv} is useful because for some choices $\alpha$, the assembled comb is a version of the conditional probability
-\begin{align}
-\prob{P}_\square^{\RV{X}_{[n]_{\text{odd}}}\combbreak \RV{X}_{[n]_{\text{even}}}}\cong{\prob{P}_\alpha}{=}\prob{P}_\alpha^{\RV{X}_{[n]_{\text{odd}}}| \RV{X}_{[n]_{\text{even}}}}
-\end{align}
-
-Note that this is almost sure with respect to $\prob{P}_\alpha$, not with respect to $\prob{P}_\square$. However, if $\prob{P}_\alpha^{\RV{X}_{[n]_{\text{odd}}}| \RV{X}_{[n]_{\text{even}}}}$ is unique, then it must be equal to $\prob{P}_\square^{\RV{X}_{[n]_{\text{odd}}}\combbreak \RV{X}_{[n]_{\text{even}}}}$.
-
-\begin{theorem}[Comb-conditional correspondence]\label{th:comb_conditional_correspondence}
-Given a probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{odd}}}\}$ and a blind choice $\alpha$
-\begin{align}
-\prob{P}_\square^{\RV{X}_{D_{\text{odd}}}\combbreak \RV{X}_{D_{\text{even}}}}\cong{\prob{P}_\alpha}{=}\prob{P}_\alpha^{\RV{X}_{D_{\text{odd}}}| \RV{X}_{D_{\text{even}}}}
-\end{align}
-\end{theorem}
-
-\begin{proof}
-See Appendix \ref{ap:ccc}
-\end{proof}
-
-% \textbf{A note on terminology:} Probability gap models are written with blackboard letters $\prob{P}_\square$. The same base letter with different superscripts $\prob{P}_\square^{\RV{A}|\RV{B}}$ indicates a conditional probability with respect to $\prob{P}_\square$. We use subscripts to indicate both the model obtained by applying particular choices of insert $\prob{P}_\alpha:=\prob{P}_\square \cap \alpha$. $\RV{A}\CI_{\prob{P}_\square} \RV{B}$ is a statement of independence with respect to the model $\prob{P}_\square$.
-
-\subsubsection{Examples of probability combs}
-
-History-based reinforcement as described in \citet{hutter_universal_2004} is an example of a probability comb model. Such models posit sequences of variables $(\RV{A}_i,\RV{O}_i,\RV{R}_i)_{i\in \mathbb{N}}$ representing the $i$th action, observation and reward respectively. They also posit an \emph{agent} that implements a \emph{policy}, which is a collection of Markov kernels $\pi_i:O^i\times R^i\times A^i \kto A$ for all $i\in \mathbb{N}$ (mapping the history of actions, rewards and observations to the next action), and an \emph{environment} which is a collection of Markov kernels $e_i:O^i\times R^i\times A^{i+1}\kto O\times R$, mapping the history of actions, rewards, observations and the next action to the next observation and reward.
-
-Identify the envirnoment $e_i$ with a probability comb $\{\prob{P}_\square^{\RV{O}_{i}\RV{R}_{i}|\RV{O}_{<i}\RV{R}_{<i}\RV{A}_{i}}|i\in\mathbb{N}\}$ and the policy set with the choices for this comb $\{\prob{P}_\alpha^{\RV{A}_{i}|\RV{O}_{<i}\RV{R}_{<i}\RV{A}_{<i}}|i\in\mathbb{N},\alpha\in A\}$.
-
-A pair of conditional probabilities with a gap between them induces a \emph{probability 2-combs} \citep{chiribella_quantum_2008,jacobs_causal_2019}. We can depict the map associated with a conditonal gap model graphically in an informal way as ``inserting'' $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$ into $\prob{P}^{\RV{X}\square\RV{Z}|\RV{Y}}$:
-
-\begin{align}
-	\text{Insert}\left(\tikzfig{insert_opn2}\right)\\= \tikzfig{2comb_inserted}\label{eq:insert_op}
-\end{align}
+Validity rules out conditional probabilities like \ref{eq:bmi_example}. We guess that in many cases this condition may either be trivial or unconsiously taken into account when constructing conditional probabilities. However, if we are not cognizant of the conditional our model depends on, we may inadvertently propose a model that depends on invalid conditional probabilities. For example, the conditional probability \ref{eq:bmi_example} would be used to evaluate the causal effect of body mass index in the causal diagram found in \citet{shahar_association_2009}, presuming the author used the term ``causal effect'' to depend somehow on the function $x\mapsto P(\cdot|do(\RV{B}=x))$ as is the usual convention when discussing causal Bayesian networks.
 
 \subsubsection{Conditional independence}\label{ssec:cond_indep}
 
@@ -525,7 +432,7 @@ The semi-graphoid axioms hold for all probability measures $\prob{P}$, so in par
 Conditional independence $\RV{A}\CI_{\prob{P}_\square}\RV{B}|\RV{C}$ holds for an arbitrary probability comb $\model{P}_\square:A\to \mathscr{P}(\Delta(\Omega))$ if $\RV{A}\CI_{\prob{P}_\alpha}\RV{B}|\RV{C}$ holds for all probability models $\prob{P}_\alpha$, $\alpha\in A$.
 \end{definition}
 
-\subsection{Curried Markov kernels}
+\subsection{Curried Markov kernels}\label{sec:curry}
 
 Given a function $f:X\times Y\to Z$, we can obtain a curried version $\lambda f:Y\to Z^X$. In particular, if $Y=\{*\}$ then $\lambda f:\{*\}\to Y^X$. At least for countable $X$, we can apply this construction to Markov kernels: given a kernel $\kernel{K}:X\kto Y$, define $\lambda \kernel{K}: \{*\}\kto Y^X$ by 
 \begin{align}
@@ -549,4 +456,4 @@ Then
 	\prob{P}^{\RV{Y}^X}\kernel{F}_{\text{ev}}
 \end{align}
 
-Is some Markov kernel $X\kto Y$, which is equal to $\prob{P}^{\RV{Y}|\RV{X}}$ if $\RV{Y}^X\CI |\RV{X}$ which we will call the ``outcome kernel''. The random variable $\RV{Y}^X$ is often regarded as more than just a curried representation of outcomes, it is taken to express something like ``the outcomes that would have been observed, had $\RV{X}$ turned out differently''. Some authors have argued it is advantageous not to consider such interpretations unless they can be equivalently stated as assumptions about observable phenomena \citet{richardson2013single,dawid_causal_2000}, an approach we will stick to here.
+Is some Markov kernel $X\kto Y$, which is equal to $\prob{P}^{\RV{Y}|\RV{X}}$ if $\RV{Y}^X\CI |\RV{X}$. The random variable $\RV{Y}^X$ is often regarded as more than just a curried representation of outcomes, it is taken to express something like ``the outcomes that would have been observed, had $\RV{X}$ turned out differently''. Some authors have argued it is advantageous not to consider such interpretations unless they can be equivalently stated as assumptions about observable phenomena \citet{richardson2013single,dawid_causal_2000}, an approach we will stick to here.

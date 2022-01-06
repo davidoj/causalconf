@@ -1,4 +1,4 @@
-\begin{thebibliography}{31}
+\begin{thebibliography}{32}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -48,6 +48,18 @@ Panayiota Constantinou and A.~Philip Dawid.
 \newblock ISSN 0090-5364.
 \newblock URL \url{http://www.jstor.org/stable/26362953}.
 \newblock Publisher: Institute of Mathematical Statistics.
+
+\bibitem[Dawid(2000)]{dawid_causal_2000}
+A.~P. Dawid.
+\newblock Causal {Inference} without {Counterfactuals}.
+\newblock \emph{Journal of the American Statistical Association}, 95\penalty0
+  (450):\penalty0 407--424, June 2000.
+\newblock ISSN 0162-1459.
+\newblock \doi{10.1080/01621459.2000.10474210}.
+\newblock URL
+  \url{https://www.tandfonline.com/doi/abs/10.1080/01621459.2000.10474210}.
+\newblock Publisher: Taylor \& Francis \_eprint:
+  https://www.tandfonline.com/doi/pdf/10.1080/01621459.2000.10474210.
 
 \bibitem[Dawid(2020)]{dawid_decision-theoretic_2020}
 A.~Philip Dawid.

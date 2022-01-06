@@ -1,0 +1,123 @@
+\subsection{Probability combs}
+
+We are interested in a a more precise kind of of ``incomplete collection of conditional probabilities'', and the specific kind of thing we are interested in is a \emph{probability comb}. Probability combs can be represented either as a collection of conditional probabilities with every second element missing -- the ``disassembled'' representation -- or as a single Markov kernel -- the ``assembled'' representation. The key result of this section is the equivalence of the two representations and the fact that assembled probability combs are conditional probabilities with respect to \emph{blind} choices (that is, choices for which the output does not depend on the input). This means that to specify a probability comb, under some conditions it is enough to specify the conditional probability with respect to a blind choice.
+
+In the following, $D$ is an index set which is equal to either $\mathbb{N}$ (if it is infinite) or $[n]$ for some $n\in \mathbb{N}$ (if it is finite). The indexing of the set of variables is arbitrary, it is just a means of addressing each variable. $D_{\text{even}}$ are the even elements of $D$ and $D_{\text{odd}}$ are the odd elements.
+
+\begin{definition}[Disassembled probability comb]
+Given sample space $(\Omega,\sigalg{F})$ and a collection of $|D|$ variables $\RV{X}_{i}:\Omega\to (X_i,\sigalg{X}_i)$ for $i\in D\cup\{0\}$. A $\RV{X}_{D_{\text{odd}}}\combbreak \RV{X}_{D_{\text{even}}}$ \emph{disassembled probability comb} is a collection of valid conditional probabilities $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{odd}}}\}$.
+\end{definition}
+
+To define the assembled form, it is helpful to define a new operation $\combprod$. Note that consecutive conditional probabilities in a disassembled probability comb have the form $\prob{P}_\square^{\RV{X}_i|\RV{X}_{[i-1]}},\prob{P}_\square^{\RV{X}_{i+2}|\RV{X}_{[i+1]}}$, and so they are not correctly typed to take the $\cprod$ product. However, we can take the $\cprod$ product of $\prob{P}_\square^{\RV{X}_i|\RV{X}_{[i-1]}}\otimes\mathrm{id}_{X_{i+1}}$ and $\prob{P}_\square^{\RV{X}_{i+2}|\RV{X}_{[i+1]}}$. The operation $\combprod$ is just this -- it takes the first Markov kernel tensored with the identity, then computes the $\cprod$ product of the resulting Markov kernels.
+
+\begin{definition}[Bypass semidirect product]
+Given two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\times Y\times Z\kto W$, $\kernel{K}\combprod \kernel{L}:X\times Z\kto X\times Y\times Z\times W$ is the Markov kernel equal to
+\begin{align}
+    \kernel{K}\combprod \kernel{L} := \tikzfig{bypass_copy_product}
+\end{align}
+\end{definition}
+
+We will also use a series notation for a sequence of $\combprod$ products.
+
+\begin{definition}[Bypass semidirect product series notation]
+For a collection of Markov kernels $\{\kernel{K}_i|i\in D_{\text{odd}}\}$ with $\kernel{K}_i:X_{[i-1]}\kto X_i$ and $n\in\mathbb{N}$ a finite index set
+\begin{align}
+    \bigcombprod_{i\in [n]_{\text{odd}}} \kernel{K}_i &= \kernel{K}_1 \combprod (\bigcombprod_{i\in [n]_{\text{odd}}\setminus\{1\}} \kernel{K}_i)
+\end{align}
+with base case
+\begin{align}
+    \bigcombprod_{i\in \{x\}} \kernel{K}_i &= \kernel{K}_x
+\end{align}
+\end{definition}
+
+\begin{definition}[Assembled probability comb]\label{def:assmbl_pcomb}
+Given sample space $(\Omega,\sigalg{F})$, $n\in \mathbb{N}$, $\RV{X}_{i}:\Omega\to (X_i,\sigalg{X}_i)$ for $i\in [n]$ and a disassembled probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\text{odd}}}\}$, the assembled probability comb
+\begin{align}
+    \prob{P}_\square^{\RV{X}_{[n]_{\text{odd}}}\combbreak \RV{X}_{[n]_{\text{even}}}} &= \bigcombprod_{i\in [n]_{\text{odd}}}\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}
+\end{align}
+\end{definition}
+
+Whether we can extend comb products and the following theorem to infinite collections of conditional probabilities is an open question.
+
+Theorem \ref{th:comb_equiv} establishes that there is a bijection, up to almost sure equality, between disassembled and assembled comb representations. We can assemble the collection of conditional probabilities as in Definition \ref{def:assmbl_pcomb} to get the assembled representation, and we can disintegrate an assembled probability comb to get a collection of conditional probabilities. Note that we only show this to hold for discrete sets and finite collections of conditional probabilities.
+
+\begin{theorem}[Equivalence of comb representations]\label{th:comb_equiv}
+Given sample space $(\Omega,\sigalg{F})$, a finite collection of variables $\RV{X}_{i}:\Omega\to (X_i,\sigalg{X}_i)$ for $i\in [n]$, $X_i$ discrete, and a disassembled probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\text{odd}}}\}$, for any $l\in [n]_{\mathrm{odd}}$ and any $\kernel{K}:X_{[l-1]}\kto X_l$
+\begin{align}
+    (\bigcombprod_{j\in [l-1]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}) \combprod \kernel{K} &\overset{\prob{P}_\square}{\cong} (\bigcombprod_{j\in [l]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}})\\
+    \implies \kernel{K} &\overset{\prob{P}_\square}{\cong} \prob{P}_\square^{\RV{X}_{l}|\RV{X}_{[l-1]}}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+The argument is that $\kernel{K}$ and $\prob{P}_\square^{\RV{X}_{l}|\RV{X}_{[l-1]}}$ must agree except on a collection of measure 0 sets, and because the sets the union of these sets is also measure 0. See Appendix \ref{ap:combs}.
+\end{proof}
+
+If disintegrations exist, $\kernel{K}$ is a disintegration of $\prob{P}_\square^{\RV{X}_{[n]_{\text{odd}}}\combbreak \RV{X}_{[n]_{\text{even}}}}$. Thus we can get $\prob{P}_\square^{\RV{X}_{[n]_{\text{odd}}}\combbreak \RV{X}_{[n]_{\text{even}}}}$ from $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\text{odd}}}\}$ by assembling and go in the reverse direction by disintegrating.
+
+\begin{align*}
+\tikzfig{comb_representations}
+\end{align*}
+
+
+\begin{definition}[choices]
+Given a probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{odd}}}\}$, a \emph{choice} is a probabilty comb $\{\alpha^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{even}}\setminus \{0\}}\}$.
+\end{definition}
+
+Probability combs define a map from choices to probability sets.
+
+\begin{definition}[map defined by a probability comb]
+Given a probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\text{odd}}}\}$ and the set of associated choices $A$, we define a map $m:A\to \mathscr{P}(\Delta(\Omega))$ by
+\begin{align}
+    \{\gamma^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\text{even}}}\}&\mapsto  \bigcprod_{i\in [n]} \prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}\gamma^{\RV{X}_{i+i}|\RV{X}_{[i]}}\\
+    &:= \prob{P}_\gamma^{\RV{X}_{[n]}|\RV{X}_0}
+\end{align}
+\end{definition}
+
+In the case of an infinite index set $\mathbb{N}$, given $x_0\in X_0$ and $\prob{P}_\gamma^{\RV{X}_{[n]}|\RV{X}_0}$ for all $n\in \mathbb{N}$, the Kolmogorov representation theorem guarantees that there is a unique probability $\prob{P}_{\gamma,x_0}^{\RV{X}_{\mathbb{N}}}\in \Delta(X^{\mathbb{N}})$ such that for all $n\in \mathbb{N}$, $A\in \sigalg{X}_{[n]}$
+\begin{align}
+    \prob{P}_{\gamma,x_0}^{\RV{X}_{[n]}} &= \prob{P}_\gamma^{\RV{X}_{[n]}|\RV{X}_0}(A|x_0)
+\end{align}
+
+If $X_0$ is discrete, the map $x_0\mapsto \prob{P}_{\gamma,x_0}^{\RV{X}_{[n]}}$ is a Markov kernel, and we define it to be $\prob{P}_\gamma^{\RV{X}_{\mathbb{N}}|\RV{X}_0}$.
+
+Blind choices are choices that ``don't depend on anything''.
+
+\begin{definition}[blind choices]
+Given a probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{odd}}}\}$, a blind choice is a probabilty comb $\{\prob{P}_\alpha^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{even}}\setminus \{0\}}\}$ such that for all $i\in D_{\text{even}}$ there exists $\kernel{K}_i:X_{[i-1]_\mathrm{even}}\kto X_i$ such that, up to swap isomorphism,
+\begin{align}
+    \alpha^{\RV{X}_{i}|\RV{X}_{[i-1]}} &= \mathrm{erase}_{X_{[i-1]_{\text{odd}}}} \otimes \kernel{K}_i
+\end{align}
+\end{definition}
+
+Theorem \ref{th:comb_equiv} is useful because for some choices $\alpha$, the assembled comb is a version of the conditional probability
+\begin{align}
+\prob{P}_\square^{\RV{X}_{[n]_{\text{odd}}}\combbreak \RV{X}_{[n]_{\text{even}}}}\cong{\prob{P}_\alpha}{=}\prob{P}_\alpha^{\RV{X}_{[n]_{\text{odd}}}| \RV{X}_{[n]_{\text{even}}}}
+\end{align}
+
+Note that this is almost sure with respect to $\prob{P}_\alpha$, not with respect to $\prob{P}_\square$. However, if $\prob{P}_\alpha^{\RV{X}_{[n]_{\text{odd}}}| \RV{X}_{[n]_{\text{even}}}}$ is unique, then it must be equal to $\prob{P}_\square^{\RV{X}_{[n]_{\text{odd}}}\combbreak \RV{X}_{[n]_{\text{even}}}}$.
+
+\begin{theorem}[Comb-conditional correspondence]\label{th:comb_conditional_correspondence}
+Given a probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{odd}}}\}$ and a blind choice $\alpha$
+\begin{align}
+\prob{P}_\square^{\RV{X}_{D_{\text{odd}}}\combbreak \RV{X}_{D_{\text{even}}}}\cong{\prob{P}_\alpha}{=}\prob{P}_\alpha^{\RV{X}_{D_{\text{odd}}}| \RV{X}_{D_{\text{even}}}}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+See Appendix \ref{ap:ccc}
+\end{proof}
+
+% \textbf{A note on terminology:} Probability gap models are written with blackboard letters $\prob{P}_\square$. The same base letter with different superscripts $\prob{P}_\square^{\RV{A}|\RV{B}}$ indicates a conditional probability with respect to $\prob{P}_\square$. We use subscripts to indicate both the model obtained by applying particular choices of insert $\prob{P}_\alpha:=\prob{P}_\square \cap \alpha$. $\RV{A}\CI_{\prob{P}_\square} \RV{B}$ is a statement of independence with respect to the model $\prob{P}_\square$.
+
+\subsubsection{Examples of probability combs}
+
+History-based reinforcement as described in \citet{hutter_universal_2004} is an example of a probability comb model. Such models posit sequences of variables $(\RV{A}_i,\RV{O}_i,\RV{R}_i)_{i\in \mathbb{N}}$ representing the $i$th action, observation and reward respectively. They also posit an \emph{agent} that implements a \emph{policy}, which is a collection of Markov kernels $\pi_i:O^i\times R^i\times A^i \kto A$ for all $i\in \mathbb{N}$ (mapping the history of actions, rewards and observations to the next action), and an \emph{environment} which is a collection of Markov kernels $e_i:O^i\times R^i\times A^{i+1}\kto O\times R$, mapping the history of actions, rewards, observations and the next action to the next observation and reward.
+
+Identify the envirnoment $e_i$ with a probability comb $\{\prob{P}_\square^{\RV{O}_{i}\RV{R}_{i}|\RV{O}_{<i}\RV{R}_{<i}\RV{A}_{i}}|i\in\mathbb{N}\}$ and the policy set with the choices for this comb $\{\prob{P}_\alpha^{\RV{A}_{i}|\RV{O}_{<i}\RV{R}_{<i}\RV{A}_{<i}}|i\in\mathbb{N},\alpha\in A\}$.
+
+A pair of conditional probabilities with a gap between them induces a \emph{probability 2-combs} \citep{chiribella_quantum_2008,jacobs_causal_2019}. We can depict the map associated with a conditonal gap model graphically in an informal way as ``inserting'' $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$ into $\prob{P}^{\RV{X}\square\RV{Z}|\RV{Y}}$:
+
+\begin{align}
+    \text{Insert}\left(\tikzfig{insert_opn2}\right)\\= \tikzfig{2comb_inserted}\label{eq:insert_op}
+\end{align}

@@ -9,8 +9,9 @@
 \contentsline {subsection}{\numberline {2.6}Probability sets}{11}{subsection.2.6}%
 \contentsline {subsection}{\numberline {2.7}Probability sets defined by marginal and conditional probabilities}{14}{subsection.2.7}%
 \contentsline {subsection}{\numberline {2.8}Probability combs}{15}{subsection.2.8}%
-\contentsline {subsubsection}{\numberline {2.8.1}Examples}{19}{subsubsection.2.8.1}%
+\contentsline {subsubsection}{\numberline {2.8.1}Examples of probability combs}{18}{subsubsection.2.8.1}%
 \contentsline {subsubsection}{\numberline {2.8.2}Conditional independence}{19}{subsubsection.2.8.2}%
+\contentsline {subsection}{\numberline {2.9}Curried Markov kernels}{20}{subsection.2.9}%
 \contentsline {section}{\numberline {3}Decision theoretic causal inference}{20}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Decision problems}{21}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Decisions as measurement procedures}{22}{subsection.3.2}%
@@ -18,12 +19,12 @@
 \contentsline {subsection}{\numberline {3.4}See-do models and classical statistics}{24}{subsection.3.4}%
 \contentsline {section}{\numberline {4}Repeatable experiments}{25}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Assumptions of repeatability applicable to models of decisions and consequences}{27}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Representations of contractible probability models}{31}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Potential outcomes}{37}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Potential outcomes}{37}{section.5}%
-\contentsline {subsubsection}{\numberline {5.0.1}Extended conditional independence}{41}{subsubsection.5.0.1}%
-\contentsline {subsubsection}{\numberline {5.0.2}Graphical properties of conditional independence}{44}{subsubsection.5.0.2}%
-\contentsline {subsection}{\numberline {5.1}Results I use that don't really fit into the flow of the text}{45}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1}Repeated variables}{45}{subsubsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.2}Validity}{48}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Combs}{50}{subsection.5.3}%
+\contentsline {subsection}{\numberline {4.2}Representations of contractible probability models}{28}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Potential outcomes}{35}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Extended conditional independence}{35}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Graphical properties of conditional independence}{37}{subsubsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.4}Results I use that don't really fit into the flow of the text}{38}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Repeated variables}{38}{subsubsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.5}Validity}{41}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Combs}{43}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Comb conditional correspondence}{44}{subsection.4.7}%
