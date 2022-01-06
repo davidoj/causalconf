@@ -1,56 +1,36 @@
 %!TEX root = main.tex
 
-\section{Repeatable experiments}
+\section{Conditional probabilities in sequential experiments}
 
-One of the original questions motivating this line of work was ``when do potential outcomes exist?''. We cannot answer this question in general, but we can answer ``given a probability comb that models a decision problem, when can we define potential outcomes-like variables?''.
+If we have a conditional probability model $\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}}$, then by definition there is a conditional probability $\prob{P}_\square^{\RV{Y}|\RV{D}}$ which has a curried representation. Our aim is to show when certain conditional probabilities exist with respect to a probability gap model, which in this case is a triviality.
 
-We're particularly interested in sequences of potential outcomes-like variables, because the potential outcomes approach is typically used to analyse data from repeated experiments, which naturally produces sequences of variables. 
-
-\subsection{Potential outcomes-like variables and conditional probabilities}
-Section \ref{sec:curry} shows that there is a correspondence between Markov kernels and vector-valued probability distributions. We have a lot of helpful notation for talking about probability distributions over variables -- conditional independence statements, for example -- that we do not have for talking about probability distributions that are not associated with any variables. For this reason, if we want to talk about a vector-valued probability distribution as a part of our model, it's helpful to augment the sample space so we can define a collection of unobserved variables that we can attach to this probability distribution. In contrast to observed variables, these unobserved variables do not necessarily have any particular semantics -- they're just helpful ways to talk about a vector-valued probability distribution.
-
-When we talk about potential outcomes-like variables, this is the kind of variable we are talking about. They give us hooks that we can use to express properties of our probability model, but they don't come with any particular semantics built in.
-
-Section \ref{sec:curry} \emph{also} shows us that, given a probability comb $\prob{P}_\square^{\RV{Y}_{[n]}\combbreak \RV{D}_{[n]}}$, whenever a conditional probability $\prob{P}_\square^{\RV{Z}|\RV{W}}$ exists there also exists a vector-valued probability distribution $\prob{P}^{\RV{Z}^W}$ where $\RV{Z}^W$ is a potential outcomes-like variable. Unlike regular probability models, comb conditional probabilities $\prob{P}_\square^{\RV{Z}|\RV{W}}$ do not always exist.
-
-The conclusion is: potential outcomes-like variables $\RV{Z}^W$ exist whenever $\prob{P}_\square^{\RV{Z}|\RV{W}}$ exists. If $\prob{P}_\square^{\RV{Z}|\RV{W}}$ exists, it means the our model gives a unique conditional probability of $\RV{Z}|\RV{W}$, and this doesn't depend on anything that has not yet been specified.
+The question becomes more interesting when we propose conditional probability model $\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}}$ of a sequential experiment. That is, $\RV{Y}:=\RV{Y}_M=(\RV{Y}_i)_{i\in M}$ and $\RV{D}:=\RV{D}_M=(\RV{D}_i)_{i\in M}$ and we say that $\RV{Y}_i$ is the consequence corresponding to the decision $\RV{D}_i$ for all $i\in M$. We will call a $(\RV{D}_i,\RV{Y}_i)$ pair an experimental unit. In this case, the conditional probability $\prob{P}_\square^{\RV{Y}_i|\RV{D}_i}$ does not generally exist. We might suppose, however, it would exist if the experiment was, in some sense, suitably regular or repeatable.
 
 \subsection{Repeatable experiments}
 
-If we have a probability comb $\prob{P}_\square^{\RV{Y}_{[n]}\combbreak \RV{D}_{[n]}}$, what do we mean if we say it represents a sequence of repeatable experiments? Two possibilities come to mind. First, we might posit ``sequential repeatability'': for all the actions available, our experimental plan can repeat that action as many times as we like and get the same result each time. Secondly we might posit ``ensemble repeatability'': for any complete experimental plan, if the same action is executed at the $i$th step then the model agrees on the consequence of the $i$th step. These ideas result in two different constraints on a probability comb, and common causal models typically embody both assumptions taken together.
+We have a conditional probability model $\prob{P}_\square^{\overline{\RV{Y}_A|\RV{D}_A}}$ with choices $A$ that represents a sequential experiment. What might we mean when we say this experiment is repeatable? We're going to propose two conditions. The first condition is \emph{commutativity of exchange}, which is the assumption that swapping the choices that we apply at each step and then applying the corresponding inverse swap to consequences leaves the model unchanged. The second condition is \emph{no interference} -- if we perform the whole experiment multiple times, making the same choice $\RV{D}_i$ at any point $i$ gets the same results, regardless of what other choices are made.
 
-We will actually consider a weaker notion of sequential repeatability which we call \emph{commutativity of exchange}. The relationship between the notion above -- repeating identical inputs gives identical outputs -- and commutativity of exchange is similar to the relationship between independent and identically distributed random variables and exchangeable random variables. Exchangeable random variables are collections of variables $(\RV{X}_i)_{i\in A}$ such that the model of  $(\RV{X}_i)_{i\in A}$ and the exchanged variables $(\RV{X}_{\pi(i)})_{i\in A}$ is identical for any finite permutation $\pi:A\to A$. Independent and identically distributed random variables are exchangeable -- the model of the exchanged variables is again independent and identically distributed, with the same distribution as the original. However, not all sequences of exchangeable variables are independent and identically distributed. For example, if we believe we have a sequence of variables that we are sure are independent and identically distributed but 
+Commutativity of exchange is similar to the condition of \emph{post-treatment exchangeability} found in \citet{dawid_decision-theoretic_2020}, and no interference is similar to the stable unit treatment distribution assumption (SUTDA) in the same, as well as the ``no interference'' part of the stable unit treatment value assumption (SUTVA) with which it shares a name. Commutativity of exchange is also very similar to the exchangeability assumption of \citet{greenland_identifiability_1986} for further discussions of exchangeability in the context of causal modelling, and note that both authors consider exchanging to be an operation that alters which person receives which treatment. The assumption of exchangeability found in \citet{banerjee_chapter_2017} can also be regarded as similar to commutativity of exchange.
 
-While there are types of measurement processes we could consider, statistical inference usually proceeds from repeatable measurement processes. A common precise notion of repeatability is the assumption of \emph{exchangeability}. The term ``exchangeability'', like the term random variable, is used to refer to assumptions about \emph{measurement processes} as well as properties of \emph{probability models}. If I say a measurement process $\proc{S}$ taking values in $S^n$ is exchangeable, I might mean:
-\begin{itemize}
-    \item I believe that there is some probabilistic model $(\prob{P},\Omega,\sigalg{F})$ and random variable $\RV{S}$ appropriate for modelling $\proc{S}$ and
-    \begin{enumerate}
-        \item The same model is appropriate for any measurement process that first peforms $\proc{S}$ and subsequently shuffles the results according to any permutation $\text{swap}_a:S^n\to S^n$ or
-        \item The same model is appropriate for any measurement process related to $\proc{S}$ by interchanging experimental units or subjects in the real world
-    \end{enumerate} 
-\end{itemize}
+\todo[inline]{Not sure if or where I want to put this, I just think it helps to illustrate the difference}
 
-On the other hand, if I say a probability model $(\prob{P},S^{|A|},\sigalg{S}^{|A|})$ is exchangeable, I mean
+Commutativity of exchange is not equivalent to exchangeability in the sense of De Finetti's well-known theorem \citet{de_finetti_foresight_1992}. The latter can be understood as expressing an indifference between conducting the experiment as normal, or conducting the experiment and then swapping some labels. However, swapping \emph{choices} will (usually) lead to different experimental units receive different treatment, which is something that can't be achieved by swapping labels after the experiment has concluded.
 
-\begin{itemize}
-    \item For any finite permutation $\text{swap}_A:S^{|A|}\kto S^{|A|}$, $\prob{P}^{\RV{S}}\text{swap}_{a} = \prob{P}^{\RV{S}}$
-\end{itemize}
+The difference is illustrated by the following pair of diagrams.
 
-If I believe a measurement process is exchangeable in the first sense, then this implies that the same probability model is appropriate to model $\proc{S}$ as to model $\text{swap}_a\circ \proc{S}$, which implies that $\prob{P}^{\RV{S}}$ should be an exchangeable probability model. Measurement process exchangeability in the second sense requires us to make explicit the mathematical implications of ``interchanging experimental units'', as our semantics of random variables do not say anything about swapping things in the real world. However, the second kind of measurement process exchangeability is more interesting in the context of causal modelling. When we are \emph{acting} on the world, our future actions will often depend on what we have observed in the past, which will often rule out exchangeability in the first sense. Furthermore, our actions have consequences and so permuting the \emph{labels} associated with actions while not actually changing the actions we take is not a particularly interesting operation. Rather, we are interested in how a model might or might not change if we swap the \emph{actual actions} we take. Swapping experimental units while holding actions constant is one way to achieve this, as it changes the identity of which unit receives which action. See \citet{dawid_decision-theoretic_2020} and \citet{greenland_identifiability_1986} for further discussions of exchangeability in the context of causal modelling, and note that both authors consider exchanging to be an operation that alters which person receives which treatment.
+Exchangeability (swapping labels):
 
-De Finetti's well-known representation theorem shows that exchangeable probability models feature a ``hypothesis'' $\RV{H}$ such that the sequence $\RV{S}$ is independent and identically distributed conditional on $\RV{H}$. That is: a measurement process that is exchangeable in the first sense should be modelled by a conditionally indpendent and identically distributed sequence of random variables. The question we want to address here is whether measurement processes that are exchangeable in the second sense imply causal models with particular structure. The answer is yes, although as we discuss the key assumption is \emph{causal contractibility} rather than exchangeability.
+\begin{align}
+    \tikzfig{exchangeability}
+\end{align}
 
-In this section, we will at first consider \emph{blind} decision functions -- that is, decision functions that pay no attention to the data already available. We are interested in repetitive symmetries, and these symmetries are typically broken if our decisions are based on past observations. Furthermore, we can define the entire see-do model by its behaviour on blind decision functions. We also assume that the hypotheses are trivial $\RV{H}=*$; once the decision is chosen, we are left with a single probability model. This also substantially simplifies the arguments to be made.
+Commutativity of exchange (swapping choices $\sim$ swapping labels):
 
-We will consider two different notions of ``repeatable experiments''. Both require a sequence of ``decisions'' to be made and a sequence of consequences, and we assume that each decision corresponds to a single consequence. One could think about these paired sqeuences as a series of experiments each with different setting choices available; the decisions are the setting choices and the consequences are the results of each experiment. The first notion we consider will be \emph{commutativity of exchange} -- we consider the same model appropriate if we alter our experiment by swapping the experimental settings, or if we make analogous swaps to the experimental results. This assumption could be considered a version of the assumption that experimental units can be interchanged. Consider an experiment involving handing out money or not to person A or person B. Commutativity of exchange says that we should use the same probability model to represent the following two predictions: 
-\begin{itemize}
-    \item Applying choice 1 to A and choice 2 to B and predicting the vector (consequences for A, consequences for B)
-    \item Applying choice 2 to A and choice 1 to B and predicting the vector (consequences for B, consequences for A)
-\end{itemize}
+\begin{align}
+    \tikzfig{commutativity of exchange}
+\end{align}
 
-Under the assumption of commutativity of exchange, consequences of decisions for one ``experimental unit'' may still depend on decisions made for other ``experimental units''. Consider again the experiment above, except instead of two people we are considering giving money to everyone in a particular country. Supposing we don't otherwise know much about the people we are giving money to, it might be reasonable to posit that a model of the consequences should observe commutativity of exchange. However, giving money to A as well as everyone else will have different consequences for A than giving money to A and no-one else; in the former case, we will create more inflation than in the latter.
-
-The second notion of ``repeatable experiments'' is \emph{causal contractibility}, a strictly stronger assumption than commutativity of exchange. Causal contractibility is the assumption that, given two different sequences of decisions, the marginal model of consequences corresponding to matching subsequences of decisions will be equal. A causally contractibly model says that, if I make the same choice for any subcollection of experiments, I expect the same results from those experiments regardless of whatever choices I make elsewhere.
+\todo[inline]{----}
 
 
 % Another way to see where we are going is to consider graphical statements of our and De Finetti's result.
@@ -76,10 +56,6 @@ The second notion of ``repeatable experiments'' is \emph{causal contractibility}
 % \end{align}
 
 % We will further argue that the class of see-do models considered in CBN and potential outcomes literature is equivalent to the family of causally contractible and exchangeable do-models where the decision rule for the first $n$ places is fixed to an unknown value, and may be freely chosen thereafter.
-
-\subsection{Assumptions of repeatability applicable to models of decisions and consequences}
-
-In this section we formalise the notion of commutativity of exchange and causal contractibility. We will go on to prove that contractible causal models can also be represented by jointly independent repetitions of a ``unit-level consequence map'', indexed by a hypothesis $\RV{H}$. By currying this consequence map, we can also obtain a ``potential outcomes-like'' representation of consequences.
 
 % \begin{theorem}[Existence of conditional in do models]
 % Given a do model $(\prob{P}_{\square}^{\RV{Y}\|\RV{D}},R)$, for all $\alpha\in R$, $n\in\mathbb{N}$
@@ -108,21 +84,24 @@ In this section we formalise the notion of commutativity of exchange and causal 
 % \end{align}
 % as desired.
 % \end{proof}
+More precisely, a probability comb ``commutes with exchange'' if applying any finite permutation to blind choices or separately applying the corresponding permuation to consequences each yields the same result. We can apply the exchange ``before'' multiplying by the conditional $\prob{P}_{\square}^{\RV{Y}|\RV{D}}$ or after it and we get the same result.
 
-A probability comb ``commutes with exchange'' if applying any finite permutation to blind choices or separately applying the corresponding permuation to consequences each yields the same result. The term \emph{commute} comes from the notion that we can apply the exchange ``before'' the conditional $\prob{P}_{\square}^{\RV{Y}|\RV{D}}$ or after it and get the same result.
-
-\begin{definition}[Commutativity of exchange]\label{def:caus_exch}
-Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P}_{\square}^{\RV{Y}|\RV{D}},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. For a finite permutation $\rho:\mathbb{N}\to\mathbb{N}$, define $\text{swap}_{\rho(D)}:D\kto D$ by $(d_i)_{i\in\mathbb{N}}\mapsto \delta_{(d_{\rho(i)})_{i\in\mathbb{N}}}$ and $\text{swap}_{\rho(D\times Y)}:D\times Y\kto D\times Y$ by $(x_i)_{i\in\mathbb{N}}\mapsto \delta_{(x_{\rho(i)})_{i\in\mathbb{N}}}$. If, for any two decision rules $\alpha,\beta \in R$,
-\begin{align}
-    \prob{P}_\alpha^{\RV{D}}\text{swap}_{\rho(D)} &= \prob{P}_{\beta}^{\RV{D}}\\
-    \implies  \prob{P}_\alpha\text{swap}_{\rho(D\times Y)}&=\prob{P}_\beta
-\end{align}
-Then $\prob{P}$ \emph{commutes with exchanges}.
+\begin{definition}[Swap map]
+Given $M\subset \mathbb{N}$ a finite permutation $\rho:M\to M$ and a variable $\RV{X}:\Omega\to X^M$ such that $\RV{X}=(\RV{X}_i)_{i\in M}$, define the Markov kernel $\text{swap}_{\rho(\RV{X})}:X^M\kto X^M$ by $(d_i)_{i\in\mathbb{N}}\mapsto \delta_{(d_{\rho(i)})_{i\in\mathbb{N}}}$.
 \end{definition}
 
-A do model is causally contractible if it gives identical results for any identical subsequences of two decisions when we limit our attention to the corresponding subsequences of consequences. For example, if we have $\RV{D}=(\RV{D}_1,\RV{D}_2,\RV{D}_3)$ and $\RV{Y}=(\RV{Y}_1,\RV{Y}_2,\RV{Y}_3)$ and $\prob{P}_\alpha^{\RV{D}_1\RV{D}_3}=\prob{P}_\beta^{\RV{D}_3\RV{D}_2}$ then $\prob{P}_{\alpha}^{\RV{Y}_1\RV{Y}_3}=\prob{P}_\beta^{\RV{Y}_3\RV{Y}_2}$.
+\begin{definition}[Commutativity of exchange]\label{def:caus_exch}
+Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},A)$ with $\RV{Y}=\RV{Y}_M$, $\RV{D}=\RV{D}_M$, $M\subseteq \mathbb{N}$. If, for any two decision rules $\alpha^{\overline{\RV{D}}},\beta^{\overline{\RV{D}}} \in A$,
+\begin{align}
+    \alpha^{\RV{D}}\text{swap}_{\rho(\RV{D})} &= \beta^{\RV{D}}\\
+    \implies  \prob{P}_\alpha\text{swap}_{\rho(\RV{D}\times \RV{Y})}&=\prob{P}_\beta
+\end{align}
+Then $\prob{P}_\square$ \emph{commutes with exchanges}.
+\end{definition}
 
-\begin{definition}[Causal contractibility]\label{def:caus_cont}
+A do model is non interfering if it gives identical results for identical subsequences of different choices when we limit our attention to the corresponding subsequences of consequences. For example, if we have $\RV{D}=(\RV{D}_1,\RV{D}_2,\RV{D}_3)$ and $\RV{Y}=(\RV{Y}_1,\RV{Y}_2,\RV{Y}_3)$ and $\alpha^{\RV{D}_1\RV{D}_3}=\prob{P}_\beta^{\RV{D}_1\RV{D}_3}$ then $\prob{P}_{\alpha}^{\RV{Y}_1\RV{D}_1\RV{Y}_3\RV{D}_3}=\prob{P}_\beta^{\RV{Y}_1\RV{D}_1\RV{Y}_3\RV{D}_3}$.
+
+\begin{definition}[Non interference]\label{def:caus_cont}
 Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. For any $A=(s_i)_{i\in A}$, $T=(t_i)_{i\in A}$, $A\subset\mathbb{N}$ and $i<j\implies p_i<p_j \And q_i<q_j$, let $\RV{D}_S:=(\RV{D}_i)_{i\in S}$ and $\RV{D}_T:=(\RV{D}_i)_{i\in T}$. If for any $\alpha,\beta\in R$
 \begin{align}
     \prob{P}_\alpha^{\RV{D}_{S}}=\prob{P}_\beta^{\RV{D}_{T}}\implies \prob{P}_\alpha^{(\RV{D_i,Y_i})_{i\in S}}=\prob{P}_\beta^{(\RV{D_i,Y_i})_{i\in T}}

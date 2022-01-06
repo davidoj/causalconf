@@ -198,7 +198,7 @@ Given a probability set $\prob{P}_{\{\}}$, we define marginal and conditional pr
 Given a sample space $(\Omega,\sigalg{F})$, a variable $\RV{X}:\Omega\to X$ and a probability set $\prob{P}_{\{\}}$, the marginal distribution $\prob{P}_{\{\}}^{\RV{X}}=\prob{P}_\alpha^{\RV{X}}$ for any $\prob{P}_\alpha\in\prob{P}_{\{\}}$ if a distribution satisfying this condition exists. Otherwise, it is undefined.
 \end{definition}
 
-\begin{definition}[Conditional probability with respect to a probability set]
+\begin{definition}[Conditional probability with respect to a probability set]\label{def:cprob_pset}
 Given a fundamental probability set $\Omega$ variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}$, \emph{a version of} $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is an $X\kto Y$ disintegration of $\prob{P}_\alpha^{\RV{XY}}$ for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. If no such Markov kernel exists, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is undefined.
 \end{definition}
 
@@ -374,9 +374,16 @@ We require that the choices are compatible with the model in the sense that $\pr
 A \emph{conditional probability model} $\prob{P}_\square$ is a probability gap model $(\prob{P}_{\{\}}^{\overline{\RV{Y}|\RV{X}}},A)$ such that each $\alpha\in A$ is some probability set  defined by an $\RV{X}$-valid marginal probability $\alpha^{\overline{\RV{X}}}$.
 \end{definition}
 
+We will compute the intersection $\prob{P}_\alpha$ between the model $\prob{P}_{\{\}}$ and a choice $\alpha\in A$ as the probability set $\prob{P}_{\alpha}^{\overline{\RV{XY}}}$ such that:
+\begin{align}
+	\prob{P}_\alpha^{\RV{XY}} &= \alpha^{\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\label{eq:semidirect_intersection}
+\end{align}
+
+This is justified by Lemma \ref{th:intersection}, which says that the probability set defined by Equation \ref{eq:semidirect_intersection} is equivalent to the intersection of $\alpha$ and $\prob{P}_{\{\}}$.
+
 If the conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and all the marginal probabilities $\alpha^{\overline{\RV{X}}}$ are valid, then by Lemma \ref{lem:valid_extendability} $\prob{P}_{\{\}}\cap\alpha \neq \emptyset$ for all $\alpha\in A$. Thus validity of all the individual parts is enough to ensure compatibility.
 
-While structural equation models posit a complete collections of conditional probabilities with an operation, often called ``intervention'', that replaces some of them, we are interested in working with incomplete collections with a domain of choices that complete the collection; we call such objects ``probability gap models''. Structural equation models are like probability gap models with default choices -- if you don't replace anything, you get the basic set of structural equations, but you can also choose different conditionals from some domain.
+We can define more complex probability gap models with a similar approach where, for example, the model is specified by an incomplete collection of conditional probabilities and the choices are each a complementary collection of conditional probabilities; we call such models \emph{probability comb models} after \citet{chiribella_quantum_2008,jacobs_causal_2019}, but we will not address them in this paper.
 
 \subsection{Example: invalidity}
 
@@ -442,7 +449,13 @@ Given a function $f:X\times Y\to Z$, we can obtain a curried version $\lambda f:
 We can then define an evaluation map $\text{ev}:Y^X\times X\to Y$ by $\text{ev}((y_i)_{i\in X},x)=y_x$. Then
 
 \begin{align}
-	\kernel{K} = (\lambda \kernel{K}\otimes \text{id}_X) \kernel{F}_{\text{ev}}
+	\kernel{K} = (\lambda \kernel{K}\otimes \text{id}_X) \kernel{F}_{\text{ev}} \label{eq:curry_identity}
+\end{align}
+
+Unlike the case of function currying, $\lambda \kernel{K}$ is not the unique Markov kernel for which \ref{eq:curry_identity} holds. In fact, we can substitute any $\kernel{L}$ such that, for any $i\in X$
+
+\begin{align}
+	\sum_{y_{\{i\}^C\in Y^{|X|-1}}} \kernel{L}((y_i)_{i\in X}) = \kernel{K}(y_i|i)
 \end{align}
 
 Evaulation of a curried Markov kernel $\lambda \kernel{K}$ resembles the definition of \emph{potential outcomes}; for outcomes $\RV{Y}:\Omega\to Y$ and treatments $X:\Omega\to X$, potential outcomes are described by a probability distribution $\prob{P}^{\RV{Y}^X}$ on $Y^X$ and we have the relation
@@ -453,7 +466,17 @@ Evaulation of a curried Markov kernel $\lambda \kernel{K}$ resembles the definit
 
 Then
 \begin{align}
-	\prob{P}^{\RV{Y}^X}\kernel{F}_{\text{ev}}
+	(\prob{P}^{\RV{Y}^X}\otimes \text{id}_X)\kernel{F}_{\text{ev}}
 \end{align}
 
-Is some Markov kernel $X\kto Y$, which is equal to $\prob{P}^{\RV{Y}|\RV{X}}$ if $\RV{Y}^X\CI |\RV{X}$. The random variable $\RV{Y}^X$ is often regarded as more than just a curried representation of outcomes, it is taken to express something like ``the outcomes that would have been observed, had $\RV{X}$ turned out differently''. Some authors have argued it is advantageous not to consider such interpretations unless they can be equivalently stated as assumptions about observable phenomena \citet{richardson2013single,dawid_causal_2000}, an approach we will stick to here.
+is some Markov kernel $\kernel{K}:X\kto Y$, which is equal to $\prob{P}^{\RV{Y}|\RV{X}}$ if $\RV{Y}^X\CI |\RV{X}$. However, potential outcomes models typically do not explain what the kernel $\kernel{K}$ represents, and instead offer a definition of the variable $\RV{Y}^X$. For $x\in X$, the component $\RV{Y}^x$ of $\RV{Y}^X$ is usually said to express ``the outcomes that would have been observed, if $\RV{X}$ was $x$''.
+
+Our original motivating question was ``when are potential outcomes well-defined?''. We're not actually going to try to answer this question, because our aim is not to tell people using potential outcomes how to do it. Furthermore, that question invites controversy we are not particularly interested in joining; \citet{dawid_causal_2000} and \citet{richardson2013single} have both argued that it is better to use equivalence classes of potential outcomes models induced by a criterion of distinguishability by experiment, while \citet{pearl_causality:_2009} advocates for models that can make finer distinctions than this.
+
+However, given a probability gap model $\prob{P}_\square$, we do have a natural notion of the well-definedness of a conditional probability $\prob{P}^{\RV{Y}|\RV{X}}_\square$ -- it is well-defined when $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$ is equal for all $\alpha$ (Definition \ref{def:cprob_pset}). Furthermore, the formal conditions that guarantee the existence of such a conditional probability very closely resemble the \emph{stable unit treatment value assumption} (SUTVA), which is said to be necessary for the existence of potential outcomes \citet{rubin_causal_2005}:
+
+\begin{blockquote}
+(SUTVA) comprises two subassumptions. First, it assumes that \emph{there is no interference between units (Cox 1958)}; that is, neither $Y_i(1)$ nor $Y_i(0)$ is affected by what action any other unit received. Second, it assumes that \emph{there are no hidden versions of treatments}; no matter how unit $i$ received treatment $1$, the outcome that would be observed would be $Y_i(1)$ and similarly for treatment $0$.
+\end{blockquote}
+
+The added emphasis is ours. In the next section, we offer formal criteria that correspond to these two statements.

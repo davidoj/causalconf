@@ -1,8 +1,0 @@
-PWD /home/davidj/Code/Papers/Causal_inference_conference
-INPUT /etc/texmf/web2c/texmf.cnf
-INPUT /usr/share/texmf/web2c/texmf.cnf
-INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
-INPUT /var/lib/texmf/web2c/xetex/xelatex.fmt
-INPUT appendix_bucket.tex
-OUTPUT appendix_bucket.log
-OUTPUT appendix_bucket.xdv
