@@ -8,9 +8,9 @@ The question becomes more interesting when we propose conditional probability mo
 
 \subsection{Repeatable experiments}
 
-We have a conditional probability model $\prob{P}_\square^{\overline{\RV{Y}_A|\RV{D}_A}}$ with choices $A$ that represents a sequential experiment. What might we mean when we say this experiment is repeatable? We're going to propose two conditions. The first condition is \emph{commutativity of exchange}, which is the assumption that swapping the choices that we apply at each step and then applying the corresponding inverse swap to consequences leaves the model unchanged. The second condition is \emph{no interference} -- if we perform the whole experiment multiple times, making the same choice $\RV{D}_i$ at any point $i$ gets the same results, regardless of what other choices are made.
+We have a conditional probability model $\prob{P}_\square^{\overline{\RV{Y}_A|\RV{D}_A}}$ with choices $A$ that represents a sequential experiment. What might we mean when we say this experiment is repeatable? We're going to propose two conditions. The first condition is \emph{commutativity of exchange}, which is the assumption that swapping the choices that we apply at each step and then applying the corresponding inverse swap to consequences leaves the model unchanged. The second condition is \emph{commutativity of marginalisation} -- if we perform the whole experiment multiple times, making the same choice $\RV{D}_i$ at any point $i$ gets the same results, regardless of what other choices are made.
 
-Commutativity of exchange is similar to the condition of \emph{post-treatment exchangeability} found in \citet{dawid_decision-theoretic_2020}, and no interference is similar to the stable unit treatment distribution assumption (SUTDA) in the same, as well as the ``no interference'' part of the stable unit treatment value assumption (SUTVA) with which it shares a name. Commutativity of exchange is also very similar to the exchangeability assumption of \citet{greenland_identifiability_1986} for further discussions of exchangeability in the context of causal modelling, and note that both authors consider exchanging to be an operation that alters which person receives which treatment. The assumption of exchangeability found in \citet{banerjee_chapter_2017} can also be regarded as similar to commutativity of exchange.
+Commutativity of exchange is similar to the condition of \emph{post-treatment exchangeability} found in \citet{dawid_decision-theoretic_2020}, and commutativity of marginalisation is similar to the stable unit treatment distribution assumption (SUTDA) in the same, as well as the ``no interference'' part of the stable unit treatment value assumption (SUTVA) with which it shares a name. Commutativity of exchange is also very similar to the exchangeability assumption of \citet{greenland_identifiability_1986} for further discussions of exchangeability in the context of causal modelling, and note that both authors consider exchanging to be an operation that alters which person receives which treatment. The assumption of exchangeability found in \citet{banerjee_chapter_2017} can also be regarded as similar to commutativity of exchange.
 
 \todo[inline]{Not sure if or where I want to put this, I just think it helps to illustrate the difference}
 
@@ -29,6 +29,8 @@ Commutativity of exchange (swapping choices $\sim$ swapping labels):
 \begin{align}
     \tikzfig{commutativity of exchange}
 \end{align}
+
+Commutativity of exchange is a property of probability gap models, not a property of fixed probability model for which there is no analogue of ``attaching a different choice'' in that case.
 
 \todo[inline]{----}
 
@@ -93,39 +95,65 @@ Given $M\subset \mathbb{N}$ a finite permutation $\rho:M\to M$ and a variable $\
 \begin{definition}[Commutativity of exchange]\label{def:caus_exch}
 Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},A)$ with $\RV{Y}=\RV{Y}_M$, $\RV{D}=\RV{D}_M$, $M\subseteq \mathbb{N}$. If, for any two decision rules $\alpha^{\overline{\RV{D}}},\beta^{\overline{\RV{D}}} \in A$,
 \begin{align}
-    \alpha^{\RV{D}}\text{swap}_{\rho(\RV{D})} &= \beta^{\RV{D}}\\
-    \implies  \prob{P}_\alpha\text{swap}_{\rho(\RV{D}\times \RV{Y})}&=\prob{P}_\beta
+    \alpha^{\RV{D}}\odot \text{swap}_{\rho(\RV{D})} \prob{P}_{\square}^{\RV{Y}|\RV{D}} &= \alpha^{\RV{D}}\odot \prob{P}_{\square}^{\RV{Y}|\RV{D}}\text{swap}_{\rho(\RV{D}\times \RV{Y})}
 \end{align}
 Then $\prob{P}_\square$ \emph{commutes with exchanges}.
 \end{definition}
 
 A do model is non interfering if it gives identical results for identical subsequences of different choices when we limit our attention to the corresponding subsequences of consequences. For example, if we have $\RV{D}=(\RV{D}_1,\RV{D}_2,\RV{D}_3)$ and $\RV{Y}=(\RV{Y}_1,\RV{Y}_2,\RV{Y}_3)$ and $\alpha^{\RV{D}_1\RV{D}_3}=\prob{P}_\beta^{\RV{D}_1\RV{D}_3}$ then $\prob{P}_{\alpha}^{\RV{Y}_1\RV{D}_1\RV{Y}_3\RV{D}_3}=\prob{P}_\beta^{\RV{Y}_1\RV{D}_1\RV{Y}_3\RV{D}_3}$.
 
-\begin{definition}[Non interference]\label{def:caus_cont}
-Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. For any $A=(s_i)_{i\in A}$, $T=(t_i)_{i\in A}$, $A\subset\mathbb{N}$ and $i<j\implies p_i<p_j \And q_i<q_j$, let $\RV{D}_S:=(\RV{D}_i)_{i\in S}$ and $\RV{D}_T:=(\RV{D}_i)_{i\in T}$. If for any $\alpha,\beta\in R$
+\begin{definition}[Commutativity of marginalisation]\label{def:caus_cont}
+Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},A)$ with $\RV{Y}=\RV{Y}_M$, $\RV{D}=\RV{D}_M$, $M\subseteq \mathbb{N}$. For any $S=(s_i)_{i\in Q}$, $Q\subset M$, and $i<j\implies p_i<p_j \And q_i<q_j$, let $\RV{D}_S:=(\RV{D}_i)_{i\in S}$ and $\RV{D}_T:=(\RV{D}_i)_{i\in T}$. If for any $\alpha,\beta\in R$
 \begin{align}
-    \prob{P}_\alpha^{\RV{D}_{S}}=\prob{P}_\beta^{\RV{D}_{T}}\implies \prob{P}_\alpha^{(\RV{D_i,Y_i})_{i\in S}}=\prob{P}_\beta^{(\RV{D_i,Y_i})_{i\in T}}
+    \prob{P}_\alpha^{\RV{D}_{S}}&=\prob{P}_\beta^{\RV{D}_{S}}\\
+    \implies \prob{P}_\alpha^{(\RV{D_i,Y_i})_{i\in S}}&=\prob{P}_\beta^{(\RV{D_i,Y_i})_{i\in S}}
 \end{align}
-then $\prob{P}$ is \emph{causally contractible}.
+then $\prob{P}_\square$ \emph{commutes with marginalisation}.
 \end{definition}
 
-Commutativity of exchange does not imply causal contractibility. For example, suppose $|D|=2$, $D=Y=\{0,1\}$ and we have a do-model $\prob{P}$ such that for all $\alpha\in R$
+Neither condition implies the other. 
+\begin{lemma}
+Commutativity of exchange does not imply causal contractibility or vise versa.
+\end{lemma}
+
+\begin{proof}
+Suppose $D=Y=\{0,1\}$ and we have a conditional probability model $(\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}},A)$ where $\RV{D}=(\RV{D}_1,\RV{D}_2)$, $\RV{Y}=(\RV{Y}_1,\RV{Y}_2)$ and A contains all deterministic probability measures in $\Delta(D^2)$. If
 
 \begin{align}
-    \prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(y_1,y_2|d_1,d_2) &= \llbracket (y_1,y_2)= (d_1+d_2,d_1+d_2) \rrbracket
+    \prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(y_1,y_2|d_1,d_2) &= \llbracket (y_1,y_2)= (d_1+d_2,d_1+d_2) \rrbracket
 \end{align}
 
-Then $\prob{P}_{00}^{\RV{Y}_1}(y_1) = \llbracket y_1=0\rrbracket$ while $\prob{P}_{01}^{\RV{Y}_1} = \llbracket y_1=1 \rrbracket$, so $\prob{P}$ is not piecewise replicable. However, taking $(d_i,d_j)$ to be the decision function that deterministically chooses $(d_i,d_j)$,
+Then $\prob{P}_{\delta_{00}}^{\RV{Y}_1\RV{D}_1}(y_1) = \llbracket y_1=0\rrbracket$ while $\prob{P}_{\delta_{01}}^{\RV{Y}_1} = \llbracket y_1=1 \rrbracket$. However, $\delta_00^{\RV{D}_1}=\delta_{01}^{\RV{D}_1}=\delta_0^{\RV{D}_1}$ so $\prob{P}_\square$ does not commute with marginalisation. However, taking $(d_i,d_j):=\delta_{d_i d_j}\in A$,
 
 \begin{align}
-    \prob{P}_{d_2,d_1}^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(y_1,y_2) &= \llbracket (y_1,y_2)= (d_2+d_1,d_2+d_1) \rrbracket\\
+    \prob{P}_{d_2,d_1}^{\RV{Y}_1\RV{D}_1\RV{Y}_2\RV{D}_2}(y_1,d_1,y_2,d_2) &= \llbracket (y_1,y_2)= (d_2+d_1,d_2+d_1) \rrbracket\\
     &= \llbracket (y_2,y_1)= (d_1+d_2,d_1+d_2) \rrbracket\\
-    &= \prob{P}_{d_1,d_2}^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(y_2,y_1)
+    &= \prob{P}_{d_1,d_2}^{\RV{Y}_1\RV{D}_1\RV{Y}_2\RV{D}_2}(y_2,d_2,y_1,d_1)
 \end{align}
 
-so $\prob{P}$ commutes with exchange.
+so $\prob{P}_\square$ commutes with exchange.
 
-There is a representation theorem for models that commute with exchange which implies that for $\prob{P}$ that commutes with exchange, $\RV{Y}_i\CI_{\prob{P}}(\RV{D}_j,\RV{Y}_j)_{j\in \mathbb{N}}\setminus \{i\}|\RV{H}\RV{D}_i$, where $\RV{H}$ is a symmetric function of $(\RV{Y}_i,\RV{D}_i)_{i\in\mathbb{N}}$.
+Alternativly, suppose the same setup, but define $\prob{P}_\square$ instead by, for all $\alpha\in A$
+
+\begin{align}
+    \prob{P}_\square{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(y_1,y_2|d_1,d_2) &= \llbracket (y_1,y_2)= (0,1) \rrbracket
+\end{align}
+
+Then $\prob{P}_\square$ commutes with marginalisation. If $\prob{P}_\alpha^{\RV{D}_S}=\prob{P}_\beta^{\RV{D}_S}$ for $S\subset\{0,1\}$ then
+
+\begin{align}
+    \prob{P}_{\alpha}^{\RV{Y}_S\RV{D}_S}(y_s,d_s) &= \sum_{y'_2\in \{0,1\}^{S^C}} \llbracket (y_1,y_2)= (0,1) \rrbracket\prob{P}_\alpha^{\RV{D}_S}(d_s) \\
+                                                  &= \prob{P}_{\beta}^{\RV{Y}_S\RV{D}_S}(y_s,d_s)
+\end{align}
+but not exchange. For all $\alpha,\beta \in A$:
+
+\begin{align}
+    \prob{P}_\alpha{\RV{Y}_1\RV{Y}_2}(y_1,y_2) &= \llbracket (y_1,y_2)= (0,1) \rrbracket\\
+    &\neq \prob{P}_\beta{\RV{Y}_1\RV{Y}_2}(y_2,y_1)
+\end{align}
+\end{proof}
+
+
 
 % \begin{proposition}[Representation of do-models that commute with exchange]
 % Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$ where $\prob{P}$ commutes with exchange and there is some $\alpha^*\in R$ such that $\prob{P}^{\alpha^*}\gg\prob{P}_\beta$ for all $\beta in R$. Then there exists a symmetric function $\RV{H}:(Y\times D)^\mathbb{N}\to H$ such that  $\prob{P}^{\RV{Y}|\RV{DH}}$ exists and $\RV{Y}_i\CI_{\prob{P}}(\RV{D}_j,\RV{Y}_j)_{j\in \mathbb{N}}\setminus \{i\}|\RV{H}\RV{D}_i$, or equivalently 
@@ -159,52 +187,25 @@ There is a representation theorem for models that commute with exchange which im
 % The proof that the limit exists and the above equality holds can again be found int \citep{kallenberg_basic_2005}.
 % \end{proof}
 
-\subsection{Representations of contractible probability models}
+\subsection{When does a canonical ``effect of a decision'' exist?}
 
-We prove two representation theorems for causally contractible do models. Theorem \ref{th:table_rep} shows that a do model is contractible if and only if it can be represented with a contractible probability distribution over a ``table of variables''\todo{matrix of variables?} and a lookup function. This is interesting in its own right, as tabular probability distributions and lookup functions are core elements of the potential outcomes approach. However, as we will point out, this lookup table may or may not support an interpretation as a table of potential outcomes. Furthermore, we make use of this theorem in proving Theorem \ref{th:iid_rep}, which shows a do model is contractible if and only if it can be represented by independent copies of a unit level consequence map jointly parametrised by a hypothesis. We will argue in the next section that jointly parametrised consequence maps are fundamental to all approaches to causal inference.
+The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ commutes with both exchange and marginalisation if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. This can be interpreted as expressing the idea that all experimental units $(\RV{Y}_i,\RV{D}_i)$ share a canonical but unknown $\RV{Y}_i|\RV{D}_i$ conditional probability. As discussed already in Section \ref{sec:curry}, the existence of such a conditional probability implies the existence of a common unknown \emph{curried} conditional probability for all experimental units, which resembles a potential outcomes model.
 
-\begin{definition}[Contractible probability distribution]
-Given a fundamental probability set $\Omega$, variable $\RV{X}:=(\RV{X}_i)_{i\in \mathbb{N}}$ and a probability distribution $\prob{P}^{\RV{X}}\in\Delta(X^{\mathbb{N}})$, any $S=(s_i)_{i\in A}$, $T=(t_i)_{i\in A}$ with $A\subset\mathbb{N}$ and $i<j\implies s_i<s_j \land t_i<t_j$, let $\RV{X}_S:=(\RV{X}_i)_{i\in S}$ and $\RV{X}_T:=(\RV{X}_i)_{i\in T}$. If
+We also show that a compact curried representation of models that commute with marginalisation is possible in Lemma \ref{th:table_rep}. Such a representation is reminiscent of a generalised potential outcomes model in which experimental units each have their own distribution over potential outcomes.
+
+\begin{Lemma}[Table representation]\label{th:table_rep}
+Suppose we have a conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. $\prob{P}_\square$ commutes with marginalisation if and only if 
 \begin{align}
-    \prob{P}^{\RV{X}_S} &= \prob{P}^{\RV{X}_T}
-\end{align}
- $\prob{P}$ is contractible.
-\end{definition}
-
-If we have a do model $\prob{P}$ that is causally contractible, we can represent it as an exchangeable probability distribution and a lookup function.
-
-\todo[inline]{The following can be deduced from the theorems after it, but I thought it might be helpful to have the explanation.}
-
-That is, we can define a variable $\RV{Y}^D:\Omega\to Y^{D\times\mathbb{N}}$ which can be represented as a matrix of variables $\RV{Y}_{ij}$
-
-\begin{align}
-    \RV{Y}^D &= \tikzfig{Y_table_representation}
-\end{align}
-
-and, given any deterministic decision function $\delta_d$, $d=(d_i)_{i\in\mathbb{N}}\in D^{\mathbb{N}}$, we can find $\prob{P}^{\RV{Y}|\RV{D}}$ by ``looking up'' $d$ in the table. For example, if $d=(1,2,3,2,...)$, Equation \ref{eq:table_lookup_example} illustrates the idea of ``looking up'' the relevant elements of $\RV{Y}^D$ and Equation \ref{eq:table_lookup_cons} illustrates the resulting value of $\prob{P}^{\RV{Y}|\RV{D}}$.
-
-\begin{align}
-    \tikzfig{Y_table_lookup}\label{eq:table_lookup_example}\\
-    \prob{P}^{\RV{Y}|\RV{D}}(y|(1,2,3,2,...)) = \prob{P}^{\RV{Y}_11\RV{Y}_22\RV{Y}_{33}\RV{Y}_{24}...}(y)\label{eq:table_lookup_cons}
-\end{align}
-
-The contractibility of $\prob{P}^{\RV{Y}^D}$ means that any two subcollections of columns of the same size are equal in distribution, and the exchangeability of $\prob{P}^{\RV{Y}^D}$ means that the random variable obtained by permuting its columns is also equal in distribution to $\RV{Y}^D$.
-
-This representation is very similar to the potential outcomes representation of causal models, with two points of friction. Firstly, we used the assumption of contractibility to derive the contractible table representation, and so we make no claims about what kind of do-model is represented by a non-contractible table lookup. Secondly, we do not yet include any notion of observations, which is a key element of potential outcomes models.
-
-\begin{theorem}[Table representation of causally contractible do models]\label{th:table_rep}
-Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. $\prob{P}$ is causally contractible if and only if 
-\begin{align}
-    \prob{P}^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
+    \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
     &\iff\\
-    \prob{P}^{\RV{Y}|\RV{D}}(y|d) &= \prob{P}^{(\RV{Y}^D_{d_i i})_{\mathbb{N}}}(y)
+    \prob{P}_\square^{\RV{Y}|\RV{D}}(y|d) &= \prob{P}^{(\RV{Y}^D_{d_i i})_{\mathbb{N}}}(y)
 \end{align}
-Where $\prob{P}^{\RV{Y}^D}$ is a contractible probability measure on $Y^{D\times\mathbb{N}}$ with respect to the sequence $\RV{Y}^D:=(\RV{Y}_{ij}^D)_{i\in D,j\in \mathbb{N}}$ and $\prob{L}^{\RV{D},\RV{Y}^D}$ is the Markov kernel associated with the lookup function
+Where $\prob{P}^{\RV{Y}^D}$ is a probability measure on $Y^{D\times\mathbb{N}}$, and for convenience we extend the sample space with the random variable $\RV{Y}^D:=(\RV{Y}_{ij}^D)_{i\in D,j\in \mathbb{N}}$ and $\prob{L}^{\RV{D},\RV{Y}^D}$ is the Markov kernel associated with the lookup function
 \begin{align}
     l:D^\mathbb{N}\times Y^{D\times \mathbb{N}}&\to Y\\
     ((d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}})&\mapsto y_{d_i i}
 \end{align}
-\end{theorem}
+\end{Lemma}
 
 \begin{proof}
 Only if:
