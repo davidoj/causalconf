@@ -1,6 +1,40 @@
 %!TEX root = main.tex
 
+\todo[inline]{Figure out where to put this}
+\subsection{Decisions are deterministic}
+
+We can use probability gap models for many things. Maybe we want $\prob{P}_\alpha$ on Monday we do some work to figure out $\prob{P}_\square^{\RV{Y}|\RV{X}}$ and on Tuesday we were going to do a bit more to work out $\prob{P}_\alpha^{\RV{X}}$, but actually we found the answer to our question would be the same in any case. Whether or not we explicitly set it up, we've made use of a conditional probability model to come to this conclusion.
+
+However, we actually want to model decision problems. For a decision problem we compare different policies $\alpha$ and choose the best one according to some criterion. We choose decisions according to the policy we arrive at. Decisions can be represented by variables, but they have a very important property: they must be deterministic for any policy choice $\alpha$.
+
+\begin{definition}[Decision variable]
+Given a probability gap model $(\prob{P}_\square, A)$ on $\Omega$, a variable $\RV{D}$ is a \emph{decision variable} if there is some variable $\RV{R}$ which we call \emph{purely random} such that, for $\alpha\in A$, $\prob{P}_\alpha^{\RV{D}|\RV{R}}$ is deterministic.
+\end{definition}
+
+We don't attempt to define what a ``purely random'' variable is here.
+
+Because $\RV{D}$ is deterministic given $\RV{R}$, we have $\RV{Y}\CI_{\prob{P}_\square}\RV{R}|\RV{D}$, and so we can marginalise over $\RV{R}$ and talk about policies as if they address marginal probabilities over $\RV{D}$: $\prob{P}_\alpha^{\RV{D}}$.
+
+The reason we include this definition is that it constrains the measurement procedures that are allowed to be associated with decision variables. In particular, all such measurement procedures must, with probability 1, yield a function of the policy choice $\alpha$ and a purely random measurement procedure $\proc{R}$. In particular, this means that if I talk about a ``mixed policy'' $a\alpha+(1-a)\beta$ I mean: consult a purely random process and, if the result is consistent with $a$ act according to $\alpha$, while if the result is consistent with $(1-a)$ act according to $\beta$. This is what people usually mean when they talk about mixing policies, and we think this is important enough to bake into the theory rather than leave it as an implicit side constraint.
+
+This is quite important, because it helps us to distinguish between these two apparently similar situations:
+
+\begin{enumerate}
+    \item Some doctor is going to treat 49 (otherwise unknown) patients for lower back pain, then I will treat one patient for the same
+    \item I am preparing to treat 50 (otherwise unknown) patients for lower back pain
+\end{enumerate}
+
+In the second case, because decisions are deterministic, I don't learn anything about the patient when I treat them or not. In the first case, because the other doctor's decisions are uncertain from my point of view, their treatment decisions can inform me about the patient \emph{and} determine whether the patient takes the medicine or not.
+
+If we go ahead and set this up formally, we could use probability gap models for both; 
+
+In the first case, we know it is unwise to assume that the result of giving patient 50 treatment $x$ will be probabilistically the same as the results experienced by all previous patients who received $x$. On the other hand, in the second case, it seems reasonable to expect the result of giving treatment $x$ to patient 50 is, a priori, the same as giving treatment $x$ to any other patient. That is, causal contractibility seems plausible if we imagine ourselves in a situation of planning a sequence of treatments, but a rather similar assumption seems unwise if we imagine the treatments having already taken place.
+
+There is a subtle asymmetry between these situations: while ``patient $i$ receives treatment $x$'' is a sensible proposition for both situations, \emph{it corresponds to a different measurement procedure}.  
+
 \section{Conditional probabilities in sequential experiments}
+
+
 
 If we have a conditional probability model $\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}}$, then by definition there is a conditional probability $\prob{P}_\square^{\RV{Y}|\RV{D}}$ which has a curried representation. Our aim is to show when certain conditional probabilities exist with respect to a probability gap model, which in this case is a triviality.
 
@@ -11,6 +45,8 @@ The question becomes more interesting when we propose conditional probability mo
 We have a conditional probability model $\prob{P}_\square^{\overline{\RV{Y}_A|\RV{D}_A}}$ with choices $A$ that represents a sequential experiment. What might we mean when we say this experiment is repeatable? We're going to propose two conditions. The first condition is \emph{commutativity of exchange}, which is the assumption that swapping the choices that we apply at each step and then applying the corresponding inverse swap to consequences leaves the model unchanged. The second condition is \emph{commutativity of marginalisation} -- if we perform the whole experiment multiple times, making the same choice $\RV{D}_i$ at any point $i$ gets the same results, regardless of what other choices are made.
 
 Commutativity of exchange is similar to the condition of \emph{post-treatment exchangeability} found in \citet{dawid_decision-theoretic_2020}, and commutativity of marginalisation is similar to the stable unit treatment distribution assumption (SUTDA) in the same, as well as the ``no interference'' part of the stable unit treatment value assumption (SUTVA) with which it shares a name. Commutativity of exchange is also very similar to the exchangeability assumption of \citet{greenland_identifiability_1986} for further discussions of exchangeability in the context of causal modelling, and note that both authors consider exchanging to be an operation that alters which person receives which treatment. The assumption of exchangeability found in \citet{banerjee_chapter_2017} can also be regarded as similar to commutativity of exchange.
+
+\todo[inline]{I think the useful part is not that these ideas are conceptually new, but they have sharp definitions instead of }
 
 \todo[inline]{Not sure if or where I want to put this, I just think it helps to illustrate the difference}
 
@@ -32,7 +68,7 @@ Commutativity of exchange (swapping choices $\sim$ swapping labels):
 
 Commutativity of exchange is a property of probability gap models, not a property of fixed probability model for which there is no analogue of ``attaching a different choice'' in that case.
 
-\todo[inline]{----}
+\todo[inline]{----end not sure where to put------}
 
 
 % Another way to see where we are going is to consider graphical statements of our and De Finetti's result.
@@ -86,7 +122,7 @@ Commutativity of exchange is a property of probability gap models, not a propert
 % \end{align}
 % as desired.
 % \end{proof}
-More precisely, a probability comb ``commutes with exchange'' if applying any finite permutation to blind choices or separately applying the corresponding permuation to consequences each yields the same result. We can apply the exchange ``before'' multiplying by the conditional $\prob{P}_{\square}^{\RV{Y}|\RV{D}}$ or after it and we get the same result.
+More precisely, a conditional probability model ``commutes with exchange'' if applying any finite permutation to blind choices or separately applying the corresponding permuation to consequences each yields the same result. We can apply the exchange ``before'' multiplying by the conditional $\prob{P}_{\square}^{\RV{Y}|\RV{D}}$ or after it and we get the same result.
 
 \begin{definition}[Swap map]
 Given $M\subset \mathbb{N}$ a finite permutation $\rho:M\to M$ and a variable $\RV{X}:\Omega\to X^M$ such that $\RV{X}=(\RV{X}_i)_{i\in M}$, define the Markov kernel $\text{swap}_{\rho(\RV{X})}:X^M\kto X^M$ by $(d_i)_{i\in\mathbb{N}}\mapsto \delta_{(d_{\rho(i)})_{i\in\mathbb{N}}}$.
@@ -113,7 +149,7 @@ then $\prob{P}_\square$ \emph{commutes with marginalisation}.
 
 Neither condition implies the other. 
 \begin{lemma}
-Commutativity of exchange does not imply causal contractibility or vise versa.
+Commutativity of exchange does not imply commutativity or vise versa.
 \end{lemma}
 
 \begin{proof}
@@ -133,7 +169,7 @@ Then $\prob{P}_{\delta_{00}}^{\RV{Y}_1\RV{D}_1}(y_1) = \llbracket y_1=0\rrbracke
 
 so $\prob{P}_\square$ commutes with exchange.
 
-Alternativly, suppose the same setup, but define $\prob{P}_\square$ instead by, for all $\alpha\in A$
+Alternatively, suppose the same setup, but define $\prob{P}_\square$ instead by, for all $\alpha\in A$
 
 \begin{align}
     \prob{P}_\square{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(y_1,y_2|d_1,d_2) &= \llbracket (y_1,y_2)= (0,1) \rrbracket
@@ -153,7 +189,17 @@ but not exchange. For all $\alpha,\beta \in A$:
 \end{align}
 \end{proof}
 
+Although commutativity of marginalisation seems to be a bit like non-interference -- the marginal distribution I get for $\RV{Y}_i$ depends only on the decision $\RV{D}_i$ -- it still allows for some models in which we seem to have interference of a kind. For example: in the first experiment I flip a coin and decide either to pass the results to the second experiment ($\RV{D}_1=0$) or flip another coin and pass those results second experiment ($\RV{D}_1=1$). In the second I either copy the results I have been given ($\RV{D}_2=0$) or invert them ($\RV{D}_2=1$). Then
+\begin{itemize}
+    \item The marginal distribution of both experiments is $\text{Bernoulli}(0.5)$ no matter what choices I make, so it satisfies Definition \ref{def:caus_cont}
+    \item Nevertheless, the choice for the first experiment seems to ``affect'' the result of the second experiment (affect in quotes because it is an intuitive judgement, not a formal property)
+\end{itemize}
 
+Here we are most interested in the conjunction of these assumptions, a condition we call \emph{causal contractibility}
+
+\begin{definition}[Causal contractibility]
+A conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},A)$ is causally contractible if it is both commutative with exchange and commutative with marginalisation.
+\end{definition}
 
 % \begin{proposition}[Representation of do-models that commute with exchange]
 % Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$ where $\prob{P}$ commutes with exchange and there is some $\alpha^*\in R$ such that $\prob{P}^{\alpha^*}\gg\prob{P}_\beta$ for all $\beta in R$. Then there exists a symmetric function $\RV{H}:(Y\times D)^\mathbb{N}\to H$ such that  $\prob{P}^{\RV{Y}|\RV{DH}}$ exists and $\RV{Y}_i\CI_{\prob{P}}(\RV{D}_j,\RV{Y}_j)_{j\in \mathbb{N}}\setminus \{i\}|\RV{H}\RV{D}_i$, or equivalently 
@@ -189,18 +235,16 @@ but not exchange. For all $\alpha,\beta \in A$:
 
 \subsection{When does a canonical ``effect of a decision'' exist?}
 
-The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ commutes with both exchange and marginalisation if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. This can be interpreted as expressing the idea that all experimental units $(\RV{Y}_i,\RV{D}_i)$ share a canonical but unknown $\RV{Y}_i|\RV{D}_i$ conditional probability. As discussed already in Section \ref{sec:curry}, the existence of such a conditional probability implies the existence of a common unknown \emph{curried} conditional probability for all experimental units, which resembles a potential outcomes model.
+The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. This can be interpreted as expressing the idea that all experimental units $(\RV{Y}_i,\RV{D}_i)$ share a canonical but unknown ``consequence function'' $D\kto Y$. As discussed already in Section \ref{sec:curry}, the existence of such a conditional probability implies the existence of a common unknown \emph{curried} conditional probability for all experimental units, which resembles a potential outcomes model. In fact, we prove the existence of a curried representation first, in Lemma \ref{th:table_rep}.
 
-We also show that a compact curried representation of models that commute with marginalisation is possible in Lemma \ref{th:table_rep}. Such a representation is reminiscent of a generalised potential outcomes model in which experimental units each have their own distribution over potential outcomes.
-
-\begin{Lemma}[Table representation]\label{th:table_rep}
-Suppose we have a conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. $\prob{P}_\square$ commutes with marginalisation if and only if 
+\begin{Lemma}[Exchangeable curried representation]\label{th:table_rep}
+A conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_\square$ is causally contractible if and only if
 \begin{align}
     \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
     &\iff\\
     \prob{P}_\square^{\RV{Y}|\RV{D}}(y|d) &= \prob{P}^{(\RV{Y}^D_{d_i i})_{\mathbb{N}}}(y)
 \end{align}
-Where $\prob{P}^{\RV{Y}^D}$ is a probability measure on $Y^{D\times\mathbb{N}}$, and for convenience we extend the sample space with the random variable $\RV{Y}^D:=(\RV{Y}_{ij}^D)_{i\in D,j\in \mathbb{N}}$ and $\prob{L}^{\RV{D},\RV{Y}^D}$ is the Markov kernel associated with the lookup function
+Where $\prob{P}^{\RV{Y}^D}$ is an exchangeable probability measure on $Y^{D\times\mathbb{N}}$, for convenience we extend the sample space with the random variable $\RV{Y}^D:=(\RV{Y}_{ij}^D)_{i\in D,j\in \mathbb{N}}$ and $\prob{L}^{\RV{D},\RV{Y}^D}$ is the Markov kernel associated with the lookup function
 \begin{align}
     l:D^\mathbb{N}\times Y^{D\times \mathbb{N}}&\to Y\\
     ((d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}})&\mapsto y_{d_i i}
@@ -278,39 +322,11 @@ By definition,
 \end{align}
 \end{proof}
 
-Note that in some versions of potential outcomes, for example \citet{rubin_causal_2005}, potential outcomes are defined as table-and-lookup models, except without the assumption that the probability distribution over the table is contractible. Our argument for a potential outcomes representation does not go through in this case, because it hinges on the fact that we can ``wrap'' the outcomes under a particular blind decision into a table, and then use contractibility to choose one outcome from each column, however using contractibility also gives us exchangeability of the columns.
+The curried representation of Lemma \ref{th:table_rep} does not need to support an interpretation as a distribution of potential outcomes. For example, consider a series of bets on fair coinflips -- in this case, the consequence $\RV{Y}_i$ is uniform on $\{0,1\}$ for any decision $\RV{D}_i$. Tha $D=Y=\{0,1\}$ and $\prob{P}_\alpha^{\RV{Y}_n}(y)=\prod_{i\in [n]} 0.5$ for all $n$, $y\in Y^n$, $\alpha\in R$. Then the construction in Lemma \ref{th:table_rep} yields $\prob{P}^{Y^D_i}(y^D_i)=\prod_{j\in D} 0.5$ for all $y^D_i\in Y^D$. That is, $\RV{Y}^0_i$ and $\RV{Y}^1_i$ are independent and uniformly distributed. However, if we wanted $\RV{Y}^0_i$ to represent ``what would happen if I bet on outcome 0 on turn $i$'' and $\RV{Y}^1$ to represent ``what would happen if I bet on outcome 1 on turn $i$'', then it seems that we ought to have $\RV{Y}^0_i = 1-\RV{Y}^1_i$. 
 
-It is also worth noting that the lookup table does not need to have an interpretation as a collection of potential outcomes. For example, consider a series of bets on fair coinflips -- in this case, the consequence $\RV{Y}_i$ is uniform on $\{0,1\}$ for any decision $\RV{D}_i$. Tha $D=Y=\{0,1\}$ and $\prob{P}_\alpha^{\RV{Y}_n}(y)=\prod_{i\in [n]} 0.5$ for all $n$, $y\in Y^n$, $\alpha\in R$. Then the construction in Theorem \ref{th:table_rep} yields $\prob{P}^{Y^D_i}(y^D_i)=\prod_{j\in D} 0.5$ for all $y^D_i\in Y^D$. That is, $\RV{Y}^0_i$ and $\RV{Y}^1_i$ are independent and uniformly distributed. However, if we wanted $\RV{Y}^0_i$ to represent ``what would happen if I bet 0 on turn $i$'' and $\RV{Y}^1$ to represent ``what would happen if I bet 1 on turn $i$'', then we actually want $\RV{Y}^0_i = 1-\RV{Y}^1_i$. Thus the measurement table lookup is formally similar to the potential outcomes setup, but potential outcomes attributes additional semantics to the entries in the lookup table which can impose extra requirements on their distribution.
+We could suppose that Lemma \ref{th:table_rep} provides necessary but not sufficient conditions for the existence of a potential outcomes representation of a conditional probability model. However, it doesn't seem to succeed at that either. We note, for example, that \citet{rubin_causal_2005} does not assume that the distribution of potential outcomes is exchangeable. A non-exchangeable $\prob{P}^{\RV{Y}^D}$ does not induce a causally contractible conditional probability model, and at the same time commutativity with marginalisation is not sufficient for a conditional probability model to support a curried representation in the sense of Lemma \ref{th:table_rep}. What seems to be missing is an additional assumption that consequences are mutually independent of one another given the associated decision. 
 
-Theorem \ref{th:contractibility_commutativity} establishes a claim made earlier: that contractibility is strictly stronger than commutativity of exchange.
-
-\begin{theorem}\label{th:contractibility_commutativity}
-Causal contractibility implies commutativity of exchange.
-\end{theorem}
-
-\begin{proof}
-Given a finite permutation $\rho:\mathbb{N}\to\mathbb{N}$ and any sequence $x:=(x_i)_{i\in \mathbb{N}}$ let $\rho(x)=(x_{\rho(i)})_{i\in\mathbb{N}}$ or equivalently $(x_{i})_{i\in\rho(\mathbb{N})}$. Then for any $d=(d_{i})_{i\in\mathbb{N}}$ and $y^D:=(y_{ij})_{i\in D,j\in \mathbb{N}}$:
-
-\begin{align}
-    l(\rho(d),y^D) &= (y_{d_{\rho(i)} i})_{i\in\mathbb{N}}\\
-                 &= (y_{d_i \rho^{-1}(i)})_{i\in \rho(\mathbb{N})}\\
-                 &= \rho(l(d,\rho^{-1}(y^D)))
-\end{align}
-
-Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ with $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$ and $\prob{P}$ causally contractible. Then
-\begin{align}
-    \prob{P}^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
-\end{align}
-For contractible $\prob{P}^{\RV{Y}^D}$. Therefore $\prob{P}^{\RV{Y}^D}$ is also exchangeable \citet{kallenberg_basic_2005}. But then, given a decision function $d$ and a finite permutation $\rho:\mathbb{N}\to \mathbb{N}$
-\begin{align}
-    \prob{P}_{\rho(d)}^{\RV{Y}}(y) &= \sum_{y^{\prime D}\in Y^{D\times \mathbb{N}}} \llbracket l_{DY}(\rho(d),y^{\prime D}) = y \rrbracket \prob{P}^{\RV{Y}^D}(y^{\prime D})\\
-                                &= \sum_{y^{\prime D}\in Y^{D\times \mathbb{N}}} \llbracket l_{DY}(d,\rho^{-1}(y^{\prime D})) = \rho^{-1}(y) \rrbracket \prob{P}^{\RV{Y}^D}(y^{\prime D})\\
-                                &= \sum_{y^{\prime D}\in Y^{D\times \mathbb{N}}} \llbracket l_{DY}(d,\rho^{-1}(y^{\prime D})) = \rho^{-1}(y) \rrbracket \prob{P}^{\RV{Y}^D}(\rho^{-1}(y^{\prime D}))\\
-                                &= \prob{P}_{\rho(d)}^{\RV{Y}}(\rho^{-1}(y))
-\end{align}
-\end{proof}
-
-We can also represent contractible do-models as a Markov kernels that map from decisions to probability distributions over consequences copied $\mathbb{N}$ times and jointly parametrised by a hypothesis $\RV{H}$. 
+We can also represent contractible conditional probability models repeated copies of an unknown ``consequence function'', a Markov kernel that maps from decisions to probability distributions over consequences, coupled by a common hypothesis $\RV{H}$. 
 
 \begin{theorem}\label{th:iid_rep}
 Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. $\prob{P}$ is causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exists for all $i\in \mathbb{N}$ and
@@ -323,52 +339,6 @@ Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P}
 \end{theorem}
 
 \begin{proof}
-If:
-By the assumptions of independence and identical conditionals, for any deterministic decision functions $d,d'\in D$ with equal subsequences $d_S=d'_T$
-\begin{align}
-    \prob{P}_d^{\RV{Y}_S|\RV{H}\RV{D}}(y|d) &= \int_H\prod_{i\in S}\prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0}(y_i|h,d_i)d\prob{P}^{\RV{H}}(h)\\
-                                          &= \int_{H}\prod_{i\in T}\prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0}(y_i|h,d'_i)d\prob{P}^{\RV{H}}(h) & \text{by equality of subsequences}\\
-                                          &= \prob{P}_{d'}^{\RV{Y}_T|\RV{H}\RV{D}}(y|d)
-\end{align}
-
-Only if:
-We have
-\begin{align}
-    \prob{P}^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
-\end{align}
-
-Also, by contractibility of $\prob{P}^{\RV{Y}^D}$ and De Finetti's theorem, there is some $\RV{H}$ such that
-
-\begin{align}
-    \prob{P}^{\RV{Y}^\RV{D}} &= \tikzfig{de_finetti_potential_outcomes}
-\end{align}
-
-In particular, let $\RV{Y}^D_{\cdot i}:=(\RV{Y}^D_{ji})_{j\in D}$ and $\RV{Y}^D_{\cdot \{i\}^C} = (\RV{Y}^D_{jk})_{j\in D, k\in \mathbb{N}\setminus \{i\}}$, and
-
-\begin{align}
-    &\RV{Y}^D_{\cdot i} \CI_{\prob{P}} \RV{Y}^D_{\cdot \{i\}^C} |\RV{H} & \text{ representation theorem}\label{eq:pci_1}\\
-    &\RV{Y}^D\RV{H} \CI_{\prob{P}} \RV{D} &\text{ by Theorem \ref{th:cons_ci} and existence of }\prob{P}^{\RV{Y}^D\RV{H}}\label{eq:pci_2}\\
-    &\RV{Y}^D_{\cdot i}\CI_{\prob{P}} \RV{D} |\RV{Y}^D_{\cdot \{i\}^C}\RV{H}&\text{ weak union on Eq. }\ref{eq:pci_2}\\
-    &\RV{Y}^D_{\cdot i}\CI_{\prob{P}} \RV{D}\RV{Y}^D_{\cdot \{i\}^C} |\RV{H}&\text{ contraction on Eqs. \ref{eq:pci_1} and \ref{eq:pci_2}}\label{eq:pci_4}\\
-    &\RV{Y}^D_{\cdot i}\CI_{\prob{P}} \RV{D}_{\{i\}^C}\RV{Y}^D_{\cdot \{i\}^C} |\RV{H}\RV{D}_i&\text{ weak union on Eq. \ref{eq:pci_4}}\label{eq:pci_5}\\
-    &\RV{D}_{i} \CI_{\prob{P}}\RV{Y}^D_{\cdot \{i\}^C} \RV{D}_{\{i\}^C} |\RV{H}\RV{D}_i \RV{Y}^D_{\cdot i}&\text{ due to conditioning on }\RV{D}_i\label{eq:pci_6}\\
-    &\RV{Y}^D_{i}\RV{D}_i \CI_{\prob{P}} \RV{D}_{\{i\}^C}\RV{Y}^D_{\cdot \{i\}^C} |\RV{H}\RV{D}_i&\text{ contraction on Eqs. \ref{eq:pci_5} and \ref{eq:pci_6}}\label{eq:pci_7}\\
-\end{align}
-
-Now, note that $(\RV{Y}_i,\RV{D}_i)$ is a deterministic function of $(\RV{Y}^D_{i},\RV{D}_i)$ and $(\RV{Y}_{\{i\}^C},\RV{D}_{\{i\}^C})$ is a deterministic function of $(\RV{Y}^D_{\{i\}^C},\RV{D}_{\{i\}^C})$. Therefore
-
-\begin{align}
-    &\RV{Y}_i \CI_{\prob{P}} \RV{D}_{\{i\}^C}\RV{Y}_{\{i\}^C} |\RV{H}\RV{D}_i&
-\end{align}
-
-So, by Theorem \ref{th:cons_ci}, $\prob{P}^{\RV{Y}_i|\RV{HD}}$ exists and by contractibility of $\prob{P}^{\RV{Y}^D}$, for any $i,j\in\mathbb{N}$
-
-\begin{align}
-    \prob{P}^{\RV{Y}_i|\RV{HD_i}}(y_i|h,d_i) &= \prob{P}^{\RV{Y}^D_{d_i i}|\RV{H}}(y_i|h) \\
-    &= \prob{P}^{\RV{Y}^D_{d_i j}|\RV{H}}(y_i|h)\\
-    &= \prob{P}^{\RV{Y}_j|\RV{HD}_j}(y_i|h,d_i)
-\end{align}
+We make use of Lemma \ref{th:table_rep} to show that we can represent the conditional probability as an exchangeable tabular probability distribution. We then use the property of exchangeability of the columns of that distribution in conjunction with De Finetti's theorem to derive the result.
 \end{proof}
-
-\subsection{Potential outcomes}
 

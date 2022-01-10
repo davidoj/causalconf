@@ -391,3 +391,63 @@ and we also have
     (\prob{P}_\alpha^{\RV{X}_{[n]_{\text{even}}}|\RV{X}_0} \odot\prob{P}_\square^{\RV{X}_{D_{\text{odd}}}\combbreak \RV{X}_{D_{\text{even}}}})(A\times B|x) &= 
 \end{align}
 \end{proof}
+
+\subsection{Representation of conditional probability models}
+
+\begin{reptheorem}{th:iid_rep}
+Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. $\prob{P}$ is causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exists for all $i\in \mathbb{N}$ and
+\begin{align}
+    \prob{P}^{\RV{Y}|\RV{H}\RV{D}} &= \tikzfig{do_model_representation}\\
+    &\iff\\
+    \RV{Y}_i&\CI_{\prob{P}} \RV{Y}_{\mathbb{N}\setminus i},\RV{D}_{\mathbb{N}\setminus i}|\RV{H}\RV{D}_i&\forall i\in \mathbb{N}\\
+    \land \prob{P}^{\RV{Y}_i|\RV{H}\RV{D}_i} &= \prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0} & \forall i\in \mathbb{N}
+\end{align}
+\end{reptheorem}
+
+\begin{proof}
+If:
+By the assumptions of independence and identical conditionals, for any deterministic decision functions $d,d'\in D$ with equal subsequences $d_S=d'_T$
+\begin{align}
+    \prob{P}_d^{\RV{Y}_S|\RV{H}\RV{D}}(y|d) &= \int_H\prod_{i\in S}\prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0}(y_i|h,d_i)d\prob{P}^{\RV{H}}(h)\\
+                                          &= \int_{H}\prod_{i\in T}\prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0}(y_i|h,d'_i)d\prob{P}^{\RV{H}}(h) & \text{by equality of subsequences}\\
+                                          &= \prob{P}_{d'}^{\RV{Y}_T|\RV{H}\RV{D}}(y|d)
+\end{align}
+
+Only if:
+We have
+\begin{align}
+    \prob{P}^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
+\end{align}
+
+Also, by contractibility of $\prob{P}^{\RV{Y}^D}$ and De Finetti's theorem, there is some $\RV{H}$ such that
+
+\begin{align}
+    \prob{P}^{\RV{Y}^\RV{D}} &= \tikzfig{de_finetti_potential_outcomes}
+\end{align}
+
+In particular, let $\RV{Y}^D_{\cdot i}:=(\RV{Y}^D_{ji})_{j\in D}$ and $\RV{Y}^D_{\cdot \{i\}^C} = (\RV{Y}^D_{jk})_{j\in D, k\in \mathbb{N}\setminus \{i\}}$, and
+
+\begin{align}
+    &\RV{Y}^D_{\cdot i} \CI_{\prob{P}} \RV{Y}^D_{\cdot \{i\}^C} |\RV{H} & \text{ representation theorem}\label{eq:pci_1}\\
+    &\RV{Y}^D\RV{H} \CI_{\prob{P}} \RV{D} &\text{ by Theorem \ref{th:cons_ci} and existence of }\prob{P}^{\RV{Y}^D\RV{H}}\label{eq:pci_2}\\
+    &\RV{Y}^D_{\cdot i}\CI_{\prob{P}} \RV{D} |\RV{Y}^D_{\cdot \{i\}^C}\RV{H}&\text{ weak union on Eq. }\ref{eq:pci_2}\\
+    &\RV{Y}^D_{\cdot i}\CI_{\prob{P}} \RV{D}\RV{Y}^D_{\cdot \{i\}^C} |\RV{H}&\text{ contraction on Eqs. \ref{eq:pci_1} and \ref{eq:pci_2}}\label{eq:pci_4}\\
+    &\RV{Y}^D_{\cdot i}\CI_{\prob{P}} \RV{D}_{\{i\}^C}\RV{Y}^D_{\cdot \{i\}^C} |\RV{H}\RV{D}_i&\text{ weak union on Eq. \ref{eq:pci_4}}\label{eq:pci_5}\\
+    &\RV{D}_{i} \CI_{\prob{P}}\RV{Y}^D_{\cdot \{i\}^C} \RV{D}_{\{i\}^C} |\RV{H}\RV{D}_i \RV{Y}^D_{\cdot i}&\text{ due to conditioning on }\RV{D}_i\label{eq:pci_6}\\
+    &\RV{Y}^D_{i}\RV{D}_i \CI_{\prob{P}} \RV{D}_{\{i\}^C}\RV{Y}^D_{\cdot \{i\}^C} |\RV{H}\RV{D}_i&\text{ contraction on Eqs. \ref{eq:pci_5} and \ref{eq:pci_6}}\label{eq:pci_7}\\
+\end{align}
+
+Now, note that $(\RV{Y}_i,\RV{D}_i)$ is a deterministic function of $(\RV{Y}^D_{i},\RV{D}_i)$ and $(\RV{Y}_{\{i\}^C},\RV{D}_{\{i\}^C})$ is a deterministic function of $(\RV{Y}^D_{\{i\}^C},\RV{D}_{\{i\}^C})$. Therefore
+
+\begin{align}
+    &\RV{Y}_i \CI_{\prob{P}} \RV{D}_{\{i\}^C}\RV{Y}_{\{i\}^C} |\RV{H}\RV{D}_i&
+\end{align}
+
+So, by Theorem \ref{th:cons_ci}, $\prob{P}^{\RV{Y}_i|\RV{HD}}$ exists and by contractibility of $\prob{P}^{\RV{Y}^D}$, for any $i,j\in\mathbb{N}$
+
+\begin{align}
+    \prob{P}^{\RV{Y}_i|\RV{HD_i}}(y_i|h,d_i) &= \prob{P}^{\RV{Y}^D_{d_i i}|\RV{H}}(y_i|h) \\
+    &= \prob{P}^{\RV{Y}^D_{d_i j}|\RV{H}}(y_i|h)\\
+    &= \prob{P}^{\RV{Y}_j|\RV{HD}_j}(y_i|h,d_i)
+\end{align}
+\end{proof}
