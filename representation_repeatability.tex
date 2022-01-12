@@ -6,7 +6,11 @@
 
 Causal Bayesian networks and potential outcomes employ different naming conventions to distinguish ``causal effects'' from ``simple correlations''. Causal Bayesian networks write $P(\RV{Y}|do(\RV{X}))$ and $P(\RV{Y}|\RV{X})$, while potential outcomes distinguishes $P(\RV{Y}|\RV{X})$ from $x\mapsto P(\RV{Y}^x)$. If we are not going to worry too much about details of interpretation, we can interpret the expression $P(\RV{Y}|\RV{X})$ as expressing something like this: there is an objective probability $P(\RV{Y},\RV{X})$ that describes a sequence of independent and identically distributed observations, and $P(\RV{Y}|\RV{X})$ is a disintegration of this probability. The existence of an objective probability $P(\RV{Y},\RV{X})$ can be justified by an assumption that the sequence of observations should be modeled exchangeably.
 
-The causal consequence $P(\RV{Y}|do(\RV{X}))$ or $x\mapsto P(\RV{Y}^x)$ is in a different position. Some options we have for understanding this expression:
+The causal consequence $P(\RV{Y}|do(\RV{X}))$ or $x\mapsto P(\RV{Y}^x)$ is in a slightly different position. Firstly, while \citet{dawid_decision-theoretic_2020} comes close, I'm not aware of an argument that a conditional probability model of sequential interventions with an appropriate symmetry implies the existence of an objective causal consequence like $P(\RV{Y}|do(\RV{X}))$. Secondly to the extent that $P(\RV{Y}|do(\RV{X}))$ describes the consequences of ``intervening'' on $\RV{X}$, we can ask what it has to say about the following two situations:
+
+
+
+Some options we have for understanding this expression:
 \begin{enumerate}
     \item $P(\RV{Y}|do(\RV{X}))$ is the function we ought to use when weighing up different interventions on $\RV{X}$
     \item $P(\RV{Y}|do(\RV{X}))$ is the function we obtain by applying the truncated factorisation rule to some objective probability $P$ and a causal graph $\mathcal{G}$
