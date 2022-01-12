@@ -1,0 +1,31 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Variables and Probability Models}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Section outline}{3}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Brief outline of probability gap models}{4}{subsubsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.2}Semantics of observed and unobserved variables}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Events}{8}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Standard probability theory}{8}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Probabilistic models for causal inference}{10}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Probability sets}{11}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Probability sets defined by marginal and conditional probabilities}{14}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}Probability gap models}{15}{subsection.2.8}%
+\contentsline {subsection}{\numberline {2.9}Example: invalidity}{16}{subsection.2.9}%
+\contentsline {subsubsection}{\numberline {2.9.1}Conditional independence}{16}{subsubsection.2.9.1}%
+\contentsline {subsection}{\numberline {2.10}Curried Markov kernels}{17}{subsection.2.10}%
+\contentsline {section}{\numberline {3}Decision theoretic causal inference}{19}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Decision problems}{19}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Decisions as measurement procedures}{21}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Causal models similar to see-do models}{21}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}See-do models and classical statistics}{22}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Conditional probabilities in sequential experiments}{24}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Repeatable experiments}{24}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}When does a canonical ``effect of a decision'' exist?}{27}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}In decison problems, policies are extreme}{30}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Extended conditional independence}{33}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Graphical properties of conditional independence}{36}{subsubsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.4}Results I use that don't really fit into the flow of the text}{36}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Repeated variables}{36}{subsubsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.5}Validity}{39}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Combs}{41}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Comb conditional correspondence}{43}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Representation of conditional probability models}{44}{subsection.4.8}%

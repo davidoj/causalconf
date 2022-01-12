@@ -1,38 +1,11 @@
 %!TEX root = main.tex
 
-\todo[inline]{Figure out where to put this}
-\subsection{Decisions are deterministic}
 
-We can use probability gap models for many things. Maybe we want $\prob{P}_\alpha$ on Monday we do some work to figure out $\prob{P}_\square^{\RV{Y}|\RV{X}}$ and on Tuesday we were going to do a bit more to work out $\prob{P}_\alpha^{\RV{X}}$, but actually we found the answer to our question would be the same in any case. Whether or not we explicitly set it up, we've made use of a conditional probability model to come to this conclusion.
 
-However, we actually want to model decision problems. For a decision problem we compare different policies $\alpha$ and choose the best one according to some criterion. We choose decisions according to the policy we arrive at. Decisions can be represented by variables, but they have a very important property: they must be deterministic for any policy choice $\alpha$.
+\section{Syntax and semantics of ``causal effects''}
 
-\begin{definition}[Decision variable]
-Given a probability gap model $(\prob{P}_\square, A)$ on $\Omega$, a variable $\RV{D}$ is a \emph{decision variable} if there is some variable $\RV{R}$ which we call \emph{purely random} such that, for $\alpha\in A$, $\prob{P}_\alpha^{\RV{D}|\RV{R}}$ is deterministic.
-\end{definition}
 
-We don't attempt to define what a ``purely random'' variable is here.
 
-Because $\RV{D}$ is deterministic given $\RV{R}$, we have $\RV{Y}\CI_{\prob{P}_\square}\RV{R}|\RV{D}$, and so we can marginalise over $\RV{R}$ and talk about policies as if they address marginal probabilities over $\RV{D}$: $\prob{P}_\alpha^{\RV{D}}$.
-
-The reason we include this definition is that it constrains the measurement procedures that are allowed to be associated with decision variables. In particular, all such measurement procedures must, with probability 1, yield a function of the policy choice $\alpha$ and a purely random measurement procedure $\proc{R}$. In particular, this means that if I talk about a ``mixed policy'' $a\alpha+(1-a)\beta$ I mean: consult a purely random process and, if the result is consistent with $a$ act according to $\alpha$, while if the result is consistent with $(1-a)$ act according to $\beta$. This is what people usually mean when they talk about mixing policies, and we think this is important enough to bake into the theory rather than leave it as an implicit side constraint.
-
-This is quite important, because it helps us to distinguish between these two apparently similar situations:
-
-\begin{enumerate}
-    \item Some doctor is going to treat 49 (otherwise unknown) patients for lower back pain, then I will treat one patient for the same
-    \item I am preparing to treat 50 (otherwise unknown) patients for lower back pain
-\end{enumerate}
-
-In the second case, because decisions are deterministic, I don't learn anything about the patient when I treat them or not. In the first case, because the other doctor's decisions are uncertain from my point of view, their treatment decisions can inform me about the patient \emph{and} determine whether the patient takes the medicine or not.
-
-If we go ahead and set this up formally, we could use probability gap models for both; 
-
-In the first case, we know it is unwise to assume that the result of giving patient 50 treatment $x$ will be probabilistically the same as the results experienced by all previous patients who received $x$. On the other hand, in the second case, it seems reasonable to expect the result of giving treatment $x$ to patient 50 is, a priori, the same as giving treatment $x$ to any other patient. That is, causal contractibility seems plausible if we imagine ourselves in a situation of planning a sequence of treatments, but a rather similar assumption seems unwise if we imagine the treatments having already taken place.
-
-There is a subtle asymmetry between these situations: while ``patient $i$ receives treatment $x$'' is a sensible proposition for both situations, \emph{it corresponds to a different measurement procedure}.  
-
-\section{Conditional probabilities in sequential experiments}
 
 
 
@@ -342,3 +315,54 @@ Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P}
 We make use of Lemma \ref{th:table_rep} to show that we can represent the conditional probability as an exchangeable tabular probability distribution. We then use the property of exchangeability of the columns of that distribution in conjunction with De Finetti's theorem to derive the result.
 \end{proof}
 
+\subsection{In decison problems, policies are extreme}
+
+Theorem \ref{th:iid_rep} shows that a formal property of conditional probability models -- causal contractibility -- implies the existence of a map $D\times H\kto Y$ that, when coupled with a distribution over $H$, yields the original model. We have also suggested that causal contractibility might be a property of a model of an experiment where we expect that experimental outcomes will be the same if we shuffle the planned experimental actions and apply the inverse shuffle to results, and also if we believe that outcomes for units of interest will be unchanged if we substitute the experimental plan for any other plan that prescribes the same actions for the same units.
+
+One could be inclined to leave things there and say that the question of whether causal contractibility holds is up to the judgement of the practitioner. However, we believe that making this judgement is a subtle issue that deserves further commentary.
+
+The subtlety is illustrated by comparing the following three situations:
+
+\begin{enumerate}
+    \item I am considering different policies for treating 100 patients for lower back pain, and want to predict the outcomes of each policy
+    \item I am treating 50 patients for lower back pain, not necessarily according to a fixed policy, and subsequently want to predict the outcomes of 50 additional patients treated according to a fixed policy
+\end{enumerate}
+
+The two situations seem similar - in all cases, I treat 100 patients for lower back pain and I want to predict some outcomes. The only difference is the presence or absence of a fixed policy.
+
+If we accept for the sake of argument that we are going to use probability models to predict these outcomes, it seems reasonable that a conditional probability model for the first situation should be causally contractible. I have no means of distinguishing one ordering of patients from the other, and so it seems that I should use the same probability to predict outcomes for any ordering. Furthermore, the treatment of each patient seems like it is a separate matter -- there's no reason to expect patient $i$'s outcome to differ if I give different treatments to the rest of the patients.
+
+Causal contractibility implies that, given enough patients and any policy with full support, I will converge to a single Markov kernel representing the response of any patient to a treatment, which will be equal to the conditional probability of recovery given treatment. On the other hand, it well understood that I should not always assume that the conditional probability of recovery given treatment is a good guide to my selection of policy. In particular, it would be unwise to estimate the probability of recovery given treatment for the first 50 patients in the second example and assume this is the same as the conditional probability of recovery given treatment for the second 50 patients.
+
+The question is: what is being accomplished by the use of a policy that distinguishes situation 1 from 2? The answer, we think, is that the word ``policy'' implies more than just ``a probability distribution associated with a variable something that we happen to call a decision''. In particular, suppose policy $\alpha_1$ is to always choose decision $1$ and policy $\alpha_2$ is to always choose decision $2$. Choosing a mixed policy $0.5\alpha_1 + 0.5\alpha_2$ does not mean ``I choose to be uncertain by degree $a$ over which decision I will choose'', it means ``I will consult a random number generator that I know to yield $1$ half of the time and $2$ the other half, then choose $\alpha_i$ according to the result''. 
+
+
+
+We can use probability gap models for many things. Maybe we want $\prob{P}_\alpha$ on Monday we do some work to figure out $\prob{P}_\square^{\RV{Y}|\RV{X}}$ and on Tuesday we were going to do a bit more to work out $\prob{P}_\alpha^{\RV{X}}$, but actually we found the answer to our question would be the same in any case. Whether or not we explicitly set it up, we've made use of a conditional probability model to come to this conclusion.
+
+However, we actually want to model decision problems. For a decision problem we compare different policies $\alpha$ and choose the best one according to some criterion. We choose decisions according to the policy we arrive at. Decisions can be represented by variables, but they have a very important property: they must be deterministic for any policy choice $\alpha$.
+
+\begin{definition}[Decision variable]
+Given a probability gap model $(\prob{P}_\square, A)$ on $\Omega$, a variable $\RV{D}$ is a \emph{decision variable} if there is some variable $\RV{R}$ which we call \emph{purely random} such that, for $\alpha\in A$, $\prob{P}_\alpha^{\RV{D}|\RV{R}}$ is deterministic.
+\end{definition}
+
+We don't attempt to define what a ``purely random'' variable is here.
+
+Because $\RV{D}$ is deterministic given $\RV{R}$, we have $\RV{Y}\CI_{\prob{P}_\square}\RV{R}|\RV{D}$, and so we can marginalise over $\RV{R}$ and talk about policies as if they address marginal probabilities over $\RV{D}$: $\prob{P}_\alpha^{\RV{D}}$.
+
+The reason we include this definition is that it constrains the measurement procedures that are allowed to be associated with decision variables. In particular, all such measurement procedures must, with probability 1, yield a function of the policy choice $\alpha$ and a purely random measurement procedure $\proc{R}$. In particular, this means that if I talk about a ``mixed policy'' $a\alpha+(1-a)\beta$ I mean: consult a purely random process and, if the result is consistent with $a$ act according to $\alpha$, while if the result is consistent with $(1-a)$ act according to $\beta$. This is what people usually mean when they talk about mixing policies, and we think this is important enough to bake into the theory rather than leave it as an implicit side constraint.
+
+This is quite important, because it helps us to distinguish between these two apparently similar situations:
+
+\begin{enumerate}
+    \item Some doctor is going to treat 49 (otherwise unknown) patients for lower back pain, then I will treat one patient for the same
+    \item I am preparing to treat 50 (otherwise unknown) patients for lower back pain
+\end{enumerate}
+
+In the second case, because decisions are deterministic, I don't learn anything about the patient when I treat them or not. In the first case, because the other doctor's decisions are uncertain from my point of view, their treatment decisions can inform me about the patient \emph{and} determine whether the patient takes the medicine or not.
+
+If we go ahead and set this up formally, we could use probability gap models for both; 
+
+In the first case, we know it is unwise to assume that the result of giving patient 50 treatment $x$ will be probabilistically the same as the results experienced by all previous patients who received $x$. On the other hand, in the second case, it seems reasonable to expect the result of giving treatment $x$ to patient 50 is, a priori, the same as giving treatment $x$ to any other patient. That is, causal contractibility seems plausible if we imagine ourselves in a situation of planning a sequence of treatments, but a rather similar assumption seems unwise if we imagine the treatments having already taken place.
+
+There is a subtle asymmetry between these situations: while ``patient $i$ receives treatment $x$'' is a sensible proposition for both situations, \emph{it corresponds to a different measurement procedure}.  
