@@ -2,9 +2,24 @@
 
 
 
-\section{Syntax and semantics of ``causal effects''}
+\section{Syntax and semantics of causal consequences}
+
+Causal Bayesian networks and potential outcomes employ different naming conventions to distinguish ``causal effects'' from ``simple correlations''. Causal Bayesian networks write $P(\RV{Y}|do(\RV{X}))$ and $P(\RV{Y}|\RV{X})$, while potential outcomes distinguishes $P(\RV{Y}|\RV{X})$ from $x\mapsto P(\RV{Y}^x)$. If we are not going to worry too much about details of interpretation, we can interpret the expression $P(\RV{Y}|\RV{X})$ as expressing something like this: there is an objective probability $P(\RV{Y},\RV{X})$ that describes a sequence of independent and identically distributed observations, and $P(\RV{Y}|\RV{X})$ is a disintegration of this probability. The existence of an objective probability $P(\RV{Y},\RV{X})$ can be justified by an assumption that the sequence of observations should be modeled exchangeably.
+
+The causal consequence $P(\RV{Y}|do(\RV{X}))$ or $x\mapsto P(\RV{Y}^x)$ is in a different position. Some options we have for understanding this expression:
+\begin{enumerate}
+    \item $P(\RV{Y}|do(\RV{X}))$ is the function we ought to use when weighing up different interventions on $\RV{X}$
+    \item $P(\RV{Y}|do(\RV{X}))$ is the function we obtain by applying the truncated factorisation rule to some objective probability $P$ and a causal graph $\mathcal{G}$
+\end{enumerate}
+
+It seems that we need to add something to definition 1, as otherwise it merely amounts to a claim that we should use \emph{some} Markov kernel when weighing up different interventions. Compare this to $P(\RV{Y}|\RV{X})$ which we claimed was objective, at least in the sense that observations are assumed to be exchangeable and so a learner will converge in the long run to a unique value.
+
+Definition 2 adds something to this definition, but it doesn't establish why 
+
+$P(\RV{Y}|do(\RV{X}))$ seems to be arbitrary in a way that $P(\RV{Y}|\RV{X})$ is not; in 
 
 
+If we have a probability model and random variables $\RV{Y}$ and $\RV{X}$, then the semantics of $P(\RV{Y}|\RV{X})$ are well-understood. Using conditional probability models and the notion of measurement procedures, we can define special kinds of conditional probabilities\todo{name collisions argh} that are similar to causal consequence maps in that they are somtimes appropriate 
 
 
 
