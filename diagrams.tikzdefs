@@ -52,3 +52,4 @@
 \newcommand{\combdot}{\ensuremath{\underline{\cprod}}}
 \newcommand{\combbreak}{\ensuremath{\wr}}
 \newcommand{\bigcombdot}{\ensuremath{\underline{\bigcprod}}}
+\newcommand{\proc}[1]{\ensuremath{\mathscr{#1}}}

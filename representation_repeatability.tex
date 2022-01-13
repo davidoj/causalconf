@@ -6,35 +6,25 @@
 
 Causal Bayesian networks and potential outcomes employ different naming conventions to distinguish ``causal effects'' from ``simple correlations''. Causal Bayesian networks write $P(\RV{Y}|do(\RV{X}))$ and $P(\RV{Y}|\RV{X})$, while potential outcomes distinguishes $P(\RV{Y}|\RV{X})$ from $x\mapsto P(\RV{Y}^x)$. If we are not going to worry too much about details of interpretation, we can interpret the expression $P(\RV{Y}|\RV{X})$ as expressing something like this: there is an objective probability $P(\RV{Y},\RV{X})$ that describes a sequence of independent and identically distributed observations, and $P(\RV{Y}|\RV{X})$ is a disintegration of this probability. The existence of an objective probability $P(\RV{Y},\RV{X})$ can be justified by an assumption that the sequence of observations should be modeled exchangeably.
 
-The causal consequence $P(\RV{Y}|do(\RV{X}))$ or $x\mapsto P(\RV{Y}^x)$ is in a slightly different position. Firstly, while \citet{dawid_decision-theoretic_2020} comes close, I'm not aware of an argument that a conditional probability model of sequential interventions with an appropriate symmetry implies the existence of an objective causal consequence like $P(\RV{Y}|do(\RV{X}))$. Secondly to the extent that $P(\RV{Y}|do(\RV{X}))$ describes the consequences of ``intervening'' on $\RV{X}$, we can ask what it has to say about the following two situations:
+We pursue a similar line of thinking with respect to understanding causal consequences like $P(\RV{Y}|do(\RV{X}))$ or $x\mapsto P(\RV{Y}^x)$. We assume that ``causal consequences'' are conditional probabilities of the form $\prob{P}_\square^{\RV{Y}|\RV{D}\RV{H}}$ where $\RV{Y}$ is an outcome, $\RV{D}$ is some decision, $\RV{H}$ is a hypothesis and $\prob{P}_\square$ is a probability gap model. Our interest is in understanding what causal consequences are \emph{from the point of view of someone choosing a decision function}. We do not address the question of how they may be inferred from observed data.
 
+ We show that conditional probability models that are \emph{causally contractible} with respect to a sequence of decisions and a corresponding sequence of outcomes are representible by mixtures of ``objective but unknown'' conditional probabilities. This is analogous to De Finetti's theorem that shows exchangeable probability distributions are representable by mixtures of ``objective but unknown'' independent and identically distributed probability distributions. A similar argument to ours is found in \citet{dawid_decision-theoretic_2020}.
 
-
-Some options we have for understanding this expression:
+We also consider the question of when causal contractibility could be supposed to hold. This is a subtle question, as the answer appears to differ for situations that are quite similar. For example, consider:
 \begin{enumerate}
-    \item $P(\RV{Y}|do(\RV{X}))$ is the function we ought to use when weighing up different interventions on $\RV{X}$
-    \item $P(\RV{Y}|do(\RV{X}))$ is the function we obtain by applying the truncated factorisation rule to some objective probability $P$ and a causal graph $\mathcal{G}$
+    \item Dr Alice is going to see two patients who are both complaining of lower back pain and are otherwise unknown to Alice. Prior to seeing them, she considers the available research and formulates a general sense of whether or not she'll treat the first, which she quantifies with $\prob{P}_\alpha^{\RV{D}_1}$, as well as deciding that whatever happens she'll definitely treat the second
+    \item As before, but prior to seeing the patients she considers the available research and decides to treat the first on the basis of applying a function to a random number generator. The choice of function and generator characteristings allowing her to quantity probability of treatment with $\prob{P}_\alpha^{\RV{D}_1}$, as well as deciding that whatever happens she'll definitely treat the second
 \end{enumerate}
 
-It seems that we need to add something to definition 1, as otherwise it merely amounts to a claim that we should use \emph{some} Markov kernel when weighing up different interventions. Compare this to $P(\RV{Y}|\RV{X})$ which we claimed was objective, at least in the sense that observations are assumed to be exchangeable and so a learner will converge in the long run to a unique value.
+\todo[inline]{I removed the discussion of probability combs for simplicity, so I have not considered policies for treatment that depend on earlier experiments in the examples above}
 
-Definition 2 adds something to this definition, but it doesn't establish why 
-
-$P(\RV{Y}|do(\RV{X}))$ seems to be arbitrary in a way that $P(\RV{Y}|\RV{X})$ is not; in 
-
-
-If we have a probability model and random variables $\RV{Y}$ and $\RV{X}$, then the semantics of $P(\RV{Y}|\RV{X})$ are well-understood. Using conditional probability models and the notion of measurement procedures, we can define special kinds of conditional probabilities\todo{name collisions argh} that are similar to causal consequence maps in that they are somtimes appropriate 
-
-
-
-
-If we have a conditional probability model $\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}}$, then by definition there is a conditional probability $\prob{P}_\square^{\RV{Y}|\RV{D}}$ which has a curried representation. Our aim is to show when certain conditional probabilities exist with respect to a probability gap model, which in this case is a triviality.
-
-The question becomes more interesting when we propose conditional probability model $\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}}$ of a sequential experiment. That is, $\RV{Y}:=\RV{Y}_M=(\RV{Y}_i)_{i\in M}$ and $\RV{D}:=\RV{D}_M=(\RV{D}_i)_{i\in M}$ and we say that $\RV{Y}_i$ is the consequence corresponding to the decision $\RV{D}_i$ for all $i\in M$. We will call a $(\RV{D}_i,\RV{Y}_i)$ pair an experimental unit. In this case, the conditional probability $\prob{P}_\square^{\RV{Y}_i|\RV{D}_i}$ does not generally exist. We might suppose, however, it would exist if the experiment was, in some sense, suitably regular or repeatable.
+We will argue that Alice could reasonably assume causal contractibility in the second case but not the first. While we are unable to offer a general theory of when causal contractibility holds, we note that an apparently key difference between the two situations is that in the first case the ``decision'' $\RV{D}_1$ is indeterministic for some $\alpha$, though $\RV{D}_2$ is deterministic, while in the second case both $\RV{D}_1$ and $\RV{D}_2$ are determinstic functions.
 
 \subsection{Repeatable experiments}
 
-We have a conditional probability model $\prob{P}_\square^{\overline{\RV{Y}_A|\RV{D}_A}}$ with choices $A$ that represents a sequential experiment. What might we mean when we say this experiment is repeatable? We're going to propose two conditions. The first condition is \emph{commutativity of exchange}, which is the assumption that swapping the choices that we apply at each step and then applying the corresponding inverse swap to consequences leaves the model unchanged. The second condition is \emph{commutativity of marginalisation} -- if we perform the whole experiment multiple times, making the same choice $\RV{D}_i$ at any point $i$ gets the same results, regardless of what other choices are made.
+A conditional probability model $(\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}},A)$ is a model of a sequential experiment if $\RV{Y}:=\RV{Y}_M=(\RV{Y}_i)_{i\in M}$ and $\RV{D}:=\RV{D}_M=(\RV{D}_i)_{i\in M}$ for some index set $M$. We say that $\RV{Y}_i$ is the consequence corresponding to the decision $\RV{D}_i$ for all $i\in M$. A $(\RV{D}_i,\RV{Y}_i)$ pair is an \emph{experimental unit}. We identify a ``causal consequence'' with a conditional probability of the form $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{D}_i}$, where $\RV{H}$ is a hypothesis that is identical for every experimental unit. Causal consequences do not generally exist, see Definition \ref{def:cprob_pset}.
+
+If $(\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}},A)$ represents a sequential experiment, we might guess that causal consequences exist if the experiment is in some sense ``repeatable''. We consider two precise notions of repeatability. The first condition is \emph{commutativity of exchange}, which is the assumption that swapping the choices that we apply at each step and then applying the corresponding inverse swap to consequences leaves the model unchanged. The second condition is \emph{commutativity of marginalisation} -- if we perform the whole experiment multiple times, making the same choice $\RV{D}_i$ at any point $i$ gets the same results, regardless of what other choices are made.
 
 Commutativity of exchange is similar to the condition of \emph{post-treatment exchangeability} found in \citet{dawid_decision-theoretic_2020}, and commutativity of marginalisation is similar to the stable unit treatment distribution assumption (SUTDA) in the same, as well as the ``no interference'' part of the stable unit treatment value assumption (SUTVA) with which it shares a name. Commutativity of exchange is also very similar to the exchangeability assumption of \citet{greenland_identifiability_1986} for further discussions of exchangeability in the context of causal modelling, and note that both authors consider exchanging to be an operation that alters which person receives which treatment. The assumption of exchangeability found in \citet{banerjee_chapter_2017} can also be regarded as similar to commutativity of exchange.
 
@@ -225,7 +215,7 @@ A conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},
 % The proof that the limit exists and the above equality holds can again be found int \citep{kallenberg_basic_2005}.
 % \end{proof}
 
-\subsection{When does a canonical ``effect of a decision'' exist?}
+\subsection{Causal consequences exist if the model is causally contractible}
 
 The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. This can be interpreted as expressing the idea that all experimental units $(\RV{Y}_i,\RV{D}_i)$ share a canonical but unknown ``consequence function'' $D\kto Y$. As discussed already in Section \ref{sec:curry}, the existence of such a conditional probability implies the existence of a common unknown \emph{curried} conditional probability for all experimental units, which resembles a potential outcomes model. In fact, we prove the existence of a curried representation first, in Lemma \ref{th:table_rep}.
 
@@ -334,18 +324,62 @@ Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P}
 We make use of Lemma \ref{th:table_rep} to show that we can represent the conditional probability as an exchangeable tabular probability distribution. We then use the property of exchangeability of the columns of that distribution in conjunction with De Finetti's theorem to derive the result.
 \end{proof}
 
-\subsection{In decison problems, policies are extreme}
+\subsection{When is causal contractibility a reasonable assumption?}
 
-Theorem \ref{th:iid_rep} shows that a formal property of conditional probability models -- causal contractibility -- implies the existence of a map $D\times H\kto Y$ that, when coupled with a distribution over $H$, yields the original model. We have also suggested that causal contractibility might be a property of a model of an experiment where we expect that experimental outcomes will be the same if we shuffle the planned experimental actions and apply the inverse shuffle to results, and also if we believe that outcomes for units of interest will be unchanged if we substitute the experimental plan for any other plan that prescribes the same actions for the same units.
+Theorem \ref{th:iid_rep} shows that a formal property of conditional probability models -- causal contractibility -- implies the existence of a map $D\times H\kto Y$ that, when coupled with a distribution over $H$, yields the original model. Causal contractibility is a combination of two assumptions:
+\begin{itemize}
+    \item Given any plan $\alpha$, shuffling the decisions $\RV{D}$ and applying the corresponding shuffle to the outcome labels describes an experiment that is essentially the same
+    \item Given any two plans $\alpha$ and $\beta$, if we consider only outcomes corresponding the decisions on which $\alpha$ and $\beta$ agree, we expect to see the same results
+\end{itemize}
 
-One could be inclined to leave things there and say that the question of whether causal contractibility holds is up to the judgement of the practitioner. However, we believe that making this judgement is a subtle issue that deserves further commentary.
-
-The subtlety is illustrated by comparing the following three situations:
+A practitioner may do their best to evaluate whether or not these conditions hold. However, this issue is somewhat subtle. Consider again the following two scenarios:
 
 \begin{enumerate}
-    \item I am considering different policies for treating 100 patients for lower back pain, and want to predict the outcomes of each policy
-    \item I am treating 50 patients for lower back pain, not necessarily according to a fixed policy, and subsequently want to predict the outcomes of 50 additional patients treated according to a fixed policy
+    \item Dr Alice is going to see two patients who are both complaining of lower back pain and are otherwise unknown to Alice. Prior to seeing them, she considers the available research and formulates a general sense of whether or not she'll treat the first, which she quantifies with $\prob{P}_\alpha^{\RV{D}_1}$, as well as deciding that whatever happens she'll definitely treat the second
+    \item As before, but prior to seeing the patients she considers the available research and decides to treat the first on the basis of applying a function to a random number generator. The choice of function and generator characteristics allow her to quantity probability of treatment with $\prob{P}_\alpha^{\RV{D}_1}$, as well as deciding that whatever happens she'll definitely treat the second
 \end{enumerate}
+
+Alice could model both situations with a sequential conditional probability model $(\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2},A)$ with the elements of $A$ identified with marginal probabilities of the form $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$. Might she, in one or both situations, consider this model to be causally contractible?
+
+At the outset, Alice does not know any features that might distinguish the two patients, so perhaps she ought to adopt a model such that $\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}$ treats the patients as interchangeable. However, this only holds at the outset. In the first situation, we are vauge about how Alice chooses $\RV{D}_1$; it could be that she does so after meeting with them and learning more about them. If so, then 
+
+
+ if we are vague as to the manner in which $\RV{D}_1$ or $\RV{D}_2$ is chosen (as in the first situation), it is possible that $\RV{D}_1$ is actually chosen after Alice has learned more about the first patient. On the other hand, $\RV{D}_2$, being fixed to $1$, cannot be altered after Alice has learned more about patient 2. Thus situation 1 leaves open the possibility that the two patients are  $\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}$ is a 
+
+
+
+
+
+ Let $\proc{S}$ be the procedure corresponding to evaluating the random number generator then applying the function associated with $\alpha$ prior to observing the first patient, and $\proc{R}$ , and $1$ be the procedure that always yields $1$. We identify the following two procedures as effectively identical:
+\begin{itemize}
+    \item $\swap\circ (\proc{S},1)$
+    \item $(1,\proc{S}')$
+\end{itemize}
+
+
+ We assume random number generators  the following experiment:
+
+\begin{itemize}
+    \item Prior to seeing the patients, she chooses a function to map from a random number generator to her treatment decision, evaluated prior to treating the first patient, but the treatment is applied to the second patient. She also resolves to treat the first patient for sure, and will finally interchange the labels ``1'' and ``2'' after completing the experiment
+\end{itemize}
+
+This amounts to swapping the identity of the patient who is called ``patient 1'' and the patient who is called ``patient 2'' while keeping the actions the same. If one accepts that the two patients are, from Alice's point of view, indistinguishable, then this appears to describe an experiment that is indeed essentially the same as the original, at least from Alice's point of view.
+
+The question of commutativity of marginalisation asks us to compare the following experiments:
+
+\begin{itemize}
+    \item Prior to seeing the patients, she chooses a different function $\beta$ to map from a random number generator to her treatment decision for the first patient.
+\end{itemize}
+
+Considering only the second patient, does this describe an experiment that is essentially the same? It seems reasonable to expect that, whatever function is chosen, the first patient's treatment will be probabilistically independent of the second patient's outcome.
+
+Thus the second situation seems to describe a case of causal contractibility.
+
+Consider situation 1. Commutativity of exchange asks us to compare the following experiment:
+
+\begin{itemize}
+    \item Prior to seeing the patients, she formulates a general sense of whether or not she'll treat the first. Then, at some point, she determines how she chooses a function to map from a random number generator to her treatment decision for the second patient, she resolves to treat the first patient for sure, and will then interchange the labels ``1'' and ``2'' after completing the experiment
+\end{itemize}
 
 The two situations seem similar - in all cases, I treat 100 patients for lower back pain and I want to predict some outcomes. The only difference is the presence or absence of a fixed policy.
 
