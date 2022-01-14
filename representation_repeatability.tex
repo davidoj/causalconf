@@ -324,26 +324,26 @@ We make use of Lemma \ref{th:table_rep} to show that we can represent the condit
 
 \subsection{Modelling different measurement procedures}
 
-An important question is: when is it reasonable to assume causal contractibility? We're going to focus just on the assumption of commutativity of exchange because we have more interesting things to say about it. There is a tempting but hazardous line of argument one could adopt: $(\prob{P}_\square^{\RV{Y}_M|\RV{D}_M},A)$ is a model of $|M|$ indistinguishable ``experimental units'', because they are indistinguishable they can be interchanged without altering the appropriate model, and so commutativity of exchange holds.
+An important question is: when is it reasonable to assume causal contractibility? We're going to focus just on the assumption of commutativity of exchange because we have more interesting things to say about it. There is a tempting but false line of argument one could adopt: $(\prob{P}_\square^{\RV{Y}_M|\RV{D}_M},A)$ is a model of $|M|$ indistinguishable ``experimental units'', because they are indistinguishable they can be interchanged without altering the appropriate model, and so commutativity of exchange holds.
 
-The problem with this line of reasoning is that interchangeability of ``experimental units'' does \emph{not} imply commutativity of exchange. 
+The problem with this line of reasoning is that interchangeability of ``experimental units'' doesn't imply commutativity of exchange. The problem is, roughly speaking, we may have indistinguishable experimental units when a decision function is chosen, but the decision function might leave some uncertainty over the actual decisions, which means the experimental units may be distinguishable when the actual decisions are made. If the decision function is deterministic, this possibility is ruled out. We'll explain this in more detail with an example, and in the next section we'll discuss randomisation.
 
+\subsection{Example: commutativity of exchange in the context of treatment choices}
 
-To justify such an assumption, we might argue as follows:
+To justify an assumption of commutativity of exchange, we will argue as follows:
 \begin{itemize}
-    \item Two measurement procedures, related to one another by swaps and erasures, should be considered equivalent
-    \item This implies that the model of each measurement procedure should be symmetric with respect to the corresponding swap and erase operations
+    \item Two measurement procedures should be considered equivalent in the sense that the same model is appropriate for both
+    \item The models associated with the two procedures are related to one another by composition with the relevant swap maps
+    \item Therefore the model associated with the first experiment is equivalent to the same model composed with the relevant swap maps
 \end{itemize}
 
-First, we want to spell out in detail how one model can apply to two different measurement procedures. Recall that we assume that a single master measurement procedure $\proc{S}$ taking values in $\Psi$, and observables are all functions of $\proc{S}$. Given a model $(\prob{P}_\square,A)$ associated with $\proc{S}$, the model does not in general apply to an alternative measurement procedure $\proc{S}'$.
+First, we want to spell out in detail how composing a model of one measurement procedure with a swap map can result in a model appliccable to a different measurement procedure. Recall that we assume that a single master measurement procedure $\proc{S}$ taking values in $\Psi$, and observables are all functions of $\proc{S}$. Given a model $(\prob{P}_\square,A)$ associated with $\proc{S}$, the model does not in general apply to an alternative measurement procedure $\proc{S}'$.
 
 However, it is also a principle of measurement procedures that a measurement procedure followed by the application of a function is itself a measurement procedure. Thus a model $(\prob{P}_\square,A)$ associated with $\proc{S}$ may also be informative about a procedure $f\circ \proc{S}$ for any $f:\Psi\to X$.
 
-In particular, consider measurement procedures related by \emph{swaps}. For example, suppose we have $(\proc{D}_1,\proc{D}_2)$ and $(\proc{D}^{\text{swap}}_1,\proc{D}^{\text{swap}}_2):=(\proc{D}_2,\proc{D}_1)$. Then, given any probability model $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ we have $\prob{P}_\alpha^{\RV{D}_1^{\text{swap}}\RV{D}_2^{\text{swap}}} = \prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$. In this way, $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ is a model of $(\proc{D}_1,\proc{D}_2)$ and induces a unique model of $(\proc{D}^{\text{swap}}_1,\proc{D}^{\text{swap}}_2)$.
+In particular, consider measurement procedures related by \emph{swaps}. For example, suppose we have $(\proc{D}_1,\proc{D}_2)$ and $(\proc{D}^{\text{swap}}_1,\proc{D}^{\text{swap}}_2):=(\proc{D}_2,\proc{D}_1)$. Then, given any probability model $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ we have $\prob{P}_\alpha^{\RV{D}_1^{\text{swap}}\RV{D}_2^{\text{swap}}} = \prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$. In this way, $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ is a model of $(\proc{D}_1,\proc{D}_2)$ and induces a unique model of $(\proc{D}^{\text{swap}}_1,\proc{D}^{\text{swap}}_2)$ via composition with a swap map.
 
 Technically, this requires an assumption: if $\RV{X}$ is associated with $\proc{X}$ then $f\circ \RV{X}$ is associated with $f\circ \proc{X}$ (roughly: the abstract mathematical idea of composing a function with something and the actual process of applying a function to something and obtaining a result are treated as the same thing)
-
-\subsection{Example: commutativity of exchange and treatment choices}
 
 Concretely, commutativity of exchange can be justified if we suppose that the same model $(\prob{P}_\square^{\RV{Y}_M|\RV{D})_M},A)$ should describe
 \begin{itemize}
@@ -351,7 +351,7 @@ Concretely, commutativity of exchange can be justified if we suppose that the sa
     \item Any other $|M|$ outcomes $\proc{Y}^{\text{swap}}_M$ and $|M|$ decisions $\proc{D}^{\text{swap}}_M$, related to the originals by a swap.
 \end{itemize}
 
-For a concrete example, consider the following two scenarios:
+Consider the following two scenarios:
 
 \begin{enumerate}
     \item Dr Alice is going to see two patients who are both complaining of lower back pain and are otherwise unknown to Alice. Prior to seeing them, she settles on a decision function $\alpha$ which deterministically sets her treatment choices according to a function $\text{decisions}(\alpha)$
@@ -371,11 +371,9 @@ The argument we want to make (if it can be supported) is:
 
 At the outset, Alice does not know any features that might distinguish the two patients, so it is reasonable to think that she should adopt the same model for a) the original experiment and b) the same experiment, except with the patients interchanged. Note that interchanging \emph{patients} does not correspond directly to any operation on the model $(\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2},A)$ which describes decisions and, not patients.
 
-We will define measurement procedures using pseudocode because the argument requires precision.
+We will define measurement procedures using pseudocode, because we find it a lot easier to keep track of operations like swaps in this format. This presentation has the unintended effect of suggesting that measurement procedures are like computer programs. We're not sure if this is a helpful way to think about things -- one of the key points of this example is that precise and imprecise measurement procedures may need quite different models, but thinking of measurement procedures as computer programs suggests that all measurement procedures are precise, which is not the case. Some steps may be precise, and we can express these steps with pseudocode, while other steps may be less precise. 
 
 Suppose the first scenario corresponds to the following procedure $\proc{S}$ which yields values in $A\times D^2\times Y^2$. $\RV{D}_i$ is the projection $(\alpha,d_1,d_2,y_1,y_2)\mapsto d_i$ composed with $\proc{S}$ and $\RV{Y}_i$ is the projection $(\alpha,d_1,d_2,y_1,y_2)\mapsto y_i$ composed with $\proc{S}$.
-
-\todo[inline]{I feel like I've put myself in a weird position of doing pseudo-mathematical derivations with English words. I'm not sure that there's a better alternative, though.}
 
 \begin{algorithmic}
     \proc{S}:
