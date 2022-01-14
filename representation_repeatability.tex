@@ -12,8 +12,8 @@ We pursue a similar line of thinking with respect to understanding causal conseq
 
 We also consider the question of when causal contractibility could be supposed to hold. This is a subtle question, as the answer appears to differ for situations that are quite similar. For example, consider:
 \begin{enumerate}
-    \item Dr Alice is going to see two patients who are both complaining of lower back pain and are otherwise unknown to Alice. Prior to seeing them, she considers the available research and formulates a general sense of whether or not she'll treat the first, which she quantifies with $\prob{P}_\alpha^{\RV{D}_1}$, as well as deciding that whatever happens she'll definitely treat the second
-    \item As before, but prior to seeing the patients she considers the available research and decides to treat the first on the basis of applying a function to a random number generator. The choice of function and generator characteristings allowing her to quantity probability of treatment with $\prob{P}_\alpha^{\RV{D}_1}$, as well as deciding that whatever happens she'll definitely treat the second
+    \item Dr Alice is going to see two patients who are both complaining of lower back pain and are otherwise unknown to Alice. Prior to seeing them, she considers the available research and formulates a general sense of whether or not she'll treat each one, which she quantifies with $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$
+    \item As before, but prior to seeing the patients she considers the available research and decides to treat on the basis of applying a function to a random number generator with known characteristics. The choice of function and random number generator allow her to quantity probability of treatment with $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$
 \end{enumerate}
 
 \todo[inline]{I removed the discussion of probability combs for simplicity, so I have not considered policies for treatment that depend on earlier experiments in the examples above}
@@ -335,87 +335,103 @@ Theorem \ref{th:iid_rep} shows that a formal property of conditional probability
 A practitioner may do their best to evaluate whether or not these conditions hold. However, this issue is somewhat subtle. Consider again the following two scenarios:
 
 \begin{enumerate}
-    \item Dr Alice is going to see two patients who are both complaining of lower back pain and are otherwise unknown to Alice. Prior to seeing them, she considers the available research and formulates a general sense of whether or not she'll treat the first, which she quantifies with $\prob{P}_\alpha^{\RV{D}_1}$, as well as deciding that whatever happens she'll definitely treat the second
-    \item As before, but prior to seeing the patients she considers the available research and decides to treat the first on the basis of applying a function to a random number generator. The choice of function and generator characteristics allow her to quantity probability of treatment with $\prob{P}_\alpha^{\RV{D}_1}$, as well as deciding that whatever happens she'll definitely treat the second
+    \item Dr Alice is going to see two patients who are both complaining of lower back pain and are otherwise unknown to Alice. Prior to seeing them, she settles on a decision function $\alpha$ which determines whether or not she will treat each one according to a \emph{deterministic} probability distribution $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ 
+    \item As before, but $\alpha$ is a ``decision inclination'' and $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ nondeterministic
 \end{enumerate}
 
 Alice could model both situations with a sequential conditional probability model $(\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2},A)$ with the elements of $A$ identified with marginal probabilities of the form $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$. Might she, in one or both situations, consider this model to be causally contractible?
 
-At the outset, Alice does not know any features that might distinguish the two patients, so perhaps she ought to adopt a model such that $\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}$ treats the patients as interchangeable. However, this only holds at the outset. In the first situation, we are vauge about how Alice chooses $\RV{D}_1$; it could be that she does so after meeting with them and learning more about them. If so, then 
+We will assume that both satisfy commutativity of marginalisation -- that is, the first patient's outcomes do not change on the basis of the second patient's treatment and vise versa.
 
+At the outset, Alice does not know any features that might distinguish the two patients, so it is reasonable to think that she should adopt the same model for a) the original experiment and b) the same experiment, except with the patients interchanged. In general, this principle could be compatible with many different conditionals $\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}$, as ``patients'' are not part of the model and therefore there is no ``interchange patients'' operation we can in general apply.
 
- if we are vague as to the manner in which $\RV{D}_1$ or $\RV{D}_2$ is chosen (as in the first situation), it is possible that $\RV{D}_1$ is actually chosen after Alice has learned more about the first patient. On the other hand, $\RV{D}_2$, being fixed to $1$, cannot be altered after Alice has learned more about patient 2. Thus situation 1 leaves open the possibility that the two patients are  $\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}$ is a 
+We can write down models that correspond to swapping decisions and swapping outcomes. So the question is: is swapping decisions and then applying the inverse swap to outcomes equivalent to swapping patients? If so, the above argument implies we should accept commutativity of exchange. Consider the second scenario. In more detail, the measurment procedures might be:
 
-
-
-
-
- Let $\proc{S}$ be the procedure corresponding to evaluating the random number generator then applying the function associated with $\alpha$ prior to observing the first patient, and $\proc{R}$ , and $1$ be the procedure that always yields $1$. We identify the following two procedures as effectively identical:
-\begin{itemize}
-    \item $\swap\circ (\proc{S},1)$
-    \item $(1,\proc{S}')$
-\end{itemize}
-
-
- We assume random number generators  the following experiment:
+\todo[inline]{I feel like I've put myself in a weird position of doing pseudo-mathematical derivations with English words. I'm not sure that there's a better alternative, though.}
 
 \begin{itemize}
-    \item Prior to seeing the patients, she chooses a function to map from a random number generator to her treatment decision, evaluated prior to treating the first patient, but the treatment is applied to the second patient. She also resolves to treat the first patient for sure, and will finally interchange the labels ``1'' and ``2'' after completing the experiment
+    \item Decide on some $\alpha$, which corresponds to a particular $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ and, via determinism, to a pair of decisions $(\proc{D}_1,\proc{D}_2)$
+    \item Treat the patient A according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
+    \item Treat the patient B according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
 \end{itemize}
 
-This amounts to swapping the identity of the patient who is called ``patient 1'' and the patient who is called ``patient 2'' while keeping the actions the same. If one accepts that the two patients are, from Alice's point of view, indistinguishable, then this appears to describe an experiment that is indeed essentially the same as the original, at least from Alice's point of view.
-
-The question of commutativity of marginalisation asks us to compare the following experiments:
+The argument that it ought to be possible to interchange patients implies that the same model should apply to the following procedure
 
 \begin{itemize}
-    \item Prior to seeing the patients, she chooses a different function $\beta$ to map from a random number generator to her treatment decision for the first patient.
+    \item Decide on some $\alpha$, which corresponds to a particular $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ and, via determinism, to a pair of decisions $(\proc{D}_1,\proc{D}_2)$
+    \item Treat the patient B according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
+    \item Treat the patient A according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
 \end{itemize}
 
-Considering only the second patient, does this describe an experiment that is essentially the same? It seems reasonable to expect that, whatever function is chosen, the first patient's treatment will be probabilistically independent of the second patient's outcome.
-
-Thus the second situation seems to describe a case of causal contractibility.
-
-Consider situation 1. Commutativity of exchange asks us to compare the following experiment:
+On the other hand, interchanging actions and then interchanging results means we define procedures $\proc{D}_1^{\text{swap}}=\proc{D}_2$, $\proc{D}_2^{\text{swap}}=\proc{D}_1$, $\proc{Y}_1^{\text{swap}}=\proc{Y}_2$ and $\proc{Y}_2^{\text{swap}}=\proc{Y}_1$. Then we reason using the swapped procedures
 
 \begin{itemize}
-    \item Prior to seeing the patients, she formulates a general sense of whether or not she'll treat the first. Then, at some point, she determines how she chooses a function to map from a random number generator to her treatment decision for the second patient, she resolves to treat the first patient for sure, and will then interchange the labels ``1'' and ``2'' after completing the experiment
+    \item Decide on some $\alpha$, which corresponds to a particular $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ and, via determinism, to a pair of decisions $(\proc{D}_1,\proc{D}_2)$
+     \item Treat the patient A according to $\proc{D}^{\text{swap}}_1$, record the outcome as $\proc{Y}_1^{\text{swap}}$
+    \item Treat the patient B according to $\proc{D}^{\text{swap}}_2$, record the outcome as $\proc{Y}_2^{\text{swap}}$
 \end{itemize}
 
-The two situations seem similar - in all cases, I treat 100 patients for lower back pain and I want to predict some outcomes. The only difference is the presence or absence of a fixed policy.
+Using $\proc{D}_1'=\proc{D}_2$ and $\proc{D}_2'=\proc{D}_1$ and $\proc{Y}_1^{\text{swap}}=\proc{Y}_2^{\text{swap}}$
 
-If we accept for the sake of argument that we are going to use probability models to predict these outcomes, it seems reasonable that a conditional probability model for the first situation should be causally contractible. I have no means of distinguishing one ordering of patients from the other, and so it seems that I should use the same probability to predict outcomes for any ordering. Furthermore, the treatment of each patient seems like it is a separate matter -- there's no reason to expect patient $i$'s outcome to differ if I give different treatments to the rest of the patients.
+\begin{itemize}
+    \item Decide on some $\alpha$, which corresponds to a particular $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ and, via determinism, to a pair of decisions $(\proc{D}_1,\proc{D}_2)$
+    \item Treat the patient A according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
+    \item Treat the patient B according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
+\end{itemize}
 
-Causal contractibility implies that, given enough patients and any policy with full support, I will converge to a single Markov kernel representing the response of any patient to a treatment, which will be equal to the conditional probability of recovery given treatment. On the other hand, it well understood that I should not always assume that the conditional probability of recovery given treatment is a good guide to my selection of policy. In particular, it would be unwise to estimate the probability of recovery given treatment for the first 50 patients in the second example and assume this is the same as the conditional probability of recovery given treatment for the second 50 patients.
+If we also assume that the order of treating patients also doesn't matter, then we can invert the order of the final two steps and obtain a procedure that is equivalent to the original procedure with patients interchanged.
 
-The question is: what is being accomplished by the use of a policy that distinguishes situation 1 from 2? The answer, we think, is that the word ``policy'' implies more than just ``a probability distribution associated with a variable something that we happen to call a decision''. In particular, suppose policy $\alpha_1$ is to always choose decision $1$ and policy $\alpha_2$ is to always choose decision $2$. Choosing a mixed policy $0.5\alpha_1 + 0.5\alpha_2$ does not mean ``I choose to be uncertain by degree $a$ over which decision I will choose'', it means ``I will consult a random number generator that I know to yield $1$ half of the time and $2$ the other half, then choose $\alpha_i$ according to the result''. 
+In the first scenario, however, this argument does not go through. Because the procedure is vague as to the precise nature of $\proc{D}_1$ and $\proc{D}_2$ once $\alpha$ is chosen, it is possible that the following procedure is used:
 
+\begin{itemize}
+    \item Decide on some ``decision inclination'' $\alpha$
+    \item Inspect patient A, then somehow (using $\alpha$) find $\proc{D}_1$
+    \item Inspect patient B, then somehow (using $\alpha$) find $\proc{D}_2$
+    \item Treat the patient A according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
+    \item Treat the patient B according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
+\end{itemize}
 
+Interchangeability of \emph{patients} suggests the following procedure is equivalent
 
-We can use probability gap models for many things. Maybe we want $\prob{P}_\alpha$ on Monday we do some work to figure out $\prob{P}_\square^{\RV{Y}|\RV{X}}$ and on Tuesday we were going to do a bit more to work out $\prob{P}_\alpha^{\RV{X}}$, but actually we found the answer to our question would be the same in any case. Whether or not we explicitly set it up, we've made use of a conditional probability model to come to this conclusion.
+\begin{itemize}
+    \item Decide on some ``decision inclination'' $\alpha$
+    \item Inspect patient B, then somehow that depends on $\alpha$ find $\proc{D}_1$
+    \item Inspect patient A, then somehow that depends on $\alpha$ find $\proc{D}_2$
+    \item Treat the patient B according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
+    \item Treat the patient A according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
+\end{itemize}
 
-However, we actually want to model decision problems. For a decision problem we compare different policies $\alpha$ and choose the best one according to some criterion. We choose decisions according to the policy we arrive at. Decisions can be represented by variables, but they have a very important property: they must be deterministic for any policy choice $\alpha$.
+Interchaning decisions followed by interchanging outcomes yields the following procedure
 
-\begin{definition}[Decision variable]
-Given a probability gap model $(\prob{P}_\square, A)$ on $\Omega$, a variable $\RV{D}$ is a \emph{decision variable} if there is some variable $\RV{R}$ which we call \emph{purely random} such that, for $\alpha\in A$, $\prob{P}_\alpha^{\RV{D}|\RV{R}}$ is deterministic.
-\end{definition}
+\begin{itemize}
+    \item Decide on some ``decision inclination'' $\alpha$
+    \item Inspect patient A, then somehow (using $\alpha$) find $\proc{D}_1$
+    \item Inspect patient B, then somehow (using $\alpha$) find $\proc{D}_2$
+    \item Treat the patient A according to $\proc{D}_1^{\text{swap}}$, record the outcome as $\proc{Y}_2^{\text{swap}}$
+    \item Treat the patient B according to $\proc{D}_2^{\text{swap}}$, record the outcome as $\proc{Y}_1^{\text{swap}}$
+\end{itemize}
 
-We don't attempt to define what a ``purely random'' variable is here.
+Substituting equivalent procedures
 
-Because $\RV{D}$ is deterministic given $\RV{R}$, we have $\RV{Y}\CI_{\prob{P}_\square}\RV{R}|\RV{D}$, and so we can marginalise over $\RV{R}$ and talk about policies as if they address marginal probabilities over $\RV{D}$: $\prob{P}_\alpha^{\RV{D}}$.
+\begin{itemize}
+    \item Decide on some ``decision inclination'' $\alpha$
+    \item Inspect patient A, then somehow (using $\alpha$) find $\proc{D}_1$
+    \item Inspect patient B, then somehow (using $\alpha$) find $\proc{D}_2$
+    \item Treat the patient A according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
+    \item Treat the patient B according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
+\end{itemize}
 
-The reason we include this definition is that it constrains the measurement procedures that are allowed to be associated with decision variables. In particular, all such measurement procedures must, with probability 1, yield a function of the policy choice $\alpha$ and a purely random measurement procedure $\proc{R}$. In particular, this means that if I talk about a ``mixed policy'' $a\alpha+(1-a)\beta$ I mean: consult a purely random process and, if the result is consistent with $a$ act according to $\alpha$, while if the result is consistent with $(1-a)$ act according to $\beta$. This is what people usually mean when they talk about mixing policies, and we think this is important enough to bake into the theory rather than leave it as an implicit side constraint.
+Then applying the assumption of reordering
 
-This is quite important, because it helps us to distinguish between these two apparently similar situations:
+\begin{itemize}
+    \item Decide on some ``decision inclination'' $\alpha$
+    \item Inspect patient A, then somehow (using $\alpha$) find $\proc{D}_1$
+    \item Inspect patient B, then somehow (using $\alpha$) find $\proc{D}_2$
+    \item Treat the patient B according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
+    \item Treat the patient A according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
+\end{itemize}
 
-\begin{enumerate}
-    \item Some doctor is going to treat 49 (otherwise unknown) patients for lower back pain, then I will treat one patient for the same
-    \item I am preparing to treat 50 (otherwise unknown) patients for lower back pain
-\end{enumerate}
+This is not the original procedure with an interchange of patients; in particular, the patients have not been interchanged with regard to their role in selecting the procedures $\proc{D}_1$ and $\proc{D}_2$. Thus the first scenario combined with the assumption of interchangeable patients and indifference to treatment order does \emph{not} imply commutativity of exchange.
 
-In the second case, because decisions are deterministic, I don't learn anything about the patient when I treat them or not. In the first case, because the other doctor's decisions are uncertain from my point of view, their treatment decisions can inform me about the patient \emph{and} determine whether the patient takes the medicine or not.
+A simlar argument that may be more familiar goes: in the first scenario, Alice's decisions $(\proc{D}_1,\proc{D}_2)$ could depend on some unobserved patient characteristics, which could also influence the outcomes $(\proc{Y}_1,\proc{Y}_2)$, so the observed conditional probability $\prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}$ might not correspond to the causal consequence $\prob{P}^{\RV{Y}_1\RV{Y}_2|do(\RV{D}_1,\RV{D}_2)}$. The problem here is that we want to know when we can establish the existence of causal consequences, so an argument that refers to causal consequences does not do us any good for this purpose. Furthermore, as Judea Pearl has often reminded us, it is very difficult to explain the meaning of terms like ``influence'' without invoking causal consequences at some point.
 
-If we go ahead and set this up formally, we could use probability gap models for both; 
-
-In the first case, we know it is unwise to assume that the result of giving patient 50 treatment $x$ will be probabilistically the same as the results experienced by all previous patients who received $x$. On the other hand, in the second case, it seems reasonable to expect the result of giving treatment $x$ to patient 50 is, a priori, the same as giving treatment $x$ to any other patient. That is, causal contractibility seems plausible if we imagine ourselves in a situation of planning a sequence of treatments, but a rather similar assumption seems unwise if we imagine the treatments having already taken place.
-
-There is a subtle asymmetry between these situations: while ``patient $i$ receives treatment $x$'' is a sensible proposition for both situations, \emph{it corresponds to a different measurement procedure}.  
