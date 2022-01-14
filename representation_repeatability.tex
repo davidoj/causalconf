@@ -22,17 +22,15 @@ We will argue that Alice could reasonably assume causal contractibility in the s
 
 \subsection{Repeatable experiments}
 
-A conditional probability model $(\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}},A)$ is a model of a sequential experiment if $\RV{Y}:=\RV{Y}_M=(\RV{Y}_i)_{i\in M}$ and $\RV{D}:=\RV{D}_M=(\RV{D}_i)_{i\in M}$ for some index set $M$. We say that $\RV{Y}_i$ is the consequence corresponding to the decision $\RV{D}_i$ for all $i\in M$. A $(\RV{D}_i,\RV{Y}_i)$ pair is an \emph{experimental unit}. We identify a ``causal consequence'' with a conditional probability of the form $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{D}_i}$, where $\RV{H}$ is a hypothesis that is identical for every experimental unit. Causal consequences do not generally exist, see Definition \ref{def:cprob_pset}.
+A conditional probability model $(\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}},A)$ is a model of a sequential experiment if $\RV{Y}:=\RV{Y}_M=(\RV{Y}_i)_{i\in M}$ and $\RV{D}:=\RV{D}_M=(\RV{D}_i)_{i\in M}$ for some index set $M$. We say that $\RV{Y}_i$ is the consequence corresponding to the decision $\RV{D}_i$ for all $i\in M$. We identify a ``causal consequence'' with a conditional probability of the form $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{D}_i}$, where $\RV{H}$ is a hypothesis that is deterministically identical for every $i$. Causal consequences do not generally exist, see Definition \ref{def:cprob_pset}.
 
 If $(\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}},A)$ represents a sequential experiment, we might guess that causal consequences exist if the experiment is in some sense ``repeatable''. We consider two precise notions of repeatability. The first condition is \emph{commutativity of exchange}, which is the assumption that swapping the choices that we apply at each step and then applying the corresponding inverse swap to consequences leaves the model unchanged. The second condition is \emph{commutativity of marginalisation} -- if we perform the whole experiment multiple times, making the same choice $\RV{D}_i$ at any point $i$ gets the same results, regardless of what other choices are made.
 
 Commutativity of exchange is similar to the condition of \emph{post-treatment exchangeability} found in \citet{dawid_decision-theoretic_2020}, and commutativity of marginalisation is similar to the stable unit treatment distribution assumption (SUTDA) in the same, as well as the ``no interference'' part of the stable unit treatment value assumption (SUTVA) with which it shares a name. Commutativity of exchange is also very similar to the exchangeability assumption of \citet{greenland_identifiability_1986} for further discussions of exchangeability in the context of causal modelling, and note that both authors consider exchanging to be an operation that alters which person receives which treatment. The assumption of exchangeability found in \citet{banerjee_chapter_2017} can also be regarded as similar to commutativity of exchange.
 
-\todo[inline]{I think the useful part is not that these ideas are conceptually new, but they have sharp definitions instead of }
-
 \todo[inline]{Not sure if or where I want to put this, I just think it helps to illustrate the difference}
 
-Commutativity of exchange is not equivalent to exchangeability in the sense of De Finetti's well-known theorem \citet{de_finetti_foresight_1992}. The latter can be understood as expressing an indifference between conducting the experiment as normal, or conducting the experiment and then swapping some labels. However, swapping \emph{choices} will (usually) lead to different experimental units receive different treatment, which is something that can't be achieved by swapping labels after the experiment has concluded.
+Commutativity of exchange is not equivalent to exchangeability in the sense of De Finetti's well-known theorem \citet{de_finetti_foresight_1992}. The latter can be understood as expressing an indifference between conducting the experiment as normal, or conducting the experiment and then swapping some labels. However, swapping \emph{choices} will (usually) lead to different ``pieces of the experiment'' receiving different treatment, which is something that can't be achieved by swapping labels after the experiment has concluded.
 
 The difference is illustrated by the following pair of diagrams.
 
@@ -113,7 +111,7 @@ Given $M\subset \mathbb{N}$ a finite permutation $\rho:M\to M$ and a variable $\
 \begin{definition}[Commutativity of exchange]\label{def:caus_exch}
 Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},A)$ with $\RV{Y}=\RV{Y}_M$, $\RV{D}=\RV{D}_M$, $M\subseteq \mathbb{N}$. If, for any two decision rules $\alpha^{\overline{\RV{D}}},\beta^{\overline{\RV{D}}} \in A$,
 \begin{align}
-    \alpha^{\RV{D}}\odot \text{swap}_{\rho(\RV{D})} \prob{P}_{\square}^{\RV{Y}|\RV{D}} &= \alpha^{\RV{D}}\odot \prob{P}_{\square}^{\RV{Y}|\RV{D}}\text{swap}_{\rho(\RV{D}\times \RV{Y})}
+    \alpha^{\RV{D}}\odot \text{swap}_{\rho(\RV{D})} \prob{P}_{\square}^{\RV{Y}|\RV{D}} &= \alpha^{\RV{D}}\odot \prob{P}_{\square}^{\RV{Y}|\RV{D}}\text{swap}_{\rho(\RV{Y})}
 \end{align}
 Then $\prob{P}_\square$ \emph{commutes with exchanges}.
 \end{definition}
@@ -217,7 +215,7 @@ A conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},
 
 \subsection{Causal consequences exist if the model is causally contractible}
 
-The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. This can be interpreted as expressing the idea that all experimental units $(\RV{Y}_i,\RV{D}_i)$ share a canonical but unknown ``consequence function'' $D\kto Y$. As discussed already in Section \ref{sec:curry}, the existence of such a conditional probability implies the existence of a common unknown \emph{curried} conditional probability for all experimental units, which resembles a potential outcomes model. In fact, we prove the existence of a curried representation first, in Lemma \ref{th:table_rep}.
+The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. This can be interpreted as expressing the idea that all $(\RV{Y}_i,\RV{D}_i)$ pairs share a canonical but unknown ``consequence function'' $D\kto Y$. As discussed in Section \ref{sec:curry}, the existence of such a consequence function implies the existence of a common unknown curried consequence function. Curried consequence functions look very similar to potential outcomes models, but they don't necessarily support any counterfactual interpretation.
 
 \begin{Lemma}[Exchangeable curried representation]\label{th:table_rep}
 A conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_\square$ is causally contractible if and only if
@@ -326,7 +324,12 @@ We make use of Lemma \ref{th:table_rep} to show that we can represent the condit
 
 \subsection{Modelling different measurement procedures}
 
-An important question is: when is it reasonable to assume causal contractibility? To justify such an assumption, we might argue as follows:
+An important question is: when is it reasonable to assume causal contractibility? We're going to focus just on the assumption of commutativity of exchange because we have more interesting things to say about it. There is a tempting but hazardous line of argument one could adopt: $(\prob{P}_\square^{\RV{Y}_M|\RV{D}_M},A)$ is a model of $|M|$ indistinguishable ``experimental units'', because they are indistinguishable they can be interchanged without altering the appropriate model, and so commutativity of exchange holds.
+
+The problem with this line of reasoning is that interchangeability of ``experimental units'' does \emph{not} imply commutativity of exchange. 
+
+
+To justify such an assumption, we might argue as follows:
 \begin{itemize}
     \item Two measurement procedures, related to one another by swaps and erasures, should be considered equivalent
     \item This implies that the model of each measurement procedure should be symmetric with respect to the corresponding swap and erase operations

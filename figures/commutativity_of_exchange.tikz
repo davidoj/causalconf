@@ -2,7 +2,7 @@
 	\begin{pgfonlayer}{nodelayer}
 		\node [style=medium kernel tikzit] (0) at (-6, 0.5) {$\prob{P}_\square^{\RV{Y}_A|\RV{D}_A}$};
 		\node [style=small dist tikzit] (1) at (-10, 0.5) {$\alpha^{\RV{D}_A}$};
-		\node [style=RLabel tikzit] (2) at (-2.25, 1.75) {$\RV{Y}_1$};
+		\node [style=RLabel tikzit] (2) at (-2.25, 1.25) {$\RV{Y}_1$};
 		\node [style=RLabel tikzit] (3) at (-2.25, 0) {$\RV{Y}_2$};
 		\node [style=none] (4) at (-5.25, 1.25) {};
 		\node [style=none] (5) at (-5.25, 0) {};
@@ -10,50 +10,26 @@
 		\node [style=none] (7) at (-6.5, 0) {};
 		\node [style=none] (8) at (-9.5, 1.25) {};
 		\node [style=none] (9) at (-9.5, 0) {};
-		\node [style=none] (10) at (-6.5, 2.25) {};
-		\node [style=RLabel tikzit] (11) at (-2.25, 1) {$\RV{D}_1$};
-		\node [style=RLabel tikzit] (12) at (-2.25, -0.75) {$\RV{D}_2$};
-		\node [style=copymap tikzit] (13) at (-7.75, 1.25) {};
-		\node [style=copymap tikzit] (14) at (-7.75, 0) {};
-		\node [style=none] (15) at (-6.25, -1) {};
 		\node [style=none] (16) at (0, 0.5) {$=$};
 		\node [style=medium kernel tikzit] (17) at (5.5, 0.5) {$\prob{P}_\square^{\RV{Y}_A|\RV{D}_A}$};
 		\node [style=small dist tikzit] (18) at (2.5, 0.5) {$\alpha^{\RV{D}_A}$};
 		\node [style=RLabel tikzit] (19) at (9.25, 0) {$\RV{Y}_2$};
-		\node [style=RLabel tikzit] (20) at (9.25, 1.75) {$\RV{Y}_1$};
+		\node [style=RLabel tikzit] (20) at (9.25, 1.25) {$\RV{Y}_1$};
 		\node [style=none] (21) at (6.75, 1.25) {};
 		\node [style=none] (22) at (6.75, 0) {};
 		\node [style=none] (23) at (5, 1.25) {};
 		\node [style=none] (24) at (5, 0) {};
 		\node [style=none] (25) at (3, 1.25) {};
 		\node [style=none] (26) at (3, 0) {};
-		\node [style=none] (27) at (6.5, 2.25) {};
-		\node [style=RLabel tikzit] (28) at (9.25, -0.75) {$\RV{D}_2$};
-		\node [style=RLabel tikzit] (29) at (9.25, 1) {$\RV{D}_1$};
-		\node [style=copymap tikzit] (30) at (3.75, 1.25) {};
-		\node [style=copymap tikzit] (31) at (3.75, 0) {};
-		\node [style=none] (32) at (5.5, -1) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [in=-180, out=0] (4.center) to (2);
 		\draw (5.center) to (3);
-		\draw (13) to (6.center);
-		\draw (14) to (7.center);
-		\draw [in=-180, out=75] (13) to (10.center);
-		\draw [in=180, out=0] (10.center) to (11);
-		\draw [in=180, out=-75, looseness=0.75] (14) to (15.center);
-		\draw [in=180, out=0] (15.center) to (12);
 		\draw [in=180, out=0] (21.center) to (19);
 		\draw [in=180, out=0, looseness=0.75] (22.center) to (20);
-		\draw (25.center) to (30);
-		\draw (30) to (23.center);
-		\draw (26.center) to (31);
-		\draw (31) to (24.center);
-		\draw [in=-180, out=75] (30) to (27.center);
-		\draw [in=180, out=0] (27.center) to (28);
-		\draw [in=180, out=-75, looseness=0.75] (31) to (32.center);
-		\draw [in=180, out=0, looseness=1.50] (32.center) to (29);
-		\draw [in=-180, out=0, looseness=0.75] (9.center) to (13);
-		\draw [in=180, out=0] (8.center) to (14);
+		\draw [in=180, out=0] (8.center) to (7.center);
+		\draw [in=-180, out=0] (9.center) to (6.center);
+		\draw (25.center) to (23.center);
+		\draw (26.center) to (24.center);
 	\end{pgfonlayer}
 \end{tikzpicture}
