@@ -324,46 +324,110 @@ Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P}
 We make use of Lemma \ref{th:table_rep} to show that we can represent the conditional probability as an exchangeable tabular probability distribution. We then use the property of exchangeability of the columns of that distribution in conjunction with De Finetti's theorem to derive the result.
 \end{proof}
 
-\subsection{When is causal contractibility a reasonable assumption?}
+\subsection{Modelling different measurement procedures}
 
-Theorem \ref{th:iid_rep} shows that a formal property of conditional probability models -- causal contractibility -- implies the existence of a map $D\times H\kto Y$ that, when coupled with a distribution over $H$, yields the original model. Causal contractibility is a combination of two assumptions:
+An important question is: when is it reasonable to assume causal contractibility? To justify such an assumption, we might argue as follows:
 \begin{itemize}
-    \item Given any plan $\alpha$, shuffling the decisions $\RV{D}$ and applying the corresponding shuffle to the outcome labels describes an experiment that is essentially the same
-    \item Given any two plans $\alpha$ and $\beta$, if we consider only outcomes corresponding the decisions on which $\alpha$ and $\beta$ agree, we expect to see the same results
+    \item Two measurement procedures, related to one another by swaps and erasures, should be considered equivalent
+    \item This implies that the model of each measurement procedure should be symmetric with respect to the corresponding swap and erase operations
 \end{itemize}
 
-A practitioner may do their best to evaluate whether or not these conditions hold. However, this issue is somewhat subtle. Consider again the following two scenarios:
+First, we want to spell out in detail how one model can apply to two different measurement procedures. Recall that we assume that a single master measurement procedure $\proc{S}$ taking values in $\Psi$, and observables are all functions of $\proc{S}$. Given a model $(\prob{P}_\square,A)$ associated with $\proc{S}$, the model does not in general apply to an alternative measurement procedure $\proc{S}'$.
+
+However, it is also a principle of measurement procedures that a measurement procedure followed by the application of a function is itself a measurement procedure. Thus a model $(\prob{P}_\square,A)$ associated with $\proc{S}$ may also be informative about a procedure $f\circ \proc{S}$ for any $f:\Psi\to X$.
+
+In particular, consider measurement procedures related by \emph{swaps}. For example, suppose we have $(\proc{D}_1,\proc{D}_2)$ and $(\proc{D}^{\text{swap}}_1,\proc{D}^{\text{swap}}_2):=(\proc{D}_2,\proc{D}_1)$. Then, given any probability model $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ we have $\prob{P}_\alpha^{\RV{D}_1^{\text{swap}}\RV{D}_2^{\text{swap}}} = \prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$. In this way, $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ is a model of $(\proc{D}_1,\proc{D}_2)$ and induces a unique model of $(\proc{D}^{\text{swap}}_1,\proc{D}^{\text{swap}}_2)$.
+
+Technically, this requires an assumption: if $\RV{X}$ is associated with $\proc{X}$ then $f\circ \RV{X}$ is associated with $f\circ \proc{X}$ (roughly: the abstract mathematical idea of composing a function with something and the actual process of applying a function to something and obtaining a result are treated as the same thing)
+
+\subsection{Example: commutativity of exchange and treatment choices}
+
+Concretely, commutativity of exchange can be justified if we suppose that the same model $(\prob{P}_\square^{\RV{Y}_M|\RV{D})_M},A)$ should describe
+\begin{itemize}
+    \item A measurement procedure $\proc{S}$ that yields $|M|$ outcomes $\proc{Y}_M$ and and $|M|$ decisions $\proc{D}_M$
+    \item Any other $|M|$ outcomes $\proc{Y}^{\text{swap}}_M$ and $|M|$ decisions $\proc{D}^{\text{swap}}_M$, related to the originals by a swap.
+\end{itemize}
+
+For a concrete example, consider the following two scenarios:
 
 \begin{enumerate}
-    \item Dr Alice is going to see two patients who are both complaining of lower back pain and are otherwise unknown to Alice. Prior to seeing them, she settles on a decision function $\alpha$ which determines whether or not she will treat each one according to a \emph{deterministic} probability distribution $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ 
+    \item Dr Alice is going to see two patients who are both complaining of lower back pain and are otherwise unknown to Alice. Prior to seeing them, she settles on a decision function $\alpha$ which deterministically sets her treatment choices according to a function $\text{decisions}(\alpha)$
     \item As before, but $\alpha$ is a ``decision inclination'' and $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ nondeterministic
 \end{enumerate}
 
-Alice could model both situations with a sequential conditional probability model $(\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2},A)$ with the elements of $A$ identified with marginal probabilities of the form $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$. Might she, in one or both situations, consider this model to be causally contractible?
+Alice could model both situations with a sequential conditional probability model $(\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2},A)$ with the elements of $A$ identified with probability models of the form $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$. Might she, in one or both situations, consider this condiitonal probability model to be causally contractible?
 
-We will assume that both satisfy commutativity of marginalisation -- that is, the first patient's outcomes do not change on the basis of the second patient's treatment and vise versa.
+We will assume that both satisfy commutativity of marginalisation -- that is, the first patient's outcomes are expected to be the same no matter what is planned for the second patient and vise versa. We want to know if they satisfy commutativity of exchange.
 
-At the outset, Alice does not know any features that might distinguish the two patients, so it is reasonable to think that she should adopt the same model for a) the original experiment and b) the same experiment, except with the patients interchanged. In general, this principle could be compatible with many different conditionals $\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}$, as ``patients'' are not part of the model and therefore there is no ``interchange patients'' operation we can in general apply.
+The argument we want to make (if it can be supported) is:
+\begin{itemize}
+    \item We can describe two measurement procedures that should share the same model
+    \item The first is a measurement procedure for $(\RV{D}_1,\RV{D}_2,\RV{Y}_1,\RV{Y}_2)$
+    \item The second is a measurement procedure for $(\RV{D}^{\text{swap}}_1,\RV{D}^{\text{swap}}_2,\RV{Y}^{\text{swap}^{-1}}_1,\RV{Y}^{\text{swap}^{-1}}_2)$
+\end{itemize}
 
-We can write down models that correspond to swapping decisions and swapping outcomes. So the question is: is swapping decisions and then applying the inverse swap to outcomes equivalent to swapping patients? If so, the above argument implies we should accept commutativity of exchange. Consider the second scenario. In more detail, the measurment procedures might be:
+At the outset, Alice does not know any features that might distinguish the two patients, so it is reasonable to think that she should adopt the same model for a) the original experiment and b) the same experiment, except with the patients interchanged. Note that interchanging \emph{patients} does not correspond directly to any operation on the model $(\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2},A)$ which describes decisions and, not patients.
+
+We will define measurement procedures using pseudocode because the argument requires precision.
+
+Suppose the first scenario corresponds to the following procedure $\proc{S}$ which yields values in $A\times D^2\times Y^2$. $\RV{D}_i$ is the projection $(\alpha,d_1,d_2,y_1,y_2)\mapsto d_i$ composed with $\proc{S}$ and $\RV{Y}_i$ is the projection $(\alpha,d_1,d_2,y_1,y_2)\mapsto y_i$ composed with $\proc{S}$.
 
 \todo[inline]{I feel like I've put myself in a weird position of doing pseudo-mathematical derivations with English words. I'm not sure that there's a better alternative, though.}
 
+\begin{algorithmic}
+    \proc{S}:
+        \State $\alpha \gets $choose_alpha()
+        \State $(\proc{D}_1,\proc{D}_2) \gets $decisions($\alpha$)
+        \State $\proc{Y}_1)\gets \text{apply}(\proc{D}_1,\text{patient A})$
+        \State $\proc{Y}_2)\gets \text{apply}(\proc{D}_2,\text{patient B})$
+    \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+\end{algorithmic}
+
+Make the assumption that, on the basis that the patients are indistinguishable to Alice at the time of model construction, the measurement procedure with swapped patients is equivalent. Assume also that swapping the order of treatment and swapping the order in which outcomes are recorded yields an equivalent measurment procedure. Putting these two assumptions together, the following procedure $\proc{S}'$ is equivalent to the original:
+
+\begin{algorithmic}
+    \proc{S}':
+        \State $\alpha \gets $choose_alpha()
+        \State $(\proc{D}_1,\proc{D}_2) \gets $decisions($\alpha$)
+        \State $\proc{Y}_2\gets \text{apply}(\proc{D}_2,\text{patient A})$
+        \State $\proc{Y}_1\gets \text{apply}(\proc{D}_1,\text{patient B})$
+    \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+\end{algorithmic}
+
+Now, consider a measurement procedure $\proc{S}''$ that involves swapping decisions, then applying the inverse swap to outcomes
+
 \begin{itemize}
-    \item Decide on some $\alpha$, which corresponds to a particular $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ and, via determinism, to a pair of decisions $(\proc{D}_1,\proc{D}_2)$
-    \item Treat the patient A according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
-    \item Treat the patient B according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
+    \proc{S}'':
+        \State $\alpha \gets $choose_alpha()
+        \State $(\proc{D}_1,\proc{D}_2) \gets $decisions($\alpha$)
+        \State $(\proc{D}_1^{\text{swap}},\proc{D}_2^{\text{swap}}) \gets (\proc{D}_2,\proc{D}_1)$
+        \State $\proc{Y}^{\text{swap}}_1\gets \text{apply}(\proc{D}_1^{\text{swap}},\text{patient A})$
+        \State $\proc{Y}_2^{\text{swap}}\gets \text{apply}(\proc{D}_2^{\text{swap}},\text{patient B})$
+        \State $(\proc{Y}_1,\proc{Y}_2)\gets (\proc{Y}^{\text{swap}}_2,\proc{Y}^{\text{swap}}_1)$
+    \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
 \end{itemize}
 
-The argument that it ought to be possible to interchange patients implies that the same model should apply to the following procedure
+(Note that we have implicitly reversed the swap we used to get $(\proc{D}_1^{\text{swap}},\proc{D}_2^{\text{swap}})$ so we have the original $(\proc{D}_1,\proc{D}_2)$ in the output)
+
+If we substitute the swapped variables in $\proc{S}''$ we get
 
 \begin{itemize}
-    \item Decide on some $\alpha$, which corresponds to a particular $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ and, via determinism, to a pair of decisions $(\proc{D}_1,\proc{D}_2)$
-    \item Treat the patient B according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
-    \item Treat the patient A according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
+    \proc{S}'':
+        \State $\alpha \gets $choose_alpha()
+        \State $(\proc{D}_1,\proc{D}_2) \gets $decisions($\alpha$)
+        \State $\proc{Y}_2\gets \text{apply}(\proc{D}_2,\text{patient A})$
+        \State $\proc{Y}_1\gets \text{apply}(\proc{D}_1,\text{patient B})$
+    \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
 \end{itemize}
 
-On the other hand, interchanging actions and then interchanging results means we define procedures $\proc{D}_1^{\text{swap}}=\proc{D}_2$, $\proc{D}_2^{\text{swap}}=\proc{D}_1$, $\proc{Y}_1^{\text{swap}}=\proc{Y}_2$ and $\proc{Y}_2^{\text{swap}}=\proc{Y}_1$. Then we reason using the swapped procedures
+Thus $\proc{S}''$ is exactly the same as $\proc{S}'$, which by assumption is equivalent to the original $\proc{S}$. Thus the assumptions of interchangeable patients and reversible order of treatment application imply the model should commute with exchange.
+
+This argument does \emph{not} hold for scenario 2. The catch is, in the absence of a function $decisions(\alpha)$ which \emph{defines} the procedure for obtaining $\proc{D}_1$ and $\proc{D}_2$, we need to invoke some other measurment procedures for each of these variables.
+
+
+Assume furthermore that it 
+
+On the other hand, interchanging actions and then interchanging results means we define procedures $. Then we reason using the swapped procedures
 
 \begin{itemize}
     \item Decide on some $\alpha$, which corresponds to a particular $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ and, via determinism, to a pair of decisions $(\proc{D}_1,\proc{D}_2)$
