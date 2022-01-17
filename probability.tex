@@ -260,8 +260,8 @@ Given $\prob{K}:X\kto Y$, $\prob{L}:Y\times X\kto Z$ and $\prob{M}:Z\times Y\tim
 
 \begin{proof}
 \begin{align}
-	(\prob{K}\odot \prob{L})\odot \prob{M} &= \tikzfig{odot_\alphassoc_1}\\
-											&=  \tikzfig{odot_\alphassoc_2}\\
+	(\prob{K}\odot \prob{L})\odot \prob{M} &= \tikzfig{odot_assoc_1}\\
+											&=  \tikzfig{odot_assoc_2}\\
 											&= \prob{K}\odot (\prob{L}\odot \prob{M})
 \end{align}
 \end{proof}
@@ -415,7 +415,7 @@ For a \emph{probability set} $\model{P}_{\{\}}$ and variables $\RV{A},\RV{B},\RV
 
 \begin{enumerate}
 	\item Symmetry: $\RV{A}\CI_{\prob{P}} \RV{B}|\RV{C}$ iff $\RV{B}\CI_{\prob{P}} \RV{A}|\RV{C}$
-	\item Decomposition: $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}}\RV{Y}|\RV{W}$ and $\RV{A}\CI_{\prob{P}_\square}\RV{C}|\RV{W}$
+	\item Decomposition: $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}}\RV{B}|\RV{W}$ and $\RV{A}\CI_{\prob{P}_\square}\RV{C}|\RV{W}$
 	\item Weak union: $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$
 	\item Contraction: $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CI_{\prob{P}_\square}(\RV{B},\RV{C})|\RV{W}$
 \end{enumerate}
@@ -435,9 +435,9 @@ See \citet{cho_disintegration_2019}.
 
 The semi-graphoid axioms hold for all probability measures $\prob{P}$, so in particualr they hold for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. Thus conditional independence with respect to a probability set also satisfies the semi-graphoid axioms.
 
-\begin{definition}[Conditional independence with respect to a probability comb]
-Conditional independence $\RV{A}\CI_{\prob{P}_\square}\RV{B}|\RV{C}$ holds for an arbitrary probability comb $\model{P}_\square:A\to \mathscr{P}(\Delta(\Omega))$ if $\RV{A}\CI_{\prob{P}_\alpha}\RV{B}|\RV{C}$ holds for all probability models $\prob{P}_\alpha$, $\alpha\in A$.
-\end{definition}
+% \begin{definition}[Conditional independence with respect to a probability comb]
+% Conditional independence $\RV{A}\CI_{\prob{P}_\square}\RV{B}|\RV{C}$ holds for an arbitrary probability comb $\model{P}_\square:A\to \mathscr{P}(\Delta(\Omega))$ if $\RV{A}\CI_{\prob{P}_\alpha}\RV{B}|\RV{C}$ holds for all probability models $\prob{P}_\alpha$, $\alpha\in A$.
+% \end{definition}
 
 \subsection{Curried Markov kernels}\label{sec:curry}
 

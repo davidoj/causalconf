@@ -1,7 +1,25 @@
 %!TEX root = main.tex
 
+\section{Appendix, needs to be organised}
 
-\subsubsection{Extended conditional independence}\label{ap:eci}
+\subsection{Existence of conditional probabilities}
+
+\begin{theorem}
+Given probability gap model $\prob{P}_{\{\}}$, $\RV{X}$, $\RV{Y}$, $\RV{Z}$ such that $\prob{P}_{\{\}}^{\RV{Z}|\RV{YX}}$ exists, $\prob{P}_{\{\}}^{\RV{Z}|\RV{Y}}$ exists iff $\RV{Z}\CI_{\prob{P}_{\{\}}} \RV{X}|\RV{Y}$.
+\end{theorem}
+
+\begin{proof}
+If:
+If $\RV{Z}\CI_{\prob{P}_{\{\}}} \RV{X}|\RV{Y}$ then by Theorem \ref{th:cho_ci_equiv}, for each $\prob{P}_\alpha\in \prob{P}_{\{\}}$ there exists $\prob{P}_{\alpha}^{\RV{Z}|\RV{Y}}$ such that
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase}
+\end{align}
+
+
+\end{proof}
+
+
+\subsection{Extended conditional independence}\label{ap:eci}
 
 \todo[inline]{Needs a support condition}
 
@@ -68,11 +86,11 @@ then $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ is \emph{unresponsive} to $\RV{X}$.
 \end{definition}
 
 \begin{definition}[Domination]
-Given a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$, $\alpha\in A$ dominates $A$ if $\prob{P}_\beta(B)>0\implies \prob{P}_\alpha(B)>0$ for all $\beta in A$, $B\in \sigalg{F}$.
+Given a probability set $\prob{P}_{\{\}}\subset \Delta(\Omega)$, $\prob{P}_\alpha$ dominates $\prob{P}_{\{\}}$ if $\prob{P}_\beta(B)>0\implies \prob{P}_\alpha(B)>0$ for all $\prob{P}_\beta in \prob{P}_{\{\}}$, $B\in \sigalg{F}$.
 \end{definition}
 
 \begin{theorem}[Conditional independence from kernel unresponsiveness]\label{th:cons_ci}
-Given discrete $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$ with conditional probability $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ and such that there is $\alpha\in A$ dominating $A$, $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ if and only if $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ is unresponsive to $\RV{W}$. 
+Given standard measurable $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}:A\to \Delta(\Omega)$ with conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$ such that there is $\prob{P}_\alpha\in \prob{P}_{\{\}}$ dominating $\prob{P}_{\{\}}$, $\RV{Y}\CI_{\prob{P}_{\{\}}}\RV{X}|\RV{W}$ if and only if there is a version of $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$ unresponsive to $\RV{W}$. 
 \end{theorem}
 
 \begin{proof}
@@ -81,14 +99,32 @@ For every $\alpha\in A$ we can write
 \begin{align}
   \prob{P}_\alpha^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase_alpha}
 \end{align}
-And so, by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\prob{P}_\alpha}\RV{X}|\RV{W}$ for all $\alpha\in A$, and so $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$.
+And so, by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\prob{P}_\alpha}\RV{X}|\RV{W}$ for all $\alpha\in A$, and so $\RV{Y}\CI_{\prob{P}_{\{\}}}\RV{X}|\RV{W}$.
 Only if:
-For $\alpha$ dominating $A$, by Theorem \ref{th:cho_ci_equiv}, there exists a version of $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ unresponsive to $\RV{W}$. Because $\alpha$ dominates $A$, every version of $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ is a version of $\prob{P}_\beta^{\RV{Y}|\RV{WX}}$ for all $\beta in A$, thus it is a version of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ also.
+For $\prob{P}_{\alpha}$ dominating $\prob{P}_{\{\}}$, by Theorem \ref{th:cho_ci_equiv}, there exists a version of $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ unresponsive to $\RV{W}$. Because $\prob{P}_{\alpha}$ dominates $\prob{P}_{\{\}}$, $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ differs from $\prob{P}_\beta^{\RV{Y}|\RV{WX}}$ on a set of measure 0 for any $\prob{P}_{\beta}\in \prob{P}_{\{\}}$, thus $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ is a version of $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$ also.
 \end{proof}
 
-Note that $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ does \emph{not} imply the existence of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{AB}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{AB}}$ is a flip of a biased coin followed by a flip of a fair coin, then $\RV{A}\CI_{\prob{P}}\RV{B}$ but $\prob{P}^{\RV{AB}}$ does not exist.
+\begin{corollary}\label{cor:ci_cp_exist}
+Given standard measurable $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}:A\to \Delta(\Omega)$ with conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$, $\prob{P}_{\{\}}^{\RV{Y}|\RV{W}}$ exists if $\RV{Y}\CI_{\prob{P}_{\{\}}}\RV{X}|\RV{W}$.
+\end{corollary}
 
-We also need the domination condition. Consider $A$ a collection of inserts that all deterministically set a variable $\RV{X}$; then for any variable $\RV{Y}$ $\RV{Y}\CI_{\prob{P}_\square} \RV{X}$ because $\RV{X}$ is deterministic for any $\alpha\in A$. But $\prob{P}_\square^{\RV{Y}|\RV{X}}$ is not necessarily unresponsive to $\RV{X}$.
+\begin{proof}
+By Theorem \ref{th:cons_ci}, there is $\kernel{K}:W\kto Y$ such that for all $\alpha$
+\begin{align}
+    \prob{P}_{\alpha}^{\RV{WY}} &= \tikzfig{conditional_independence_cprob_exist}\\
+    &= \tikzfig{conditional_independence_cprob_exist2}\\
+    &= \tikzfig{conditional_independence_cprob_exist3}
+\end{align}
+
+Thus $\kernel{K}$ is a version of $\prob{P}_{\{\}}^{\RV{Y}|\RV{W}}$.
+\end{proof}
+
+This result can fail to hold in the absence of the domination condition. Consider $A$ a collection of inserts that all deterministically set a variable $\RV{X}$; then for any variable $\RV{Y}$ $\RV{Y}\CI_{\prob{P}_\square} \RV{X}$ because $\RV{X}$ is deterministic for any $\alpha\in A$. But $\prob{P}_\square^{\RV{Y}|\RV{X}}$ is not necessarily unresponsive to $\RV{X}$.
+
+Note that in the absence of the assumption of the existence of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$, $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ does \emph{not} imply the existence of $\prob{P}_\square^{\RV{Y}|\RV{W}}$. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{XY}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{XY}}$ is two flips of a biased coin, then $\RV{Y}\CI_{\prob{P}}\RV{X}$ but $\prob{P}^{\RV{Y}}$ does not exist.
+
+
+
 
 
 \subsubsection{Graphical properties of conditional independence}

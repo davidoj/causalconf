@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  11 JAN 2022 16:06
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  17 JAN 2022 15:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -896,48 +896,83 @@ LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
 \l_MT_above_shortintertext_sep=\dimen283
 \l_MT_below_shortintertext_sep=\dimen284
 )
-\c@theorem=\count306
-\c@innercustomthm=\count307
+(/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+(/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count306
+\c@ALG@rem=\count307
+\c@ALG@nested=\count308
+\ALG@tlm=\skip66
+\ALG@thistlm=\skip67
+\c@ALG@Lnr=\count309
+\c@ALG@blocknr=\count310
+\c@ALG@storecount=\count311
+\c@ALG@tmpcounter=\count312
+\ALG@tmplength=\skip68
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithm.sty
+Invalid UTF-8 byte or sequence at line 11 replaced by U+FFFD.
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count313
+\float@exts=\toks44
+\float@box=\box86
+\@float@everytoks=\toks45
+\@floatcapt=\box87
+)
+\@float@every@algorithm=\toks46
+\c@algorithm=\count314
+)
+\c@theorem=\count315
+\c@innercustomthm=\count316
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... none found.
 
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-xdvipdfmx.def
 File: l3backend-xdvipdfmx.def 2020-02-03 L3 backend support: xdvipdfmx
-\g__graphics_track_int=\count308
-\l__pdf_internal_box=\box86
-\g__pdf_backend_object_int=\count309
-\g__pdf_backend_annotation_int=\count310
+\g__graphics_track_int=\count317
+\l__pdf_internal_box=\box88
+\g__pdf_backend_object_int=\count318
+\g__pdf_backend_annotation_int=\count319
 )
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 183.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 187.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 1
-83.
+87.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 183.
-LaTeX Font Info:    ... okay on input line 183.
-\AtBeginShipoutBox=\box87
-Package hyperref Info: Link coloring OFF on input line 183.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+\AtBeginShipoutBox=\box89
+Package hyperref Info: Link coloring OFF on input line 187.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -948,17 +983,17 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count311
+\c@section@level=\count320
 )
-LaTeX Info: Redefining \ref on input line 183.
-LaTeX Info: Redefining \pageref on input line 183.
-LaTeX Info: Redefining \nameref on input line 183.
+LaTeX Info: Redefining \ref on input line 187.
+LaTeX Info: Redefining \pageref on input line 187.
+LaTeX Info: Redefining \nameref on input line 187.
 
 (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 183.
+LaTeX Info: Redefining \microtypecontext on input line 187.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: No adjustment of tracking.
@@ -970,7 +1005,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (RS)
 )
 ABD: EveryShipout initializing macros
-LaTeX Font Info:    Trying to load font information for U+msa on input line 186
+LaTeX Font Info:    Trying to load font information for U+msa on input line 190
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -979,7 +1014,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 186
+LaTeX Font Info:    Trying to load font information for U+msb on input line 190
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -989,18 +1024,18 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for U+stmry on input line 1
-86.
+90.
 
 (/usr/share/texlive/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
-LaTeX Font Info:    Trying to load font information for U+wasy on input line 18
-6.
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 19
+0.
 
 (/usr/share/texlive/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 )
 
 LaTeX Font Warning: Font shape `U/stmry/b/n' undefined
-(Font)              using `U/stmry/m/n' instead on input line 186.
+(Font)              using `U/stmry/m/n' instead on input line 190.
 
 (./main.toc
 (/usr/share/texlive/texmf-dist/tex/generic/stringenc/se-ascii-print.def
@@ -1035,944 +1070,87 @@ File: mt-eus.cfg 2006/07/28 v1.2 microtype config. file: AMS Euler Script (RS)
 
 LaTeX Warning: Reference `eq:disint' on page 12 undefined on input line 242.
 
-(./figures/copy_product.tikz) (./figures/copy_product.tikz)
-! Undefined control sequence.
-<argument> odot_alphassoc 
-                          _1.tikz
-l.266 \end{align}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ./figures/odot_alphassoc 
-                                    _1.tikz
-l.266 \end{align}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.266 \end{align}
-                 
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Undefined control sequence.
-<argument> odot_\alphassoc 
-                           _1
-l.266 \end{align}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.266 \end{align}
-                 
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Extra }, or forgotten $.
-<recently read> }
-                 
-l.266 \end{align}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Extra }, or forgotten $.
-\reserved@a ...e] {\textit {odot_\alphassoc _1}};}
-                                                  
-l.266 \end{align}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Extra }, or forgotten $.
-\tikzfig ...fill=red!10!white] {\textit {#1}};}}}}
-                                                  
-l.266 \end{align}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Misplaced alignment tab character &.
-\math@cr@@@ ->&
-               \omit \global \advance \row@ \@ne \ifst@rred \nonumber \fi \i...
-l.266 \end{align}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \omit.
-\math@cr@@@ ->&\omit 
-                     \global \advance \row@ \@ne \ifst@rred \nonumber \fi \i...
-l.266 \end{align}
-                 
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \cr.
-\math@cr@@@ ... \else \global \@eqnswtrue \fi \cr 
-                                                  
-l.266 \end{align}
-                 
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \noalign.
-\math@cr@@ ... \iffalse }\fi \math@cr@@@ \noalign 
-                                                  {\vskip #1\relax }
-l.266 \end{align}
-                 
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.266 \end{align}
-                 
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-! Package tikz Error: Giving up on this path. Did you forget a semicolon?.
-
-See the tikz package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.266 \end{align}
-                 
-This error message was generated by an \errmessage
-command, so I can't give any explicit help.
-Pretend that you're Hercule Poirot: Examine all clues,
-and deduce the truth by order and method.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \relax 
-l.266 \end{align}
-                 
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   \relax 
-l.266 \end{align}
-                 
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've put in what seems to be necessary to fix
-the current column of the current alignment.
-Try to go on, since this might almost work.
-
-! Undefined control sequence.
-<argument> odot_alphassoc 
-                          _2.tikz
-l.266 \end{align}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ./figures/odot_alphassoc 
-                                    _2.tikz
-l.266 \end{align}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.266 \end{align}
-                 
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Undefined control sequence.
-<argument> odot_\alphassoc 
-                           _2
-l.266 \end{align}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.266 \end{align}
-                 
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Extra }, or forgotten $.
-<recently read> }
-                 
-l.266 \end{align}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Extra }, or forgotten $.
-\reserved@a ...e] {\textit {odot_\alphassoc _2}};}
-                                                  
-l.266 \end{align}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Extra }, or forgotten $.
-\tikzfig ...fill=red!10!white] {\textit {#1}};}}}}
-                                                  
-l.266 \end{align}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Misplaced alignment tab character &.
-\math@cr@@@ ->&
-               \omit \global \advance \row@ \@ne \ifst@rred \nonumber \fi \i...
-l.266 \end{align}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \omit.
-\math@cr@@@ ->&\omit 
-                     \global \advance \row@ \@ne \ifst@rred \nonumber \fi \i...
-l.266 \end{align}
-                 
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \cr.
-\math@cr@@@ ... \else \global \@eqnswtrue \fi \cr 
-                                                  
-l.266 \end{align}
-                 
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \noalign.
-\math@cr@@ ... \iffalse }\fi \math@cr@@@ \noalign 
-                                                  {\vskip #1\relax }
-l.266 \end{align}
-                 
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.266 \end{align}
-                 
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-! Package tikz Error: Giving up on this path. Did you forget a semicolon?.
-
-See the tikz package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.266 \end{align}
-                 
-(That was another \errmessage.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \relax 
-l.266 \end{align}
-                 
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   \relax 
-l.266 \end{align}
-                 
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've put in what seems to be necessary to fix
-the current column of the current alignment.
-Try to go on, since this might almost work.
-
-! Undefined control sequence.
-<argument> odot_alphassoc 
-                          _1.tikz
-l.266 \end{align}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ./figures/odot_alphassoc 
-                                    _1.tikz
-l.266 \end{align}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.266 \end{align}
-                 
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Undefined control sequence.
-<argument> odot_\alphassoc 
-                           _1
-l.266 \end{align}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.266 \end{align}
-                 
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Extra }, or forgotten $.
-<recently read> }
-                 
-l.266 \end{align}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Extra }, or forgotten $.
-\reserved@a ...e] {\textit {odot_\alphassoc _1}};}
-                                                  
-l.266 \end{align}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Extra }, or forgotten $.
-\tikzfig ...fill=red!10!white] {\textit {#1}};}}}}
-                                                  
-l.266 \end{align}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Misplaced alignment tab character &.
-\@tempa ->\endgroup &
-                     &&
-l.266 \end{align}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced alignment tab character &.
-\@tempa ->\endgroup &&
-                      &
-l.266 \end{align}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced alignment tab character &.
-\@tempa ->\endgroup &&&
-                       
-l.266 \end{align}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \omit.
-\math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
-                                                  \kern -\alignsep@ \iftag@ ...
-l.266 \end{align}
-                 
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \cr.
-\math@cr@@@ ...wtrue \fi \global \lineht@ \z@ \cr 
-                                                  
-l.266 \end{align}
-                 
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \noalign.
-\math@cr@@ ... \iffalse }\fi \math@cr@@@ \noalign 
-                                                  {\vskip #1\relax }
-l.266 \end{align}
-                 
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.266 \end{align}
-                 
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-! Package tikz Error: Giving up on this path. Did you forget a semicolon?.
-
-See the tikz package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.266 \end{align}
-                 
-(That was another \errmessage.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \relax 
-l.266 \end{align}
-                 
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   \relax 
-l.266 \end{align}
-                 
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've put in what seems to be necessary to fix
-the current column of the current alignment.
-Try to go on, since this might almost work.
-
-! Undefined control sequence.
-<argument> odot_alphassoc 
-                          _2.tikz
-l.266 \end{align}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ./figures/odot_alphassoc 
-                                    _2.tikz
-l.266 \end{align}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.266 \end{align}
-                 
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Undefined control sequence.
-<argument> odot_\alphassoc 
-                           _2
-l.266 \end{align}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.266 \end{align}
-                 
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Extra }, or forgotten $.
-<recently read> }
-                 
-l.266 \end{align}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Extra }, or forgotten $.
-\reserved@a ...e] {\textit {odot_\alphassoc _2}};}
-                                                  
-l.266 \end{align}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Extra }, or forgotten $.
-\tikzfig ...fill=red!10!white] {\textit {#1}};}}}}
-                                                  
-l.266 \end{align}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Misplaced alignment tab character &.
-\@tempa ->\endgroup &
-                     &
-l.266 \end{align}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced alignment tab character &.
-\@tempa ->\endgroup &&
-                      
-l.266 \end{align}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \omit.
-\math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
-                                                  \kern -\alignsep@ \iftag@ ...
-l.266 \end{align}
-                 
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \cr.
-\math@cr@@@ ...wtrue \fi \global \lineht@ \z@ \cr 
-                                                  
-l.266 \end{align}
-                 
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \noalign.
-\math@cr@@ ... \iffalse }\fi \math@cr@@@ \noalign 
-                                                  {\vskip #1\relax }
-l.266 \end{align}
-                 
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.266 \end{align}
-                 
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-! Package tikz Error: Giving up on this path. Did you forget a semicolon?.
-
-See the tikz package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.266 \end{align}
-                 
-(That was another \errmessage.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \relax 
-l.266 \end{align}
-                 
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   \relax 
-l.266 \end{align}
-                 
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.266 \end{align}
-                 
-I've put in what seems to be necessary to fix
-the current column of the current alignment.
-Try to go on, since this might almost work.
-
-[12] [13] [14] [15] (./figures/invalid_BMI_model.tikz)
-(./figures/invalid_BMI_model.tikz) (./figures/cond_indep1.tikz)
-(./figures/cond_indep1.tikz) [16] (./figures/cond_indep_erase.tikz)
-(./figures/cond_indep_erase.tikz) [17]) (./seedo.tex [18]
+(./figures/copy_product.tikz) (./figures/copy_product.tikz) [12]
+(./figures/odot_assoc_1.tikz) (./figures/odot_assoc_2.tikz)
+(./figures/odot_assoc_1.tikz) (./figures/odot_assoc_2.tikz) [13] [14] [15]
+(./figures/invalid_BMI_model.tikz) (./figures/invalid_BMI_model.tikz) [16]
+(./figures/cond_indep1.tikz) (./figures/cond_indep1.tikz) [17]
+(./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz) [18])
+(./seedo.tex
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
 ine 3.
- [19] [20] [21]
-[22]
+ [19] [20] [21] [22] [23]
 
-LaTeX Warning: Reference `eq:see_do_query' on page 23 undefined on input line 9
+LaTeX Warning: Reference `eq:see_do_query' on page 24 undefined on input line 9
 2.
 
-) (./representation_repeatability.tex [23] [24] (./figures/exchangeability.tikz
-) (./figures/exchangeability.tikz) [25]
-Overfull \hbox (18.86087pt too wide) in paragraph at lines 162--164
+) (./representation_repeatability.tex [24] [25] (./figures/exchangeability.tikz
+) (./figures/exchangeability.tikz) [26] [27]
+Overfull \hbox (18.86087pt too wide) in paragraph at lines 172--174
 []\T1/lmr/m/n/10 Although com-mu-ta-tiv-ity of marginal-i-sa-tion seems to be a
  bit like non-interference
  []
 
-[26]
-Overfull \hbox (9.79353pt too wide) in paragraph at lines 171--172
+
+Overfull \hbox (9.79353pt too wide) in paragraph at lines 181--182
 [][]\T1/lmr/bx/n/10 Definition 4.5 \T1/lmr/m/n/10 (Causal con-tractibil-ity)\T1
 /lmr/bx/n/10 . []\T1/lmr/m/n/10 A con-di-tional prob-a-bil-ity model $\OT1/cmr/
 m/n/10 (\U/msb/m/n/10 P[]\OML/cmm/m/it/10 ; A\OT1/cmr/m/n/10 )$
  []
 
-
-! LaTeX Error: Environment Lemma undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.210 \begin{Lemma}
-                   [Exchangeable curried representation]\label{th:table_rep}
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-Overfull \hbox (11.442pt too wide) in paragraph at lines 210--212
-[]\T1/lmr/m/n/10 [Exchangeable cur-ried rep-re-sen-ta-tion][] A con-di-tional p
-rob-a-bil-ity model $\OT1/cmr/m/n/10 (\U/msb/m/n/10 P[]\OML/cmm/m/it/10 ; A\OT1
-/cmr/m/n/10 )$
- []
-
-(./figures/lookup_representation.tikz) (./figures/lookup_representation.tikz)
-[27]
-
-! LaTeX Error: \begin{document} ended by \end{Lemma}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.222 \end{Lemma}
-                 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-(./figures/lookup_representation.tikz) (./figures/lookup_representation.tikz)
 [28] (./figures/lookup_representation.tikz)
-(./figures/lookup_representation.tikz)
-Overfull \hbox (2.13971pt too wide) detected at line 292
+(./figures/lookup_representation.tikz) (./figures/lookup_representation.tikz)
+(./figures/lookup_representation.tikz) [29]
+(./figures/lookup_representation.tikz) (./figures/lookup_representation.tikz)
+Overfull \hbox (2.13971pt too wide) detected at line 302
 []
  []
 
-[29] (./figures/do_model_representation.tikz)
-(./figures/do_model_representation.tikz) [30] [31] [32]) (./appendix_bucket.tex
-[33] (./figures/indep_strengthen_1.tikz) (./figures/indep_strengthen_2.tikz)
-(./figures/indep_strengthen_1.tikz) (./figures/indep_strengthen_2.tikz)
-Overfull \hbox (70.18008pt too wide) detected at line 50
+[30] (./figures/do_model_representation.tikz)
+(./figures/do_model_representation.tikz) [31] [32] [33]
+Overfull \hbox (3.22374pt too wide) in paragraph at lines 369--370
+[]\T1/lmr/m/n/10 The sec-ond is a mea-sure-ment pro-ce-dure for $\OT1/cmr/m/n/1
+0 (\OT1/cmss/m/n/10 D[]\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 D[]\OML/cmm/m/it/10 
+; \OT1/cmss/m/n/10 Y[]\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 Y[]\OT1/cmr/m/n/10 )$
+ 
+ []
+
+Package microtype Info: Character `029' is missing
+(microtype)             in font `T1/lmr/m/sc/10'.
+(microtype)             Ignoring protrusion settings for this character.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
+79.
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+ [34] [35]
+Overfull \hbox (2.1111pt too wide) in paragraph at lines 489--490
+[]\T1/lmr/m/n/10 The de-ci-sion func-tion de-ter-min-is-ti-cally pre-scribes wh
+ich de-ci-sions are taken 
+ []
+
+[36]
+Overfull \hbox (1.90607pt too wide) in paragraph at lines 497--498
+[][]\T1/lmr/bx/n/10 Lemma 4.8. []\T1/lmr/m/it/10 Given $\OT1/cmr/m/n/10 (\U/msb
+/m/n/10 P[]\OML/cmm/m/it/10 ; A\OT1/cmr/m/n/10 )$ \T1/lmr/m/it/10 with de-ci-si
+ons $\OT1/cmss/m/n/10 D[]$ \T1/lmr/m/it/10 and con-se-quences $\OT1/cmss/m/n/10
+ Y[]$\T1/lmr/m/it/10 , if $\U/msb/m/n/10 P[]$
+ []
+
+) (./appendix_bucket.tex [37] (./figures/cond_indep_erase.tikz)
+(./figures/cond_indep_erase.tikz) [38] (./figures/indep_strengthen_1.tikz)
+(./figures/indep_strengthen_2.tikz) (./figures/indep_strengthen_1.tikz)
+(./figures/indep_strengthen_2.tikz)
+Overfull \hbox (70.18008pt too wide) detected at line 68
 []
  []
 
 
-Overfull \hbox (55.19177pt too wide) in paragraph at lines 52--53
+Overfull \hbox (55.19177pt too wide) in paragraph at lines 70--71
 \OT1/cmr/m/n/10 0$\T1/lmr/m/n/10 , $\U/msb/m/n/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/
 m/it/10 a\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 b; c; d; e\OT1/cmr/m/n/10 ) = \U/ms
 b/m/n/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 a\OMS/cmsy/m/n/10 j\OML/cmm/m/it/
@@ -1980,68 +1158,68 @@ b/m/n/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 a\OMS/cmsy/m/n/10 j\OML/cmm/m/it/
 n/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 b; c; d; e\OT1/cmr/m/n/10 ) =
  []
 
+[39] (./figures/indep_strengthen_3.tikz) (./figures/indep_strengthen_4.tikz)
 (./figures/indep_strengthen_3.tikz) (./figures/indep_strengthen_4.tikz)
-(./figures/indep_strengthen_3.tikz) (./figures/indep_strengthen_4.tikz)
-[34] (./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz)
-Overfull \hbox (5.11346pt too wide) in paragraph at lines 75--76
-[][]\T1/lmr/bx/n/10 Theorem 4.12 \T1/lmr/m/n/10 (Con-di-tional in-de-pen-dence 
-from ker-nel un-re-spon-sive-ness)\T1/lmr/bx/n/10 . []\T1/lmr/m/it/10 Given
- []
-
+(./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz)
 (./figures/cond_indep_erase_alpha.tikz) (./figures/cond_indep_erase_alpha.tikz)
-[35] (./figures/kyyz.tikz) (./figures/kyyz.tikz)
+[40] (./figures/conditional_independence_cprob_exist.tikz)
+(./figures/conditional_independence_cprob_exist2.tikz)
+(./figures/conditional_independence_cprob_exist3.tikz)
+(./figures/conditional_independence_cprob_exist.tikz)
+(./figures/conditional_independence_cprob_exist2.tikz)
+(./figures/conditional_independence_cprob_exist3.tikz) [41]
+(./figures/kyyz.tikz) (./figures/kyyz.tikz)
 (./figures/compose_with_copymap.tikz) (./figures/compose_with_copymap.tikz)
-[36] (./figures/precompose_with_copymap.tikz)
+[42] (./figures/precompose_with_copymap.tikz)
 (./figures/precompose_with_copymap.tikz) (./figures/kxyxz.tikz)
 (./figures/kxyxz.tikz) (./figures/compose_with_copymap.tikz)
-(./figures/compose_with_copymap.tikz) [37]
+(./figures/compose_with_copymap.tikz) [43]
 
-LaTeX Warning: Reference `lem:prod_pushf' on page 38 undefined on input line 19
-9.
+LaTeX Warning: Reference `lem:prod_pushf' on page 44 undefined on input line 23
+5.
 
-[38] [39] [40]
+[44] [45] [46]
 
-LaTeX Warning: Reference `th:comb_equiv' on page 41 undefined on input line 332
+LaTeX Warning: Reference `th:comb_equiv' on page 47 undefined on input line 368
 .
 
 
-Overfull \hbox (2.26776pt too wide) in paragraph at lines 333--334
+Overfull \hbox (2.26776pt too wide) in paragraph at lines 369--370
 []\T1/lmr/bx/n/10 Theorem [] \T1/lmr/m/n/10 (Equiv-a-lence of comb rep-re-sen-t
 a-tions)\T1/lmr/bx/n/10 . []\T1/lmr/m/it/10 Given sam-ple space $\OT1/cmr/m/n/1
 0 (\OML/cmm/m/it/10 
 ; \OMS/cmsy/m/n/10 F\OT1/cmr/m/n/10 )$\T1/lmr/m/it/10 ,
  []
 
-[41]
-Overfull \hbox (192.93596pt too wide) detected at line 351
+
+Overfull \hbox (192.93596pt too wide) detected at line 387
+[]
+ []
+
+[47]
+Overfull \hbox (128.84003pt too wide) detected at line 398
 []
  []
 
 
-Overfull \hbox (128.84003pt too wide) detected at line 362
-[]
- []
-
-[42]
-
-LaTeX Warning: Reference `th:comb_conditional_correspondence' on page 43 undefi
-ned on input line 367.
+LaTeX Warning: Reference `th:comb_conditional_correspondence' on page 48 undefi
+ned on input line 403.
 
 (./figures/comb_condi_corresp_1.tikz) (./figures/comb_condi_corresp_2.tikz)
 (./figures/comb_condi_corresp_3.tikz) (./figures/comb_condi_corresp_4.tikz)
 (./figures/comb_condi_corresp_5.tikz) (./figures/comb_condi_corresp_1.tikz)
 (./figures/comb_condi_corresp_2.tikz) (./figures/comb_condi_corresp_3.tikz)
 (./figures/comb_condi_corresp_4.tikz) (./figures/comb_condi_corresp_5.tikz)
-Overfull \hbox (11.38596pt too wide) detected at line 387
+Overfull \hbox (11.38596pt too wide) detected at line 423
 []
  []
 
-[43] [44] (./figures/do_model_representation.tikz)
+[48] [49] (./figures/do_model_representation.tikz)
 (./figures/do_model_representation.tikz) (./figures/lookup_representation.tikz)
 (./figures/lookup_representation.tikz)
 (./figures/de_finetti_potential_outcomes.tikz)
-(./figures/de_finetti_potential_outcomes.tikz) [45]
-Overfull \hbox (11.92598pt too wide) in paragraph at lines 440--441
+(./figures/de_finetti_potential_outcomes.tikz) [50]
+Overfull \hbox (11.92598pt too wide) in paragraph at lines 476--477
 []\T1/lmr/m/n/10 Now, note that $\OT1/cmr/m/n/10 (\OT1/cmss/m/n/10 Y[]\OML/cmm/
 m/it/10 ; \OT1/cmss/m/n/10 D[]\OT1/cmr/m/n/10 )$ \T1/lmr/m/n/10 is a de-ter-min
 -is-tic func-tion of $\OT1/cmr/m/n/10 (\OT1/cmss/m/n/10 Y[]\OML/cmm/m/it/10 ; \
@@ -2049,17 +1227,7 @@ OT1/cmss/m/n/10 D[]\OT1/cmr/m/n/10 )$ \T1/lmr/m/n/10 and $\OT1/cmr/m/n/10 (\OT1
 /cmss/m/n/10 Y[]\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 D[]\OT1/cmr/m/n/10 )$
  []
 
-) (./main.bbl
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-1.
- (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `lmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
- [46]
+) (./main.bbl [51]
 Underfull \hbox (badness 6284) in paragraph at lines 59--69
 []\T1/lmr/m/n/10 A. P. Dawid.  Causal In-fer-ence with-out Coun-ter-fac-tu-als.
   \T1/lmr/m/it/10 Jour-
@@ -2089,17 +1257,17 @@ Underfull \hbox (badness 5893) in paragraph at lines 59--69
 lor & Fran-cis _eprint:
  []
 
-[47]
+[52]
 Missing character: There is no ł in font ec-lmr10!
 Missing character: There is no ń in font ec-lmr10!
- [48]) [49] [50]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 233.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 233.
+ [53]) [54] [55]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 237.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 237.
  (./main.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 233.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 233.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 237.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 237.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: A1932B0858432867BBBED81F6632EE1D;2784.
+(rerunfilecheck)             Checksum: E1A35CBC4FD85719E36C0451E9D0858F;3300.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -2107,15 +1275,15 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 233.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 237.
  ) 
 Here is how much of TeX's memory you used:
- 29139 strings out of 479819
- 553664 string characters out of 5895847
- 907906 words of memory out of 5000000
- 45509 multiletter control sequences out of 15000+600000
- 595050 words of font info for 104 fonts, out of 8000000 for 9000
+ 29760 strings out of 479819
+ 563747 string characters out of 5895847
+ 924748 words of memory out of 5000000
+ 46087 multiletter control sequences out of 15000+600000
+ 597845 words of font info for 105 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  68i,17n,83p,1528b,978s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.xdv (50 pages, 477780 bytes).
+Output written on main.xdv (55 pages, 541688 bytes).

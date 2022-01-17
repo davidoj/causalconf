@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (1) at (1.25, 2.5) {$\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$};
+		\node [style=none] (2) at (-2.75, 3) {};
+		\node [style=RLabel tikzit] (5) at (3, 2.5) {$\RV{Y}$};
+		\node [style=RLabel tikzit] (6) at (3, 4.25) {$\RV{W}$};
+		\node [style=none] (8) at (0.25, 2.25) {};
+		\node [style=none] (9) at (0.25, 2.75) {};
+		\node [style=copymap tikzit] (10) at (-1.75, 3.25) {};
+		\node [style=none] (13) at (-2.75, 2.5) {};
+		\node [style=small dist tikzit] (14) at (-3.5, 2.75) {$\prob{P}_\alpha^{\RV{WX}}$};
+		\node [style=copymap tikzit] (15) at (-2, 2.5) {};
+		\node [style=none] (16) at (3, 3.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=-180, out=0] (2.center) to (10);
+		\draw [in=-180, out=-30] (10) to (9.center);
+		\draw [in=-180, out=30] (10) to (6);
+		\draw (1) to (5);
+		\draw (13.center) to (15);
+		\draw (15) to (8.center);
+		\draw [style=delmap, in=180, out=60, looseness=0.75] (15) to (16.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,4 +1,4 @@
-\begin{thebibliography}{32}
+\begin{thebibliography}{33}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -272,5 +272,10 @@ J.~Von~Neumann and O.~Morgenstern.
 Abraham Wald.
 \newblock \emph{Statistical decision functions}.
 \newblock Statistical decision functions. Wiley, Oxford, England, 1950.
+
+\bibitem[Walley(1991)]{walley_statistical_1991}
+Peter Walley.
+\newblock \emph{Statistical {Reasoning} with {Imprecise} {Probabilities}}.
+\newblock Chapman \& Hall, 1991.
 
 \end{thebibliography}

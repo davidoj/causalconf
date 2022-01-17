@@ -217,7 +217,7 @@ A conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},
 
 The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. This can be interpreted as expressing the idea that all $(\RV{Y}_i,\RV{D}_i)$ pairs share a canonical but unknown ``consequence function'' $D\kto Y$. As discussed in Section \ref{sec:curry}, the existence of such a consequence function implies the existence of a common unknown curried consequence function. Curried consequence functions look very similar to potential outcomes models, but they don't necessarily support any counterfactual interpretation.
 
-\begin{Lemma}[Exchangeable curried representation]\label{th:table_rep}
+\begin{lemma}[Exchangeable curried representation]\label{th:table_rep}
 A conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_\square$ is causally contractible if and only if
 \begin{align}
     \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
@@ -229,7 +229,7 @@ Where $\prob{P}^{\RV{Y}^D}$ is an exchangeable probability measure on $Y^{D\time
     l:D^\mathbb{N}\times Y^{D\times \mathbb{N}}&\to Y\\
     ((d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}})&\mapsto y_{d_i i}
 \end{align}
-\end{Lemma}
+\end{lemma}
 
 \begin{proof}
 Only if:
@@ -374,129 +374,147 @@ At the outset, Alice does not know any features that might distinguish the two p
 We will define measurement procedures using pseudocode, because we find it a lot easier to keep track of operations like swaps in this format. This presentation has the unintended effect of suggesting that measurement procedures are like computer programs. We're not sure if this is a helpful way to think about things -- one of the key points of this example is that precise and imprecise measurement procedures may need quite different models, but thinking of measurement procedures as computer programs suggests that all measurement procedures are precise, which is not the case. Some steps may be precise, and we can express these steps with pseudocode, while other steps may be less precise. 
 
 Suppose the first scenario corresponds to the following procedure $\proc{S}$ which yields values in $A\times D^2\times Y^2$. $\RV{D}_i$ is the projection $(\alpha,d_1,d_2,y_1,y_2)\mapsto d_i$ composed with $\proc{S}$ and $\RV{Y}_i$ is the projection $(\alpha,d_1,d_2,y_1,y_2)\mapsto y_i$ composed with $\proc{S}$.
-
 \begin{algorithmic}
-    \proc{S}:
-        \State $\alpha \gets $choose_alpha()
-        \State $(\proc{D}_1,\proc{D}_2) \gets $decisions($\alpha$)
-        \State $\proc{Y}_1)\gets \text{apply}(\proc{D}_1,\text{patient A})$
-        \State $\proc{Y}_2)\gets \text{apply}(\proc{D}_2,\text{patient B})$
-    \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+    \Procedure{$\proc{S}$}{}
+    \Assert{patient A knowledge=patient B knowledge}
+    \State $\alpha \gets \mathrm{choose\_alpha}$
+    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{decisions}(\alpha)$
+    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;A})$
+    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;B})$
+    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+    \EndProcedure
 \end{algorithmic}
 
-Make the assumption that, on the basis that the patients are indistinguishable to Alice at the time of model construction, the measurement procedure with swapped patients is equivalent. Assume also that swapping the order of treatment and swapping the order in which outcomes are recorded yields an equivalent measurment procedure. Putting these two assumptions together, the following procedure $\proc{S}'$ is equivalent to the original:
+
+Make the assumption that, on the basis that the patients are indistinguishable to Alice at the time of model construction, the same model is appropriate for the original measurement procedure and a modified measurement procedure in which the patients are swapped (we say the measurement procedures are ``equivalent''). Assume also that swapping the order of treatment and swapping the order in which outcomes are recorded yields an equivalent measurment procedure (in \citet{walley_statistical_1991}'s language, the first assumption is based on ``symmetry of evidence'' and the second on ``evidence of symmetry''). Putting these two assumptions together, the following procedure $\proc{S}'$ is equivalent to the original:
 
 \begin{algorithmic}
-    \proc{S}':
-        \State $\alpha \gets $choose_alpha()
-        \State $(\proc{D}_1,\proc{D}_2) \gets $decisions($\alpha$)
-        \State $\proc{Y}_2\gets \text{apply}(\proc{D}_2,\text{patient A})$
-        \State $\proc{Y}_1\gets \text{apply}(\proc{D}_1,\text{patient B})$
-    \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+    \Procedure{$\proc{S}'$}{}
+    \Assert{patient A knowledge=patient B knowledge}
+    \State $\alpha \gets \mathrm{choose\_alpha}$
+    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{decisions}(\alpha)$
+    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;A})$
+    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;B})$
+    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+    \EndProcedure
 \end{algorithmic}
 
-Now, consider a measurement procedure $\proc{S}''$ that involves swapping decisions, then applying the inverse swap to outcomes
+Consider another measurement procedure $\proc{S}''$, which is a modified version of $\proc{S}$ where steps are added to swap decisions after they are chosen, then outcomes are swapped back once they have been observed:
+
+\begin{algorithmic}
+    \Procedure{$\proc{S}''$}{}
+    \Assert{patient A knowledge=patient B knowledge}
+    \State $\alpha \gets \mathrm{choose\_alpha}$
+    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{decisions}(\alpha)$
+    \State $(\proc{D}_1^{\mathrm{swap}},\proc{D}_2^{\mathrm{swap}}) \gets (\proc{D}_2,\proc{D}_1)$
+    \State $\proc{Y}^{\mathrm{swap}}_1\gets \mathrm{apply}(\proc{D}_1^{\mathrm{swap}},\mathrm{patient A})$
+    \State $\proc{Y}_2^{\mathrm{swap}}\gets \mathrm{apply}(\proc{D}_2^{\text{swap}},\text{patient B})$
+    \State $(\proc{Y}_1,\proc{Y}_2)\gets (\proc{Y}^{\mathrm{swap}}_2,\proc{Y}^{\mathrm{swap}}_1)$
+    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+    \EndProcedure
+\end{algorithmic}
+
+Instead of explicitly performing the swaps, we can substitute $\proc{D}_2$ for $\proc{D}_1^{\text{swap}}$, $\proc{Y}_2$ for $\proc{Y}_1^{\text{swap}}$ and so on. The result is a procedure identical to $\proc{S}'$
+
+\begin{algorithmic}
+    \Procedure{$\proc{S}''$}{}
+    \Assert{patient A knowledge=patient B knowledge}
+    \State $\alpha \gets \mathrm{choose\_alpha}$
+    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{decisions}(\alpha)$
+    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;A})$
+    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;B})$
+    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+    \EndProcedure
+\end{algorithmic}
+
+Thus $\proc{S}''$ is exactly the same as $\proc{S}'$, which by assumption is equivalent to the original $\proc{S}$, and so the assumptions of interchangeable patients and reversible order of treatment application imply the model should commute with exchange. Thus, if we could extend this example to an infinite sequence of patients, there would exist a Markov kernel $\prob{P}_\square^{\RV{Y}|\RV{DH}}:D\times H\kto Y$ representing a ``definite but unknown causal consequence'' shared by all experimental units.
+
+This argument does \emph{not} hold for scenario 2. In the absence of a deterministic function $\text{decisions}(\alpha)$ which defines the procedure for obtaining $\proc{D}_1$ and $\proc{D}_2$, there is some flexibility for how exactly these variables are measured (or chosen). In particular, we can posit measurement procedures such that permuting patients is not equivalent to permuting decisions and then appying the reverse permutation to outcomes.
+
+For example, procedure $\proc{T}$ is compatible with scenario 2 (note that there are many procedures compatible with the given description)
+
+\begin{algorithmic}
+    \Procedure{$\proc{T}$}{}
+    \Assert{patient A knowledge=patient B knowledge}
+    \State $\alpha \gets \mathrm{choose\_alpha}$
+    \State patient A knowledge$\gets \mathrm{inspect}$(patient A)
+    \State patient B knowledge$\gets \mathrm{inspect}$(patient B)
+    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{vagueDecisions}(\alpha$, patient A knowledge, patient B knowledge)
+    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;A})$
+    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;B})$
+    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+    \EndProcedure
+\end{algorithmic}
+
+Permutation of patients and treatment order now yields
+
+\begin{algorithmic}
+    \Procedure{$\proc{T}'$}{}
+    \Assert{patient A knowledge=patient B knowledge}
+    \State $\alpha \gets \mathrm{choose\_alpha}$
+    \State patient B knowledge$\gets \mathrm{inspect}$(patient B)
+    \State patient A knowledge$\gets \mathrm{inspect}$(patient A)
+    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{vagueDecisions}(\alpha$, patient B knowledge, patient A knowledge)
+    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;A})$
+    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;B})$
+    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+    \EndProcedure
+\end{algorithmic}
+
+While paired permuation of decisions and outcomes yields
+
+\begin{algorithmic}
+    \Procedure{$\proc{T}''$}{}
+    \Assert{patient A knowledge=patient B knowledge}
+    \State $\alpha \gets \mathrm{choose\_alpha}$
+    \State patient A knowledge$\gets \mathrm{inspect}$(patient A)
+    \State patient B knowledge$\gets \mathrm{inspect}$(patient B)
+    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{vagueDecisions}(\alpha$, patient A knowledge, patient B knowledge)
+    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;A})$
+    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;B})$
+    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+    \EndProcedure
+\end{algorithmic}
+
+$\proc{T}'$ is not the same as $\proc{T}''$. In scenario 1, because decisions were deterministic on $\alpha$, there was no room to pick anything different once $\alpha$ was chosen, so it doesn't matter if we add patient inspection steps or not. In scenario 2, decisions are not deterministic and there is vagueness in the procedure, so it is possible to describe compatible procedures where decisions depend on patient characteristics, and this dependence is not ``undone'' by swapping decisions.
+
+
+\subsection{Causal consequences of non-deterministic variables}
+
+In the previous section we gave an example of how commutativity of exchange can hold when we have a sequence of decisions such that we accept the follwing:
 
 \begin{itemize}
-    \proc{S}'':
-        \State $\alpha \gets $choose_alpha()
-        \State $(\proc{D}_1,\proc{D}_2) \gets $decisions($\alpha$)
-        \State $(\proc{D}_1^{\text{swap}},\proc{D}_2^{\text{swap}}) \gets (\proc{D}_2,\proc{D}_1)$
-        \State $\proc{Y}^{\text{swap}}_1\gets \text{apply}(\proc{D}_1^{\text{swap}},\text{patient A})$
-        \State $\proc{Y}_2^{\text{swap}}\gets \text{apply}(\proc{D}_2^{\text{swap}},\text{patient B})$
-        \State $(\proc{Y}_1,\proc{Y}_2)\gets (\proc{Y}^{\text{swap}}_2,\proc{Y}^{\text{swap}}_1)$
-    \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+    \item Reordering the time at which decisions are made yields an equivalent problem
+    \item The available information relevant to each decision is symmetric at the time the decision function is adopted
+    \item The decision function deterministically prescribes which decisions are taken
 \end{itemize}
 
-(Note that we have implicitly reversed the swap we used to get $(\proc{D}_1^{\text{swap}},\proc{D}_2^{\text{swap}})$ so we have the original $(\proc{D}_1,\proc{D}_2)$ in the output)
+We also discussed how the absence of the determinism assumption undermines the argument.
 
-If we substitute the swapped variables in $\proc{S}''$ we get
+The determinism assumption rules out choosing decisions randomly. However, if we have causal consequences for deterministic decision variables, it is sometimes possible to extend them to indeterministic variables. 
 
-\begin{itemize}
-    \proc{S}'':
-        \State $\alpha \gets $choose_alpha()
-        \State $(\proc{D}_1,\proc{D}_2) \gets $decisions($\alpha$)
-        \State $\proc{Y}_2\gets \text{apply}(\proc{D}_2,\text{patient A})$
-        \State $\proc{Y}_1\gets \text{apply}(\proc{D}_1,\text{patient B})$
-    \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
-\end{itemize}
+\begin{lemma}
+Given $(\prob{P}_\square,A)$ with decisions $\RV{D}_M$ and consequences $\RV{Y}_M$, if $\prob{P}_\square^{\RV{Y}_M|\RV{D}_M}$ is causally contractible with consequence map $\prob{P}_\square^{\RV{Y}_0|\RV{D}_0\RV{H}}$ and there exists $\RV{X}_i=f\circ \RV{Y}_i$ for some $f:Y\to X$ such that $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then a causally contractible conditional probability $\prob{P}_\square^{\RV{Y}_M|\RV{X}_M}$ exists.
+\end{lemma}
 
-Thus $\proc{S}''$ is exactly the same as $\proc{S}'$, which by assumption is equivalent to the original $\proc{S}$. Thus the assumptions of interchangeable patients and reversible order of treatment application imply the model should commute with exchange.
+\begin{proof}
+We want to show $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{X}_{\{i\}^C} |\RV{H}\RV{X}_i$ for all $i\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}$ exists for all $i\in M$ and $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{X}_j}$.
 
-This argument does \emph{not} hold for scenario 2. The catch is, in the absence of a function $decisions(\alpha)$ which \emph{defines} the procedure for obtaining $\proc{D}_1$ and $\proc{D}_2$, we need to invoke some other measurment procedures for each of these variables.
+Because $\RV{X}_i$ is a function of $\RV{Y}_i$, and $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{D}_{\{i\}^C} |\RV{H}\RV{D}_i$, we also have $\RV{YX}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{X}_{\{i\}^C} |\RV{H}\RV{D}_i$, and by weak union $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{X}_{\{i\}^C} |\RV{H}\RV{D}_i\RV{X}_i$
 
+Thus by contraction, $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{D}_{M} |\RV{H}\RV{X}_i$.
 
-Assume furthermore that it 
+By Corollary \ref{cor:ci_cp_exist} and the existence of $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}$ for all $i\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}$ exists for all $i$. Furthermore, because $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}=\prob{P}^{\RV{Y}_j\RV{X}_j|\RV{H}\RV{D}_j}$ for all $i,j\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{X}_j}$ for all $i,j\in M$.
+\end{proof}
 
-On the other hand, interchanging actions and then interchanging results means we define procedures $. Then we reason using the swapped procedures
+If the condition $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, we can say $\RV{X}_i$ is a proxy for controlling $\RV{Y}_i$.
 
-\begin{itemize}
-    \item Decide on some $\alpha$, which corresponds to a particular $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ and, via determinism, to a pair of decisions $(\proc{D}_1,\proc{D}_2)$
-     \item Treat the patient A according to $\proc{D}^{\text{swap}}_1$, record the outcome as $\proc{Y}_1^{\text{swap}}$
-    \item Treat the patient B according to $\proc{D}^{\text{swap}}_2$, record the outcome as $\proc{Y}_2^{\text{swap}}$
-\end{itemize}
+As an example of this, suppose $\RV{X}:\Omega\to X$ is a source of random numbers, the set of decisions $D$ is a set of functions $X\to T$ for treatments $\RV{T}:\Omega\to T$ and $\RV{W}:\Omega\to W$ are the ultimate patient outcomes, with $\RV{Y}_i=(\RV{W}_i,\RV{T}_i)$. Then it may be reasonable to assume that $\RV{W}_i\CI(\RV{D}_i,\RV{X}_i)|\RV{T}_i\RV{H}$ (where conditioning on $\RV{H}$ can be thought of as saying that this independence holds under infinite sample size). In this case, $\RV{T}_i$ is a proxy for controlling $\RV{Y}_i$, and there exists a causal consequence $\prob{P}_\square^{\RV{Y}_0|\RV{T}_0\RV{H}}$.
 
-Using $\proc{D}_1'=\proc{D}_2$ and $\proc{D}_2'=\proc{D}_1$ and $\proc{Y}_1^{\text{swap}}=\proc{Y}_2^{\text{swap}}$
+A ``causal consequence of body mass index'' is unlikely to exist on the basis of symmetric information and deterministic decisions because there are no actions available to set body mass index deterministically. However, given an underlying problem where we have symmetric information over a collection of patients and some kind of decision that can be made deterministically, causal consequences of body mass index may exist if body mass index is a proxy for controlling the outcomes of interest.
 
-\begin{itemize}
-    \item Decide on some $\alpha$, which corresponds to a particular $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ and, via determinism, to a pair of decisions $(\proc{D}_1,\proc{D}_2)$
-    \item Treat the patient A according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
-    \item Treat the patient B according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
-\end{itemize}
+\subsection{Intersubjective causal consequences}
 
-If we also assume that the order of treating patients also doesn't matter, then we can invert the order of the final two steps and obtain a procedure that is equivalent to the original procedure with patients interchanged.
+While the assumption of causal contractibility itself does not depend on any notion of subjectivity, our discussion of the appliccability of this assumption assumed that a conditional probability model was being used to model Dr Alice's subjective uncertain knowledge. Crucially, the justification hinged on an assumption of the symmetry of Alice's information regarding different patients.
 
-In the first scenario, however, this argument does not go through. Because the procedure is vague as to the precise nature of $\proc{D}_1$ and $\proc{D}_2$ once $\alpha$ is chosen, it is possible that the following procedure is used:
-
-\begin{itemize}
-    \item Decide on some ``decision inclination'' $\alpha$
-    \item Inspect patient A, then somehow (using $\alpha$) find $\proc{D}_1$
-    \item Inspect patient B, then somehow (using $\alpha$) find $\proc{D}_2$
-    \item Treat the patient A according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
-    \item Treat the patient B according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
-\end{itemize}
-
-Interchangeability of \emph{patients} suggests the following procedure is equivalent
-
-\begin{itemize}
-    \item Decide on some ``decision inclination'' $\alpha$
-    \item Inspect patient B, then somehow that depends on $\alpha$ find $\proc{D}_1$
-    \item Inspect patient A, then somehow that depends on $\alpha$ find $\proc{D}_2$
-    \item Treat the patient B according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
-    \item Treat the patient A according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
-\end{itemize}
-
-Interchaning decisions followed by interchanging outcomes yields the following procedure
-
-\begin{itemize}
-    \item Decide on some ``decision inclination'' $\alpha$
-    \item Inspect patient A, then somehow (using $\alpha$) find $\proc{D}_1$
-    \item Inspect patient B, then somehow (using $\alpha$) find $\proc{D}_2$
-    \item Treat the patient A according to $\proc{D}_1^{\text{swap}}$, record the outcome as $\proc{Y}_2^{\text{swap}}$
-    \item Treat the patient B according to $\proc{D}_2^{\text{swap}}$, record the outcome as $\proc{Y}_1^{\text{swap}}$
-\end{itemize}
-
-Substituting equivalent procedures
-
-\begin{itemize}
-    \item Decide on some ``decision inclination'' $\alpha$
-    \item Inspect patient A, then somehow (using $\alpha$) find $\proc{D}_1$
-    \item Inspect patient B, then somehow (using $\alpha$) find $\proc{D}_2$
-    \item Treat the patient A according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
-    \item Treat the patient B according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
-\end{itemize}
-
-Then applying the assumption of reordering
-
-\begin{itemize}
-    \item Decide on some ``decision inclination'' $\alpha$
-    \item Inspect patient A, then somehow (using $\alpha$) find $\proc{D}_1$
-    \item Inspect patient B, then somehow (using $\alpha$) find $\proc{D}_2$
-    \item Treat the patient B according to $\proc{D}_1$, record the outcome as $\proc{Y}_1$
-    \item Treat the patient A according to $\proc{D}_2$, record the outcome as $\proc{Y}_2$
-\end{itemize}
-
-This is not the original procedure with an interchange of patients; in particular, the patients have not been interchanged with regard to their role in selecting the procedures $\proc{D}_1$ and $\proc{D}_2$. Thus the first scenario combined with the assumption of interchangeable patients and indifference to treatment order does \emph{not} imply commutativity of exchange.
-
-A simlar argument that may be more familiar goes: in the first scenario, Alice's decisions $(\proc{D}_1,\proc{D}_2)$ could depend on some unobserved patient characteristics, which could also influence the outcomes $(\proc{Y}_1,\proc{Y}_2)$, so the observed conditional probability $\prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}$ might not correspond to the causal consequence $\prob{P}^{\RV{Y}_1\RV{Y}_2|do(\RV{D}_1,\RV{D}_2)}$. The problem here is that we want to know when we can establish the existence of causal consequences, so an argument that refers to causal consequences does not do us any good for this purpose. Furthermore, as Judea Pearl has often reminded us, it is very difficult to explain the meaning of terms like ``influence'' without invoking causal consequences at some point.
-
+Causal inference is often performed in an intersubjective setting, where Ben might perform the experimeng, Carmel might do the analysis and Dr Alice make the ultimate decisions. This complicates the question of when the assumption of causal contractibility is appliccable. We leave the appropriate way to generalise this theory to such a setting open.

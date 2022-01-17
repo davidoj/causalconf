@@ -55,6 +55,7 @@
 \usepackage{isomath}
 \usepackage{mathtools}
 \usepackage{algpseudocode}
+\usepackage{algorithm}
 
 \makeatletter
 \newcommand{\newreptheorem}[2]
@@ -113,6 +114,8 @@
 \newcommand{\combprod}{\ensuremath{\underline{\cprod}}}
 \newcommand{\combbreak}{\ensuremath{\wr}}
 \newcommand{\bigcombprod}{\ensuremath{\underline{\bigcprod}}}
+\algnewcommand\algorithmicassert{\texttt{assert}}
+\algnewcommand\Assert[1]{\State \algorithmicassert(#1)}%
 
 
 \providecommand\longrightarrowRHD{\relbar\joinrel\relbar\joinrel\mathrel\RHD}

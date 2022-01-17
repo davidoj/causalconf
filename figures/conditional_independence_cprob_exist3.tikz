@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (1.75, 0.75) {$\prob{K}$};
+		\node [style=none] (1) at (-1.75, 0.75) {};
+		\node [style=RLabel tikzit] (2) at (3.5, 0.75) {$\RV{Y}$};
+		\node [style=RLabel tikzit] (3) at (3.5, 2.25) {$\RV{W}$};
+		\node [style=none] (5) at (1.25, 0.75) {};
+		\node [style=copymap tikzit] (6) at (-0.75, 0.75) {};
+		\node [style=small dist tikzit] (8) at (-2.5, 0.75) {$\prob{P}_\alpha^{\RV{W}}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=-180, out=0] (1.center) to (6);
+		\draw [in=-180, out=0] (6) to (5.center);
+		\draw [in=-180, out=30] (6) to (3);
+		\draw (0) to (2);
+	\end{pgfonlayer}
+\end{tikzpicture}
