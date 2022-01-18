@@ -75,7 +75,7 @@ Thus for any $(a,b,c,d,e)\in A\times B\times C\times D\times E$ such that $\prob
 \end{align}
 \end{proof}
 
-We can deduce conditional independences in probability combs when conditional probabilities exist and they are \emph{unresponsive} to some input variables.
+Conditional independence is a property of variables, we define ``unresponsiveness'' as a property of Markov kernels.
 
 \begin{definition}[Unresponsiveness]
 Given discrete $\Omega$, a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, if there is some version of the conditional probability $\prob{P}^{\RV{Y}|\RV{WX}}$ and $\prob{P}_\square^{\RV{Y}|\RV{W}}$ such that
@@ -122,135 +122,6 @@ Thus $\kernel{K}$ is a version of $\prob{P}_{\{\}}^{\RV{Y}|\RV{W}}$.
 This result can fail to hold in the absence of the domination condition. Consider $A$ a collection of inserts that all deterministically set a variable $\RV{X}$; then for any variable $\RV{Y}$ $\RV{Y}\CI_{\prob{P}_\square} \RV{X}$ because $\RV{X}$ is deterministic for any $\alpha\in A$. But $\prob{P}_\square^{\RV{Y}|\RV{X}}$ is not necessarily unresponsive to $\RV{X}$.
 
 Note that in the absence of the assumption of the existence of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$, $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ does \emph{not} imply the existence of $\prob{P}_\square^{\RV{Y}|\RV{W}}$. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{XY}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{XY}}$ is two flips of a biased coin, then $\RV{Y}\CI_{\prob{P}}\RV{X}$ but $\prob{P}^{\RV{Y}}$ does not exist.
-
-
-
-
-
-\subsubsection{Graphical properties of conditional independence}
-
-It is well-known that directed acyclic graphs are able to represent some conditional independence properties of probability models via the graphical property of \emph{d-separation}. String diagrams are similar to directed acyclic graphs, and string diagrams can be translated into directed acyclic graphs and vise-versa \citep{fong_causal_2013}. Thus we expect that a property analogous to d-separation can be defined for string diagrams.
-
-We can reason from graphical properties of model disintegrations to graphical properties of models as Theorem \ref{th:cons_ci}. A general theory akin to d-separation for string diagrams may facilitate a more general understanding of how conditional independence properties of a model relate to conditional independence properties of its components.
-
-
-\subsection{Results I use that don't really fit into the flow of the text}
-
-\subsubsection{Repeated variables}
-
-Lemmas \ref{lem:nocopy1} and \ref{lem:nocopy2} establish that models of repeated variables must connect the repetitions with a copy map.
-
-\begin{lemma}[Output copies of the same variable are identical]\label{lem:nocopy1}
-For any $\Omega$, $\RV{X},\RV{Y},\RV{Z}$ random variables on $\Omega$ and conditional probability $\model{K}^{\RV{YZ}|\RV{X}}$, there is a conditional probability $\kernel{K}^{\RV{YYZ}|\RV{X}}$ unique up to impossible values of $\RV{X}$ such that
-\begin{align}
-    \tikzfig{kyyz} = \model{K}^{\RV{YZ}|\RV{X}}
-\end{align}
-and it is given by
-\begin{align}
-        \kernel{K}^{\RV{YYZ}|\RV{X}} &= \tikzfig{compose_with_copymap}\\
-        &\iff \\
-        \kernel{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x) &= \llbracket y=y' \rrbracket\kernel{K}^{\RV{YZ}|\RV{X}}(y,z|x)\\
-\end{align}
-\end{lemma}
-
-\begin{proof}
-If we have a valid $\model{K}^{\RV{YYZ}|\RV{X}}$, it must be the pushforward of $(\RV{Y},\RV{Y},\RV{Z})$ under some $\model{K}^{\RV{I}|\RV{X}}$. Furthermore, $\model{K}^{\RV{YZ}|\RV{X}}$ must be the pushforward of $(*,\RV{Y},\RV{Z})\cong (\RV{Y},\RV{Z})$ under the same $\model{K}^{\RV{I}|\RV{X}}$.
-
-For any $x\in \RV{X}(\Omega)$, validity requires $(\RV{X},\RV{Y},\RV{Y},\RV{Z})\yields (x,y,y',z)=\emptyset \implies \model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x)=0$. Clearly, whenever $y\neq y'$, $\model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x)=0$. Because $\model{K}^{\RV{YYZ}|\RV{X}}$ is a Markov kernel, there is some $\model{L}:X\kto X\times Z$ such that
-\begin{align}
-    \model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x) = \llbracket y=y' \rrbracket \model{L}(y,z|x)\\
-\end{align}
-But then
-\begin{align}
-    \model{K}^{\RV{YZ}|\RV{X}}(y,z|x) &= \sum_{y'\in Y} \model{K}^{\RV{YYZ}|\RV{X}}(y,y',z|x)\\
-    &= \model{L}(y,z|x)\\
-\end{align}
-\end{proof}
-
-\begin{lemma}[Copies shared between input and output are identical]\label{lem:nocopy2}
-
-\todo[inline]{This got mixed up at some point and needs ot be unmixed-up}
-For any $\kernel{K}:(\RV{X},\RV{Y})\kto (\RV{X},\RV{Z})$, $\kernel{K}$ is a model iff there exists some $\model{L}:(\RV{X},\RV{Y})\kto \RV{Z}$ such that
-\begin{align}
-     \kernel{K} &= \tikzfig{precompose_with_copymap}\\
-     &\iff\\
-     \kernel{K}_{x,y}^{\prime x',z} &= \llbracket x=x'\rrbracket \kernel{L}_{\prime x,y}^{z}
-\end{align}
-
-For any $\Omega$, $\RV{X},\RV{Y},\RV{Z}$ random variables on $\Omega$ and conditional probability $\model{K}^{\RV{Z}|\RV{XY}}$, there is a conditional probability $\kernel{K}^{\RV{XZ}|\RV{XY}}$ unique up to impossible values of $(\RV{X},\RV{Y})$ such that
-\begin{align}
-    \tikzfig{kxyxz} = \kernel{K}^{\RV{XZ}|\RV{XY}}
-\end{align}
-and it is given by
-\begin{align}
-        \kernel{K}^{\RV{XZ}|\RV{XY}} &= \tikzfig{compose_with_copymap}\\
-        &\iff \\
-        \kernel{K}^{\RV{XZ}|\RV{XY}}(x,z|x',y) &= \llbracket x=x' \rrbracket\kernel{K}^{\RV{Z}|\RV{XY}}(z|x',y)\\
-\end{align}
-
-\end{lemma}
-
-\begin{proof}
-If we have a valid $\model{K}^{\RV{XZ}|\RV{XY}}$, it must be the pushforward of $(\RV{X},\RV{Z})$ under some $\model{K}^{\RV{I}|\RV{XY}}$. Furthermore, $\model{K}^{\RV{Z}|\RV{XY}}$ must be the pushforward of $(*,\RV{Z})\cong (\RV{Z})$ under the same $\model{K}^{\RV{I}|\RV{X}}$.
-
-For any $(x,y)\in (\RV{X},\RV{Y})(\Omega)$, validity requires $(\RV{X},\RV{Y},\RV{X},\RV{Z})\yields (x,y,x',z)=\emptyset \implies \model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)=0$. Clearly, whenever $x\neq x'$, $\model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)=0$. Because $\model{K}^{\RV{XZ}|\RV{XY}}$ is a Markov kernel, there is some $\model{L}:X\times Y\kto Z$ such that
-\begin{align}
-    \model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)=0 = \llbracket x=x' \rrbracket \model{L}(z|x,y)\\
-\end{align}
-But then
-\begin{align}
-    \model{K}^{\RV{Z}|\RV{XY}}(y,z|x) &= \sum_{x'\in X} \model{K}^{\RV{XZ}|\RV{XY}}(x',z|x,y)\\
-    &= \model{L}(z|x,y)\\
-\end{align}
-\end{proof}
-
-
-\begin{theorem}[Existence of valid conditional probabilities]\label{th:valid_disint}
-Given a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$ along with a valid conditional probability $\model{P}_\square^{\RV{XY}|\RV{W}}$, there exists a valid conditional probability $\prob{P}_\square^{\RV{Y}|\RV{WX}}$.
-\end{theorem}
-
-\begin{proof}
-From Lemma \ref{lem:disint_exist}, we have the existence of some Markov kernel $\prob{P}_\square^{\RV{Y}|\RV{WX}}:W\times X\to Y$ such that
-\begin{align}
-    \prob{P}_\square^{\RV{XY}|\RV{W}}=\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}}\label{eq:k_disint}
-\end{align}
-
-By definition of conditional probability , for any insert $\alpha\in A$ there exists $\prob{P}_\alpha^{\RV{W}}\in\Delta(W)$ such that
-
-\begin{align}
-    \prob{P}_\alpha^{\RV{WXY}}=\prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{XY}|\RV{W}}
-\end{align}
-
-Thus
-
-\begin{align}
-\prob{P}_\alpha^{\RV{WXY}}&= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})\\
-&= (\prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{X}|\RV{W}})\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})
-\end{align}
-
-Let $\text{erasef}_Y:Y\to \{*\}$ be the erase function on $Y$ (as opposed to the erase kernel) and $\text{idf}_{W\times X}$ be the identity function on $W\times X$. Noting that 
-\begin{align}
-(\RV{W},\RV{X})&=(\text{idf}_{W\times X}\otimes \text{erasef}_Y)\circ (\RV{W},\RV{X},\RV{Y})
-\end{align}
-By Lemma \ref{lem:prod_pushf} together with Theorem \ref{th:recurs_pushf} we have for all $\alpha$:
-
-\begin{align}
-    \prob{P}_\alpha^{\RV{XW}} &= \prob{P}_\alpha^{\RV{WXY}}(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
-                              &= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
-                              &= \prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{X}|\RV{W}}
-\end{align}
-
-Then
-
-\begin{align}
-\prob{P}_\alpha^{\RV{XWY}}&= (\prob{P}_\alpha^{\RV{XW}})\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})
-\end{align}
-
-And so $\prob{P}_\square^{\RV{Y}|\RV{WX}})$ is a $\RV{Y}|\RV{WX}$ conditional probability. We also want it to be valid, so we will verify that it can be chosen as such.
-
-We also need to check that $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{P}_\square^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{P}_\square^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{P}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \prob{P}_\square^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\prob{P}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
-\end{proof}
-
 
 \subsection{Validity}
 
@@ -363,127 +234,48 @@ Only if: suppose $\prob{T}^{\RV{Y}|\RV{X}}$ is invalid. Then there is some $x\in
 Hence $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is invalid.
 \end{proof}
 
-\subsection{Combs}\label{ap:combs}
-
-\begin{reptheorem}{th:comb_equiv}[Equivalence of comb representations]
-Given sample space $(\Omega,\sigalg{F})$, a finite collection of variables $\RV{X}_{i}:\Omega\to (X_i,\sigalg{X}_i)$ for $i\in [n]$, $X_i$ discrete, and a disassembled probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{[n]_{\text{odd}}}\}$, for any $l\in [n]_{\mathrm{odd}}$ and any $\kernel{K}:X_{[l-1]}\kto X_l$
-\begin{align}
-    (\bigcombprod_{j\in [l-1]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}) \combprod \kernel{K} &\overset{\prob{P}_\square}{\cong} (\bigcombprod_{j\in [l]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}})\\
-    \implies \kernel{K} &\overset{\prob{P}_\square}{\cong} \prob{P}_\square^{\RV{X}_{l}|\RV{X}_{[l-1]}}
-\end{align}
-\end{reptheorem}
+\begin{theorem}[Existence of valid conditional probabilities]\label{th:valid_disint}
+Given a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$ along with a valid conditional probability $\model{P}_\square^{\RV{XY}|\RV{W}}$, there exists a valid conditional probability $\prob{P}_\square^{\RV{Y}|\RV{WX}}$.
+\end{theorem}
 
 \begin{proof}
-Equality is trivial for $l=1$. 
-
-For a sequence $x_{[l-2]}\in X_{[l-2]}$, let $e_{[l-2]}$ be the even indices of $x_{[l-2]}$ and $o_{[l-2]}$ be the odd indices.
-
-For any $e_{l-1}\in X_{l-1}$, $A\in X_{l}$ let $C^>_{A,e_{l-1}}\in \sigalg{X}_{[l-2]}$ be the set of points $C^>_{A,e_{l-1}}:=\{x_{[l-2]}| \kernel{K}(A|e_{l-1},x_{[l-2]})> \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}(A|e_{l-1},x_{[l-2]})\}$, and $C^<_{A,e_{l-1}}$ the obvious analog. Then, definining $C_{A,e_{l-1}}=C^>_{A,e_{l-1}}\cup C^<_{A,e_{l-1}}$,
+From Lemma \ref{lem:disint_exist}, we have the existence of some Markov kernel $\prob{P}_\square^{\RV{Y}|\RV{WX}}:W\times X\to Y$ such that
 \begin{align}
-    (\bigcombprod_{j\in [l-1]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}})(A\times C^>_{A,e_{l-1}}|e_{[l-3]},e_{l-1}) &= 0\\
-    (\bigcombprod_{j\in [l-1]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}})(A\times C^<_{A,e_{l-1}}|e_{[l-3]},e_{l-1}) &= 0\\
-    \implies (\bigcombprod_{j\in [l-1]_{\mathrm{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}})(A\times C_{A,e_{l-1}}|e_{[l-3]},e_{l-1}) &= 0\\
-    &= \sum_{o_{[l-2]}\in C_{A,e_{l-1},\text{odd}}} \kernel{K}(A|e_{l-1},x_{[l-2]}) \prod_{j\in [l-2]_{\text{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}(o_{j}|o_{[j-2]},e_{[j-1]})
-\end{align}
-for all $e_{[l-3]}\in X_{[l-3]_{\text{even}}}$.
-
-Consider arbitrary $\prob{P}_\alpha\in \prob{P}_\square$, $A\subset X_l$, $C\subset X_{[l-1]}$:
-\begin{align}
-    \prob{P}_\alpha^{\RV{X}_{[l]}} (A\times C) =&  \sum_{x_{[l-2]}\in C} \kernel{P}_\square(A|e_{l-1},x_{[l-2]}) \prod_{j\in [l-2]_{\text{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}(x_{j}|o_{[j-2]},e_{[j-1]}) \prob{P}_\alpha^{\RV{X}_{j+1}|\RV{X}_{[j]}}(x_{j+1}|o_{[j]},e_{[j-1]})\\
-    =& \sum_{x_{[l-2]}\in C_{A,e_{l-1}}} \kernel{P}_\square(A|e_{l-1},x_{[l-2]}) \prod_{j\in [l-2]_{\text{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}(x_{j}|o_{[j-2]},e_{[j-1]}) \prob{P}_\alpha^{\RV{X}_{j+1}|\RV{X}_{[j]}}(x_{j+1}|o_{[j]},e_{[j-1]}) \\
-    &+ \sum_{x_{[l-2]}\in C^C_{A,e_{l-1}}} \kernel{P}_\square(A|e_{l-1},x_{[l-2]}) \prod_{j\in [l-2]_{\text{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}(x_{j}|o_{[j-2]},e_{[j-1]}) \prob{P}_\alpha^{\RV{X}_{j+1}|\RV{X}_{[j]}}(x_{j+1}|o_{[j]},e_{[j-1]})\\
-    =& 0 + \sum_{x_{[l-2]}\in C^C_{A,e_{l-1}}} \kernel{K}(A|e_{l-1},x_{[l-2]}) \prod_{j\in [l-2]_{\text{odd}}} \prob{P}_\square^{\RV{X}_{j}|\RV{X}_{[j-1]}}(x_{j}|o_{[j-2]},e_{[j-1]}) \prob{P}_\alpha^{\RV{X}_{j+1}|\RV{X}_{[j]}}(x_{j+1}|o_{[j]},e_{[j-1]})\\
-    =& \prob{P}_\alpha^{\RV{X}_{[l-1]}}\odot \kernel{K} (A\times C)\\
-    \implies \kernel{K} \overset{\prob{P}_\square}{\cong}& \prob{P}_\square^{\RV{X}_{l}|\RV{X}_{[l-1]}}
-\end{align}
-\end{proof}
-
-\subsection{Comb conditional correspondence}\label{ap:ccc}
-
-\begin{reptheorem}{th:comb_conditional_correspondence}[Comb-conditional correspondence]
-Given a probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{odd}}}\}$ and a blind choice $\alpha$
-\begin{align}
-\prob{P}_\square^{\RV{X}_{D_{\text{odd}}}\combbreak \RV{X}_{D_{\text{even}}}}\cong{\prob{P}_\alpha}{=}\prob{P}_\alpha^{\RV{X}_{D_{\text{odd}}}| \RV{X}_{D_{\text{even}}}}
-\end{align}
-\end{reptheorem}
-
-\begin{proof}
-Consider $n\in D$. The correspondence is immediate for $n=1$:
-\begin{align}
-    \prob{P}_\square^{\RV{X}_{1}\combbreak \RV{X}_{0}}\overset{\prob{P}_\alpha}{\cong}\prob{P}_\alpha^{\RV{X}_{1}| \RV{X}_{0}}
+    \prob{P}_\square^{\RV{XY}|\RV{W}}=\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}}\label{eq:k_disint}
 \end{align}
 
-Suppose for induction the correspondence holds for odd $n-2$. For any blind $\alpha$
-\begin{align}
-    \prob{P}_\alpha^{\RV{X}_{[n]}|\RV{X}_0} &= \tikzfig{comb_condi_corresp_1}\\
-    &= \tikzfig{comb_condi_corresp_2}\\
-    &= \tikzfig{comb_condi_corresp_3}\\
-    &= \tikzfig{comb_condi_corresp_4}\\
-    &= \tikzfig{comb_condi_corresp_5}
-\end{align}
-
-and we also have
-\begin{align}
-    (\prob{P}_\alpha^{\RV{X}_{[n]_{\text{even}}}|\RV{X}_0} \odot\prob{P}_\square^{\RV{X}_{D_{\text{odd}}}\combbreak \RV{X}_{D_{\text{even}}}})(A\times B|x) &= 
-\end{align}
-\end{proof}
-
-\subsection{Representation of conditional probability models}
-
-\begin{reptheorem}{th:iid_rep}
-Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. $\prob{P}$ is causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exists for all $i\in \mathbb{N}$ and
-\begin{align}
-    \prob{P}^{\RV{Y}|\RV{H}\RV{D}} &= \tikzfig{do_model_representation}\\
-    &\iff\\
-    \RV{Y}_i&\CI_{\prob{P}} \RV{Y}_{\mathbb{N}\setminus i},\RV{D}_{\mathbb{N}\setminus i}|\RV{H}\RV{D}_i&\forall i\in \mathbb{N}\\
-    \land \prob{P}^{\RV{Y}_i|\RV{H}\RV{D}_i} &= \prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0} & \forall i\in \mathbb{N}
-\end{align}
-\end{reptheorem}
-
-\begin{proof}
-If:
-By the assumptions of independence and identical conditionals, for any deterministic decision functions $d,d'\in D$ with equal subsequences $d_S=d'_T$
-\begin{align}
-    \prob{P}_d^{\RV{Y}_S|\RV{H}\RV{D}}(y|d) &= \int_H\prod_{i\in S}\prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0}(y_i|h,d_i)d\prob{P}^{\RV{H}}(h)\\
-                                          &= \int_{H}\prod_{i\in T}\prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0}(y_i|h,d'_i)d\prob{P}^{\RV{H}}(h) & \text{by equality of subsequences}\\
-                                          &= \prob{P}_{d'}^{\RV{Y}_T|\RV{H}\RV{D}}(y|d)
-\end{align}
-
-Only if:
-We have
-\begin{align}
-    \prob{P}^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
-\end{align}
-
-Also, by contractibility of $\prob{P}^{\RV{Y}^D}$ and De Finetti's theorem, there is some $\RV{H}$ such that
+By definition of conditional probability , for any insert $\alpha\in A$ there exists $\prob{P}_\alpha^{\RV{W}}\in\Delta(W)$ such that
 
 \begin{align}
-    \prob{P}^{\RV{Y}^\RV{D}} &= \tikzfig{de_finetti_potential_outcomes}
+    \prob{P}_\alpha^{\RV{WXY}}=\prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{XY}|\RV{W}}
 \end{align}
 
-In particular, let $\RV{Y}^D_{\cdot i}:=(\RV{Y}^D_{ji})_{j\in D}$ and $\RV{Y}^D_{\cdot \{i\}^C} = (\RV{Y}^D_{jk})_{j\in D, k\in \mathbb{N}\setminus \{i\}}$, and
+Thus
 
 \begin{align}
-    &\RV{Y}^D_{\cdot i} \CI_{\prob{P}} \RV{Y}^D_{\cdot \{i\}^C} |\RV{H} & \text{ representation theorem}\label{eq:pci_1}\\
-    &\RV{Y}^D\RV{H} \CI_{\prob{P}} \RV{D} &\text{ by Theorem \ref{th:cons_ci} and existence of }\prob{P}^{\RV{Y}^D\RV{H}}\label{eq:pci_2}\\
-    &\RV{Y}^D_{\cdot i}\CI_{\prob{P}} \RV{D} |\RV{Y}^D_{\cdot \{i\}^C}\RV{H}&\text{ weak union on Eq. }\ref{eq:pci_2}\\
-    &\RV{Y}^D_{\cdot i}\CI_{\prob{P}} \RV{D}\RV{Y}^D_{\cdot \{i\}^C} |\RV{H}&\text{ contraction on Eqs. \ref{eq:pci_1} and \ref{eq:pci_2}}\label{eq:pci_4}\\
-    &\RV{Y}^D_{\cdot i}\CI_{\prob{P}} \RV{D}_{\{i\}^C}\RV{Y}^D_{\cdot \{i\}^C} |\RV{H}\RV{D}_i&\text{ weak union on Eq. \ref{eq:pci_4}}\label{eq:pci_5}\\
-    &\RV{D}_{i} \CI_{\prob{P}}\RV{Y}^D_{\cdot \{i\}^C} \RV{D}_{\{i\}^C} |\RV{H}\RV{D}_i \RV{Y}^D_{\cdot i}&\text{ due to conditioning on }\RV{D}_i\label{eq:pci_6}\\
-    &\RV{Y}^D_{i}\RV{D}_i \CI_{\prob{P}} \RV{D}_{\{i\}^C}\RV{Y}^D_{\cdot \{i\}^C} |\RV{H}\RV{D}_i&\text{ contraction on Eqs. \ref{eq:pci_5} and \ref{eq:pci_6}}\label{eq:pci_7}\\
+\prob{P}_\alpha^{\RV{WXY}}&= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})\\
+&= (\prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{X}|\RV{W}})\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})
 \end{align}
 
-Now, note that $(\RV{Y}_i,\RV{D}_i)$ is a deterministic function of $(\RV{Y}^D_{i},\RV{D}_i)$ and $(\RV{Y}_{\{i\}^C},\RV{D}_{\{i\}^C})$ is a deterministic function of $(\RV{Y}^D_{\{i\}^C},\RV{D}_{\{i\}^C})$. Therefore
+Let $\text{erasef}_Y:Y\to \{*\}$ be the erase function on $Y$ (as opposed to the erase kernel) and $\text{idf}_{W\times X}$ be the identity function on $W\times X$. Noting that 
+\begin{align}
+(\RV{W},\RV{X})&=(\text{idf}_{W\times X}\otimes \text{erasef}_Y)\circ (\RV{W},\RV{X},\RV{Y})
+\end{align}
+By Lemma \ref{lem:prod_pushf} together with Theorem \ref{th:recurs_pushf} we have for all $\alpha$:
 
 \begin{align}
-    &\RV{Y}_i \CI_{\prob{P}} \RV{D}_{\{i\}^C}\RV{Y}_{\{i\}^C} |\RV{H}\RV{D}_i&
+    \prob{P}_\alpha^{\RV{XW}} &= \prob{P}_\alpha^{\RV{WXY}}(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
+                              &= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
+                              &= \prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{X}|\RV{W}}
 \end{align}
 
-So, by Theorem \ref{th:cons_ci}, $\prob{P}^{\RV{Y}_i|\RV{HD}}$ exists and by contractibility of $\prob{P}^{\RV{Y}^D}$, for any $i,j\in\mathbb{N}$
+Then
 
 \begin{align}
-    \prob{P}^{\RV{Y}_i|\RV{HD_i}}(y_i|h,d_i) &= \prob{P}^{\RV{Y}^D_{d_i i}|\RV{H}}(y_i|h) \\
-    &= \prob{P}^{\RV{Y}^D_{d_i j}|\RV{H}}(y_i|h)\\
-    &= \prob{P}^{\RV{Y}_j|\RV{HD}_j}(y_i|h,d_i)
+\prob{P}_\alpha^{\RV{XWY}}&= (\prob{P}_\alpha^{\RV{XW}})\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})
 \end{align}
+
+And so $\prob{P}_\square^{\RV{Y}|\RV{WX}})$ is a $\RV{Y}|\RV{WX}$ conditional probability. We also want it to be valid, so we will verify that it can be chosen as such.
+
+We also need to check that $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{P}_\square^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{P}_\square^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{P}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \prob{P}_\square^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\prob{P}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
 \end{proof}
