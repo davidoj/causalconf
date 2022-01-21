@@ -1,4 +1,4 @@
-\begin{thebibliography}{31}
+\begin{thebibliography}{32}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -143,6 +143,15 @@ Alan Hájek.
 \newblock ISSN 1573-0964.
 \newblock \doi{10.1023/B:SYNT.0000004904.91112.16}.
 \newblock URL \url{https://doi.org/10.1023/B:SYNT.0000004904.91112.16}.
+
+\bibitem[Hájek(2019)]{hajek_interpretations_2019}
+Alan Hájek.
+\newblock Interpretations of {Probability}.
+\newblock In Edward~N. Zalta, editor, \emph{The {Stanford} {Encyclopedia} of
+  {Philosophy}}. Metaphysics Research Lab, Stanford University, fall 2019
+  edition, 2019.
+\newblock URL
+  \url{https://plato.stanford.edu/archives/fall2019/entries/probability-interpret/}.
 
 \bibitem[Jacobs et~al.(2019)Jacobs, Kissinger, and Zanasi]{jacobs_causal_2019}
 Bart Jacobs, Aleks Kissinger, and Fabio Zanasi.

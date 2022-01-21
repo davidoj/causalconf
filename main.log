@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  21 JAN 2022 14:42
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  21 JAN 2022 15:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -947,6 +947,9 @@ File: l3backend-xdvipdfmx.def 2020-02-03 L3 backend support: xdvipdfmx
 
 LaTeX Warning: Label `def:cprob_pset' multiply defined.
 
+
+LaTeX Warning: Label `eq:conditional' multiply defined.
+
 )
 \openout1 = `main.aux'.
 
@@ -1109,20 +1112,13 @@ File: ueus.fd 2013/01/14 v3.01 Euler Script
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-eus.cfg
 File: mt-eus.cfg 2006/07/28 v1.2 microtype config. file: AMS Euler Script (RS)
 ) [7] [8] [9]
-(./figures/higher_order_disint.tikz) (./figures/higher_order_disint_0.tikz)
-(./figures/higher_order_disint_1.tikz) (./figures/higher_order_disint_2.tikz)
-(./figures/higher_order_disint.tikz) (./figures/higher_order_disint_0.tikz)
-(./figures/higher_order_disint_1.tikz) (./figures/higher_order_disint_2.tikz)
-
-LaTeX Warning: Reference `eq:disint' on page 10 undefined on input line 181.
-
-(./figures/copy_product.tikz) (./figures/copy_product.tikz) [10]
+(./figures/copy_product.tikz) (./figures/copy_product.tikz)
 (./figures/odot_assoc_1.tikz) (./figures/odot_assoc_2.tikz)
-(./figures/odot_assoc_1.tikz) (./figures/odot_assoc_2.tikz) [11] [12] [13]
-(./figures/invalid_BMI_model.tikz) (./figures/invalid_BMI_model.tikz) [14]
-(./figures/cond_indep1.tikz) (./figures/cond_indep1.tikz) [15]
-(./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz) [16])
-(./seedo.tex
+(./figures/odot_assoc_1.tikz) (./figures/odot_assoc_2.tikz) [10] [11] [12]
+[13] (./figures/invalid_BMI_model.tikz) (./figures/invalid_BMI_model.tikz)
+[14] (./figures/cond_indep1.tikz) (./figures/cond_indep1.tikz)
+(./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz) [15]
+[16]) (./seedo.tex
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
 ine 3.
  [17] [18] [19] [20] [21]
@@ -1144,8 +1140,8 @@ Overfull \hbox (9.79353pt too wide) in paragraph at lines 181--182
 m/n/10 (\U/msb/m/n/10 P[]\OML/cmm/m/it/10 ; A\OT1/cmr/m/n/10 )$
  []
 
-[26] (./figures/lookup_representation.tikz)
 (./figures/lookup_representation.tikz) (./figures/lookup_representation.tikz)
+[26] (./figures/lookup_representation.tikz)
 (./figures/lookup_representation.tikz) [27]
 (./figures/lookup_representation.tikz) (./figures/lookup_representation.tikz)
 Overfull \hbox (2.13971pt too wide) detected at line 302
@@ -1153,7 +1149,7 @@ Overfull \hbox (2.13971pt too wide) detected at line 302
  []
 
 [28] (./figures/do_model_representation.tikz)
-(./figures/do_model_representation.tikz) [29] [30] [31]
+(./figures/do_model_representation.tikz) [29] [30]
 Overfull \hbox (3.22374pt too wide) in paragraph at lines 369--370
 []\T1/lmr/m/n/10 The sec-ond is a mea-sure-ment pro-ce-dure for $\OT1/cmr/m/n/1
 0 (\OT1/cmss/m/n/10 D[]\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 D[]\OML/cmm/m/it/10 
@@ -1161,12 +1157,13 @@ Overfull \hbox (3.22374pt too wide) in paragraph at lines 369--370
  
  []
 
+[31]
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/10'.
 (microtype)             Ignoring protrusion settings for this character.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
 79.
-(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+ (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 Package microtype Info: Loading generic protrusion settings for font family
@@ -1179,7 +1176,7 @@ Overfull \hbox (2.1111pt too wide) in paragraph at lines 489--490
 ich de-ci-sions are taken 
  []
 
-[34]
+
 Overfull \hbox (1.90607pt too wide) in paragraph at lines 497--498
 [][]\T1/lmr/bx/n/10 Lemma 4.8. []\T1/lmr/m/it/10 Given $\OT1/cmr/m/n/10 (\U/msb
 /m/n/10 P[]\OML/cmm/m/it/10 ; A\OT1/cmr/m/n/10 )$ \T1/lmr/m/it/10 with de-ci-si
@@ -1187,7 +1184,7 @@ ons $\OT1/cmss/m/n/10 D[]$ \T1/lmr/m/it/10 and con-se-quences $\OT1/cmss/m/n/10
  Y[]$\T1/lmr/m/it/10 , if $\U/msb/m/n/10 P[]$
  []
 
-) (./appendix_bucket.tex [35]
+[34]) (./appendix_bucket.tex
 Overfull \hbox (2.33092pt too wide) in paragraph at lines 9--10
 [][]\T1/lmr/bx/n/10 Lemma 5.1 \T1/lmr/m/n/10 (Con-di-tional push-for-ward)\T1/l
 mr/bx/n/10 . []\T1/lmr/m/it/10 Sup-pose we have a sam-ple space $\OT1/cmr/m/n/1
@@ -1196,24 +1193,28 @@ mr/bx/n/10 . []\T1/lmr/m/it/10 Sup-pose we have a sam-ple space $\OT1/cmr/m/n/1
  []
 
 
-LaTeX Warning: Reference `lem:prod_pushf' on page 36 undefined on input line 13
+LaTeX Warning: Reference `lem:prod_pushf' on page 35 undefined on input line 13
 .
 
-(./figures/conditional_pushforward.tikz)
-(./figures/conditional_pushforward.tikz) [36] (./figures/cond_indep_erase.tikz)
-(./figures/cond_indep_erase.tikz) [37]
+[35] (./figures/conditional_pushforward.tikz)
+(./figures/conditional_pushforward.tikz) [36]
+(./figures/higher_order_disint.tikz) (./figures/higher_order_disint_0.tikz)
+(./figures/higher_order_disint_1.tikz) (./figures/higher_order_disint_2.tikz)
+(./figures/higher_order_disint.tikz) (./figures/higher_order_disint_0.tikz)
+(./figures/higher_order_disint_1.tikz) (./figures/higher_order_disint_2.tikz)
+(./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz) [37]
 
 LaTeX Warning: Reference `lem:disint_exist' on page 38 undefined on input line 
-120.
+133.
 
+[38] (./figures/indep_strengthen_1.tikz) (./figures/indep_strengthen_2.tikz)
 (./figures/indep_strengthen_1.tikz) (./figures/indep_strengthen_2.tikz)
-(./figures/indep_strengthen_1.tikz) (./figures/indep_strengthen_2.tikz)
-Overfull \hbox (70.18008pt too wide) detected at line 136
+Overfull \hbox (70.18008pt too wide) detected at line 149
 []
  []
 
-[38]
-Overfull \hbox (55.19177pt too wide) in paragraph at lines 138--139
+
+Overfull \hbox (55.19177pt too wide) in paragraph at lines 151--152
 \OT1/cmr/m/n/10 0$\T1/lmr/m/n/10 , $\U/msb/m/n/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/
 m/it/10 a\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 b; c; d; e\OT1/cmr/m/n/10 ) = \U/ms
 b/m/n/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 a\OMS/cmsy/m/n/10 j\OML/cmm/m/it/
@@ -1224,20 +1225,25 @@ n/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 b; c; d; e\OT1/cmr/m/n/10 ) =
 (./figures/indep_strengthen_3.tikz) (./figures/indep_strengthen_4.tikz)
 (./figures/indep_strengthen_3.tikz) (./figures/indep_strengthen_4.tikz)
 [39] (./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz)
+Overfull \hbox (5.11346pt too wide) in paragraph at lines 174--175
+[][]\T1/lmr/bx/n/10 Theorem 5.10 \T1/lmr/m/n/10 (Con-di-tional in-de-pen-dence 
+from ker-nel un-re-spon-sive-ness)\T1/lmr/bx/n/10 . []\T1/lmr/m/it/10 Given
+ []
+
 (./figures/cond_indep_erase_alpha.tikz) (./figures/cond_indep_erase_alpha.tikz)
-(./figures/conditional_independence_cprob_exist.tikz)
+[40] (./figures/conditional_independence_cprob_exist.tikz)
 (./figures/conditional_independence_cprob_exist2.tikz)
 (./figures/conditional_independence_cprob_exist3.tikz)
 (./figures/conditional_independence_cprob_exist.tikz)
 (./figures/conditional_independence_cprob_exist2.tikz)
-(./figures/conditional_independence_cprob_exist3.tikz) [40] [41] [42] [43]
+(./figures/conditional_independence_cprob_exist3.tikz) [41] [42] [43]
 
 LaTeX Warning: Reference `lem:disint_exist' on page 44 undefined on input line 
-310.
+323.
 
 
-LaTeX Warning: Reference `lem:prod_pushf' on page 44 undefined on input line 33
-2.
+LaTeX Warning: Reference `lem:prod_pushf' on page 44 undefined on input line 34
+5.
 
 [44]) (./main.bbl
 Underfull \hbox (badness 6284) in paragraph at lines 72--82
@@ -1279,7 +1285,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 251.
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 251.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 251.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C962F3E698943255EA6114D637B74867;2666.
+(rerunfilecheck)             Checksum: 721419336A96BB77165A57229D5ABDC2;2775.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1293,12 +1299,12 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 251.
  ) 
 Here is how much of TeX's memory you used:
- 29616 strings out of 479819
- 560654 string characters out of 5895847
- 879330 words of memory out of 5000000
- 45986 multiletter control sequences out of 15000+600000
+ 29618 strings out of 479819
+ 560745 string characters out of 5895847
+ 882380 words of memory out of 5000000
+ 45988 multiletter control sequences out of 15000+600000
  591865 words of font info for 103 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  68i,17n,83p,1510b,978s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.xdv (49 pages, 426240 bytes).
+Output written on main.xdv (49 pages, 431188 bytes).
