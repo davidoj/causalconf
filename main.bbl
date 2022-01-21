@@ -1,4 +1,4 @@
-\begin{thebibliography}{33}
+\begin{thebibliography}{31}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -20,6 +20,14 @@ A.~V. Banerjee, S.~Chassang, and E.~Snowberg.
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S2214658X16300071}.
 
+\bibitem[Bogachev and Malofeev(2020)]{bogachev_kantorovich_2020}
+Vladimir Bogachev and Ilya Malofeev.
+\newblock Kantorovich problems and conditional measures depending on a
+  parameter.
+\newblock \emph{Journal of Mathematical Analysis and Applications},
+  486:\penalty0 123883, June 2020.
+\newblock \doi{10.1016/j.jmaa.2020.123883}.
+
 \bibitem[Bolker(1966)]{bolker_functions_1966}
 Ethan~D. Bolker.
 \newblock Functions {Resembling} {Quotients} of {Measures}.
@@ -29,6 +37,11 @@ Ethan~D. Bolker.
 \newblock \doi{10.2307/1994401}.
 \newblock URL \url{https://www.jstor.org/stable/1994401}.
 \newblock Publisher: American Mathematical Society.
+
+\bibitem[\c{C}inlar(2011)]{cinlar_probability_2011}
+Erhan \c{C}inlar.
+\newblock \emph{Probability and Stochastics}.
+\newblock Springer, 2011.
 
 \bibitem[Chiribella et~al.(2008)Chiribella, D'Ariano, and
   Perinotti]{chiribella_quantum_2008}
@@ -94,21 +107,6 @@ M.~P. Ershov.
 \newblock URL \url{https://epubs.siam.org/doi/abs/10.1137/1119053}.
 \newblock Publisher: Society for Industrial and Applied Mathematics.
 
-\bibitem[Feynman(1979)]{feynman_feynman_1979}
-R.P. Feynman.
-\newblock \emph{The {Feynman} lectures on physics}.
-\newblock Le cours de physique de {Feynman}. Intereditions, France, 1979.
-\newblock ISBN 978-2-7296-0030-3.
-\newblock INIS Reference Number: 13648743.
-
-\bibitem[Fong(2013)]{fong_causal_2013}
-Brendan Fong.
-\newblock Causal {Theories}: {A} {Categorical} {Perspective} on {Bayesian}
-  {Networks}.
-\newblock \emph{arXiv:1301.6201 [math]}, January 2013.
-\newblock URL \url{http://arxiv.org/abs/1301.6201}.
-\newblock arXiv: 1301.6201.
-
 \bibitem[GREENLAND and ROBINS(1986)]{greenland_identifiability_1986}
 SANDER GREENLAND and JAMES~M ROBINS.
 \newblock Identifiability, {Exchangeability}, and {Epidemiological}
@@ -167,15 +165,6 @@ James~M. Joyce.
 \newblock Cambridge University Press, Cambridge ; New York, April 1999.
 \newblock ISBN 978-0-521-64164-7.
 
-\bibitem[Korzybski(1933)]{korzybski_science_1933}
-Alfred Korzybski.
-\newblock \emph{Science and sanity; an introduction to {Non}-{Aristotelian}
-  systems and general semantics}.
-\newblock Lancaster, Pa., New York City, The International Non-Aristotelian
-  Library Publishing Company, The Science Press Printing Company, distributors,
-  1933.
-\newblock URL \url{http://archive.org/details/sciencesanityint00korz}.
-
 \bibitem[Lattimore and Rohde(2019{\natexlab{a}})]{lattimore_causal_2019}
 Finnian Lattimore and David Rohde.
 \newblock Causal inference with {Bayes} rule.
@@ -189,18 +178,6 @@ Finnian Lattimore and David Rohde.
 \newblock \emph{arXiv:1906.07125 [cs, stat]}, December 2019{\natexlab{b}}.
 \newblock URL \url{http://arxiv.org/abs/1906.07125}.
 \newblock arXiv: 1906.07125.
-
-\bibitem[Menger(2003)]{menger_random_2003}
-Karl Menger.
-\newblock Random {Variables} from the {Point} of {View} of a {General} {Theory}
-  of {Variables}.
-\newblock In Karl Menger, Bert Schweizer, Abe Sklar, Karl Sigmund, Peter
-  Gruber, Edmund Hlawka, Ludwig Reich, and Leopold Schmetterer, editors,
-  \emph{Selecta {Mathematica}: {Volume} 2}, pages 367--381. Springer, Vienna,
-  2003.
-\newblock ISBN 978-3-7091-6045-9.
-\newblock \doi{10.1007/978-3-7091-6045-9_31}.
-\newblock URL \url{https://doi.org/10.1007/978-3-7091-6045-9_31}.
 
 \bibitem[Pearl(2009)]{pearl_causality:_2009}
 Judea Pearl.

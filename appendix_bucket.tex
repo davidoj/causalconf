@@ -4,6 +4,89 @@
 
 \subsection{Existence of conditional probabilities}
 
+
+\begin{lemma}[Conditional pushforward]\label{th:recurs_pushf}
+Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with conditional $\prob{P}_{\{\}}^{\RV{X}|\RV{Y}}$ such that $\RV{Z}=f\circ \RV{Y}$ for some $f:Y\to Z$. Then there exists a conditional probability $\prob{P}_{\{\}}^{\RV{Z}|\RV{X}}=\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\kernel{F}_{f}$.
+\end{lemma}
+
+\begin{proof}
+Note that $(\RV{X},\RV{Z})=(\text{id}_X\otimes f)\circ (\RV{X},\RV{Y})$. Thus, by Lemma \ref{lem:prod_pushf}, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{XZ}} = \prob{P}_\alpha^{\RV{XY}}\kernel{F}_{\text{id}_X\otimes f}
+\end{align}
+
+Note also that for all $A\in\sigalg{X}$, $B\in \sigalg{Z}$, $x\in X$, $y\in Y$:
+
+\begin{align}
+\prob{F}_{\text{id}_X\otimes f}(A\times B|x,y)&=\delta_x(A)\delta_{f(y)}(B)\\
+&= \prob{F}_{\text{id}_X} (A|x)\otimes \prob{F}_f(B|y)\\
+\implies \prob{F}_{\text{id}_X\otimes f} &= \prob{F}_{\text{id}_X} \otimes \prob{F}_f
+\end{align}
+
+Thus
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{XZ}} &= (\prob{P}_\alpha^{\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Y}|\RV{X}})\kernel{F}_{\text{id}_X}\otimes \kernel{F}_f\\
+    &= \tikzfig{conditional_pushforward}
+\end{align}
+
+Which implies $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\kernel{F}_{f}$ is a version of $\prob{P}_{\alpha}^{\RV{Z}|\RV{X}}$. Because this holds for all $\alpha$, it is therefore also a version of $\prob{P}_{\{\}}^{\RV{Z}|\RV{X}}$.
+\end{proof}
+
+\begin{theorem}[Existence of regular conditionals]
+Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ with $Y$ standard measurable and a probability model $\prob{P}_{\alpha}$ on $(\Omega,\sigalg{F})$. Then there exists a conditional $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
+\end{theorem}
+
+\begin{proof}
+This is a standard result, see for example \cite{cinlar_probability_2011} Theorem 2.18.
+\end{proof}
+
+\begin{theorem}[Existence of higher order conditionals with respect to probability sets]\label{th:ho_cond_psets}
+Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with regular conditional $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ and $Y$ and $Z$ standard measurable. Then there exists a regular $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$.
+\end{theorem}
+
+\begin{proof}
+Given a Borel measurable map $m:X\kto Y\times Z$ let $f:Y\times Z\to Y$ be the projection onto $Y$. Then $f\circ (\RV{Y},\RV{Z})=\RV{Y}$. \citet{bogachev_kantorovich_2020}, Theorem 3.5 proves that there exists a Borel measurable map $n:X\times Y\kto Y\times Z$  such that 
+\begin{align}
+    n(\RV{Y}^{-1}(y)|x,y) = 1\label{eq:proper}\\
+    m(\RV{Y}^{-1}(A)\cap B|x) = \int_A n(B|x,y) m\kernel{F}_{f}(dy|x)&\forall A\in \sigalg{Y},B\in\sigalg{Y\times Z}\label{eq:conditional}
+\end{align}
+In particular, $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ is a Borel measurable map $X\kto Y\times Z$. Thus equation \ref{eq:conditional} implies for all $A\in \sigalg{Y},B\in\sigalg{Y\times Z}$
+
+\begin{align}
+    \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}(\RV{Y}^{-1}(A)\cap B|x) &= \int_A n(B|x,y) \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}\kernel{F}_{f}(dy|x)\\
+    &=\int_A n(B|x,y) \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}(dy|x)\label{eq:rec_push}
+\end{align}
+
+Where Equation \ref{eq:rec_push} follows from Lemma \ref{th:recurs_pushf}.
+
+Then, for any $\prob{P}_\alpha\in\prob{P}_{\{\}}$
+
+\begin{align}
+    \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}(\RV{Y}^{-1}(A)\cap B|x) &= \int_A n(B|x,y) \prob{P}_{\alpha}^{\RV{Y}|\RV{X}}(dy|x)
+\end{align}
+
+which implies $n$ is a version of $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$.
+\end{proof}
+
+
+\begin{theorem}[Higher order conditionals]\label{th:higher_order_conditionals}
+Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with conditional $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$. Then $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is a version of $\prob{P}_{\{\}}^{\RV{Z}|\RV{Y}\RV{X}}$ 
+\end{theorem}
+
+\begin{proof}
+For arbitrary $\prob{P}_{\alpha}\in \prob{P}_{\{\}}$
+\begin{align}
+    \prob{P}_\alpha^{\RV{YZ}|\RV{X}} &= \tikzfig{higher_order_disint}\\
+    \implies \prob{P}_\alpha^{\RV{XYZ}} &= \tikzfig{higher_order_disint_0}\\
+    &= \tikzfig{higher_order_disint_1}\\
+    &= \tikzfig{higher_order_disint_2}
+\end{align}
+Thus $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is a version of $\prob{P}_{\alpha}^{\RV{Z}|\RV{Y}\RV{X}}$ for all $\alpha$ and hence also a version of $\prob{P}_{\{\}}^{\RV{Z}|\RV{Y}\RV{X}}$.
+\end{proof}
+
+
 \begin{theorem}
 Given probability gap model $\prob{P}_{\{\}}$, $\RV{X}$, $\RV{Y}$, $\RV{Z}$ such that $\prob{P}_{\{\}}^{\RV{Z}|\RV{YX}}$ exists, $\prob{P}_{\{\}}^{\RV{Z}|\RV{Y}}$ exists iff $\RV{Z}\CI_{\prob{P}_{\{\}}} \RV{X}|\RV{Y}$.
 \end{theorem}
@@ -14,8 +97,6 @@ If $\RV{Z}\CI_{\prob{P}_{\{\}}} \RV{X}|\RV{Y}$ then by Theorem \ref{th:cho_ci_eq
 \begin{align}
     \prob{P}_\alpha^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase}
 \end{align}
-
-
 \end{proof}
 
 
@@ -143,7 +224,7 @@ This is also found in \citet{ershov_extension_1975}, but is simple enough to rep
 \end{proof}
 
 
-\begin{lemma}[Copy-product is an intersection of probability sets]\label{th:intersection}
+\begin{lemma}[Semidirect product is an intersection of probability sets]\label{th:intersection}
 Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to (X,\sigalg{X})$, $\RV{Y}:\Omega\to (Y,\sigalg{Y})$, $\RV{Z}:\Omega\to (Z,\sigalg{Z})$ all standard measurable and valid candidate conditionals $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}$ defining probability sets $\prob{P}_{\{\}}$ and $\prob{Q}_{\{\}}$, then the probability set $\prob{R}_{\{\}}$ defined by $\prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}:=\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}$ is equal to $\prob{P}_{\{\}}\cap\prob{Q}_{\{\}}$.
 \end{lemma}
 
@@ -211,7 +292,7 @@ For all $\{x\}\times B$such that $\RV{X}\yields \{x\}\cap\RV{Y}\yields B\neq \em
 \end{proof}
 
 \begin{corollary}[Valid conditionals are validly extendable to valid distributions]\label{corr:valid_extend_order1}
-Given $\Omega$, $\RV{U}:\Omega\to U$, $\RV{W}:\Omega\to W$ and a valid candidate conditional $\prob{T}^{\RV{W}|\RV{U}}$, then for any valid candidate conditional $\prob{V}^{\RV{U}}$, $\prob{V}^{\RV{U}}\odot \prob{T}^{\RV{W}|\RV{U}}$ is a valid candidate probability.
+Given $\Omega$, $\RV{U}:\Omega\to U$, $\RV{W}:\Omega\to W$ and a valid conditional $\prob{T}^{\RV{W}|\RV{U}}$, then for any valid conditional $\prob{V}^{\RV{U}}$, $\prob{V}^{\RV{U}}\odot \prob{T}^{\RV{W}|\RV{U}}$ is a valid probability.
 \end{corollary}
 
 \begin{proof}

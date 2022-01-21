@@ -1,7 +1,7 @@
 %!TEX root = main.tex
 
 
-\section{Variables and Probability Models}\label{sec:vague_variables}
+\section{Probability}\label{sec:vague_variables}
 
 \subsection{Section outline}
 
@@ -24,77 +24,6 @@ A conditional independence statement in a probability gap model means that the c
 We can consider causal Bayesian networks to represent order 2 probability gap models. That is, a causal Bayesian network represents a function $\prob{P}$ that take inserts from some set $A$ of conditional probabilities and returns a probability model, and it does so in such a way that there are a pair of conditional probabilities $\{\prob{P}^{\RV{X}|\RV{W}},\prob{P}^{\RV{Z}|\RV{WXY}}\}$ shared by all models in the codomain of $\prob{P}$. The observational distribution is the value of $\prob{P}(\text{obs})$ for some \emph{observational insert} $\text{obs}\in A$, and other choices of inserts yield interventional distributions. Defining causal Bayesian networks in this manner resolves two areas of difficulty with causal Bayesian networks. First, under the standard definition of causal Bayesian networks interventional probabilities may fail to exist; with our perspective we can see that this arises due to misunderstanding the domain of $\prob{P}$. Secondly, there may be multiple distributions that differ in important ways that all satisfy the standard definition of ``interventional distributions''. The one-to-many relationship between observations and interventions is a basic challenge of causal inference, the problem arises when this relationship is obscured by calling multiple different things ``the interventional distribution''. If we consider causal Bayesian networks to represent order 2 probability gap models, we avoid doing this. 
 
 
-\subsection{Semantics of observed and unobserved variables}\label{sec:variables}
-
-We are interested in constructing \emph{probabilistic models} which explain some part of the world. In a model, variables play the role of ``pointing to the parts of the world the model is explaining''. Both observed an unobserved variables play important roles in causal modelling and we think it is worth clarifying what variables of either type refer to. Our approach is a standard one: a probabilistic model is associated with an experiment or measurement procedure that yields values in a well-defined set. Observable variables are obtained by applying well-defined functions to the result of this total measurement. We use a richer fundamental probability set that includes ``unobserved variables'' that are formally treated the same way as observed variables, but aren't associated with any real-world counterparts.
-
-Consider Newton's second law in the form $\proc{F}=\proc{MA}$ as a simple example of a model that relates ``variables'' $\proc{F}$, $\proc{M}$ and $\proc{A}$. As \citet{feynman_feynman_1979} noted, this law is incomplete -- in order to understand it, we must bring some pre-existing understanding of force, mass and acceleration as independent things. Furthermore, the nature of this knowledge is somewhat perculiar. Acknowledging that physicists happen to know a great deal about forces on an object, it remains true that in order to actually say what the net force on a real object is, even a highly knowledgeable physicist will still have to go and do some measurements, and the result of such measurements will be a vector representing the net forces on that object.
-
-This suggests that we can think about ``force'' $\proc{F}$ (or mass or acceleration) as a kind of procedure that we apply to a particular real world object and which returns a mathematical object (in this case, a vector). We will call $\proc{F}$ a \emph{procedure}. Our view of $\proc{F}$ is akin to \citet{menger_random_2003}'s notion of variables as ``consistent classes of quantities'' that consist of pairing between real-world objects and quantities of some type. Force $\proc{F}$ itself is not a well-defined mathematical thing, as measurement procedures are not mathematically well-defined. At the same time, the set of values it may yield \emph{are} well-defined mathematical things. No actual procedure can be guaranteed to return elements of a mathematical set known in advance -- anything can fail -- but we assume that we can study procedures reliable enough that we don't lose much by making this assumption.
-
-\begin{definition}[Measurement procedure]
-A \emph{measurement procedure} is a procedure that involves interacting with the real world somehow and delivering an element of a mathematical set as a result. The set of possible values is known prior to the measurement taking place, but the value that it will yield is not known. A procedure is given the font $\proc{B}$, we say it takes values in $X$ and $\proc{B}\yields x$ is the proposition that the the procedure $\proc{B}$ will yield the value $x\in X$. $\proc{B}\yields A$ for $A\subset X$ is the proposition $\lor_{x\in A} \proc{B}\yields x$. Two procedures $\proc{B}$ and $\proc{C}$ are the same if $\proc{B}\yields x\iff \proc{C}\yields x$ for all $x\in B$ (note that $\proc{B}$ and $\proc{C}$ could involve different actions in the real world).
-\end{definition}
-
-Measurement procedures are like functions without well-defined domains. We can compose measurement procedures with functions to produce new measurement procedures.
-
-\begin{definition}[Composition of functions with procedures]
-Given a procedure $\proc{B}$ that takes values in some set $B$, and a function $f:B\to C$, define the ``composition'' $f\circ \proc{B}$ to be any procedure $\proc{C}$ that yields $f(x)$ whenever $\proc{B}$ yields $x$. We can construct such a procedure by describing the steps: first, do $\proc{B}$ and secondly, apply $f$ to the value yielded by $\proc{B}$.
-\end{definition}
-
-For example, $\proc{MA}$ is the composition of $h:(x,y)\mapsto xy$ with the procedure $(\proc{M},\proc{A})$ that yields the mass and acceleration of the same object. Measurement procedure composition is associative:
-
-\begin{align}
-	(g\circ f)\circ\proc{B}\text{ yields } x &\iff B\text{ yields } (g\circ f)^{-1}(x) \\
-	&\iff B\text{ yields } f^{-1}(g^{-1}(x))\\
-	&\iff f\circ B \text{ yields } g^{-1}(x)\\
-	&\iff g\circ(f\circ B)\text{ yields } x
-\end{align}
-
-
-One might whether there is also some kind of ``append'' operation that takes a standalone $\proc{M}$ and a standalone $\proc{A}$ and returns a procedure $(\proc{M},\proc{A})$. Unlike function composition, this would be an operation that acts on two procedures rather than a procedure and a function. Unlike composition, we can't easily reason about such an operation mathematically, because of the fact that measurment procedures have a foot in the real world. Our approach here is to suppose that there is some master measurement procedure $\proc{S}$ which takes values in $\Psi$ that handles all of the ``real world'' interaction relevant to our problem. Specifically, we assume that any measurement procedure of interest to our problem can be written as the composition $f\circ \proc{S}$ for some $f$.
-
-For the model $\proc{F}=\proc{MA}$, for example, we could assume $\proc{F}=f\circ \proc{S}$ for some $f$ and $(\proc{M},\proc{A})=g\circ \proc{S}$ for some $g$. In this case, we can get $\proc{MA}=h\circ(\proc{M},\proc{A})=(h\circ g)\circ\proc{S}$. Note that each procedure is associated with a unique function with domain $\Psi$.
-
-Given that measurement processes are in practice finite precision and with finite range, $\Psi$ will generally be a finite set. We can therefore equip $\Psi$ with the collection of measurable sets given by the power set $\sigalg{E}:=\mathscr{P}(\Psi)$, and $(\Psi,\sigalg{E})$ is a standard measurable space. $\sigalg{E}$ stands for a complete collection of logical propositions we can generate that depend on the results yielded by the measurement procedure $\proc{S}$.
-
-$(\Psi,\sigalg{E})$ defines is a ``sample space'' limited to observable variables. That is, $(\Psi,\sigalg{E})$ is associated with a measurement procedure. Unobserved variables need not be associated with measurement procedures, and to accommodate these we use instead of $(\Psi,\sigalg{E})$ a richer sample space $(\Omega,\sigalg{F})$ which represents both observed and unobserved variables.
-
-\begin{definition}[Sample space]
-The sample space $(\Omega,\sigalg{F})$ is a set $\Omega$ along with with a $\sigma$-algebra $\sigalg{F}$ of subsets of $\Omega$.
-\end{definition}
-
-Observables are represented by a function $\RV{S}:\Omega\to \Psi$, and values of $\omega$ are related to propositions about measurement procedures via the criterion of \emph{consistency with observation}.
-
-\begin{definition}[Consistency with observation]\label{def:observable}
-An element $\omega\in \Omega$ is is \emph{consistent with observation} if the result yielded by $\proc{S}\yields \RV{S}(\omega)$
-\end{definition}
-
-Thus the procedure $\proc{S}$ restricts the observationally consistent elements of $\Omega$. If $\proc{S}$ yield the result $s$, then the consistent values of $\Omega$ will be $\RV{S}^{-1}(s)$. While two different sets of measurement outcomes $\Psi$ and $\Psi'$ entail a different mesurement procedures $\proc{S}$ and $\proc{S}'$, but different fundamental probability sets $\Omega$ and $\Omega'$ may be used to model a single procedure $\proc{S}$.
-
-As far as we know, distinguishing variables from procedures is somewhat nonstandard, but we feel it is useful to distinguish the formal elements of our theory (variables) from the semi-formal elements (measurement procedures). Both variables and procedures are often discussed in statistical texts. For example, \citet{pearl_causality:_2009} offers the following two, purportedly equivalent, definitions of variables:
-\begin{quote}
-By a \emph{variable} we will mean an attribute, measurement or inquiry that may take on one of several possible outcomes, or values, from a specified domain. If we have beliefs (i.e., probabilities) attached to the possible values that a variable may attain, we will call that variable a random variable.
-\end{quote}
-
-\begin{quote}
-This is a minor generalization of the textbook definition, according to which a random variable is a mapping from the fundamental probability set (e.g., the set of elementary events) to the real line. In our definition, the mapping is from the fundamental probability set to any set of objects called ``values,'' which may or may not be ordered.
-\end{quote}
-
-Our view is that the first definition is a definition of a procedure, while the second is a definition of a variable. Variables model procedures, but they are not the same thing. We can establish this by noting that, under our definition, every procedure of interest -- that is, all procedures that can be written $f\circ \proc{S}$ for some $f$ -- is modeled by a variable, but there may be variables defined on $\Omega$ that do not factorise through $\proc{S}$, and these variables do not model procedures.
-
-\subsection{Events}
-
-To recap, we have a procedure $\proc{S}$ yielding values in $\Psi$ that measures everything we are interested in, a fundamental probability set $\Omega$ and a function $\RV{S}$ that models $\proc{S}$ in the sense of Definition \ref{def:observable}. We assume also that $\Psi$ has a $\sigma$-algebra $\sigalg{E}$ (this may be the power set of $\Psi$, as measurement procedures are typically limited to finite precision). $\Omega$ is equipped with a $\sigma$-algebra $\sigalg{F}$ such that $\sigma(\RV{S})\subset \sigalg{F}$. If a procedure $\proc{X}=f\circ \RV{S}$ then we define $\RV{X}:\Omega\to X$ by $\RV{X}:=f\circ\RV{S}$.
-
-If a particular procedure $\proc{X}=f\circ \proc{S}$ eventually yields a value $x$, then the values of $\Omega$ consistent with observation must be a subset of $\RV{X}^{-1}(x)$. We define an \emph{event} $\RV{X}\yields x:\equiv \RV{X}^{-1}(x)$, which we read ``the event that $\RV{X}$ yields x''. An event $\RV{X}\yields x$ occurs if the consistent values of $\Omega$ are a subset of $\RV{X}\yields x$, thus ``the event that $\RV{X}$ yields x occurs$\equiv \proc{X}$ yields $x$''. The definition of events applies to all types of variables, not just observables, but we only provide an interpretation of events ``occurring'' when the variable $\RV{X}$ is associated with some $\proc{X}$.
-
-For measurable $A\in \sigalg{X}$, $\RV{X}\yields A=\bigcup_{x\in A} \RV{X}\yields x$. 
-
-Given $\RV{Y}:\Omega\to X$, we can define a sequence of variables: $(\RV{X},\RV{Y}):=\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega))$. $(\RV{X},\RV{Y})$ has the property that $(\RV{X},\RV{Y})\yields (x,y)= \RV{X}\yields x\cap \RV{Y}\yields y$, which supports the interpretation of $(\RV{X},\RV{Y})$ as the values yielded by $\RV{X}$ and $\RV{Y}$ together.
-
-It is common to use the symbol $=$ instead of $\bowtie$, but we want to avoid this because $\RV{Y}=y$ already has a meaning, namely that $\RV{Y}$ is a constant function everywhere equal to $y$. 
-
 \subsection{Standard probability theory}
 
 \begin{definition}[Probability measure]
@@ -109,48 +38,35 @@ Given measure spaces $(X,\sigalg{X})$, $(Y,\sigalg{Y})$ $\RV{Y}:\Omega\to Y$, a 
 \end{enumerate}
 \end{definition}
 
-\begin{definition}[Probability measures as Markov kernel]
-Given $(X,\sigalg{X})$ and $\mu\in \Delta(X)$, the Markov kernel $\kernel{K}:\{*\}\kto X$ given by $\kernel{K}(A|*)=\mu(A)$ for all $A\in \sigalg{X}$ is the Markov kernel associated with the probability measure $\mu$. We will use probability measures and their associated Markov kernels interchangeably, as it is transparent how to get from one to another.
-\end{definition}
-
 \begin{definition}[Delta measure]
-Given a measure space $(X,\sigalg{X})$ and $x\in X$, $\delta_x\in \Delta(X)$ is the measure defined by $\delta_x(A)=\llbracket x\in A \rrbracket$.
+Given a measureable space $(X,\sigalg{X})$ and $x\in X$, $\delta_x\in \Delta(X)$ is the measure defined by $\delta_x(A)=\llbracket x\in A \rrbracket$.
 \end{definition}
 
 \begin{definition}[Probability space]
 A probability space is a triple $(\mu,\Omega,\sigalg{F})$, where $\mu$ is a base measure on $\sigalg{F}$.
 \end{definition}
 
+\begin{definition}[Variable]
+Given a measureable space $(\Omega,\sigalg{F})$ and a set of values $(X,\sigalg{X})$, an \emph{$X$-valued variable} is a measurable function $\RV{X}:\Omega\to X$.
+\end{definition}
+
+\begin{definition}[Sequence of variables]
+Given a measureable space $(\Omega,\sigalg{F})$ and two variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $(\RV{X},\RV{Y}):\Omega\to X\times Y$ is the variable $\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega))$.
+\end{definition}
+
 \begin{definition}[Marginal distribution with respect to a probability space]\label{def:pushforward}
-Given a probability space $(\mu,\Omega,\sigalg{F})$ and a random variable $\RV{X}:\Omega\to (X,\sigalg{X})$, we can define the \emph{marginal distribution} of $\RV{X}$ with respect to $\mu$, $\mu^{\RV{X}}:\sigalg{X}\to [0,1]$ by $\mu^{\RV{X}}(A):=\mu(\RV{X}\yields A)$ for any $A\in \sigalg{X}$.
+Given a probability space $(\mu,\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to (X,\sigalg{X})$, we can define the \emph{marginal distribution} of $\RV{X}$ with respect to $\mu$, $\mu^{\RV{X}}:\sigalg{X}\to [0,1]$ by $\mu^{\RV{X}}(A):=\mu(\RV{X}\yields A)$ for any $A\in \sigalg{X}$.
 \end{definition}
 
-\begin{definition}[Disintegration]
-Given a Markov kernel $\kernel{K}:W\kto X\times Y$, with $W$, $X$ and $Y$ standard measurable, any kernel $\kernel{L}:W\times X\kto Y$ satisfying
-\begin{align}
-	\kernel{K} = \tikzfig{disintegration_existence}\label{eq:disint_def}
-\end{align}
-is a $W\times X\kto Y$ \emph{disintegration} of $\kernel{K}$.
-\end{definition}
-
-\begin{definition}[Conditional probability with respect to a probability space]\label{def:disint}
-Given a probability space $(\mu,\Omega)$ and random variables $\RV{X}:\Omega\to (X,\sigalg{X})$, $\RV{Y}:\Omega\to (Y,\sigalg{Y})$, the probability of $\RV{Y}$ given $\RV{X}$ is any $X\kto Y$ disintegration of $\mu^{\RV{XY}}$. That is,
-\begin{align}
-	\int_{A} \mu^{\RV{Y}|\RV{X}}(B|x) \mathrm{d}\mu^{\RV{X}}(x)&= \mu^{\RV{XY}}(x,y) &\forall A\in \sigalg{X}, B\in \sigalg{Y}\\
-	&\iff\\
-	\tikzfig{disint_def} &= \mu^{\RV{XY}}
-\end{align}
-\end{definition}
-
-\begin{lemma}[Marginal distribution as a kernel product]
-Given a probability space $(\mu,\Omega,\sigalg{F})$ and a random variable $\RV{X}:\Omega\to (X,\sigalg{X})$, define $\kernel{F}_{\RV{X}}:\Omega\kto X$ by $\kernel{F}_{\RV{X}}(A|\omega)=\delta_{\RV{X}(\omega)}(A)$, then
+\begin{lemma}[Marginal distribution as a kernel product]\lemma{lem:pushf_kprod}
+Given a probability space $(\mu,\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to (X,\sigalg{X})$, define $\kernel{F}_{\RV{X}}:\Omega\kto X$ by $\kernel{F}_{\RV{X}}(A|\omega)=\delta_{\RV{X}(\omega)}(A)$, then
 \begin{align}
 	\mu^{\RV{X}} = \mu\kernel{F}_{\RV{X}}
 \end{align}
 \end{lemma}
 
 \begin{proof}
-Consier any $A\in \sigalg{X}$.
+Consider any $A\in \sigalg{X}$.
 \begin{align}
 	\mu \kernel{F}_{\RV{X}}(A) &= \int_\Omega \delta_{\RV{X}(\omega)}(A) \mathrm{d}\mu(\omega)\\
 	&= \int_{\RV{X}^{-1}(\omega)} \mathrm{d}\mu(\omega)\\
@@ -158,19 +74,37 @@ Consier any $A\in \sigalg{X}$.
 \end{align}
 \end{proof}
 
-Disintegration of arbitrary Markov kernels is possible in standard measurable spaces. We will assume that all spaces are standard measurable, such that whenever we have a Markov kernel we are able to disintegrate it.
+\subsection{Not quite standard probability theory}
 
-\begin{lemma}[Disintegration existence in standard measurable Markov kernels]\label{lem:disint_exist}
-For any Markov kernel $\kernel{K}:X\kto W\times Y$ and $X$, $W$, $Y$ are standard measurable, there exists $\kernel{L}:W\times X\kto Y$ such that
+Instead of having probability distributions and Markov kernels as two different kinds of thing, we can identify probability distributions with Markov kernels whose domain is a one element set $\{*\}$.
+
+\begin{definition}[Probability measures as Markov kernels]
+Given $(X,\sigalg{X})$ and $\mu\in \Delta(X)$, the Markov kernel $\kernel{K}:\{*\}\kto X$ given by $\kernel{K}(A|*)=\mu(A)$ for all $A\in \sigalg{X}$ is the Markov kernel associated with the probability measure $\mu$. We will use probability measures and their associated Markov kernels interchangeably, as it is transparent how to get from one to another.
+\end{definition}
+
+\begin{definition}[Regular conditional distribution]\label{def:disint}
+Given a probability space $(\mu,\Omega)$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, the probability of $\RV{Y}$ given $\RV{X}$ is any Markov kernel $\mu^{\RV{Y}|\RV{X}}:X\kto Y$ such that
 \begin{align}
-	\kernel{K} = \tikzfig{disintegration_existence}
+	\mu^{\RV{XY}}(A\times B)&=\int_{A} \mu^{\RV{Y}|\RV{X}}(B|x) \mathrm{d}\mu^{\RV{X}}(x) &\forall A\in \sigalg{X}, B\in \sigalg{Y}\\
+	&\iff\\
+	\mu^{\RV{XY}}&= \tikzfig{disint_def}\label{eq:conditional} 
 \end{align}
-$\kernel{L}$ is a \emph{disintegration} of $\kernel{K}$.
-\end{lemma}
+\end{definition}
 
-\begin{proof}
-\citet{cho_disintegration_2019} Theorem 3.11
-\end{proof}
+We define higher order conditionals as ``conditionals of conditionals''
+
+\begin{definition}[Regular higher order conditionals]
+Given a probability space $(\mu,\Omega)$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$, a higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}:X\times Y\to Z$ is any Markov kernel such that, for some $\mu^{\RV{Y}|\RV{X}}$, 
+\begin{align}
+	\mu^{\RV{ZY}|\RV{X}}(B\times C|x) &=\int_B \mu^{\RV{Z}|(\RV{Y}|\RV{X})}(C|x,y)\mu^{\RV{Y}|\RV{X}}(dy|x)\\ 
+	&\iff
+	\mu^{\RV{ZY}|\RV{X}} &= \tikzfig{disintegration_existence}\label{eq:disint_def}
+\end{align}
+\end{definition}
+
+Higher order conditionals are useful because $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ is a version of $\mu^{\RV{X}|\RV{YX}}$, so if we're given $\mu^{\RV{ZY}|\RV{X}}$ and we can find some $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ then we have a version of $\mu^{\RV{X}|\RV{YX}}$. This also hold for conditional with respect to probability sets, which we will introduce later (Theorem \ref{th:higher_order_conditionals}).
+
+Furthermore, given regular $\mu^{\RV{XY}|\RV{Z}}$ and $\RV{X}$, $\RV{Y}$ standard measurable, it has recently been proven that a regular higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ exists \citet{bogachev_kantorovich_2020}, Theorem 3.5. See also Theorem \ref{th:ho_cond_psets} for the extension of this theorem to probability sets.
 
 \subsection{Probabilistic models for causal inference}
 
@@ -198,11 +132,15 @@ Given a probability set $\prob{P}_{\{\}}$, we define marginal and conditional pr
 Given a sample space $(\Omega,\sigalg{F})$, a variable $\RV{X}:\Omega\to X$ and a probability set $\prob{P}_{\{\}}$, the marginal distribution $\prob{P}_{\{\}}^{\RV{X}}=\prob{P}_\alpha^{\RV{X}}$ for any $\prob{P}_\alpha\in\prob{P}_{\{\}}$ if a distribution satisfying this condition exists. Otherwise, it is undefined.
 \end{definition}
 
-\begin{definition}[Conditional probability with respect to a probability set]\label{def:cprob_pset}
-Given a fundamental probability set $\Omega$ variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}$, \emph{a version of} $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is an $X\kto Y$ disintegration of $\prob{P}_\alpha^{\RV{XY}}$ for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. If no such Markov kernel exists, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is undefined.
+\begin{definition}[Regular conditional distribution with respect to a probability set]\label{def:cprob_pset}
+Given a fundamental probability set $\Omega$ variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}$, a conditional $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is an $X\kto Y$ disintegration of $\prob{P}_\alpha^{\RV{XY}}$ for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. If no such Markov kernel exists, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is undefined.
 \end{definition}
 
-Given a conditional probability with respect to a probability set, we can find other conditional probabilities by ``pushing it forward''.
+\begin{definition}[Regular higher order conditional with respect to a probability set]\label{def:cprob_pset}
+Given a fundamental probability set $\Omega$, variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$, if $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists then a higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is any Markov kenrel $X\times Y\kto Z$ that is a higher order conditional of some version of $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$. If no $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists, $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is undefined.
+\end{definition}
+
+Under the assumption of standard measurable spaces, the existence of a conditional probability $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ implies the existence of a higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ with respect to the same probability set (Theorem \ref{th:ho_cond_psets}). $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is in turn a version of the conditional $\prob{P}_{\{\}}^{\RV{Z}|\RV{YX}}$ (Theorem \ref{th:higher_order_conditionals}). Thus, from the existence of $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ we can derive the existence of $\prob{P}_{\{\}}^{\RV{Z}|\RV{YX}}$.
 
 % \begin{lemma}[Equivalence of pushforward definitions]\label{lem:prod_pushf}
 % Given a probability space $\kernel{M}:W\to \Omega$ and $\RV{X}:\Omega\to X$, define $\kernel{K}^{\RV{X}|\RV{W}}:W\kto X$ by $\kernel{K}^{\RV{X}|\RV{W}}(x|w):=\kernel{M}(\RV{X}\yields x|w)$ for any $x\in X$m $w\in W$ and $\kernel{L}^{\RV{X}}:W\kto X$ by
@@ -225,21 +163,9 @@ Given a conditional probability with respect to a probability set, we can find o
 % \end{align}
 % \end{proof}
 
-\begin{theorem}[Recursive pushforward]\label{th:recurs_pushf}
-Suppose we have a sample space $\Omega$ variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ such that $\prob{P}_{\{\}}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability of $\prob{P}_{\{\}}$ and $\RV{Z}=f\circ \RV{Y}$ for some $f:Y\to Z$. Then there exists a $\RV{Z}|\RV{X}$ conditional probability of $\prob{P}_{\{\}}$ given by $\prob{P}_{\{\}}^{\RV{Z}|\RV{X}}=\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\kernel{F}_{f}$.
-\end{theorem}
+\subsection{Semidirect product and almost sure equality}
 
-\begin{proof}
-For any $\prob{P}_\alpha\in \prob{P}_{\{\}}$, $x,z$
-\begin{align}
-\prob{P}_\alpha^{\RV{X}}(x)\prob{P}_\alpha^{\RV{Z}|\RV{X}}(z|x) &= \prob{P}_\alpha(\RV{X}^{-1}(x)\cap\RV{Z}^{-1}(z))\\
-					   &= \prob{P}_\alpha(\RV{X}^{-1}(x)\cap\RV{Y}^{-1}(f^{-1}(z)))\\
-					   &= \prob{P}_\alpha^{\RV{X},\RV{Y}}(\{x\}\times f^{-1}(z))\\
-					   &= \prob{P}_\alpha^{\RV{X}}(x)\prob{P}_\alpha^{\RV{Y}|\RV{X}}(f^{-1}(z)|x)
-\end{align}
-\end{proof}
-
-We define the copy-product $\odot$ as a shorthand for the operation in Equation \ref{eq:disint} that combines a marginal with a disintegration to get the original Markov kernel back.
+The operation used in Equation \ref{eq:conditional} that combines $\mu^{\RV{X}}$ and $\mu^{\RV{Y}|\RV{X}}$ is something we will use repeatedly, so we call it the \emph{semidirect product} and give it the symbol $\odot$. We also define a notion of almost sure equality with respect to $\odot$: $\kernel{K}\overset{\mu^{\RV{X}}}{\cong} \kernel{L}$ if $\mu^{\RV{X}}\odot \kernel{K}=\mu^{\RV{X}}\odot\kernel{L}$. Thus if two terms are almost surely equal, they are substitutable when they both appear in a semidirect product.
 
 \begin{definition}[Semidirect product]\label{def:copyproduct}
 Given $\prob{K}:X\kto Y$ and $\prob{L}:Y\times X\kto Z$, define the copy-product $\prob{K}\odot\prob{L}:X\to Y\times Z$ as
@@ -266,7 +192,7 @@ Given $\prob{K}:X\kto Y$, $\prob{L}:Y\times X\kto Z$ and $\prob{M}:Z\times Y\tim
 \end{align}
 \end{proof}
 
-Two Markov kernels are almost surely equal with respect to a probability set $\prob{P}_{\{\}}$ if the semidirect product $\odot$ of all marginal probabilities of $\RV{X}$ with each Markov kernel is identical.
+Two Markov kernels are almost surely equal with respect to a probability set $\prob{P}_{\{\}}$ if the semidirect product $\odot$ of all marginal probabilities of $\prob{P}_\alpha^\RV{X}$ with each Markov kernel is identical.
 
 \begin{definition}[Almost sure equality]\label{def:asequal}
 Two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are almost surely equal $\overset{\prob{P}_{\{\}}}{\cong}$ with respect to a probability set $\prob{P}_{\{\}}$ and variable $\RV{X}:\Omega\to X$ if for all $\prob{P}_\alpha \in \prob{P}_{\{\}}$,
@@ -276,7 +202,7 @@ Two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are almost sure
 \end{definition}
 
 \begin{lemma}[Conditional probabilities are almost surely equal]
-If $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are both versions of $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$, $\kernel{K}\overset{\prob{P}_{\{\}}}{\cong}\kernel{L}$
+If $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are both versions of $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ then $\kernel{K}\overset{\prob{P}_{\{\}}}{\cong}\kernel{L}$
 \end{lemma}
 
 \begin{proof}
@@ -337,13 +263,13 @@ By definition, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
 
 \subsection{Probability sets defined by marginal and conditional probabilities}
 
-In the previous section we defined marginal and conditional probabilities for probability sets. Here we will go in the other direction: define probability sets by specifying key marginal or conditional probabilities. There is an issue to be careful of here: not all probability measures $\prob{Q}^{\RV{X}}$ on $X$ define nonempty sets of probability measures on $\Omega$ with respect to the variable $\RV{X}$. Consider, for example, $\RV{X}=(\RV{Y},\RV{Y})$ for some $\RV{Y}:\Omega\to \{0,1\}$ and any measure $\prob{Q}^{\RV{YY}}$ that assigns nonzero probability to the event $(\RV{Y},\RV{Y})\yields (1,0)$. There is no base measure that pushes forward to such a $\prob{P}^{\RV{YY}}$, because two copies of the same variable must always be deterministically equal. A \emph{valid distribution} is a distribution associated with a particular variable that defines a nonempty set of base measures on $\Omega$ (Theorem \ref{th:completion}).
+So far we have defined probability sets and conditional probabilities as Markov kernels that can sometimes be derived from a probability set. Actually, we are interested in working in the opposite direction: starting with conditional probabilities and working with probability sets defined by them. We need to be a little bit careful in doing this: we can't take an arbitrary Markov kernel $\kappa:X\kto Y$ and declare it to be a conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ for some $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$. The reason for this is that some collections of variables cannot have arbitrary conditional probabilities. 
+
+Consider, for example, $\Omega=\{0,1\}$ with $\RV{X}=(\RV{Z},\RV{Z})$ for $\RV{Z}:=\text{id}_{\Omega}$ and any measure $\kappa\in \Delta(\{0,1\}^2)$ such that $\kappa(\{1\}\times \{0\})>0$. Note that $\RV{X}^{-1}(\{1\}\times \{0\})=\RV{Z}^{-1}(\{1\})\cap \RV{Z}^{-1}(\{0\})=\emptyset$. Thus for any probability measure $\mu\in \Delta(\{0,1\})$, $\mu^{\RV{X}}(\{1\}\times \{0\}) = \mu(\emptyset)=0 $ and so $\kappa$ cannot be the marginal distribution of $\RV{X}$ for any base measure at all. A \emph{valid distribution} is a distribution associated with a particular variable that defines a nonempty set of base measures on $\Omega$ (Theorem \ref{th:completion}), and \emph{valid conditionals} are a set of conditional probabilities closed under $\odot$ and reducing to valid distributions when conditioning on a trivial variable (Lemma \ref{lem:valid_extendability}).
 
 \begin{definition}[Valid distribution]\label{def:valid_dist}
 A valid $\RV{X}$ probability distribution $\prob{P}^{\RV{X}}$ is any probability mesure on $\Delta(X)$ such that $\RV{X}^{-1}(A)=\emptyset\implies \prob{P}^{\RV{X}}(A) = 0$ for all $A\in\sigalg{X}$.
 \end{definition}
-
-\emph{Valid conditionals} not only define a nonempty set of base measures on $\Omega$, but the $\odot$ product of two appropriately typed valid conditionals itself defines a nonempty set of base measures on $\Omega$ (Lemma \ref{lem:valid_extendability}). 
 
 \begin{definition}[Valid conditional]\label{def:valid_conditional_prob}
 Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{valid $\RV{Y}|\RV{X}$ conditional probability} $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$ such that it assigns probability 0 to contradictions:
@@ -352,15 +278,26 @@ Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{
 \end{align}
 \end{definition}
 
-Thus, given a collection of valid conditional probabilities $\{\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}|i\in [n]\}$ such that each adjacent pair can be combined with the $\odot$ product, the sequential product of each conditional probability is a valid conditional probability and there is a non-empty set of probability measures on the sample space that with that conditional probability. Collections of recursive conditional probabilities often arise in causal modelling -- in particular, they are the foundation of the structural equation modelling approach \citet{richardson2013single,pearl_causality:_2009}. Lemma \ref{lem:valid_extendability} establishes that recursive collections of conditional probabilities define non-empty probability sets as long as all the conditional probabilities in the collection are valid. 
-
 \begin{definition}[Probability set defined by a valid conditional]
 If $\prob{P}_{\{\}}$ is a probability set such that there is a valid conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}:X\kto Y$ and for every $\mu\in \Delta(\Omega)$ such that $\mu^{\RV{Y}|\RV{X}}\overset{\mu}{\cong}\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$, we say $\prob{P}_{\{\}}^{\overline{\RV{Y}|\RV{X}}}:=\prob{P}_{\{\}}$ is the probability set defined by $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$.
 \end{definition}
 
+Suppose we have some collection of Markov kernels that we want to interpret as conditional probabilities $\{\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}|i\in [n]\}$ which we want to define a probability set by recursively taking the semidirect product $\prob{P}_1^{\RV{X}_1}\odot (\prob{P}_2^{\RV{X}_2|\RV{X}_{1}}\odot ...)$. It is sufficient that each $\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}$ is valid for the resulting probability set to be nonempty (Lemma \ref{lem:valid_extendability}).
+
+Collections of recursive conditional probabilities often arise in causal modelling -- in particular, they are the foundation of the structural equation modelling approach \citet{richardson2013single,pearl_causality:_2009}.
+
+Note that validity is not a necessary condition for a conditional to define a non-empty probability set. The intuition for this is: if we have some $\kernel{K}:X\kto Y$, $\kernel{K}$ might be an invalid $\RV{Y}|\RV{X}$ conditional on all of $X$, but might be valid on some subset of $X$, and so we might have some probability model $\prob{P}$ that assigns measure 0 to the bad parts of $X$ such that $\kernel{K}$ is a version of $\prob{P}^{\RV{Y}|\RV{X}}$. On the other hand, if we want to take the product of $\kernel{K}$ with arbitary valid $\RV{X}$ probabilities, then the validity of $\kernel{K}$ is necessary (Theorem \ref{th:valid_conditional_probability}).
+
+
 \subsection{Probability gap models}
 
-A probability set gives us a collection of different probability models that ``could'' model the consequences of an action. In addition to possibilities, we also want \emph{choices} and a model that tells us, given a particular choice, we realise a particular possibility. This is what we call a \emph{probability gap model}. The general form of a probability gap models is
+For reasoning about decisions, we don't just want a set of models that could explain what is going on. What we want is a function that maps choices to ``outcome'' probability models. In many cases, there might be features that all of the outcome models share -- for example, there might be some variables that are not affected by any choice, and so their marginal distribution is the same in every outcome model. There are also some other features that are entirely determined by the choice we make. For example, if there is a variable $\RV{D}:\Omega\to D$ representing the choice we make, then if we choose option $d\in D$ we must have $\prob{P}^{\RV{D}}(\{d\})=1$.
+
+Here, by ``property'', we mean marginal or conditional probabilities. We suppose that we are able to construct models such that ``properties common to all outcome models'' and ``properties determined by choices'' together represent everything we can say about the appropriate model for our decision problem. That is, we can define a probability set corresponding to all outcome models and, for each choice, a probability set corresponding to all models consistent with the things known to be fixed by that choice, and then the result of picking a certain choice is the intersection of the probability set for all outcome models and the probability set associated with that choice.
+
+We call this kind of map a \emph{probability gap model} (the terminology is from \citet{hajek_interpretations_2019}, though our meaning is a little different). The set of all outcome models represents most of our knowledge relevant to the outcome, but there's a gap -- it doesn't say which choice we will eventually make. The set of choices is the collection of different ways that the gap could be filled.
+
+We don't have an axiomatic justification for choosing this representation. There are two considerations motivating it: first, it allows us to recover standard representations of decision problems and standard kinds of causal models, and secondly the formulation in terms of probability sets means that probability gap models are in many ways similar to ordinary probability models.
 
 \begin{itemize}
 	\item A fixed probability set $\prob{P}_{\{\}}\subset \Delta(\Omega)$ which we call the \emph{model}

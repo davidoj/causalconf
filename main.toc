@@ -1,36 +1,30 @@
 \contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
-\contentsline {section}{\numberline {2}Variables and Probability Models}{3}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Section outline}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {1.1}Our approach}{3}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Probability}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Section outline}{4}{subsection.2.1}%
 \contentsline {subsubsection}{\numberline {2.1.1}Brief outline of probability gap models}{4}{subsubsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.2}Semantics of observed and unobserved variables}{5}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Events}{8}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Standard probability theory}{8}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Probabilistic models for causal inference}{10}{subsection.2.5}%
-\contentsline {subsection}{\numberline {2.6}Probability sets}{11}{subsection.2.6}%
-\contentsline {subsection}{\numberline {2.7}Probability sets defined by marginal and conditional probabilities}{14}{subsection.2.7}%
-\contentsline {subsection}{\numberline {2.8}Probability gap models}{15}{subsection.2.8}%
-\contentsline {subsection}{\numberline {2.9}Example: invalidity}{16}{subsection.2.9}%
-\contentsline {subsubsection}{\numberline {2.9.1}Conditional independence}{17}{subsubsection.2.9.1}%
-\contentsline {subsection}{\numberline {2.10}Curried Markov kernels}{18}{subsection.2.10}%
-\contentsline {section}{\numberline {3}Decision theoretic causal inference}{19}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Decision problems}{20}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Decisions as measurement procedures}{21}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Causal models similar to see-do models}{22}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}See-do models and classical statistics}{23}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Syntax and semantics of causal consequences}{24}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Repeatable experiments}{25}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Causal consequences exist if the model is causally contractible}{28}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Modelling different measurement procedures}{32}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Example: commutativity of exchange in the context of treatment choices}{32}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}Causal consequences of non-deterministic variables}{36}{subsection.4.5}%
-\contentsline {subsection}{\numberline {4.6}Intersubjective causal consequences}{37}{subsection.4.6}%
-\contentsline {section}{\numberline {5}Appendix, needs to be organised}{38}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Existence of conditional probabilities}{38}{subsection.5.1}%
+\contentsline {subsection}{\numberline {2.2}Standard probability theory}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Not quite standard probability theory}{7}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Probabilistic models for causal inference}{8}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Probability sets}{9}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Probability sets defined by marginal and conditional probabilities}{12}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Probability gap models}{13}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}Example: invalidity}{14}{subsection.2.8}%
+\contentsline {subsubsection}{\numberline {2.8.1}Conditional independence}{15}{subsubsection.2.8.1}%
+\contentsline {subsection}{\numberline {2.9}Curried Markov kernels}{16}{subsection.2.9}%
+\contentsline {section}{\numberline {3}Decision theoretic causal inference}{17}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Decision problems}{18}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Decisions as measurement procedures}{19}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Causal models similar to see-do models}{20}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}See-do models and classical statistics}{21}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Syntax and semantics of causal consequences}{22}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Repeatable experiments}{23}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Causal consequences exist if the model is causally contractible}{26}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Modelling different measurement procedures}{30}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Example: commutativity of exchange in the context of treatment choices}{30}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Causal consequences of non-deterministic variables}{34}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Intersubjective causal consequences}{35}{subsection.4.6}%
+\contentsline {section}{\numberline {5}Appendix, needs to be organised}{36}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Existence of conditional probabilities}{36}{subsection.5.1}%
 \contentsline {subsection}{\numberline {5.2}Extended conditional independence}{38}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}Graphical properties of conditional independence}{41}{subsubsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.3}Results I use that don't really fit into the flow of the text}{42}{subsection.5.3}%
-\contentsline {subsubsection}{\numberline {5.3.1}Repeated variables}{42}{subsubsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.4}Validity}{45}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}Combs}{47}{subsection.5.5}%
-\contentsline {subsection}{\numberline {5.6}Comb conditional correspondence}{48}{subsection.5.6}%
-\contentsline {subsection}{\numberline {5.7}Representation of conditional probability models}{50}{subsection.5.7}%
+\contentsline {subsection}{\numberline {5.3}Validity}{41}{subsection.5.3}%

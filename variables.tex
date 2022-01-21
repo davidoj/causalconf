@@ -1,0 +1,86 @@
+
+\subsection{Semantics of observed and unobserved variables}\label{sec:variables}
+
+Our main question concerns the existence of causal relationships between \emph{variables}. If we want to offer a clear account of what this means, we need to start with a clear account of what variables are. Both observed an unobserved variables play important roles in causal modelling and we think it is worth clarifying what variables of either type refer to. We will start with observed variables, which we consider to be parts of our model whose role is to ``point to the parts of the world the model is explaining''. Unobserved variables, on the other hand, are parts of the model that do not refer to the external world but may be introduced, for example, for notational convenience.
+
+Our approach in short is: a probabilistic model is associated with a particular experiment or measurement procedure. The measurment procedure yields values in a well-defined set. Observable results are obtained by applying well-defined functions to the result of this procedure. The observable sample space is the set of values that can be obtained from the experiment, and observable variables are the functions associated with particular observable results. We extend the set of values obtained from the observable sample space to a sample space that can contains both obserable and unobservable variables. Unobservable variables, like observable variables, are functions on the sample space, but they do not correspond to any observable results.
+
+As far as we know, distinguishing variables from procedures is somewhat nonstandard, but we feel it is useful to distinguish the formal elements of the theory (variables) from the semi-formal elements (measurement procedures). Both variables and procedures are often discussed in statistical texts. For example, \citet{pearl_causality:_2009} offers the following two, purportedly equivalent, definitions of variables:
+\begin{quote}
+By a \emph{variable} we will mean an attribute, measurement or inquiry that may take on one of several possible outcomes, or values, from a specified domain. If we have beliefs (i.e., probabilities) attached to the possible values that a variable may attain, we will call that variable a random variable.
+\end{quote}
+
+\begin{quote}
+This is a minor generalization of the textbook definition, according to which a random variable is a mapping from the fundamental probability set (e.g., the set of elementary events) to the real line. In our definition, the mapping is from the fundamental probability set to any set of objects called ``values,'' which may or may not be ordered.
+\end{quote}
+
+Our view is that the first definition is a definition of a procedure, while the second is a definition of a variable. Variables model procedures, but they are not the same thing. We can establish this by noting that, under our definition, every procedure of interest -- that is, all procedures that can be written $f\circ \proc{S}$ for some $f$ -- is modeled by a variable, but there may be variables defined on $\Omega$ that do not factorise through $\proc{S}$, and these variables do not model procedures.
+
+
+We illustrate this approach with the example of Newton's second law in the form $\RV{F}=\RV{MA}$. This model relates ``variables'' $\RV{F}$, $\RV{M}$ and $\RV{A}$. As \citet{feynman_feynman_1979} noted, in order to understand this law, we must bring some pre-existing understanding of force, mass and acceleration independent of the law itself. Furthermore, we contend, this knowledge cannot be expressed in any purely mathematical statement. In order to say wha the net force on a given object is, even a highly knowledgeable physicist will have to go and do some measurements, which is a procedure that they carry out involving interacting with the real world somehow and obtaining as a result a vector representing the net forces on that object.
+
+That is, the variables $\RV{F}$, $\RV{M}$ and $\RV{A}$ are referring to the \emph{results of measurement procedures}. We will introduce a separate notation to refer to these measurement procedures -- $\proc{F}$ is the procedure for measuring force, $\proc{M}$ and $\proc{A}$ for mass and acceleration respectively. A measurement procedure $\proc{F}$ is akin to \citet{menger_random_2003}'s notion of variables as ``consistent classes of quantities'' that consist of pairing between real-world objects and quantities of some type. Force $\proc{F}$ itself is not a well-defined mathematical thing, as measurement procedures are not mathematically well-defined. At the same time, the set of values it may yield \emph{are} well-defined mathematical things. No actual procedure can be guaranteed to return elements of a mathematical set known in advance -- anything can fail -- but we assume that we can study procedures reliable enough that we don't lose much by making this assumption.
+
+Note that, because $\proc{F}$ is not a purely mathematical thing, we cannot perform mathematical reasoning with $\proc{F}$ directly. Rather, we introduce a variable $\RV{F}$ which, as we will see, is a well-defined mathematical object, assert that it corresponds to $\proc{F}$ and conduct our reasoning using $\RV{F}$.
+
+\subsection{Measurment procedures}
+
+\begin{definition}[Measurement procedure]
+A \emph{measurement procedure} $\proc{B}$ is a procedure that involves interacting with the real world somehow and delivering an element of a mathematical set $X$ as a result. A procedure is given the font $\proc{B}$, we say it takes values in $X$.
+\end{definition}
+
+\begin{definition}[Values yielded by procedures]
+$\proc{B}\yields x$ is the proposition that the the procedure $\proc{B}$ will yield the value $x\in X$. $\proc{B}\yields A$ for $A\subset X$ is the proposition $\lor_{x\in A} \proc{B}\yields x$.
+\end{definition}
+
+\begin{definition}[Equality of procedures]\label{def:equality}
+Two procedures $\proc{B}$ and $\proc{C}$ are equal if they both take values in $X$ and $\proc{B}\yields x\iff \proc{C}\yields x$ for all $x\in X$. If they involve different measurment actions in the real world but still necessarily yield the same result, we say they are equal.
+\end{definition}
+
+Measurement procedures are like functions without well-defined domains. Just like we can compose functions with other functions to create new functions, we can compose measurement procedures with functions to produce new measurement procedures.
+
+\begin{definition}[Composition of functions with procedures]
+Given a procedure $\proc{B}$ that takes values in some set $B$, and a function $f:B\to C$, define the ``composition'' $f\circ \proc{B}$ to be any procedure $\proc{C}$ that yields $f(x)$ whenever $\proc{B}$ yields $x$. We can construct such a procedure by describing the steps: first, do $\proc{B}$ and secondly, apply $f$ to the value yielded by $\proc{B}$.
+\end{definition}
+
+For example, $\proc{MA}$ is the composition of $h:(x,y)\mapsto xy$ with the procedure $(\proc{M},\proc{A})$ that yields the mass and acceleration of the same object. Measurement procedure composition is associative:
+
+\begin{align}
+    (g\circ f)\circ\proc{B}\text{ yields } x &\iff B\text{ yields } (g\circ f)^{-1}(x) \\
+    &\iff B\text{ yields } f^{-1}(g^{-1}(x))\\
+    &\iff f\circ B \text{ yields } g^{-1}(x)\\
+    &\iff g\circ(f\circ B)\text{ yields } x
+\end{align}
+
+
+One might whether there is also some kind of ``append'' operation that takes a standalone $\proc{M}$ and a standalone $\proc{A}$ and returns a procedure $(\proc{M},\proc{A})$. Unlike function composition, this would be an operation that acts on two procedures rather than a procedure and a function. Thus this operation would need to combine real-world operations somehow, which is not always possible to do. For example, measuring a subatomic particle's position and momentum can be done separately, but doing both measurements is not the same as doing each measurement in isolation and then combining the result. 
+
+Our approach here is to suppose that there is some complete measurement procedure $\proc{S}$ to be modeled, which takes values in the observable sample space $(\Psi,\sigalg{E})$ and all necessary measurements can be recovered from $\proc{S}$ via composition $f\circ \proc{S}$ for some $f$. In this manner, we assume that any problems that arise from a need to combine real world actions have already been solved in the process of defining $\proc{S}$.
+
+Given that measurement processes are in practice finite precision and with finite range, $\Psi$ will generally be a finite set. We can therefore equip $\Psi$ with the collection of measurable sets given by the power set $\sigalg{E}:=\mathscr{P}(\Psi)$, and $(\Psi,\sigalg{E})$ is a standard measurable space. $\sigalg{E}$ stands for a complete collection of logical propositions we can generate that depend on the results yielded by the measurement procedure $\proc{S}$.
+
+\subsection{Observable variables}
+
+Our total procedure $\proc{S}$ represents a large collection of measurment of interest, each of which can be obtained from $\proc{S}$ by composition of a function with $\proc{S}$. We identify the functions used to obtain particular measurements with variables.
+
+Specifically, for a measurement $f\circ \proc{S}$, we can call the function $f$ a \emph{variable}. Note that $f$ is not itself a measurment; to actually obtain a measurment result, we have to conduct $\proc{S}$ first and then apply $f$ to the value it yields. However, $f$ is a mathematical function, and so it is free from the concerns of ``real world interaction'' involved with the measurement procedure $\proc{S}$.
+
+For the model $\RV{F}=\RV{MA}$, for example, we have $\proc{F}=\RV{F}\circ \proc{S}$ for some variable $\RV{F}:\Psi\to F$ and $\proc{M}=\RV{M}\circ \proc{S}$ for some variable $\RV{M}:\Psi\to M$.
+
+A measurement procedure yields a particular value when it is completed. Given the total procedure $\proc{S}$, a variable $\RV{X}:\Psi\to X$ and the corresponding procedure $\proc{X}=\RV{X}\circ\proc{S}$, the proposition ``$\proc{X}$ yields $x$'' is equivalent to the proposition ``$\proc{S}$ yields $\RV{X}^{-1}(x)$''. Because of this, we define the \emph{event} $\RV{X}\yields x$ to be the set $\RV{X}^{-1}(x)$.
+
+\begin{definition}[Event]
+Given the total procedure $\proc{S}$ taking values in $\Psi$ and a variable $\RV{X}:\Psi\to X$, the \emph{event} $\RV{X}\yields x$ is the set $\RV{X}^{-1}(x)$.
+\end{definition}
+
+It is common to use the symbol $=$ instead of $\bowtie$ to stand for ``yields'', but we want to avoid this because $\RV{Y}=y$ already has a meaning, namely that $\RV{Y}$ is a constant function everywhere equal to $y$. 
+
+\subsection{Unobservable variables, variable sequences}
+
+We can define a general notion of unobservable variables by defining a sample space $\Omega$ along with a function $\RV{S}:\Omega\to \Psi$ such that $\proc{S}\yields s$ is identified with the subset $\RV{S}^{-1}(s)\subset \Omega$. Observable variables are then redefined as $\RV{X}=\RV{X}'\circ\RV{S}$ where $\RV{X}'$ is now the function that, when composed with $\proc{S}$, yields $\proc{X}$.
+
+Given $\RV{Y}:\Omega\to X$, we can define a sequence of variables: $(\RV{X},\RV{Y}):=\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega))$. $(\RV{X},\RV{Y})$ has the property that $(\RV{X},\RV{Y})\yields (x,y)= \RV{X}\yields x\cap \RV{Y}\yields y$, which supports the interpretation of $(\RV{X},\RV{Y})$ as the values yielded by $\RV{X}$ and $\RV{Y}$ together.
+
+\subsection{Actions}
+
+We also deal with variables that represent ``decisions'' or ``actions''. If we consider what happens in the real world, there's a difference between an action and a measurement in that the former involves ``doing stuff'' while the latter involves just ``seeing stuff''. However, for the purposes of mathematically modelling actions and measurements, we note that any procedure for measuring the choice of action should always agree with the action chosen. Thus, by Definition \ref{def:equality}, a procedure for choosing an action is equivalent to a procedure for ``measuring'' which action was chosen. In particular, if I have a functional rule for choosing an action - say I take a measurement $\proc{X}$ and then pick an action $\proc{D}$ by applying the function $f$ to the result, I then have a measurement procedure for $\proc{D}=f\circ \proc{X}$.
