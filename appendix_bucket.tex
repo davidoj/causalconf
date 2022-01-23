@@ -42,8 +42,8 @@ Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\t
 This is a standard result, see for example \cite{cinlar_probability_2011} Theorem 2.18.
 \end{proof}
 
-\begin{theorem}[Existence of higher order conditionals with respect to probability sets]\label{th:ho_cond_psets}
-Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with regular conditional $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ and $Y$ and $Z$ standard measurable. Then there exists a regular $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$.
+\begin{theorem}[Existence of higher order valid conditionals with respect to probability sets]\label{th:ho_cond_psets}
+Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with valid regular conditional $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ and $Y$ and $Z$ standard measurable. Then there exists a valid regular $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$.
 \end{theorem}
 
 \begin{proof}
@@ -67,7 +67,9 @@ Then, for any $\prob{P}_\alpha\in\prob{P}_{\{\}}$
     \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}(\RV{Y}^{-1}(A)\cap B|x) &= \int_A n(B|x,y) \prob{P}_{\alpha}^{\RV{Y}|\RV{X}}(dy|x)
 \end{align}
 
-which implies $n$ is a version of $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$.
+which implies $n$ is a version of $\prob{P}_{\{\}}^{\RV{YZ}|(\RV{Y}|\RV{X})}$. Define $g:Y\times Z\to Z$ as the projection of $Y\times Z$ onto $Z$. By Lemma \ref{th:recurs_pushf}, $n\kernel{F}_{g}$ is a version of $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$.
+
+We need to show that $n\kernel{F}_{g}$ is valid. We have validity of $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ already. 
 \end{proof}
 
 
@@ -100,111 +102,40 @@ If $\RV{Z}\CI_{\prob{P}_{\{\}}} \RV{X}|\RV{Y}$ then by Theorem \ref{th:cho_ci_eq
 \end{proof}
 
 
-\subsection{Extended conditional independence}\label{ap:eci}
-
-\todo[inline]{Needs a support condition}
-
-In the case of a probability gap model $(\prob{P}_{\square}^{\RV{V}|\RV{W}},A)$ where there is some $\alpha\in A$ dominating $A$, we can relate conditional independence with respect to $\prob{P}_\square$ to what \citet{constantinou_extended_2017} \emph{extended conditional independence}, which is a notion they define with respect to a Markov kernel. These concepts may differ if $A$ is not dominated. Theorem 4.4 of \citet{constantinou_extended_2017} proves the following claim:
-
-\begin{theorem}\label{th:dawid_constantionou}
-Let $\RV{A}^*=\RV{A}\circ \RV{V}$, $\RV{B}^*=\RV{B}\circ\RV{V}$, $\RV{C}^*=\RV{C}\circ \RV{V}$ ($(\RV{A},\RV{B},\RV{C})$ are $\sigalg{V}$-measurable) and $\RV{D}^*=\RV{D}\circ \RV{W}$,$\RV{E}^*=\RV{E}\circ \RV{W}$ where $W$ is discrete and $\RV{W}=(\RV{D}^*,\RV{E}^*)$. In addition, let $\prob{P}_\alpha^{\RV{W}}$ be some probability distribution on $\RV{W}$ such that $w\in\RV{W}(\Omega)\implies \prob{P}_\alpha^{\RV{W}}(w)>0$. Then, denoting extended conditional independence with $\CI_{\prob{P},\text{ext}}$ and $\prob{P}_\alpha^{\RV{VW}}:=\prob{P}_\alpha^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$
-\begin{align}
-    \RV{A}\CI_{\prob{P},\text{ext}}(\RV{B},\RV{D})|(\RV{C},\RV{E})\iff \RV{A}^*\CI_{\prob{P}_\alpha}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)
-\end{align}
-Where $\CI_{\prob{P}_\alpha}$ is order 0 conditional independence.
-\end{theorem}
-
-This result implies a close relationship between order 1 condtional independence and extended conditional independence.
-
-\begin{theorem}
-Let $\RV{A}^*=\RV{A}\circ \RV{V}$, $\RV{B}^*=\RV{B}\circ\RV{V}$, $\RV{C}^*=\RV{C}\circ \RV{V}$ ($(\RV{A},\RV{B},\RV{C})$ are $\sigalg{V}$-measurable) and $\RV{D}^*=\RV{D}\circ \RV{W}$,$\RV{E}^*=\RV{E}\circ \RV{W}$ where $V,W$ are discrete and $\RV{W}=(\RV{D}^*,\RV{E}^*)$. Then letting $\prob{P}_\alpha^{\RV{VW}}:=\prob{P}_\alpha^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$
-\begin{align}
-    \RV{A}\CI^1_{\prob{P},\text{ext}}(\RV{B},\RV{D})|(\RV{C},\RV{E})\iff \RV{A}^*\CI_{\prob{P}}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)
-\end{align}
-\end{theorem}
-
-\begin{proof}
-If:
-
-By assumption, $\RV{A}^*\CI_{\prob{P}_\alpha}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)$ for all $\prob{P}_\alpha^{\RV{D^*E^*}}$. In particular, this holds for some $\prob{P}_\alpha^{\RV{D^*E^*}}$ such that $(d,e)\in (\RV{D}^*,\RV{E}^*)(\Omega)\implies \prob{P}_\alpha^{\RV{D^*E^*}}(d,e) >0$. Then by Theorem \ref{th:dawid_constantionou}, $\RV{A}\CI_{\prob{P},\text{ext}}(\RV{B},\RV{D})|(\RV{C},\RV{E})$.
-
-Only if:
-
-For any $\beta$, $\prob{P}_\beta^{\RV{ABC}|\RV{DE}}= \prob{P}_\beta^{\RV{DE}}\odot \prob{P}^{\RV{ABC}|\RV{DE}}$. By Lemma \ref{lem:disint_exist}, we have $\prob{P}^{\RV{A}|\RV{BCDE}}$ such that
-
-\begin{align}
-    \prob{P}_\beta^{\RV{A^*B^*C^*}\RV{D^*E^*}} &= \prob{P}_\beta^{\RV{D^*E^*}}\odot \prob{P}^{\RV{B^*C^*}|\RV{D^*E^*}}\odot \prob{P}^{\RV{A^*}|\RV{B^*C^*D^*E^*}}\\
-                                      &= \prob{P}_\beta^{\RV{B^*C^*D^*E^*}}\odot \prob{P}^{\RV{A^*}|\RV{B^*C^*D^*E^*}}\\
-                                      &= \prob{P}_\beta^{\RV{C^*E^*}}\odot \prob{P}_\beta^{\RV{B^*D^*}|\RV{C^*E^*}}\odot \prob{P}^{\RV{A}^*|\RV{B^*C^*D^*E^*}}
-\end{align}
-
-By Theorem \ref{th:dawid_constantionou}, we have some $\alpha$ such that $\prob{P}_\alpha^{\RV{D^*E^*}}$ is strictly positive on the range of $(\RV{D}^*,\RV{E}^*)$ and $\RV{A}^*\CI_{\prob{P}_\alpha}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)$.
-
-By independence, for some version of $\prob{P}^{\RV{A}|\RV{BCDE}}$:
-
-\begin{align}
-    \prob{P}_\alpha^{\RV{C^*E^*}}\odot \prob{P}_\alpha^{\RV{B^*D^*}|\RV{C^*E^*}}\odot \prob{P}^{\RV{A}^*|\RV{B^*C^*D^*E^*}} &= \tikzfig{indep_strengthen_1}\\
-    &= \tikzfig{indep_strengthen_2}\\
-    &= \prob{P}_\alpha^{\RV{C^*E^*}}\odot \prob{P}_\alpha^{\RV{B^*D^*}|\RV{C^*E^*}}\odot (\prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}\otimes\text{erase}_{BD})
-\end{align}
-
-Thus for any $(a,b,c,d,e)\in A\times B\times C\times D\times E$ such that $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0$, $\prob{P}^{\RV{A}^*|\RV{B^*C^*D^*E^*}}(a|b,c,d,e) = \prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$. However, by assumption, $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)=0 \implies \prob{P}_\beta^{\RV{B^*C^*D^*E^*}}(b,c,d,e)=0$, and so $\prob{P}_\beta^{\RV{A}^*|\RV{B^*C^*D^*E^*}}= \prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$ everywhere except a set of $\prob{P}_\beta$-measure 0. Thus
-    
-\begin{align}
-    \prob{P}_\beta^{\RV{A^*B^*C^*}\RV{D^*E^*}} &= \tikzfig{indep_strengthen_3}\\
-    &= \tikzfig{indep_strengthen_4}
-\end{align}
-\end{proof}
-
-Conditional independence is a property of variables, we define ``unresponsiveness'' as a property of Markov kernels.
-
-\begin{definition}[Unresponsiveness]
-Given discrete $\Omega$, a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, if there is some version of the conditional probability $\prob{P}^{\RV{Y}|\RV{WX}}$ and $\prob{P}_\square^{\RV{Y}|\RV{W}}$ such that
-\begin{align}
-  \prob{P}_\square^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase} \label{eq:higherorder_ci_erase}
-\end{align}
-then $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ is \emph{unresponsive} to $\RV{X}$.
-\end{definition}
-
-\begin{definition}[Domination]
-Given a probability set $\prob{P}_{\{\}}\subset \Delta(\Omega)$, $\prob{P}_\alpha$ dominates $\prob{P}_{\{\}}$ if $\prob{P}_\beta(B)>0\implies \prob{P}_\alpha(B)>0$ for all $\prob{P}_\beta in \prob{P}_{\{\}}$, $B\in \sigalg{F}$.
-\end{definition}
-
-\begin{theorem}[Conditional independence from kernel unresponsiveness]\label{th:cons_ci}
-Given standard measurable $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}:A\to \Delta(\Omega)$ with conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$ such that there is $\prob{P}_\alpha\in \prob{P}_{\{\}}$ dominating $\prob{P}_{\{\}}$, $\RV{Y}\CI_{\prob{P}_{\{\}}}\RV{X}|\RV{W}$ if and only if there is a version of $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$ unresponsive to $\RV{W}$. 
-\end{theorem}
-
-\begin{proof}
-If:
-For every $\alpha\in A$ we can write
-\begin{align}
-  \prob{P}_\alpha^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase_alpha}
-\end{align}
-And so, by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\prob{P}_\alpha}\RV{X}|\RV{W}$ for all $\alpha\in A$, and so $\RV{Y}\CI_{\prob{P}_{\{\}}}\RV{X}|\RV{W}$.
-Only if:
-For $\prob{P}_{\alpha}$ dominating $\prob{P}_{\{\}}$, by Theorem \ref{th:cho_ci_equiv}, there exists a version of $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ unresponsive to $\RV{W}$. Because $\prob{P}_{\alpha}$ dominates $\prob{P}_{\{\}}$, $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ differs from $\prob{P}_\beta^{\RV{Y}|\RV{WX}}$ on a set of measure 0 for any $\prob{P}_{\beta}\in \prob{P}_{\{\}}$, thus $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ is a version of $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$ also.
-\end{proof}
-
-\begin{corollary}\label{cor:ci_cp_exist}
-Given standard measurable $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}:A\to \Delta(\Omega)$ with conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$, $\prob{P}_{\{\}}^{\RV{Y}|\RV{W}}$ exists if $\RV{Y}\CI_{\prob{P}_{\{\}}}\RV{X}|\RV{W}$.
-\end{corollary}
-
-\begin{proof}
-By Theorem \ref{th:cons_ci}, there is $\kernel{K}:W\kto Y$ such that for all $\alpha$
-\begin{align}
-    \prob{P}_{\alpha}^{\RV{WY}} &= \tikzfig{conditional_independence_cprob_exist}\\
-    &= \tikzfig{conditional_independence_cprob_exist2}\\
-    &= \tikzfig{conditional_independence_cprob_exist3}
-\end{align}
-
-Thus $\kernel{K}$ is a version of $\prob{P}_{\{\}}^{\RV{Y}|\RV{W}}$.
-\end{proof}
-
-This result can fail to hold in the absence of the domination condition. Consider $A$ a collection of inserts that all deterministically set a variable $\RV{X}$; then for any variable $\RV{Y}$ $\RV{Y}\CI_{\prob{P}_\square} \RV{X}$ because $\RV{X}$ is deterministic for any $\alpha\in A$. But $\prob{P}_\square^{\RV{Y}|\RV{X}}$ is not necessarily unresponsive to $\RV{X}$.
-
-Note that in the absence of the assumption of the existence of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$, $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ does \emph{not} imply the existence of $\prob{P}_\square^{\RV{Y}|\RV{W}}$. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{XY}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{XY}}$ is two flips of a biased coin, then $\RV{Y}\CI_{\prob{P}}\RV{X}$ but $\prob{P}^{\RV{Y}}$ does not exist.
-
 \subsection{Validity}
+
+Validity is related to \emph{proper} conditional probabilities. In particular, valid conditional probabilities exist when regular proper conditional probabilities exist.
+
+\begin{definition}[Regular proper conditional probability]
+Given a probability space $(\mu,\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to X$, a regular proper conditional probbability $\mu^{|\RV{X}}:X\kto \Omega$ is Markov kernel such that
+\begin{align}
+    \mu(A\cap \RV{X}^{-1}(B))&=\int_{B} \mu^{|\RV{X}}(A|x) \mu^{\RV{X}}(\mathrm{d}x) &\forall A\in \sigalg{X}, B\in \sigalg{F}\\
+    &\iff\\
+    \mu&= \tikzfig{disint_def_proper}\label{eq:conditional} 
+\end{align}
+and
+\begin{align}
+    \mu^{|\RV{X}}(\RV{X}^{-1}(A)|x) &= \delta_x(A)
+\end{align}
+\end{definition}
+
+\begin{lemma}
+Given a probability space $(\mu,\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, if there is a regular proper conditional probbability $\mu^{|\RV{X}}:X\kto \Omega$ then there is a valid conditional distribution $\mu^{\RV{Y}|\RV{X}}$.
+\end{lemma}
+
+\begin{proof}
+Take $\kernel{K}=\mu^{|\RV{X}}\kernel{F}_{\RV{Y}}$. We will show that $\kernel{K}$ is valid, and a version of $\mu^{\RV{Y}|\RV{X}}$.
+
+Defining $\RV{O}:=\text{id}_{\Omega}$ (the identity function $\Omega\to \Omega$), $\mu^{|\RV{X}}$ is a version of $\mu^{\RV{O}|\RV{X}}$. Note also that $\RV{Y}=\RV{Y}\circ\RV{O}$. Thus by Lemma \ref{th:recurs_pushf}, $\kernel{K}$ is a version of $\mu^{\RV{Y}|\RV{X}}$.
+
+It remains to be shown that $\kernel{K}$ is valid. Consider some $x\in X$, $A\in \sigalg{Y}$ such that $\RV{X}^{-1}(\{x\})\cap \RV{Y}^{-1}(A)=\emptyset$. Then by the assumption $\mu^{|\RV{X}}$ is proper
+\begin{align}
+    \kernel{K}(\RV{Y}\yields A|x) &= \delta_x(\RV{Y}^{-1}(A))\\
+    &= 0
+\end{align}
+
+Thus $\kernel{K}$ is valid.
+\end{proof}
 
 \begin{theorem}[Validity]\label{th:completion}
 Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\kernel{J}\in \Delta(X)$ with $\Omega$ and $X$ standard measurable, there exists some $\mu\in \Delta(\Omega)$ such that $\mu^{\RV{X}}=\kernel{J}$ if and only if $\kernel{J}$ is a valid distribution.
@@ -338,7 +269,7 @@ Thus
 &= (\prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{X}|\RV{W}})\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})
 \end{align}
 
-Let $\text{erasef}_Y:Y\to \{*\}$ be the erase function on $Y$ (as opposed to the erase kernel) and $\text{idf}_{W\times X}$ be the identity function on $W\times X$. Noting that 
+Let $\text{erasef}_Y:Y\to \{*\}$ be the erase function on $Y$ and $\text{id}_{W\times X}$ be the identity function on $W\times X$. Noting that 
 \begin{align}
 (\RV{W},\RV{X})&=(\text{idf}_{W\times X}\otimes \text{erasef}_Y)\circ (\RV{W},\RV{X},\RV{Y})
 \end{align}
@@ -360,3 +291,108 @@ And so $\prob{P}_\square^{\RV{Y}|\RV{WX}})$ is a $\RV{Y}|\RV{WX}$ conditional pr
 
 We also need to check that $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{P}_\square^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{P}_\square^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{P}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \prob{P}_\square^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\prob{P}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
 \end{proof}
+
+\subsection{Extended conditional independence}\label{ap:eci}
+
+\todo[inline]{Needs a support condition}
+
+In the case of a probability gap model $(\prob{P}_{\square}^{\RV{V}|\RV{W}},A)$ where there is some $\alpha\in A$ dominating $A$, we can relate conditional independence with respect to $\prob{P}_\square$ to what \citet{constantinou_extended_2017} \emph{extended conditional independence}, which is a notion they define with respect to a Markov kernel. These concepts may differ if $A$ is not dominated. Theorem 4.4 of \citet{constantinou_extended_2017} proves the following claim:
+
+\begin{theorem}\label{th:dawid_constantionou}
+Let $\RV{A}^*=\RV{A}\circ \RV{V}$, $\RV{B}^*=\RV{B}\circ\RV{V}$, $\RV{C}^*=\RV{C}\circ \RV{V}$ ($(\RV{A},\RV{B},\RV{C})$ are $\sigalg{V}$-measurable) and $\RV{D}^*=\RV{D}\circ \RV{W}$,$\RV{E}^*=\RV{E}\circ \RV{W}$ where $W$ is discrete and $\RV{W}=(\RV{D}^*,\RV{E}^*)$. In addition, let $\prob{P}_\alpha^{\RV{W}}$ be some probability distribution on $\RV{W}$ such that $w\in\RV{W}(\Omega)\implies \prob{P}_\alpha^{\RV{W}}(w)>0$. Then, denoting extended conditional independence with $\CI_{\prob{P},\text{ext}}$ and $\prob{P}_\alpha^{\RV{VW}}:=\prob{P}_\alpha^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$
+\begin{align}
+    \RV{A}\CI_{\prob{P},\text{ext}}(\RV{B},\RV{D})|(\RV{C},\RV{E})\iff \RV{A}^*\CI_{\prob{P}_\alpha}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)
+\end{align}
+Where $\CI_{\prob{P}_\alpha}$ is order 0 conditional independence.
+\end{theorem}
+
+This result implies a close relationship between order 1 condtional independence and extended conditional independence.
+
+\begin{theorem}
+Let $\RV{A}^*=\RV{A}\circ \RV{V}$, $\RV{B}^*=\RV{B}\circ\RV{V}$, $\RV{C}^*=\RV{C}\circ \RV{V}$ ($(\RV{A},\RV{B},\RV{C})$ are $\sigalg{V}$-measurable) and $\RV{D}^*=\RV{D}\circ \RV{W}$,$\RV{E}^*=\RV{E}\circ \RV{W}$ where $V,W$ are discrete and $\RV{W}=(\RV{D}^*,\RV{E}^*)$. Then letting $\prob{P}_\alpha^{\RV{VW}}:=\prob{P}_\alpha^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$
+\begin{align}
+    \RV{A}\CI^1_{\prob{P},\text{ext}}(\RV{B},\RV{D})|(\RV{C},\RV{E})\iff \RV{A}^*\CI_{\prob{P}}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)
+\end{align}
+\end{theorem}
+
+\begin{proof}
+If:
+
+By assumption, $\RV{A}^*\CI_{\prob{P}_\alpha}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)$ for all $\prob{P}_\alpha^{\RV{D^*E^*}}$. In particular, this holds for some $\prob{P}_\alpha^{\RV{D^*E^*}}$ such that $(d,e)\in (\RV{D}^*,\RV{E}^*)(\Omega)\implies \prob{P}_\alpha^{\RV{D^*E^*}}(d,e) >0$. Then by Theorem \ref{th:dawid_constantionou}, $\RV{A}\CI_{\prob{P},\text{ext}}(\RV{B},\RV{D})|(\RV{C},\RV{E})$.
+
+Only if:
+
+For any $\beta$, $\prob{P}_\beta^{\RV{ABC}|\RV{DE}}= \prob{P}_\beta^{\RV{DE}}\odot \prob{P}^{\RV{ABC}|\RV{DE}}$. By Lemma \ref{lem:disint_exist}, we have $\prob{P}^{\RV{A}|\RV{BCDE}}$ such that
+
+\begin{align}
+    \prob{P}_\beta^{\RV{A^*B^*C^*}\RV{D^*E^*}} &= \prob{P}_\beta^{\RV{D^*E^*}}\odot \prob{P}^{\RV{B^*C^*}|\RV{D^*E^*}}\odot \prob{P}^{\RV{A^*}|\RV{B^*C^*D^*E^*}}\\
+                                      &= \prob{P}_\beta^{\RV{B^*C^*D^*E^*}}\odot \prob{P}^{\RV{A^*}|\RV{B^*C^*D^*E^*}}\\
+                                      &= \prob{P}_\beta^{\RV{C^*E^*}}\odot \prob{P}_\beta^{\RV{B^*D^*}|\RV{C^*E^*}}\odot \prob{P}^{\RV{A}^*|\RV{B^*C^*D^*E^*}}
+\end{align}
+
+By Theorem \ref{th:dawid_constantionou}, we have some $\alpha$ such that $\prob{P}_\alpha^{\RV{D^*E^*}}$ is strictly positive on the range of $(\RV{D}^*,\RV{E}^*)$ and $\RV{A}^*\CI_{\prob{P}_\alpha}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)$.
+
+By independence, for some version of $\prob{P}^{\RV{A}|\RV{BCDE}}$:
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{C^*E^*}}\odot \prob{P}_\alpha^{\RV{B^*D^*}|\RV{C^*E^*}}\odot \prob{P}^{\RV{A}^*|\RV{B^*C^*D^*E^*}} &= \tikzfig{indep_strengthen_1}\\
+    &= \tikzfig{indep_strengthen_2}\\
+    &= \prob{P}_\alpha^{\RV{C^*E^*}}\odot \prob{P}_\alpha^{\RV{B^*D^*}|\RV{C^*E^*}}\odot (\prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}\otimes\text{erase}_{BD})
+\end{align}
+
+Thus for any $(a,b,c,d,e)\in A\times B\times C\times D\times E$ such that $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)>0$, $\prob{P}^{\RV{A}^*|\RV{B^*C^*D^*E^*}}(a|b,c,d,e) = \prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$. However, by assumption, $\prob{P}_\alpha^{\RV{B^*C^*D^*E^*}}(b,c,d,e)=0 \implies \prob{P}_\beta^{\RV{B^*C^*D^*E^*}}(b,c,d,e)=0$, and so $\prob{P}_\beta^{\RV{A}^*|\RV{B^*C^*D^*E^*}}= \prob{P}_\alpha^{\RV{A}^*|\RV{C^*E^*}}(a|c,e)$ everywhere except a set of $\prob{P}_\beta$-measure 0. Thus
+    
+\begin{align}
+    \prob{P}_\beta^{\RV{A^*B^*C^*}\RV{D^*E^*}} &= \tikzfig{indep_strengthen_3}\\
+    &= \tikzfig{indep_strengthen_4}
+\end{align}
+\end{proof}
+
+Conditional independence is a property of variables, we define ``unresponsiveness'' as a property of Markov kernels.
+
+\begin{definition}[Unresponsiveness]
+Given discrete $\Omega$, a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, if there is some version of the conditional probability $\prob{P}^{\RV{Y}|\RV{WX}}$ and $\prob{P}_\square^{\RV{Y}|\RV{W}}$ such that
+\begin{align}
+  \prob{P}_\square^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase} \label{eq:higherorder_ci_erase}
+\end{align}
+then $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ is \emph{unresponsive} to $\RV{X}$.
+\end{definition}
+
+\begin{definition}[Domination]
+Given a probability set $\prob{P}_{\{\}}\subset \Delta(\Omega)$, $\prob{P}_\alpha$ dominates $\prob{P}_{\{\}}$ if $\prob{P}_\beta(B)>0\implies \prob{P}_\alpha(B)>0$ for all $\prob{P}_\beta in \prob{P}_{\{\}}$, $B\in \sigalg{F}$.
+\end{definition}
+
+\begin{theorem}[Conditional independence from kernel unresponsiveness]\label{th:cons_ci}
+Given standard measurable $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}:A\to \Delta(\Omega)$ with conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$ such that there is $\prob{P}_\alpha\in \prob{P}_{\{\}}$ dominating $\prob{P}_{\{\}}$, $\RV{Y}\CI_{\prob{P}_{\{\}}}\RV{X}|\RV{W}$ if and only if there is a version of $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$ unresponsive to $\RV{W}$. 
+\end{theorem}
+
+\begin{proof}
+If:
+For every $\alpha\in A$ we can write
+\begin{align}
+  \prob{P}_\alpha^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase_alpha}
+\end{align}
+And so, by Theorem \ref{th:cho_ci_equiv}, $\RV{Y}\CI_{\prob{P}_\alpha}\RV{X}|\RV{W}$ for all $\alpha\in A$, and so $\RV{Y}\CI_{\prob{P}_{\{\}}}\RV{X}|\RV{W}$.
+Only if:
+For $\prob{P}_{\alpha}$ dominating $\prob{P}_{\{\}}$, by Theorem \ref{th:cho_ci_equiv}, there exists a version of $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ unresponsive to $\RV{W}$. Because $\prob{P}_{\alpha}$ dominates $\prob{P}_{\{\}}$, $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ differs from $\prob{P}_\beta^{\RV{Y}|\RV{WX}}$ on a set of measure 0 for any $\prob{P}_{\beta}\in \prob{P}_{\{\}}$, thus $\prob{P}_\alpha^{\RV{Y}|\RV{WX}}$ is a version of $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$ also.
+\end{proof}
+
+\begin{corollary}\label{cor:ci_cp_exist}
+Given standard measurable $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}:A\to \Delta(\Omega)$ with conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$, $\prob{P}_{\{\}}^{\RV{Y}|\RV{W}}$ exists if $\RV{Y}\CI_{\prob{P}_{\{\}}}\RV{X}|\RV{W}$.
+\end{corollary}
+
+\begin{proof}
+By Theorem \ref{th:cons_ci}, there is $\kernel{K}:W\kto Y$ such that for all $\alpha$
+\begin{align}
+    \prob{P}_{\alpha}^{\RV{WY}} &= \tikzfig{conditional_independence_cprob_exist}\\
+    &= \tikzfig{conditional_independence_cprob_exist2}\\
+    &= \tikzfig{conditional_independence_cprob_exist3}
+\end{align}
+
+Thus $\kernel{K}$ is a version of $\prob{P}_{\{\}}^{\RV{Y}|\RV{W}}$.
+\end{proof}
+
+This result can fail to hold in the absence of the domination condition. Consider $A$ a collection of inserts that all deterministically set a variable $\RV{X}$; then for any variable $\RV{Y}$ $\RV{Y}\CI_{\prob{P}_\square} \RV{X}$ because $\RV{X}$ is deterministic for any $\alpha\in A$. But $\prob{P}_\square^{\RV{Y}|\RV{X}}$ is not necessarily unresponsive to $\RV{X}$.
+
+Note that in the absence of the assumption of the existence of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$, $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ does \emph{not} imply the existence of $\prob{P}_\square^{\RV{Y}|\RV{W}}$. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{XY}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{XY}}$ is two flips of a biased coin, then $\RV{Y}\CI_{\prob{P}}\RV{X}$ but $\prob{P}^{\RV{Y}}$ does not exist.
+
