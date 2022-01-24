@@ -43,13 +43,13 @@ This is a standard result, see for example \cite{cinlar_probability_2011} Theore
 \end{proof}
 
 \begin{theorem}[Existence of higher order valid conditionals with respect to probability sets]\label{th:ho_cond_psets}
-Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with valid regular conditional $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ and $Y$ and $Z$ standard measurable. Then there exists a valid regular $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$.
+Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with regular conditional $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ and $Y$ and $Z$ standard measurable. Then there exists a regular $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$.
 \end{theorem}
 
 \begin{proof}
 Given a Borel measurable map $m:X\kto Y\times Z$ let $f:Y\times Z\to Y$ be the projection onto $Y$. Then $f\circ (\RV{Y},\RV{Z})=\RV{Y}$. \citet{bogachev_kantorovich_2020}, Theorem 3.5 proves that there exists a Borel measurable map $n:X\times Y\kto Y\times Z$  such that 
 \begin{align}
-    n(\RV{Y}^{-1}(y)|x,y) = 1\label{eq:proper}\\
+    n(f^{-1}(y)|x,y) = 1\label{eq:proper}\\
     m(\RV{Y}^{-1}(A)\cap B|x) = \int_A n(B|x,y) m\kernel{F}_{f}(dy|x)&\forall A\in \sigalg{Y},B\in\sigalg{Y\times Z}\label{eq:conditional}
 \end{align}
 In particular, $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ is a Borel measurable map $X\kto Y\times Z$. Thus equation \ref{eq:conditional} implies for all $A\in \sigalg{Y},B\in\sigalg{Y\times Z}$
@@ -67,11 +67,12 @@ Then, for any $\prob{P}_\alpha\in\prob{P}_{\{\}}$
     \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}(\RV{Y}^{-1}(A)\cap B|x) &= \int_A n(B|x,y) \prob{P}_{\alpha}^{\RV{Y}|\RV{X}}(dy|x)
 \end{align}
 
-which implies $n$ is a version of $\prob{P}_{\{\}}^{\RV{YZ}|(\RV{Y}|\RV{X})}$. Define $g:Y\times Z\to Z$ as the projection of $Y\times Z$ onto $Z$. By Lemma \ref{th:recurs_pushf}, $n\kernel{F}_{g}$ is a version of $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$.
-
-We need to show that $n\kernel{F}_{g}$ is valid. We have validity of $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ already. 
+which implies $n$ is a version of $\prob{P}_{\{\}}^{\RV{YZ}|(\RV{Y}|\RV{X})}$. By Lemma \ref{th:recurs_pushf}, $n\kernel{F}_{f}$ is a version of $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$.
 \end{proof}
 
+We might be motivated to ask whether the higher order conditionals in Theorem \ref{th:ho_cond_psets} can be chosen to be valid. Despite Lemma \ref{lem:proper_implies_valid} showing that the existence of proper conditional probabilities implies the existence of valid ones, we cannot make use of this in the above theorem because Equation \ref{eq:proper} makes $n$ proper with respect to the ``wrong'' sample space $(Y\times Z, \sigalg{Y}\otimes\sigalg{Z})$ while what we would need is a proper conditional probability with respect to $(\Omega,\sigalg{F})$.
+
+We can choose higher order conditionals to be valid in the case of discrete sets, and whether we can choose them to be valid in more general measurable spaces is an open question.
 
 \begin{theorem}[Higher order conditionals]\label{th:higher_order_conditionals}
 Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with conditional $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$. Then $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is a version of $\prob{P}_{\{\}}^{\RV{Z}|\RV{Y}\RV{X}}$ 
@@ -102,6 +103,27 @@ If $\RV{Z}\CI_{\prob{P}_{\{\}}} \RV{X}|\RV{Y}$ then by Theorem \ref{th:cho_ci_eq
 \end{proof}
 
 
+\begin{theorem}[Valid higher order conditionals]
+Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with regular conditional $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$, $Y$ discrete and $Z$ standard measurable. Then there exists a valid regular $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$.
+\end{theorem}
+
+\begin{proof}
+By Theorem \ref{th:ho_cond_psets}, we have a higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ which, by Theorem \ref{th:higher_order_conditionals} is also a version of $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$.
+
+We will show that there is a Markov kernel $\kernel{Q}$ almost surely equal to $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$ which is also valid. For all $x,y\in X\times Y$, $A\in\sigalg{Z}$ such that $(\RV{X},\RV{Y},\RV{Z})\yields\{(x,y)\}\times A=\emptyset$, let $\kernel{Q}(A|x,y)=\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}(A|x,y)$.
+
+By validity of $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$, $x\in \RV{X}(\Omega)$ and $(\RV{X},\RV{Y},\RV{Z})\yields\{(x,y)\}\times A=\emptyset$ implies $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}(\{y\}\times A|x)=0$. Thus we need to show
+
+\begin{align}
+    \forall A\in \sigalg{Z}, x\in X, y\in Y: \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}(\{y\}\times A|x)=0 \implies \left(\prob{Q}(A|x,y) = 0\right) \lor \left((\RV{X},\RV{Y})\yields \{(x,y)\} = \emptyset\right)
+\end{align}
+
+For all $x,y$ such that $\kernel{P}_{\{\}}^{\RV{Y}|\RV{X}}(\{y\}|x)$ is positive, we have $\model{P}^{\RV{YZ}|\RV{X}}(\{y\}\times A|x)=0\implies \prob{P}_\square^{\RV{Z}|\RV{XY}}(A|x,y)=0=:\kernel{Q}(A|x,y)$.
+
+Furthermore, where $\kernel{P}_{\{\}}^{\RV{Y}|\RV{X}}(\{y\}|x)=0$, we either have $(\RV{X},\RV{Y},\RV{Z})\yields\{(x,y)\}\times A= \emptyset$ or can choose some $\omega\in (\RV{X},\RV{Y},\RV{Z})\yields\{(x,y)\}\times A$ and let $\kernel{Q}(\RV{Z}(\omega)|x,y) = 1$. This is an arbitrary choice, and may differ from the original $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$. However, because $Y$ is discrete the union of all points $y$ where $\kernel{P}_{\{\}}^{\RV{Y}|\RV{X}}(\{y\}|x)=0$ is a measure zero set, and so $\kernel{Q}$ differs from $\kernel{P}_{\{\}}^{\RV{Y}|\RV{X}}$ on a measure zero set.
+\end{proof}
+
+
 \subsection{Validity}
 
 Validity is related to \emph{proper} conditional probabilities. In particular, valid conditional probabilities exist when regular proper conditional probabilities exist.
@@ -119,8 +141,8 @@ and
 \end{align}
 \end{definition}
 
-\begin{lemma}
-Given a probability space $(\mu,\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, if there is a regular proper conditional probbability $\mu^{|\RV{X}}:X\kto \Omega$ then there is a valid conditional distribution $\mu^{\RV{Y}|\RV{X}}$.
+\begin{lemma}\label{lem:proper_implies_valid}
+Given a probability space $(\mu,\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, if there is a regular proper conditional probability $\mu^{|\RV{X}}:X\kto \Omega$ then there is a valid conditional distribution $\mu^{\RV{Y}|\RV{X}}$.
 \end{lemma}
 
 \begin{proof}
@@ -136,6 +158,7 @@ It remains to be shown that $\kernel{K}$ is valid. Consider some $x\in X$, $A\in
 
 Thus $\kernel{K}$ is valid.
 \end{proof}
+
 
 \begin{theorem}[Validity]\label{th:completion}
 Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\kernel{J}\in \Delta(X)$ with $\Omega$ and $X$ standard measurable, there exists some $\mu\in \Delta(\Omega)$ such that $\mu^{\RV{X}}=\kernel{J}$ if and only if $\kernel{J}$ is a valid distribution.

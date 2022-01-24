@@ -274,7 +274,7 @@ A valid $\RV{X}$ probability distribution $\prob{P}^{\RV{X}}$ is any probability
 \begin{definition}[Valid conditional]\label{def:valid_conditional_prob}
 Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{valid $\RV{Y}|\RV{X}$ conditional probability} $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$ such that it assigns probability 0 to contradictions:
 \begin{align}
-    \forall B\in \sigalg{Y}, x\in \sigalg{X}: (\RV{X},\RV{Y})\yields \{x\}\times B = \emptyset \implies \left(\prob{P}^{\RV{Y}|\RV{X}}(A|x) = 0\right) \lor \left(\RV{X}\yields \{x\} = \emptyset\right)
+    \forall B\in \sigalg{Y}, x\in X: (\RV{X},\RV{Y})\yields \{x\}\times B = \emptyset \implies \left(\prob{P}^{\RV{Y}|\RV{X}}(B|x) = 0\right) \lor \left(\RV{X}\yields \{x\} = \emptyset\right)
 \end{align}
 \end{definition}
 
