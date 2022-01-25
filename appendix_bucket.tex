@@ -222,7 +222,7 @@ But $\prob{P}^{\RV{X}|*}(A|*)=\prob{P}^{\RV{X}}(A)$ by definition, so this is eq
 \end{proof}
 
 
-\begin{lemma}[Copy-product of valid candidate conditionals is valid]\label{lem:valid_extendability}
+\begin{lemma}[Semidirect product of valid candidate conditionals is valid]\label{lem:valid_extendability}
 Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ (all spaces standard measurable) and any valid candidate conditional $\prob{P}^{\RV{Y}|\RV{X}}$ and $\prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$, $ \prob{P}^{\RV{Y}|\RV{X}}\odot \prob{Q}^{\RV{Z}|\RV{Y}\RV{X}}$ is also a valid candidate conditional.
 \end{lemma}
 
@@ -269,64 +269,83 @@ Only if: suppose $\prob{T}^{\RV{Y}|\RV{X}}$ is invalid. Then there is some $x\in
 Hence $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is invalid.
 \end{proof}
 
-\begin{theorem}[Existence of valid conditional probabilities]\label{th:valid_disint}
-Given a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$ along with a valid conditional probability $\model{P}_\square^{\RV{XY}|\RV{W}}$, there exists a valid conditional probability $\prob{P}_\square^{\RV{Y}|\RV{WX}}$.
+% \begin{theorem}[Existence of valid conditional probabilities]\label{th:valid_disint}
+% Given a probability gap model $\prob{P}_\square:A\to \Delta(\Omega)$ along with a valid conditional probability $\model{P}_\square^{\RV{XY}|\RV{W}}$, there exists a valid conditional probability $\prob{P}_\square^{\RV{Y}|\RV{WX}}$.
+% \end{theorem}
+
+% \begin{proof}
+% From Lemma \ref{lem:disint_exist}, we have the existence of some Markov kernel $\prob{P}_\square^{\RV{Y}|\RV{WX}}:W\times X\to Y$ such that
+% \begin{align}
+%     \prob{P}_\square^{\RV{XY}|\RV{W}}=\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}}\label{eq:k_disint}
+% \end{align}
+
+% By definition of conditional probability , for any insert $\alpha\in A$ there exists $\prob{P}_\alpha^{\RV{W}}\in\Delta(W)$ such that
+
+% \begin{align}
+%     \prob{P}_\alpha^{\RV{WXY}}=\prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{XY}|\RV{W}}
+% \end{align}
+
+% Thus
+
+% \begin{align}
+% \prob{P}_\alpha^{\RV{WXY}}&= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})\\
+% &= (\prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{X}|\RV{W}})\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})
+% \end{align}
+
+% Let $\text{erasef}_Y:Y\to \{*\}$ be the erase function on $Y$ and $\text{id}_{W\times X}$ be the identity function on $W\times X$. Noting that 
+% \begin{align}
+% (\RV{W},\RV{X})&=(\text{idf}_{W\times X}\otimes \text{erasef}_Y)\circ (\RV{W},\RV{X},\RV{Y})
+% \end{align}
+% By Lemma \ref{lem:prod_pushf} together with Theorem \ref{th:recurs_pushf} we have for all $\alpha$:
+
+% \begin{align}
+%     \prob{P}_\alpha^{\RV{XW}} &= \prob{P}_\alpha^{\RV{WXY}}(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
+%                               &= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
+%                               &= \prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{X}|\RV{W}}
+% \end{align}
+
+% Then
+
+% \begin{align}
+% \prob{P}_\alpha^{\RV{XWY}}&= (\prob{P}_\alpha^{\RV{XW}})\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})
+% \end{align}
+
+% And so $\prob{P}_\square^{\RV{Y}|\RV{WX}})$ is a $\RV{Y}|\RV{WX}$ conditional probability. We also want it to be valid, so we will verify that it can be chosen as such.
+
+% We also need to check that $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{P}_\square^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{P}_\square^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{P}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \prob{P}_\square^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\prob{P}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
+% \end{proof}
+
+\subsection{Conditional independence}
+\begin{theorem}\label{th:cho_ci_equiv}
+Given standard measurable $\Omega$, a probability model $\prob{P}$ and variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$ if and only if there exists some version of $\prob{P}^{\RV{Y}|\RV{WX}}$ and $\prob{P}^{\RV{Y}|\RV{W}}$ such that
+\begin{align}
+    \prob{P}^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase}\\
+    \iff
+    \prob{P}^{\RV{Y}|\RV{WX}}(y|w,x) &= \prob{P}^{\RV{Y}|\RV{W}}(y|w)
+\end{align}
 \end{theorem}
 
 \begin{proof}
-From Lemma \ref{lem:disint_exist}, we have the existence of some Markov kernel $\prob{P}_\square^{\RV{Y}|\RV{WX}}:W\times X\to Y$ such that
-\begin{align}
-    \prob{P}_\square^{\RV{XY}|\RV{W}}=\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}}\label{eq:k_disint}
-\end{align}
-
-By definition of conditional probability , for any insert $\alpha\in A$ there exists $\prob{P}_\alpha^{\RV{W}}\in\Delta(W)$ such that
-
-\begin{align}
-    \prob{P}_\alpha^{\RV{WXY}}=\prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{XY}|\RV{W}}
-\end{align}
-
-Thus
-
-\begin{align}
-\prob{P}_\alpha^{\RV{WXY}}&= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})\\
-&= (\prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{X}|\RV{W}})\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})
-\end{align}
-
-Let $\text{erasef}_Y:Y\to \{*\}$ be the erase function on $Y$ and $\text{id}_{W\times X}$ be the identity function on $W\times X$. Noting that 
-\begin{align}
-(\RV{W},\RV{X})&=(\text{idf}_{W\times X}\otimes \text{erasef}_Y)\circ (\RV{W},\RV{X},\RV{Y})
-\end{align}
-By Lemma \ref{lem:prod_pushf} together with Theorem \ref{th:recurs_pushf} we have for all $\alpha$:
-
-\begin{align}
-    \prob{P}_\alpha^{\RV{XW}} &= \prob{P}_\alpha^{\RV{WXY}}(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
-                              &= \prob{P}_\alpha^{\RV{W}}\odot(\prob{P}_\square^{\RV{X}|\RV{W}}\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})(\text{id}_{W\times X}\otimes \text{erase}_Y)\\
-                              &= \prob{P}_\alpha^{\RV{W}}\odot\prob{P}_\square^{\RV{X}|\RV{W}}
-\end{align}
-
-Then
-
-\begin{align}
-\prob{P}_\alpha^{\RV{XWY}}&= (\prob{P}_\alpha^{\RV{XW}})\odot \prob{P}_\square^{\RV{Y}|\RV{WX}})
-\end{align}
-
-And so $\prob{P}_\square^{\RV{Y}|\RV{WX}})$ is a $\RV{Y}|\RV{WX}$ conditional probability. We also want it to be valid, so we will verify that it can be chosen as such.
-
-We also need to check that $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{P}_\square^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{P}_\square^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{P}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \prob{P}_\square^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\prob{P}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
+See \citet{cho_disintegration_2019}.
 \end{proof}
 
 \subsection{Extended conditional independence}\label{ap:eci}
 
-\todo[inline]{Needs a support condition}
+\citet{constantinou_extended_2017} introduced the idea of \emph{extended conditional independence}, which is a notion of conditional independence with respect to a parametrised collection of probability measures. It is motivated in part by the observation that such parametrised collections can be used to model causal questions. Furthermore, probability sets are closely related to parametrised probability sets -- one can get the former from the latter by simply dropping the parameters. 
 
-In the case of a probability gap model $(\prob{P}_{\square}^{\RV{V}|\RV{W}},A)$ where there is some $\alpha\in A$ dominating $A$, we can relate conditional independence with respect to $\prob{P}_\square$ to what \citet{constantinou_extended_2017} \emph{extended conditional independence}, which is a notion they define with respect to a Markov kernel. These concepts may differ if $A$ is not dominated. Theorem 4.4 of \citet{constantinou_extended_2017} proves the following claim:
+\todo[inline]{This needs major revision, and is not a top priority right now}
+
+In the case of a probability gap model $(\prob{P}_{\square}^{\RV{V}|\RV{W}},A)$ where there is some $\alpha\in A$ dominating $A$, we can relate conditional independence with respect to $\prob{P}_\square$ to what , which is a notion they define with respect to a Markov kernel. These concepts may differ if $A$ is not dominated. Theorem 4.4 of \citet{constantinou_extended_2017} proves the following claim:
+
+\begin{definition}[Extended conditional independence]
+adf
+\end{definition}
 
 \begin{theorem}\label{th:dawid_constantionou}
 Let $\RV{A}^*=\RV{A}\circ \RV{V}$, $\RV{B}^*=\RV{B}\circ\RV{V}$, $\RV{C}^*=\RV{C}\circ \RV{V}$ ($(\RV{A},\RV{B},\RV{C})$ are $\sigalg{V}$-measurable) and $\RV{D}^*=\RV{D}\circ \RV{W}$,$\RV{E}^*=\RV{E}\circ \RV{W}$ where $W$ is discrete and $\RV{W}=(\RV{D}^*,\RV{E}^*)$. In addition, let $\prob{P}_\alpha^{\RV{W}}$ be some probability distribution on $\RV{W}$ such that $w\in\RV{W}(\Omega)\implies \prob{P}_\alpha^{\RV{W}}(w)>0$. Then, denoting extended conditional independence with $\CI_{\prob{P},\text{ext}}$ and $\prob{P}_\alpha^{\RV{VW}}:=\prob{P}_\alpha^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$
 \begin{align}
     \RV{A}\CI_{\prob{P},\text{ext}}(\RV{B},\RV{D})|(\RV{C},\RV{E})\iff \RV{A}^*\CI_{\prob{P}_\alpha}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E}^*)
 \end{align}
-Where $\CI_{\prob{P}_\alpha}$ is order 0 conditional independence.
 \end{theorem}
 
 This result implies a close relationship between order 1 condtional independence and extended conditional independence.

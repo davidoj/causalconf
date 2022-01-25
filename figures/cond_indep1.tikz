@@ -1,12 +1,12 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=medium dist tikzit] (1) at (-3.5, 1) {$\model{P}^{\RV{Z}}$};
+		\node [style=medium dist tikzit] (1) at (-3.5, 1) {$\model{P}_{\alpha}^{\RV{C}}$};
 		\node [style=RLabel tikzit] (2) at (1.75, -0.25) {$\RV{C}$};
 		\node [style=RLabel tikzit] (3) at (1.75, 2.5) {$\RV{A}$};
 		\node [style=RLabel tikzit] (4) at (1.75, 1) {$\RV{B}$};
 		\node [style=copymap tikzit] (5) at (-2, 1) {};
-		\node [style=small kernel tikzit] (6) at (-0.25, 2.5) {$\disint{P}^{\RV{A}|\RV{C}}$};
-		\node [style=small kernel tikzit] (7) at (-0.25, 1) {$\disint{P}^{\RV{B}|\RV{C}}$};
+		\node [style=small kernel tikzit] (6) at (-0.25, 2.5) {$\model{P}_{\alpha}^{\RV{A}|\RV{C}}$};
+		\node [style=small kernel tikzit] (7) at (-0.25, 1) {$\prob{P}_{\alpha}^{\RV{B}|\RV{C}}$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [in=180, out=-60] (5) to (2);

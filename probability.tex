@@ -341,14 +341,16 @@ Validity rules out conditional probabilities like \ref{eq:bmi_example}. We guess
 
 Conditional independence has a familiar definition in probability models. We define conditional independence with respect to a probability gap model to be equivalent to conditional independence with resepect to every base measure in the range of the model. This definition is closely related to the idea of \emph{extended conditional independence} proposed by \citet{constantinou_extended_2017}, see Appendix \ref{ap:eci}.
 
-\begin{definition}[Conditional independence with respect to a probability set]
-For a \emph{probability set} $\model{P}_{\{\}}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\{\}}}\RV{A}|\RV{C}$, if
+\begin{definition}[Conditional independence with respect to a probability model]
+For a \emph{probability modle} $\model{P}_{\alpha}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\{\}}}\RV{A}|\RV{C}$, if
 \begin{align}
-	\kernel{P}_{\{\}}^{\RV{ABC}} &= \tikzfig{cond_indep1}
+	\kernel{P}_{\alpha}^{\RV{ABC}} &= \tikzfig{cond_indep1} \label{eq:cond_indep}
 \end{align}
 \end{definition}
 
-\citet{cho_disintegration_2019} have shown that this definition coincides with the standard notion of conditional independence for a particular probability model. In particular, it satisfies the \emph{semi-graphoid axioms}.
+\citet{cho_disintegration_2019} have shown that this definition coincides with the standard notion of conditional independence for a particular probability model (Theorem \ref{th:cho_ci_equiv}). 
+
+Conditional independence satisfies the \emph{semi-graphoid axioms}. For all standard measurable spaces $(\Omega,\sigalg{F})$ and all probability measures $\prob{P}\in \Delta(\Omega)$:
 
 \begin{enumerate}
 	\item Symmetry: $\RV{A}\CI_{\prob{P}} \RV{B}|\RV{C}$ iff $\RV{B}\CI_{\prob{P}} \RV{A}|\RV{C}$
@@ -357,18 +359,47 @@ For a \emph{probability set} $\model{P}_{\{\}}$ and variables $\RV{A},\RV{B},\RV
 	\item Contraction: $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CI_{\prob{P}_\square}(\RV{B},\RV{C})|\RV{W}$
 \end{enumerate}
 
-\begin{theorem}\label{th:cho_ci_equiv}
-Given standard measurable $\Omega$, a probability model $\prob{P}$ and variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$ if and only if there exists some version of $\prob{P}^{\RV{Y}|\RV{WX}}$ and $\prob{P}^{\RV{Y}|\RV{W}}$ such that
-\begin{align}
-	\prob{P}^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase}\\
-	\iff
-	\prob{P}^{\RV{Y}|\RV{WX}}(y|w,x) &= \prob{P}^{\RV{Y}|\RV{W}}(y|w)
-\end{align}
-\end{theorem}
+We define \emph{universal conditional independence} with respect to a probability set as conditional independence for every probability model in the set.
+
+\begin{definition}[Universal conditional independence]
+For a \emph{probability set} $\model{P}_{\{\}}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is universally conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\{\}}}\RV{A}|\RV{C}$, if for all $\prob{P}_{\alpha}\in \prob{P}_{\{\}}$ $\RV{A}\CI_{\prob{P}_\alpha} \RV{C}|\RV{B}$.
+\end{definition}
+
+It is very straightforward to show that universal conditional independence satisfies the semi-graphoid axioms.
+
+\begin{lemma}
+$[\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]$
+\end{lemma}
 
 \begin{proof}
-See \citet{cho_disintegration_2019}.
+\begin{align}
+	\forall x: f(x) \implies g(x)&&\text{premise}\label{eq:premise1}\\
+	\forall x: f(x)&& \text{premise}\label{eq:premise2}\\
+	f(a) && \text{universal instantiation on }\ref{eq:premise2}\text{ substitute }a/x\label{eq:ui1}\\
+	f(a)\implies g(a) && \text{universal instantiation on }\ref{eq:premise1}\text{ substitute }a/x\label{eq:ui2}\\
+	g(a)&&\text{ modus ponens }\ref{eq:ui1}\text{ and }\ref{eq:ui2}\label{eq:mp1}\\
+	\forall x: g(x)&&\text{universal generalisation on }\ref{eq:mp1}\label{eq:ug1}\\
+	(\forall x: f(x))\implies(\forall x: g(x))&& \text{conditional proof }\ref{eq:premise2}-\ref{eq:ug1}\label{eq:cp1}\\
+	[\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]&& \text{conditional proof }\ref{eq:premise1}\text{--}\ref{eq:cp1}
+\end{align}
+
+With thanks to \citet{1377555} for the proof.
 \end{proof}
+
+\begin{lemma}
+Given a standard measurable space $(\Omega,\sigalg{F})$ and $\prob{P}_{\{\}}$ on $\Omega$, universal conditional independence with respect to $\prob{P}_{\{\}}$ satisfies the semi-graphoid axioms.
+\end{lemma}
+
+\begin{proof}
+For a particular probability $\prob{P}_\alpha$, each of the semi-graphoid axioms consists of a statement of the form $f(\prob{P}_\alpha)\implies g(\prob{P}_\alpha)$ (in the case of the first axiom, it corresponds to two such statements).
+
+As the axioms hold for conditional independence with respect to any probability model, we have in particular $\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}) \implies g(\prob{P}_\alpha)$. 
+
+
+
+This implies $(\forall \prob{P}_\alpha: f(\prob{P}_\alpha)) \implies (\forall \prob{P}_\alpha: g(\prob{P}_\alpha))$
+\end{proof}
+
 
 The semi-graphoid axioms hold for all probability measures $\prob{P}$, so in particualr they hold for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. Thus conditional independence with respect to a probability set also satisfies the semi-graphoid axioms.
 
