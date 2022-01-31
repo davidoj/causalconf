@@ -1,4 +1,4 @@
-\begin{thebibliography}{32}
+\begin{thebibliography}{34}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -107,6 +107,16 @@ M.~P. Ershov.
 \newblock URL \url{https://epubs.siam.org/doi/abs/10.1137/1119053}.
 \newblock Publisher: Society for Industrial and Applied Mathematics.
 
+\bibitem[Fritz(2020)]{fritz_synthetic_2020}
+Tobias Fritz.
+\newblock A synthetic approach to {Markov} kernels, conditional independence
+  and theorems on sufficient statistics.
+\newblock \emph{Advances in Mathematics}, 370:\penalty0 107239, August 2020.
+\newblock ISSN 0001-8708.
+\newblock \doi{10.1016/j.aim.2020.107239}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0001870820302656}.
+
 \bibitem[GREENLAND and ROBINS(1986)]{greenland_identifiability_1986}
 SANDER GREENLAND and JAMES~M ROBINS.
 \newblock Identifiability, {Exchangeability}, and {Epidemiological}
@@ -135,6 +145,13 @@ M.~A. Hernán and S.~L. Taubman.
 \newblock ISSN 1476-5497.
 \newblock \doi{10.1038/ijo.2008.82}.
 \newblock URL \url{https://www.nature.com/articles/ijo200882}.
+
+\bibitem[(https://math.stackexchange.com/users/252356/kylew)()]{1377555}
+KyleW (https://math.stackexchange.com/users/252356/kylew).
+\newblock Distribution of universal quantifiers over implication.
+\newblock Mathematics Stack Exchange.
+\newblock URL \url{https://math.stackexchange.com/q/1377555}.
+\newblock URL:https://math.stackexchange.com/q/1377555 (version: 2015-07-29).
 
 \bibitem[Hájek(2003)]{hajek_what_2003}
 Alan Hájek.

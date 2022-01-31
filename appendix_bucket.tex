@@ -10,7 +10,7 @@ Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\t
 \end{lemma}
 
 \begin{proof}
-Note that $(\RV{X},\RV{Z})=(\text{id}_X\otimes f)\circ (\RV{X},\RV{Y})$. Thus, by Lemma \ref{lem:prod_pushf}, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
+Note that $(\RV{X},\RV{Z})=(\text{id}_X\otimes f)\circ (\RV{X},\RV{Y})$. Thus, by Lemma \ref{lem:pushf_kprod}, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
 
 \begin{align}
     \prob{P}_\alpha^{\RV{XZ}} = \prob{P}_\alpha^{\RV{XY}}\kernel{F}_{\text{id}_X\otimes f}
@@ -50,9 +50,9 @@ Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\t
 Given a Borel measurable map $m:X\kto Y\times Z$ let $f:Y\times Z\to Y$ be the projection onto $Y$. Then $f\circ (\RV{Y},\RV{Z})=\RV{Y}$. \citet{bogachev_kantorovich_2020}, Theorem 3.5 proves that there exists a Borel measurable map $n:X\times Y\kto Y\times Z$  such that 
 \begin{align}
     n(f^{-1}(y)|x,y) = 1\label{eq:proper}\\
-    m(\RV{Y}^{-1}(A)\cap B|x) = \int_A n(B|x,y) m\kernel{F}_{f}(dy|x)&\forall A\in \sigalg{Y},B\in\sigalg{Y\times Z}\label{eq:conditional}
+    m(\RV{Y}^{-1}(A)\cap B|x) = \int_A n(B|x,y) m\kernel{F}_{f}(dy|x)&\forall A\in \sigalg{Y},B\in\sigalg{Y\times Z}\label{eq:conditional1}
 \end{align}
-In particular, $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ is a Borel measurable map $X\kto Y\times Z$. Thus equation \ref{eq:conditional} implies for all $A\in \sigalg{Y},B\in\sigalg{Y\times Z}$
+In particular, $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ is a Borel measurable map $X\kto Y\times Z$. Thus equation \ref{eq:conditional1} implies for all $A\in \sigalg{Y},B\in\sigalg{Y\times Z}$
 
 \begin{align}
     \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}(\RV{Y}^{-1}(A)\cap B|x) &= \int_A n(B|x,y) \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}\kernel{F}_{f}(dy|x)\\
@@ -133,7 +133,7 @@ Given a probability space $(\mu,\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omeg
 \begin{align}
     \mu(A\cap \RV{X}^{-1}(B))&=\int_{B} \mu^{|\RV{X}}(A|x) \mu^{\RV{X}}(\mathrm{d}x) &\forall A\in \sigalg{X}, B\in \sigalg{F}\\
     &\iff\\
-    \mu&= \tikzfig{disint_def_proper}\label{eq:conditional} 
+    \mu&= \tikzfig{disint_def}
 \end{align}
 and
 \begin{align}
@@ -364,7 +364,7 @@ By assumption, $\RV{A}^*\CI_{\prob{P}_\alpha}(\RV{B}^*,\RV{D}^*)|(\RV{C}^*,\RV{E
 
 Only if:
 
-For any $\beta$, $\prob{P}_\beta^{\RV{ABC}|\RV{DE}}= \prob{P}_\beta^{\RV{DE}}\odot \prob{P}^{\RV{ABC}|\RV{DE}}$. By Lemma \ref{lem:disint_exist}, we have $\prob{P}^{\RV{A}|\RV{BCDE}}$ such that
+For any $\beta$, $\prob{P}_\beta^{\RV{ABC}|\RV{DE}}= \prob{P}_\beta^{\RV{DE}}\odot \prob{P}^{\RV{ABC}|\RV{DE}}$. By Lemma \ref{th:higher_order_conditionals}, we have $\prob{P}^{\RV{A}|\RV{BCDE}}$ such that
 
 \begin{align}
     \prob{P}_\beta^{\RV{A^*B^*C^*}\RV{D^*E^*}} &= \prob{P}_\beta^{\RV{D^*E^*}}\odot \prob{P}^{\RV{B^*C^*}|\RV{D^*E^*}}\odot \prob{P}^{\RV{A^*}|\RV{B^*C^*D^*E^*}}\\

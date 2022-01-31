@@ -8,17 +8,7 @@ Causal Bayesian networks and potential outcomes employ different naming conventi
 
 We pursue a similar line of thinking with respect to understanding causal consequences like $P(\RV{Y}|do(\RV{X}))$ or $x\mapsto P(\RV{Y}^x)$. We assume that ``causal consequences'' are conditional probabilities of the form $\prob{P}_\square^{\RV{Y}|\RV{D}\RV{H}}$ where $\RV{Y}$ is an outcome, $\RV{D}$ is some decision, $\RV{H}$ is a hypothesis and $\prob{P}_\square$ is a probability gap model. Our interest is in understanding what causal consequences are \emph{from the point of view of someone choosing a decision function}. We do not address the question of how they may be inferred from observed data.
 
- We show that conditional probability models that are \emph{causally contractible} with respect to a sequence of decisions and a corresponding sequence of outcomes are representible by mixtures of ``objective but unknown'' conditional probabilities. This is analogous to De Finetti's theorem that shows exchangeable probability distributions are representable by mixtures of ``objective but unknown'' independent and identically distributed probability distributions. A similar argument to ours is found in \citet{dawid_decision-theoretic_2020}.
-
-We also consider the question of when causal contractibility could be supposed to hold. This is a subtle question, as the answer appears to differ for situations that are quite similar. For example, consider:
-\begin{enumerate}
-    \item Dr Alice is going to see two patients who are both complaining of lower back pain and are otherwise unknown to Alice. Prior to seeing them, she considers the available research and formulates a general sense of whether or not she'll treat each one, which she quantifies with $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$
-    \item As before, but prior to seeing the patients she considers the available research and decides to treat on the basis of applying a function to a random number generator with known characteristics. The choice of function and random number generator allow her to quantity probability of treatment with $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$
-\end{enumerate}
-
-\todo[inline]{I removed the discussion of probability combs for simplicity, so I have not considered policies for treatment that depend on earlier experiments in the examples above}
-
-We will argue that Alice could reasonably assume causal contractibility in the second case but not the first. While we are unable to offer a general theory of when causal contractibility holds, we note that an apparently key difference between the two situations is that in the first case the ``decision'' $\RV{D}_1$ is indeterministic for some $\alpha$, though $\RV{D}_2$ is deterministic, while in the second case both $\RV{D}_1$ and $\RV{D}_2$ are determinstic functions.
+We show that conditional probability models that are \emph{causally contractible} with respect to a sequence of decisions and a corresponding sequence of outcomes are representible by mixtures of ``objective but unknown'' conditional probabilities. This is analogous to De Finetti's theorem that shows exchangeable probability distributions are representable by mixtures of ``objective but unknown'' independent and identically distributed probability distributions. A similar argument to ours is found in \citet{dawid_decision-theoretic_2020}.
 
 \subsection{Repeatable experiments}
 
@@ -27,6 +17,12 @@ A conditional probability model $(\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}},A)
 If $(\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}},A)$ represents a sequential experiment, we might guess that causal consequences exist if the experiment is in some sense ``repeatable''. We consider two precise notions of repeatability. The first condition is \emph{commutativity of exchange}, which is the assumption that swapping the choices that we apply at each step and then applying the corresponding inverse swap to consequences leaves the model unchanged. The second condition is \emph{commutativity of marginalisation} -- if we perform the whole experiment multiple times, making the same choice $\RV{D}_i$ at any point $i$ gets the same results, regardless of what other choices are made.
 
 Commutativity of exchange is similar to the condition of \emph{post-treatment exchangeability} found in \citet{dawid_decision-theoretic_2020}, and commutativity of marginalisation is similar to the stable unit treatment distribution assumption (SUTDA) in the same, as well as the ``no interference'' part of the stable unit treatment value assumption (SUTVA) with which it shares a name. Commutativity of exchange is also very similar to the exchangeability assumption of \citet{greenland_identifiability_1986} for further discussions of exchangeability in the context of causal modelling, and note that both authors consider exchanging to be an operation that alters which person receives which treatment. The assumption of exchangeability found in \citet{banerjee_chapter_2017} can also be regarded as similar to commutativity of exchange.
+
+The stable unit treatment value assumption (SUTVA) is given as \citep{rubin_causal_2005}:
+
+\begin{blockquote}
+(SUTVA) comprises two subassumptions. First, it assumes that \emph{there is no interference between units (Cox 1958)}; that is, neither $Y_i(1)$ nor $Y_i(0)$ is affected by what action any other unit received. Second, it assumes that \emph{there are no hidden versions of treatments}; no matter how unit $i$ received treatment $1$, the outcome that would be observed would be $Y_i(1)$ and similarly for treatment $0$.
+\end{blockquote}
 
 \todo[inline]{Not sure if or where I want to put this, I just think it helps to illustrate the difference}
 

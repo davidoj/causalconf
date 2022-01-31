@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (1.5, 0) {$\kernel{F}_{\text{ev}}$};
+		\node [style=none] (1) at (0.75, 0.25) {};
+		\node [style=none] (2) at (0.75, -0.25) {};
+		\node [style=none] (3) at (-0.75, -0.75) {};
+		\node [style=RLabel tikzit] (4) at (3.75, 0) {$\RV{Y}$};
+		\node [style=Llabel tikzit] (5) at (-1.75, -0.75) {$\RV{X}$};
+		\node [style=very small prob] (6) at (-1.75, 0.75) {$\,\prob{P}_{\{\}}^{\RV{Y}^X}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=0] (3.center) to (2.center);
+		\draw (0) to (4);
+		\draw (5) to (3.center);
+		\draw [in=-180, out=0, looseness=1.25] (6) to (1.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

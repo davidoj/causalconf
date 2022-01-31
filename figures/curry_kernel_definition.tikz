@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (5) at (1.75, 0.25) {$\kernel{F}_{\text{ev}}$};
+		\node [style=none] (6) at (1, 0.5) {};
+		\node [style=none] (7) at (1, 0) {};
+		\node [style=none] (8) at (-0.5, -0.5) {};
+		\node [style=RLabel tikzit] (9) at (4, 0.25) {$\RV{Y}$};
+		\node [style=Llabel tikzit] (10) at (-1.5, -0.5) {$\RV{X}$};
+		\node [style=small dist tikzit] (11) at (-1.5, 0.5) {$\,\kernel{L}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=0] (8.center) to (7.center);
+		\draw (5) to (9);
+		\draw (11) to (6.center);
+		\draw (10) to (8.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

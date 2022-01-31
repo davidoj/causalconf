@@ -1,14 +1,26 @@
 %!TEX root = main.tex
 
-\todo[inline]{start again here}
+\section{Why do causal investigations?}
 
-\section{Decision theoretic causal inference}\label{sec:seedo_models}
+When someone undertakes a causal investigation, they're often aiming to improve the decisions of some decision maker. Often the identity of the decision maker and the exact parameters of the decisions at hand are vague. Consider \citet{banerjee_mainstreaming_2016}: a large scale experiment was conducted trialling a number of different strategies all aiming to increase the amount of learning level appropriate instruction available to students in four Indian states. It is not clear who, exactly, is going to make a decision on the basis of this information, but one can guess:
 
-People very often have to make decisions with some information they may consult to help them make the decision. We are going to examine how gappy probability models can formally represent problems of this type, which in turn allows us to make use of the theory of probability to help guide us to a good decision. Probabilistic models have a long history of being used to represent decision problems, and there exist a number of coherence theorems that show that preferences that satisfy certain kinds of constraints must admit representation by a probability model and a utility function of the appropriate type. Particularly noteworthy are the theorems of \citet{ramsey_truth_2016} and \citet{savage_foundations_1954}, which together yield a method for representing decision problems known as ``Savage decision theory'', and the theorem of \citet{bolker_functions_1966,jeffrey_logic_1990} which yields a rather different method for representing decision problems known as ``evidential decision theory''. \citet{joyce_foundations_1999} extends Jeffrey and Bolker's result to a representation theorem that subsumes both ``causal decision theory'' and ``evidential decision theory''.
+\begin{itemize}
+    \item They're someone with interest in and authority to make large scale changes to a school system
+    \item They consider the evidence of effectiveness of teaching at the right level relevant to their situation
+    \item They consider the evidence regarding which strategies work to implement this approach relevant to their situation
+\end{itemize}
 
-It is an open question whether the models induced by any of these theories are equivalent to probability gap models.
+Such a situation seems to resist straightforward formalisation. For example, not knowing which set of decisions will be considered, it seems that the analyst cannot straightforwardly posit a measurement procedure $\proc{D}$ and accompanying variable $\RV{D}$ to represent the decision that will be made (refer to section \ref{sec:actions}).
 
-We do not have a comparable axiomatisation of preferences that yield a representation of decision problems in terms of utility and gappy probability. Such an undertaking could potentially clarify some choices that can be made in setting up a gappy probability model of decision making, but it is the subject of future work. Instead, we suppose that we are satisfied with a particular probabilistic model of a decision problem, based on convention rather than axiomatisation.
+Our aim in this paper is quite limited compared to the prospect of a formal analysis of a real causal inference problem like the one outlined above. We still think it is helpful to consider such an example, if only to make the point that the relationship between theories of causal inference and the real-world aims these theories serve can be subtle.
+
+\section{Probabilistic models for decision making}\label{sec:seedo_models}
+
+Probabilistic models have a long history of being used to represent decision problems. Decision problems feature, at a minimum, a collection of different decisions or actions that may be chosen, and some notion of preference over these decisions. The connection between choices and preferences is often indirect -- for example, choices may be associated with probability distributions over states of the world, and preferences may be defined on states of the world, which can then induce preferences over choices via the principle of expected utility.
+
+There is a body of work that has produced a number of representation theorems showing that preferences that satisfy certain constraints must be representable by certain families of probabilistic models. Notable examples are the theorems of \citet{ramsey_truth_2016} and \citet{savage_foundations_1954} (held to be roughly equivalent), and the theorem of \citet{bolker_functions_1966,jeffrey_logic_1990}. A notable difference (among other differences) between the two is the fact that the former result represents preferences as a probability distribution over ``consequence functions'' from decisions to outcomes along with a ``utility function'' from outcomes to real numbers, while the latter result represents preferences as a probability distribution over propositions and a desirability function from propositions to real numbers. That is, Savage's theory gives decisions a special role in the represenation of preferences, while Jeffrey and Bolker's theory treats decisions as propositions just like any other proposition, and the fact that they can be chosen in some sense that other propositions cannot is a fact external to the preference representation.
+
+Probability sets also feature in the literature of decision theory under the term ``imprecise probability''. One role that probability sets play is to represent the preferences of an agent who, presented with a bet, would rather not to take either side of it \citet{bradley_imprecise_2019,walley_statistical_1991}. More generally, probability sets can be used to represent an epistemic state of witholding judgement on certain propositions. Here, we use probability sets to represent a decision maker who, while considering which choice to make, may withold judgement about propositions regarding which choice they are going to make.
 
 \subsection{Decision problems}
 
@@ -91,3 +103,59 @@ Suppose we have a see-do model $\prob{P}^{\RV{X}|\RV{H}\square \RV{Y}|\RV{D}}$ w
 
 If we are given a see-do model where we interpret $\{\model{P}^{\RV{X}|\RV{H}}(\cdot|h)|h\in H\}$ as a statistical experiment and $\RV{Y}$ as a negative utility, the expectation of the utility under the strategy forecast given in equation \ref{eq:see_do_query} is the risk of that strategy under hypothesis $h$.
 
+
+
+\subsection{Randomness pushback}\label{sec:curry}
+
+Given a function $f:X\times Y\to Z$, we can obtain a curried version $\lambda f:Y\to Z^X$. In particular, if $Y=\{*\}$ then $\lambda f:\{*\}\to Y^X$. At least for countable $X$, we can apply this construction to Markov kernels: given a kernel $\kernel{K}:X\kto Y$, define $\kernel{L}: \{*\}\kto Y^X$ by 
+\begin{align}
+    \lambda \kernel{K} ((y_i)_{i\in X}) &= \prod_{i\in X} \kernel{K}(y_i|i)
+\end{align}
+
+We can then define an evaluation map $\text{ev}:Y^X\times X\to Y$ by $\text{ev}((y_i)_{i\in X},x)=y_x$. Then
+
+\begin{align}
+    \kernel{K} &= \tikzfig{curry_kernel_definition} \label{eq:curry_identity}\\
+    &\iff\\
+    \kernel{K}(A|x) &= \int_{Y^X} \delta_{\text{ev}(y^X,x)}(A) \kernel{L}(\mathrm{d}y^X|x)
+\end{align}
+
+Unlike the case of function currying, $\lambda \kernel{K}$ is not the unique Markov kernel for which \ref{eq:curry_identity} holds. In fact, we can substitute any $\kernel{M}$ such that, for any $i\in X$
+
+\begin{align}
+    \sum_{y_{\{i\}^C\in Y^{|X|-1}}} \kernel{M}((y_i)_{i\in X}) = \kernel{K}(y_i|i)
+\end{align}
+
+This representation of a Markov kernel is called a \emph{randomness pushback} by \citet{fritz_synthetic_2020}.
+
+\subsection{Connections to potential outcomes}
+
+Randomness pushbacks have a few features in common with potential outcomes causal models. For our purposes, we will say a potential outcomes model is a probability set $(\Omega,\sigalg{F},\prob{P}_{\{\}})$ along with variables $\RV{X}$, $\RV{Y}$, $\RV{Y}^X$ such that 
+
+\begin{align}
+    \prob{P}_{\{\}}^{\RV{Y}|\RV{XY}^X} &= \kernel{F}_{\text{ev}}
+\end{align}
+
+More commonly, this property is expressed as
+
+\begin{align}
+    \RV{Y}\overset{a.s.}{=}\text{ev}(\RV{X},\RV{Y}^X)
+\end{align}
+
+We consider a potential outcomes model to be a probability set here, but we can formally recover a ``traditional'' potential outcomes model by considering probability sets of size $1$.
+
+If we additionally have the existence of $\prob{P}_{\{\}}^{\RV{Y}^X|\RV{X}}$ and $\RV{Y}^\RV{X}\CI_{\prob{P}_{\{\}}} \RV{X}$ then 
+
+\begin{align}
+    \prob{P}_{\{\}}^{\RV{Y}|\RV{X}} &= \tikzfig{curry_kernel_copied}\label{eq:curry_identity_po}
+\end{align}
+
+Equation \ref{eq:curry_identity_po} is clearly a version of \ref{eq:curry_identity}. As we have established, provided $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ exists, we can always introduce some variable $\RV{Y}^X$ and corresponding $\prob{P}_{\{\}}^{\RV{Y}^X}$ such that Equation \ref{eq:curry_identity_po} holds.
+
+\todo[inline]{I feel this is a bit confusing, but I'm struggling to come up with something better}
+
+The point that we want to make is that representing some conditional probability with a randomness pushback is not itself at all special - in fact, it's possible to do it with any conditional probability. We suspect that more important than questions about the choice of representation is the question: what is the conditional probability that is being represented? That is, what is the measurement procedure that gives us $\proc{X}$ and $\proc{Y}$ which we model with the random variables $\RV{X}$ and $\RV{Y}$?
+
+A similar view is expressed by \citet{dawid_causal_2000} and \citet{richardson2013single}, who both indicate that avoiding assumptions that cannot be tested by an ideal experiment is a desirable feature of a causal model. \citet{richardson2013single} consider models that make use of the potential outcomes approach that go beyond Equation \ref{eq:curry_identity_po}, but a Single World Intervention Graph (SWIG) fundamentally represents a collection of probability measures indexed by different values of a possible intervention. If we suppose that deterministically choosing an intervention $x$ yields the probability model corresponding to the $x$-indexed SWIG, and allow that we can have measurement procedures that give us intervention values (Section \label{sec:actions}), then such an indexed collection of probability models is a conditional probability -- namely, the probability of outcomes conditional on interventions.
+
+The question we want to ask is: in a setting where we can make choices that ``probabilistically determine $\RV{X}$'', when does a conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ exist?

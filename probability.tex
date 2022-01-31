@@ -5,6 +5,8 @@
 
 \subsection{Section outline}
 
+\todo[inline]{following section hasn't been revised}
+
 This section introduces the mathematical foundations used throughout the rest of the paper. The first subsection briefly introduces probability theory, which is likely to be familiar to many readers, as well as how string diagrams can be used to represent probabilistic functions (or \emph{Markov kernels}), which may be less familiar. We use string diagrams for probabilstic reasoning in a number of places, and this section is intended to help interpret mathematical statements in this form.
 
 The second subsection discusses the interpretation of probabilistic variables. Our formalisation of probabilistic variables is standard -- we define them as measurable functions on a fundamental probability set $\Omega$. We discusses how this formalisation can be connected to statements about the real world via \emph{measurement processes}, and distinguishes observed variables (which are associated with measurement processes) from unobserved variables (which are not associated with measurement processes). This section is not part of the mathematical theory of probability gap models, but it is relevant when one wants to apply this theory to real problems or to understand how the theory of probability gap models relates to other theories of causal inference.
@@ -22,6 +24,8 @@ Higher order probability gap models can be represented by conditional probabilit
 A conditional independence statement in a probability gap model means that the corresponding conditional independence statement holds for all base measures in the range of the function defined by the model. It is possible to deduce conditional independences from ``independences'' in the conditional probabilities that we use to represent these models, and conditional independences can imply the existence of conditional probabilities with certain independence properties.
 
 We can consider causal Bayesian networks to represent order 2 probability gap models. That is, a causal Bayesian network represents a function $\prob{P}$ that take inserts from some set $A$ of conditional probabilities and returns a probability model, and it does so in such a way that there are a pair of conditional probabilities $\{\prob{P}^{\RV{X}|\RV{W}},\prob{P}^{\RV{Z}|\RV{WXY}}\}$ shared by all models in the codomain of $\prob{P}$. The observational distribution is the value of $\prob{P}(\text{obs})$ for some \emph{observational insert} $\text{obs}\in A$, and other choices of inserts yield interventional distributions. Defining causal Bayesian networks in this manner resolves two areas of difficulty with causal Bayesian networks. First, under the standard definition of causal Bayesian networks interventional probabilities may fail to exist; with our perspective we can see that this arises due to misunderstanding the domain of $\prob{P}$. Secondly, there may be multiple distributions that differ in important ways that all satisfy the standard definition of ``interventional distributions''. The one-to-many relationship between observations and interventions is a basic challenge of causal inference, the problem arises when this relationship is obscured by calling multiple different things ``the interventional distribution''. If we consider causal Bayesian networks to represent order 2 probability gap models, we avoid doing this. 
+
+\todo[inline]{end previous section hasn't been revised}
 
 
 \subsection{Standard probability theory}
@@ -58,7 +62,7 @@ Given a measureable space $(\Omega,\sigalg{F})$ and two variables $\RV{X}:\Omega
 Given a probability space $(\mu,\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to (X,\sigalg{X})$, we can define the \emph{marginal distribution} of $\RV{X}$ with respect to $\mu$, $\mu^{\RV{X}}:\sigalg{X}\to [0,1]$ by $\mu^{\RV{X}}(A):=\mu(\RV{X}\yields A)$ for any $A\in \sigalg{X}$.
 \end{definition}
 
-\begin{lemma}[Marginal distribution as a kernel product]\lemma{lem:pushf_kprod}
+\begin{lemma}[Marginal distribution as a kernel product]\label{lem:pushf_kprod}
 Given a probability space $(\mu,\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to (X,\sigalg{X})$, define $\kernel{F}_{\RV{X}}:\Omega\kto X$ by $\kernel{F}_{\RV{X}}(A|\omega)=\delta_{\RV{X}(\omega)}(A)$, then
 \begin{align}
 	\mu^{\RV{X}} = \mu\kernel{F}_{\RV{X}}
@@ -108,6 +112,8 @@ Furthermore, given regular $\mu^{\RV{XY}|\RV{Z}}$ and $\RV{X}$, $\RV{Y}$ standar
 
 \subsection{Probabilistic models for causal inference}
 
+\todo[inline]{following section hasn't been revised}
+
 The sample space $(\Omega,\sigalg{F})$ along with our collection of variables is a ``model skeleton'' -- it tells us what kind of data we might see. The process $\proc{S}$ which tells us which part of the world we're interested in is related to the model $\Omega$ and the observable variables by the criterion of \emph{consistency with observation}. The kind of problem we are mainly interested in here is one where we make use of data to help make decisions under uncertainty. Probabilistic models have a long history of being used for this purpose, and our interest here is in constructing probabilistic models that can be attached to our variable ``skeleton''. 
 
 Given a model skeleton, a common approach to attaching a probabilistic model involves defining a base measure $\mu$ on $(\Omega,\sigalg{F})$ which yields a probability space $(\Omega,\sigalg{F},\mu)$. For causal inference, we need a to generalise this approach, because we need to handle \emph{choices}. If I have different options I can choose, and I want to use a model to compare the options according to some criteria, then I need a model that can accept a choice and output the expected result of that choice. According to this model, anything that we consider a ``consequence of a choice'' doesn't have a definite probability, because it depends on the choice we make.
@@ -117,6 +123,8 @@ In general, we might have arbitrary sets of choices that map to probability mode
 These assumptions together imply that our model should contain a number of fixed conditional probabilities -- the probabilities of consequences given observations and acts -- and a number of ``choosable'' conditional probabilities -- the probabilities of acts given observations. The fixed conditional probabilities form a probability model with \emph{gaps}, and those gaps correspond to choices we can make. When we combine the fixed conditional probabilities and a choice of a conditional probability for each gap, we get a regular probability model. The terminology of ``probability gaps'' comes from \citet{hajek_what_2003}. 
 
 To restate our general approach: we model decision problems with a collection of fixed conditional probabilities and a collection of choosable conditional probabilities, and combine the fixed conditionals with particular choices to get a probability measure. Two issues present themselves here: firstly, what \emph{is} a collection of conditional probabilities without a fixed underlying probability measure? Secondly, we need to ensure that our chosen collection of conditional probabilities actually does induce a probability model. We address these questions with \emph{probability sets}. A probability set is a collection of probability measures on $(\Omega,\sigalg{F})$, and we identify a collection of conditional probabilities with the set of probability measures that induce those conditional probabilities. We then define an operation $\odot$ for combining conditional probabilities, and a criterion of \emph{validity} such that a collection of valid conditional probabilities recursively combined using $\odot$ is guaranteed to corresponds to a non-empty probability set.
+
+\todo[inline]{Previous section hasn't been revised}
 
 \subsection{Probability sets}
 
@@ -133,10 +141,10 @@ Given a sample space $(\Omega,\sigalg{F})$, a variable $\RV{X}:\Omega\to X$ and 
 \end{definition}
 
 \begin{definition}[Regular conditional distribution with respect to a probability set]\label{def:cprob_pset}
-Given a fundamental probability set $\Omega$ variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}$, a conditional $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is an $X\kto Y$ disintegration of $\prob{P}_\alpha^{\RV{XY}}$ for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. If no such Markov kernel exists, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is undefined.
+Given a fundamental probability set $\Omega$ variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}$, a conditional $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is an $\RV{Y}|\RV{X}$ conditional probability of $\prob{P}_\alpha$ for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. If no such Markov kernel exists, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is undefined.
 \end{definition}
 
-\begin{definition}[Regular higher order conditional with respect to a probability set]\label{def:cprob_pset}
+\begin{definition}[Regular higher order conditional with respect to a probability set]\label{def:ho_cprob_pset}
 Given a fundamental probability set $\Omega$, variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$, if $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists then a higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is any Markov kenrel $X\times Y\kto Z$ that is a higher order conditional of some version of $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$. If no $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists, $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is undefined.
 \end{definition}
 
@@ -365,9 +373,9 @@ We define \emph{universal conditional independence} with respect to a probabilit
 For a \emph{probability set} $\model{P}_{\{\}}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is universally conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\{\}}}\RV{A}|\RV{C}$, if for all $\prob{P}_{\alpha}\in \prob{P}_{\{\}}$ $\RV{A}\CI_{\prob{P}_\alpha} \RV{C}|\RV{B}$.
 \end{definition}
 
-It is very straightforward to show that universal conditional independence satisfies the semi-graphoid axioms.
+It is straightforward to show that universal conditional independence satisfies the semi-graphoid axioms.
 
-\begin{lemma}
+\begin{lemma}\label{lem:distribute_quantifier}
 $[\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]$
 \end{lemma}
 
@@ -391,60 +399,15 @@ Given a standard measurable space $(\Omega,\sigalg{F})$ and $\prob{P}_{\{\}}$ on
 \end{lemma}
 
 \begin{proof}
-For a particular probability $\prob{P}_\alpha$, each of the semi-graphoid axioms consists of a statement of the form $f(\prob{P}_\alpha)\implies g(\prob{P}_\alpha)$ (in the case of the first axiom, it corresponds to two such statements).
+For a particular probability $\prob{P}_\alpha$, each of the semi-graphoid axioms consists of a statement of the form $\forall \prob{P}: f(\prob{P})\implies g(\prob{P})$ (in the case of the first axiom, it corresponds to two such statements).
 
-As the axioms hold for conditional independence with respect to any probability model, we have in particular $\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}) \implies g(\prob{P}_\alpha)$. 
+As the axioms hold for conditional independence for any probability model, we have, for arbitrary $\prob{P}_{\{\}}$, $\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}) \implies g(\prob{P}_\alpha)$. 
 
+Then, by Lemma \ref{lem:distribute_quantifier}, $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))\implies (\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: g(\prob{P}_{\alpha}))$.
 
-
-This implies $(\forall \prob{P}_\alpha: f(\prob{P}_\alpha)) \implies (\forall \prob{P}_\alpha: g(\prob{P}_\alpha))$
+Note that $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))$ is, by definition, a universal conditional independence statement with respect to $\prob{P}_{\{\}}$.
 \end{proof}
-
-
-The semi-graphoid axioms hold for all probability measures $\prob{P}$, so in particualr they hold for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. Thus conditional independence with respect to a probability set also satisfies the semi-graphoid axioms.
 
 % \begin{definition}[Conditional independence with respect to a probability comb]
 % Conditional independence $\RV{A}\CI_{\prob{P}_\square}\RV{B}|\RV{C}$ holds for an arbitrary probability comb $\model{P}_\square:A\to \mathscr{P}(\Delta(\Omega))$ if $\RV{A}\CI_{\prob{P}_\alpha}\RV{B}|\RV{C}$ holds for all probability models $\prob{P}_\alpha$, $\alpha\in A$.
 % \end{definition}
-
-\subsection{Curried Markov kernels}\label{sec:curry}
-
-Given a function $f:X\times Y\to Z$, we can obtain a curried version $\lambda f:Y\to Z^X$. In particular, if $Y=\{*\}$ then $\lambda f:\{*\}\to Y^X$. At least for countable $X$, we can apply this construction to Markov kernels: given a kernel $\kernel{K}:X\kto Y$, define $\lambda \kernel{K}: \{*\}\kto Y^X$ by 
-\begin{align}
-	\lambda \kernel{K} ((y_i)_{i\in X}) &= \prod_{i\in X} \kernel{K}(y_i|i)
-\end{align}
-
-We can then define an evaluation map $\text{ev}:Y^X\times X\to Y$ by $\text{ev}((y_i)_{i\in X},x)=y_x$. Then
-
-\begin{align}
-	\kernel{K} = (\lambda \kernel{K}\otimes \text{id}_X) \kernel{F}_{\text{ev}} \label{eq:curry_identity}
-\end{align}
-
-Unlike the case of function currying, $\lambda \kernel{K}$ is not the unique Markov kernel for which \ref{eq:curry_identity} holds. In fact, we can substitute any $\kernel{L}$ such that, for any $i\in X$
-
-\begin{align}
-	\sum_{y_{\{i\}^C\in Y^{|X|-1}}} \kernel{L}((y_i)_{i\in X}) = \kernel{K}(y_i|i)
-\end{align}
-
-Evaulation of a curried Markov kernel $\lambda \kernel{K}$ resembles the definition of \emph{potential outcomes}; for outcomes $\RV{Y}:\Omega\to Y$ and treatments $X:\Omega\to X$, potential outcomes are described by a probability distribution $\prob{P}^{\RV{Y}^X}$ on $Y^X$ and we have the relation
-
-\begin{align}
-	\RV{Y} \overset{a.s.}{=} \text{ev}(\RV{Y}^X,\RV{X})
-\end{align}
-
-Then
-\begin{align}
-	(\prob{P}^{\RV{Y}^X}\otimes \text{id}_X)\kernel{F}_{\text{ev}}
-\end{align}
-
-is some Markov kernel $\kernel{K}:X\kto Y$, which is equal to $\prob{P}^{\RV{Y}|\RV{X}}$ if $\RV{Y}^X\CI |\RV{X}$. However, potential outcomes models typically do not explain what the kernel $\kernel{K}$ represents, and instead offer a definition of the variable $\RV{Y}^X$. For $x\in X$, the component $\RV{Y}^x$ of $\RV{Y}^X$ is usually said to express ``the outcomes that would have been observed, if $\RV{X}$ was $x$''.
-
-Our original motivating question was ``when are potential outcomes well-defined?''. We're not actually going to try to answer this question, because our aim is not to tell people using potential outcomes how to do it. Furthermore, that question invites controversy we are not particularly interested in joining; \citet{dawid_causal_2000} and \citet{richardson2013single} have both argued that it is better to use equivalence classes of potential outcomes models induced by a criterion of distinguishability by experiment, while \citet{pearl_causality:_2009} advocates for models that can make finer distinctions than this.
-
-However, given a probability gap model $\prob{P}_\square$, we do have a natural notion of the well-definedness of a conditional probability $\prob{P}^{\RV{Y}|\RV{X}}_\square$ -- it is well-defined when $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$ is equal for all $\alpha$ (Definition \ref{def:cprob_pset}). Furthermore, the formal conditions that guarantee the existence of such a conditional probability very closely resemble the \emph{stable unit treatment value assumption} (SUTVA), which is said to be necessary for the existence of potential outcomes \citet{rubin_causal_2005}:
-
-\begin{blockquote}
-(SUTVA) comprises two subassumptions. First, it assumes that \emph{there is no interference between units (Cox 1958)}; that is, neither $Y_i(1)$ nor $Y_i(0)$ is affected by what action any other unit received. Second, it assumes that \emph{there are no hidden versions of treatments}; no matter how unit $i$ received treatment $1$, the outcome that would be observed would be $Y_i(1)$ and similarly for treatment $0$.
-\end{blockquote}
-
-The added emphasis is ours. In the next section, we offer formal criteria that correspond to these two statements.
