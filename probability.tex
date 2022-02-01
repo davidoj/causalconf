@@ -287,7 +287,7 @@ Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{
 \end{definition}
 
 \begin{definition}[Probability set defined by a valid conditional]
-If $\prob{P}_{\{\}}$ is a probability set such that there is a valid conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}:X\kto Y$ and for every $\mu\in \Delta(\Omega)$ such that $\mu^{\RV{Y}|\RV{X}}\overset{\mu}{\cong}\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$, we say $\prob{P}_{\{\}}^{\overline{\RV{Y}|\RV{X}}}:=\prob{P}_{\{\}}$ is the probability set defined by $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$.
+If $\prob{P}_{\{\}}$ is a probability set such that there is a valid conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}:X\kto Y$ and for every $\mu\in \Delta(\Omega)$ such that $\mu^{\RV{Y}|\RV{X}}\overset{\mu}{\cong}\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$, we say $\prob{P}_{\{\}}$ is the probability set defined by $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$.
 \end{definition}
 
 Suppose we have some collection of Markov kernels that we want to interpret as conditional probabilities $\{\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}|i\in [n]\}$ which we want to define a probability set by recursively taking the semidirect product $\prob{P}_1^{\RV{X}_1}\odot (\prob{P}_2^{\RV{X}_2|\RV{X}_{1}}\odot ...)$. It is sufficient that each $\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}$ is valid for the resulting probability set to be nonempty (Lemma \ref{lem:valid_extendability}).
@@ -315,18 +315,18 @@ We don't have an axiomatic justification for using probability gap models to rea
 
 We require that the choices are compatible with the model in the sense that $\prob{P}_{\{\}}\cap\alpha\neq \emptyset$ for all $\alpha\in A$. Here, we will limit our attention to a a particular type of probability gap model, where we define the probability set $\prob{P}_{\{\}}$ is defined by a conditional probability and each choice is defined by a marginal probability relative to the same variable.
 
-\begin{definition}[Conditional probability model]
-A \emph{conditional probability model} $\prob{P}_\square$ is a probability gap model $(\prob{P}_{\{\}}^{\overline{\RV{Y}|\RV{X}}},A)$ such that each $\alpha\in A$ is some probability set  defined by an $\RV{X}$-valid marginal probability $\alpha^{\overline{\RV{X}}}$.
+\begin{definition}[Conditional probability model]\label{def:cprob_model}
+A \emph{conditional probability model} $\prob{P}_\square$ is a probability gap model $(\prob{P}_{\{\}},A)$ where $\prob{P}_{\{\}}$ is the probability set defined by some $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and each $\alpha\in A$ is some probability set defined by an $\RV{X}$-valid marginal probability $\prob{P}_\alpha^{\RV{X}}$.
 \end{definition}
 
-We will compute the intersection $\prob{P}_\alpha$ between the model $\prob{P}_{\{\}}$ and a choice $\alpha\in A$ as the probability set $\prob{P}_{\alpha}^{\overline{\RV{XY}}}$ such that:
+We will compute the intersection $\prob{P}_\alpha$ between the model $\prob{P}_{\{\}}$ and a choice $\alpha\in A$ as the probability set $\prob{P}_{\alpha}$ defined by the joint probability distribution $\prob{P}_\alpha^{\RV{XY}}$:
 \begin{align}
 	\prob{P}_\alpha^{\RV{XY}} &= \alpha^{\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\label{eq:semidirect_intersection}
 \end{align}
 
 This is justified by Lemma \ref{th:intersection}, which says that the probability set defined by Equation \ref{eq:semidirect_intersection} is equivalent to the intersection of $\alpha$ and $\prob{P}_{\{\}}$.
 
-If the conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and all the marginal probabilities $\alpha^{\overline{\RV{X}}}$ are valid, then by Lemma \ref{lem:valid_extendability} $\prob{P}_{\{\}}\cap\alpha \neq \emptyset$ for all $\alpha\in A$. Thus validity of all the individual parts is enough to ensure compatibility.
+If the conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and all the marginal probabilities $\prob{P}_\alpha^{\RV{X}}$ are valid, then by Lemma \ref{lem:valid_extendability} $\prob{P}_{\{\}}\cap\alpha \neq \emptyset$ for all $\alpha\in A$. Thus validity of all the individual parts is enough to ensure compatibility.
 
 We can define more complex probability gap models with a similar approach where, for example, the model is specified by an incomplete collection of conditional probabilities and the choices are each a complementary collection of conditional probabilities; we call such models \emph{probability comb models} after \citet{chiribella_quantum_2008,jacobs_causal_2019}, but we will not address them in this paper.
 
