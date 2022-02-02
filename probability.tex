@@ -269,37 +269,88 @@ By definition, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
 % $\prob{Q}_{\{\}}\supset \prob{P}_{\{\}}$, so any conditional probability of $\prob{Q}_{\{\}}$ is also a conditional probability of $\prob{P}_{\{\}}$.
 % \end{proof}
 
-\subsection{Probability sets defined by marginal and conditional probabilities}
+\subsection{Maximal probability sets and valid conditionals}
 
-So far we have defined probability sets and conditional probabilities as Markov kernels that can sometimes be derived from a probability set. Actually, we are interested in working in the opposite direction: starting with conditional probabilities and working with probability sets defined by them. We need to be a little bit careful in doing this: we can't take an arbitrary Markov kernel $\kappa:X\kto Y$ and declare it to be a conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ for some $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$. The reason for this is that some collections of variables cannot have arbitrary conditional probabilities. 
+So far we have defined probability sets and conditional probabilities as Markov kernels that can sometimes be derived from a probability set. We are often interested in working in the opposite direction: at the outset, we have a conditional probability and and we want to reason about the largest probability set admitting this conditional probability. We call this a \emph{maximal probability set}.
 
-Consider, for example, $\Omega=\{0,1\}$ with $\RV{X}=(\RV{Z},\RV{Z})$ for $\RV{Z}:=\text{id}_{\Omega}$ and any measure $\kappa\in \Delta(\{0,1\}^2)$ such that $\kappa(\{1\}\times \{0\})>0$. Note that $\RV{X}^{-1}(\{1\}\times \{0\})=\RV{Z}^{-1}(\{1\})\cap \RV{Z}^{-1}(\{0\})=\emptyset$. Thus for any probability measure $\mu\in \Delta(\{0,1\})$, $\mu^{\RV{X}}(\{1\}\times \{0\}) = \mu(\emptyset)=0 $ and so $\kappa$ cannot be the marginal distribution of $\RV{X}$ for any base measure at all. A \emph{valid distribution} is a distribution associated with a particular variable that defines a nonempty set of base measures on $\Omega$ (Theorem \ref{th:completion}), and \emph{valid conditionals} are a set of conditional probabilities closed under $\odot$ and reducing to valid distributions when conditioning on a trivial variable (Lemma \ref{lem:valid_extendability}).
+We need to be a little bit careful when we proceed in this fashion: we can't take an arbitrary Markov kernel $\kappa:X\kto Y$ and declare it to be a conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ for some $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a maximal probability set $\prob{P}_{\{\}}$. The reason for this is that some collections of variables cannot have arbitrary conditional probabilities, and so $\prob{P}_{\{\}}$ may in fact be the empty set. We address this with the notion of validity; a \emph{valid distribution} is a distribution associated with a particular variable that defines a nonempty set of base measures on $\Omega$ (Theorem \ref{th:completion}), and \emph{valid conditionals} are a set of conditional probabilities closed under $\odot$ and reducing to valid distributions when conditioning on a trivial variable (Lemma \ref{lem:valid_extendability}).
+
+Consider, for example, $\Omega=\{0,1\}$ with $\RV{X}=(\RV{Z},\RV{Z})$ for $\RV{Z}:=\text{id}_{\Omega}$ and any measure $\kappa\in \Delta(\{0,1\}^2)$ such that $\kappa(\{1\}\times \{0\})>0$. Note that $\RV{X}^{-1}(\{1\}\times \{0\})=\RV{Z}^{-1}(\{1\})\cap \RV{Z}^{-1}(\{0\})=\emptyset$. Thus for any probability measure $\mu\in \Delta(\{0,1\})$, $\mu^{\RV{X}}(\{1\}\times \{0\}) = \mu(\emptyset)=0 $ and so $\kappa$ cannot be the marginal distribution of $\RV{X}$ for any base measure at all. 
 
 \begin{definition}[Valid distribution]\label{def:valid_dist}
-A valid $\RV{X}$ probability distribution $\prob{P}^{\RV{X}}$ is any probability mesure on $\Delta(X)$ such that $\RV{X}^{-1}(A)=\emptyset\implies \prob{P}^{\RV{X}}(A) = 0$ for all $A\in\sigalg{X}$.
+Given $(\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to X$, an $\RV{X}$-valid probability distribution is any probability measure $\prob{K}\in \Delta(X)$ such that $\RV{X}^{-1}(A)=\emptyset\implies \prob{K}(A) = 0$ for all $A\in\sigalg{X}$.
 \end{definition}
 
 \begin{definition}[Valid conditional]\label{def:valid_conditional_prob}
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{valid $\RV{Y}|\RV{X}$ conditional probability} $\prob{P}^{\RV{Y}|\RV{X}}$ is a Markov kernel $X\kto Y$ such that it assigns probability 0 to contradictions:
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{$\RV{Y}|\RV{X}$-valid conditional probability} is a Markov kernel $\prob{L}:X\kto Y$ such that:
 \begin{align}
-    \forall B\in \sigalg{Y}, x\in X: (\RV{X},\RV{Y})\yields \{x\}\times B = \emptyset \implies \left(\prob{P}^{\RV{Y}|\RV{X}}(B|x) = 0\right) \lor \left(\RV{X}\yields \{x\} = \emptyset\right)
+    \forall B\in \sigalg{Y}, x\in X: (\RV{X},\RV{Y})\yields \{x\}\times B = \emptyset \implies \left(\prob{L}(B|x) = 0\right) \lor \left(\RV{X}\yields \{x\} = \emptyset\right)
 \end{align}
 \end{definition}
 
-\begin{definition}[Probability set defined by a valid conditional]
-If $\prob{P}_{\{\}}$ is a probability set such that there is a valid conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}:X\kto Y$ and for every $\mu\in \Delta(\Omega)$ such that $\mu^{\RV{Y}|\RV{X}}\overset{\mu}{\cong}\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$, we say $\prob{P}_{\{\}}$ is the probability set defined by $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$.
+\begin{definition}[Maximal probability set]
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a $\RV{Y}|\RV{X}$-valid conditional probability $\prob{L}:X\kto Y$ the maximal probability set $\prob{P}_{\{\}}$ associated with $\prob{L}$ is the probability set such that for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$, $\prob{L}$ is a version of $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
 \end{definition}
 
-Suppose we have some collection of Markov kernels that we want to interpret as conditional probabilities $\{\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}|i\in [n]\}$ which we want to define a probability set by recursively taking the semidirect product $\prob{P}_1^{\RV{X}_1}\odot (\prob{P}_2^{\RV{X}_2|\RV{X}_{1}}\odot ...)$. It is sufficient that each $\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}$ is valid for the resulting probability set to be nonempty (Lemma \ref{lem:valid_extendability}).
+Lemma \ref{lem:valid_extendability} shows that the semidirect product of any pair of valid conditoinal probabilities is itself a valid conditional. Suppose we have some collection of $\RV{X}_i|\RV{X}_{[i-1]}$-valid conditionals $\{\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}|i\in [n]\}$; then recursively taking the semidirect product $\kernel{M}:=\prob{P}_1^{\RV{X}_1}\odot (\prob{P}_2^{\RV{X}_2|\RV{X}_{1}}\odot ...)$ yields a $\RV{X}_{[n]}$ valid distribution. Furthermore, the maximal probability set associated with $\kernel{M}$ is nonempty.
 
 Collections of recursive conditional probabilities often arise in causal modelling -- in particular, they are the foundation of the structural equation modelling approach \citet{richardson2013single,pearl_causality:_2009}.
 
 Note that validity is not a necessary condition for a conditional to define a non-empty probability set. The intuition for this is: if we have some $\kernel{K}:X\kto Y$, $\kernel{K}$ might be an invalid $\RV{Y}|\RV{X}$ conditional on all of $X$, but might be valid on some subset of $X$, and so we might have some probability model $\prob{P}$ that assigns measure 0 to the bad parts of $X$ such that $\kernel{K}$ is a version of $\prob{P}^{\RV{Y}|\RV{X}}$. On the other hand, if we want to take the product of $\kernel{K}$ with arbitary valid $\RV{X}$ probabilities, then the validity of $\kernel{K}$ is necessary (Theorem \ref{th:valid_conditional_probability}).
 
+\section{Decision problems}
+
+We want to construct models to help make decisions. For our purposes, ``making a decision'' means we have some mathematically well-defined set $C$ of choices under consideration, and some means of comparing one choice to another that induces a partial order on choices. If we are trying to be precise with language, we might call this \emph{formal} decision making; people may often make decisions where it is difficult to identify a set $C$ of choices under consideration or a rule for inducing a partial order on it.
+
+A procedure for making formal decisions is, in a sense, the opposite of a measurement procedure. With measurement, we have some unclear process that interacts with the world and leaves us with a collection of mathematical objects. Formal decision making starts with a collection of mathematical objects -- a set of choices, a partial order and a tie-breaking rule which together imply a \emph{choice}, and then on the basis of this choice some unclear procedure takes place that has consequences in the world. If a measurement is a ``function'' whose domain is the world, a formal decision can be thought of as a ``function'' whose codomain is the world.
+
+We make the following assumptions about how choices are compared:
+\begin{itemize}
+    \item Each choice is associated with a probability set over some sample space $(\Omega,\sigalg{F})$; that is, we have a function $\prob{P}_{\cdot}:C\to \mathscr{P}(\Delta(\Omega))$
+ 	\item There is some method available for comparing the desirability of $\prob{P}_{\alpha}$ and $\prob{P}_{\alpha'}$ for all $\alpha,\alpha'\in C$. For example, we might have a utility function $u:\Omega\to \mathbb{R}$, and $|\prob{P}_{\alpha}|=1$ for all $\alpha\in C$; then we can compare $\prob{P}_{\alpha}$ with $\prob{P}_{\alpha'}$ using expected utility
+\end{itemize}
+
+We can represent $f$ with probability sets as follows:
+
+\begin{itemize}
+	\item There is a probability set $\prob{P}_\square$ representing ``properties that hold regardless of which choice is taken''
+	\item There is a collection of probability sets $\prob{P}_{\tilde{\alpha}}$ representing ``properties that hold just for the choice $\alpha$''
+	\item $\prob{P}_\alpha=\prob{P}_\square\cap\prob{P}_\tilde{\alpha}$
+\end{itemize}
+
+It is always possible to accomplish this in a trivial way: take $\prob{P}_\square\supset \cup_{\alpha\in C} \prob{P}_\alpha$ and $\prob{P}_\tilde{\alpha}=\prob{P}_\alpha$. However, there are sometimes simpler choices we can make for $\prob{P}_\square$ and the $\prob{P}_{\tilde{\alpha}}$s.
+
+\subsection{Example: conditional probability models}
+
+Suppose we have a model where the marginal probability of $\RV{X}$ depends on the choice $\alpha$, and the conditonal probability of $\RV{Y}|\RV{X}$ is the same regardless of the choice and aside from this, any probability distribution is considered possible. That is, for each $\alpha$, $\prob{P}_\alpha$ there exists $\prob{P}_\alpha^{\RV{XY}}=\prob{P}_\alpha^{\RV{X}}\odot\prob{P}_\square^{\RV{Y}|\RV{X}}$ for some $\prob{P}_\alpha^{\RV{X}}$ and some ($\alpha$-independent) $\prob{P}_\square^{\RV{Y}|\RV{X}}$, and $\prob{P}_\alpha$ is maximal with respect to $\prob{P}_\alpha^{\RV{XY}}$.
+
+We can represent this model with $\prob{P}_\square$ maximal with respect to $\prob{P}_\square^{\RV{Y}|\RV{X}}$ and each $\prob{P}_{\tilde{\alpha}}$ maximal with respect to $\prob{P}_\alpha^{\RV{X}}$. By Lemma \ref{th:intersection}, the probability set $\prob{P}_\alpha$ maximal with respect to $\prob{P}_\alpha^{\RV{XY}}$ is $\prob{P}_\alpha=\prob{P}_\square\cap \prob{P}_{\tilde{\alpha}}$.
+
+We call this a \emph{conditional probability model}. 
+
+\begin{definition}[Conditional probability model]
+Given $(\Omega,\sigalg{F})$, $\RV{Y}:\Omega\to Y$, $\RV{X}:\Omega\to X$, a $\RV{Y}|\RV{X}$ conditional probability model is a pair $(\prob{P}_\square, \{\prob{P}_\alpha\}_A)$ where $\prob{P}_\square$ maximal with respect to some valid $\prob{P}_\square^{\RV{Y}|\RV{X}}$ and $\{\prob{P}_\alpha\}_A=\{\prob{P}_\tilde{\alpha}|\alpha\in A\}$ is a collection of probability sets such that each $\prob{P}_\tilde{\alpha}$ is maximal with respect to some valid $\prob{P}_\tilde{\alpha}^{\RV{X}}$.
+\end{definition}
+
+A conditional probability model represents a situation where we can choose a marginal probability $\prob{P}_\tilde{\alpha}^{\RV{X}}$ and for all choices there is a fixed $\prob{P}_\square^{\RV{Y}|\RV{X}}$.
+
+In particular, conditional probability models can arise when the choice itself is modeled as a variable. That is, we have by assumption a procedure $\proc{C}$ that produces a choice from a countable collection $C$ according to some method for comparing their desirability, and we include in our model a variable $\RV{C}:\Omega\to C$ associated with $\proc{C}$. We will also let $\RV{Y}:\Omega\to Y$ be some other variable.
+
+Suppose that $\prob{P}_\alpha^{\RV{C}}$ exists and is equal to $\delta_{\alpha}$. This expresses the proposition that, if the decision procedure yields $\alpha$, then our model should always assign probabilty 1 to $\RV{C}\yields \alpha$.
+
+Suppose also that $\prob{P}_\alpha^{\RV{Y}}$ exists for all $\alpha$. That is, the marginal probability of $\RV{Y}$ is unique given any choice $\alpha$. 
+
+We have automatically the existence of $\prob{P}_\alpha^{\RV{CY}}$, given by $\prob{P}_\alpha^{\RV{CY}}(B\times D)=\delta_\alpha(B)\prob{P}_\alpha^{\RV{Y}}(D)$. We do need to assume that $\prob{P}_\alpha^{\RV{CY}}$ is valid; validity is violated if (for example) $\prob{P}_\alpha^{\RV{Y}}$ gives positive probability to some $D\in \sigalg{Y}$ such that $\RV{Y}^{-1}(D)\cap\RV{C}^{-1}(\alpha)=\emptyset$.
+
+Suppose finally that $\prob{P}_\alpha$ is maximal with respect to $\prob{P}_\alpha^{\RV{CY}}$. That is, there's nothing more to be said about the model beyond what we have said already.
+
+It follows that for all $\alpha$, $B\in \sigalg{F}$ $\prob{P}_\alpha^{\RV{Y}|\RV{C}}$ exists and $\prob{P}_\alpha^{\RV{Y}|\RV{C}}(B|\alpha)=\prob{P}^{\RV{Y}}_\alpha(B)$, and so $\alpha\mapsto \prob{P}^{\RV{Y}}_\alpha$ is a version of $\prob{P}_\alpha^{\RV{Y}|\RV{C}}$ for all $\alpha$.
+
+Thus $\prob{P}_\cdot$ can be represented by the conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{C}},\{\prob{P}^{\RV{C}}_\alpha\}_A)$.
 
 \subsection{Probability gap models}
 
-For reasoning about decisions, we don't just want a set of models that could explain what is going on. What we want is a function that maps choices to ``outcome'' probability models. In many cases, there might be features that all of the outcome models share -- for example, there might be some variables that are not affected by any choice, and so their marginal distribution is the same in every outcome model. There are also some other features that are entirely determined by the choice we make. For example, if there is a variable $\RV{D}:\Omega\to D$ representing the choice we make, then if we choose option $d\in D$ we must have $\prob{P}^{\RV{D}}(\{d\})=1$.
+For reasoning about decisions, a set of probability distributions . What we want is a function that maps choices to ``outcome'' probability models. In many cases, there might be features that all of the outcome models share -- for example, there might be some variables that are not affected by any choice, and so their marginal distribution is the same in every outcome model. There are also some other features that are entirely determined by the choice we make. For example, if there is a variable $\RV{D}:\Omega\to D$ representing the choice we make, then if we choose option $d\in D$ we must have $\prob{P}^{\RV{D}}(\{d\})=1$.
 
 Here, by ``property'', we mean marginal or conditional probabilities. We suppose that we are able to construct models such that ``properties common to all outcome models'' and ``properties determined by choices'' together represent everything we can say about the appropriate model for our decision problem. That is, we can define a probability set corresponding to all outcome models and, for each choice, a probability set corresponding to all models consistent with the things known to be fixed by that choice, and then the result of picking a certain choice is the intersection of the probability set for all outcome models and the probability set associated with that choice.
 

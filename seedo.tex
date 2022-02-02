@@ -1,30 +1,6 @@
 %!TEX root = main.tex
 
-\section{Decision problems}
 
-We want to construct models to help make decisions. For our purposes, ``making a decision'' means we have some mathematically well-defined set $A$ of choices under consideration, and some means of comparing one choice to another that induces a partial order on choices. If we are trying to be precise with language, we might call this \emph{formal} decision making; people may often make decisions where it is difficult to identify a set $A$ of choices under consideration or a rule for inducing a partial order on it.
-
-Formal decision making can be considered as a rough opposite of measurment. With measurement, we have some unclear process that interacts with the world and leaves us with a collection of mathematical objects. Formal decision making starts with a collection of mathematical objects -- a set of choices, a partial order and a tie-breaking rule which together imply a \emph{choice}, and then on the basis of this choice some unclear procedure takes place that has consequences in the world. If a measurement is a ``function'' whose domain is the world, a choice can be thought of as a ``function'' whose codomain is the world.
-
-We make the following assumptions about how choices are compared:
-\begin{itemize}
-    \item Each choice is associated with a probability set over some sample space $(\Omega,\sigalg{F})$; that is, we have which induces a function $C:A\to \mathscr{P}(\Delta(\Omega))$
-    \item There is a utility function $u:\Omega\to \mathbb{R}$
-    \item A choice $a_1$ is preferred to $a_2$ if $\mathbb{E}_{f}[u]\geq \mathbb{E}_{g}[u]$ for all $f\in C(a_1)$ and all $g\in C(a_2)$
-\end{itemize}
-
-This setup induces a probability gap model in the following way:
-
-\begin{itemize}
-    \item Define $\prob{P}_{\{\}}:=\cup_{a\in A} C(a)$
-    \item For each $a\in A$, define $\prob{P}_a$ such that $\prob{P}_a\cap \prob{P}_{\{\}}= C(a)$
-\end{itemize}
-
-$\prob{P}_{\{\}}$ is a probability set representing everything that is common to all possible choices, while for each $a$ there is a $\prob{P}_a$ such that $\prob{P}_{\{\}} \cap \prob{P}_a=C(a)$. Note that $\prob{P}_a$ must be a subset of $C(a)\cup \prob{P}_{\{\}}^C$ containing $C(a)$.
-
-A particularly simple model of this variety is a \emph{conditional probability model}. Recalling Definition \ref{def:cprob_model}, this is a model where $\prob{P}_{\{\}}$ is defined by $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ for some $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and each $\alpha$ is defined by $\prob{P}_\alpha^{\RV{X}}$. We could further consider $\RV{X}$ to be associated with a measurement procedure $\proc{A}$ that reports the choice we end up making, and $\RV{Y}$ to be the identity function on $\Omega$. Then we have a conditional probability model where $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}=C$.
-
-In conditional models, we can think of the choice $\alpha$ sets the distribution of $\RV{X}$ in a known way, and expectations of $\RV{Y}$ are set in response to this according to $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$.
 
 \subsection{Is this the right way to represent decision problems?}
 
