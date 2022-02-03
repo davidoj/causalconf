@@ -310,7 +310,7 @@ We make the following assumptions about how choices are compared:
  	\item There is some method available for comparing the desirability of $\prob{P}_{\alpha}$ and $\prob{P}_{\alpha'}$ for all $\alpha,\alpha'\in C$. For example, we might have a utility function $u:\Omega\to \mathbb{R}$, and $|\prob{P}_{\alpha}|=1$ for all $\alpha\in C$; then we can compare $\prob{P}_{\alpha}$ with $\prob{P}_{\alpha'}$ using expected utility
 \end{itemize}
 
-We can represent $f$ with probability sets as follows:
+We can represent such a model $\prob{P}_{\cdot}$ with probability sets. There are many different ways to do this, but the general scheme is as follows:
 
 \begin{itemize}
 	\item There is a probability set $\prob{P}_\square$ representing ``properties that hold regardless of which choice is taken''
@@ -318,23 +318,23 @@ We can represent $f$ with probability sets as follows:
 	\item $\prob{P}_\alpha=\prob{P}_\square\cap\prob{P}_\tilde{\alpha}$
 \end{itemize}
 
-It is always possible to accomplish this in a trivial way: take $\prob{P}_\square\supset \cup_{\alpha\in C} \prob{P}_\alpha$ and $\prob{P}_\tilde{\alpha}=\prob{P}_\alpha$. However, there are sometimes simpler choices we can make for $\prob{P}_\square$ and the $\prob{P}_{\tilde{\alpha}}$s.
+It is always possible to accomplish this: take $\prob{P}_\square\supset \cup_{\alpha\in C} \prob{P}_\alpha$ and $\prob{P}_\tilde{\alpha}=\prob{P}_\alpha$. However, we might be motivated to make different choices for $\prob{P}_\square$ and the $\prob{P}_{\tilde{\alpha}}$s.
+
+
 
 \subsection{Example: conditional probability models}
 
-Suppose we have a model where the marginal probability of $\RV{X}$ depends on the choice $\alpha$, and the conditonal probability of $\RV{Y}|\RV{X}$ is the same regardless of the choice and aside from this, any probability distribution is considered possible. That is, for each $\alpha$, $\prob{P}_\alpha$ there exists $\prob{P}_\alpha^{\RV{XY}}=\prob{P}_\alpha^{\RV{X}}\odot\prob{P}_\square^{\RV{Y}|\RV{X}}$ for some $\prob{P}_\alpha^{\RV{X}}$ and some ($\alpha$-independent) $\prob{P}_\square^{\RV{Y}|\RV{X}}$, and $\prob{P}_\alpha$ is maximal with respect to $\prob{P}_\alpha^{\RV{XY}}$.
+Suppose we have a model where the marginal probability of $\RV{X}$ depends on the choice $\alpha$, and the conditonal probability of $\RV{Y}|\RV{X}$ is the same regardless of the choice and aside from this, any probability distribution is considered possible. That is, for each $\alpha$, there exists $\prob{P}_\alpha^{\RV{XY}}=\prob{P}_\alpha^{\RV{X}}\odot\prob{P}_\square^{\RV{Y}|\RV{X}}$ for some $\prob{P}_\alpha^{\RV{X}}$ and some ($\alpha$-independent) $\prob{P}_\square^{\RV{Y}|\RV{X}}$, and $\prob{P}_\alpha$ is maximal with respect to $\prob{P}_\alpha^{\RV{XY}}$.
 
-We can represent this model with $\prob{P}_\square$ maximal with respect to $\prob{P}_\square^{\RV{Y}|\RV{X}}$ and each $\prob{P}_{\tilde{\alpha}}$ maximal with respect to $\prob{P}_\alpha^{\RV{X}}$. By Lemma \ref{th:intersection}, the probability set $\prob{P}_\alpha$ maximal with respect to $\prob{P}_\alpha^{\RV{XY}}$ is $\prob{P}_\alpha=\prob{P}_\square\cap \prob{P}_{\tilde{\alpha}}$.
+We can represent this model with a pair $(\prob{P}_\square, \{\prob{P}_\alpha\}_A)$ where $\prob{P}_\square$ is maximal with respect to $\prob{P}_\square^{\RV{Y}|\RV{X}}$ and each $\prob{P}_{\tilde{\alpha}}$ is maximal with respect to $\prob{P}_\alpha^{\RV{X}}$. By Lemma \ref{th:intersection}, the probability set $\prob{P}_\alpha=\prob{P}_\square\cap \prob{P}_{\tilde{\alpha}}$ is maximal with respect to $\prob{P}_\alpha^{\RV{XY}}:=\prob{P}_\alpha^{\RV{X}}\odot\prob{P}_\square^{\RV{Y}|\RV{X}}$.
 
-We call this a \emph{conditional probability model}. 
+We call this a \emph{conditional probability model}.
 
 \begin{definition}[Conditional probability model]
 Given $(\Omega,\sigalg{F})$, $\RV{Y}:\Omega\to Y$, $\RV{X}:\Omega\to X$, a $\RV{Y}|\RV{X}$ conditional probability model is a pair $(\prob{P}_\square, \{\prob{P}_\alpha\}_A)$ where $\prob{P}_\square$ maximal with respect to some valid $\prob{P}_\square^{\RV{Y}|\RV{X}}$ and $\{\prob{P}_\alpha\}_A=\{\prob{P}_\tilde{\alpha}|\alpha\in A\}$ is a collection of probability sets such that each $\prob{P}_\tilde{\alpha}$ is maximal with respect to some valid $\prob{P}_\tilde{\alpha}^{\RV{X}}$.
 \end{definition}
 
-A conditional probability model represents a situation where we can choose a marginal probability $\prob{P}_\tilde{\alpha}^{\RV{X}}$ and for all choices there is a fixed $\prob{P}_\square^{\RV{Y}|\RV{X}}$.
-
-In particular, conditional probability models can arise when the choice itself is modeled as a variable. That is, we have by assumption a procedure $\proc{C}$ that produces a choice from a countable collection $C$ according to some method for comparing their desirability, and we include in our model a variable $\RV{C}:\Omega\to C$ associated with $\proc{C}$. We will also let $\RV{Y}:\Omega\to Y$ be some other variable.
+Conditional probability models arise when the choice itself is modeled as a variable, and for each choice there is a unique marginal probability for an outcome variable of interest. That is, we have by assumption a procedure $\proc{C}$ that produces a choice from a countable collection $C$ according to some method for comparing their desirability, and we include in our model a variable $\RV{C}:\Omega\to C$ associated with $\proc{C}$. We will also let $\RV{Y}:\Omega\to Y$ be a variable representing outcomes of interest.
 
 Suppose that $\prob{P}_\alpha^{\RV{C}}$ exists and is equal to $\delta_{\alpha}$. This expresses the proposition that, if the decision procedure yields $\alpha$, then our model should always assign probabilty 1 to $\RV{C}\yields \alpha$.
 
