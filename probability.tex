@@ -314,13 +314,23 @@ We can represent such a model $\prob{P}_{\cdot}$ with probability sets. There ar
 
 \begin{itemize}
 	\item There is a probability set $\prob{P}_\square$ representing ``properties that hold regardless of which choice is taken''
-	\item There is a collection of probability sets $\prob{P}_{\tilde{\alpha}}$ representing ``properties that hold just for the choice $\alpha$''
+	\item There is a collection of probability sets $\{\prob{P}_{\tilde{\alpha}}\}_A$ representing ``properties that hold just for the choice $\alpha$''
 	\item $\prob{P}_\alpha=\prob{P}_\square\cap\prob{P}_\tilde{\alpha}$
 \end{itemize}
 
 It is always possible to accomplish this: take $\prob{P}_\square\supset \cup_{\alpha\in C} \prob{P}_\alpha$ and $\prob{P}_\tilde{\alpha}=\prob{P}_\alpha$. However, we might be motivated to make different choices for $\prob{P}_\square$ and the $\prob{P}_{\tilde{\alpha}}$s.
 
+The probability set representation allows us to make use of universal conditional probabilities and universal conditional independence to reason about decision problem models. By construction $\prob{P}_\alpha\subset \prob{P}_\square$ for all $\alpha$, any universal conditional independence that holds for $\prob{P}_\square$ holds for all $\prob{P}_\alpha$ as well, and similarly any universal conditional probability with respect to $\prob{P}_\square$ is also a universal conditional probability for all $\prob{P}_\alpha$.
 
+We call this general scheme a \emph{probability gap model}. A probability gap model specifies some universal behaviour via $\prob{P}_\square$, but this specification is incomplete; it has some gaps. We then have a selection of probability sets $\{\prob{P}_{\tilde{\alpha}}\}_A$ that specify choice-specific behaviour; this set represents different ways to fill the gap.
+
+\begin{definition}[Probability gap model]
+Given $(\Omega,\sigalg{F})$, a probability gap model is a pair $(\prob{P}_\square,\{\prob{P}_{\tilde{\alpha}}\}_A)$ where $\prob{P}_\square$ is a probability set and $\{\prob{P}_{\tilde{\alpha}}\}_A$ is a collection of probability sets. A probability gap model induces a map $\prob{P}_\cdot:A\to \mathscr{P}(\Delta(\Omega))$ by
+\begin{align}
+	\prob{P}_\alpha&:=\prob{P}_\cdot(\alpha)\\
+	&= \prob{P}_\square\cap \prob{P}_{\tilde{\alpha}}
+\end{align}
+\end{definition}
 
 \subsection{Example: conditional probability models}
 
