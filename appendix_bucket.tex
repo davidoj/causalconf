@@ -178,18 +178,19 @@ This is also found in \citet{ershov_extension_1975}, but is simple enough to rep
 \end{proof}
 
 
-\begin{lemma}[Semidirect product is an intersection of probability sets]\label{th:intersection}
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to (X,\sigalg{X})$, $\RV{Y}:\Omega\to (Y,\sigalg{Y})$, $\RV{Z}:\Omega\to (Z,\sigalg{Z})$ all standard measurable and valid candidate conditionals $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}$ defining probability sets $\prob{P}_{\{\}}$ and $\prob{Q}_{\{\}}$, then the probability set $\prob{R}_{\{\}}$ defined by $\prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}:=\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}$ is equal to $\prob{P}_{\{\}}\cap\prob{Q}_{\{\}}$.
+\begin{lemma}[Semidirect product defines an intersection of probability sets]\label{th:intersection}
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to (X,\sigalg{X})$, $\RV{Y}:\Omega\to (Y,\sigalg{Y})$, $\RV{Z}:\Omega\to (Z,\sigalg{Z})$ all standard measurable and maximal probability sets $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}[M]}$ and $\prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}[M]}$ then defining
+\begin{align}
+    \prob{R}_{\{\}}^{\RV{YZ}|\RV{X}} := \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}
+\end{align}
+we have
+\begin{align}
+    \prob{R}_{\{\}}^{\RV{YZ}|\RV{X}[M]} &= \prob{P}_{\{\}}^{\RV{Y}|\RV{X}[M]}\cap \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}[M]}
+\end{align}
 \end{lemma}
 
 \begin{proof}
-By assumption
-
-\begin{align}
-    \prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}:=\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}
-\end{align}
-
-Therefore for any $\prob{R}_a\in\prob{R}_{\{\}}$
+For any $\prob{R}_a\in\prob{R}_{\{\}}$
 
 \begin{align}
     \prob{R}_{a}^{\RV{XYZ}} &= \prob{R}_a^{\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}\\

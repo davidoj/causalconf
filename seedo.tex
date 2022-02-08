@@ -1,46 +1,132 @@
 %!TEX root = main.tex
 
 
+\section{Decision problems}
 
-\subsection{Is this the right way to represent decision problems?}
+We want to construct models to help make decisions. For our purposes, ``making a decision'' means we have some mathematically well-defined set $C$ of choices under consideration, and some means of comparing one choice to another that induces a partial order on choices. If we are trying to be precise with language, we might call this \emph{formal} decision making; people may often make decisions where it is difficult to identify a set $C$ of choices under consideration or a rule for inducing a partial order on it.
 
-Probabilistic models combined with the principle of expected utility have a long history of being used to represent and reason about decision problems. We might ask: while this choice is conventional, how confident are we that it is the right choice for any given problem? One difficulty with the formalism above is that many practical causal investigations seem to involve decision problems where the set of choices $A$ is somewhat vague, which we explain in the following section.
+A procedure for making formal decisions is, in a sense, the opposite of a measurement procedure. With measurement, we have some unclear process that interacts with the world and leaves us with a collection of mathematical objects. Formal decision making starts with a collection of mathematical objects -- a set of choices, a partial order and a tie-breaking rule which together imply a \emph{choice}, and then on the basis of this choice some unclear procedure takes place that has consequences in the world. If a measurement is a ``function'' whose domain is the world, a formal decision can be thought of as a ``function'' whose codomain is the world.
 
-There is a large literature in decision theory that aims to address the question of the ``right way'' to represent decision problems by posing abstract conditions that we feel decision models ought to respect, and then proving representation theorems showing that all decision problems can be represented as, for example, probability distributions over functions from choices to outcomes. Notable examples are the theorems of \citet{ramsey_truth_2016} and \citet{savage_foundations_1954} (held to be equivalent), and the theorem of \citet{bolker_functions_1966,jeffrey_logic_1990}. Whether probability gap models can be identified with a Savage or Jeffrey style models of a decision problem is a question that we leave open.
-
-There is also a literature that considers the use of probability sets rather than probability distributions as a tool for representing uncertainty under the name of ``imprecise probability'' \citet{bradley_imprecise_2019,walley_statistical_1991}. Probability sets, it is argued, can be used to represent an epistemic state of witholding judgement on certain propositions and it is useful to be able to represent this in addition to the epistemic state of being indifferent to the truth or falsehood of a proposition. We build our theory on probability sets, so we think it is likely (but we do not show) that imprecise probability can naturally be incorporated as a representation of uncertainty. Speculatively, a decision maker may have some reason to withold judgement regarding which choice they are likely to make while deliberating about which choice is the most desirable, and this might be why we find probability sets to be useful tools for modelling decision problems.
-
-\subsubsection{Causal investigations involve decision problems with ill-defined choices}
-
-While causal investigations are often concerned with helping someone to make better decisions, the kind of ``decision making process'' associated with them is not necessarily well modeled by the setup above. Often the identity of the decision maker and the exact choices at hand are vague. Consider \citet{banerjee_mainstreaming_2016}: a large scale experiment was conducted trialling a number of different strategies all aiming to increase the amount of learning level appropriate instruction available to students in four Indian states. It is not clear who, exactly, is going to make a decision on the basis of this information, but one can guess:
-
+We make the following assumptions about how choices are compared:
 \begin{itemize}
-    \item They're someone with interest in and authority to make large scale changes to a school system
-    \item They consider the evidence of effectiveness of teaching at the right level relevant to their situation
-    \item They consider the evidence regarding which strategies work to implement this approach relevant to their situation
+    \item Each choice is associated with a probability set over some sample space $(\Omega,\sigalg{F})$; that is, we have a function $f:C\to \mathscr{P}(\Delta(\Omega))$
+    \item There is some method available for comparing the desirability of $\prob{P}_{\alpha}$ and $\prob{P}_{\alpha'}$ for all $\alpha,\alpha'\in C$. For example, we might have a utility function $u:\Omega\to \mathbb{R}$, and $|\prob{P}_{\alpha}|=1$ for all $\alpha\in C$; then we can compare $\prob{P}_{\alpha}$ with $\prob{P}_{\alpha'}$ using expected utility
 \end{itemize}
 
-This could describe a writer who is considering what kind of advice they can provide in a document, a grantmaker looking to direct funds, a policy maker trying to design policies with appropriate incentives a program manager trying to implement reforms or someone in a position we haven't thought of yet. All of these people have very different choices facing them, and to some extent it is desirable that this research is relevant to all of them.
+We can represent such a model $f$ with probability sets. There are many different ways to do this, but the general scheme is as follows:
 
-These situations are common in the field of causal inference and the question of how to formalise them may be worthy of study. However, we feel that it is appropriate at to begin with theory appropriate for the simpler situations where the available choices are known.
+\begin{itemize}
+    \item There is a probability set $\prob{P}_\square$ representing ``properties that hold regardless of which choice is taken''
+    \item There is a collection of probability sets $\{\prob{P}_{\tilde{\alpha}}\}_A$ representing ``properties that hold just for the choice $\alpha$''
+    \item $\prob{P}_\alpha=\prob{P}_\square\cap\prob{P}_\tilde{\alpha}$
+\end{itemize}
 
-\subsection{Other decision theoretic causal models}
+It is always possible to accomplish this: take $\prob{P}_\square\supset \cup_{\alpha\in C} \prob{P}_\alpha$ and $\prob{P}_\tilde{\alpha}=\prob{P}_\alpha$. However, we might be motivated to make different choices for $\prob{P}_\square$ and the $\prob{P}_{\tilde{\alpha}}$s.
 
-\citet{lattimore_causal_2019} and \citet{lattimore_replacing_2019} consider an observational probability model coupled to a collection of indexed interventional probability models, with the observational probability model coupled to the interventional models by shared (unobserved) parameters. In these papers, they show how such a model can reproduce inferences made using Causal Bayesian Networks. We can reproduce this general setup with a conditional probability model $(\prob{P}_{\{\}},A)$ defined by $\prob{P}_{\{\}}^{\RV{OCP}|\RV{X}}$ where $\RV{O}$ represents observations, $\RV{I}$ interventional consequences and $\prob{P}$ shared parameters, with the properties $\RV{P}\CI_{\prob{P}_{\{\}}} \RV{X}$, $\RV{O}\CI_{\prob{P}_{\{\}}} \RV{X}|\RV{P}$ and $\RV{C}\CI_{\prob{P}_{\{\}}} \RV{O}|\RV{X},\RV{P}$.
+The probability set representation allows us to make use of universal conditional probabilities and universal conditional independence to reason about decision problem models. By construction $\prob{P}_\alpha\subset \prob{P}_\square$ for all $\alpha$, any universal conditional independence that holds for $\prob{P}_\square$ holds for all $\prob{P}_\alpha$ as well, and similarly any universal conditional probability with respect to $\prob{P}_\square$ is also a universal conditional probability for all $\prob{P}_\alpha$.
 
-Note that we may well prefer to use a model in which the intervention $\RV{X}$ is chosen to depend on the observations $\RV{O}$ somehow. It's possible to represent this using probability gap models, but doing so is beyond the scope of this paper.
+We call this general scheme a \emph{probability gap model}. A probability gap model specifies some universal behaviour via $\prob{P}_\square$, but this specification is incomplete; it has some gaps. We then have a selection of probability sets $\{\prob{P}_{\tilde{\alpha}}\}_A$ that specify choice-specific behaviour; this set represents different ways to fill the gap.
 
-The approach to decision theoretic causal inference described by \citet{dawid_decision-theoretic_2020} is somewhat different to Rohde and Lattimore's:
+\begin{definition}[Probability gap model]
+Given $(\Omega,\sigalg{F})$, a probability gap model is a triple $(\prob{P}_\square,\{\prob{P}_{\tilde{\alpha}}\}_A,f)$ where $\prob{P}_\square$ is a probability set and $\{\prob{P}_{\tilde{\alpha}}\}_A$ is a collection of probability sets and $f:A\to \mathscr{P}(\Delta(\Omega))$ is the map
+\begin{align}
+    \prob{P}_\alpha&:=f(\alpha)\\
+    &= \prob{P}_\square\cap \prob{P}_{\tilde{\alpha}}
+\end{align}
+\end{definition}
 
-\begin{quote}
-A fundamental feature of the DT approach is its consideration of the relationships between the various probability distributions that govern different regimes of interest. As a very simple example, suppose that we have a binary treatment variable $\RV{T}$, and a response variable $\RV{Y}$. We consider three different regimes [...] the first two regimes may be described as interventional, and the last as observational.
-\end{quote}
+\subsection{Conditional probability models}
 
-The key difference is that Rohde and Lattimore's model employs different variables $\RV{O}$ and $\RV{C}$ to represent observations and interventional consequences, which allows us to write conditional independence statements like $\RV{C}\CI_{\prob{P}_{\{\}}} \RV{O}|\RV{X},\RV{P}$, while Dawid's approach uses the same variable $\RV{Y}$ to represent observations and interventional consequences, depending on the choice of regime. In this scheme there is no way we can see to express something like ``the observations are independent of the interventional consequences given the choice of intervention and the parameters''. If we require that the map from regimes to probability distributions is measurable (which can be trivially satisfied if the set of regimes is countable), then we can also model this approach using conditional probability models where the conditioning variable $\RV{X}$ corresponds to the regime indicator.
+A simple but interesting class of probability gap model is the \emph{conditional probability model}. Conditional probability models can be thought of as describing problems in which there is a variable $\RV{X}$ whose marginal probability can be chosen and a variable $\RV{Y}$ that responds in a fixed way to $\RV{X}$.
 
-\citet{heckerman_decision-theoretic_1995} also explore a decision theoretic approach to causal inference. Their approach represents a decision problem in terms of choices $\RV{D}$, outcome variables $\RV{U}$ and unobserved states of the world $\RV{S}$. Conditional on $\RV{S}$ and $\RV{D}$, they assume outcomes are deterministic. This is similar to the approach of Lattimore and Rohde, with the added requirement of deterministic outcomes (though see the next section) and no distinction between observations and outcomes of interventions (though one could always postulate that $\RV{U}$ is a pair of variables $(\RV{O},\RV{I})$ satisfying the independences in the Lattimore and Rohde model). Heckerman and Shachter's approach is based on Savage's decision theory.
+\begin{definition}[Conditional probability model]
+Given $(\Omega,\sigalg{F})$, $\RV{Y}:\Omega\to Y$, $\RV{X}:\Omega\to X$, a $\RV{Y}|\RV{X}$ conditional probability model is a probability gap model $(\prob{P}_\square^{\RV{Y}|\RV{X}[M]}, \{\prob{P}_{\alpha}^{\RV{X}[M]}\}_A,f)$.
+\end{definition}
 
-\subsection{Randomness pushback}\label{sec:curry}
+Conditional probability models arise when we have variables that represent the choice made, and each choice is associated with a \emph{unique} probability distribution over an outcome of interest.
+
+\begin{example}[Choice variable]
+Suppose we have a procedure $\proc{C}$ that compares the elements of a countable set $C$ and produces a choice according to some notion of the desirability of each one. Another procedure $\proc{Y}$ measures outcomes of interest. These are modelled with variables $\RV{C}:\Omega\to C$ and $\RV{Y}:\Omega\to Y$ respectively. Without loss of generality, we take $\Omega=C\times Y$ and $\RV{C}$ and $\RV{Y}$ are projections onto the matching sets.
+
+For each $\alpha\in C$, suppose that $\prob{P}_\alpha^{\RV{C}}$ exists and is equal to $\delta_{\alpha}$. This expresses the notion that, if the choice procedure actually yields $\alpha$, then the model should always assign probabilty 1 to $\RV{C}\yields \alpha$.
+
+Suppose also that $\prob{P}_\alpha^{\RV{Y}}$ exists for all $\alpha$. That is, the marginal probability of $\RV{Y}$ is unique given any choice $\alpha$. 
+
+We thus have a model $f:C\to \Delta(\Omega)$ given by $\alpha\mapsto \prob{P}_\alpha^{\RV{CY}}$ where
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{CY}}(B\times D)&= \delta_\alpha(B)\prob{P}_\alpha^{\RV{Y}}(D)
+\end{align}
+
+Validity of $\prob{P}_\alpha^{\RV{CY}}$ is guaranteed by the definitions of $\RV{C}$ and $\RV{Y}$ because $(\RV{C},\RV{Y})$ is surjective.
+
+We can implement $f$ with a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{C}[M]}, \{\prob{P}_\alpha^{\RV{C}[M]}\}_A,f)$ where $\prob{P}_\square^{\RV{Y}|\RV{C}}:=(D|\alpha)\mapsto \prob{P}_\alpha^{\RV{Y}}(D)$.
+
+Then
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{CY}} &= \prob{P}_\alpha^{\RV{C}}\odot \prob{P}_\square^{\RV{Y}|\RV{C}}
+\end{align}
+
+and so by Lemma \ref{th:intersection}
+
+\begin{align}
+    f(\alpha) = \prob{P}_\alpha\cap\prob{P}_\square
+\end{align}
+\end{example}
+
+\todo[inline]{find a home for the following remarks}
+
+If the conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and all the marginal probabilities $\prob{P}_\alpha^{\RV{X}}$ are valid, then by Lemma \ref{lem:valid_extendability} $\prob{P}_{\{\}}\cap\alpha \neq \emptyset$ for all $\alpha\in A$. Thus validity of all the individual parts is enough to ensure compatibility.
+
+We can define more complex probability gap models with a similar approach where, for example, the model is specified by an incomplete collection of conditional probabilities and the choices are each a complementary collection of conditional probabilities; we call such models \emph{probability comb models} after \citet{chiribella_quantum_2008,jacobs_causal_2019}, but we will not address them in this paper.
+
+\subsection{Example: invalidity}
+
+Body mass index is defined as a person's weight divided by the square of their height. Suppose we have a measurment process $\proc{S}=(\proc{W},\proc{H})$ and $\proc{B}=\frac{\proc{W}}{\proc{H}^2}$ - i.e. we figure out someone's body mass index first by measuring both their height and weight, and then passing the result through a function that divides the second by the square of the first. Thus, given the random variables $\RV{W},\RV{H}$ modelling $\proc{W},\proc{H}$, $\proc{B}$ is the function given by $\RV{B}=\frac{\RV{W}}{\RV{H}^2}$. Given $x\in \mathbb{R}$, consider the conditional probability
+\begin{align}
+    \nu^{\RV{B}|\RV{WH}} &= \tikzfig{invalid_BMI_model} \label{eq:bmi_example}
+\end{align}
+Then pick some $w,h\in\mathbb{R}$ such that $\frac{w}{h^2}\neq x$ and $(\RV{W},\RV{H})\yields (w,h)\neq \emptyset$ (our measurement procedure could possibly yield $(w,h)$ for a person's height and weight). We have $\nu^{\RV{B}|\RV{WH}}(x|w,h)=1$, but 
+\begin{align}
+    (\RV{B},\RV{W},\RV{H})\yields \{(x,w,h)\} &= \{\omega|(\RV{W},\RV{H})(\omega) = (w,h),\RV{B}(\omega) = \frac{w}{h^2}\}\\
+    &=\emptyset
+\end{align}
+so $\nu^{\RV{B}|\RV{WH}}$ is invalid, and there is some valid $\mu^{\RV{X}}$ such that the probability set $\prob{P}_{\{\}}$ with $\prob{P}_{\{\}}^{\RV{XY}} = \mu^{\RV{X}}\odot \nu^{\RV{Y}|\RV{X}}$ is empty.
+
+Validity rules out conditional probabilities like \ref{eq:bmi_example}. We guess that in many cases this condition may either be trivial or unconsiously taken into account when constructing conditional probabilities. However, if we are not cognizant of the conditional our model depends on, we may inadvertently propose a model that depends on invalid conditional probabilities. For example, the conditional probability \ref{eq:bmi_example} would be used to evaluate the causal effect of body mass index in the causal diagram found in \citet{shahar_association_2009}, presuming the author used the term ``causal effect'' to depend somehow on the function $x\mapsto P(\cdot|do(\RV{B}=x))$ as is the usual convention when discussing causal Bayesian networks.
+
+\todo[inline]{End find a home for the following remarks}
+
+\subsection{Response conditionals}
+
+Given any probability gap model $(\prob{P}_\square,\{\prob{P}_{\tilde{\alpha}}\}_A,f)$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, if we have a conditional probability $\prob{P}_\square^{\RV{Y}|\RV{X}}$, then this must be the conditional probability of $\RV{Y}$ given $\RV{X}$ for any $\alpha\in A$. It must therefore be the case that
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}} &= \prob{P}_\alpha^{\RV{X}}\prob{P}_\square^{\RV{Y}}&\forall \alpha\in A
+\end{align}
+
+If it is possible to control $\RV{X}$ to some extent (i.e. $\prob{P}_\alpha^{\RV{X}}\neq\prob{P}_{\alpha'}^{\RV{X}}$ for some $\alpha,\alpha'$), then $\prob{P}_\square^{\RV{Y}}$ tells us how $\prob{P}_\alpha^{\RV{X}}$ determines its effect on $\prob{P}_\alpha^{\RV{Y}}$. This feature motivates the name \emph{response conditional} for conditional probabilities of this type.
+
+The motivating question we introduced at the beginning of this paper was ``when are potential outcomes well-defined?''. This is not written using the potential outcomes framework, so we cannot directly address this question. However, we can ask ``when do probability gap models feature response conditionals?''.
+
+\subsection{Response conditionals and potential outcomes}\label{sec:curry}
+
+There is a connection between the question of when a particular conditional probability exists and when potential outcomes are wel-defined. Given any Markov kernel there is an operation akin to function currying termed ``randomness pushback'' that represents the kernel as the product of a probability measure and a deterministic Markov kernel. We observe that potential outcomes models share a number of features in common with a Markov kernel represented using a randomness pushback.
+
+Unlike function currying, there are many different randomness pushbacks that represent the same Markov kernel. The interpretation of potential outcomes models seems to require that exactly one of these possible pushbacks is a genuine potential outcomes model. Several works including \citet{dawid_causal_2000} and \citet{richardson2013single} have expressed the view that some of the degrees of freedom in potential outcomes models are superfluous; both propose that the degrees of freedom that can be tested using some idealised experiment are the degrees that should be kept.
+
+Notably, the single world intervention graphs of \citet{richardson2013single} feature an operation that splits an ``intervenable'' variable $\RV{X}$ into two versions, $\RV{X}$ and $\RV{X}'$, representing ``the actual $\RV{X}$'' and ``the unobseved value $\RV{X}$ would have taken absent intervention'' respectively (this interpretation is ours, not theirs). Thus Richardson and Robins might argue that they are interested in the existence of response conditionals of the form $\prob{P}_\square^{\RV{Y}|\RV{X}\RV{X}'}$ rather than $\prob{P}_{\square}^{\RV{Y}|\RV{X}}$. 
+
+We do not take a position on which degrees of freedom are good or bad in a typical potential outcomes model, nor do we explore conditionals of the form $\prob{P}^{\RV{Y}|\RV{X}\RV{X}'}$. We can, however, distinguish two different questions:
+
+\begin{itemize}
+    \item How are response conditionals represented?
+    \item Which response conditionals are of interest?
+\end{itemize}
+
+The first question seems to be an inconsequential stylistic matter, while the second question may determine the direction of one's analysis.
+
+\subsection{Randomness pushbacks}
 
 Given a function $f:X\times Y\to Z$, we can obtain a curried version $\lambda f:Y\to Z^X$. In particular, if $Y=\{*\}$ then $\lambda f:\{*\}\to Y^X$. At least for countable $X$, we can apply this construction to Markov kernels: given a kernel $\kernel{K}:X\kto Y$, define $\kernel{L}: \{*\}\kto Y^X$ by 
 \begin{align}
@@ -62,8 +148,6 @@ Unlike the case of function currying, $\lambda \kernel{K}$ is not the unique Mar
 \end{align}
 
 This representation of a Markov kernel is called a \emph{randomness pushback} by \citet{fritz_synthetic_2020}.
-
-\subsection{Connections to potential outcomes}
 
 Randomness pushbacks have a few features in common with potential outcomes causal models. For our purposes, we will say a potential outcomes model is a probability set $(\Omega,\sigalg{F},\prob{P}_{\{\}})$ along with variables $\RV{X}$, $\RV{Y}$, $\RV{Y}^X$ such that 
 
@@ -87,8 +171,34 @@ If we additionally have the existence of $\prob{P}_{\{\}}^{\RV{Y}^X|\RV{X}}$ and
 
 Equation \ref{eq:curry_identity_po} is clearly a version of \ref{eq:curry_identity}. As we have established, provided $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ exists, we can always introduce some variable $\RV{Y}^X$ and corresponding $\prob{P}_{\{\}}^{\RV{Y}^X}$ such that Equation \ref{eq:curry_identity_po} holds.
 
-The point that we want to make is that representing some conditional probability with a randomness pushback is not itself at all special - in fact, it's possible to do it with any conditional probability. We suspect that more important than questions about the choice of representation is the question: what is the conditional probability that is being represented? That is, what is the measurement procedure that gives us $\proc{X}$ and $\proc{Y}$ which we model with the random variables $\RV{X}$ and $\RV{Y}$?
+\subsubsection{Choices aren't always known}
 
-A similar view is expressed by \citet{dawid_causal_2000} and \citet{richardson2013single}, who both indicate that avoiding assumptions that cannot be tested by an ideal experiment is a desirable feature of a causal model. \citet{richardson2013single} consider models that make use of the potential outcomes approach that go beyond Equation \ref{eq:curry_identity_po}, but a Single World Intervention Graph (SWIG) fundamentally represents a collection of probability measures indexed by different values of a possible intervention. If we suppose that deterministically choosing an intervention $x$ yields the probability model corresponding to the $x$-indexed SWIG, and allow that we can have measurement procedures that give us intervention values (Section \label{sec:actions}), then such an indexed collection of probability models is a conditional probability -- namely, the probability of outcomes conditional on interventions.
+One area of potentail difficulty with our approach to formalising causal inference from the starting point of modelling decision problems is related to the issue of unknown choice sets. While causal investigations are often concerned with helping someone to make better decisions, the kind of ``decision making process'' associated with them is not necessarily well modeled by the setup above. Often the identity of the decision maker and the exact choices at hand are vague. Consider \citet{banerjee_mainstreaming_2016}: a large scale experiment was conducted trialling a number of different strategies all aiming to increase the amount of learning level appropriate instruction available to students in four Indian states. It is not clear who, exactly, is going to make a decision on the basis of this information, but one can guess:
 
-The question we want to ask is: in a setting where we can make choices that ``probabilistically determine $\RV{X}$'', when does a conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ exist?
+\begin{itemize}
+    \item They're someone with interest in and authority to make large scale changes to a school system
+    \item They consider the evidence of effectiveness of teaching at the right level relevant to their situation
+    \item They consider the evidence regarding which strategies work to implement this approach relevant to their situation
+\end{itemize}
+
+This could describe a writer who is considering what kind of advice they can provide in a document, a grantmaker looking to direct funds, a policy maker trying to design policies with appropriate incentives a program manager trying to implement reforms or someone in a position we haven't thought of yet. All of these people have very different choices facing them, and to some extent it is desirable that this research is relevant to all of them.
+
+These situations are common in the field of causal inference and the question of how to formalise them may be worthy of study. The situation of known choices that we focus on here is easier to study, and it may serve as an idealisation or a limiting case of situations where choices are unknown.
+
+\subsection{Other decision theoretic causal models}
+
+\citet{lattimore_causal_2019} and \citet{lattimore_replacing_2019} consider an observational probability model coupled to a collection of indexed interventional probability models, with the observational probability model coupled to the interventional models by shared (unobserved) parameters. In these papers, they show how such a model can reproduce inferences made using Causal Bayesian Networks. In our terms, Lattimore and Rohde's model family can be thought of as conditional probability models $(\prob{P}_\square^{\RV{OCH}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ where $\RV{D}$ represents the choice of intervention, $\RV{O}$ observations, $\RV{I}$ interventional consequences and $\prob{H}$ model parameters or hypotheses, with the properties $\RV{H}\CI_{\prob{P}_{\square}} \RV{D}$, $\RV{O}\CI_{\prob{P}_{\square}} \RV{D}|\RV{H}$ and $\RV{C}\CI_{\prob{P}_{\suqare}} \RV{O}|\RV{D},\RV{H}$.
+
+Note that we may well prefer to use a model in which the intervention $\RV{X}$ is chosen to depend on the observations $\RV{O}$ somehow. It's possible to represent this using probability gap models, but doing so is beyond the scope of this paper.
+
+The approach to decision theoretic causal inference described by \citet{dawid_decision-theoretic_2020} is somewhat different to Rohde and Lattimore's:
+
+\begin{quote}
+A fundamental feature of the DT approach is its consideration of the relationships between the various probability distributions that govern different regimes of interest. As a very simple example, suppose that we have a binary treatment variable $\RV{T}$, and a response variable $\RV{Y}$. We consider three different regimes [...] the first two regimes may be described as interventional, and the last as observational.
+\end{quote}
+
+The key difference is that Rohde and Lattimore's model employs different variables $\RV{O}$ and $\RV{C}$ to represent observations and interventional consequences, which allows us to write conditional independence statements like $\RV{C}\CI_{\prob{P}_{\{\}}} \RV{O}|\RV{D},\RV{H}$, while Dawid's approach uses the same variable $\RV{Y}$ to represent observations and interventional consequences, depending on the choice of regime. In this scheme there is no way we can see to express something like ``the observations are independent of the interventional consequences given the choice of intervention and the parameters''. 
+
+If we require that the map from regimes to probability distributions is measurable (which can be trivially satisfied if the set of regimes is countable), then we can also characterise Dawid's approach using a probability set $\prob{P}_{\{\}}^{\RV{TY}|\RV{F}_T[M]}$ where $\RV{F}_T$ represents the prevailing regime, and $\RV{T}$ and $\RV{Y}$ are as in the quote above. Note that we do not consider conditional probability models here, because it is not obvious how we should say $\RV{F}_T$ is distributed given any choice of intervention; for any choice of intervention, $\RV{F}_T$ will sometimes take th evalue ``observational'' and sometimes take a value corresponding to the chosen intervention. Moreover, it seems inappropriate to posit a sequence of independent and identically distributed copies of $\RV{F}_T$ because we are likely to know it advance exactly when it will and won't take on the observational value, and so we can't associate it with a unique marginal distribution.
+
+\citet{heckerman_decision-theoretic_1995} also explore a decision theoretic approach to causal inference. Their approach is based on the decision theory of \citet{savage_foundations_1954}, and represents a decision problem in terms of choices $\RV{D}$, outcome variables $\RV{U}$ and unobserved states of the world $\RV{S}$; each state of the world defines a deterministic map $\RV{D}\kto \RV{U}$ In comparison with the theory Lattimore and Rohde Heckerman and Schachter's comes with the added requirement of deterministic outcomes. It also features no built in distinction between observations and outcomes of interventions, though one could always consider models where $\RV{U}$ is in fact a pair of variables $(\RV{O},\RV{I})$ such that $\RV{O}$ satisfies the independences required of observations in the Lattimore and Rohde model.

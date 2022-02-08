@@ -289,122 +289,16 @@ Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{
 \end{definition}
 
 \begin{definition}[Maximal probability set]
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a $\RV{Y}|\RV{X}$-valid conditional probability $\prob{L}:X\kto Y$ the maximal probability set $\prob{P}_{\{\}}$ associated with $\prob{L}$ is the probability set such that for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$, $\prob{L}$ is a version of $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a $\RV{Y}|\RV{X}$-valid conditional probability $\prob{L}:X\kto Y$ the maximal probability set $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}[M]}$ associated with $\prob{L}$ is the probability set such that for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$, $\prob{L}$ is a version of $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
 \end{definition}
+
+We use the notation $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}[M]}$ as shorthand to refer to the probability set $\prob{P}_{\{\}}$ maximal with respect to $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$.
 
 Lemma \ref{lem:valid_extendability} shows that the semidirect product of any pair of valid conditoinal probabilities is itself a valid conditional. Suppose we have some collection of $\RV{X}_i|\RV{X}_{[i-1]}$-valid conditionals $\{\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}|i\in [n]\}$; then recursively taking the semidirect product $\kernel{M}:=\prob{P}_1^{\RV{X}_1}\odot (\prob{P}_2^{\RV{X}_2|\RV{X}_{1}}\odot ...)$ yields a $\RV{X}_{[n]}$ valid distribution. Furthermore, the maximal probability set associated with $\kernel{M}$ is nonempty.
 
 Collections of recursive conditional probabilities often arise in causal modelling -- in particular, they are the foundation of the structural equation modelling approach \citet{richardson2013single,pearl_causality:_2009}.
 
 Note that validity is not a necessary condition for a conditional to define a non-empty probability set. The intuition for this is: if we have some $\kernel{K}:X\kto Y$, $\kernel{K}$ might be an invalid $\RV{Y}|\RV{X}$ conditional on all of $X$, but might be valid on some subset of $X$, and so we might have some probability model $\prob{P}$ that assigns measure 0 to the bad parts of $X$ such that $\kernel{K}$ is a version of $\prob{P}^{\RV{Y}|\RV{X}}$. On the other hand, if we want to take the product of $\kernel{K}$ with arbitary valid $\RV{X}$ probabilities, then the validity of $\kernel{K}$ is necessary (Theorem \ref{th:valid_conditional_probability}).
-
-\section{Decision problems}
-
-We want to construct models to help make decisions. For our purposes, ``making a decision'' means we have some mathematically well-defined set $C$ of choices under consideration, and some means of comparing one choice to another that induces a partial order on choices. If we are trying to be precise with language, we might call this \emph{formal} decision making; people may often make decisions where it is difficult to identify a set $C$ of choices under consideration or a rule for inducing a partial order on it.
-
-A procedure for making formal decisions is, in a sense, the opposite of a measurement procedure. With measurement, we have some unclear process that interacts with the world and leaves us with a collection of mathematical objects. Formal decision making starts with a collection of mathematical objects -- a set of choices, a partial order and a tie-breaking rule which together imply a \emph{choice}, and then on the basis of this choice some unclear procedure takes place that has consequences in the world. If a measurement is a ``function'' whose domain is the world, a formal decision can be thought of as a ``function'' whose codomain is the world.
-
-We make the following assumptions about how choices are compared:
-\begin{itemize}
-    \item Each choice is associated with a probability set over some sample space $(\Omega,\sigalg{F})$; that is, we have a function $\prob{P}_{\cdot}:C\to \mathscr{P}(\Delta(\Omega))$
- 	\item There is some method available for comparing the desirability of $\prob{P}_{\alpha}$ and $\prob{P}_{\alpha'}$ for all $\alpha,\alpha'\in C$. For example, we might have a utility function $u:\Omega\to \mathbb{R}$, and $|\prob{P}_{\alpha}|=1$ for all $\alpha\in C$; then we can compare $\prob{P}_{\alpha}$ with $\prob{P}_{\alpha'}$ using expected utility
-\end{itemize}
-
-We can represent such a model $\prob{P}_{\cdot}$ with probability sets. There are many different ways to do this, but the general scheme is as follows:
-
-\begin{itemize}
-	\item There is a probability set $\prob{P}_\square$ representing ``properties that hold regardless of which choice is taken''
-	\item There is a collection of probability sets $\{\prob{P}_{\tilde{\alpha}}\}_A$ representing ``properties that hold just for the choice $\alpha$''
-	\item $\prob{P}_\alpha=\prob{P}_\square\cap\prob{P}_\tilde{\alpha}$
-\end{itemize}
-
-It is always possible to accomplish this: take $\prob{P}_\square\supset \cup_{\alpha\in C} \prob{P}_\alpha$ and $\prob{P}_\tilde{\alpha}=\prob{P}_\alpha$. However, we might be motivated to make different choices for $\prob{P}_\square$ and the $\prob{P}_{\tilde{\alpha}}$s.
-
-The probability set representation allows us to make use of universal conditional probabilities and universal conditional independence to reason about decision problem models. By construction $\prob{P}_\alpha\subset \prob{P}_\square$ for all $\alpha$, any universal conditional independence that holds for $\prob{P}_\square$ holds for all $\prob{P}_\alpha$ as well, and similarly any universal conditional probability with respect to $\prob{P}_\square$ is also a universal conditional probability for all $\prob{P}_\alpha$.
-
-We call this general scheme a \emph{probability gap model}. A probability gap model specifies some universal behaviour via $\prob{P}_\square$, but this specification is incomplete; it has some gaps. We then have a selection of probability sets $\{\prob{P}_{\tilde{\alpha}}\}_A$ that specify choice-specific behaviour; this set represents different ways to fill the gap.
-
-\begin{definition}[Probability gap model]
-Given $(\Omega,\sigalg{F})$, a probability gap model is a pair $(\prob{P}_\square,\{\prob{P}_{\tilde{\alpha}}\}_A)$ where $\prob{P}_\square$ is a probability set and $\{\prob{P}_{\tilde{\alpha}}\}_A$ is a collection of probability sets. A probability gap model induces a map $\prob{P}_\cdot:A\to \mathscr{P}(\Delta(\Omega))$ by
-\begin{align}
-	\prob{P}_\alpha&:=\prob{P}_\cdot(\alpha)\\
-	&= \prob{P}_\square\cap \prob{P}_{\tilde{\alpha}}
-\end{align}
-\end{definition}
-
-\subsection{Example: conditional probability models}
-
-Suppose we have a model where the marginal probability of $\RV{X}$ depends on the choice $\alpha$, and the conditonal probability of $\RV{Y}|\RV{X}$ is the same regardless of the choice and aside from this, any probability distribution is considered possible. That is, for each $\alpha$, there exists $\prob{P}_\alpha^{\RV{XY}}=\prob{P}_\alpha^{\RV{X}}\odot\prob{P}_\square^{\RV{Y}|\RV{X}}$ for some $\prob{P}_\alpha^{\RV{X}}$ and some ($\alpha$-independent) $\prob{P}_\square^{\RV{Y}|\RV{X}}$, and $\prob{P}_\alpha$ is maximal with respect to $\prob{P}_\alpha^{\RV{XY}}$.
-
-We can represent this model with a pair $(\prob{P}_\square, \{\prob{P}_\alpha\}_A)$ where $\prob{P}_\square$ is maximal with respect to $\prob{P}_\square^{\RV{Y}|\RV{X}}$ and each $\prob{P}_{\tilde{\alpha}}$ is maximal with respect to $\prob{P}_\alpha^{\RV{X}}$. By Lemma \ref{th:intersection}, the probability set $\prob{P}_\alpha=\prob{P}_\square\cap \prob{P}_{\tilde{\alpha}}$ is maximal with respect to $\prob{P}_\alpha^{\RV{XY}}:=\prob{P}_\alpha^{\RV{X}}\odot\prob{P}_\square^{\RV{Y}|\RV{X}}$.
-
-We call this a \emph{conditional probability model}.
-
-\begin{definition}[Conditional probability model]
-Given $(\Omega,\sigalg{F})$, $\RV{Y}:\Omega\to Y$, $\RV{X}:\Omega\to X$, a $\RV{Y}|\RV{X}$ conditional probability model is a pair $(\prob{P}_\square, \{\prob{P}_\alpha\}_A)$ where $\prob{P}_\square$ maximal with respect to some valid $\prob{P}_\square^{\RV{Y}|\RV{X}}$ and $\{\prob{P}_\alpha\}_A=\{\prob{P}_\tilde{\alpha}|\alpha\in A\}$ is a collection of probability sets such that each $\prob{P}_\tilde{\alpha}$ is maximal with respect to some valid $\prob{P}_\tilde{\alpha}^{\RV{X}}$.
-\end{definition}
-
-Conditional probability models arise when the choice itself is modeled as a variable, and for each choice there is a unique marginal probability for an outcome variable of interest. That is, we have by assumption a procedure $\proc{C}$ that produces a choice from a countable collection $C$ according to some method for comparing their desirability, and we include in our model a variable $\RV{C}:\Omega\to C$ associated with $\proc{C}$. We will also let $\RV{Y}:\Omega\to Y$ be a variable representing outcomes of interest.
-
-Suppose that $\prob{P}_\alpha^{\RV{C}}$ exists and is equal to $\delta_{\alpha}$. This expresses the proposition that, if the decision procedure yields $\alpha$, then our model should always assign probabilty 1 to $\RV{C}\yields \alpha$.
-
-Suppose also that $\prob{P}_\alpha^{\RV{Y}}$ exists for all $\alpha$. That is, the marginal probability of $\RV{Y}$ is unique given any choice $\alpha$. 
-
-We have automatically the existence of $\prob{P}_\alpha^{\RV{CY}}$, given by $\prob{P}_\alpha^{\RV{CY}}(B\times D)=\delta_\alpha(B)\prob{P}_\alpha^{\RV{Y}}(D)$. We do need to assume that $\prob{P}_\alpha^{\RV{CY}}$ is valid; validity is violated if (for example) $\prob{P}_\alpha^{\RV{Y}}$ gives positive probability to some $D\in \sigalg{Y}$ such that $\RV{Y}^{-1}(D)\cap\RV{C}^{-1}(\alpha)=\emptyset$.
-
-Suppose finally that $\prob{P}_\alpha$ is maximal with respect to $\prob{P}_\alpha^{\RV{CY}}$. That is, there's nothing more to be said about the model beyond what we have said already.
-
-It follows that for all $\alpha$, $B\in \sigalg{F}$ $\prob{P}_\alpha^{\RV{Y}|\RV{C}}$ exists and $\prob{P}_\alpha^{\RV{Y}|\RV{C}}(B|\alpha)=\prob{P}^{\RV{Y}}_\alpha(B)$, and so $\alpha\mapsto \prob{P}^{\RV{Y}}_\alpha$ is a version of $\prob{P}_\alpha^{\RV{Y}|\RV{C}}$ for all $\alpha$.
-
-Thus $\prob{P}_\cdot$ can be represented by the conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{C}},\{\prob{P}^{\RV{C}}_\alpha\}_A)$.
-
-\subsection{Probability gap models}
-
-For reasoning about decisions, a set of probability distributions . What we want is a function that maps choices to ``outcome'' probability models. In many cases, there might be features that all of the outcome models share -- for example, there might be some variables that are not affected by any choice, and so their marginal distribution is the same in every outcome model. There are also some other features that are entirely determined by the choice we make. For example, if there is a variable $\RV{D}:\Omega\to D$ representing the choice we make, then if we choose option $d\in D$ we must have $\prob{P}^{\RV{D}}(\{d\})=1$.
-
-Here, by ``property'', we mean marginal or conditional probabilities. We suppose that we are able to construct models such that ``properties common to all outcome models'' and ``properties determined by choices'' together represent everything we can say about the appropriate model for our decision problem. That is, we can define a probability set corresponding to all outcome models and, for each choice, a probability set corresponding to all models consistent with the things known to be fixed by that choice, and then the result of picking a certain choice is the intersection of the probability set for all outcome models and the probability set associated with that choice.
-
-We call this kind of map a \emph{probability gap model} (the terminology is from \citet{hajek_interpretations_2019}, though our meaning is a little different). The set of all outcome models represents most of our knowledge relevant to the outcome, but there's a gap -- it doesn't say which choice we will eventually make. The set of choices is the collection of different ways that the gap could be filled.
-
-We don't have an axiomatic justification for using probability gap models to reason about making decisions. There are two considerations motivating this choice: first, they allows us to recover standard representations of decision problems and standard kinds of causal models, and secondly the use of probability sets means that probability gap models are in many ways similar to ordinary probability models.
-
-\begin{itemize}
-	\item A fixed probability set $\prob{P}_{\{\}}\subset \Delta(\Omega)$ which we call the \emph{model}
-	\item A collection of probability sets $A\subset \Delta(\Omega)$ that we call \emph{choices}
-	\item A map $\prob{P}_\square: A\to \mathscr{P}(\Delta(\Omega))$ defined by $\prob{P}_\alpha:=\prob{P}_\square(\alpha)=\prob{P}_{\{\}}\cap\alpha$
-\end{itemize}
-
-We require that the choices are compatible with the model in the sense that $\prob{P}_{\{\}}\cap\alpha\neq \emptyset$ for all $\alpha\in A$. Here, we will limit our attention to a a particular type of probability gap model, where we define the probability set $\prob{P}_{\{\}}$ is defined by a conditional probability and each choice is defined by a marginal probability relative to the same variable.
-
-\begin{definition}[Conditional probability model]\label{def:cprob_model}
-A \emph{conditional probability model} $\prob{P}_\square$ is a probability gap model $(\prob{P}_{\{\}},A)$ where $\prob{P}_{\{\}}$ is the probability set defined by some $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and each $\alpha\in A$ is some probability set defined by an $\RV{X}$-valid marginal probability $\prob{P}_\alpha^{\RV{X}}$.
-\end{definition}
-
-We will compute the intersection $\prob{P}_\alpha$ between the model $\prob{P}_{\{\}}$ and a choice $\alpha\in A$ as the probability set $\prob{P}_{\alpha}$ defined by the joint probability distribution $\prob{P}_\alpha^{\RV{XY}}$:
-\begin{align}
-	\prob{P}_\alpha^{\RV{XY}} &= \alpha^{\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\label{eq:semidirect_intersection}
-\end{align}
-
-This is justified by Lemma \ref{th:intersection}, which says that the probability set defined by Equation \ref{eq:semidirect_intersection} is equivalent to the intersection of $\alpha$ and $\prob{P}_{\{\}}$.
-
-If the conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and all the marginal probabilities $\prob{P}_\alpha^{\RV{X}}$ are valid, then by Lemma \ref{lem:valid_extendability} $\prob{P}_{\{\}}\cap\alpha \neq \emptyset$ for all $\alpha\in A$. Thus validity of all the individual parts is enough to ensure compatibility.
-
-We can define more complex probability gap models with a similar approach where, for example, the model is specified by an incomplete collection of conditional probabilities and the choices are each a complementary collection of conditional probabilities; we call such models \emph{probability comb models} after \citet{chiribella_quantum_2008,jacobs_causal_2019}, but we will not address them in this paper.
-
-\subsection{Example: invalidity}
-
-Body mass index is defined as a person's weight divided by the square of their height. Suppose we have a measurment process $\proc{S}=(\proc{W},\proc{H})$ and $\proc{B}=\frac{\proc{W}}{\proc{H}^2}$ - i.e. we figure out someone's body mass index first by measuring both their height and weight, and then passing the result through a function that divides the second by the square of the first. Thus, given the random variables $\RV{W},\RV{H}$ modelling $\proc{W},\proc{H}$, $\proc{B}$ is the function given by $\RV{B}=\frac{\RV{W}}{\RV{H}^2}$. Given $x\in \mathbb{R}$, consider the conditional probability
-\begin{align}
-	\nu^{\RV{B}|\RV{WH}} &= \tikzfig{invalid_BMI_model} \label{eq:bmi_example}
-\end{align}
-Then pick some $w,h\in\mathbb{R}$ such that $\frac{w}{h^2}\neq x$ and $(\RV{W},\RV{H})\yields (w,h)\neq \emptyset$ (our measurement procedure could possibly yield $(w,h)$ for a person's height and weight). We have $\nu^{\RV{B}|\RV{WH}}(x|w,h)=1$, but 
-\begin{align}
-	(\RV{B},\RV{W},\RV{H})\yields \{(x,w,h)\} &= \{\omega|(\RV{W},\RV{H})(\omega) = (w,h),\RV{B}(\omega) = \frac{w}{h^2}\}\\
-	&=\emptyset
-\end{align}
-so $\nu^{\RV{B}|\RV{WH}}$ is invalid, and there is some valid $\mu^{\RV{X}}$ such that the probability set $\prob{P}_{\{\}}$ with $\prob{P}_{\{\}}^{\RV{XY}} = \mu^{\RV{X}}\odot \nu^{\RV{Y}|\RV{X}}$ is empty.
-
-Validity rules out conditional probabilities like \ref{eq:bmi_example}. We guess that in many cases this condition may either be trivial or unconsiously taken into account when constructing conditional probabilities. However, if we are not cognizant of the conditional our model depends on, we may inadvertently propose a model that depends on invalid conditional probabilities. For example, the conditional probability \ref{eq:bmi_example} would be used to evaluate the causal effect of body mass index in the causal diagram found in \citet{shahar_association_2009}, presuming the author used the term ``causal effect'' to depend somehow on the function $x\mapsto P(\cdot|do(\RV{B}=x))$ as is the usual convention when discussing causal Bayesian networks.
 
 \subsubsection{Conditional independence}\label{ssec:cond_indep}
 
