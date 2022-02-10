@@ -1,0 +1,34 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (0.75, 0.25) {$\prob{F}_{\text{ev},i}$};
+		\node [style=RLabel tikzit] (2) at (2.75, 0.25) {$\RV{Y}_i$};
+		\node [style=none] (3) at (0, 0.5) {};
+		\node [style=none] (4) at (0, 0) {};
+		\node [style=none] (6) at (-4.75, 3.25) {};
+		\node [style=none] (7) at (-4.75, -1.5) {};
+		\node [style=none] (8) at (3.75, -1.5) {};
+		\node [style=none] (9) at (3.75, 3.25) {};
+		\node [style=copymap tikzit] (10) at (-4.75, 0) {};
+		\node [style=none] (11) at (2, -0.75) {$i\in\mathbb{N}$};
+		\node [style=small kernel tikzit] (21) at (-2.25, 0) {$\Pi_{D,i}$};
+		\node [style=Llabel tikzit] (22) at (-6.5, 0) {$\RV{D}$};
+		\node [style=copymap tikzit] (23) at (-4.75, 2.25) {};
+		\node [style=small kernel tikzit] (24) at (-2.25, 1.25) {$\Pi_{Y^D,i}$};
+		\node [style=Llabel tikzit] (25) at (-6.25, 2.25) {$\RV{H}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0) to (2);
+		\draw (6.center) to (9.center);
+		\draw (7.center) to (8.center);
+		\draw (8.center) to (9.center);
+		\draw (10) to (7.center);
+		\draw (21) to (4.center);
+		\draw (10) to (21);
+		\draw (22) to (10);
+		\draw (6.center) to (23);
+		\draw (23) to (10);
+		\draw [in=-180, out=0] (23) to (24);
+		\draw [in=180, out=0] (24) to (3.center);
+		\draw (25) to (23);
+	\end{pgfonlayer}
+\end{tikzpicture}

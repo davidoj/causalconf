@@ -18,10 +18,10 @@ We can represent such a model $f$ with probability sets. There are many differen
 \begin{itemize}
     \item There is a probability set $\prob{P}_\square$ representing ``properties that hold regardless of which choice is taken''
     \item There is a collection of probability sets $\{\prob{P}_{\tilde{\alpha}}\}_A$ representing ``properties that hold just for the choice $\alpha$''
-    \item $\prob{P}_\alpha=\prob{P}_\square\cap\prob{P}_\tilde{\alpha}$
+    \item $\prob{P}_\alpha=\prob{P}_\square \cap \prob{P}_{\tilde{\alpha}}$
 \end{itemize}
 
-It is always possible to accomplish this: take $\prob{P}_\square\supset \cup_{\alpha\in C} \prob{P}_\alpha$ and $\prob{P}_\tilde{\alpha}=\prob{P}_\alpha$. However, we might be motivated to make different choices for $\prob{P}_\square$ and the $\prob{P}_{\tilde{\alpha}}$s.
+It is always possible to accomplish this: take $\prob{P}_\square\supset \cup_{\alpha\in C} \prob{P}_\alpha$ and $\prob{P}_{\tilde{\alpha}}=\prob{P}_\alpha$. However, we might be motivated to make different choices for $\prob{P}_\square$ and the $\prob{P}_{\tilde{\alpha}}$s.
 
 The probability set representation allows us to make use of universal conditional probabilities and universal conditional independence to reason about decision problem models. By construction $\prob{P}_\alpha\subset \prob{P}_\square$ for all $\alpha$, any universal conditional independence that holds for $\prob{P}_\square$ holds for all $\prob{P}_\alpha$ as well, and similarly any universal conditional probability with respect to $\prob{P}_\square$ is also a universal conditional probability for all $\prob{P}_\alpha$.
 
@@ -187,7 +187,7 @@ These situations are common in the field of causal inference and the question of
 
 \subsection{Other decision theoretic causal models}
 
-\citet{lattimore_causal_2019} and \citet{lattimore_replacing_2019} consider an observational probability model coupled to a collection of indexed interventional probability models, with the observational probability model coupled to the interventional models by shared (unobserved) parameters. In these papers, they show how such a model can reproduce inferences made using Causal Bayesian Networks. In our terms, Lattimore and Rohde's model family can be thought of as conditional probability models $(\prob{P}_\square^{\RV{OCH}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ where $\RV{D}$ represents the choice of intervention, $\RV{O}$ observations, $\RV{I}$ interventional consequences and $\prob{H}$ model parameters or hypotheses, with the properties $\RV{H}\CI_{\prob{P}_{\square}} \RV{D}$, $\RV{O}\CI_{\prob{P}_{\square}} \RV{D}|\RV{H}$ and $\RV{C}\CI_{\prob{P}_{\suqare}} \RV{O}|\RV{D},\RV{H}$.
+\citet{lattimore_causal_2019} and \citet{lattimore_replacing_2019} consider an observational probability model coupled to a collection of indexed interventional probability models, with the observational probability model coupled to the interventional models by shared (unobserved) parameters. In these papers, they show how such a model can reproduce inferences made using Causal Bayesian Networks. In our terms, Lattimore and Rohde's model family can be thought of as conditional probability models $(\prob{P}_\square^{\RV{OCH}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ where $\RV{D}$ represents the choice of intervention, $\RV{O}$ observations, $\RV{I}$ interventional consequences and $\prob{H}$ model parameters or hypotheses, with the properties $\RV{H}\CI_{\prob{P}_{\square}} \RV{D}$, $\RV{O}\CI_{\prob{P}_{\square}} \RV{D}|\RV{H}$ and $\RV{C}\CI_{\prob{P}_{\square}} \RV{O}|\RV{D},\RV{H}$.
 
 Note that we may well prefer to use a model in which the intervention $\RV{X}$ is chosen to depend on the observations $\RV{O}$ somehow. It's possible to represent this using probability gap models, but doing so is beyond the scope of this paper.
 

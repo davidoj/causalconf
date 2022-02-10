@@ -2,21 +2,23 @@
 
 \section{When do response conditionals exist?}
 
-The specific question we ask here is: given a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ where $\RV{D}=(\RV{D}_i)_{i\in M}$ and $\RV{Y}=(\RV{Y}_i)_{i\in M}$ where $M$ is some index set, when does there exist a response conditional $\prob{P}_\square^{\RV{Y}_0|\RV{D}_0}$ that explains how each $\RV{Y}_i$ responds to each $\RV{D}_i$; we call these \emph{repeatable response conditionals}. The reason why we consider a sequential problem is that in practice, causal inference almost always deals with observational data that is assumed to be appropriately modeled with a sequence of independent and identically distributed random variables. Furthermore, we can characterise precisely the kinds of models for which such response conditionals exist. Thus the sequential setting is both a theoretically tractable and widely appliccable starting point.
+The specific question we ask here is: given a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ where $\RV{D}=(\RV{D}_i)_{i\in M}$ are choice variables, $\RV{Y}=(\RV{Y}_i)_{i\in M}$ are outcome variables and $M$ is some index set, when does there exist a response conditional $\prob{P}_\square^{\RV{Y}_0|\RV{D}_0}$ that explains how each $\RV{Y}_i$ responds to each $\RV{D}_i$; we call these \emph{repeatable response conditionals}. The reason why we consider a sequential problem is that in practice, causal inference almost always deals with observational data that is assumed to be appropriately modeled with a sequence of independent and identically distributed random variables. Furthermore, we can characterise precisely the kinds of models for which such response conditionals exist. Thus the sequential setting is both a theoretically tractable and widely appliccable starting point.
 
 We examine this question from two points of view: firstly,  we aks \emph{what kind of conditional probability models exhibit repeatable response condtionals?} Secondly, we ask \emph{what kinds of experiments are these conditional probability models appropriate for?} In the course of answering the second question, we show that apparently subtle differences in the description of an experimental procedure can determine whether a particular experiment should or should not be modeled with repeatable response conditionals.
+
+We need to make strong assumptions about an experiment to establish the existence of repeatable response conditional in the first place, once we have repeatable response conditionals with respect to some pair of variables $(\RV{Y},\RV{D})$, response conditionals with respect to different pairs of variables may exist due to conditional independences in the original $\prob{P}_\square^{\RV{Y}_0|\RV{D}_0}$. These conditional independences can be tested for in the observed data.
 
 \subsection{Repeatable experiments}
 
 Our setup is a conditional probability model $(\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}},A)$ where $\RV{Y}:=\RV{Y}_M=(\RV{Y}_i)_{i\in M}$ and $\RV{D}:=\RV{D}_M=(\RV{D}_i)_{i\in M}$ for some index set $M$; we say such a model is a model of a \emph{sequential experiment}. We say that $\RV{Y}_i$ is the consequence corresponding to the decision $\RV{D}_i$ for all $i\in M$ (i.e. variables with matching indices correspond). We say that $\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}}$ features \emph{repeatable response conditionals} if there exists a hypothesis $\RV{H}$ such that $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{D}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{D}_j}$ for all $i,j\in M$, $\RV{H}\CI_{\prob{P}_\square} \RV{D}$ and $\RV{Y}_i\CI_{\prob{P}_{\square}} \RV{Y}_{M\setminus \{i\}} \RV{D}_{M\setminus \{i\}} |\RV{H}\RV{D}_i$. We remind the reader that in a conditional probability model, arbitrary conditional probabilities do not always exist, see Definition \ref{def:cprob_pset}.
 
-There are two assumptions relevant to the existence of repeatable response conditionals. The first is a condition of interchangability: in particular, \emph{permuting actions yields a permutation of outcomes}. We call this \emph{transparency to exchange} (or \emph{exchange transparency} for short); that is, we get the same result by permuting the outcomes after we observe them, or by permuting the actions we take and then observing the unpermuted outcomes. 
+There are two assumptions relevant to the existence of repeatable response conditionals. The first is a condition of interchangability: in particular, given a permutation of $M$, we get the same result from applying this permutation only to the set of actions we take, or from applying it only to the set of outcomes we observe. We call this \emph{exchange commutativity}.
 
-The second is a condition of \emph{no interference}; that is the assumption that $\RV{Y}_i$ is independent of $\RV{D}_j$ given $\RV{D}_i$ for any $j$. It is possible to have models in which transparency to exchange holds but no interference does not. Such a situation could arise in a model of stimulus payments to individuals in a nation; if exactly $n$ payments of \$10 000 are made, we might consider that it doesn't matter much exactly who receives the payments (this is a subtle question, though, we will return to it in more detail later). However, the amount of inflation induced depends on the number of payments; making 100 such payments will have a negligible effect on inflation, while making payments to everyone in the country is likely to have a substantial effect. \citet{dawid_causal_2000} discusses condition of \emph{post-treatment exchangeability} which is similarto exchange transparency, and there he gives the example of herd immunity in vaccination campaigns as a situation where post-treatment exchangeability holds but no interference does not.
+The second is a condition of \emph{locality of consequences}; that is the assumption that $\RV{Y}_i$ is independent of $\RV{D}_j$ given $\RV{D}_i$ for any $j$. It is possible to have models in which commutativity to exchange holds but locality of consequences does not. Such a situation could arise in a model of stimulus payments to individuals in a nation; if exactly $n$ payments of \$10 000 are made, we might consider that it doesn't matter much exactly who receives the payments (this is a subtle question, though, we will return to it in more detail later). However, the amount of inflation induced depends on the number of payments; making 100 such payments will have a negligible effect on inflation, while making payments to everyone in the country is likely to have a substantial effect. \citet{dawid_causal_2000} discusses condition of \emph{post-treatment exchangeability} which is similarto exchange commutativity, and there he gives the example of herd immunity in vaccination campaigns as a situation where post-treatment exchangeability holds but locality of consequences does not.
 
-As we have mentioned, exchange transparency is similar to the condition of \emph{post-treatment exchangeability} found in \citet{dawid_decision-theoretic_2020}.  Exchange transparency is also very similar to the exchangeability assumption of \citet{greenland_identifiability_1986}, and the assumption of exchangeability found in \citet{banerjee_chapter_2017}. However, in every case there is a subtle but important difference; exchange transparency concerns exchanges of actions and outcomes, while these other exchangeability conditions concern exchange of ``people'' or ``experimental units''. Exchangeability of the latter sometimes \emph{but does not always} imply exchange transparency, as we will discuss in more detail later.
+As we have mentioned, exchange commutativity is similar to the condition of \emph{post-treatment exchangeability} found in \citet{dawid_decision-theoretic_2020}.  Exchange commutativity is also very similar to the exchangeability assumption of \citet{greenland_identifiability_1986}, and the assumption of exchangeability found in \citet{banerjee_chapter_2017}. However, in every case there is a subtle but important difference; exchange commutativity concerns exchanges of actions and outcomes, while these other exchangeability conditions concern exchange of ``people'' or ``experimental units''. Swapping people and experimental units are actions in the real world, and so these symmetries have to be described as part of the measurement procedure, and can't be purely characterised as symmetries of a probabilistic model. On the other hand, swapping the orders of variables \emph{can} be described purely as a symmetry of a probabilistic model, as these swaps involve only function composition. As we will discuss in detail, exchangeability of experimental units does not always imply exchange commutativity.
 
-No interference is also similar to the stable unit treatment distribution assumption (SUTDA) in \citet{dawid_decision-theoretic_2020}. No interference is also related to the ``no interference'' part of the stable unit treatment value assumption (SUTVA), with which it shares a name. The stable unit treatment value assumption (SUTVA) is given as \citep{rubin_causal_2005}:
+Locality of consequences is similar to the stable unit treatment distribution assumption (SUTDA) in \citet{dawid_decision-theoretic_2020}. It is also related to the ``no interference'' part of the stable unit treatment value assumption (SUTVA). The stable unit treatment value assumption (SUTVA) is given as \citep{rubin_causal_2005}:
 
 \begin{blockquote}
 (SUTVA) comprises two subassumptions. First, it assumes that \emph{there is no interference between units (Cox 1958)}; that is, neither $Y_i(1)$ nor $Y_i(0)$ is affected by what action any other unit received. Second, it assumes that \emph{there are no hidden versions of treatments}; no matter how unit $i$ received treatment $1$, the outcome that would be observed would be $Y_i(1)$ and similarly for treatment $0$.
@@ -24,7 +26,7 @@ No interference is also similar to the stable unit treatment distribution assump
 
 \todo[inline]{Not sure if or where I want to put this, I just think it helps to illustrate the difference}
 
-Commutativity of exchange is not equivalent to exchangeability in the sense of De Finetti's well-known theorem \citet{de_finetti_foresight_1992}. The latter can be understood as expressing an indifference between conducting the experiment as normal, or conducting the experiment and then swapping some labels. However, swapping \emph{choices} will (usually) lead to different ``pieces of the experiment'' receiving different treatment, which is something that can't be achieved by swapping labels after the experiment has concluded.
+Exchange commutativity is not equivalent to exchangeability in the sense of De Finetti's well-known theorem \citet{de_finetti_foresight_1992}. The latter can be understood as expressing an indifference between conducting the experiment as normal, or conducting the experiment and then swapping some labels. However, swapping \emph{choices} will (usually) lead to different ``pieces of the experiment'' receiving different treatment, which is something that can't be achieved by swapping labels after the experiment has concluded.
 
 The difference is illustrated by the following pair of diagrams.
 
@@ -34,13 +36,11 @@ Exchangeability (swapping labels):
     \tikzfig{exchangeability}
 \end{align}
 
-Commutativity of exchange (swapping choices $\sim$ swapping labels):
+Exchange commutativity (swapping choices $\sim$ swapping labels):
 
 \begin{align}
-    \tikzfig{commutativity of exchange}
+    \tikzfig{commutativity_of_exchange}
 \end{align}
-
-Commutativity of exchange is a property of probability gap models, not a property of fixed probability model for which there is no analogue of ``attaching a different choice'' in that case.
 
 \todo[inline]{----end not sure where to put------}
 
@@ -96,44 +96,50 @@ Commutativity of exchange is a property of probability gap models, not a propert
 % \end{align}
 % as desired.
 % \end{proof}
-More precisely, a conditional probability model ``commutes with exchange'' if applying any finite permutation to blind choices or separately applying the corresponding permuation to consequences each yields the same result. We can apply the exchange ``before'' multiplying by the conditional $\prob{P}_{\square}^{\RV{Y}|\RV{D}}$ or after it and we get the same result.
+\subsection{Consequence contractibility}
+
+We offer formal definitions of exchange commutativity and locality of consequences, as well as ``consequence contractibility'', which is the conjunction of both conditions.
+
+A conditional probability model commutes with exchange if applying a permutation to the choice $\RV{D}_M$ ``before'' it is taken yields the same result as applying the corresponding permutation to $\RV{Y}_M$ ``after'' it is observed.
 
 \begin{definition}[Swap map]
 Given $M\subset \mathbb{N}$ a finite permutation $\rho:M\to M$ and a variable $\RV{X}:\Omega\to X^M$ such that $\RV{X}=(\RV{X}_i)_{i\in M}$, define the Markov kernel $\text{swap}_{\rho(\RV{X})}:X^M\kto X^M$ by $(d_i)_{i\in\mathbb{N}}\mapsto \delta_{(d_{\rho(i)})_{i\in\mathbb{N}}}$.
 \end{definition}
 
-\begin{definition}[Commutativity of exchange]\label{def:caus_exch}
-Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},A)$ with $\RV{Y}=\RV{Y}_M$, $\RV{D}=\RV{D}_M$, $M\subseteq \mathbb{N}$. If, for any two decision rules $\alpha^{\overline{\RV{D}}},\beta^{\overline{\RV{D}}} \in A$,
+\begin{definition}[Exchange commutativity]\label{def:caus_exch}
+Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ with $\RV{Y}:=\RV{Y}_M:=(\RV{Y}_i)_{M}$, $\RV{D}:=\RV{D}_M:=(\RV{D}_i)_M$, $M\subseteq \mathbb{N}$. If, for any decision rule $\alpha \in A$,
 \begin{align}
-    \alpha^{\RV{D}}\odot \text{swap}_{\rho(\RV{D})} \prob{P}_{\square}^{\RV{Y}|\RV{D}} &= \alpha^{\RV{D}}\odot \prob{P}_{\square}^{\RV{Y}|\RV{D}}\text{swap}_{\rho(\RV{Y})}
+    \prob{P}_{\tilde{\alpha}}^{\RV{D}}\odot \text{swap}_{\rho(\RV{D})} \prob{P}_{\square}^{\RV{Y}|\RV{D}} &= \prob{P}_{\tilde{\alpha}}^{\RV{D}}\odot \prob{P}_{\square}^{\RV{Y}|\RV{D}}\text{swap}_{\rho(\RV{Y})}
 \end{align}
-Then $\prob{P}_\square$ \emph{commutes with exchanges}.
+Then $\prob{P}_\square$ \emph{commutes with exchange}.
 \end{definition}
 
-A do model is non interfering if it gives identical results for identical subsequences of different choices when we limit our attention to the corresponding subsequences of consequences. For example, if we have $\RV{D}=(\RV{D}_1,\RV{D}_2,\RV{D}_3)$ and $\RV{Y}=(\RV{Y}_1,\RV{Y}_2,\RV{Y}_3)$ and $\alpha^{\RV{D}_1\RV{D}_3}=\prob{P}_\beta^{\RV{D}_1\RV{D}_3}$ then $\prob{P}_{\alpha}^{\RV{Y}_1\RV{D}_1\RV{Y}_3\RV{D}_3}=\prob{P}_\beta^{\RV{Y}_1\RV{D}_1\RV{Y}_3\RV{D}_3}$.
+A conditional probability model exhibits locality of consequences if, given two different choices that agree on an subsequence of indices, the model yields identical outcomes if we restrict our attention to the subsequence on which the different choices match. For example, if we have $\RV{D}=(\RV{D}_1,\RV{D}_2,\RV{D}_3)$ and $\RV{Y}=(\RV{Y}_1,\RV{Y}_2,\RV{Y}_3)$ and $\prob{P}_{\tilde{\alpha}}^{\RV{D}_1\RV{D}_3}=\prob{P}_{\tilde{\beta}}^{\RV{D}_1\RV{D}_3}$ then $\prob{P}_{\alpha}^{\RV{Y}_1\RV{D}_1\RV{Y}_3\RV{D}_3}=\prob{P}_\beta^{\RV{Y}_1\RV{D}_1\RV{Y}_3\RV{D}_3}$.
 
-\begin{definition}[Commutativity of marginalisation]\label{def:caus_cont}
-Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},A)$ with $\RV{Y}=\RV{Y}_M$, $\RV{D}=\RV{D}_M$, $M\subseteq \mathbb{N}$. For any $S=(s_i)_{i\in Q}$, $Q\subset M$, and $i<j\implies p_i<p_j \And q_i<q_j$, let $\RV{D}_S:=(\RV{D}_i)_{i\in S}$ and $\RV{D}_T:=(\RV{D}_i)_{i\in T}$. If for any $\alpha,\beta\in R$
+\begin{definition}[locality of consequences]\label{def:caus_cont}
+Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ with $\RV{Y}:=\RV{Y}_M:=(\RV{Y}_i)_{M}$, $\RV{D}:=\RV{D}_M:=(\RV{D}_i)_M$, $M\subseteq \mathbb{N}$. For any ordered sequence $S=(s_i)_{i\in Q}$ where $Q\subset M$ and $i<j\implies s_i<s_j$, let $\RV{D}_S:=(\RV{D}_i)_{i\in S}$ and $\RV{D}_T:=(\RV{D}_i)_{i\in T}$. If for any $\alpha,\beta\in R$
 \begin{align}
     \prob{P}_\alpha^{\RV{D}_{S}}&=\prob{P}_\beta^{\RV{D}_{S}}\\
     \implies \prob{P}_\alpha^{(\RV{D_i,Y_i})_{i\in S}}&=\prob{P}_\beta^{(\RV{D_i,Y_i})_{i\in S}}
 \end{align}
-then $\prob{P}_\square$ \emph{commutes with marginalisation}.
+then $\prob{P}_\square$ exhibits \emph{locality of consequences}.
 \end{definition}
 
 Neither condition implies the other. 
 \begin{lemma}
-Commutativity of exchange does not imply commutativity or vise versa.
+Exchange commutativity does not imply locality of consequences or vise versa.
 \end{lemma}
 
 \begin{proof}
-Suppose $D=Y=\{0,1\}$ and we have a conditional probability model $(\prob{P}_\square^{\overline{\RV{Y}|\RV{D}}},A)$ where $\RV{D}=(\RV{D}_1,\RV{D}_2)$, $\RV{Y}=(\RV{Y}_1,\RV{Y}_2)$ and A contains all deterministic probability measures in $\Delta(D^2)$. If
+A conditional probability model that exhibits exchange commutativity but some choices have non-local consequences:
+
+Suppose $D=Y=\{0,1\}$ and we have a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ where $\RV{D}=(\RV{D}_1,\RV{D}_2)$, $\RV{Y}=(\RV{Y}_1,\RV{Y}_2)$ and $A$ contains all deterministic probability measures in $\Delta(D^2)$. If
 
 \begin{align}
     \prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(y_1,y_2|d_1,d_2) &= \llbracket (y_1,y_2)= (d_1+d_2,d_1+d_2) \rrbracket
 \end{align}
 
-Then $\prob{P}_{\delta_{00}}^{\RV{Y}_1\RV{D}_1}(y_1) = \llbracket y_1=0\rrbracket$ while $\prob{P}_{\delta_{01}}^{\RV{Y}_1} = \llbracket y_1=1 \rrbracket$. However, $\delta_00^{\RV{D}_1}=\delta_{01}^{\RV{D}_1}=\delta_0^{\RV{D}_1}$ so $\prob{P}_\square$ does not commute with marginalisation. However, taking $(d_i,d_j):=\delta_{d_i d_j}\in A$,
+Then $\prob{P}_{\delta_{00}}^{\RV{Y}_1\RV{D}_1}(y_1) = \llbracket y_1=0\rrbracket$ while $\prob{P}_{\delta_{01}}^{\RV{Y}_1} = \llbracket y_1=1 \rrbracket$. However, $\delta_00^{\RV{D}_1}=\delta_{01}^{\RV{D}_1}=\delta_0^{\RV{D}_1}$ so $\prob{P}_\square$ exhibits non-local consequences. However, taking $(d_i,d_j):=\delta_{d_i d_j}\in A$,
 
 \begin{align}
     \prob{P}_{d_2,d_1}^{\RV{Y}_1\RV{D}_1\RV{Y}_2\RV{D}_2}(y_1,d_1,y_2,d_2) &= \llbracket (y_1,y_2)= (d_2+d_1,d_2+d_1) \rrbracket\\
@@ -143,33 +149,36 @@ Then $\prob{P}_{\delta_{00}}^{\RV{Y}_1\RV{D}_1}(y_1) = \llbracket y_1=0\rrbracke
 
 so $\prob{P}_\square$ commutes with exchange.
 
-Alternatively, suppose the same setup, but define $\prob{P}_\square$ instead by, for all $\alpha\in A$
+A conditional probability model that exhibits locality of consequences but does not commute with exchange:
 
+Alternatively, suppose the same setup, but define $\prob{P}_\square$ instead by
 \begin{align}
     \prob{P}_\square{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(y_1,y_2|d_1,d_2) &= \llbracket (y_1,y_2)= (0,1) \rrbracket
 \end{align}
+for all $\alpha\in A$.
 
-Then $\prob{P}_\square$ commutes with marginalisation. If $\prob{P}_\alpha^{\RV{D}_S}=\prob{P}_\beta^{\RV{D}_S}$ for $S\subset\{0,1\}$ then
-
+Then $\prob{P}_\square$ exhibits locality of consequences. If $\prob{P}_\alpha^{\RV{D}_S}=\prob{P}_\beta^{\RV{D}_S}$ for $S\subset\{0,1\}$ then:
 \begin{align}
     \prob{P}_{\alpha}^{\RV{Y}_S\RV{D}_S}(y_s,d_s) &= \sum_{y'_2\in \{0,1\}^{S^C}} \llbracket (y_1,y_2)= (0,1) \rrbracket\prob{P}_\alpha^{\RV{D}_S}(d_s) \\
                                                   &= \prob{P}_{\beta}^{\RV{Y}_S\RV{D}_S}(y_s,d_s)
 \end{align}
-but not exchange. For all $\alpha,\beta \in A$:
 
+However, $\prob{P}_\square$ does not commute with exchange. For all $\alpha,\beta \in A$:
 \begin{align}
     \prob{P}_\alpha{\RV{Y}_1\RV{Y}_2}(y_1,y_2) &= \llbracket (y_1,y_2)= (0,1) \rrbracket\\
     &\neq \prob{P}_\beta{\RV{Y}_1\RV{Y}_2}(y_2,y_1)
 \end{align}
 \end{proof}
 
-Although commutativity of marginalisation seems to be a bit like non-interference -- the marginal distribution I get for $\RV{Y}_i$ depends only on the decision $\RV{D}_i$ -- it still allows for some models in which we seem to have interference of a kind. For example: in the first experiment I flip a coin and decide either to pass the results to the second experiment ($\RV{D}_1=0$) or flip another coin and pass those results second experiment ($\RV{D}_1=1$). In the second I either copy the results I have been given ($\RV{D}_2=0$) or invert them ($\RV{D}_2=1$). Then
+Although locality of consequences has a lot in common with an assumption non-interference, it still allows for some models in which exhibit certain kinds of interference between actions and outcomes of different indices. For example: I have an experiment where I first flip a coin and record the results of this flip as the outcome of the first step of the experiment, but I can choose either to record this same outcome as the provisional result of the second step (this is the choice $\RV{D}_1=0$), or choose to flip a second coin and record the result of that as the provisional result of the second step of the experiment (this is the choice $\RV{D}_1=1$). At the second step, I may further choose to copy the provisional results ($\RV{D}_2=0$) or invert them ($\RV{D}_2=1$). Then
 \begin{itemize}
-    \item The marginal distribution of both experiments is $\text{Bernoulli}(0.5)$ no matter what choices I make, so it satisfies Definition \ref{def:caus_cont}
-    \item Nevertheless, the choice for the first experiment seems to ``affect'' the result of the second experiment (affect in quotes because it is an intuitive judgement, not a formal property)
+    \item The marginal distribution of both experiments in isolation is $\text{Bernoulli}(0.5)$ no matter what choices I make, so a model of this experiment would satisfies Definition \ref{def:caus_cont}
+    \item Nevertheless, the choice for the first experiment affects the result of the second experiment
 \end{itemize}
 
-Here we are most interested in the conjunction of these assumptions, a condition we call \emph{causal contractibility}
+Note that this example would not satisfy exchange commutativity.
+
+We call the conjunction of exchange commutativity and consequence locatlity \emph{causal contractibility}.
 
 \begin{definition}[Causal contractibility]
 A conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},A)$ is causally contractible if it is both commutative with exchange and commutative with marginalisation.
@@ -207,21 +216,21 @@ A conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},
 % The proof that the limit exists and the above equality holds can again be found int \citep{kallenberg_basic_2005}.
 % \end{proof}
 
-\subsection{Causal consequences exist if the model is causally contractible}
+\subsection{Repeatable consequence conditionals exist iff a model is causally contractible}
 
-The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. This can be interpreted as expressing the idea that all $(\RV{Y}_i,\RV{D}_i)$ pairs share a canonical but unknown ``consequence function'' $D\kto Y$. As discussed in Section \ref{sec:curry}, the existence of such a consequence function implies the existence of a common unknown curried consequence function. Curried consequence functions look very similar to potential outcomes models, but they don't necessarily support any counterfactual interpretation.
+The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. Note the hypothesis $\RV{H}$ that appears in this conditional; it can be given the interpretation of a random variable that expresses the ``true but initially unknown'' $\RV{Y}_1|\RV{D}_1$ conditional probability.
 
-\begin{lemma}[Exchangeable curried representation]\label{th:table_rep}
-A conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_\square$ is causally contractible if and only if
+\begin{lemma}[Exchangeable randomness pushback]\label{th:table_rep}
+A conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_\square$ is causally contractible if and only if there exists a column exchangeable probability distribution $\prob{P}^{\RV{Y}^D}$ such that
 \begin{align}
     \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
     &\iff\\
     \prob{P}_\square^{\RV{Y}|\RV{D}}(y|d) &= \prob{P}^{(\RV{Y}^D_{d_i i})_{\mathbb{N}}}(y)
 \end{align}
-Where $\prob{P}^{\RV{Y}^D}$ is an exchangeable probability measure on $Y^{D\times\mathbb{N}}$, for convenience we extend the sample space with the random variable $\RV{Y}^D:=(\RV{Y}_{ij}^D)_{i\in D,j\in \mathbb{N}}$ and $\prob{L}^{\RV{D},\RV{Y}^D}$ is the Markov kernel associated with the lookup function
+Where $\prob{F}_{\text{ev}}$ is the Markov kernel associated with the evaluation map
 \begin{align}
-    l:D^\mathbb{N}\times Y^{D\times \mathbb{N}}&\to Y\\
-    ((d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}})&\mapsto y_{d_i i}
+    \text{ev}:D^\mathbb{N}\times Y^{D\times \mathbb{N}}&\to Y\\
+    ((d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}})&\mapsto (y_{d_i i})_{i\in \mathbb{N}}
 \end{align}
 \end{lemma}
 
@@ -290,30 +299,94 @@ Let $\RV{Y}^{d_S}=(\RV{Y}_{d_i i})_{i\in S}$.
 By definition,
 
 \begin{align}
-    \prob{P}^{\RV{Y}_S|\RV{D}}(y_S|d) &= \sum_{y^D_S\in Y^{|D|\times |S|}}\prob{P}^{\RV{Y}^D_S}(y^D_S)\prob{L}^{\RV{D}_S,\RV{Y}^S}(y_S|d,y^D_S)\\
-    &= \sum_{y^D_S\in Y^{|D|\times |T|}}\prob{P}^{\RV{Y}^D_T}(y^D_S)\prob{L}^{\RV{D}_S,\RV{Y}^S}(y_S|d,y^D_S)&\text{ by contractibility of }\prob{P}^{\RV{Y}^D_T}\\
+    \prob{P}^{\RV{Y}_S|\RV{D}}(y_S|d) &= \sum_{y^D_S\in Y^{|D|\times |S|}}\prob{P}^{\RV{Y}^D_S}(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)\\
+    &= \sum_{y^D_S\in Y^{|D|\times |T|}}\prob{P}^{\RV{Y}^D_T}(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)&\text{ by contractibility of }\prob{P}^{\RV{Y}^D_T}\\
     &= \prob{P}^{\RV{Y}_T|\RV{D}}(y_S|d)
 \end{align}
 \end{proof}
 
-The curried representation of Lemma \ref{th:table_rep} does not need to support an interpretation as a distribution of potential outcomes. For example, consider a series of bets on fair coinflips -- in this case, the consequence $\RV{Y}_i$ is uniform on $\{0,1\}$ for any decision $\RV{D}_i$. Tha $D=Y=\{0,1\}$ and $\prob{P}_\alpha^{\RV{Y}_n}(y)=\prod_{i\in [n]} 0.5$ for all $n$, $y\in Y^n$, $\alpha\in R$. Then the construction in Lemma \ref{th:table_rep} yields $\prob{P}^{Y^D_i}(y^D_i)=\prod_{j\in D} 0.5$ for all $y^D_i\in Y^D$. That is, $\RV{Y}^0_i$ and $\RV{Y}^1_i$ are independent and uniformly distributed. However, if we wanted $\RV{Y}^0_i$ to represent ``what would happen if I bet on outcome 0 on turn $i$'' and $\RV{Y}^1$ to represent ``what would happen if I bet on outcome 1 on turn $i$'', then it seems that we ought to have $\RV{Y}^0_i = 1-\RV{Y}^1_i$. 
+As we pointed out, there are similarities between tabular distributions like $\prob{P}^{\RV{Y}^D}$ that appears in Lemma \ref{th:table_rep} and potential outcomes causal models. However, the $\prob{P}^{\RV{Y}^D}$ that appears in this lemma usually can't be interpreted as a distribution of potential outcomes. For example, consider a series of bets on fair coinflips. Model the consequence $\RV{Y}_i$ as uniform on $\{0,1\}$ for any decision $\RV{D}_i$, for all $i$. Specifically, $D=Y=\{0,1\}$ and $\prob{P}_\alpha^{\RV{Y}_n}(y)=\prod_{i\in [n]} 0.5$ for all $n$, $y\in Y^n$, $\alpha\in R$. Then the construction of $\prob{P}^{\RV{Y}^D}$ following the method in Lemma \ref{th:table_rep} yields $\prob{P}^{Y^D_i}(y^D_i)=\prod_{j\in D} 0.5$ for all $y^D_i\in Y^D$. In this model $\RV{Y}^0_i$ and $\RV{Y}^1_i$ are independent and uniformly distributed. However, if we wanted $\RV{Y}^0_i$ to be interpretable as ``what would happen if I bet on outcome 0 on turn $i$'' and $\RV{Y}^1$ to represent ``what would happen if I bet on outcome 1 on turn $i$'', then we ought to have $\RV{Y}^0_i = 1-\RV{Y}^1_i$. 
 
-We could suppose that Lemma \ref{th:table_rep} provides necessary but not sufficient conditions for the existence of a potential outcomes representation of a conditional probability model. However, it doesn't seem to succeed at that either. We note, for example, that \citet{rubin_causal_2005} does not assume that the distribution of potential outcomes is exchangeable. A non-exchangeable $\prob{P}^{\RV{Y}^D}$ does not induce a causally contractible conditional probability model, and at the same time commutativity with marginalisation is not sufficient for a conditional probability model to support a curried representation in the sense of Lemma \ref{th:table_rep}. What seems to be missing is an additional assumption that consequences are mutually independent of one another given the associated decision. 
+Lemma \ref{th:table_rep} also does not establish that causal contractibility is necessary for the existence of a potential outcomes. A counterexample is any potential outcomes model with potential outcomes $\RV{Z}^D$ where the distribution $\prob{P}^{\RV{Z}^D}$ is not column exchangeable. Such a model is not causally contractible.
 
-We can also represent contractible conditional probability models repeated copies of an unknown ``consequence function'', a Markov kernel that maps from decisions to probability distributions over consequences, coupled by a common hypothesis $\RV{H}$. 
+The tabular distribution $\prob{P}^{\RV{Y}^D}$ along with the evaluation function $\kernel{F}_{\text{ev}}$ is a randomness pushback of the conditional probability $\prob{P}^{\RV{Y}|\RV{D}}$. Because $\prob{P}^{\RV{Y}^D}$ is a column exchangeable probability distribution we can apply De Finetti's theorem to show $\prob{P}^{\RV{Y}^D}$ is representable as a product of identical parallel copies of $\prob{P}^{\RV{Y}_1^D|\RV{H}}$ and a common prior $\prob{P}^{\RV{H}}$. This in turn can be used to show that $\prob{P}_\square^{\RV{Y}|\RV{D}}$ can be represented as a product of identical parallel copies of $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$ and the same common prior $\prob{P}_\square^{\RV{H}}$. This is the main result: the copies of $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$ are the repeatable response conditionals.
 
 \begin{theorem}\label{th:iid_rep}
-Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. $\prob{P}$ is causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exists for all $i\in \mathbb{N}$ and
+Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_\square$ is causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exists for all $i\in \mathbb{N}$ and
 \begin{align}
     \prob{P}^{\RV{Y}|\RV{H}\RV{D}} &= \tikzfig{do_model_representation}\\
     &\iff\\
     \RV{Y}_i&\CI_{\prob{P}} \RV{Y}_{\mathbb{N}\setminus i},\RV{D}_{\mathbb{N}\setminus i}|\RV{H}\RV{D}_i&\forall i\in \mathbb{N}\\
     \land \prob{P}^{\RV{Y}_i|\RV{H}\RV{D}_i} &= \prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0} & \forall i\in \mathbb{N}
 \end{align}
+Where $\Pi_{D,i}:D^\mathbb{N}\kto D$ is the $i$th projection map.
 \end{theorem}
 
 \begin{proof}
-We make use of Lemma \ref{th:table_rep} to show that we can represent the conditional probability as an exchangeable tabular probability distribution. We then use the property of exchangeability of the columns of that distribution in conjunction with De Finetti's theorem to derive the result.
+We make use of Lemma \ref{th:table_rep} to show that we can represent the conditional probability $\prob{P}_\square^{\RV{Y}|\RV{D}}$ as
+\begin{align}
+        \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
+\end{align}
+
+As a preliminary, we will show
+\begin{align}
+    \kernel{F}_{\mathrm{ev}} &= \tikzfig{lookup_rep_intermediate}\label{eq:ev_alternate_rep}
+\end{align}
+
+Where $\Pi_{Y^D,i}:Y^{D\times\mathbb{N}}\kto Y^D$ is the $i$th column projection map on $\RV{Y}^{D\times \mathbb{N}}$ and $\mathrm{ev}_{Y^D\times D}:Y^D\times D\to Y$ is the evaluation function
+\begin{align}
+    ((y_i)_{i\in D},d)\mapsto y_d
+\end{align}
+
+Recall that $\mathrm{ev}$ is the function
+
+\begin{align}
+    ((d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}})&\mapsto (y_{d_i i})_{i\in \mathbb{N}}
+\end{align}
+
+By definition, for any $\{A_i\in\sigalg{Y}|i\in \mathbb{N}\}$
+
+\begin{align}
+    \kernel{F}_{\mathrm{ev}}(\prod_{i\in \mathbb{N}}A_i|(d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}}) &= \delta_{(y_{d_i i})_{i\in \mathbb{N}}}(\prod_{i\in \mathbb{N}}A_i)\\
+        &= \prod_{i\in \mathbb{N}} \delta_{y_{d_i i}} (A_i)\\
+        &= \mathrm{copy}^{\mathbb{N}}\prod_{i\in \mathbb{N}}( \Pi_{D,i}\otimes \Pi_{Y,i})\kernel{F}_{\mathrm{ev}_{Y^D\times D}}
+\end{align}
+
+Which is what we wanted to show.
+
+Only if:
+With $\prob{P}^{\RV{Y}^D}_\square$ column exchangeable. That is, letting $\RV{Y}^D=(\RV{Y}^D_i)_{i\in \mathbb{N}}$, the $\RV{Y}^D_i$ are exchangeable with respect to $\prob{P}^{\RV{Y}^D}_\square$. From \citet{kallenberg_basic_2005} we have a directing random measure $\RV{H}$ such that
+\begin{align}
+    \prob{P}_\square^{\RV{Y}^D|\RV{H}} &= \tikzfig{de_finetti_representation}\\
+    &\iff\\
+    \prob{P}_\square^{\RV{Y}^D|\RV{H}}(\prod_{i\in \mathbb{N}} A_i|h) &= \prod_{i\in \mathbb{N}} \prob{P}_\square^{\RV{Y}_0^D|\RV{H}}(A_i|h)
+\end{align}
+
+Furthermore, because $\RV{Y}$ is a deterministic function of $\RV{D}$ and $\RV{Y}^D$, $\RV{Y}\CI_{\prob{P}_\square} \RV{H}|(\RV{D},\RV{Y}^D)$ and by definition of $\RV{Y}^D$, $\RV{Y}^D\CI_{\prob{P}_\square}\RV{D}$ and so
+
+\begin{align}
+    \prob{P}_\square^{\RV{Y}|\RV{HD}} &= \prob{P}_\square^{\RV{Y}^D|\RV{HD}}\odot \prob{P}_\square^{\RV{Y}|\RV{Y}^D\RV{HD}}\\
+                                      &= \tikzfig{Y_pushback_factorisation}
+                                      &= \tikzfig{do_model_representation}
+\end{align}
+
+If:
+By assumption
+\begin{align}
+    \prob{P}_\square^{\RV{Y}|\RV{D}}(\prod_{i\in \mathbb{N}} A_i|h,(d_i)_{i\in \mathbb{N}}) &= \int_H \prod_{i\in \mathbb{N}}\prob{P}_\square^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_\square^{\RV{H}}(\mathrm{d}h)
+\end{align}
+
+Consider $\alpha,\alpha'$ such that $\prob{P}^{\RV{D}_M}_\alpha = \prob{P}^{\RV{D}_L}_{\alpha'}$ for $L,M\subset \mathbb{N}$ with $|M|=|L|$, both finite. Then
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}_M}(A) &= \int_{D^{\mathbb{N}}} \prob{P}_\alpha^{\RV{Y}_M|\RV{D}}(A|d)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
+                                  &= \int_H\int_{D^{\mathbb{N}}} \prod_{i\in M}\prob{P}_\square^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\prob{P}_\square^{\RV{H}}(\mathrm{d}h)\\
+                                  &= \int_H\int_{D^{|M|}} \prod_{i\in M}\prob{P}_\square^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_\alpha^{\RV{D}_M}(\mathrm{d}d_M)\prob{P}_\square^{\RV{H}}(\mathrm{d}h)\\
+                                  &= \int_H\int_{D^{|M|}} \prod_{i\in M}\prob{P}_\square^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_{\alpha'}^{\RV{D}_N}(\mathrm{d}d_N)\prob{P}_\square^{\RV{H}}(\mathrm{d}h)\\
+                                  &= \int_H\int_{D^{\mathbb{N}}} \prod_{i\in M}\prob{P}_\square^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_{\alpha'}^{\RV{D}}(\mathrm{d}d)\prob{P}_\square^{\RV{H}}(\mathrm{d}h)\\
+                                  &= \prob{P}_{\alpha'}^{\RV{Y}_M}(A)
+\end{align}
+
 \end{proof}
 
 \subsection{Modelling different measurement procedures}
@@ -478,12 +551,12 @@ $\proc{T}'$ is not the same as $\proc{T}''$. In scenario 1, because decisions we
 In the previous section we gave an example of how commutativity of exchange can hold when we have a sequence of decisions such that we accept the follwing:
 
 \begin{itemize}
-    \item Reordering the time at which decisions are made yields an equivalent problem
+    \item Reordering the time at which decisions are made is held to be of no consequence
     \item The available information relevant to each decision is symmetric at the time the decision function is adopted
     \item The decision function deterministically prescribes which decisions are taken
 \end{itemize}
 
-We also discussed how the absence of the determinism assumption undermines the argument.
+We also discussed how the absence of determinism undermines the argument for exchange commutativity.
 
 The determinism assumption rules out choosing decisions randomly. However, if we have causal consequences for deterministic decision variables, it is sometimes possible to extend them to indeterministic variables. 
 

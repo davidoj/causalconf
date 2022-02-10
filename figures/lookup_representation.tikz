@@ -1,11 +1,11 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=small kernel tikzit] (0) at (0, -0.25) {$\prob{L}^{\RV{D},\RV{Y}^D}$};
-		\node [style=small dist tikzit] (1) at (-3.5, 1) {$\prob{P}^{\RV{Y}^D}$};
+		\node [style=small kernel tikzit] (0) at (0, -0.25) {$\prob{F}_{\mathrm{ev}}$};
+		\node [style=small dist tikzit] (1) at (-3.5, 1) {$\prob{P}_\square^{\RV{Y}^D}$};
 		\node [style=Llabel tikzit] (2) at (-3.25, -0.5) {$\RV{D}$};
 		\node [style=RLabel tikzit] (3) at (3, -0.25) {$\RV{Y}$};
-		\node [style=none] (4) at (-1, 0) {};
-		\node [style=none] (5) at (-1, -0.5) {};
+		\node [style=none] (4) at (-0.75, 0) {};
+		\node [style=none] (5) at (-0.75, -0.5) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [in=180, out=0] (1) to (4.center);

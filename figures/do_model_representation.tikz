@@ -1,6 +1,6 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=small kernel tikzit] (0) at (3, 0.5) {$\prob{P}^{\RV{Y}_0|\RV{HD}_0}$};
+		\node [style=small kernel tikzit] (0) at (3, 0.5) {$\prob{P}_\square^{\RV{Y}_0|\RV{HD}_0}$};
 		\node [style=RLabel tikzit] (2) at (4.75, 0.5) {$\RV{Y}_i$};
 		\node [style=none] (3) at (-0.75, 1.75) {};
 		\node [style=none] (4) at (-0.75, -1.5) {};
@@ -12,7 +12,7 @@
 		\node [style=none] (10) at (2.5, 0.75) {};
 		\node [style=none] (11) at (2.5, 0.25) {};
 		\node [style=copymap tikzit] (12) at (-0.75, 0) {};
-		\node [style=small kernel tikzit] (13) at (0.5, 0) {$\Pi_{i}$};
+		\node [style=small kernel tikzit] (13) at (0.5, 0) {$\Pi_{D,i}$};
 		\node [style=RLabel tikzit] (14) at (-3, 0) {$\RV{D}$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}

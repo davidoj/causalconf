@@ -1,9 +1,18 @@
-\begin{thebibliography}{34}
+\begin{thebibliography}{28}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[kal(2005)]{kallenberg_basic_2005}
+The {Basic} {Symmetries}.
+\newblock In Olav Kallenberg, editor, \emph{Probabilistic {Symmetries} and
+  {Invariance} {Principles}}, Probability and {Its} {Applications}, pages
+  24--68. Springer, New York, NY, 2005.
+\newblock ISBN 978-0-387-28861-1.
+\newblock \doi{10.1007/0-387-28861-9_2}.
+\newblock URL \url{https://doi.org/10.1007/0-387-28861-9_2}.
 
 \bibitem[Banerjee et~al.(2017)Banerjee, Chassang, and
   Snowberg]{banerjee_chapter_2017}
@@ -20,6 +29,16 @@ A.~V. Banerjee, S.~Chassang, and E.~Snowberg.
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S2214658X16300071}.
 
+\bibitem[Banerjee et~al.(2016)Banerjee, Berry, Duflo, Kannan, and
+  Mukerji]{banerjee_mainstreaming_2016}
+Abhijit~V. Banerjee, James Berry, Esther Duflo, Harini Kannan, and Shobhini
+  Mukerji.
+\newblock Mainstreaming an {Effective} {Intervention}: {Evidence} from
+  {Randomized} {Eavluations} of '{Teaching} at the {Right} {Level}' in {India}.
+\newblock {SSRN} {Scholarly} {Paper} ID 2843569, Social Science Research
+  Network, Rochester, NY, September 2016.
+\newblock URL \url{https://papers.ssrn.com/abstract=2843569}.
+
 \bibitem[Bogachev and Malofeev(2020)]{bogachev_kantorovich_2020}
 Vladimir Bogachev and Ilya Malofeev.
 \newblock Kantorovich problems and conditional measures depending on a
@@ -27,16 +46,6 @@ Vladimir Bogachev and Ilya Malofeev.
 \newblock \emph{Journal of Mathematical Analysis and Applications},
   486:\penalty0 123883, June 2020.
 \newblock \doi{10.1016/j.jmaa.2020.123883}.
-
-\bibitem[Bolker(1966)]{bolker_functions_1966}
-Ethan~D. Bolker.
-\newblock Functions {Resembling} {Quotients} of {Measures}.
-\newblock \emph{Transactions of the American Mathematical Society},
-  124\penalty0 (2):\penalty0 292--312, 1966.
-\newblock ISSN 0002-9947.
-\newblock \doi{10.2307/1994401}.
-\newblock URL \url{https://www.jstor.org/stable/1994401}.
-\newblock Publisher: American Mathematical Society.
 
 \bibitem[\c{C}inlar(2011)]{cinlar_probability_2011}
 Erhan \c{C}inlar.
@@ -161,15 +170,6 @@ Alan Hájek.
 \newblock \doi{10.1023/B:SYNT.0000004904.91112.16}.
 \newblock URL \url{https://doi.org/10.1023/B:SYNT.0000004904.91112.16}.
 
-\bibitem[Hájek(2019)]{hajek_interpretations_2019}
-Alan Hájek.
-\newblock Interpretations of {Probability}.
-\newblock In Edward~N. Zalta, editor, \emph{The {Stanford} {Encyclopedia} of
-  {Philosophy}}. Metaphysics Research Lab, Stanford University, fall 2019
-  edition, 2019.
-\newblock URL
-  \url{https://plato.stanford.edu/archives/fall2019/entries/probability-interpret/}.
-
 \bibitem[Jacobs et~al.(2019)Jacobs, Kissinger, and Zanasi]{jacobs_causal_2019}
 Bart Jacobs, Aleks Kissinger, and Fabio Zanasi.
 \newblock Causal {Inference} by {String} {Diagram} {Surgery}.
@@ -178,18 +178,6 @@ Bart Jacobs, Aleks Kissinger, and Fabio Zanasi.
   {Computer} {Science}, pages 313--329. Springer International Publishing,
   2019.
 \newblock ISBN 978-3-030-17127-8.
-
-\bibitem[Jeffrey(1965)]{jeffrey_logic_1990}
-Richard~C. Jeffrey.
-\newblock \emph{The {Logic} of {Decision}}.
-\newblock University of Chicago Press, July 1965.
-\newblock ISBN 978-0-226-39582-1.
-
-\bibitem[Joyce(1999)]{joyce_foundations_1999}
-James~M. Joyce.
-\newblock \emph{The {Foundations} of {Causal} {Decision} {Theory}}.
-\newblock Cambridge University Press, Cambridge ; New York, April 1999.
-\newblock ISBN 978-0-521-64164-7.
 
 \bibitem[Lattimore and Rohde(2019{\natexlab{a}})]{lattimore_causal_2019}
 Finnian Lattimore and David Rohde.
@@ -218,17 +206,6 @@ Judea Pearl.
 \newblock \doi{10.1515/jci-2018-2001}.
 \newblock URL
   \url{https://www.degruyter.com/view/j/jci.2018.6.issue-2/jci-2018-2001/jci-2018-2001.xml}.
-
-\bibitem[Ramsey(2016)]{ramsey_truth_2016}
-Frank~P. Ramsey.
-\newblock Truth and {Probability}.
-\newblock In Horacio Arló-Costa, Vincent~F. Hendricks, and Johan van Benthem,
-  editors, \emph{Readings in {Formal} {Epistemology}: {Sourcebook}}, Springer
-  {Graduate} {Texts} in {Philosophy}, pages 21--45. Springer International
-  Publishing, Cham, 2016.
-\newblock ISBN 978-3-319-20451-2.
-\newblock \doi{10.1007/978-3-319-20451-2_3}.
-\newblock URL \url{https://doi.org/10.1007/978-3-319-20451-2_3}.
 
 \bibitem[Richardson and Robins(2013)]{richardson2013single}
 Thomas~S Richardson and James~M Robins.
@@ -259,22 +236,6 @@ Eyal Shahar.
   957--958, October 2009.
 \newblock ISSN 1476-6256.
 \newblock \doi{10.1093/aje/kwp292}.
-
-\bibitem[Tian and Pearl(2002)]{tian2002general}
-Jin Tian and Judea Pearl.
-\newblock A general identification condition for causal effects.
-\newblock In \emph{Aaai/iaai}, pages 567--573, July 2002.
-
-\bibitem[Von~Neumann and Morgenstern(1944)]{von_neumann_theory_1944}
-J.~Von~Neumann and O.~Morgenstern.
-\newblock \emph{Theory of games and economic behavior}.
-\newblock Theory of games and economic behavior. Princeton University Press,
-  Princeton, NJ, US, 1944.
-
-\bibitem[Wald(1950)]{wald_statistical_1950}
-Abraham Wald.
-\newblock \emph{Statistical decision functions}.
-\newblock Statistical decision functions. Wiley, Oxford, England, 1950.
 
 \bibitem[Walley(1991)]{walley_statistical_1991}
 Peter Walley.
