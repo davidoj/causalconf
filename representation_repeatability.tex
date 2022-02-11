@@ -560,6 +560,8 @@ We also discussed how the absence of determinism undermines the argument for exc
 
 The determinism assumption rules out choosing decisions randomly. However, if we have causal consequences for deterministic decision variables, it is sometimes possible to extend them to indeterministic variables. 
 
+\todo[inline]{This is if and only if}
+
 \begin{lemma}\label{lem:proxy_control}
 Given $(\prob{P}_\square,A)$ with decisions $\RV{D}_M$ and consequences $\RV{Y}_M$, if $\prob{P}_\square^{\RV{Y}_M|\RV{D}_M}$ is causally contractible with consequence map $\prob{P}_\square^{\RV{Y}_0|\RV{D}_0\RV{H}}$ and there exists $\RV{X}_i=f\circ \RV{Y}_i$ for some $f:Y\to X$ such that $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then a causally contractible conditional probability $\prob{P}_\square^{\RV{Y}_M|\RV{X}_M}$ exists.
 \end{lemma}
