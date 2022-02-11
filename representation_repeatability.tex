@@ -111,18 +111,18 @@ Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probabili
 \begin{align}
     \prob{P}_{\tilde{\alpha}}^{\RV{D}}\odot \text{swap}_{\rho(\RV{D})} \prob{P}_{\square}^{\RV{Y}|\RV{D}} &= \prob{P}_{\tilde{\alpha}}^{\RV{D}}\odot \prob{P}_{\square}^{\RV{Y}|\RV{D}}\text{swap}_{\rho(\RV{Y})}
 \end{align}
-Then $\prob{P}_\square$ \emph{commutes with exchange}.
+Then $\prob{P}_\square$ \emph{commutes with exchange} with respect to $(\RV{D},\RV{Y})$.
 \end{definition}
 
 A conditional probability model exhibits locality of consequences if, given two different choices that agree on an subsequence of indices, the model yields identical outcomes if we restrict our attention to the subsequence on which the different choices match. For example, if we have $\RV{D}=(\RV{D}_1,\RV{D}_2,\RV{D}_3)$ and $\RV{Y}=(\RV{Y}_1,\RV{Y}_2,\RV{Y}_3)$ and $\prob{P}_{\tilde{\alpha}}^{\RV{D}_1\RV{D}_3}=\prob{P}_{\tilde{\beta}}^{\RV{D}_1\RV{D}_3}$ then $\prob{P}_{\alpha}^{\RV{Y}_1\RV{D}_1\RV{Y}_3\RV{D}_3}=\prob{P}_\beta^{\RV{Y}_1\RV{D}_1\RV{Y}_3\RV{D}_3}$.
 
-\begin{definition}[locality of consequences]\label{def:caus_cont}
+\begin{definition}[Locality of consequences]\label{def:caus_cont}
 Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ with $\RV{Y}:=\RV{Y}_M:=(\RV{Y}_i)_{M}$, $\RV{D}:=\RV{D}_M:=(\RV{D}_i)_M$, $M\subseteq \mathbb{N}$. For any ordered sequence $S=(s_i)_{i\in Q}$ where $Q\subset M$ and $i<j\implies s_i<s_j$, let $\RV{D}_S:=(\RV{D}_i)_{i\in S}$ and $\RV{D}_T:=(\RV{D}_i)_{i\in T}$. If for any $\alpha,\beta\in R$
 \begin{align}
     \prob{P}_\alpha^{\RV{D}_{S}}&=\prob{P}_\beta^{\RV{D}_{S}}\\
     \implies \prob{P}_\alpha^{(\RV{D_i,Y_i})_{i\in S}}&=\prob{P}_\beta^{(\RV{D_i,Y_i})_{i\in S}}
 \end{align}
-then $\prob{P}_\square$ exhibits \emph{locality of consequences}.
+then $\prob{P}_\square$ exhibits \emph{locality of consequences} with respect to $(\RV{D},\RV{Y})$.
 \end{definition}
 
 Neither condition implies the other. 
@@ -560,7 +560,7 @@ We also discussed how the absence of determinism undermines the argument for exc
 
 The determinism assumption rules out choosing decisions randomly. However, if we have causal consequences for deterministic decision variables, it is sometimes possible to extend them to indeterministic variables. 
 
-\begin{lemma}
+\begin{lemma}\label{lem:proxy_control}
 Given $(\prob{P}_\square,A)$ with decisions $\RV{D}_M$ and consequences $\RV{Y}_M$, if $\prob{P}_\square^{\RV{Y}_M|\RV{D}_M}$ is causally contractible with consequence map $\prob{P}_\square^{\RV{Y}_0|\RV{D}_0\RV{H}}$ and there exists $\RV{X}_i=f\circ \RV{Y}_i$ for some $f:Y\to X$ such that $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then a causally contractible conditional probability $\prob{P}_\square^{\RV{Y}_M|\RV{X}_M}$ exists.
 \end{lemma}
 
@@ -580,8 +580,10 @@ As an example of this, suppose $\RV{X}:\Omega\to X$ is a source of random number
 
 A ``causal consequence of body mass index'' is unlikely to exist on the basis of symmetric information and deterministic decisions because there are no actions available to set body mass index deterministically. However, given an underlying problem where we have symmetric information over a collection of patients and some kind of decision that can be made deterministically, causal consequences of body mass index may exist if body mass index is a proxy for controlling the outcomes of interest.
 
-\subsection{Intersubjective causal consequences}
+\subsection{Body mass index revisited}
 
-While the assumption of causal contractibility itself does not depend on any notion of subjectivity, our discussion of the appliccability of this assumption assumed that a conditional probability model was being used to model Dr Alice's subjective uncertain knowledge. Crucially, the justification hinged on an assumption of the symmetry of Alice's information regarding different patients.
+We return briefly to consider the question: given some collection of people indexed by $M$, with body mass index $\RV{B}_i$ and health outcomes of interest $\RV{Y}_i$ and some choices $\RV{D}_i$ a decision maker is contemplating relevant to these characteristics, suppose we have a conditional probability model $(\prob{P}_\square^{\RV{BY}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ causally contractible with respect to $(\RV{D},\RV{Y})$ (for example, perhaps decision maker is contemplating a treatment plan to apply to every individual).
 
-Causal inference is often performed in an intersubjective setting, where Ben might perform the experimeng, Carmel might do the analysis and Dr Alice make the ultimate decisions. This complicates the question of when the assumption of causal contractibility is appliccable. We leave the appropriate way to generalise this theory to such a setting open.
+Do response conditionals $\prob{P}_\square^{\RV{Y}_i|\RV{B}_i}$ exist? We have by Lemma \ref{lem:proxy_control} that this exists if and only if $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{B}_i$. Thus we have reduced the question of the existence of response conditionals for BMI (or ``causal effects'' of BMI) to an empirical question. We might guess this is unlikely to hold; not only are there multiple ways we could imagine affecting a person's BMI with possibly different health implications, but it seems unlikely that the ultimate health outcome someone experiences can be predicted from BMI alone.
+
+However, there might be something to be said for a ``causal effect of BMI''. In particular, while it seems unlikely that BMI is a precise proxy for controlling health outcomes, it seems to at least be a reasonable empirical question to ask if BMI is an \emph{approximate} proxy for health outcomes.
