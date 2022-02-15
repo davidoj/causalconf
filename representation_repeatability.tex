@@ -558,23 +558,50 @@ In the previous section we gave an example of how commutativity of exchange can 
 
 We also discussed how the absence of determinism undermines the argument for exchange commutativity.
 
-The determinism assumption rules out choosing decisions randomly. However, if we have causal consequences for deterministic decision variables, it is sometimes possible to extend them to indeterministic variables. 
+The determinism assumption rules out choosing decisions randomly. However, if we have response conditionals with a particular conditioning variable, response conditionals for other conditioning variables may exist if a certain conditional independence that we refer to as \emph{proxy control} holds. That is, if we have a response conditional for $(\RV{X},\RV{Y})$ given $\RV{D}$, $\RV{D}$ is deterministic for all choices and $\RV{Y}$ is independent of $\RV{D}$ given $\RV{X}$, then we also have a response conditional for $\RV{Y}$ given $\RV{X}$ and $\RV{X}$ may not be deterministic.
 
-\todo[inline]{This is if and only if}
+We also show that proxy control is necessary for the existence of additional response conditionals if $\RV{D}$ is deterministically controllable; that is, if it can be forced to take on any deterministic probability distribution. If the judgements underpinning the existence of response conditionals ultimately rest on decision variables that are deterministic for each choice that can be made, and we claim that a response conditional for $\RV{Y}$ given $\RV{X}$ exists where $\RV{X}$ is just some not-necessarily-deterministic variable, then $\RV{X}$ must be a proxy for controlling $\RV{Y}$ given $\RV{D}$.
 
-\begin{lemma}\label{lem:proxy_control}
-Given $(\prob{P}_\square,A)$ with decisions $\RV{D}_M$ and consequences $\RV{Y}_M$, if $\prob{P}_\square^{\RV{Y}_M|\RV{D}_M}$ is causally contractible with consequence map $\prob{P}_\square^{\RV{Y}_0|\RV{D}_0\RV{H}}$ and there exists $\RV{X}_i=f\circ \RV{Y}_i$ for some $f:Y\to X$ such that $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then a causally contractible conditional probability $\prob{P}_\square^{\RV{Y}_M|\RV{X}_M}$ exists.
-\end{lemma}
+\begin{definition}[Deterministically controllable]
+Given a probabilty gap model $(\prob{P}_\square,\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ on $(\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to X$, if for any $x\in X$ there exists $\alpha\in A$ such that $\prob{P}_\alpha^{\RV{X}}=\delta_x$ then $\RV{X}$ is determinstically controllable.
+\end{definition}
+
+\begin{theorem}\label{lem:proxy_control}
+Given $(\prob{P}_\square^{\RV{XY}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ with decisions $\RV{D}_M$ and consequences $\RV{Y}_M$, $\RV{X}_M$, if $\prob{P}_\square^{\RV{Y}_M\RV{X}_M|\RV{D}_M}$ is causally contractible with response conditional $\prob{P}_\square^{\RV{Y}_0\RV{X}_0|\RV{D}_0\RV{H}}$ such that $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then a causally contractible conditional probability $\prob{P}_\square^{\RV{Y}_M|\RV{X}_M}$ exists. If $\RV{D}_M$ is deterministically controllable, then $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ is also necessary for the existence of $\prob{P}_\square^{\RV{Y}_M|\RV{X}_M}$.
+\end{theorem}
 
 \begin{proof}
-We want to show $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{X}_{\{i\}^C} |\RV{H}\RV{X}_i$ for all $i\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}$ exists for all $i\in M$ and $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{X}_j}$.
+\textbf{Sufficiency:}
+We want to show that $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{X}_{\{i\}^C} |\RV{H}\RV{X}_i$ for all $i\in M$, that $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}$ exists for all $i\in M$ and that $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{X}_j}$.
 
-Because $\RV{X}_i$ is a function of $\RV{Y}_i$, and $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{D}_{\{i\}^C} |\RV{H}\RV{D}_i$, we also have $\RV{YX}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{X}_{\{i\}^C} |\RV{H}\RV{D}_i$, and by weak union $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{X}_{\{i\}^C} |\RV{H}\RV{D}_i\RV{X}_i$
+From causal contractibility we have
+\begin{align}
+(\RV{X}_i,\RV{Y}_i)\CI_{\prob{P}_\square} (\RV{X}_{\{i\}^C},\RV{Y}_{\{i\}^C},\RV{D}_{\{i\}^C}) |\RV{H}\RV{D}_i\label{eq:cc}\\
+\RV{Y}_i\CI_{\prob{P}_\square} (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C}) |\RV{H}\RV{D}_i\RV{X}_i\label{eq:wu}
+\end{align}
+
+Where Eq. \ref{eq:wu} follows from \ref{eq:cc} by weak union.
 
 Thus by contraction, $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{D}_{M} |\RV{H}\RV{X}_i$.
 
 By Corollary \ref{cor:ci_cp_exist} and the existence of $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}$ for all $i\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}$ exists for all $i$. Furthermore, because $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}=\prob{P}^{\RV{Y}_j\RV{X}_j|\RV{H}\RV{D}_j}$ for all $i,j\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{X}_j}$ for all $i,j\in M$.
+\textbf{Necessity:}
+We will show for all $\alpha\in A$, $B\in \sigalg{Y}$, $(x,d,h)\in X\times D\times H$ that 
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}_0|\RV{X}_0\RV{D}_0\RV{H}}(B|x,d,h)=\prob{P}_\alpha^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,h)
+\end{align}
+
+By assumption, we have the existence of conditionals $\prob{P}_\square^{\RV{Y}_0\RV{X}_0|\RV{D}_0\RV{H}}$ and $\prob{P}_\square^{\RV{X}_0|\RV{H}\RV{D}_0}$. We can conclude that $\prob{P}_\square^{\RV{Y}_0|\RV{X}_0\RV{D}_0\RV{H}}$ also exists, as it is a higher order conditional with respect to $\prob{P}_\square^{\RV{Y}_0\RV{X}_0|\RV{D}_0\RV{H}}$.
+
+Let $\alpha_d\in A$ be such that $\prob{P}_{\alpha_d}^{\RV{D}_0}=\delta_{d}$. By the existence of $\prob{P}_\square^{\RV{Y}_0|\RV{X}_0\RV{H}}$, it follows that
+\begin{align}
+    \prob{P}_{\alpha_d}^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,h) &=  \prob{P}_{\alpha_d}^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,d,h)\\
+    &\overset{\prob{P}_{\alpha_d}}{\cong} \prob{P}_{\square}^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,h)
+\end{align}
+Because $d$ was arbitrary, this must hold for all $d\in D$.
 \end{proof}
+
+
 
 If the condition $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, we can say $\RV{X}_i$ is a proxy for controlling $\RV{Y}_i$.
 
