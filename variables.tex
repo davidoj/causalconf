@@ -1,5 +1,5 @@
 
-\subsection{Semantics of observed and unobserved variables}\label{sec:variables}
+\subsection{Semantics of probabilistic variables}\label{sec:variables}
 
 Our main question concerns the existence of causal relationships between \emph{variables}. If we want to offer a clear account of what this means, we need to start with a clear account of what variables are. Both observed an unobserved variables play important roles in causal modelling and we think it is worth clarifying what variables of either type refer to. We will start with observed variables, which we consider to be parts of our model whose role is to ``point to the parts of the world the model is explaining''. Unobserved variables, on the other hand, are parts of the model that do not refer to the external world but may be introduced, for example, for notational convenience.
 
@@ -75,9 +75,15 @@ Given the total procedure $\proc{S}$ taking values in $\Psi$ and a variable $\RV
 
 It is common to use the symbol $=$ instead of $\bowtie$ to stand for ``yields'', but we want to avoid this because $\RV{Y}=y$ already has a meaning, namely that $\RV{Y}$ is a constant function everywhere equal to $y$. 
 
-\subsection{Unobservable variables, variable sequences}
+\subsection{Unobservable variables}
 
-We can define a general notion of unobservable variables by defining a sample space $\Omega$ along with a function $\RV{S}:\Omega\to \Psi$ such that $\proc{S}\yields s$ is identified with the subset $\RV{S}^{-1}(s)\subset \Omega$. Observable variables are then redefined as $\RV{X}=\RV{X}'\circ\RV{S}$ where $\RV{X}'$ is now the function that, when composed with $\proc{S}$, yields $\proc{X}$.
+We can define a general notion of unobservable variables by defining a sample space $\Omega$ along with a total observable variable $\RV{S}:\Omega\to \Psi$ such that $\proc{S}\yields s$ is identified with the subset $\RV{S}^{-1}(s)\subset \Omega$. An observable variable $\RV{X}$ is a variable such that $\RV{X}=\RV{X}'\circ\RV{S}$ for some $\RV{X}':\Psi\to X$.
+
+By convention, if we define a model with sample space $(\Omega,\sigalg{F})$ and then ``extend $\Omega$ with an unobservable variable $\RV{X}:\Omega\to X$'', we mean that we replace the sample space with $(\Omega',\sigalg{F}'):=(\Omega\times X,\sigalg{F}\otimes\sigalg{X})$, and define the total observable variable $\RV{S}:\Omega'\to \Omega$ by $\Pi_\Omega$, the projection onto $\Omega$, and $\RV{X}:\Omega'\to X$ by $\Pi_X$, the projection onto $X$. Any observable variables previously defined as $\RV{Y}:\Omega\to Y$ is redefined as $\RV{Y}':\RV{Y}\circ \RV{S}$. We then abuse notation to refer to the new variable ``$\RV{Y}'$'' by the old name ``$\RV{Y}$''. We justify this abuse by the observation that $\RV{Y}'$ bears the same relation to all primed variables as $\RV{Y}$ does to all unprimed variables, and by the fact that it's tedious and confusing to rename variables every time we want to introduce an new one.
+
+We don't define a convention for adding new \emph{observed} variables, because this involves creating a different measurement process and we view this as something that sometimes needs to be approached with care.
+
+\subsection{Variable sequences}
 
 Given $\RV{Y}:\Omega\to X$, we can define a sequence of variables: $(\RV{X},\RV{Y}):=\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega))$. $(\RV{X},\RV{Y})$ has the property that $(\RV{X},\RV{Y})\yields (x,y)= \RV{X}\yields x\cap \RV{Y}\yields y$, which supports the interpretation of $(\RV{X},\RV{Y})$ as the values yielded by $\RV{X}$ and $\RV{Y}$ together.
 

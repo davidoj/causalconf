@@ -180,7 +180,7 @@ Note that this example would not satisfy exchange commutativity.
 
 We call the conjunction of exchange commutativity and consequence locatlity \emph{causal contractibility}.
 
-\begin{definition}[Causal contractibility]
+\begin{definition}[Consequence contractibility]
 A conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},A)$ is causally contractible if it is both commutative with exchange and commutative with marginalisation.
 \end{definition}
 
@@ -216,12 +216,12 @@ A conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},
 % The proof that the limit exists and the above equality holds can again be found int \citep{kallenberg_basic_2005}.
 % \end{proof}
 
-\subsection{Repeatable consequence conditionals exist iff a model is causally contractible}
+\subsection{Repeatable response conditionals exist iff a model is consequence contractible}
 
 The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. Note the hypothesis $\RV{H}$ that appears in this conditional; it can be given the interpretation of a random variable that expresses the ``true but initially unknown'' $\RV{Y}_1|\RV{D}_1$ conditional probability.
 
 \begin{lemma}[Exchangeable randomness pushback]\label{th:table_rep}
-A conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_\square$ is causally contractible if and only if there exists a column exchangeable probability distribution $\prob{P}^{\RV{Y}^D}$ such that
+Given a conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$, $\prob{P}_\square$ is causally contractible if and only if there exists a column exchangeable probability distribution $\prob{P}^{\RV{Y}^D}$ such that
 \begin{align}
     \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
     &\iff\\
@@ -312,12 +312,13 @@ Lemma \ref{th:table_rep} also does not establish that causal contractibility is 
 The tabular distribution $\prob{P}^{\RV{Y}^D}$ along with the evaluation function $\kernel{F}_{\text{ev}}$ is a randomness pushback of the conditional probability $\prob{P}^{\RV{Y}|\RV{D}}$. Because $\prob{P}^{\RV{Y}^D}$ is a column exchangeable probability distribution we can apply De Finetti's theorem to show $\prob{P}^{\RV{Y}^D}$ is representable as a product of identical parallel copies of $\prob{P}^{\RV{Y}_1^D|\RV{H}}$ and a common prior $\prob{P}^{\RV{H}}$. This in turn can be used to show that $\prob{P}_\square^{\RV{Y}|\RV{D}}$ can be represented as a product of identical parallel copies of $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$ and the same common prior $\prob{P}_\square^{\RV{H}}$. This is the main result: the copies of $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$ are the repeatable response conditionals.
 
 \begin{theorem}\label{th:iid_rep}
-Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_\square$ is causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exists for all $i\in \mathbb{N}$ and
+Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_\square$ is causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{H}}_\square$ and $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exist for all $i\in \mathbb{N}$ and
 \begin{align}
-    \prob{P}^{\RV{Y}|\RV{H}\RV{D}} &= \tikzfig{do_model_representation}\\
+    \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{do_model_representation}\\
     &\iff\\
-    \RV{Y}_i&\CI_{\prob{P}} \RV{Y}_{\mathbb{N}\setminus i},\RV{D}_{\mathbb{N}\setminus i}|\RV{H}\RV{D}_i&\forall i\in \mathbb{N}\\
-    \land \prob{P}^{\RV{Y}_i|\RV{H}\RV{D}_i} &= \prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0} & \forall i\in \mathbb{N}
+    \RV{Y}_i&\CI_{\prob{P}_\square} \RV{Y}_{\mathbb{N}\setminus i},\RV{D}_{\mathbb{N}\setminus i}|\RV{H}\RV{D}_i&\forall i\in \mathbb{N}\\
+    \land \RV{H} \CI_{\prob{P}_\square} \RV{D}\\
+    \land \prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{D}_i} &= \prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0} & \forall i\in \mathbb{N}
 \end{align}
 Where $\Pi_{D,i}:D^\mathbb{N}\kto D$ is the $i$th projection map.
 \end{theorem}
@@ -391,9 +392,11 @@ Consider $\alpha,\alpha'$ such that $\prob{P}^{\RV{D}_M}_\alpha = \prob{P}^{\RV{
 
 \subsection{Modelling different measurement procedures}
 
-An important question is: when is it reasonable to assume causal contractibility? We're going to focus just on the assumption of commutativity of exchange because we have more interesting things to say about it. There is a tempting but false line of argument one could adopt: $(\prob{P}_\square^{\RV{Y}_M|\RV{D}_M},A)$ is a model of $|M|$ indistinguishable ``experimental units'', because they are indistinguishable they can be interchanged without altering the appropriate model, and so commutativity of exchange holds.
+When is it reasonable to assume causal contractibility? This involves two judgements -- that choices and outcomes can be paired up so that each choice only influences the corresponding outcome, and that there is an equivalence between exchanging choices and exchanging outcomes. Here, we're going to focus on when it is reasonable to assume exchange commutativity. 
 
-The problem with this line of reasoning is that interchangeability of ``experimental units'' doesn't imply commutativity of exchange. The problem is, roughly speaking, we may have indistinguishable experimental units when a decision function is chosen, but the decision function might leave some uncertainty over the actual decisions, which means the experimental units may be distinguishable when the actual decisions are made. If the decision function is deterministic, this possibility is ruled out. We'll explain this in more detail with an example, and in the next section we'll discuss randomisation.
+There is a superficially plausible but unsound line of argument one could adopt: $(\prob{P}_\square^{\RV{Y}_M|\RV{D}_M},A)$ is a model of $|M|$ indistinguishable ``experimental units'', because they are indistinguishable they can be interchanged without altering the appropriate model, and so exchange commutativity holds. The problem with this line of reasoning is that we cannot deduce from the interchangeability of ``experimental units'' that exchanging choices and exchanging outcomes are equivalent. For example, if choices depend on some feature of the ``experimental units'', then exchanging choices will lead to choices having different dependence on experimental units.
+
+This is exacerbated by the fact that exchange of experimental units is an operation on a \emph{measurement procedure}. Measurement procedures involve interaction with the real world and we do not have a method for precisely describing them (unlike probablistic models). Thus incomplete descriptions of a measurement procedure often leave open the possibility that choices do depend on properties of experimental units. We can sometimes rule this possibility out by specifying a measurement procedure that only allows for \emph{deterministic} choices.
 
 \subsection{Example: commutativity of exchange in the context of treatment choices}
 
@@ -567,7 +570,7 @@ Given a probabilty gap model $(\prob{P}_\square,\{\prob{P}_{\tilde{\alpha}}^{\RV
 \end{definition}
 
 \begin{theorem}\label{lem:proxy_control}
-Given $(\prob{P}_\square^{\RV{XY}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ with decisions $\RV{D}_M$ and consequences $\RV{Y}_M$, $\RV{X}_M$, if $\prob{P}_\square^{\RV{Y}_M\RV{X}_M|\RV{D}_M}$ is causally contractible with response conditional $\prob{P}_\square^{\RV{Y}_0\RV{X}_0|\RV{D}_0\RV{H}}$ such that $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then a causally contractible conditional probability $\prob{P}_\square^{\RV{Y}_M|\RV{X}_M}$ exists. If $\RV{D}_M$ is deterministically controllable, then $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ is also necessary for the existence of $\prob{P}_\square^{\RV{Y}_M|\RV{X}_M}$.
+Given $(\prob{P}_\square^{\RV{XY}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ with decisions $\RV{D}_M$ and consequences $\RV{Y}_M$, $\RV{X}_M$, if $\prob{P}_\square^{\RV{Y}_M\RV{X}_M|\RV{D}_M}$ is causally contractible with response conditional $\prob{P}_\square^{\RV{Y}_0\RV{X}_0|\RV{D}_0\RV{H}}$ such that $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then a causally contractible conditional probability $\prob{P}_\square^{\RV{Y}_M|\RV{X}_M}$ exists. If $\RV{D}_M$ is deterministically controllable and $D$ countable, then $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ is also necessary for the existence of $\prob{P}_\square^{\RV{Y}_M|\RV{X}_M}$.
 \end{theorem}
 
 \begin{proof}
@@ -591,19 +594,29 @@ We will show for all $\alpha\in A$, $B\in \sigalg{Y}$, $(x,d,h)\in X\times D\tim
     \prob{P}_\alpha^{\RV{Y}_0|\RV{X}_0\RV{D}_0\RV{H}}(B|x,d,h)=\prob{P}_\alpha^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,h)
 \end{align}
 
-By assumption, we have the existence of conditionals $\prob{P}_\square^{\RV{Y}_0\RV{X}_0|\RV{D}_0\RV{H}}$ and $\prob{P}_\square^{\RV{X}_0|\RV{H}\RV{D}_0}$. We can conclude that $\prob{P}_\square^{\RV{Y}_0|\RV{X}_0\RV{D}_0\RV{H}}$ also exists, as it is a higher order conditional with respect to $\prob{P}_\square^{\RV{Y}_0\RV{X}_0|\RV{D}_0\RV{H}}$.
+By assumption, we have the conditionals $\prob{P}_\square^{\RV{Y}_i\RV{X}_i|\RV{D}_i\RV{H}}$ and $\prob{P}_\square^{\RV{X}_i|\RV{H}\RV{D}_i}$ for all $i\in M$. We can conclude that $\prob{P}_\square^{\RV{Y}_i|\RV{X}_i\RV{D}_0i\RV{H}}$ also exists, as it is a higher order conditional with respect to $\prob{P}_\square^{\RV{Y}_i\RV{X}_i|\RV{D}_i\RV{H}}$.
 
-Let $\alpha_d\in A$ be such that $\prob{P}_{\alpha_d}^{\RV{D}_0}=\delta_{d}$. By the existence of $\prob{P}_\square^{\RV{Y}_0|\RV{X}_0\RV{H}}$, it follows that
+For arbitrary $d\in D$, let $\alpha_d\in A$ be such that $\prob{P}_{\alpha_d}^{\RV{D}_i}=\delta_{d}$. For every version of $\prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{D}_i\RV{H}}$ and $\prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{D}_i\RV{H}}$
 \begin{align}
-    \prob{P}_{\alpha_d}^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,h) &=  \prob{P}_{\alpha_d}^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,d,h)\\
-    &\overset{\prob{P}_{\alpha_d}}{\cong} \prob{P}_{\square}^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,h)
+    \prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{H}}(B|x,h) &= \int_{D}\prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{D}_i\RV{H}}(B|x,d',h)\delta_d(\mathrm{d}d')\\
+                                                         &= \prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{D}_i\RV{H}}(B|x,d,h)
 \end{align}
-Because $d$ was arbitrary, this must hold for all $d\in D$.
+For all $x\in X$, $h\in H$ $B\subset\sigalg{Y}$ except on a set of points $C\subset X\times H$ of uniform $\prob{P}_{\alpha_d}$ measure 0.
+\todo[inline]{Need to add independence of hypothesis to representation theorem}
+However, note that for any $\alpha$
+\begin{align}
+    \prob{P}_\alpha^{\RV{X}_i\RV{H}\RV{D}_i}(E\times F\times G) &= \sum_{d\in G} \prob{P}_\alpha^{\RV{D}_i}(d)\prob{P}_\square^{\RV{X}_i\RV{H}|\RV{D}_i}(E\times F|d)\\
+                                                                  &= \sum_{d\in G} \prob{P}_\alpha^{\RV{D}_i}(d)\sum_{d'\in D}\prob{P}_\square^{\RV{X}_i\RV{H}|\RV{D}_i}(E\times F|d')\prob{P}_{\alpha_d}^{\RV{D}_i}(\{d'\}\\
+                                                                  &= \sum_{d\in G} \prob{P}_\alpha^{\RV{D}_i}(d)\prob{P}_{\alpha_d}^{\RV{X}_i\RV{H}\RV{D}_i}(E\times F\times\{d\})
+\end{align}
+
+Thus for each $d\in D$ the set $\{d\}\times C\subset D\times X\times H$ is of uniform $\prob{P}_\alpha$ measure 0 for any $\alpha\in A$. Because $\prob{P}_\square=\cup_{\alpha\in A}\prob{P}_\alpha$, it is also of uniform $\prob{P}_\square$ measure 0. Thus 
+
+\begin{align}
+    \prob{P}_{\square}^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,h) &= \prob{P}_{\square}^{\RV{Y}_0|\RV{X}_0\RV{D}_0\RV{H}}(B|x,d,h)
+\end{align}
+as desired.
 \end{proof}
-
-
-
-If the condition $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, we can say $\RV{X}_i$ is a proxy for controlling $\RV{Y}_i$.
 
 As an example of this, suppose $\RV{X}:\Omega\to X$ is a source of random numbers, the set of decisions $D$ is a set of functions $X\to T$ for treatments $\RV{T}:\Omega\to T$ and $\RV{W}:\Omega\to W$ are the ultimate patient outcomes, with $\RV{Y}_i=(\RV{W}_i,\RV{T}_i)$. Then it may be reasonable to assume that $\RV{W}_i\CI(\RV{D}_i,\RV{X}_i)|\RV{T}_i\RV{H}$ (where conditioning on $\RV{H}$ can be thought of as saying that this independence holds under infinite sample size). In this case, $\RV{T}_i$ is a proxy for controlling $\RV{Y}_i$, and there exists a causal consequence $\prob{P}_\square^{\RV{Y}_0|\RV{T}_0\RV{H}}$.
 
