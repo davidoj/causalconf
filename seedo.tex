@@ -83,7 +83,7 @@ We can define more complex probability gap models with a similar approach where,
 
 \subsection{Example: invalidity}
 
-Body mass index is defined as a person's weight divided by the square of their height. Suppose we have a measurment process $\proc{S}=(\proc{W},\proc{H})$ and $\proc{B}=\frac{\proc{W}}{\proc{H}^2}$ - i.e. we figure out someone's body mass index first by measuring both their height and weight, and then passing the result through a function that divides the second by the square of the first. Thus, given the random variables $\RV{W},\RV{H}$ modelling $\proc{W},\proc{H}$, $\proc{B}$ is the function given by $\RV{B}=\frac{\RV{W}}{\RV{H}^2}$. Given $x\in \mathbb{R}$, consider the conditional probability
+Body mass index is defined as a person's weight divided by the square of their height. Suppose we have a measurement process $\proc{S}=(\proc{W},\proc{H})$ and $\proc{B}=\frac{\proc{W}}{\proc{H}^2}$ - i.e. we figure out someone's body mass index first by measuring both their height and weight, and then passing the result through a function that divides the second by the square of the first. Thus, given the random variables $\RV{W},\RV{H}$ modelling $\proc{W},\proc{H}$, $\proc{B}$ is the function given by $\RV{B}=\frac{\RV{W}}{\RV{H}^2}$. Given $x\in \mathbb{R}$, consider the conditional probability
 \begin{align}
     \nu^{\RV{B}|\RV{WH}} &= \tikzfig{invalid_BMI_model} \label{eq:bmi_example}
 \end{align}
@@ -94,7 +94,7 @@ Then pick some $w,h\in\mathbb{R}$ such that $\frac{w}{h^2}\neq x$ and $(\RV{W},\
 \end{align}
 so $\nu^{\RV{B}|\RV{WH}}$ is invalid, and there is some valid $\mu^{\RV{X}}$ such that the probability set $\prob{P}_{\{\}}$ with $\prob{P}_{\{\}}^{\RV{XY}} = \mu^{\RV{X}}\odot \nu^{\RV{Y}|\RV{X}}$ is empty.
 
-Validity rules out conditional probabilities like \ref{eq:bmi_example}. We guess that in many cases this condition may either be trivial or unconsiously taken into account when constructing conditional probabilities. However, if we are not cognizant of the conditional our model depends on, we may inadvertently propose a model that depends on invalid conditional probabilities. For example, the conditional probability \ref{eq:bmi_example} would be used to evaluate the causal effect of body mass index in the causal diagram found in \citet{shahar_association_2009}, presuming the author used the term ``causal effect'' to depend somehow on the function $x\mapsto P(\cdot|do(\RV{B}=x))$ as is the usual convention when discussing causal Bayesian networks.
+Validity rules out conditional probabilities like \ref{eq:bmi_example}. We conjecture that in many cases this condition may either be trivial or implicitly taken into account when constructing conditional probabilities. However, we think it is useful to make this condition explicit nonetheless. We note that the invalid conditional probability \ref{eq:bmi_example} would be used to evaluate the causal effect of body mass index in the causal diagram found in \citet{shahar_association_2009}, presuming the author used the term ``causal effect'' to depend somehow on the function $x\mapsto P(\cdot|do(\RV{B}=x))$ as is the usual convention when discussing causal Bayesian networks.
 
 \todo[inline]{End find a home for the following remarks}
 
@@ -128,9 +128,9 @@ The first question seems to be an inconsequential stylistic matter, while the se
 
 \subsection{Randomness pushbacks}
 
-Given a function $f:X\times Y\to Z$, we can obtain a curried version $\lambda f:Y\to Z^X$. In particular, if $Y=\{*\}$ then $\lambda f:\{*\}\to Y^X$. At least for countable $X$, we can apply this construction to Markov kernels: given a kernel $\kernel{K}:X\kto Y$, define $\kernel{L}: \{*\}\kto Y^X$ by 
+Given a function $f:X\times Y\to Z$, we can obtain a curried version $\lambda f:Y\to Z^X$. In particular, if $Y=\{*\}$ then $\lambda f:\{*\}\to Z^X$. At least for countable $X$, we can apply this construction to Markov kernels: given a kernel $\kernel{K}:X\kto Y$, define $\kernel{L}: \{*\}\kto Y^X$ by 
 \begin{align}
-    \lambda \kernel{K} ((y_i)_{i\in X}) &= \prod_{i\in X} \kernel{K}(y_i|i)
+    \kernel{L} ((y_i)_{i\in X}) &= \prod_{i\in X} \kernel{K}(y_i|i)
 \end{align}
 
 We can then define an evaluation map $\text{ev}:Y^X\times X\to Y$ by $\text{ev}((y_i)_{i\in X},x)=y_x$. Then
@@ -141,13 +141,13 @@ We can then define an evaluation map $\text{ev}:Y^X\times X\to Y$ by $\text{ev}(
     \kernel{K}(A|x) &= \int_{Y^X} \delta_{\text{ev}(y^X,x)}(A) \kernel{L}(\mathrm{d}y^X|x)
 \end{align}
 
-Unlike the case of function currying, $\lambda \kernel{K}$ is not the unique Markov kernel for which \ref{eq:curry_identity} holds. In fact, we can substitute any $\kernel{M}$ such that, for any $i\in X$
+Unlike the case of function currying, $\kernel{L}$ is not the unique Markov kernel for which \ref{eq:curry_identity} holds. In fact, we can substitute any $\kernel{M}$ such that, for any $i\in X$
 
 \begin{align}
-    \sum_{y_{\{i\}^C\in Y^{|X|-1}}} \kernel{M}((y_i)_{i\in X}) = \kernel{K}(y_i|i)
+    \sum_{y_{\{i\}^C}\in Y^{|X|-1}} \kernel{M}((y_i)_{i\in X}) = \kernel{K}(y_i|i)
 \end{align}
 
-This representation of a Markov kernel is called a \emph{randomness pushback} by \citet{fritz_synthetic_2020}.
+This representation of a Markov kernel is called a \emph{randomness pushback} by \citet{fritz_synthetic_2020}. The idea is that the randomness in the orignal Markov kernel $\kernel{L}$ has been ``pushed back'' to $\kernel{L}$, which now passes through the deterministic Markov kernel $\kernel{F}_{\mathrm{ev}}$.
 
 Randomness pushbacks have a few features in common with potential outcomes causal models. For our purposes, we will say a potential outcomes model is a probability set $(\Omega,\sigalg{F},\prob{P}_{\{\}})$ along with variables $\RV{X}$, $\RV{Y}$, $\RV{Y}^X$ such that 
 

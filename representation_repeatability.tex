@@ -221,13 +221,13 @@ A conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},
 The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. Note the hypothesis $\RV{H}$ that appears in this conditional; it can be given the interpretation of a random variable that expresses the ``true but initially unknown'' $\RV{Y}_1|\RV{D}_1$ conditional probability.
 
 \begin{lemma}[Exchangeable randomness pushback]\label{th:table_rep}
-Given a conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$, $\prob{P}_\square$ is causally contractible if and only if there exists a column exchangeable probability distribution $\prob{P}^{\RV{Y}^D}$ such that
+Given a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$, $\prob{P}_\square$ is consequence contractible if and only if there exists a column exchangeable probability distribution $\mu^{\RV{Y}^D}\in \Delta(Y^{|D|\times \mathbb{N}})$ such that
 \begin{align}
-    \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
+    \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\label{eq:lup_rep}\\
     &\iff\\
-    \prob{P}_\square^{\RV{Y}|\RV{D}}(y|d) &= \prob{P}^{(\RV{Y}^D_{d_i i})_{\mathbb{N}}}(y)
+    \prob{P}_\square^{\RV{Y}|\RV{D}}(y|(d_i)_{i\in \mathbb{N}}) &= \mu^{\RV{Y}^D} \Pi_{(d_i i)_{i\in\mathbb{N}}}(y)
 \end{align}
-Where $\prob{F}_{\text{ev}}$ is the Markov kernel associated with the evaluation map
+Where $\Pi_{(d_i i)_{i\in\mathbb{N}}}:Y^{|D|\times \mathbb{N}}\to Y^{\mathbb{N}}$ is the function that projects the $(d_i,i)$ indices for all $i\in \mathbb{N}$ and $\prob{F}_{\text{ev}}$ is the Markov kernel associated with the evaluation map
 \begin{align}
     \text{ev}:D^\mathbb{N}\times Y^{D\times \mathbb{N}}&\to Y\\
     ((d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}})&\mapsto (y_{d_i i})_{i\in \mathbb{N}}
@@ -236,15 +236,28 @@ Where $\prob{F}_{\text{ev}}$ is the Markov kernel associated with the evaluation
 
 \begin{proof}
 Only if:
+Consider the weaker conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}}_\square,A')$ where $A'\supset A$ contains all $\alpha$ such that $\prob{P}_\alpha^{\RV{D}}$ is deterministic. If the result holds for $A'$ then it holds also for $A$ which is a subset.
+
+For all $d\in D$, abuse notation to say taht $\prob{P}_d$ is a probability set in $A'$ such that $\prob{P}_d^{\RV{D}}=\delta_d$. For any $\alpha\in A'$, we have
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{DY}}(B\times C) &= \int_B \prob{P}_\square^{\RV{Y}|\RV{D}}(C|d)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
+                                &= \int_B \int_D \prob{P}_\square^{\RV{Y}|\RV{D}}(C|d')\prob{P}_d^{\RV{D}}(\mathrm{d}d')\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
+                                &= \int_B \prob{P}_d^{\RV{Y}}(C)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)
+\end{align}
+
+Thus $d\mapsto \prob{P}_d^{\RV{Y}}$ is a version of $\prob{P}_\square^{\RV{Y}|\RV{C}}$.
+
 Choose $e:=(e_i)_{i\in\mathbb{N}}$ such that $e_{|D|i+j}$ is the $i$th element of $D$ for all $i,j\in \mathbb{N}$. Abusing notation, write $e$ also for the decision function that chooses $e$ deterministically.
 
 Define
 \begin{align}
-    \prob{P}^{\RV{Y}^D}((y_{ij})_{D\times \mathbb{N}}):=\prob{P}_e^{\RV{Y}}((y_{|D|i+j})_{i\in D, j\in \mathbb{N}})
+    \mu^{\RV{Y}^D}((y_{ij})_{D\times \mathbb{N}}):=\prob{P}_e^{\RV{Y}}((y_{|D|i+j})_{i\in D, j\in \mathbb{N}})
 \end{align}
 
 Now consider any $d:=(d_i)_{i\in \mathbb{N}}\in D^{\mathbb{N}}$. By definition of $e$, $e_{|D|d_i + i}=d_i$ for any $i,j\in \mathbb{N}$.
 
+Define
 \begin{align}
     \prob{Q}:D\kto Y\\
     \prob{Q}:= \tikzfig{lookup_representation}
@@ -253,10 +266,10 @@ Now consider any $d:=(d_i)_{i\in \mathbb{N}}\in D^{\mathbb{N}}$. By definition o
 and consider some ordered sequence $A\subset \mathbb{N}$ and $B:= ((|D|d_i+i))_{i\in A}$. Note that $e_B:=(e_{|D|d_i +i})_{i\in B}=d_A=(d_i)_{i\in A}$. Then 
 
 \begin{align}
-    \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{Q}(y|d) &= \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{P}^{(\RV{Y}^{D}_{d_ii})_{A}}(y) \\
+    \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{Q}(y|d) &= \sum_{y\in \RV{Y}^{-1}(y_A)} \mu^{(\RV{Y}^{D}_{d_ii})_{A}}(y) \\
     &= \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{P}_e^{(\RV{Y}_{|D|d_i+i})_{A}}(y)\\
     &= \prob{P}_e^{\RV{Y}_{B}}(y_A)\\
-    &= \prob{P}_{d}^{\RV{Y}_A}(y_A)&\text{by causal contractibility}
+    &= \prob{P}_{d}^{\RV{Y}_A}(y_A)&\text{by consequence contractibility}
 \end{align}
 
 Because this holds for all $A\subset\mathbb{N}$, by the Kolmogorov extension theorem
@@ -265,31 +278,21 @@ Because this holds for all $A\subset\mathbb{N}$, by the Kolmogorov extension the
     \prob{Q}(y|d) &= \prob{P}_d^{\RV{Y}}(y)
 \end{align}
 
-Because $d$ is the decision function that deterministically chooses $d$, for all $d\in D$
+And so $\prob{Q}$ is also a version of $\prob{P}_\square^{\RV{Y}|\RV{C}}$.
+
+Next we will show $\mu^{\RV{Y}^D}$ is exchangeable. Consider any subsequences $\RV{Y}^D_S$ and $\RV{Y}^D_T$ of $\RV{Y}^D$ with $|S|=|T|$. Let $\rho(S)$ be the ``expansion'' of the indices $S$, i.e. $\rho(S)=(|D|i+j)_{i\in S,j\in D}$. Then by construction of $e$, $e_{\rho(S)}=e_{\rho(T)}$ and therefore
 
 \begin{align}
-    \prob{Q}(y|d) &= \prob{P}_d^{\RV{Y}|\RV{D}}(y|d)
-\end{align}
-
-And because $\prob{P}_d^{\RV{Y}|\RV{D}}(y|d)$ is unique for all $d\in D^{\mathbb{N}}$ and $\prob{P}^{\RV{Y}|\RV{D}}$ exists by assumption
-
-\begin{align}
-    \prob{P}^{\RV{Y}|\RV{D}}=\prob{Q}
-\end{align}
-
-Next we will show $\prob{P}^{\RV{Y}^D}$ is contractible. Consider any subsequences $\RV{Y}^D_S$ and $\RV{Y}^D_T$ of $\RV{Y}^D$ with $|S|=|T|$. Let $\rho(S)$ be the ``expansion'' of the indices $S$, i.e. $\rho(S)=(|D|i+j)_{i\in S,j\in D}$. Then by construction of $e$, $e_{\rho(S)}=e_{\rho(T)}$ and therefore
-
-\begin{align}
-    \prob{P}^{\RV{Y}^D_S}&= \prob{P}_e^{\RV{Y}_{\rho(S)}})\\
-    &= \prob{P}_e^{\RV{Y}_{\rho(T)}})&\text{by contractibility of }\prob{P}\text{ and the equality } e_{\rho(S)}=e_{\rho(T)}\\
-    &= \prob{P}^{\RV{Y}^D_T}
+    \mu^{\RV{Y}^D}\Pi_S&= \prob{P}_e^{\RV{Y}_{\rho(S)}})\\
+    &= \prob{P}_e^{\RV{Y}_{\rho(T)}})&\text{by contractibility of }\prob{P}_\square\text{ and the equality } e_{\rho(S)}=e_{\rho(T)}\\
+    &= \mu^{\RV{Y}^D}\Pi_T
 \end{align}
 
 
 If:
 Suppose 
 \begin{align}
-    \prob{P}^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
+    \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
 \end{align}
 
 and consider any two deterministic decision functions $d,d'\in D^{\mathbb{N}}$ such that some subsequences are equal $d_S=d'_T$.
@@ -299,17 +302,19 @@ Let $\RV{Y}^{d_S}=(\RV{Y}_{d_i i})_{i\in S}$.
 By definition,
 
 \begin{align}
-    \prob{P}^{\RV{Y}_S|\RV{D}}(y_S|d) &= \sum_{y^D_S\in Y^{|D|\times |S|}}\prob{P}^{\RV{Y}^D_S}(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)\\
-    &= \sum_{y^D_S\in Y^{|D|\times |T|}}\prob{P}^{\RV{Y}^D_T}(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)&\text{ by contractibility of }\prob{P}^{\RV{Y}^D_T}\\
-    &= \prob{P}^{\RV{Y}_T|\RV{D}}(y_S|d)
+    \prob{P}_\square^{\RV{Y}_S|\RV{D}}(y_S|d) &= \sum_{y^D_S\in Y^{|D|\times |S|}}\mu^{\RV{Y}^D} \Pi_S(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)\\
+    &= \sum_{y^D_S\in Y^{|D|\times |T|}}\prob{P}_\square^{\RV{Y}^D_T}(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)&\text{ by contractibility of }\mu^{\RV{Y}^D}\Pi_T \\
+    &= \prob{P}_\square^{\RV{Y}_T|\RV{D}}(y_S|d)
 \end{align}
 \end{proof}
 
-As we pointed out, there are similarities between tabular distributions like $\prob{P}^{\RV{Y}^D}$ that appears in Lemma \ref{th:table_rep} and potential outcomes causal models. However, the $\prob{P}^{\RV{Y}^D}$ that appears in this lemma usually can't be interpreted as a distribution of potential outcomes. For example, consider a series of bets on fair coinflips. Model the consequence $\RV{Y}_i$ as uniform on $\{0,1\}$ for any decision $\RV{D}_i$, for all $i$. Specifically, $D=Y=\{0,1\}$ and $\prob{P}_\alpha^{\RV{Y}_n}(y)=\prod_{i\in [n]} 0.5$ for all $n$, $y\in Y^n$, $\alpha\in R$. Then the construction of $\prob{P}^{\RV{Y}^D}$ following the method in Lemma \ref{th:table_rep} yields $\prob{P}^{Y^D_i}(y^D_i)=\prod_{j\in D} 0.5$ for all $y^D_i\in Y^D$. In this model $\RV{Y}^0_i$ and $\RV{Y}^1_i$ are independent and uniformly distributed. However, if we wanted $\RV{Y}^0_i$ to be interpretable as ``what would happen if I bet on outcome 0 on turn $i$'' and $\RV{Y}^1$ to represent ``what would happen if I bet on outcome 1 on turn $i$'', then we ought to have $\RV{Y}^0_i = 1-\RV{Y}^1_i$. 
+We have specialised notation for talking about marginals, conditionals, conditional independence and so forth. It is useful to use this notation to discuss properties of the representation in Equation \ref{eq:lup_rep}. Thus we adopt the convention that, given a consequence contractible model, the sample space $(\Omega,\sigalg{F})$ contains a variable $\RV{Y}^D:\Omega\to Y^{|D|\times\mathbb{N}}$ such that $\prob{P}_\square^{\RV{Y}^D}$ exists and is equal to $\mu^{\RV{Y}^D}$ in Lemma \ref{th:table_rep}.
 
-Lemma \ref{th:table_rep} also does not establish that causal contractibility is necessary for the existence of a potential outcomes. A counterexample is any potential outcomes model with potential outcomes $\RV{Z}^D$ where the distribution $\prob{P}^{\RV{Z}^D}$ is not column exchangeable. Such a model is not causally contractible.
+As we pointed out, there are similarities between $\RV{Y}^D$ in a standard consequence contractible model and the potential outcomes variables in potential outcomes models. However, the $\RV{Y}^D$ in our models usually can't be interpreted as potential outcomes. For example, consider a series of bets on fair coinflips. Model the consequence $\RV{Y}_i$ as uniform on $\{0,1\}$ for any decision $\RV{D}_i$, for all $i$. Specifically, $D=Y=\{0,1\}$ and $\prob{P}_\alpha^{\RV{Y}_n}(y)=\prod_{i\in [n]} 0.5$ for all $n$, $y\in Y^n$, $\alpha\in R$. Then the construction of $\prob{P}^{\RV{Y}^D}$ following the method in Lemma \ref{th:table_rep} yields $\prob{P}^{Y^D_i}(y^D_i)=\prod_{j\in D} 0.5$ for all $y^D_i\in Y^D$. In this model $\RV{Y}^0_i$ and $\RV{Y}^1_i$ are independent and uniformly distributed. However, if we wanted $\RV{Y}^0_i$ to be interpretable as ``what would happen if I bet on outcome 0 on turn $i$'' and $\RV{Y}^1$ to represent ``what would happen if I bet on outcome 1 on turn $i$'', then we ought to have $\RV{Y}^0_i = 1-\RV{Y}^1_i$. 
 
-The tabular distribution $\prob{P}^{\RV{Y}^D}$ along with the evaluation function $\kernel{F}_{\text{ev}}$ is a randomness pushback of the conditional probability $\prob{P}^{\RV{Y}|\RV{D}}$. Because $\prob{P}^{\RV{Y}^D}$ is a column exchangeable probability distribution we can apply De Finetti's theorem to show $\prob{P}^{\RV{Y}^D}$ is representable as a product of identical parallel copies of $\prob{P}^{\RV{Y}_1^D|\RV{H}}$ and a common prior $\prob{P}^{\RV{H}}$. This in turn can be used to show that $\prob{P}_\square^{\RV{Y}|\RV{D}}$ can be represented as a product of identical parallel copies of $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$ and the same common prior $\prob{P}_\square^{\RV{H}}$. This is the main result: the copies of $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$ are the repeatable response conditionals.
+Lemma \ref{th:table_rep} also does not establish that causal contractibility is necessary for the existence of a potential outcomes. A counterexample is a potential outcomes model with potential outcomes $\RV{Z}^D$ where the distribution $\prob{P}_\square^{\RV{Z}^D}$ exists and is not column exchangeable. Such a model is not consequence contractible.
+
+The tabular distribution $\prob{P}_\square^{\RV{Y}^D}$ along with the evaluation function $\kernel{F}_{\text{ev}}$ is a randomness pushback of the conditional probability $\prob{P}_\square^{\RV{Y}|\RV{D}}$. Because $\prob{P}_\square^{\RV{Y}^D}$ is a column exchangeable probability distribution we can apply De Finetti's theorem to show $\prob{P}_\square^{\RV{Y}^D}$ is representable as a product of identical parallel copies of $\prob{P}_\square^{\RV{Y}_1^D|\RV{H}}$ and a common prior $\prob{P}_\square^{\RV{H}}$. This in turn can be used to show that $\prob{P}_\square^{\RV{Y}|\RV{D}}$ can be represented as a product of identical parallel copies of $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$ and the same common prior $\prob{P}_\square^{\RV{H}}$. This is the main result: the copies of $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$ are the repeatable response conditionals.
 
 \begin{theorem}\label{th:iid_rep}
 Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_\square$ is causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{H}}_\square$ and $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exist for all $i\in \mathbb{N}$ and
@@ -356,7 +361,7 @@ By definition, for any $\{A_i\in\sigalg{Y}|i\in \mathbb{N}\}$
 Which is what we wanted to show.
 
 Only if:
-With $\prob{P}^{\RV{Y}^D}_\square$ column exchangeable. That is, letting $\RV{Y}^D=(\RV{Y}^D_i)_{i\in \mathbb{N}}$, the $\RV{Y}^D_i$ are exchangeable with respect to $\prob{P}^{\RV{Y}^D}_\square$. From \citet{kallenberg_basic_2005} we have a directing random measure $\RV{H}$ such that
+With $\prob{P}^{\RV{Y}^D}_\square$ column exchangeable. That is, noting that $\RV{Y}^D=(\RV{Y}^D_i)_{i\in \mathbb{N}}$, the $\RV{Y}^D_i$ are exchangeable with respect to $\prob{P}^{\RV{Y}^D}_\square$. From \citet{kallenberg_basic_2005} we have a directing random measure $\RV{H}$ such that
 \begin{align}
     \prob{P}_\square^{\RV{Y}^D|\RV{H}} &= \tikzfig{de_finetti_representation}\\
     &\iff\\
@@ -392,45 +397,66 @@ Consider $\alpha,\alpha'$ such that $\prob{P}^{\RV{D}_M}_\alpha = \prob{P}^{\RV{
 
 \subsection{Modelling different measurement procedures}
 
-When is it reasonable to assume causal contractibility? This involves two judgements -- that choices and outcomes can be paired up so that each choice only influences the corresponding outcome, and that there is an equivalence between exchanging choices and exchanging outcomes. Here, we're going to focus on when it is reasonable to assume exchange commutativity. 
+We have a formal condition -- consequence contractibility -- that is equivalent to the existence of repeatable response conditionals. If we are considering a repeatable experiment and we say there is some Markov kernel representing the effect of some $\RV{X}_i$ on $\RV{Y}_i$ for all $i$, then we are equivalently dealing with a model of consequences where identical subsequences of choices yield identical sub-experiments. 
 
-There is a superficially plausible but unsound line of argument one could adopt: $(\prob{P}_\square^{\RV{Y}_M|\RV{D}_M},A)$ is a model of $|M|$ indistinguishable ``experimental units'', because they are indistinguishable they can be interchanged without altering the appropriate model, and so exchange commutativity holds. The problem with this line of reasoning is that we cannot deduce from the interchangeability of ``experimental units'' that exchanging choices and exchanging outcomes are equivalent. For example, if choices depend on some feature of the ``experimental units'', then exchanging choices will lead to choices having different dependence on experimental units.
+To make use of this formal condition, we need to have some idea of which experiments -- or which \emph{measurement processes} -- can and cannot be modeled with consequence contractible models. Recall that consequence contractibility can be broken down into two separate conditions: exchange commutativity and consequence locality.
 
-This is exacerbated by the fact that exchange of experimental units is an operation on a \emph{measurement procedure}. Measurement procedures involve interaction with the real world and we do not have a method for precisely describing them (unlike probablistic models). Thus incomplete descriptions of a measurement procedure often leave open the possibility that choices do depend on properties of experimental units. We can sometimes rule this possibility out by specifying a measurement procedure that only allows for \emph{deterministic} choices.
+Consequence locality amounts to the judgement that the consequences $\RV{Y}_A$ for all $A\subset M$ are unrelated to any choices that correspond to consequences outside the set $A$. A sufficient condition is that my choice $\RV{D}_i$ affects only $\RV{Y}_i$, for all $i$.
 
-\subsection{Example: commutativity of exchange in the context of treatment choices}
-
-To justify an assumption of commutativity of exchange, we will argue as follows:
+We are going to focus on exchange commutativity in more detail. Strictly, we consider an exchange commutative model appropriate if we think that the experiment given by
 \begin{itemize}
-    \item Two measurement procedures should be considered equivalent in the sense that the same model is appropriate for both
-    \item The models associated with the two procedures are related to one another by composition with the relevant swap maps
-    \item Therefore the model associated with the first experiment is equivalent to the same model composed with the relevant swap maps
+    \item Decide on a sequence of choices
+    \item Shuffle the choices
+    \item Measure the consequences
+\end{itemize}
+is equivalent to (in the sense of requiring the same model)
+\begin{itemize}
+    \item Decide on a sequence of choices
+    \item Measure the consequences
+    \item Shuffle the consequences
 \end{itemize}
 
-First, we want to spell out in detail how composing a model of one measurement procedure with a swap map can result in a model appliccable to a different measurement procedure. Recall that we assume that a single master measurement procedure $\proc{S}$ taking values in $\Psi$, and observables are all functions of $\proc{S}$. Given a model $(\prob{P}_\square,A)$ associated with $\proc{S}$, the model does not in general apply to an alternative measurement procedure $\proc{S}'$.
+There is a related kind of symmetry that involves shuffling ``experimental units''. This is not an operation that can be described purely mathematically, but there may be a more intuitively appealing case availabel that this kind of shuffle yields an equivalent experiment. For example, if an ``experimental unit'' is a patient who receives a treatment and whose recovery is then followed up on as a consequences, we might be willing to regard an experiment equivalent if the order of patients in the experiment is shuffled. We think it is sometimes reasonable to deduce exchange commutativity from this kind of symmetry, but as we will see care is needed when doing so.
 
-However, it is also a principle of measurement procedures that a measurement procedure followed by the application of a function is itself a measurement procedure. Thus a model $(\prob{P}_\square,A)$ associated with $\proc{S}$ may also be informative about a procedure $f\circ \proc{S}$ for any $f:\Psi\to X$.
+\subsection{Equivalent measurement procedures and symmetric probabilistic models}
 
-In particular, consider measurement procedures related by \emph{swaps}. For example, suppose we have $(\proc{D}_1,\proc{D}_2)$ and $(\proc{D}^{\text{swap}}_1,\proc{D}^{\text{swap}}_2):=(\proc{D}_2,\proc{D}_1)$. Then, given any probability model $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ we have $\prob{P}_\alpha^{\RV{D}_1^{\text{swap}}\RV{D}_2^{\text{swap}}} = \prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$. In this way, $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ is a model of $(\proc{D}_1,\proc{D}_2)$ and induces a unique model of $(\proc{D}^{\text{swap}}_1,\proc{D}^{\text{swap}}_2)$ via composition with a swap map.
+Recall that measurement procedures can be composed with functions, yielding new measurement procedures (Secion \ref{sec:mproc}). If I have a model of an observed variable $(\RV{X}\circ \proc{S},\RV{X})$, given some function $f$ I may be able to deduce from this a model of a different observed variable $(f\circ \RV{X}\circ\proc{S},f\circ\RV{X})$. Composition with $f$ yield a new model variable $f\circ\RV{X}$ \emph{and} a new measurement procedure $f\circ \RV{X}\circ\proc{S}$. 
 
-Technically, this requires an assumption: if $\RV{X}$ is associated with $\proc{X}$ then $f\circ \RV{X}$ is associated with $f\circ \proc{X}$ (roughly: the abstract mathematical idea of composing a function with something and the actual process of applying a function to something and obtaining a result are treated as the same thing)
+An example of this reasoning is found in discussions of exchangeability. If we have an outcome variable $(\RV{Y}\circ\proc{S},\RV{Y})$ where $\RV{Y}=(\RV{Y}_i)_{i\in \mathbb{N}}$, we can define another variable $(\text{swap}\circ \RV{Y}\circ\proc{S},\text{swap}\circ\RV{Y})$. Here we have a different measurement procedure: first, measure $\RV{Y}$, then apply the $\text{swap}$ function to the result. This also comes with a different model variable $\text{swap}\circ\RV{Y}$. If we judge the original measurement procedure is ``equivalent'' to the new one in the sense that the same model should be used for both, then a probabilistic model of $\RV{Y}$ should have the property that pushing it forward with the $\text{swap}$ function should leave the model unchanged.
 
-Concretely, commutativity of exchange can be justified if we suppose that the same model $(\prob{P}_\square^{\RV{Y}_M|\RV{D})_M},A)$ should describe
+This reasoning begins with a judgement about equivalence of measurement procedures, and proceeds to identify a symmetry of a probabilistic model on the basis of this symmetry. It exploits the fact that function composition is an operation defined for measurement procedures and to model variables.
+
+We will aim to apply reasoning of this kind to conditional probability models to discuss judegements of equivalences in measurement procedures that imply commutativity of exchange. There is an additional subtlety in this case\todo{that often confuses me, and I spend a lot of time thinking about it}. Like the case of exchangeability, if $\prob{P}_\square^{\RV{Y}|\RV{D}}$ is a conditional probability representing the consequences $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$ of a sequence of choices $\RV{D}:=(\RV{D}_i)_{i\in\mathbb{N}}$, defining $\RV{Y}_{\text{swap}}:=(\RV{Y}_{\text{swap}(i)})_{i\in\mathbb{N}}$, then $\prob{P}_\square^{\RV{Y}_{\text{swap}}|\RV{D}}$ is the conditional probability representing the same consequences composed with the $\text{swap}$ function.
+
+Defining $\RV{D}_{\text{swap}^{-1}}:=(\RV{D}_{\text{swap}^{-1}(i)})_{i\in\mathbb{N}}$, we have $\prob{P}_\square^{\RV{Y}|\RV{D}_{\text{swap}^{-1}}}$ as the uniform conditional probability of $\RV{Y}$ given the swapped version of $\RV{D}$. Thus exchange commutativity can be alternatively stated as
+
+\begin{align}
+    \prob{P}_\square^{\RV{Y}|\RV{D}} = \prob{P}_\square^{\RV{Y}_{\text{swap}}|\RV{D}_{\text{swap}^{-1}}}
+\end{align}
+
+That is, the manner in which $\RV{Y}$ responds to $\RV{D}$ is exactly the same as the manner in which $\RV{Y}_{\text{swap}}$ responds to $\RV{D}_{\text{swap}^{-1}}$. In terms of measurement procedures, this asserts an equivalence between:
 \begin{itemize}
-    \item A measurement procedure $\proc{S}$ that yields $|M|$ outcomes $\proc{Y}_M$ and and $|M|$ decisions $\proc{D}_M$
-    \item Any other $|M|$ outcomes $\proc{Y}^{\text{swap}}_M$ and $|M|$ decisions $\proc{D}^{\text{swap}}_M$, related to the originals by a swap.
+    \item Decide on a sequence of choices $\proc{D}$
+    \item Observe a corresponding sequence of consequences $\proc{Y}$
 \end{itemize}
+and
+\begin{itemize}
+    \item Decide on a sequence of choices $\proc{D}$ exactly as before
+    \item Apply $\text{swap}^{-1}$ to get $\proc{D}_{\text{swap}^{-1}}$
+    \item Observe a corresponding sequence of consequences $\proc{Y}$ as before, but replace $\proc{D}$ with $\proc{D}_{\text{swap}^{-1}}$ where appropriate
+    \item Apply $\text{swap}$ to get $\proc{Y}_{\text{swap}}$
+\end{itemize}
+
+\subsection{Example: exchange commutativity in the context of treatment choices}
 
 Consider the following two scenarios:
 
 \begin{enumerate}
-    \item Dr Alice is going to see two patients who are both complaining of lower back pain and are otherwise unknown to Alice. Prior to seeing them, she settles on a decision function $\alpha$ which deterministically sets her treatment choices according to a function $\text{decisions}(\alpha)$
-    \item As before, but $\alpha$ is a ``decision inclination'' and $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$ nondeterministic
+    \item Dr Alice is going to see two patients who are both complaining of lower back pain. Prior to seeing either, she decides deterministically on $(\proc{D}_1,\proc{D}_2)$ for treatment decisions $\proc{D}_1$ and $\proc{D}_2$
+    \item As before, but $\proc{D}_1$ is chosen after examining patient 1, and $\proc{D}_2$ after examining patient 2
 \end{enumerate}
 
-Alice could model both situations with a sequential conditional probability model $(\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2},A)$ with the elements of $A$ identified with probability models of the form $\prob{P}_\alpha^{\RV{D}_1\RV{D}_2}$. Might she, in one or both situations, consider this condiitonal probability model to be causally contractible?
-
-We will assume that both satisfy commutativity of marginalisation -- that is, the first patient's outcomes are expected to be the same no matter what is planned for the second patient and vise versa. We want to know if they satisfy commutativity of exchange.
+Alice could model either situation with a conditional probability model $(\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2},A)$. In either situation, might the model be exchange commutative?
 
 The argument we want to make (if it can be supported) is:
 \begin{itemize}
@@ -439,16 +465,36 @@ The argument we want to make (if it can be supported) is:
     \item The second is a measurement procedure for $(\RV{D}^{\text{swap}}_1,\RV{D}^{\text{swap}}_2,\RV{Y}^{\text{swap}^{-1}}_1,\RV{Y}^{\text{swap}^{-1}}_2)$
 \end{itemize}
 
-At the outset, Alice does not know any features that might distinguish the two patients, so it is reasonable to think that she should adopt the same model for a) the original experiment and b) the same experiment, except with the patients interchanged. Note that interchanging \emph{patients} does not correspond directly to any operation on the model $(\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2},A)$ which describes decisions and, not patients.
+At the outset, Alice does not know any features that might distinguish the two patients, so it is reasonable to think that she should adopt the same model for a) the original experiment and b) the same experiment with patient 1 and patient 2 interchanged. Note that interchanging \emph{patients} does not correspond directly to swaps of either decisions or outcomes.
 
-We will define measurement procedures using pseudocode, because we find it a lot easier to keep track of operations like swaps in this format. This presentation has the unintended effect of suggesting that measurement procedures are like computer programs. We're not sure if this is a helpful way to think about things -- one of the key points of this example is that precise and imprecise measurement procedures may need quite different models, but thinking of measurement procedures as computer programs suggests that all measurement procedures are precise, which is not the case. Some steps may be precise, and we can express these steps with pseudocode, while other steps may be less precise. 
+We will define measurement procedures using pseudocode, because we find it a lot easier to keep track of operations like swaps in this format. This presentation has the unintended effect of suggesting that measurement procedures are like computer programs. Note that descriptions of measurement procedures, in pseudocode or otherwise, are incomplete descriptions.
 
-Suppose the first scenario corresponds to the following procedure $\proc{S}$ which yields values in $A\times D^2\times Y^2$. $\RV{D}_i$ is the projection $(\alpha,d_1,d_2,y_1,y_2)\mapsto d_i$ composed with $\proc{S}$ and $\RV{Y}_i$ is the projection $(\alpha,d_1,d_2,y_1,y_2)\mapsto y_i$ composed with $\proc{S}$.
+Suppose the first scenario corresponds to the following procedure $\proc{S}$.
 \begin{algorithmic}
     \Procedure{$\proc{S}$}{}
-    \Assert{patient A knowledge=patient B knowledge}
-    \State $\alpha \gets \mathrm{choose\_alpha}$
-    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{decisions}(\alpha)$
+    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{choose\_treatments}$
+    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;A})$
+    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;B})$
+    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+    \EndProcedure
+\end{algorithmic}
+
+Our assumption of patient interchangeability means that the following procedure is equivalent
+
+\begin{algorithmic}
+    \Procedure{$\proc{S}$}{}
+    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{choose\_treatments}$
+    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;B})$
+    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;A})$
+    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
+    \EndProcedure
+\end{algorithmic}
+
+Consider the swapped procedure
+
+\begin{algorithmic}
+    \Procedure{$\proc{S}$}{}
+    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{choose\_treatments}$
     \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;A})$
     \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;B})$
     \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
@@ -548,6 +594,7 @@ While paired permuation of decisions and outcomes yields
 
 $\proc{T}'$ is not the same as $\proc{T}''$. In scenario 1, because decisions were deterministic on $\alpha$, there was no room to pick anything different once $\alpha$ was chosen, so it doesn't matter if we add patient inspection steps or not. In scenario 2, decisions are not deterministic and there is vagueness in the procedure, so it is possible to describe compatible procedures where decisions depend on patient characteristics, and this dependence is not ``undone'' by swapping decisions.
 
+\todo[inline]{I've started but not finished revising the previous}
 
 \subsection{Causal consequences of non-deterministic variables}
 
@@ -629,3 +676,5 @@ We return briefly to consider the question: given some collection of people inde
 Do response conditionals $\prob{P}_\square^{\RV{Y}_i|\RV{B}_i}$ exist? We have by Lemma \ref{lem:proxy_control} that this exists if and only if $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{B}_i$. Thus we have reduced the question of the existence of response conditionals for BMI (or ``causal effects'' of BMI) to an empirical question. We might guess this is unlikely to hold; not only are there multiple ways we could imagine affecting a person's BMI with possibly different health implications, but it seems unlikely that the ultimate health outcome someone experiences can be predicted from BMI alone.
 
 However, there might be something to be said for a ``causal effect of BMI''. In particular, while it seems unlikely that BMI is a precise proxy for controlling health outcomes, it seems to at least be a reasonable empirical question to ask if BMI is an \emph{approximate} proxy for health outcomes.
+
+\todo[inline]{Do I prove a theorem about approximate proxy control?}

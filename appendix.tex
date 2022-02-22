@@ -416,23 +416,6 @@ Equation \ref{eq:extn_definition1} can be broken down to the product of four Mar
 
 \section{Markov variable maps and variables form a Markov category}\label{sec:app_mcat}
 
-In the following, given \emph{arbitrary measurable sets} $(X,\sigalg{X})$ and $(Y,\sigalg{Y})$, a Markov kernel is a function $\kernel{K}:X\times\sigalg{Y}\to [0,1]$ such that
-
-\begin{itemize}
-    \item For every $A\in \sigalg{Y}$, the function $x\mapsto \kernel{K}(x,A)$ is $\sigalg{X}$-measurable
-    \item For every $x\in X$, the function $A\mapsto \kernel{K}(x,A)$ is a probability measure on $(Y,\sigalg{Y})$
-\end{itemize}
-
-Note that this is a more general definition than the one used in the main paper; the version in the main paper is the restriction of this definition to finite sets.
-
-The \emph{delta function} $\delta:X\to\Delta(\sigalg{X})$ is the Markov kernel defined by
-\begin{align}
-    \delta(x,A) = \begin{cases}
-        1 & x\in A\\
-        0 & \text{otherwise}
-    \end{cases}
-\end{align}
-
 \citet{fritz_synthetic_2020} defines Markov categories in the following way:
 
 \begin{definition}
@@ -519,16 +502,6 @@ and the erase map by
 \end{align}
 
 Note that the category formed by taking the underlying unlabeled sets and the underlying unlabeled morphisms is identical to the category of measurable sets and Markov kernels described in \citet{fong_causal_2013,cho_disintegration_2019,fritz_synthetic_2020}.
-
-\begin{theorem}[The category of labeled Markov kernels and labeled measurable sets is a Markov category]
-The category described above is a Markov category.
-\end{theorem}
-
-\begin{proof}
-
-\todo[inline]{I'm not sure how to formally argue that it is monoidal and symmetric as the relevant texts I've checked all gloss over the functors with respect to which the relevant isomorphisms should be natural, but labels with products were intentionally made to act just like sets with cartesian products which are symmetric monoidal}
-
-Equations \ref{eq:ccom_1} to \ref{eq:nat} are known to be satisfied for the underlying unlabeled Markov kernels. We need to show is that they hold given our stricter criterion of labeled Markov kernel equality; that the underlying kernels \emph{and the label sets} match. It is sufficient to check the label sets only.
 
 
 

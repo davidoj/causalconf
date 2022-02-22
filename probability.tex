@@ -1,63 +1,81 @@
 %!TEX root = main.tex
 
 
-\section{Probability Sets}\label{sec:vague_variables}
+\section{Probability sets}\label{sec:vague_variables}
 
-\subsection{Section outline}
+\subsection{The roles of variables and probabilistic models}
 
-This section introduces the mathematical foundations used throughout the rest of the paper. The first subsection briefly introduces probability theory, which is likely to be familiar to many readers, as well as how string diagrams can be used to represent probabilistic functions (or \emph{Markov kernels}), which may be less familiar. We use string diagrams for probabilistic reasoning in a number of places, and this section is intended to help interpret mathematical statements in this form.
+The sample space $(\Omega,\sigalg{F})$ along with the measurement procedure $\proc{S}$ and the associated model variable $\RV{S}$ is a ``model skeleton''. The criterion of \emph{compatibility with observation} establishes a relation between observations and elements of $\sigalg{F}$.
 
-The second subsection presents a theory of probabilistic variables. Our formalisation of probabilistic variables is standard -- we define them as measurable functions on a fundamental probability set $\Omega$. We discusses how this formalisation can be connected to statements about the real world via \emph{measurement processes}, and distinguishes observed variables (which are associated with measurement processes) from unobserved variables (which are not associated with measurement processes). This section is not part of the mathematical theory of probability gap models, but it is relevant when one wants to apply this theory to real problems or to understand how the theory of probability gap models relates to other theories of causal inference.
+The basic kind of problem we want to consider is one in which we wish to decide upon an action that we expect will yield good consequences. We suppose that whether a consequence is good or not can somehow be deduced from the result of $\proc{S}$. However, we do not know the result of $\proc{S}$, so we need to say something about the result we expect to see for each action we could choose.
 
-Finally, we introduce \emph{probability gap models}. Probability gap models are a generalisation of probability models, and to understand the rest of this paper a reader needs to understand what a probability gap model is, how we define the common kinds of probability gap models used in this paper and what conditional probabilities and conditional independence statements mean for probability gap models.
+It is common to to represent uncertain knowledge about the outcomes of not-yet-performed measurements using probabilistic models, and we follow this well-trodden path. However, we do need to generalise common practice somewhat, because we need a model that tells us that different consequences may arise from deciding on different actions.
 
-\subsubsection{Brief outline of probability gap models}
+We use probability sets and probability gap models to represent decision problems. A probability set is a set of probability measures on a common sample space $(\Omega,\sigalg{F})$, and a probability gap model is a probability set along with a collection of subsets (the terminology comes from \citet{hajek_what_2003}). A decision problem presents us with a set of choices, and we assume that each choice is associated with a probability set representing uncertain knowledge (or best guesses) about the outcome of this choice. A probability gap model is the collection of all probability sets associated with a choice, along with the union of all of these sets. The union of all of the individual choice sets represents what we know about the outcome regardless of which choice is decided on.
 
-We consider a probability model to be a probability space $(\Omega,\sigalg{F},\mu)$ along with a collection of random variables. However, if I want to use probabilistic models to support decision making, then I need function from options to probability models. For example, suppose I have two options $A=\{0,1\}$, and I want to compare these options based on what I expect to happen if I choose them. If I choose option $0$, then I can (perhaps) represent my expectations about the consequences with a probability model, and if I choose option $1$ I can represent my expectations about the consequences with a different probability model. I can compare the two consequences, then decide which option seems to be better. To make this comparison, I have used a function from elements of $A$ to probability models. A function that takes elements of some set as inputs (which may or may not be decisions) and returns probability models is a \emph{probability gap model}, and the set of inputs it accepts is a \emph{probability gap}.
+Our use of probability sets to represent uncertain knowledge about the outcome of each choice is not the result of a strong opinion that probability sets are the best way to do this. We've already had to introduce probability sets to handle different choices in the first place and we don't see any harm in continuing to use them for this additional purpose. A model in which a unique probability distribution is associated with each choice is simply a special case of this setup, where the probability set associated with each choice is of size 1.
 
-We are particularly interested in probability gap models where the consequences of all inputs share some marginal or conditional probabilities. The simplest example of a model like this can be represented by a probability distribution $\prob{P}^{\RV{X}}$ for some variable $\RV{X}:\Omega\to X$. Such a probability distribution is consistent with many base measures on the fundamental probability set $\Omega$, and so we can consider the choice of base measure to be a probability gap. Not every probability distribution over $X$ can define a probability gap model in this way. In particular, we need $\prob{P}^{\RV{X}}$ to assign probability 0 to outcomes that are mathematically impossible according to the definition of $\RV{X}$ to ensure that there is some base measure that features $\prob{P}^{\RV{X}}$ as a marginal. We call probability gap models represented by probability distributions \emph{order 0 probability gap models}.
-
-Higher order probability gap models can be represented by conditional probabilities $\prob{P}^{\RV{Y}|\RV{X}}$ or pairs of conditional probabilities $\{\prob{P}^{\RV{X}|\RV{W}},\prob{P}^{\RV{Z}|\RV{WXY}}\}$, which we call \emph{order 1} and \emph{order 2} models respectively. Decision functions in data-driven decision problems correspond to probability gaps in order 2 models, as we discuss in Section \ref{sec:seedo_models}, which makes this type of model particularly interesting for our purposes. We also require these to be valid, and we define conditions for validity and prove that they are sufficient to ensure that models represented by conditional probabilities can in fact be mapped to base measures on the fundamental probability set.
-
-A conditional independence statement in a probability gap model means that the corresponding conditional independence statement holds for all base measures in the range of the function defined by the model. It is possible to deduce conditional independences from ``independences'' in the conditional probabilities that we use to represent these models, and conditional independences can imply the existence of conditional probabilities with certain independence properties.
-
-We can consider causal Bayesian networks to represent order 2 probability gap models. That is, a causal Bayesian network represents a function $\prob{P}$ that take inserts from some set $A$ of conditional probabilities and returns a probability model, and it does so in such a way that there are a pair of conditional probabilities $\{\prob{P}^{\RV{X}|\RV{W}},\prob{P}^{\RV{Z}|\RV{WXY}}\}$ shared by all models in the codomain of $\prob{P}$. The observational distribution is the value of $\prob{P}(\text{obs})$ for some \emph{observational insert} $\text{obs}\in A$, and other choices of inserts yield interventional distributions. Defining causal Bayesian networks in this manner resolves two areas of difficulty with causal Bayesian networks. First, under the standard definition of causal Bayesian networks interventional probabilities may fail to exist; with our perspective we can see that this arises due to misunderstanding the domain of $\prob{P}$. Secondly, there may be multiple distributions that differ in important ways that all satisfy the standard definition of ``interventional distributions''. The one-to-many relationship between observations and interventions is a basic challenge of causal inference, the problem arises when this relationship is obscured by calling multiple different things ``the interventional distribution''. If we consider causal Bayesian networks to represent order 2 probability gap models, we avoid doing this. 
-
-\todo[inline]{end previous section hasn't been revised}
-
+A great deal of standard probability theory is appliccable to teasoning with probability sets, and readers may be quite familiar with much of this. In particular, our notions of uniform conditional probability and uniform conditional independence are similar in many ways to the familiar notions of conditional probability and conditional indpendence, with the different being that -- even in finite sets -- the former do not always exist. We also make use of a diagrammatic notation for Markov kernels (or stochastic functions) taken from the categorical study of probability theory, which may be less familiar.
 
 \subsection{Standard probability theory}
 
+\begin{definition}[Measurable space]
+A measurable space $(X,\sigalg{X})$ is a set $X$ along with a $\sigma$-algebra of subsets $\sigalg{X}$.
+\end{definition}
+
+We use a number of shorthands for measurable spaces:
+\begin{itemize}
+	\item Where the choice of $\sigma$-algebra is unambiguous, we will just use the set name $X$ to refer to $X$ along with a $\sigma$-algebra $\sigalg{X}$
+	\item For a discrete set $X$, the sigma-algebra $\sigalg{X}$ referred to with the same letter is the discrete sigma-algebra
+	\item For a continuous set $X$, the sigma-algebra $\sigalg{X}$ referred to with the same letter is the Borel sigma-algebra
+\end{itemize}
+
 \begin{definition}[Probability measure]
-Given a measure space $(X,\sigalg{X})$, a probability measure is a $\sigma$-additive function $\mu:\sigalg{X}\to [0,1]$ such that $\mu(\emptyset)=0$ and $\mu(X)=1$. We write $\Delta(X)$ for the set of all probability measures on $(X,\sigalg{X})$.
+Given a measurable space $(X,\sigalg{X})$, a probability measure is a $\sigma$-additive function $\mu:\sigalg{X}\to [0,1]$ such that $\mu(\emptyset)=0$ and $\mu(X)=1$. We write $\Delta(X)$ for the set of all probability measures on $(X,\sigalg{X})$.
 \end{definition}
 
 \begin{definition}[Markov kernel]
-Given measure spaces $(X,\sigalg{X})$, $(Y,\sigalg{Y})$ $\RV{Y}:\Omega\to Y$, a Markov kernel $\prob{Q}:X\kto Y$ is a map $Y\times \sigalg{X}\to [0,1]$ such that
+Given measurable spaces $(X,\sigalg{X})$ and $(Y,\sigalg{Y})$, a Markov kernel $\prob{Q}:X\kto Y$ is a map $Y\times \sigalg{X}\to [0,1]$ such that
 \begin{enumerate}
-	\item $y\mapsto \prob{Q}(A|y)$ is $\sigalg{B}$-measurable for all $A\in \sigalg{X}$
+	\item $y\mapsto \prob{Q}(A|y)$ is $\sigalg{Y}$-measurable for all $A\in \sigalg{X}$
 	\item $A\mapsto \prob{Q}(A|y)$ is a probability measure on $(X,\sigalg{X})$ for all $y\in Y$
 \end{enumerate}
 \end{definition}
 
 \begin{definition}[Delta measure]
-Given a measureable space $(X,\sigalg{X})$ and $x\in X$, $\delta_x\in \Delta(X)$ is the measure defined by $\delta_x(A)=\llbracket x\in A \rrbracket$.
+Given a measureable space $(X,\sigalg{X})$ and $x\in X$, $\delta_x\in \Delta(X)$ is the measure defined by $\delta_x(A):=\llbracket x\in A \rrbracket$ for all $A\in \sigalg{X}$
 \end{definition}
 
 \begin{definition}[Probability space]
-A probability space is a triple $(\mu,\Omega,\sigalg{F})$, where $\mu$ is a base measure on $\sigalg{F}$.
+A probability space is a triple $(\mu,\Omega,\sigalg{F})$, where $\mu$ is a base measure on $\sigalg{F}$ and $(\Omega,\sigalg{F})$ is a measurable space.
 \end{definition}
 
 \begin{definition}[Variable]
-Given a measureable space $(\Omega,\sigalg{F})$ and a set of values $(X,\sigalg{X})$, an \emph{$X$-valued variable} is a measurable function $\RV{X}:\Omega\to X$.
+Given a measureable space $(\Omega,\sigalg{F})$ and a measurable space of values $(X,\sigalg{X})$, an \emph{$X$-valued variable} is a measurable function $\RV{X}:(\Omega,\sigalg{F})\to (X,\sigalg{X})$.
 \end{definition}
 
 \begin{definition}[Sequence of variables]
-Given a measureable space $(\Omega,\sigalg{F})$ and two variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $(\RV{X},\RV{Y}):\Omega\to X\times Y$ is the variable $\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega))$.
+Given a measureable space $(\Omega,\sigalg{F})$ and two variables $\RV{X}:(\Omega,\sigalg{F})\to (X,\sigalg{X})$, $\RV{Y}:(\Omega,\sigalg{F})\to (Y,\sigalg{Y})$, $(\RV{X},\RV{Y}):\Omega\to X\times Y$ is the variable $\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega))$.
 \end{definition}
 
 \begin{definition}[Marginal distribution with respect to a probability space]\label{def:pushforward}
-Given a probability space $(\mu,\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to (X,\sigalg{X})$, we can define the \emph{marginal distribution} of $\RV{X}$ with respect to $\mu$, $\mu^{\RV{X}}:\sigalg{X}\to [0,1]$ by $\mu^{\RV{X}}(A):=\mu(\RV{X}\yields A)$ for any $A\in \sigalg{X}$.
+Given a probability space $(\mu,\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to (X,\sigalg{X})$, we can define the \emph{marginal distribution} of $\RV{X}$ with respect to $\mu$, $\mu^{\RV{X}}:\sigalg{X}\to [0,1]$ by $\mu^{\RV{X}}(A):=\mu(\RV{X}^{-1}(A))$ for any $A\in \sigalg{X}$.
+\end{definition}
+
+\begin{definition}[Distribution-kernel products]
+Given $(X,\sigalg{X})$, $(Y,\sigalg{Y})$ a probability distribution $\mu\in \Delta(X)$ and a Markov kernel $\kernel{K}:X\kto Y$, $\mu\kernel{K}$ is a probability distribution on $(Y,\sigalg{Y})$ defined by
+\begin{align}
+	\mu\kernel{K}(A):= \int_{X} \kernel{K}(A|x)\mu(\mathrm{d}x)
+\end{align}
+for all $A\in \sigalg{Y}$.
+\end{definition}
+
+\begin{definition}[Kernel-kernel products]
+Given $(X,\sigalg{X})$, $(Y,\sigalg{Y})$, $(Z,\sigalg{Z})$ and Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:Y\kto Z$, $\kernel{K}\kernel{L}$ is a Markov kernel $X\kto Z$ defined by
+\begin{align}
+	\kernel{K}\kernel{L}(A|x):= \int_{Y} \kernel{L}(A|y)\kernel{K}(\mathrm{d}y|x)
+\end{align}
+for all $A\in \sigalg{Z}$.
 \end{definition}
 
 \begin{lemma}[Marginal distribution as a kernel product]\label{lem:pushf_kprod}
@@ -78,14 +96,18 @@ Consider any $A\in \sigalg{X}$.
 
 \subsection{Not quite standard probability theory}
 
-Instead of having probability distributions and Markov kernels as two different kinds of thing, we can identify probability distributions with Markov kernels whose domain is a one element set $\{*\}$.
+Instead of having probability distributions and Markov kernels as two different kinds of thing, we can identify probability distributions with Markov kernels whose domain is a one element set $\{*\}$. This will prove useful in further developments, as it means that we can treat probability distributions and Markov kernels as different varieties of the same kind of thing.
 
 \begin{definition}[Probability measures as Markov kernels]
-Given $(X,\sigalg{X})$ and $\mu\in \Delta(X)$, the Markov kernel $\kernel{K}:\{*\}\kto X$ given by $\kernel{K}(A|*)=\mu(A)$ for all $A\in \sigalg{X}$ is the Markov kernel associated with the probability measure $\mu$. We will use probability measures and their associated Markov kernels interchangeably, as it is transparent how to get from one to another.
+Given a measurable space $(X,\sigalg{X})$ and $\mu\in \Delta(X)$, the Markov kernel $\kernel{K}:\{*\}\kto X$ associated with $\mu$ is given by $\kernel{K}(A|*)=\mu(A)$ for all $A\in \sigalg{X}$.
 \end{definition}
 
-\begin{definition}[Regular conditional distribution]\label{def:disint}
-Given a probability space $(\mu,\Omega)$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, the probability of $\RV{Y}$ given $\RV{X}$ is any Markov kernel $\mu^{\RV{Y}|\RV{X}}:X\kto Y$ such that
+We will use probability measures and their associated Markov kernels interchangeably, as it is transparent how to get from one to another.
+
+Conditional probability distributions are ``Markov kernel annotated with variables''.
+
+\begin{definition}[Conditional distribution]\label{def:disint}
+Given a probability space $(\mu,\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, the probability of $\RV{Y}$ given $\RV{X}$ is any Markov kernel $\mu^{\RV{Y}|\RV{X}}:X\kto Y$ such that
 \begin{align}
 	\mu^{\RV{XY}}(A\times B)&=\int_{A} \mu^{\RV{Y}|\RV{X}}(B|x) \mathrm{d}\mu^{\RV{X}}(x) &\forall A\in \sigalg{X}, B\in \sigalg{Y}\\
 	&\iff\\
@@ -93,38 +115,24 @@ Given a probability space $(\mu,\Omega)$ and variables $\RV{X}:\Omega\to X$, $\R
 \end{align}
 \end{definition}
 
-We define higher order conditionals as ``conditionals of conditionals''
+We define higher order conditionals as ``conditionals of conditionals''.
 
-\begin{definition}[Regular higher order conditionals]
-Given a probability space $(\mu,\Omega)$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$, a higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}:X\times Y\to Z$ is any Markov kernel such that, for some $\mu^{\RV{Y}|\RV{X}}$, 
+\begin{definition}[Higher order conditionals]
+Given a probability space $(\mu,\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$, a higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}:X\times Y\to Z$ is any Markov kernel such that, for some $\mu^{\RV{Y}|\RV{X}}$, 
 \begin{align}
 	\mu^{\RV{ZY}|\RV{X}}(B\times C|x) &=\int_B \mu^{\RV{Z}|(\RV{Y}|\RV{X})}(C|x,y)\mu^{\RV{Y}|\RV{X}}(dy|x)\\ 
-	&\iff
+	&\iff\\
 	\mu^{\RV{ZY}|\RV{X}} &= \tikzfig{disintegration_existence}\label{eq:disint_def}
 \end{align}
 \end{definition}
 
-Higher order conditionals are useful because $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ is a version of $\mu^{\RV{X}|\RV{YX}}$, so if we're given $\mu^{\RV{ZY}|\RV{X}}$ and we can find some $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ then we have a version of $\mu^{\RV{X}|\RV{YX}}$. This also hold for conditional with respect to probability sets, which we will introduce later (Theorem \ref{th:higher_order_conditionals}).
+Higher order conditionals are useful because $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ is a version of $\mu^{\RV{Z}|\RV{YX}}$, so if we're given $\mu^{\RV{ZY}|\RV{X}}$ but not $\mu$ itself, we use the higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ as a version of $\mu^{\RV{X}|\RV{YX}}$. This also hold for conditional with respect to probability sets, which we will introduce later (Theorem \ref{th:higher_order_conditionals}).
 
-Furthermore, given regular $\mu^{\RV{XY}|\RV{Z}}$ and $\RV{X}$, $\RV{Y}$ standard measurable, it has recently been proven that a regular higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ exists \citet{bogachev_kantorovich_2020}, Theorem 3.5. See also Theorem \ref{th:ho_cond_psets} for the extension of this theorem to probability sets.
-
-\subsection{Probabilistic models for causal inference}
-
-\todo[inline]{following section hasn't been revised}
-
-The sample space $(\Omega,\sigalg{F})$ along with our collection of variables is a ``model skeleton'' -- it tells us what kind of data we might see. The process $\proc{S}$ which tells us which part of the world we're interested in is related to the model $\Omega$ and the observable variables by the criterion of \emph{consistency with observation}. The kind of problem we are mainly interested in here is one where we make use of data to help make decisions under uncertainty. Probabilistic models have a long history of being used for this purpose, and our interest here is in constructing probabilistic models that can be attached to our variable ``skeleton''. 
-
-Given a model skeleton, a common approach to attaching a probabilistic model involves defining a base measure $\mu$ on $(\Omega,\sigalg{F})$ which yields a probability space $(\Omega,\sigalg{F},\mu)$. For causal inference, we need a to generalise this approach, because we need to handle \emph{choices}. If I have different options I can choose, and I want to use a model to compare the options according to some criteria, then I need a model that can accept a choice and output the expected result of that choice. According to this model, anything that we consider a ``consequence of a choice'' doesn't have a definite probability, because it depends on the choice we make.
-
-In general, we might have arbitrary sets of choices that map to probability models in an arbitrary way. However, we are here interested in a simpler case: we suppose that there are a number of points at which we can act, and prior to acting we can observe some variables, and we are able to choose probabilistic maps from observations to acts. We also assume that, given the same observation and the same act, the same consequence is expected. That is, the consequences do not depend directly way on the choice of map from observations to acts.
-
-These assumptions together imply that our model should contain a number of fixed conditional probabilities -- the probabilities of consequences given observations and acts -- and a number of ``choosable'' conditional probabilities -- the probabilities of acts given observations. The fixed conditional probabilities form a probability model with \emph{gaps}, and those gaps correspond to choices we can make. When we combine the fixed conditional probabilities and a choice of a conditional probability for each gap, we get a regular probability model. The terminology of ``probability gaps'' comes from \citet{hajek_what_2003}. 
-
-To restate our general approach: we model decision problems with a collection of fixed conditional probabilities and a collection of choosable conditional probabilities, and combine the fixed conditionals with particular choices to get a probability measure. Two issues present themselves here: firstly, what \emph{is} a collection of conditional probabilities without a fixed underlying probability measure? Secondly, we need to ensure that our chosen collection of conditional probabilities actually does induce a probability model. We address these questions with \emph{probability sets}. A probability set is a collection of probability measures on $(\Omega,\sigalg{F})$, and we identify a collection of conditional probabilities with the set of probability measures that induce those conditional probabilities. We then define an operation $\odot$ for combining conditional probabilities, and a criterion of \emph{validity} such that a collection of valid conditional probabilities recursively combined using $\odot$ is guaranteed to corresponds to a non-empty probability set.
-
-\todo[inline]{Previous section hasn't been revised}
+Furthermore, given $\mu^{\RV{XY}|\RV{Z}}$ and $\RV{X}$, $\RV{Y}$ standard measurable, it has recently been proven that a higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ exists \citet{bogachev_kantorovich_2020}, Theorem 3.5. See also Theorem \ref{th:ho_cond_psets} for the extension of this theorem to probability sets.
 
 \subsection{Probability sets}
+
+\todo[inline]{I've accepted Bob's comments about the notation, but I haven't actually changed the notation at this point}
 
 A probability set is a set of probability measures. This section establishes a number of useful properties of conditional probability with respect to probability sets. Unlike conditional probability with repsect to a probability space, conditional probabilities don't always exist for probability sets. Where they do, however, they are almost surely unique and we can marginalise and disintegrate them to obtain other conditional probabilities with respect to the same probability set.
 
@@ -138,15 +146,15 @@ Given a probability set $\prob{P}_{\{\}}$, we define marginal and conditional pr
 Given a sample space $(\Omega,\sigalg{F})$, a variable $\RV{X}:\Omega\to X$ and a probability set $\prob{P}_{\{\}}$, the marginal distribution $\prob{P}_{\{\}}^{\RV{X}}=\prob{P}_\alpha^{\RV{X}}$ for any $\prob{P}_\alpha\in\prob{P}_{\{\}}$ if a distribution satisfying this condition exists. Otherwise, it is undefined.
 \end{definition}
 
-\begin{definition}[Regular conditional distribution with respect to a probability set]\label{def:cprob_pset}
-Given a fundamental probability set $\Omega$ variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}$, a conditional $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is an $\RV{Y}|\RV{X}$ conditional probability of $\prob{P}_\alpha$ for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. If no such Markov kernel exists, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is undefined.
+\begin{definition}[Uniform conditional distribution with respect to a probability set]\label{def:cprob_pset}
+Given a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}$, a uniform conditional distribution $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is an $\RV{Y}|\RV{X}$ conditional probability of $\prob{P}_\alpha$ for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. If no such Markov kernel exists, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is undefined.
 \end{definition}
 
-\begin{definition}[Regular higher order conditional with respect to a probability set]\label{def:ho_cprob_pset}
-Given a fundamental probability set $\Omega$, variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$, if $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists then a higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is any Markov kenrel $X\times Y\kto Z$ that is a higher order conditional of some version of $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$. If no $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists, $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is undefined.
+\begin{definition}[Uniform higher order conditional distribuition with respect to a probability set]\label{def:ho_cprob_pset}
+Given a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$, if $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists then a uniform higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is any Markov kernel $X\times Y\kto Z$ that is a higher order conditional of some version of $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$. If no $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists, $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is undefined.
 \end{definition}
 
-Under the assumption of standard measurable spaces, the existence of a conditional probability $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ implies the existence of a higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ with respect to the same probability set (Theorem \ref{th:ho_cond_psets}). $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is in turn a version of the conditional $\prob{P}_{\{\}}^{\RV{Z}|\RV{YX}}$ (Theorem \ref{th:higher_order_conditionals}). Thus, from the existence of $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ we can derive the existence of $\prob{P}_{\{\}}^{\RV{Z}|\RV{YX}}$.
+Under the assumption of standard measurable spaces, the existence of a uniform conditional distribution $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ implies the existence of a higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ with respect to the same probability set (Theorem \ref{th:ho_cond_psets}). $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is in turn a version of the uniform conditional distribution $\prob{P}_{\{\}}^{\RV{Z}|\RV{YX}}$ (Theorem \ref{th:higher_order_conditionals}). Thus, from the existence of $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ we can derive the existence of $\prob{P}_{\{\}}^{\RV{Z}|\RV{YX}}$.
 
 % \begin{lemma}[Equivalence of pushforward definitions]\label{lem:prod_pushf}
 % Given a probability space $\kernel{M}:W\to \Omega$ and $\RV{X}:\Omega\to X$, define $\kernel{K}^{\RV{X}|\RV{W}}:W\kto X$ by $\kernel{K}^{\RV{X}|\RV{W}}(x|w):=\kernel{M}(\RV{X}\yields x|w)$ for any $x\in X$m $w\in W$ and $\kernel{L}^{\RV{X}}:W\kto X$ by
@@ -171,7 +179,7 @@ Under the assumption of standard measurable spaces, the existence of a condition
 
 \subsection{Semidirect product and almost sure equality}
 
-The operation used in Equation \ref{eq:conditional} that combines $\mu^{\RV{X}}$ and $\mu^{\RV{Y}|\RV{X}}$ is something we will use repeatedly, so we call it the \emph{semidirect product} and give it the symbol $\odot$. We also define a notion of almost sure equality with respect to $\odot$: $\kernel{K}\overset{\mu^{\RV{X}}}{\cong} \kernel{L}$ if $\mu^{\RV{X}}\odot \kernel{K}=\mu^{\RV{X}}\odot\kernel{L}$. Thus if two terms are almost surely equal, they are substitutable when they both appear in a semidirect product.
+The operation used in Equation \ref{eq:conditional} that combines $\mu^{\RV{X}}$ and $\mu^{\RV{Y}|\RV{X}}$ is something we will use repeatedly, so we call it the \emph{semidirect product} and give it the symbol $\odot$. We also define a notion of almost sure equality with using $\odot$: $\kernel{K}\overset{\mu^{\RV{X}}}{\cong} \kernel{L}$ if $\mu^{\RV{X}}\odot \kernel{K}=\mu^{\RV{X}}\odot\kernel{L}$ (note that this latter equality is strict; both semidirect products must assign the same measure to the same measurable sets). Thus if two terms are almost surely equal, they are substitutable when they both appear in a semidirect product.
 
 \begin{definition}[Semidirect product]\label{def:copyproduct}
 Given $\prob{K}:X\kto Y$ and $\prob{L}:Y\times X\kto Z$, define the copy-product $\prob{K}\odot\prob{L}:X\to Y\times Z$ as
@@ -207,7 +215,7 @@ Two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are almost sure
 \end{align}
 \end{definition}
 
-\begin{lemma}[Conditional probabilities are almost surely equal]
+\begin{lemma}[Uniform conditional distributions are almost surely equal]
 If $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are both versions of $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ then $\kernel{K}\overset{\prob{P}_{\{\}}}{\cong}\kernel{L}$
 \end{lemma}
 
@@ -222,7 +230,7 @@ For all $\prob{P}_\alpha \in \prob{P}_{\{\}}$
 \begin{lemma}[Substitution of almost surely equal Markov kernels]
 Given $\prob{P}_{\{\}}$, if $\kernel{K}:X\times Y \kto Z$ and $\kernel{L}:X\times Y \kto Z$ are almost surely equal $\kernel{K}\overset{\prob{P}_{\{\}}}{\cong}\kernel{L}$, then for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
 \begin{align}
-	\prob{P}_\alpha^{\RV{Y}|\RV{X}}\odot \kernel{K} &\overset{a.s.}{\cong} \prob{P}_\alpha^{\RV{Y}|\RV{X}}\odot \kernel{L}
+	\prob{P}_\alpha^{\RV{Y}|\RV{X}}\odot \kernel{K} &\overset{\prob{P}_{\{\}}}{\cong} \prob{P}_\alpha^{\RV{Y}|\RV{X}}\odot \kernel{L}
 \end{align}
 \end{lemma}
 
@@ -235,10 +243,10 @@ For any $\prob{P}_\alpha\in\prob{P}_{\{\}}$
 \end{align}
 \end{proof}
 
-\begin{lemma}[Semidirect product of conditionals is a joint conditional]\label{lem:joint_conditional}
-Given a probability set $\prob{P}_{\{\}}$ on $(\Omega,\sigalg{F})$ along with conditional probabilities $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$, $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ exists and is equal to
+\begin{lemma}[Semidirect product of uniform conditional distributions is a joint uniform conditional distribution]\label{lem:joint_conditional}
+Given a probability set $\prob{P}_{\{\}}$ on $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and uniform conditional distributions $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$, then $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ exists and is equal to
 \begin{align}
-	\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}} &= \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}\\
+	\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}} &= \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}
 \end{align}
 \end{lemma}
 
@@ -269,7 +277,7 @@ By definition, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
 
 \subsection{Maximal probability sets and valid conditionals}
 
-So far we have defined probability sets and conditional probabilities as Markov kernels that can sometimes be derived from a probability set. We are often interested in working in the opposite direction: at the outset, we have a conditional probability and and we want to reason about the largest probability set admitting this conditional probability. We call this a \emph{maximal probability set}.
+So far we have defined probability sets and conditional probabilities as Markov kernels that can sometimes be derived from a probability set. For the purposes of analysing decision models, we are often interested in working in the opposite direction: starting with conditional probabilities and working with probability sets defined by them. We call these \emph{maximal probability sets}.
 
 We need to be a little bit careful when we proceed in this fashion: we can't take an arbitrary Markov kernel $\kappa:X\kto Y$ and declare it to be a conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ for some $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a maximal probability set $\prob{P}_{\{\}}$. The reason for this is that some collections of variables cannot have arbitrary conditional probabilities, and so $\prob{P}_{\{\}}$ may in fact be the empty set. We address this with the notion of validity; a \emph{valid distribution} is a distribution associated with a particular variable that defines a nonempty set of base measures on $\Omega$ (Theorem \ref{th:completion}), and \emph{valid conditionals} are a set of conditional probabilities closed under $\odot$ and reducing to valid distributions when conditioning on a trivial variable (Lemma \ref{lem:valid_extendability}).
 
@@ -280,7 +288,7 @@ Given $(\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to X$, an $\RV{X}$-val
 \end{definition}
 
 \begin{definition}[Valid conditional]\label{def:valid_conditional_prob}
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{$\RV{Y}|\RV{X}$-valid conditional probability} is a Markov kernel $\prob{L}:X\kto Y$ such that:
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{$\RV{Y}|\RV{X}$-valid conditional probability} is a Markov kernel $\prob{L}:X\kto Y$ that assigns probability 0 to impossible events, unless the argument itself corresponds to an impossible event:
 \begin{align}
     \forall B\in \sigalg{Y}, x\in X: (\RV{X},\RV{Y})\yields \{x\}\times B = \emptyset \implies \left(\prob{L}(B|x) = 0\right) \lor \left(\RV{X}\yields \{x\} = \emptyset\right)
 \end{align}
@@ -302,8 +310,8 @@ Note that validity is not a necessary condition for a conditional to define a no
 
 Conditional independence has a familiar definition in probability models. We define conditional independence with respect to a probability gap model to be equivalent to conditional independence with resepect to every base measure in the range of the model. This definition is closely related to the idea of \emph{extended conditional independence} proposed by \citet{constantinou_extended_2017}, see Appendix \ref{ap:eci}.
 
-\begin{definition}[Conditional independence with respect to a probability model]
-For a \emph{probability model} $\model{P}_{\alpha}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\{\}}}\RV{A}|\RV{C}$, if
+\begin{definition}[Conditional independence]
+For a \emph{probability model} $\model{P}_{\alpha}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\alpha}}\RV{A}|\RV{C}$, if
 \begin{align}
 	\kernel{P}_{\alpha}^{\RV{ABC}} &= \tikzfig{cond_indep1} \label{eq:cond_indep}
 \end{align}
@@ -315,40 +323,29 @@ Conditional independence satisfies the \emph{semi-graphoid axioms}. For all stan
 
 \begin{enumerate}
 	\item Symmetry: $\RV{A}\CI_{\prob{P}} \RV{B}|\RV{C}$ iff $\RV{B}\CI_{\prob{P}} \RV{A}|\RV{C}$
-	\item Decomposition: $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}}\RV{B}|\RV{W}$ and $\RV{A}\CI_{\prob{P}_\square}\RV{C}|\RV{W}$
+	\item Decomposition: $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}}\RV{B}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$
 	\item Weak union: $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$
-	\item Contraction: $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CI_{\prob{P}_\square}(\RV{B},\RV{C})|\RV{W}$
+	\item Contraction: $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$
 \end{enumerate}
 
-We define \emph{universal conditional independence} with respect to a probability set as conditional independence for every probability model in the set.
+We define \emph{uniform conditional independence} with respect to a probability set as conditional independence for every probability model in the set.
 
-\begin{definition}[Universal conditional independence]
-For a \emph{probability set} $\model{P}_{\{\}}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is universally conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\{\}}}\RV{A}|\RV{C}$, if for all $\prob{P}_{\alpha}\in \prob{P}_{\{\}}$ $\RV{A}\CI_{\prob{P}_\alpha} \RV{C}|\RV{B}$.
+\begin{definition}[Uniform conditional independence]
+For a \emph{probability set} $\model{P}_{\{\}}$ and variables $\RV{A},\RV{B},\RV{C}$, we say $\RV{B}$ is uniformly conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\{\}}}\RV{A}|\RV{C}$, if for all $\prob{P}_{\alpha}\in \prob{P}_{\{\}}$ $\RV{B}\CI_{\prob{P}_\alpha} \RV{A}|\RV{C}$.
 \end{definition}
 
-It is straightforward to show that universal conditional independence satisfies the semi-graphoid axioms.
+It is straightforward to show that uniform conditional independence satisfies the semi-graphoid axioms by application of Lemma \ref{lem:distribute_quantifier}
 
 \begin{lemma}\label{lem:distribute_quantifier}
 $[\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]$
 \end{lemma}
 
 \begin{proof}
-\begin{align}
-	\forall x: f(x) \implies g(x)&&\text{premise}\label{eq:premise1}\\
-	\forall x: f(x)&& \text{premise}\label{eq:premise2}\\
-	f(a) && \text{universal instantiation on }\ref{eq:premise2}\text{ substitute }a/x\label{eq:ui1}\\
-	f(a)\implies g(a) && \text{universal instantiation on }\ref{eq:premise1}\text{ substitute }a/x\label{eq:ui2}\\
-	g(a)&&\text{ modus ponens }\ref{eq:ui1}\text{ and }\ref{eq:ui2}\label{eq:mp1}\\
-	\forall x: g(x)&&\text{universal generalisation on }\ref{eq:mp1}\label{eq:ug1}\\
-	(\forall x: f(x))\implies(\forall x: g(x))&& \text{conditional proof }\ref{eq:premise2}-\ref{eq:ug1}\label{eq:cp1}\\
-	[\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]&& \text{conditional proof }\ref{eq:premise1}\text{--}\ref{eq:cp1}
-\end{align}
-
-With thanks to \citet{1377555} for the proof.
+See appendix
 \end{proof}
 
 \begin{lemma}
-Given a standard measurable space $(\Omega,\sigalg{F})$ and $\prob{P}_{\{\}}$ on $\Omega$, universal conditional independence with respect to $\prob{P}_{\{\}}$ satisfies the semi-graphoid axioms.
+Given a standard measurable space $(\Omega,\sigalg{F})$ and $\prob{P}_{\{\}}$ on $\Omega$, uniform conditional independence with respect to $\prob{P}_{\{\}}$ satisfies the semi-graphoid axioms.
 \end{lemma}
 
 \begin{proof}
@@ -358,7 +355,7 @@ As the axioms hold for conditional independence for any probability model, we ha
 
 Then, by Lemma \ref{lem:distribute_quantifier}, $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))\implies (\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: g(\prob{P}_{\alpha}))$.
 
-Note that $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))$ is, by definition, a universal conditional independence statement with respect to $\prob{P}_{\{\}}$.
+Note that $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))$ is, by definition, a uniform conditional independence statement with respect to $\prob{P}_{\{\}}$.
 \end{proof}
 
 % \begin{definition}[Conditional independence with respect to a probability comb]

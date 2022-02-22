@@ -349,7 +349,7 @@ Let $\RV{A}^*=\RV{A}\circ \RV{V}$, $\RV{B}^*=\RV{B}\circ\RV{V}$, $\RV{C}^*=\RV{C
 \end{align}
 \end{theorem}
 
-This result implies a close relationship between order 1 condtional independence and extended conditional independence.
+This result implies a close relationship between order 1 conditional independence and extended conditional independence.
 
 \begin{theorem}
 Let $\RV{A}^*=\RV{A}\circ \RV{V}$, $\RV{B}^*=\RV{B}\circ\RV{V}$, $\RV{C}^*=\RV{C}\circ \RV{V}$ ($(\RV{A},\RV{B},\RV{C})$ are $\sigalg{V}$-measurable) and $\RV{D}^*=\RV{D}\circ \RV{W}$,$\RV{E}^*=\RV{E}\circ \RV{W}$ where $V,W$ are discrete and $\RV{W}=(\RV{D}^*,\RV{E}^*)$. Then letting $\prob{P}_\alpha^{\RV{VW}}:=\prob{P}_\alpha^{\RV{W}}\odot \prob{P}^{\RV{V}|\RV{W}}$
@@ -439,3 +439,21 @@ This result can fail to hold in the absence of the domination condition. Conside
 
 Note that in the absence of the assumption of the existence of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$, $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ does \emph{not} imply the existence of $\prob{P}_\square^{\RV{Y}|\RV{W}}$. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{XY}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{XY}}$ is two flips of a biased coin, then $\RV{Y}\CI_{\prob{P}}\RV{X}$ but $\prob{P}^{\RV{Y}}$ does not exist.
 
+\begin{reptheorem}{lem:distribute_quantifier}
+$[\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]$
+\end{reptheorem}
+
+\begin{proof}
+\begin{align}
+    \forall x: f(x) \implies g(x)&&\text{premise}\label{eq:premise1}\\
+    \forall x: f(x)&& \text{premise}\label{eq:premise2}\\
+    f(a) && \text{UI on }\ref{eq:premise2}\text{ sub }a/x\label{eq:ui1}\\
+    f(a)\implies g(a) && \text{UI on }\ref{eq:premise1}\text{ sub }a/x\label{eq:ui2}\\
+    g(a)&&\text{ MP }\ref{eq:ui1}\text{ and }\ref{eq:ui2}\label{eq:mp1}\\
+    \forall x: g(x)&&\text{UG on }\ref{eq:mp1}\label{eq:ug1}\\
+    (\forall x: f(x))\implies(\forall x: g(x))&& \text{CP }\ref{eq:premise2}-\ref{eq:ug1}\label{eq:cp1}\\
+    [\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]&& \text{CP }\ref{eq:premise1}\text{--}\ref{eq:cp1}
+\end{align}
+
+Where UI: universal instantiation, UG: universal generalisation, MP: modus ponens and CP: conditoinal proof. With thanks to \citet{1377555} for the proof.
+\end{proof}
