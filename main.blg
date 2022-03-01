@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: plainnat.bst
+Database file #1: references.bib
+Warning--to sort, need author or key in kallenberg_basic_2005
+Warning--empty author in kallenberg_basic_2005
+Warning--empty year in 1377555
+You've used 36 entries,
+            2773 wiz_defined-function locations,
+            892 strings with 13365 characters,
+and the built_in function-call counts, 15885 in all, are:
+= -- 1569
+> -- 632
+< -- 37
++ -- 223
+- -- 186
+* -- 1223
+:= -- 2485
+add.period$ -- 186
+call.type$ -- 36
+change.case$ -- 160
+chr.to.int$ -- 35
+cite$ -- 76
+duplicate$ -- 774
+empty$ -- 1379
+format.name$ -- 241
+if$ -- 3380
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 41
+newline$ -- 260
+num.names$ -- 150
+pop$ -- 266
+preamble$ -- 1
+purify$ -- 129
+quote$ -- 0
+skip$ -- 537
+stack$ -- 0
+substring$ -- 622
+swap$ -- 103
+text.length$ -- 7
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 361
+warning$ -- 3
+while$ -- 155
+width$ -- 0
+write$ -- 625
+(There were 3 warnings)

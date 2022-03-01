@@ -5,7 +5,7 @@
 
 \subsection{The roles of variables and probabilistic models}
 
-The sample space $(\Omega,\sigalg{F})$ along with the measurement procedure $\proc{S}$ and the associated model variable $\RV{S}$ is a ``model skeleton''. The criterion of \emph{compatibility with observation} establishes a relation between observations and elements of $\sigalg{F}$.
+The sample space $(\Omega,\sigalg{F})$ along with the measurement procedure(s) $\proc{S}$ and the associated model variable $\RV{S}$ is a ``model skeleton''. The criterion of \emph{compatibility with observation} establishes a relation between the results of measurements and elements of $\sigalg{F}$.
 
 The basic kind of problem we want to consider is one in which we wish to decide upon an action that we expect will yield good consequences. We suppose that whether a consequence is good or not can somehow be deduced from the result of $\proc{S}$. However, we do not know the result of $\proc{S}$, so we need to say something about the result we expect to see for each action we could choose.
 
@@ -15,7 +15,7 @@ We use probability sets and probability gap models to represent decision problem
 
 Our use of probability sets to represent uncertain knowledge about the outcome of each choice is not the result of a strong opinion that probability sets are the best way to do this. We've already had to introduce probability sets to handle different choices in the first place and we don't see any harm in continuing to use them for this additional purpose. A model in which a unique probability distribution is associated with each choice is simply a special case of this setup, where the probability set associated with each choice is of size 1.
 
-A great deal of standard probability theory is appliccable to teasoning with probability sets, and readers may be quite familiar with much of this. In particular, our notions of uniform conditional probability and uniform conditional independence are similar in many ways to the familiar notions of conditional probability and conditional indpendence, with the different being that -- even in finite sets -- the former do not always exist. We also make use of a diagrammatic notation for Markov kernels (or stochastic functions) taken from the categorical study of probability theory, which may be less familiar.
+A great deal of standard probability theory is applicable to reasoning with probability sets, and readers may be quite familiar with much of this. In particular, our notions of uniform conditional probability and uniform conditional independence are similar in many ways to the familiar notions of conditional probability and conditional independence, with the different being that -- even in finite sets -- the former do not always exist. We also make use of a diagrammatic notation for Markov kernels (or stochastic functions) taken from the categorical study of probability theory, which may be less familiar.
 
 \subsection{Standard probability theory}
 
@@ -134,7 +134,7 @@ Furthermore, given $\mu^{\RV{XY}|\RV{Z}}$ and $\RV{X}$, $\RV{Y}$ standard measur
 
 \todo[inline]{I've accepted Bob's comments about the notation, but I haven't actually changed the notation at this point}
 
-A probability set is a set of probability measures. This section establishes a number of useful properties of conditional probability with respect to probability sets. Unlike conditional probability with repsect to a probability space, conditional probabilities don't always exist for probability sets. Where they do, however, they are almost surely unique and we can marginalise and disintegrate them to obtain other conditional probabilities with respect to the same probability set.
+A probability set is a set of probability measures. This section establishes a number of useful properties of conditional probability with respect to probability sets. Unlike conditional probability with respect to a probability space, conditional probabilities don't always exist for probability sets. Where they do, however, they are almost surely unique and we can marginalise and disintegrate them to obtain other conditional probabilities with respect to the same probability set.
 
 \begin{definition}[Probability set]
 A probability set $\prob{P}_{\{\}}$ on $(\Omega,\sigalg{F})$ is a collection of probability measures on $(\Omega,\sigalg{F})$. In other words it is a subset of $\mathscr{P}(\Delta(\Omega))$, where $\mathscr{P}$ indicates the power set.
@@ -150,7 +150,7 @@ Given a sample space $(\Omega,\sigalg{F})$, a variable $\RV{X}:\Omega\to X$ and 
 Given a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}$, a uniform conditional distribution $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is an $\RV{Y}|\RV{X}$ conditional probability of $\prob{P}_\alpha$ for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. If no such Markov kernel exists, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is undefined.
 \end{definition}
 
-\begin{definition}[Uniform higher order conditional distribuition with respect to a probability set]\label{def:ho_cprob_pset}
+\begin{definition}[Uniform higher order conditional distribution with respect to a probability set]\label{def:ho_cprob_pset}
 Given a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$, if $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists then a uniform higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is any Markov kernel $X\times Y\kto Z$ that is a higher order conditional of some version of $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$. If no $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists, $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is undefined.
 \end{definition}
 
@@ -304,11 +304,11 @@ Lemma \ref{lem:valid_extendability} shows that the semidirect product of any pai
 
 Collections of recursive conditional probabilities often arise in causal modelling -- in particular, they are the foundation of the structural equation modelling approach \citet{richardson2013single,pearl_causality:_2009}.
 
-Note that validity is not a necessary condition for a conditional to define a non-empty probability set. The intuition for this is: if we have some $\kernel{K}:X\kto Y$, $\kernel{K}$ might be an invalid $\RV{Y}|\RV{X}$ conditional on all of $X$, but might be valid on some subset of $X$, and so we might have some probability model $\prob{P}$ that assigns measure 0 to the bad parts of $X$ such that $\kernel{K}$ is a version of $\prob{P}^{\RV{Y}|\RV{X}}$. On the other hand, if we want to take the product of $\kernel{K}$ with arbitary valid $\RV{X}$ probabilities, then the validity of $\kernel{K}$ is necessary (Theorem \ref{th:valid_conditional_probability}).
+Note that validity is not a necessary condition for a conditional to define a non-empty probability set. The intuition for this is: if we have some $\kernel{K}:X\kto Y$, $\kernel{K}$ might be an invalid $\RV{Y}|\RV{X}$ conditional on all of $X$, but might be valid on some subset of $X$, and so we might have some probability model $\prob{P}$ that assigns measure 0 to the bad parts of $X$ such that $\kernel{K}$ is a version of $\prob{P}^{\RV{Y}|\RV{X}}$. On the other hand, if we want to take the product of $\kernel{K}$ with arbitrary valid $\RV{X}$ probabilities, then the validity of $\kernel{K}$ is necessary (Theorem \ref{th:valid_conditional_probability}).
 
 \subsubsection{Conditional independence}\label{ssec:cond_indep}
 
-Conditional independence has a familiar definition in probability models. We define conditional independence with respect to a probability gap model to be equivalent to conditional independence with resepect to every base measure in the range of the model. This definition is closely related to the idea of \emph{extended conditional independence} proposed by \citet{constantinou_extended_2017}, see Appendix \ref{ap:eci}.
+Conditional independence has a familiar definition in probability models. We define conditional independence with respect to a probability gap model to be equivalent to conditional independence with respect to every base measure in the range of the model. This definition is closely related to the idea of \emph{extended conditional independence} proposed by \citet{constantinou_extended_2017}, see Appendix \ref{ap:eci}.
 
 \begin{definition}[Conditional independence]
 For a \emph{probability model} $\model{P}_{\alpha}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\alpha}}\RV{A}|\RV{C}$, if
@@ -328,34 +328,92 @@ Conditional independence satisfies the \emph{semi-graphoid axioms}. For all stan
 	\item Contraction: $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$
 \end{enumerate}
 
-We define \emph{uniform conditional independence} with respect to a probability set as conditional independence for every probability model in the set.
+We define two notions of conditional independence with respect to probability sets. Global conditional independence is just conditional independence universally quantified over all members of the set. \emph{Uniform conditional independence} requires both that conditional independence hold for every element of $\prob{P}_{\{\}}$ and the existence of $\prob{P}_{\{\}}^{\RV{B}|\RV{AC}}$. This latter condition means that uniform conditional independence can be interpreted as $\prob{P}_{\{\}}^{\RV{B}|\RV{AC}}$ ``ignoring one of its inputs'' (Theorem \ref{th:ignore_inputs}). This makes it closely related to \emph{extended conditional independence} \citet{constantinou_extended_2017}. Uniform conditional independence differs from extended conditional independence in that uniform conditional independence only applies to one kind of variable, while extended conditional independence distinguishes stochastic from non-stochastic variables. It is an open question whether stochastic and non-stochastic variables correspond to particular kinds of variables in the theory of probability sets. We speculate that stochastic variables may correspond to variables with uniform marginal distributions and non-stochastic variables to those which lack uniform marginal distributions.
 
-\begin{definition}[Uniform conditional independence]
-For a \emph{probability set} $\model{P}_{\{\}}$ and variables $\RV{A},\RV{B},\RV{C}$, we say $\RV{B}$ is uniformly conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\{\}}}\RV{A}|\RV{C}$, if for all $\prob{P}_{\alpha}\in \prob{P}_{\{\}}$ $\RV{B}\CI_{\prob{P}_\alpha} \RV{A}|\RV{C}$.
+\begin{definition}[Global conditional independence]
+For a probability set $\model{P}_{\{\}}$ and variables $\RV{A},\RV{B},\RV{C}$, we say $\RV{B}$ is globally conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\{\}}}\RV{A}|\RV{C}$, if for all $\prob{P}_{\alpha}\in \prob{P}_{\{\}}$ $\RV{B}\CI_{\prob{P}_\alpha} \RV{A}|\RV{C}$.
 \end{definition}
 
-It is straightforward to show that uniform conditional independence satisfies the semi-graphoid axioms by application of Lemma \ref{lem:distribute_quantifier}
+\begin{definition}[Uniform conditional independence]
+For a probability set $\model{P}_{\{\}}$ and variables $\RV{A},\RV{B},\RV{C}$, we say $\RV{B}$ is uniformly conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CII_{\model{P}_{\{\}}}\RV{A}|\RV{C}$, if $\prob{P}_{\{\}}^{\RV{B}|\RV{AC}}$ exists and for all $\prob{P}_{\alpha}\in \prob{P}_{\{\}}$ $\RV{B}\CI_{\prob{P}_\alpha} \RV{A}|\RV{C}$.
+\end{definition}
+
+\begin{theorem}\label{th:ignore_inputs}
+Given probability set $\prob{P}_{\{\}}$ on $(\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$, $Y$ standard measurable, if $\RV{Y}\CII_{\prob{P}_{\{\}}} \RV{X}|\RV{Z}$ then $\prob{P}^{\RV{Y}|\RV{Z}}$ exists and
+\begin{align}
+	\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}} &\overset{\prob{P}_{\{\}}}{\cong} \tikzfig{universal_conditional_independence}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+By assumption, $\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}$ exists. Consider the set of points $A\subset \sigalg(X)\otimes \sigalg{Z}$ such that $(x,z)\in A$ and $(x',z)\in A^C$ implies there is some $B\in\sigalg{Y}$ such that
+\begin{align}
+	\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}(B|x,z) \neq \prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}(B|x',z)
+\end{align}
+
+By Theorem \ref{th:cho_ci_equiv}, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$ $A$ must be of $\prob{P}_\alpha$ measure $0$.
+
+Thus there is a version $\kernel{K}:X\times Z\kto Y$ of $\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}$ such that
+\begin{align}
+	\prob{K}(B|x,z) = \prob{K}(B|x',z)
+\end{align}
+for all $(x', z)\in X\times Z$, $B\in \sigalg{Y}$.
+
+Define $\kernel{L}:Z\kto Y$ by $\kernel{L}(B|z)&= \prob{K}(B|x_0,z)$ for some $x_0\in X$. Then for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$, $z\in Z$, $B\in \sigalg{Y}$, $C\in\sigalg{Z}$
+
+\begin{align}
+	\int_C \kernel{L}(B|z)\prob{P}_\alpha^{\RV{Z}}(\mathrm{d}z) &= \int_C \kernel{K}(B|x_0,z)\prob{P}_\alpha^{\RV{Z}}(\mathrm{d}z)\\
+	&= \int_{X}\int_{C} \prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}(B|x,z)\prob{P}_\alpha^{\RV{X}|\RV{Z}}(\mathrm{d}x|z)\prob{P}_\alpha^{\RV{Z}}(\mathrm{d}z)\\
+	&= \prob{P}_\alpha^{\RV{XYZ}}(X\times B\times C)\\
+	&= \prob{P}_\alpha^{\RV{YZ}}(B\times C)
+\end{align}
+Thus $\kernel{L}$ is a version of $\prob{P}_\alpha^{\RV{Y}|\RV{Z}}$. Furthermore, by construction $\kernel{L}(B|z)=\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}(B|x,z)$ for any $B\in \sigalg{Y}$, $z\in Z$, $x\in X$ except on a set of uniform measure 0. Thus
+\begin{align}
+	\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}} &\overset{\prob{P}_{\{\}}}{\cong} \tikzfig{universal_conditional_independence}
+\end{align}
+\end{proof}
+
+We can show that uniform conditional independence satisfies all the semi-graphoid axioms except symmetry. Symmetry is not satisfied because $\RV{X}\CIII_{\prob{P}_{\{\}}}\RV{Y}|\RV{Z}$ does not imply the existence of $\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}$, needed for $\RV{Y}\CIII_{\prob{P}_{\{\}}}\RV{X}|\RV{Z}$
+
+To prove uniform conditional independence satisfies the other semi-graphoid axioms, we make use of Lemma \ref{lem:distribute_quantifier}.
 
 \begin{lemma}\label{lem:distribute_quantifier}
 $[\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]$
 \end{lemma}
 
 \begin{proof}
-See appendix
+See appendix.
 \end{proof}
 
-\begin{lemma}
-Given a standard measurable space $(\Omega,\sigalg{F})$ and $\prob{P}_{\{\}}$ on $\Omega$, uniform conditional independence with respect to $\prob{P}_{\{\}}$ satisfies the semi-graphoid axioms.
-\end{lemma}
+\begin{theorem}
+Given a standard measurable space $(\Omega,\sigalg{F})$ and $\prob{P}_{\{\}}$ on $\Omega$, uniform conditional independence with respect to $\prob{P}_{\{\}}$ satisfies the semi-graphoid axioms with the exception of symmetry. That is:
+
+\begin{enumerate}
+  	\setcounter{enumi}{1}
+	\item Decomposition: $\RV{A}\CII_{\prob{P}_{\{\}}} (\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CII_{\prob{P}_{\{\}}}\RV{B}|\RV{W}$ and $\RV{A}\CII_{\prob{P}_{\{\}}}\RV{C}|\RV{W}$
+	\item Weak union: $\RV{A}\CII_{\prob{P}_{\{\}}}(\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CII_{\prob{P}_{\{\}}}\RV{B}|(\RV{C},\RV{W})$
+	\item Contraction: $\RV{A}\CII_{\prob{P}_{\{\}}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CII_{\prob{P}_{\{\}}}(\RV{B},\RV{C})|\RV{W}$
+\end{enumerate}
+\end{theorem}
 
 \begin{proof}
-For a particular probability $\prob{P}_\alpha$, each of the semi-graphoid axioms consists of a statement of the form $\forall \prob{P}: f(\prob{P})\implies g(\prob{P})$ (in the case of the first axiom, it corresponds to two such statements).
+First, we will argue that \emph{global conditional independence} satisfies all of semigraphoid axioms.
+
+For a particular probability $\prob{P}_\alpha$, each of the axioms consists of a statement of the form $\forall \prob{P}: f(\prob{P})\implies g(\prob{P})$.
 
 As the axioms hold for conditional independence for any probability model, we have, for arbitrary $\prob{P}_{\{\}}$, $\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}) \implies g(\prob{P}_\alpha)$. 
 
-Then, by Lemma \ref{lem:distribute_quantifier}, $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))\implies (\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: g(\prob{P}_{\alpha}))$.
+Then by Lemma \ref{lem:distribute_quantifier}, $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))\implies (\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: g(\prob{P}_{\alpha}))$.
 
-Note that $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))$ is, by definition, a uniform conditional independence statement with respect to $\prob{P}_{\{\}}$.
+Note that $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))$ is, by definition, a global conditional independence statement with respect to $\prob{P}_{\{\}}$.
+
+Next, we will show that for axioms 2-4 the required uniform conditional probabilities also exist. 
+
+Weak union: By assumption $\RV{A}\CII_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$, we have the existence of $\prob{P}_{\{\}}^{\RV{A}|\RV{BCW}}$, and this is also the uniform conditional probability required by the statement $\RV{A}\CII_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$. Thus weak union is satisfied.
+
+Decomposition: By assumption $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$. By weak union (which we have established to hold), we also have $\RV{A}\CII_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$. Combining this with Theorem \ref{th:ignore_inputs}, we also have the existence of $\prob{P}_{\{\}}^{\RV{A}|\RV{CW}}$. $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$ also implies $\RV{A}\CI_{\prob{P}} (\RV{C},\RV{B})|\RV{W}$, and so we can repeat this argument with $\RV{B}$ and $\RV{C}$ interchanged.
+
+Contraction: By assumption $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$, we have the existence of $\prob{P}_{\{\}}^{\RV{A}|\RV{BCW}}$, and this is also the uniform conditional probability required by the statement $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$.
 \end{proof}
 
 % \begin{definition}[Conditional independence with respect to a probability comb]

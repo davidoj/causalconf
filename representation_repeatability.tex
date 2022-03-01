@@ -2,6 +2,10 @@
 
 \section{When do response conditionals exist?}
 
+\todo[inline]{Warmup paragraph}
+
+\todo[inline]{Lemmas are intermediate steps}
+
 The specific question we ask here is: given a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ where $\RV{D}=(\RV{D}_i)_{i\in M}$ are choice variables, $\RV{Y}=(\RV{Y}_i)_{i\in M}$ are outcome variables and $M$ is some index set, when does there exist a response conditional $\prob{P}_\square^{\RV{Y}_0|\RV{D}_0}$ that explains how each $\RV{Y}_i$ responds to each $\RV{D}_i$; we call these \emph{repeatable response conditionals}. The reason why we consider a sequential problem is that in practice, causal inference almost always deals with observational data that is assumed to be appropriately modeled with a sequence of independent and identically distributed random variables. Furthermore, we can characterise precisely the kinds of models for which such response conditionals exist. Thus the sequential setting is both a theoretically tractable and widely appliccable starting point.
 
 We examine this question from two points of view: firstly,  we aks \emph{what kind of conditional probability models exhibit repeatable response condtionals?} Secondly, we ask \emph{what kinds of experiments are these conditional probability models appropriate for?} In the course of answering the second question, we show that apparently subtle differences in the description of an experimental procedure can determine whether a particular experiment should or should not be modeled with repeatable response conditionals.
@@ -178,7 +182,7 @@ Although locality of consequences has a lot in common with an assumption non-int
 
 Note that this example would not satisfy exchange commutativity.
 
-We call the conjunction of exchange commutativity and consequence locatlity \emph{causal contractibility}.
+We call the conjunction of exchange commutativity and consequence locatlity \emph{consequence contractibility}.
 
 \begin{definition}[Consequence contractibility]
 A conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},A)$ is causally contractible if it is both commutative with exchange and commutative with marginalisation.
@@ -221,7 +225,7 @@ A conditional probability model $(\prob{P}_{\square}^{\overline{\RV{Y}|\RV{D}}},
 The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. Note the hypothesis $\RV{H}$ that appears in this conditional; it can be given the interpretation of a random variable that expresses the ``true but initially unknown'' $\RV{Y}_1|\RV{D}_1$ conditional probability.
 
 \begin{lemma}[Exchangeable randomness pushback]\label{th:table_rep}
-Given a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$, $\prob{P}_\square$ is consequence contractible if and only if there exists a column exchangeable probability distribution $\mu^{\RV{Y}^D}\in \Delta(Y^{|D|\times \mathbb{N}})$ such that
+Given a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}},A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$, $\prob{P}_\square$ is consequence contractible if and only if there exists a column exchangeable probability distribution $\mu^{\RV{Y}^D}\in \Delta(Y^{|D|\times \mathbb{N}})$ such that
 \begin{align}
     \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\label{eq:lup_rep}\\
     &\iff\\
@@ -236,7 +240,7 @@ Where $\Pi_{(d_i i)_{i\in\mathbb{N}}}:Y^{|D|\times \mathbb{N}}\to Y^{\mathbb{N}}
 
 \begin{proof}
 Only if:
-Consider the weaker conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}}_\square,A')$ where $A'\supset A$ contains all $\alpha$ such that $\prob{P}_\alpha^{\RV{D}}$ is deterministic. If the result holds for $A'$ then it holds also for $A$ which is a subset.
+Consider the weaker conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}},A')$ where $A'\supset A$ contains all $\alpha$ such that $\prob{P}_\alpha^{\RV{D}}$ is deterministic. If the result holds for $A'$ then it holds also for $A$ which is a subset.
 
 For all $d\in D$, abuse notation to say taht $\prob{P}_d$ is a probability set in $A'$ such that $\prob{P}_d^{\RV{D}}=\delta_d$. For any $\alpha\in A'$, we have
 
@@ -395,57 +399,55 @@ Consider $\alpha,\alpha'$ such that $\prob{P}^{\RV{D}_M}_\alpha = \prob{P}^{\RV{
 
 \end{proof}
 
-\subsection{Modelling different measurement procedures}
+\subsection{Modelling different decision procedures}
 
-We have a formal condition -- consequence contractibility -- that is equivalent to the existence of repeatable response conditionals. If we are considering a repeatable experiment and we say there is some Markov kernel representing the effect of some $\RV{X}_i$ on $\RV{Y}_i$ for all $i$, then we are equivalently dealing with a model of consequences where identical subsequences of choices yield identical sub-experiments. 
+We have a formal condition -- consequence contractibility -- that is equivalent to the existence of repeatable response conditionals. A conditional probability model of an experiment for which there is some ``fixed, unknown probabilistic causal effect'' of $\RV{X}_i$ on $\RV{Y}_i$ for all $i$ must be consequence contractible. This means that any subsequence of $\RV{X}_i$s and corresponding $\RV{Y}_i$s for which the $\RV{X}_i$s are matched must share exactly the same model. 
 
-To make use of this formal condition, we need to have some idea of which experiments -- or which \emph{measurement processes} -- can and cannot be modeled with consequence contractible models. Recall that consequence contractibility can be broken down into two separate conditions: exchange commutativity and consequence locality.
+To understand whether such an assumption is justified, we can't look only at the model -- we have to consider the measurement procedure. It's not a mathematical fact that a conditional probability model should exhibit the independence $\RV{X}_i\CI_{\prob{P}_\square} \RV{Y}_i$. On the other hand, if the description of the measurement procedure supports the judgement that what the model says regarding $\proc{Y}_i$ should be the same before and after one learns the value yielded by $\proc{X}_i$, then it is appropriate to adopt a model in which $\RV{X}_i\CI_{\prob{P}_\square} \RV{Y}_i$.
 
-Consequence locality amounts to the judgement that the consequences $\RV{Y}_A$ for all $A\subset M$ are unrelated to any choices that correspond to consequences outside the set $A$. A sufficient condition is that my choice $\RV{D}_i$ affects only $\RV{Y}_i$, for all $i$.
+We will reason about decision procedures in the following way:
 
-We are going to focus on exchange commutativity in more detail. Strictly, we consider an exchange commutative model appropriate if we think that the experiment given by
 \begin{itemize}
-    \item Decide on a sequence of choices
-    \item Shuffle the choices
-    \item Measure the consequences
-\end{itemize}
-is equivalent to (in the sense of requiring the same model)
-\begin{itemize}
-    \item Decide on a sequence of choices
-    \item Measure the consequences
-    \item Shuffle the consequences
+    \item Propose a decision procedure $\proc{S}$ and assume a conditional probability model $\prob{P}_\square$ associated with it
+    \item Consider an alternative decision procedure $\proc{S}'$ and argue that a conditional probability model $\prob{P}_\square'$, related somehow to $\prob{P}_\square$, is appropriate to model it
+    \item If, in addition, we accept that \emph{the same model} is appropriate for both $\proc{S}$ and $\proc{S}'$, then we have $\prob{P}_\square=\prob{P}_\square'$
 \end{itemize}
 
-There is a related kind of symmetry that involves shuffling ``experimental units''. This is not an operation that can be described purely mathematically, but there may be a more intuitively appealing case availabel that this kind of shuffle yields an equivalent experiment. For example, if an ``experimental unit'' is a patient who receives a treatment and whose recovery is then followed up on as a consequences, we might be willing to regard an experiment equivalent if the order of patients in the experiment is shuffled. We think it is sometimes reasonable to deduce exchange commutativity from this kind of symmetry, but as we will see care is needed when doing so.
+An example of this reasoning is found in discussions of exchangeability, outside the setting of decision problems. Suppose we have a measurement procedure $\proc{S}$ and an observed variable $(\RV{Y}\circ\proc{S},\RV{Y})$ where $\RV{Y}=(\RV{Y}_i)_{i\in \mathbb{N}}$ for $\RV{Y}_i:\Omega\to Y$ -- i.e. $\proc{S}$ yields a countably infinite sequence of values from the set $Y$. Consider an alternative observed variable $(\RV{Y}'\circ\proc{S},\RV{Y}')$ where $\RV{Y}'=\text{swap}\circ\RV{Y}$. $\proc{Y}'$ is the procedure ``do whatever is done to measure $\proc{Y}$, then shuffle the results according to $\text{swap}$''.
 
-\subsection{Equivalent measurement procedures and symmetric probabilistic models}
+$\proc{S}$ is modeled by some ordinary probability model $(\mu,\Omega,\sigalg{F})$, with marginal distribution $\mu^{\RV{Y}}$ of $\RV{Y}$. It may be the case that we think that the additional shuffle operation involved in $\proc{Y}'$ does not in any way alter the appropriate probability model associated with the variable. Thus $\mu^{\RV{Y}}=\mu^{\RV{Y}'}$, and the model $\mu$ is exchangeable with respect to $\RV{Y}$.
 
-Recall that measurement procedures can be composed with functions, yielding new measurement procedures (Secion \ref{sec:mproc}). If I have a model of an observed variable $(\RV{X}\circ \proc{S},\RV{X})$, given some function $f$ I may be able to deduce from this a model of a different observed variable $(f\circ \RV{X}\circ\proc{S},f\circ\RV{X})$. Composition with $f$ yield a new model variable $f\circ\RV{X}$ \emph{and} a new measurement procedure $f\circ \RV{X}\circ\proc{S}$. 
+In the following section, we will apply this approach to considering whether the assumption of exchange commutativity is justified for a given decision procedure. The approach outlined can be used to assess whether measurement procedures support exchange commutativity or consequence locality. However, we will focus on exchange commutativity because, out of the two assumptions, we have more to say about it.
 
-An example of this reasoning is found in discussions of exchangeability. If we have an outcome variable $(\RV{Y}\circ\proc{S},\RV{Y})$ where $\RV{Y}=(\RV{Y}_i)_{i\in \mathbb{N}}$, we can define another variable $(\text{swap}\circ \RV{Y}\circ\proc{S},\text{swap}\circ\RV{Y})$. Here we have a different measurement procedure: first, measure $\RV{Y}$, then apply the $\text{swap}$ function to the result. This also comes with a different model variable $\text{swap}\circ\RV{Y}$. If we judge the original measurement procedure is ``equivalent'' to the new one in the sense that the same model should be used for both, then a probabilistic model of $\RV{Y}$ should have the property that pushing it forward with the $\text{swap}$ function should leave the model unchanged.
+% As an aside, consequence contractibility means that a model $\prob{P}_\square$ must say precisely the same thing about any subsequence of (choice, outcome) pairs, provided both subsequences have a matching distribution over choices. Suppose there is some experiment in which some pairs arise from passive observations and others from active interventions. If we are to suppose that the whole sample supports ``fixed but unknown probabilistic causal effects'' -- that is, it is consequence contractible -- then we are equivalently claiming that a subsequence of $m+1$ $(\RV{X}_i,\RV{Y}_i)$ pairs generated only by active interventions is modeled identically to a sequence of $m$ pairs generated by passive observation and $1$ pair generated by active intervention. This suggests -- loosely speaking -- that assuming ``fixed but unknown probabilistic causal effects'' are identified from observations is the same as assuming that observational evidence is precisely as good as experimental evidence for learning said causal effects. This is an idle observation and not a rigorous argument.
 
-This reasoning begins with a judgement about equivalence of measurement procedures, and proceeds to identify a symmetry of a probabilistic model on the basis of this symmetry. It exploits the fact that function composition is an operation defined for measurement procedures and to model variables.
+\subsection{Decision procedures with response conditionals}
 
-We will aim to apply reasoning of this kind to conditional probability models to discuss judegements of equivalences in measurement procedures that imply commutativity of exchange. There is an additional subtlety in this case\todo{that often confuses me, and I spend a lot of time thinking about it}. Like the case of exchangeability, if $\prob{P}_\square^{\RV{Y}|\RV{D}}$ is a conditional probability representing the consequences $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$ of a sequence of choices $\RV{D}:=(\RV{D}_i)_{i\in\mathbb{N}}$, defining $\RV{Y}_{\text{swap}}:=(\RV{Y}_{\text{swap}(i)})_{i\in\mathbb{N}}$, then $\prob{P}_\square^{\RV{Y}_{\text{swap}}|\RV{D}}$ is the conditional probability representing the same consequences composed with the $\text{swap}$ function.
-
-Defining $\RV{D}_{\text{swap}^{-1}}:=(\RV{D}_{\text{swap}^{-1}(i)})_{i\in\mathbb{N}}$, we have $\prob{P}_\square^{\RV{Y}|\RV{D}_{\text{swap}^{-1}}}$ as the uniform conditional probability of $\RV{Y}$ given the swapped version of $\RV{D}$. Thus exchange commutativity can be alternatively stated as
-
-\begin{align}
-    \prob{P}_\square^{\RV{Y}|\RV{D}} = \prob{P}_\square^{\RV{Y}_{\text{swap}}|\RV{D}_{\text{swap}^{-1}}}
-\end{align}
-
-That is, the manner in which $\RV{Y}$ responds to $\RV{D}$ is exactly the same as the manner in which $\RV{Y}_{\text{swap}}$ responds to $\RV{D}_{\text{swap}^{-1}}$. In terms of measurement procedures, this asserts an equivalence between:
+Suppose we have a decision procedure $\proc{S}_A$. We consider an exchange commutative model appropriate if we think that the experiment given by
 \begin{itemize}
-    \item Decide on a sequence of choices $\proc{D}$
-    \item Observe a corresponding sequence of consequences $\proc{Y}$
+    \item Suppose $\alpha$ has been decided on
+    \item Obtain a sequence of choices according to $\proc{D}$ (which depends on $\alpha$) and enact them
+    \item Measure the consequences according to $\proc{Y}$
 \end{itemize}
-and
+is equivalent to $\proc{S}'$ (in the sense of requiring the same model):
 \begin{itemize}
-    \item Decide on a sequence of choices $\proc{D}$ exactly as before
-    \item Apply $\text{swap}^{-1}$ to get $\proc{D}_{\text{swap}^{-1}}$
-    \item Observe a corresponding sequence of consequences $\proc{Y}$ as before, but replace $\proc{D}$ with $\proc{D}_{\text{swap}^{-1}}$ where appropriate
-    \item Apply $\text{swap}$ to get $\proc{Y}_{\text{swap}}$
+    \item Decide on $\alpha'$ such that $\prob{P}_\alpha^{\RV{D}}\text{swap}=\prob{P}_{\alpha'}^{\RV{D}}$
+    \item Obtain a sequence of choices according to $\proc{D}$ (which depends on $\alpha'$) and enact them
+    \item Measure preliminary consequences according to $\proc{Y}$
+    \item Apply the inverse shuffle $\text{swap}^{-1}$ to the preliminary consequences to get the consequences of interest $\proc{Y}'$
 \end{itemize}
+
+Unlike in the case of ordinary exchangeability, we need to consider two measurement procedures in which different decisions are made. Conditional probability models of decision problems express judgements that hold whatever decision is made. Under this interpretation, a conditional probability model $\prob{P}_\square^{\RV{Y}|\RV{D}}$ can tell us about the comparison of $\proc{S}$ and $\proc{S}'$ (see Section \ref{sec:cp_model}). In particular, it expresses the following attitude:
+
+\begin{itemize}
+    \item If we decide on $\alpha$, then the consequences are described by $\prob{P}_\alpha^{\RV{D}} \prob{P}_\square^{\RV{Y}|\RV{D}}$
+    \item If we decide on $\alpha'$ such that $\prob{P}_{\alpha'}^{\RV{D}}=\prob{P}_\alpha^{\RV{D}}\text{swap}$ then then the consequences are described by $\prob{P}_\alpha^{\RV{D}}\text{swap}\prob{P}_\square^{\RV{Y}|\RV{D}}$
+\end{itemize}
+
+Thus if we hold that $\proc{S}$ is equivalent to $\proc{S}'$ for all $\alpha\in A$, we conclude that $\prob{P}_\square$ commutes with exchange.
+
+
+There is a related kind of symmetry that involves shuffling ``experimental units''. This is not an operation that can be described purely mathematically, but there may be a more intuitively appealing case available that this kind of shuffle yields an equivalent experiment. For example, if an ``experimental unit'' is a patient who receives a treatment and whose recovery is then followed up on as a consequences, we might be willing to regard an experiment equivalent if the order of patients in the experiment is shuffled. We think it is sometimes reasonable to deduce exchange commutativity from this kind of symmetry, but as we will see care is needed when doing so.
 
 \subsection{Example: exchange commutativity in the context of treatment choices}
 
@@ -458,16 +460,11 @@ Consider the following two scenarios:
 
 Alice could model either situation with a conditional probability model $(\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2},A)$. In either situation, might the model be exchange commutative?
 
-The argument we want to make (if it can be supported) is:
-\begin{itemize}
-    \item We can describe two measurement procedures that should share the same model
-    \item The first is a measurement procedure for $(\RV{D}_1,\RV{D}_2,\RV{Y}_1,\RV{Y}_2)$
-    \item The second is a measurement procedure for $(\RV{D}^{\text{swap}}_1,\RV{D}^{\text{swap}}_2,\RV{Y}^{\text{swap}^{-1}}_1,\RV{Y}^{\text{swap}^{-1}}_2)$
-\end{itemize}
+For each scenario, we want to consider two measurement procedures: first, the ``original'' measurement procedure, and then the measurement procedure with a swapped choices and consequences of interest. The question we want to consider is whether both procedures should be considered equivalent.
 
-At the outset, Alice does not know any features that might distinguish the two patients, so it is reasonable to think that she should adopt the same model for a) the original experiment and b) the same experiment with patient 1 and patient 2 interchanged. Note that interchanging \emph{patients} does not correspond directly to swaps of either decisions or outcomes.
+We will make two assumptions about measurement procedure equivalence: first, a measurement procedure is equivalent to an identical procedure in which patients are interchanged. Second, a measurement procedure is equivalent to an identical procedure in which the order of treatment and measurement of outcomes is interchanged.
 
-We will define measurement procedures using pseudocode, because we find it a lot easier to keep track of operations like swaps in this format. This presentation has the unintended effect of suggesting that measurement procedures are like computer programs. Note that descriptions of measurement procedures, in pseudocode or otherwise, are incomplete descriptions.
+We will describe measurement procedures using pseudocode, because this offers the opportunity to be precise about operations like swaps. Note that descriptions of measurement procedures, in pseudocode or otherwise, are incomplete descriptions.
 
 Suppose the first scenario corresponds to the following procedure $\proc{S}$.
 \begin{algorithmic}

@@ -182,7 +182,7 @@
 \title{When does one variable have a probabilistic causal effect on another?}
 \date{\today}
 
-\author{ David Johnston }
+\author{ David Johnston, Robert C. Williamson, Cheng Soon Ong }
 
 \begin{document}
 
@@ -207,7 +207,7 @@ In a response to Hernán's observation, \citet{pearl_does_2018} argues that \emp
 
 In another response, \citet{shahar_association_2009} argued that a properly specified intervention on body mass index will necessarily yield a conclusion that intervention on body mass index has no effect at all on anything apart from body mass index itself. If this is accepted, then it might seem that there is a whole body of literature devoted to estimating a ``causal effect'' that is necessarily equal to zero! It seems that there is a need to clarify the relationship between actions and causal effects.
 
-The question we focus on here is: when is there a well-defined causal effect of one variable on another? Many works on causal inference focus on the question of when we can \emph{infer} the causal effect of one variable on another from a given sequence of data. In contrast, the question we focus on is not immediately appliccable to practical problems where investigators want to infer causal effects, but any such investigation must accept, implicitly at least, that causal effects do in fact exist. Thus we see our work as foundational to this key question of causation. 
+The question we focus on here is: when is there a well-defined causal effect of one variable on another? Many works on causal inference focus on the question of when we can \emph{infer} the causal effect of one variable on another from a given sequence of data. In contrast, the question we focus on is not immediately applicable to practical problems where investigators want to infer causal effects, but any such investigation must accept, implicitly at least, that causal effects do in fact exist. Thus we see our work as foundational to this key question of causation. 
 
 \subsection{Our approach}
 
@@ -221,7 +221,7 @@ To the first proposition, one may object that counterfactual reasoning is the re
 
 The second proposition is similar to De Finetti's analysis of the concept of a sequence of events distributed according to a ``constant but unknown probability $\prob{Q}$''. De Finetti observed that, while one may use a probability model $\prob{P}$ to express an uncertain forecast of the outcomes of a sequence of events, the probability $\prob{Q}$ itself seems to represent something of a different kind. In particular, interpreting $\prob{Q}$ requires some additional theory of what it means for a probability model to be correct, while interpreting $\prob{P}$ only requires us to say what it means for an outcome to be realised. De Finetti's solution to this question was to propose that an unknown probability $\prob{Q}$ could be understood as a feature of a forecast $\prob{P}$ which has the property of exchangeability.
 
-In a similar fashion, we observe that one can use a probabilistic model to help make a decision without any theory of what it means for some variable to have a causal effect on some other variable. Thus, like the constant but uknown probability $\prob{Q}$, a ``fixed but uknown causal effect $\RV{Q}(\RV{Y}|do(\RV{X}))$'' requires a theory of what it means for a causal effect to be correct in addition to a probabilistic model of the consequences of decisions. By analogy with De Finetti's reasoning, we propose a theory of causal effects as properties of probabilistic decision models that have a certain type of symmetry that we call \emph{response contractibility}.
+In a similar fashion, we observe that one can use a probabilistic model to help make a decision without any theory of what it means for some variable to have a causal effect on some other variable. Thus, like the constant but unknown probability $\prob{Q}$, a ``fixed but unknown causal effect $\RV{Q}(\RV{Y}|do(\RV{X}))$'' requires a theory of what it means for a causal effect to be correct in addition to a probabilistic model of the consequences of decisions. By analogy with De Finetti's reasoning, we propose a theory of causal effects as properties of probabilistic decision models that have a certain type of symmetry that we call \emph{response contractibility}.
 
 As we have just mentioned, we aren't proposing that this is a compelling account of ``causal effects'' in every sense in which the phrase is ever used. However, many causal investigations involve analysing sequences of events that are in some sense repeatable with the aim of helping people interested in influencing similar events in the future to make good decisions. Our theory applies to analysis in this setting. We are studying a particular kind of causal effect which we call a \emph{repeatable response}. Thus, our motivating question is more precisely stated as ``when do probabilistic decision models entail the existence of fixed but unknown conditional probabilities representing repeatable responses?''
 
@@ -249,6 +249,8 @@ Our second contribution is to consider what kinds of measurement processes suppo
 
 We consider it an open question whether judgements of causal contractibility are supported by any measurement procedure that isn't described either of the options we consider -- that is, by measurement procedures that don't involve deterministically selecting choices from a position of ``epistemic indifference'' or from proxy control in combination with a prior judgement of causal contractibility.
 % \end{abstract}
+
+\todo[inline]{Roadmap}
 
 \input{variables}
 \input{probability}

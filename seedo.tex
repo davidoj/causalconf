@@ -3,83 +3,49 @@
 
 \section{Decision problems}
 
-We want to construct models to help make decisions. For our purposes, ``making a decision'' means we have some mathematically well-defined set $C$ of choices under consideration, and some means of comparing one choice to another that induces a partial order on choices. If we are trying to be precise with language, we might call this \emph{formal} decision making; people may often make decisions where it is difficult to identify a set $C$ of choices under consideration or a rule for inducing a partial order on it.
+We want to construct models to help make decisions. For our purposes, ``making a decision'' means choosing some element of a mathematically well-defined set $\alpha\in C$, and following a measurement procedure $\proc{S}_\alpha$ associated with the choice $\alpha\in C$ (see Section \ref{sec:actions}). We suppose that each $\proc{S}_\alpha$ is modeled by a probability model $\prob{P}_\alpha$ on a shared sample space $(\Omega,\sigalg{F})$. Decision making also involves comparing the outcomes of different choices (that is, comparing the probability models $\prob{P}_\alpha$ associated with each choice) and selecting one of the ``best'' decisions, but we leave questions of comparison in the background.
 
-A procedure for making formal decisions is, in a sense, the opposite of a measurement procedure. With measurement, we have some unclear process that interacts with the world and leaves us with a collection of mathematical objects. Formal decision making starts with a collection of mathematical objects -- a set of choices, a partial order and a tie-breaking rule which together imply a \emph{choice}, and then on the basis of this choice some unclear procedure takes place that has consequences in the world. If a measurement is a ``function'' whose domain is the world, a formal decision can be thought of as a ``function'' whose codomain is the world.
+The way we treat consequences of decisions is, in a sense, the opposite of the way we treat conducting measurements. A measurement involves some unclear measurement procedure that interacts with the world and leaves us with a collection of well-defined mathematical objects. Our view of the consequences of making a decision, in contrast, is that we assume that we start with some element of a well-defined set $C$ which is then mapped to some unclear measurement procedure. If a measurement is a ``function'' whose domain is actions in the world, the consequences of a decision is a ``function'' whose codomain is actions in the world.
 
-We make the following assumptions about how choices are compared:
-\begin{itemize}
-    \item Each choice is associated with a probability set over some sample space $(\Omega,\sigalg{F})$; that is, we have a function $f:C\to \mathscr{P}(\Delta(\Omega))$
-    \item There is some method available for comparing the desirability of $\prob{P}_{\alpha}$ and $\prob{P}_{\alpha'}$ for all $\alpha,\alpha'\in C$. For example, we might have a utility function $u:\Omega\to \mathbb{R}$, and $|\prob{P}_{\alpha}|=1$ for all $\alpha\in C$; then we can compare $\prob{P}_{\alpha}$ with $\prob{P}_{\alpha'}$ using expected utility
-\end{itemize}
+We make the assumption that each choice is associated with a measurement procedure $\proc{S}_\alpha$ modeled by probability distribution $\prob{P}_\alpha$. This is a Bayesian approach -- uncertainty over the outcomes of a measurement procedure is represented with a single probability measure. It is not our intention to suggest that this is the only way of representing uncertain knowledge, and it may be interesting to extend our theory to other methods for representing uncertain outcomes of a measurement procedure. A particularly simple extension would be to model each $\proc{S}_\alpha$ with a probability set rather than a single probability distribution. 
 
-We can represent such a model $f$ with probability sets. There are many different ways to do this, but the general scheme is as follows:
-
-\begin{itemize}
-    \item There is a probability set $\prob{P}_\square$ representing ``properties that hold regardless of which choice is taken''
-    \item There is a collection of probability sets $\{\prob{P}_{\tilde{\alpha}}\}_A$ representing ``properties that hold just for the choice $\alpha$''
-    \item $\prob{P}_\alpha=\prob{P}_\square \cap \prob{P}_{\tilde{\alpha}}$
-\end{itemize}
-
-It is always possible to accomplish this: take $\prob{P}_\square\supset \cup_{\alpha\in C} \prob{P}_\alpha$ and $\prob{P}_{\tilde{\alpha}}=\prob{P}_\alpha$. However, we might be motivated to make different choices for $\prob{P}_\square$ and the $\prob{P}_{\tilde{\alpha}}$s.
-
-The probability set representation allows us to make use of universal conditional probabilities and universal conditional independence to reason about decision problem models. By construction $\prob{P}_\alpha\subset \prob{P}_\square$ for all $\alpha$, any universal conditional independence that holds for $\prob{P}_\square$ holds for all $\prob{P}_\alpha$ as well, and similarly any universal conditional probability with respect to $\prob{P}_\square$ is also a universal conditional probability for all $\prob{P}_\alpha$.
-
-We call this general scheme a \emph{probability gap model}. A probability gap model specifies some universal behaviour via $\prob{P}_\square$, but this specification is incomplete; it has some gaps. We then have a selection of probability sets $\{\prob{P}_{\tilde{\alpha}}\}_A$ that specify choice-specific behaviour; this set represents different ways to fill the gap.
-
-\begin{definition}[Probability gap model]
-Given $(\Omega,\sigalg{F})$, a probability gap model is a triple $(\prob{P}_\square,\{\prob{P}_{\tilde{\alpha}}\}_A,f)$ where $\prob{P}_\square$ is a probability set and $\{\prob{P}_{\tilde{\alpha}}\}_A$ is a collection of probability sets and $f:A\to \mathscr{P}(\Delta(\Omega))$ is the map
-\begin{align}
-    \prob{P}_\alpha&:=f(\alpha)\\
-    &= \prob{P}_\square\cap \prob{P}_{\tilde{\alpha}}
-\end{align}
-\end{definition}
-
-\subsection{Conditional probability models}
-
-A simple but interesting class of probability gap model is the \emph{conditional probability model}. Conditional probability models can be thought of as describing problems in which there is a variable $\RV{X}$ whose marginal probability can be chosen and a variable $\RV{Y}$ that responds in a fixed way to $\RV{X}$.
-
-\begin{definition}[Conditional probability model]
-Given $(\Omega,\sigalg{F})$, $\RV{Y}:\Omega\to Y$, $\RV{X}:\Omega\to X$, a $\RV{Y}|\RV{X}$ conditional probability model is a probability gap model $(\prob{P}_\square^{\RV{Y}|\RV{X}[M]}, \{\prob{P}_{\alpha}^{\RV{X}[M]}\}_A,f)$.
-\end{definition}
-
-Conditional probability models arise when we have variables that represent the choice made, and each choice is associated with a \emph{unique} probability distribution over an outcome of interest.
+The model of a decision problem of this form is naturally captured by a probability set $\prob{P}_{\{\}}:=\{\prob{P}_\alpha|\alpha\in C\}$. 
 
 \begin{example}[Choice variable]
-Suppose we have a procedure $\proc{C}$ that compares the elements of a countable set $C$ and produces a choice according to some notion of the desirability of each one. Another procedure $\proc{Y}$ measures outcomes of interest. These are modelled with variables $\RV{C}:\Omega\to C$ and $\RV{Y}:\Omega\to Y$ respectively. Without loss of generality, we take $\Omega=C\times Y$ and $\RV{C}$ and $\RV{Y}$ are projections onto the matching sets.
+Suppose we have a decision procedure $\proc{S}_C:=\{\proc{S}_\alpha|\alpha\in C\}$ that consists of a measurement procedure for each element of a denumerable set of choices $C$. Each measurement procedure $\proc{S}_\alpha$ is modeled by a probability distribution $\prob{P}_\alpha$ on a shared sample space $(\Omega,\sigalg{F})$ such that we have an observable ``choice'' variable $(\RV{C},\RV{C}\circ\proc{S}_\alpha)$ where $\RV{C}\circ\proc{S}_\alpha$ always yields $\alpha$.
 
-For each $\alpha\in C$, suppose that $\prob{P}_\alpha^{\RV{C}}$ exists and is equal to $\delta_{\alpha}$. This expresses the notion that, if the choice procedure actually yields $\alpha$, then the model should always assign probabilty 1 to $\RV{C}\yields \alpha$.
-
-Suppose also that $\prob{P}_\alpha^{\RV{Y}}$ exists for all $\alpha$. That is, the marginal probability of $\RV{Y}$ is unique given any choice $\alpha$. 
-
-We thus have a model $f:C\to \Delta(\Omega)$ given by $\alpha\mapsto \prob{P}_\alpha^{\RV{CY}}$ where
+Furthermore, Define $\RV{Y}:\Omega\to \Omega$ as the identity function. Then, by supposition, for each $\alpha\in A$, $\prob{P}_\alpha^{\RV{Y}\RV{C}}$ exists and for $A\in \sigalg{Y}$, $B\in \sigalg{C}$:
 
 \begin{align}
-    \prob{P}_\alpha^{\RV{CY}}(B\times D)&= \delta_\alpha(B)\prob{P}_\alpha^{\RV{Y}}(D)
+    \prob{P}_\alpha^{\RV{YC}}(A\times B) &= \prob{P}_\alpha(A)\delta_\alpha(B)
 \end{align}
 
-Validity of $\prob{P}_\alpha^{\RV{CY}}$ is guaranteed by the definitions of $\RV{C}$ and $\RV{Y}$ because $(\RV{C},\RV{Y})$ is surjective.
-
-We can implement $f$ with a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{C}[M]}, \{\prob{P}_\alpha^{\RV{C}[M]}\}_A,f)$ where $\prob{P}_\square^{\RV{Y}|\RV{C}}:=(D|\alpha)\mapsto \prob{P}_\alpha^{\RV{Y}}(D)$.
-
-Then
+This implies, for all $\alpha\in C$
 
 \begin{align}
-    \prob{P}_\alpha^{\RV{CY}} &= \prob{P}_\alpha^{\RV{C}}\odot \prob{P}_\square^{\RV{Y}|\RV{C}}
+    \prob{P}_\alpha^{\RV{Y}|\RV{C}} &= \prob{P}_\alpha^{\RV{Y}}
 \end{align}
 
-and so by Lemma \ref{th:intersection}
+Thus $\prob{P}_\square^{\RV{Y}|\RV{C}}$ exists and
 
 \begin{align}
-    f(\alpha) = \prob{P}_\alpha\cap\prob{P}_\square
+    \prob{P}_\square^{\RV{Y}|\RV{C}}(A|c) &= \prob{P}_\alpha^{\RV{Y}} (A)&\forall A\in \sigalg{Y},c\in C 
 \end{align}
+
+In this way, we can take a generic decision problem and represent it with a probability set $\prob{P}_\square$ with the uniform conditional probability $\prob{P}_\square^{\RV{Y}|\RV{C}}$.
 \end{example}
 
-\todo[inline]{find a home for the following remarks}
+If a decision problem model $\prob{P}_\square$ has a uniform conditional probability $\prob{P}_\square^{\RV{Y}|\RV{X}}$ but no uniform marginal $\prob{P}_\square^{\RV{X}}$, we could think of it a situation where $\RV{X}$ is directly controllable and $\RV{Y}$ is controllable via choosing the distribution of $\RV{X}$. 
 
-If the conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and all the marginal probabilities $\prob{P}_\alpha^{\RV{X}}$ are valid, then by Lemma \ref{lem:valid_extendability} $\prob{P}_{\{\}}\cap\alpha \neq \emptyset$ for all $\alpha\in A$. Thus validity of all the individual parts is enough to ensure compatibility.
+We might, alternatively, want to construct a probability set $\prob{P}_\square$ by declaring that it has a uniform $\RV{Y}|\RV{X}$ conditional probability $\kernel{K}\overset{\prob{P}_\square}{\cong}\prob{P}_\square^{\RV{Y}|\RV{X}}$ and each element has a known marginal $\mu^{\RV{X}}$. We could then attempt to define $\prob{P}_\alpha$
 
-We can define more complex probability gap models with a similar approach where, for example, the model is specified by an incomplete collection of conditional probabilities and the choices are each a complementary collection of conditional probabilities; we call such models \emph{probability comb models} after \citet{chiribella_quantum_2008,jacobs_causal_2019}, but we will not address them in this paper.
+\begin{align}
+    \prob{P}_\alpha &= \prob{P}_\alpha^{\RV{X}}\odot \prob{P}_\square^{\RV{Y}|\RV{X}}\label{eq:set_intersection}
+\end{align}
+
+And $\prob{P}_\square = \{\prob{P}_\alpha|\alpha\in C\}$. If we are successful, the end result is the same: we have a collection $\prob{P}_\alpha$ of probability distributions, one associated with each choice, and a probability set $\prob{P}_\square$ with the uniform conditional probability $\kernel{K}\overset{\prob{P}_\square}{\cong}\prob{P}_\square^{\RV{Y}|\RV{X}}$.
+
+However, success is not guaranteed. If the conditional probability $\prob{P}_{\square}^{\RV{Y}|\RV{X}}$ and all the marginal probabilities $\prob{P}_\alpha^{\RV{X}}$ are valid, then by Lemma \ref{lem:valid_extendability} we have at least defined a nonempty \emph{probability set} $\prob{P}_\alpha$ by Eq. \ref{eq:set_intersection} (we would need additional restrictions to ensure that $\prob{P}_\alpha$ was actually a unique probability measure). On the other hand, if we do not ensure that all the ``building blocks'' are valid we can encounter difficulty. This can be analogised to specifying a set of simultaneous equations -- if we are not careful, they may have an empty solution set.
 
 \subsection{Example: invalidity}
 
@@ -95,8 +61,6 @@ Then pick some $w,h\in\mathbb{R}$ such that $\frac{w}{h^2}\neq x$ and $(\RV{W},\
 so $\nu^{\RV{B}|\RV{WH}}$ is invalid, and there is some valid $\mu^{\RV{X}}$ such that the probability set $\prob{P}_{\{\}}$ with $\prob{P}_{\{\}}^{\RV{XY}} = \mu^{\RV{X}}\odot \nu^{\RV{Y}|\RV{X}}$ is empty.
 
 Validity rules out conditional probabilities like \ref{eq:bmi_example}. We conjecture that in many cases this condition may either be trivial or implicitly taken into account when constructing conditional probabilities. However, we think it is useful to make this condition explicit nonetheless. We note that the invalid conditional probability \ref{eq:bmi_example} would be used to evaluate the causal effect of body mass index in the causal diagram found in \citet{shahar_association_2009}, presuming the author used the term ``causal effect'' to depend somehow on the function $x\mapsto P(\cdot|do(\RV{B}=x))$ as is the usual convention when discussing causal Bayesian networks.
-
-\todo[inline]{End find a home for the following remarks}
 
 \subsection{Response conditionals}
 
