@@ -227,7 +227,7 @@ For all $\prob{P}_\alpha \in \prob{P}_{\{\}}$
 \end{align}
 \end{proof}
 
-\begin{lemma}[Substitution of almost surely equal Markov kernels]
+\begin{lemma}[Substitution of almost surely equal Markov kernels]\label{lem:sub_asequal}
 Given $\prob{P}_{\{\}}$, if $\kernel{K}:X\times Y \kto Z$ and $\kernel{L}:X\times Y \kto Z$ are almost surely equal $\kernel{K}\overset{\prob{P}_{\{\}}}{\cong}\kernel{L}$, then for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
 \begin{align}
 	\prob{P}_\alpha^{\RV{Y}|\RV{X}}\odot \kernel{K} &\overset{\prob{P}_{\{\}}}{\cong} \prob{P}_\alpha^{\RV{Y}|\RV{X}}\odot \kernel{L}
@@ -243,12 +243,12 @@ For any $\prob{P}_\alpha\in\prob{P}_{\{\}}$
 \end{align}
 \end{proof}
 
-\begin{lemma}[Semidirect product of uniform conditional distributions is a joint uniform conditional distribution]\label{lem:joint_conditional}
+\begin{theorem}[Semidirect product of uniform conditional distributions is a joint uniform conditional distribution]\label{lem:joint_conditional}
 Given a probability set $\prob{P}_{\{\}}$ on $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and uniform conditional distributions $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$, then $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ exists and is equal to
 \begin{align}
 	\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}} &= \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}
 \end{align}
-\end{lemma}
+\end{theorem}
 
 \begin{proof}
 By definition, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
@@ -259,8 +259,103 @@ By definition, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
 \end{align}
 \end{proof}
 
+\subsection{Conditional independence}
 
+Conditional independence has a familiar definition in probability models. It is sometimes possible to infer the existence of a uniform conditional probability from a conditional independence statement. Conditional independence can be equivalently defined either in terms of a factorisation of a joint probability distribution (Definition \ref{def:ci}) or in terms of the existence of a conditional distribution that ignores one of its inputs (Theorem \ref{th:cho_ci_equiv}). 
 
+The latter formulation allows us, in some cases, to conclude from a the combination of a uniform conditional probability and a conditional independence statement the existence of a further uniform conditional probability (Corollary \ref{cor:ci_cp_exist}). We will discuss in Section \ref{sec:dec_probs} how uniform conditional probabilities can be thought of as causal relationships. Thus this means: from a fundamental assumed causal relationship and a conditional independence observed under the right conditions, we can conclude the existence of an additional causal relationship. 
+
+\begin{definition}[Conditional independence]\label{def:ci}
+For a \emph{probability model} $\model{P}_{\alpha}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\alpha}}\RV{A}|\RV{C}$, if
+\begin{align}
+    \kernel{P}_{\alpha}^{\RV{ABC}} &= \tikzfig{cond_indep1} \label{eq:cond_indep}
+\end{align}
+\end{definition}
+
+\citet{cho_disintegration_2019} have shown that this definition coincides with the standard notion of conditional independence for a particular probability model (Theorem \ref{th:cho_ci_equiv}). 
+
+Conditional independence can equivalently be stated in terms of the existence of a conditional probability that ``ignores'' one of its inputs.
+
+\begin{theorem}\label{th:cho_ci_equiv}
+Given standard measurable $(\Omega,\sigalg{F})$, a probability model $\prob{P}$ and variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$ if and only if there exists some version of $\prob{P}^{\RV{Y}|\RV{WX}}$ and $\kernel{K}:W\kto Y$ such that
+\begin{align}
+    \prob{P}^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase}\\
+    \iff
+    \prob{P}^{\RV{Y}|\RV{WX}}(A|w,x) &= \prob{K}(A|w)&\forall A\in \sigalg{Y}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+See \citet{cho_disintegration_2019}.
+\end{proof}
+
+\begin{theorem}\label{th:cons_ci}
+Given standard measurable $(\Omega,\sigalg{F})$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}:A\to \Delta(\Omega)$ with conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$ such that there is $\prob{P}_\alpha\in \prob{P}_{\{\}}$ dominating $\prob{P}_{\{\}}$, $\RV{Y}\CI_{\prob{P}_{\{\}}}\RV{X}|\RV{W}$ if and only if there is a version of $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$ and $\kernel{K}:W\kto Y$ such that
+\begin{align}
+  \prob{P}_\square^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase} \label{eq:higherorder_ci_erase}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+See Appendix 
+\end{proof}
+
+\begin{corollary}\label{cor:ci_cp_exist}
+Given standard measurable $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}:A\to \Delta(\Omega)$ with conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$, $\prob{P}_{\{\}}^{\RV{Y}|\RV{W}}$ exists if $\RV{Y}\CI_{\prob{P}_{\{\}}}\RV{X}|\RV{W}$.
+\end{corollary}
+
+\begin{proof}
+By Theorem \ref{th:cons_ci}, there is $\kernel{K}:W\kto Y$ such that for all $\alpha$
+\begin{align}
+    \prob{P}_{\alpha}^{\RV{WY}} &= \tikzfig{conditional_independence_cprob_exist}\\
+    &= \tikzfig{conditional_independence_cprob_exist2}\\
+    &= \tikzfig{conditional_independence_cprob_exist3}
+\end{align}
+
+Thus $\kernel{K}$ is a version of $\prob{P}_{\{\}}^{\RV{Y}|\RV{W}}$.
+\end{proof}
+
+\subsection{Extended conditional independence}\label{sec:eci}
+
+\citet{constantinou_extended_2017} introduced \emph{extended conditional independence}, which is a generalisation of conditional independence applicable to probability sets. 
+We offer a special case of their definition where the only ``nonstochastic variable'' is the identity on the choice set $C$, and we additionally assume that conditional distributions exist.
+
+\begin{definition}[Extended conditional independence - special case]\label{def:eci}
+Given a probability set $\prob{P}_C$ and variables $\RV{X}$, $\RV{Y}$ and $\RV{Z}$, the extended conditional independence $\RV{Y}\CI^e_{\prob{P}_C} C\RV{X}|\RV{Z}$ implies the existence of a function $f_A$ for each $A\in \sigalg{Y}$ such that for all $\alpha \in C$, $x\in X$
+\begin{align}
+	\prob{P}_\alpha^{\RV{Y}|\RV{XZ}}(A|x,z) &= f_A(z)\label{eq:eci}
+\end{align}
+\end{definition}
+
+If $z\mapsto f_A(z)$ is $\sigalg{Z}$-measurable for all $A\in \sigalg{Y}$ and $A\mapsto f_A(z)$ is a probability measure for all $z\in Z$, then $(A,x,z)\mapsto f_A(z)$ is a version of $\prob{P}_C^{\RV{Y}|\RV{XZ}}$ and $(A,z)\mapsto f_A(z)$ is a version of $\prob{P}_C^{\RV{Y}|\RV{Z}}$. Furthermore, taking $\RV{X}$ to be a constant variable, if $\prob{P}_C^{\RV{Y}|\RV{Z}}$ exists then $g_A: z\mapsto \prob{P}_C^{\RV{Y}|\RV{Z}}(A|z)$ satisfies Eq. \ref{eq:eci}, implying $\RV{Y}\CI^e_{\prob{P}_C} C|\RV{Z}$. Thus there is a close connection between extended conditional independence statements and the existence of uniform conditional probabilities.
+
+\citet{constantinou_extended_2017} additionally showed that extended conditional independence satisfies a subset of the semigraphoid axioms, making the connection precise could enable the application of semigraphoid axioms to reasoning about the existence of uniform conditional independence. In the other direction, Corollary \ref{cor:ci_cp_exist} suggests a means by which an ordinary conditional independences might imply extended conditional independences.
+
+An alternative notion of conditional independence for probability sets is ``globally quantified conditional independence''. That is, given $\prob{P}_C$, we could say $\RV{X}\CI_{\prob{P}_C} \RV{Y}$ if for all $\alpha\in C$, $\RV{X}\CI_{\prob{P}_\alpha} \RV{Y}$. In fact, this corresponds to a different special case of extended conditional independence. However, this definition has some counter-intuitive properties -- we can have $\RV{X}\CI_{\prob{P}_C} \RV{Y}$ even when in an intuitive sense ``the value of $\RV{X}$ affects the value of $\RV{Y}$''.
+
+\begin{example}[Choice variable]\label{}
+Suppose we have a decision procedure $\proc{S}_C:=\{\proc{S}_\alpha|\alpha\in C\}$ that consists of a measurement procedure for each element of a denumerable set of choices $C$. Each measurement procedure $\proc{S}_\alpha$ is modeled by a probability distribution $\prob{P}_\alpha$ on a shared sample space $(\Omega,\sigalg{F})$ such that we have an observable ``choice'' variable $(\RV{C},\RV{C}\circ\proc{S}_\alpha)$ where $\RV{C}\circ\proc{S}_\alpha$ always yields $\alpha$.
+
+Furthermore, Define $\RV{Y}:\Omega\to \Omega$ as the identity function. Then, by supposition, for each $\alpha\in A$, $\prob{P}_\alpha^{\RV{Y}\RV{C}}$ exists and for $A\in \sigalg{Y}$, $B\in \sigalg{C}$:
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{YC}}(A\times B) &= \prob{P}_\alpha(A)\delta_\alpha(B)
+\end{align}
+
+This implies, for all $\alpha\in C$
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}|\RV{C}} &= \prob{P}_\alpha^{\RV{Y}}
+\end{align}
+
+Thus $\prob{P}_C^{\RV{Y}|\RV{C}}$ exists and
+
+\begin{align}
+    \prob{P}_C^{\RV{Y}|\RV{C}}(A|\alpha) &= \prob{P}_\alpha^{\RV{Y}} (A)&\forall A\in \sigalg{Y},\alpha\in C 
+\end{align}
+
+Because only deterministic marginals $\prob{P}_\alpha^{\RV{C}}$ are available, for every $\alpha\in C$ we have $\RV{Y}\CI_{\prob{P}_\alpha} \RV{C}$. This reflects the fact that \emph{after we have selected a choice $\alpha$} the value of $\RV{C}$ provides no further information about the distribution of $\RV{Y}$, because $\RV{C}$ is deterministic given any $\alpha$. It does not reflect the fact that ``choosing different values of $\RV{C}$ has no effect on $\RV{Y}$''.
+\end{example}
 % \begin{theorem}[Disintegrations are conditional probabilities]
 % Suppose we have a fundamental probability set $\Omega$ variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ such that $\prob{P}_{\{\}}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability and there is some $\kernel{K}^{\RV{$
 % \end{theorem}
@@ -275,146 +370,7 @@ By definition, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
 % $\prob{Q}_{\{\}}\supset \prob{P}_{\{\}}$, so any conditional probability of $\prob{Q}_{\{\}}$ is also a conditional probability of $\prob{P}_{\{\}}$.
 % \end{proof}
 
-\subsection{Maximal probability sets and valid conditionals}
 
-So far we have defined probability sets and conditional probabilities as Markov kernels that can sometimes be derived from a probability set. For the purposes of analysing decision models, we are often interested in working in the opposite direction: starting with conditional probabilities and working with probability sets defined by them. We call these \emph{maximal probability sets}.
-
-We need to be a little bit careful when we proceed in this fashion: we can't take an arbitrary Markov kernel $\kappa:X\kto Y$ and declare it to be a conditional probability $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ for some $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a maximal probability set $\prob{P}_{\{\}}$. The reason for this is that some collections of variables cannot have arbitrary conditional probabilities, and so $\prob{P}_{\{\}}$ may in fact be the empty set. We address this with the notion of validity; a \emph{valid distribution} is a distribution associated with a particular variable that defines a nonempty set of base measures on $\Omega$ (Theorem \ref{th:completion}), and \emph{valid conditionals} are a set of conditional probabilities closed under $\odot$ and reducing to valid distributions when conditioning on a trivial variable (Lemma \ref{lem:valid_extendability}).
-
-Consider, for example, $\Omega=\{0,1\}$ with $\RV{X}=(\RV{Z},\RV{Z})$ for $\RV{Z}:=\text{id}_{\Omega}$ and any measure $\kappa\in \Delta(\{0,1\}^2)$ such that $\kappa(\{1\}\times \{0\})>0$. Note that $\RV{X}^{-1}(\{1\}\times \{0\})=\RV{Z}^{-1}(\{1\})\cap \RV{Z}^{-1}(\{0\})=\emptyset$. Thus for any probability measure $\mu\in \Delta(\{0,1\})$, $\mu^{\RV{X}}(\{1\}\times \{0\}) = \mu(\emptyset)=0 $ and so $\kappa$ cannot be the marginal distribution of $\RV{X}$ for any base measure at all. 
-
-\begin{definition}[Valid distribution]\label{def:valid_dist}
-Given $(\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to X$, an $\RV{X}$-valid probability distribution is any probability measure $\prob{K}\in \Delta(X)$ such that $\RV{X}^{-1}(A)=\emptyset\implies \prob{K}(A) = 0$ for all $A\in\sigalg{X}$.
-\end{definition}
-
-\begin{definition}[Valid conditional]\label{def:valid_conditional_prob}
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{$\RV{Y}|\RV{X}$-valid conditional probability} is a Markov kernel $\prob{L}:X\kto Y$ that assigns probability 0 to impossible events, unless the argument itself corresponds to an impossible event:
-\begin{align}
-    \forall B\in \sigalg{Y}, x\in X: (\RV{X},\RV{Y})\yields \{x\}\times B = \emptyset \implies \left(\prob{L}(B|x) = 0\right) \lor \left(\RV{X}\yields \{x\} = \emptyset\right)
-\end{align}
-\end{definition}
-
-\begin{definition}[Maximal probability set]
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a $\RV{Y}|\RV{X}$-valid conditional probability $\prob{L}:X\kto Y$ the maximal probability set $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}[M]}$ associated with $\prob{L}$ is the probability set such that for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$, $\prob{L}$ is a version of $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
-\end{definition}
-
-We use the notation $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}[M]}$ as shorthand to refer to the probability set $\prob{P}_{\{\}}$ maximal with respect to $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$.
-
-Lemma \ref{lem:valid_extendability} shows that the semidirect product of any pair of valid conditoinal probabilities is itself a valid conditional. Suppose we have some collection of $\RV{X}_i|\RV{X}_{[i-1]}$-valid conditionals $\{\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}|i\in [n]\}$; then recursively taking the semidirect product $\kernel{M}:=\prob{P}_1^{\RV{X}_1}\odot (\prob{P}_2^{\RV{X}_2|\RV{X}_{1}}\odot ...)$ yields a $\RV{X}_{[n]}$ valid distribution. Furthermore, the maximal probability set associated with $\kernel{M}$ is nonempty.
-
-Collections of recursive conditional probabilities often arise in causal modelling -- in particular, they are the foundation of the structural equation modelling approach \citet{richardson2013single,pearl_causality:_2009}.
-
-Note that validity is not a necessary condition for a conditional to define a non-empty probability set. The intuition for this is: if we have some $\kernel{K}:X\kto Y$, $\kernel{K}$ might be an invalid $\RV{Y}|\RV{X}$ conditional on all of $X$, but might be valid on some subset of $X$, and so we might have some probability model $\prob{P}$ that assigns measure 0 to the bad parts of $X$ such that $\kernel{K}$ is a version of $\prob{P}^{\RV{Y}|\RV{X}}$. On the other hand, if we want to take the product of $\kernel{K}$ with arbitrary valid $\RV{X}$ probabilities, then the validity of $\kernel{K}$ is necessary (Theorem \ref{th:valid_conditional_probability}).
-
-\subsubsection{Conditional independence}\label{ssec:cond_indep}
-
-Conditional independence has a familiar definition in probability models. We define conditional independence with respect to a probability gap model to be equivalent to conditional independence with respect to every base measure in the range of the model. This definition is closely related to the idea of \emph{extended conditional independence} proposed by \citet{constantinou_extended_2017}, see Appendix \ref{ap:eci}.
-
-\begin{definition}[Conditional independence]
-For a \emph{probability model} $\model{P}_{\alpha}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\alpha}}\RV{A}|\RV{C}$, if
-\begin{align}
-	\kernel{P}_{\alpha}^{\RV{ABC}} &= \tikzfig{cond_indep1} \label{eq:cond_indep}
-\end{align}
-\end{definition}
-
-\citet{cho_disintegration_2019} have shown that this definition coincides with the standard notion of conditional independence for a particular probability model (Theorem \ref{th:cho_ci_equiv}). 
-
-Conditional independence satisfies the \emph{semi-graphoid axioms}. For all standard measurable spaces $(\Omega,\sigalg{F})$ and all probability measures $\prob{P}\in \Delta(\Omega)$:
-
-\begin{enumerate}
-	\item Symmetry: $\RV{A}\CI_{\prob{P}} \RV{B}|\RV{C}$ iff $\RV{B}\CI_{\prob{P}} \RV{A}|\RV{C}$
-	\item Decomposition: $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}}\RV{B}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$
-	\item Weak union: $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$
-	\item Contraction: $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$
-\end{enumerate}
-
-We define two notions of conditional independence with respect to probability sets. Global conditional independence is just conditional independence universally quantified over all members of the set. \emph{Uniform conditional independence} requires both that conditional independence hold for every element of $\prob{P}_{\{\}}$ and the existence of $\prob{P}_{\{\}}^{\RV{B}|\RV{AC}}$. This latter condition means that uniform conditional independence can be interpreted as $\prob{P}_{\{\}}^{\RV{B}|\RV{AC}}$ ``ignoring one of its inputs'' (Theorem \ref{th:ignore_inputs}). This makes it closely related to \emph{extended conditional independence} \citet{constantinou_extended_2017}. Uniform conditional independence differs from extended conditional independence in that uniform conditional independence only applies to one kind of variable, while extended conditional independence distinguishes stochastic from non-stochastic variables. It is an open question whether stochastic and non-stochastic variables correspond to particular kinds of variables in the theory of probability sets. We speculate that stochastic variables may correspond to variables with uniform marginal distributions and non-stochastic variables to those which lack uniform marginal distributions.
-
-\begin{definition}[Global conditional independence]
-For a probability set $\model{P}_{\{\}}$ and variables $\RV{A},\RV{B},\RV{C}$, we say $\RV{B}$ is globally conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\{\}}}\RV{A}|\RV{C}$, if for all $\prob{P}_{\alpha}\in \prob{P}_{\{\}}$ $\RV{B}\CI_{\prob{P}_\alpha} \RV{A}|\RV{C}$.
-\end{definition}
-
-\begin{definition}[Uniform conditional independence]
-For a probability set $\model{P}_{\{\}}$ and variables $\RV{A},\RV{B},\RV{C}$, we say $\RV{B}$ is uniformly conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CII_{\model{P}_{\{\}}}\RV{A}|\RV{C}$, if $\prob{P}_{\{\}}^{\RV{B}|\RV{AC}}$ exists and for all $\prob{P}_{\alpha}\in \prob{P}_{\{\}}$ $\RV{B}\CI_{\prob{P}_\alpha} \RV{A}|\RV{C}$.
-\end{definition}
-
-\begin{theorem}\label{th:ignore_inputs}
-Given probability set $\prob{P}_{\{\}}$ on $(\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$, $Y$ standard measurable, if $\RV{Y}\CII_{\prob{P}_{\{\}}} \RV{X}|\RV{Z}$ then $\prob{P}^{\RV{Y}|\RV{Z}}$ exists and
-\begin{align}
-	\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}} &\overset{\prob{P}_{\{\}}}{\cong} \tikzfig{universal_conditional_independence}
-\end{align}
-\end{theorem}
-
-\begin{proof}
-By assumption, $\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}$ exists. Consider the set of points $A\subset \sigalg(X)\otimes \sigalg{Z}$ such that $(x,z)\in A$ and $(x',z)\in A^C$ implies there is some $B\in\sigalg{Y}$ such that
-\begin{align}
-	\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}(B|x,z) \neq \prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}(B|x',z)
-\end{align}
-
-By Theorem \ref{th:cho_ci_equiv}, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$ $A$ must be of $\prob{P}_\alpha$ measure $0$.
-
-Thus there is a version $\kernel{K}:X\times Z\kto Y$ of $\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}$ such that
-\begin{align}
-	\prob{K}(B|x,z) = \prob{K}(B|x',z)
-\end{align}
-for all $(x', z)\in X\times Z$, $B\in \sigalg{Y}$.
-
-Define $\kernel{L}:Z\kto Y$ by $\kernel{L}(B|z)&= \prob{K}(B|x_0,z)$ for some $x_0\in X$. Then for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$, $z\in Z$, $B\in \sigalg{Y}$, $C\in\sigalg{Z}$
-
-\begin{align}
-	\int_C \kernel{L}(B|z)\prob{P}_\alpha^{\RV{Z}}(\mathrm{d}z) &= \int_C \kernel{K}(B|x_0,z)\prob{P}_\alpha^{\RV{Z}}(\mathrm{d}z)\\
-	&= \int_{X}\int_{C} \prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}(B|x,z)\prob{P}_\alpha^{\RV{X}|\RV{Z}}(\mathrm{d}x|z)\prob{P}_\alpha^{\RV{Z}}(\mathrm{d}z)\\
-	&= \prob{P}_\alpha^{\RV{XYZ}}(X\times B\times C)\\
-	&= \prob{P}_\alpha^{\RV{YZ}}(B\times C)
-\end{align}
-Thus $\kernel{L}$ is a version of $\prob{P}_\alpha^{\RV{Y}|\RV{Z}}$. Furthermore, by construction $\kernel{L}(B|z)=\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}(B|x,z)$ for any $B\in \sigalg{Y}$, $z\in Z$, $x\in X$ except on a set of uniform measure 0. Thus
-\begin{align}
-	\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}} &\overset{\prob{P}_{\{\}}}{\cong} \tikzfig{universal_conditional_independence}
-\end{align}
-\end{proof}
-
-We can show that uniform conditional independence satisfies all the semi-graphoid axioms except symmetry. Symmetry is not satisfied because $\RV{X}\CIII_{\prob{P}_{\{\}}}\RV{Y}|\RV{Z}$ does not imply the existence of $\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}$, needed for $\RV{Y}\CIII_{\prob{P}_{\{\}}}\RV{X}|\RV{Z}$
-
-To prove uniform conditional independence satisfies the other semi-graphoid axioms, we make use of Lemma \ref{lem:distribute_quantifier}.
-
-\begin{lemma}\label{lem:distribute_quantifier}
-$[\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]$
-\end{lemma}
-
-\begin{proof}
-See appendix.
-\end{proof}
-
-\begin{theorem}
-Given a standard measurable space $(\Omega,\sigalg{F})$ and $\prob{P}_{\{\}}$ on $\Omega$, uniform conditional independence with respect to $\prob{P}_{\{\}}$ satisfies the semi-graphoid axioms with the exception of symmetry. That is:
-
-\begin{enumerate}
-  	\setcounter{enumi}{1}
-	\item Decomposition: $\RV{A}\CII_{\prob{P}_{\{\}}} (\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CII_{\prob{P}_{\{\}}}\RV{B}|\RV{W}$ and $\RV{A}\CII_{\prob{P}_{\{\}}}\RV{C}|\RV{W}$
-	\item Weak union: $\RV{A}\CII_{\prob{P}_{\{\}}}(\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CII_{\prob{P}_{\{\}}}\RV{B}|(\RV{C},\RV{W})$
-	\item Contraction: $\RV{A}\CII_{\prob{P}_{\{\}}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CII_{\prob{P}_{\{\}}}(\RV{B},\RV{C})|\RV{W}$
-\end{enumerate}
-\end{theorem}
-
-\begin{proof}
-First, we will argue that \emph{global conditional independence} satisfies all of semigraphoid axioms.
-
-For a particular probability $\prob{P}_\alpha$, each of the axioms consists of a statement of the form $\forall \prob{P}: f(\prob{P})\implies g(\prob{P})$.
-
-As the axioms hold for conditional independence for any probability model, we have, for arbitrary $\prob{P}_{\{\}}$, $\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}) \implies g(\prob{P}_\alpha)$. 
-
-Then by Lemma \ref{lem:distribute_quantifier}, $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))\implies (\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: g(\prob{P}_{\alpha}))$.
-
-Note that $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))$ is, by definition, a global conditional independence statement with respect to $\prob{P}_{\{\}}$.
-
-Next, we will show that for axioms 2-4 the required uniform conditional probabilities also exist. 
-
-Weak union: By assumption $\RV{A}\CII_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$, we have the existence of $\prob{P}_{\{\}}^{\RV{A}|\RV{BCW}}$, and this is also the uniform conditional probability required by the statement $\RV{A}\CII_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$. Thus weak union is satisfied.
-
-Decomposition: By assumption $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$. By weak union (which we have established to hold), we also have $\RV{A}\CII_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$. Combining this with Theorem \ref{th:ignore_inputs}, we also have the existence of $\prob{P}_{\{\}}^{\RV{A}|\RV{CW}}$. $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$ also implies $\RV{A}\CI_{\prob{P}} (\RV{C},\RV{B})|\RV{W}$, and so we can repeat this argument with $\RV{B}$ and $\RV{C}$ interchanged.
-
-Contraction: By assumption $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$, we have the existence of $\prob{P}_{\{\}}^{\RV{A}|\RV{BCW}}$, and this is also the uniform conditional probability required by the statement $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$.
-\end{proof}
 
 % \begin{definition}[Conditional independence with respect to a probability comb]
 % Conditional independence $\RV{A}\CI_{\prob{P}_\square}\RV{B}|\RV{C}$ holds for an arbitrary probability comb $\model{P}_\square:A\to \mathscr{P}(\Delta(\Omega))$ if $\RV{A}\CI_{\prob{P}_\alpha}\RV{B}|\RV{C}$ holds for all probability models $\prob{P}_\alpha$, $\alpha\in A$.

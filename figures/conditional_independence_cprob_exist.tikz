@@ -1,6 +1,6 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=small kernel tikzit] (1) at (1.25, 2.5) {$\prob{P}_{\{\}}^{\RV{Y}|\RV{WX}}$};
+		\node [style=small kernel tikzit] (1) at (1.25, 2.5) {$\prob{P}_C^{\RV{Y}|\RV{WX}}$};
 		\node [style=none] (2) at (-2.75, 3) {};
 		\node [style=RLabel tikzit] (5) at (3, 2.5) {$\RV{Y}$};
 		\node [style=RLabel tikzit] (6) at (3, 4.25) {$\RV{W}$};

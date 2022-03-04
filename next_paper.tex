@@ -593,3 +593,87 @@ Given $(\Omega,\sigalg{F})$, a probability gap model is a triple $(\prob{P}_\squ
     &= \prob{P}_\square\cap \prob{P}_{\tilde{\alpha}}
 \end{align}
 \end{definition}
+
+
+
+\subsubsection{Conditional independence}\label{ssec:cond_indep}
+
+Conditional independence has a familiar definition in probability models. We define conditional independence with respect to a probability gap model to be equivalent to conditional independence with respect to every base measure in the range of the model. This definition is closely related to the idea of \emph{extended conditional independence} proposed by \citet{constantinou_extended_2017}, see Appendix \ref{ap:eci}.
+
+\begin{definition}[Conditional independence]
+For a \emph{probability model} $\model{P}_{\alpha}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\alpha}}\RV{A}|\RV{C}$, if
+\begin{align}
+    \kernel{P}_{\alpha}^{\RV{ABC}} &= \tikzfig{cond_indep1} \label{eq:cond_indep}
+\end{align}
+\end{definition}
+
+\citet{cho_disintegration_2019} have shown that this definition coincides with the standard notion of conditional independence for a particular probability model (Theorem \ref{th:cho_ci_equiv}). 
+
+Conditional independence satisfies the \emph{semi-graphoid axioms}. For all standard measurable spaces $(\Omega,\sigalg{F})$ and all probability measures $\prob{P}\in \Delta(\Omega)$:
+
+\begin{enumerate}
+    \item Symmetry: $\RV{A}\CI_{\prob{P}} \RV{B}|\RV{C}$ iff $\RV{B}\CI_{\prob{P}} \RV{A}|\RV{C}$
+    \item Decomposition: $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}}\RV{B}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$
+    \item Weak union: $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$
+    \item Contraction: $\RV{A}\CI_{\prob{P}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$
+\end{enumerate}
+
+We define two notions of conditional independence with respect to probability sets. Global conditional independence is just conditional independence universally quantified over all members of the set. \emph{Uniform conditional independence} requires both that conditional independence hold for every element of $\prob{P}_{\{\}}$ and the existence of $\prob{P}_{\{\}}^{\RV{B}|\RV{AC}}$. This latter condition means that uniform conditional independence can be interpreted as $\prob{P}_{\{\}}^{\RV{B}|\RV{AC}}$ ``ignoring one of its inputs'' (Theorem \ref{th:ignore_inputs}). This makes it closely related to \emph{extended conditional independence} \citet{constantinou_extended_2017}. Uniform conditional independence differs from extended conditional independence in that uniform conditional independence only applies to one kind of variable, while extended conditional independence distinguishes stochastic from non-stochastic variables. It is an open question whether stochastic and non-stochastic variables correspond to particular kinds of variables in the theory of probability sets. We speculate that stochastic variables may correspond to variables with uniform marginal distributions and non-stochastic variables to those which lack uniform marginal distributions.
+
+\begin{definition}[Global conditional independence]
+For a probability set $\model{P}_{\{\}}$ and variables $\RV{X},\RV{Y},\RV{Z}$, we say $\RV{Y}$ is globally conditionally independent of $\RV{X}$ given $\RV{Z}$, written $\RV{Y}\CI_{\model{P}_{\{\}}}\RV{X}|\RV{Z}$, if for all $\prob{P}_{\alpha}\in \prob{P}_{\{\}}$ $\RV{Y}\CI_{\prob{P}_\alpha} \RV{X}|\RV{Z}$.
+\end{definition}
+
+\begin{definition}[Uniform conditional independence]
+For a probability set $\model{P}_{\{\}}$ and variables $\RV{X},\RV{Y},\RV{Z}$, we say $\RV{Y}$ is uniformly conditionally independent of $\RV{X}$ given $\RV{Z}$, written $\RV{Y}\CII_{\model{P}_{\{\}}}\RV{X}|\RV{Z}$, if both $\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}$ and $\prob{P}_{\{\}}^{\RV{Y}|\RV{Z}}$ exist and
+\begin{align}
+        \prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}} &\overset{\prob{P}_{\{\}}}{\cong} \tikzfig{universal_conditional_independence}
+\end{align}
+\end{definition}
+
+Note that, unlike regular conditional independence, $\RV{Y}\CII_{\prob{P}_{\{\}}} *$ (where $*$ is a constant variable) is nontrivial -- it expresses the fact that $\prob{P}__{\{\}}^{\RV{Y}}$ exists.
+
+Global conditional independence is equivalent to uniform conditional independence if there is a dominating choice. However, the global conditional independence does not imply uniform conditional independence in the absence of a dominating choice.
+
+We can show that uniform conditional independence satisfies all the semi-graphoid axioms except symmetry. Symmetry is not satisfied because $\RV{X}\CIII_{\prob{P}_{\{\}}}\RV{Y}|\RV{Z}$ does not imply the existence of $\prob{P}_{\{\}}^{\RV{Y}|\RV{XZ}}$, needed for $\RV{Y}\CIII_{\prob{P}_{\{\}}}\RV{X}|\RV{Z}$
+
+To prove uniform conditional independence satisfies the other semi-graphoid axioms, we make use of Lemma \ref{lem:distribute_quantifier}.
+
+\begin{lemma}\label{lem:distribute_quantifier}
+$[\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]$
+\end{lemma}
+
+\begin{proof}
+See appendix.
+\end{proof}
+
+\begin{theorem}
+Given a standard measurable space $(\Omega,\sigalg{F})$ and $\prob{P}_{\{\}}$ on $\Omega$, uniform conditional independence with respect to $\prob{P}_{\{\}}$ satisfies the semi-graphoid axioms with the exception of symmetry. That is:
+
+\begin{enumerate}
+    \setcounter{enumi}{1}
+    \item Decomposition: $\RV{A}\CII_{\prob{P}_{\{\}}} (\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CII_{\prob{P}_{\{\}}}\RV{B}|\RV{W}$ and $\RV{A}\CII_{\prob{P}_{\{\}}}\RV{C}|\RV{W}$
+    \item Weak union: $\RV{A}\CII_{\prob{P}_{\{\}}}(\RV{B},\RV{C})|\RV{W}$ implies $\RV{A}\CII_{\prob{P}_{\{\}}}\RV{B}|(\RV{C},\RV{W})$
+    \item Contraction: $\RV{A}\CII_{\prob{P}_{\{\}}}\RV{C}|\RV{W}$ and $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$ implies $\RV{A}\CII_{\prob{P}_{\{\}}}(\RV{B},\RV{C})|\RV{W}$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+First, we will argue that \emph{global conditional independence} satisfies all of semigraphoid axioms.
+
+For a particular probability $\prob{P}_\alpha$, each of the axioms consists of a statement of the form $\forall \prob{P}: f(\prob{P})\implies g(\prob{P})$.
+
+As the axioms hold for conditional independence for any probability model, we have, for arbitrary $\prob{P}_{\{\}}$, $\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}) \implies g(\prob{P}_\alpha)$. 
+
+Then by Lemma \ref{lem:distribute_quantifier}, $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))\implies (\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: g(\prob{P}_{\alpha}))$.
+
+Note that $(\forall \prob{P}_\alpha\in \prob{P}_{\{\}}: f(\prob{P}_{\alpha}))$ is, by definition, a global conditional independence statement with respect to $\prob{P}_{\{\}}$.
+
+Next, we will show that for axioms 2-4 the required uniform conditional probabilities also exist. 
+
+Weak union: By assumption $\RV{A}\CII_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$, we have the existence of $\prob{P}_{\{\}}^{\RV{A}|\RV{BCW}}$, and this is also the uniform conditional probability required by the statement $\RV{A}\CII_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$. Thus weak union is satisfied.
+
+Decomposition: By assumption $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$. By weak union (which we have established to hold), we also have $\RV{A}\CII_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$. Combining this with Theorem \ref{th:ignore_inputs}, we also have the existence of $\prob{P}_{\{\}}^{\RV{A}|\RV{CW}}$. $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$ also implies $\RV{A}\CI_{\prob{P}} (\RV{C},\RV{B})|\RV{W}$, and so we can repeat this argument with $\RV{B}$ and $\RV{C}$ interchanged.
+
+Contraction: By assumption $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$, we have the existence of $\prob{P}_{\{\}}^{\RV{A}|\RV{BCW}}$, and this is also the uniform conditional probability required by the statement $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$.
+\end{proof}

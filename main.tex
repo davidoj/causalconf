@@ -203,7 +203,7 @@ Causal inference work undertaken using either approaches is often directed towar
 
 As a motivating example for our contribution, \citet{hernan_does_2008} observed that many epidemiological papers have been published estimating the ``causal effect'' of body mass index. However, Hernán argued, because there are many different \emph{actions} that might affect body mass index, the potential outcomes associated with body mass index themselves are ill-defined. This would not be particularly problematic if we regarded the search for treatment effects as an endeavour entirely separate from questions of choosing actions -- it's only because we want potential outcomes to tell us something about effects of actions that a many-to-one relationship between ``actions'' and ``causal effects'' becomes troublesome.
 
-In a response to Hernán's observation, \citet{pearl_does_2018} argues that \emph{interventions} (by which we mean the operation defined by a causal graphical model) are well defined, but by default they describe ``virtual interventions'' or ``ideal, atomic interventions'', and real actions may instead be described by some more complicated variety of intervention operation. Even with this clarification, it appears that the relationship between interventions and actions is not straightforward. In particular, one might wonder what standard we can use to determine if an action is ``ideal'' and ``atomic'', apart from the question begging standard of agreement with interventions in a given causal graphical model.
+In a response to Hernán and Taubman's observation, \citet{pearl_does_2018} argues that \emph{interventions} (by which we mean the operation defined by a causal graphical model) are well defined, but by default they describe ``virtual interventions'' or ``ideal, atomic interventions'', and real actions may instead be described by some more complicated variety of intervention operation. Even with this clarification, it appears that the relationship between interventions and actions is not straightforward. In particular, one might wonder what standard we can use to determine if an action is ``ideal'' and ``atomic'', apart from the question begging standard of agreement with interventions in a given causal graphical model.
 
 In another response, \citet{shahar_association_2009} argued that a properly specified intervention on body mass index will necessarily yield a conclusion that intervention on body mass index has no effect at all on anything apart from body mass index itself. If this is accepted, then it might seem that there is a whole body of literature devoted to estimating a ``causal effect'' that is necessarily equal to zero! It seems that there is a need to clarify the relationship between actions and causal effects.
 
@@ -239,7 +239,7 @@ This theory is suggested by many introductions to probability theory. For exampl
 
 \subsection{Contributions}
 
-A secondary contribution of this paper is the notion of \emph{validity} of a model represented by a probability set. This is simply the requirement that the probability set is nonempty. The problem of whether a probability set is valid is analogous to the problem of whether a probability distribution satisfying a collection of constraints exists, discussed in \citet{vorobev_consistent_1962}, although our use of the concept is somewhat more elementary. We discuss how an incautious attempt to build a model of ``interventions on body mass index'' can yield an invalid model.
+A secondary contribution of this paper is the notion of \emph{validity} of a model represented by a probability set. This is simply the requirement that the probability set is nonempty.  We discuss how an incautious attempt to build a model of ``interventions on body mass index'' can yield an invalid model.
 
 There are two main contributions. The first is a formal result akin to De Finetti's representation theorem \citep{de_finetti_foresight_1992}. De Finetti's theorem shows that \emph{exchangeability} of a probability model is equivalent -- in a certain sense -- to the existence of a ``fixed but unknown'' probability distribution over a sequence of observations. We introduce a symmetry called \emph{causal contractibility} and show that it is -- in a similar sense -- equivalent to the existence of a ``fixed but unknown'' conditional probability representing the response of one variable to the value of another.
 
@@ -253,8 +253,8 @@ We consider it an open question whether judgements of causal contractibility are
 \todo[inline]{Roadmap}
 
 \input{variables}
-\input{probability}
 \input{seedo}
+\input{probability}
 \input{representation_repeatability}
 \input{appendix_bucket}
 \input{conclusion}

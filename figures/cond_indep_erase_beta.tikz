@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (2.5, -1.25) {};
+		\node [style=Llabel tikzit] (1) at (0.5, 0.25) {$\RV{W}$};
+		\node [style=Llabel tikzit] (2) at (0.5, -1.25) {$\RV{X}$};
+		\node [style=RLabel tikzit] (3) at (5, 0.25) {$\RV{Y}$};
+		\node [style=small kernel tikzit] (4) at (2.5, 0.25) {$\kernel{K}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=delmap] (2) to (0.center);
+		\draw (1) to (4);
+		\draw (4) to (3);
+	\end{pgfonlayer}
+\end{tikzpicture}
