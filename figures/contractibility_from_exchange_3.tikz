@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (0.25, -0.25) {$\prob{P}_{C}^{\RV{Y}_B\RV{Y}_{M\setminus B}|\RV{D}_A\RV{D}_{M\setminus B}}$};
+		\node [style=none] (1) at (-0.5, 0) {};
+		\node [style=none] (2) at (-0.5, -0.5) {};
+		\node [style=none] (3) at (1, 0) {};
+		\node [style=none] (4) at (1, -0.5) {};
+		\node [style=none] (5) at (4.5, -0.5) {};
+		\node [style=RLabel tikzit] (6) at (4.5, 0) {$\RV{Y_B}$};
+		\node [style=Llabel tikzit] (7) at (-3.75, 0) {$\RV{D}_B$};
+		\node [style=Llabel tikzit] (8) at (-3.75, -0.5) {$\RV{D}_{M\setminus B}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=delmap] (4.center) to (5.center);
+		\draw (3.center) to (6);
+		\draw (7) to (1.center);
+		\draw (8) to (2.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

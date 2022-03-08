@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (4.5, 0.25) {$\prob{P}_{C}^{\RV{Y}_A\RV{Y}_{M\setminus A}|\RV{D}_A\RV{D}_{M\setminus A}}$};
+		\node [style=none] (1) at (3.75, 0.5) {};
+		\node [style=none] (2) at (3.75, 0) {};
+		\node [style=none] (3) at (5.25, 0.5) {};
+		\node [style=none] (4) at (5.25, 0) {};
+		\node [style=none] (5) at (10.25, 0) {};
+		\node [style=RLabel tikzit] (6) at (10.25, 0.5) {$\RV{Y_A}$};
+		\node [style=Llabel tikzit] (7) at (-1, 0.5) {$\RV{D}_A$};
+		\node [style=Llabel tikzit] (8) at (-1, 0) {$\RV{D}_{M\setminus A}$};
+		\node [style=small kernel tikzit] (9) at (0.5, 0.25) {$\text{s}_{BA}$};
+		\node [style=none] (10) at (1.25, 0.5) {};
+		\node [style=none] (11) at (1.25, 0) {};
+		\node [style=none] (12) at (0, 0.5) {};
+		\node [style=none] (13) at (0, 0) {};
+		\node [style=none] (14) at (8.25, 0.5) {};
+		\node [style=none] (15) at (8.25, 0) {};
+		\node [style=none] (16) at (9.25, 0.5) {};
+		\node [style=none] (17) at (9.25, 0) {};
+		\node [style=small kernel tikzit] (18) at (8.75, 0.25) {$\text{s}_{AB}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (7) to (12.center);
+		\draw (8) to (13.center);
+		\draw (11.center) to (2.center);
+		\draw (10.center) to (1.center);
+		\draw (3.center) to (14.center);
+		\draw (4.center) to (15.center);
+		\draw (16.center) to (6);
+		\draw [style=delmap] (17.center) to (5.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

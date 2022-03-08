@@ -33,7 +33,7 @@ Exchange commutativity is similar, but not identical, to a number of assumptions
 Consequence locality is similar to the stable unit treatment distribution assumption (SUTDA) in \citet{dawid_decision-theoretic_2020}. It is also related to the ``no interference'' part of the stable unit treatment value assumption (SUTVA). The stable unit treatment value assumption (SUTVA) is given as \citep{rubin_causal_2005}:
 
 \begin{blockquote}
-(SUTVA) comprises two subassumptions. First, it assumes that \emph{there is no interference between units (Cox 1958)}; that is, neither $Y_i(1)$ nor $Y_i(0)$ is affected by what action any other unit received. Second, it assumes that \emph{there are no hidden versions of treatments}; no matter how unit $i$ received treatment $1$, the outcome that would be observed would be $Y_i(1)$ and similarly for treatment $0$.
+(SUTVA) comprises two sub-assumptions. First, it assumes that \emph{there is no interference between units (Cox 1958)}; that is, neither $Y_i(1)$ nor $Y_i(0)$ is affected by what action any other unit received. Second, it assumes that \emph{there are no hidden versions of treatments}; no matter how unit $i$ received treatment $1$, the outcome that would be observed would be $Y_i(1)$ and similarly for treatment $0$.
 \end{blockquote}
 
 Both SUTDA and SUTVA talk about how an outcome $\RV{Y}_i$ does not depend on, or is not affected by, any of the actions that do not correspond to it. Such statements would need to be made more precisely if we want to evaluate what precise relation they have to consequence locality.
@@ -114,7 +114,7 @@ Exchange commutativity (swapping choices $\sim$ swapping labels):
 % \end{align}
 % as desired.
 % \end{proof}
-\subsection{Consequence contractibility}
+\subsection{Causal contractibility}
 
 Here we set out formal definitions of exchange commutativity and locality of consequences, as well as ``consequence contractibility'', which is the conjunction of both conditions.
 
@@ -133,7 +133,7 @@ Then $\prob{P}_C^{\RV{Y}|\RV{D}}$ \emph{commutes with exchange}.
 If $\prob{P}_C^{\RV{Y}|\RV{D}}$ commutes with exchange and we have $\alpha,\alpha'\in C$ such that $\prob{P}_\alpha^{\RV{C}} = \prob{P}_{\alpha'}^{\RV{C}}\text{swap}_{\rho(\RV{D})}$, then $\prob{P}_\alpha^{\RV{Y}} = \prob{P}_{\alpha'}^{\RV{Y}}\text{swap}_{\rho(\RV{Y})}$. However, $\prob{P}_C^{\RV{Y}|\RV{D}}$ may commute with exchange even if there are no such $\alpha$ and $\alpha'\in C$.
 
 \begin{definition}[Locality of consequences]\label{def:caus_cont}
-Suppose we have a sample space $(\Omega,\sigalg{F})$ nd a probability set $\prob{P}_C$ with uniform conditional probability $\prob{P}_C^{\RV{Y}|\RV{D}}$ where $\RV{Y}:=\RV{Y}:=(\RV{Y}_i)_{M}$, $\RV{D}:=\RV{D}_M:=(\RV{D}_i)_M$, $M\subseteq \mathbb{N}$. If for any $A\subset M$
+Suppose we have a sample space $(\Omega,\sigalg{F})$ and a probability set $\prob{P}_C$ with uniform conditional probability $\prob{P}_C^{\RV{Y}|\RV{D}}$ where $\RV{Y}:=\RV{Y}:=(\RV{Y}_i)_{M}$, $\RV{D}:=\RV{D}_M:=(\RV{D}_i)_M$, $M\subseteq \mathbb{N}$. If for any $A\subset M$
 \begin{align}
     \prob{P}_S^{\RV{Y}_A|\RV{D}_M} &\overset{\prob{P}_C}{\cong} \tikzfig{consequence_locality}
 \end{align}
@@ -212,19 +212,53 @@ Note that this example would not satisfy exchange commutativity.
 We call the conjunction of exchange commutativity and consequence locality \emph{causal contractibility}.
 
 \begin{definition}[Causal contractibility]
-A probability set $\prob{P}_S$ with uniform conditional $\prob{P}_S^{\RV{Y}|\RV{D}}$ is causally contractible if it is both exchange commutative and exhibits consequence locality.
+A probability set $\prob{P}_S$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ is $(\RV{D};\RV{Y})$ causally contractible if it is both exchange commutative and exhibits consequence locality.
 \end{definition}
 
-\begin{theorem}[Causal contractibility]
-A probability set $\prob{P}_S$ with uniform conditional $\prob{P}_S^{\RV{Y}|\RV{D}}$ is causally contractible if and only if for any $A,B\subset M$ with $|A|=|B|$
+\begin{theorem}[Causal contractibility]\label{th:causal_contractibility}
+A probability set $\prob{P}_S$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ is $(\RV{D},\RV{Y})$-causally contractible if and only if for any $A,B\subset M$ with $|A|=|B|$
 \begin{align}
-    \prob{P}_S^{\RV{Y}_A|\RV{D}_A} &\overset{\prob{P}_C}{\cong} \prob{P}_S^{\RV{Y}_B|\RV{D}_B}
+    \prob{P}_C^{\RV{Y}_A|\RV{D}_A\RV{D}_{M\setminus A}} &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_B|\RV{D}_B\RV{D}_{M\setminus B}}\\
+    &\overset{\prob{P}_C}{\cong} \tikzfig{consequence_locality}\label{eq:cons_local}
 \end{align}
 \end{theorem}
 
 \begin{proof}
+If:
+Choosing $A=B$ yields consequence locality immediately from Eq. \ref{eq:cons_local}.
 
+Also from Eq. \ref{eq:cons_local}, we have
+\begin{align}
+    \prob{P}_C^{\RV{Y}_A|\RV{D}_A} \overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_B|\RV{D}_B}
+\end{align}
+
+For any permutation $\rho:M\to M$, take $A$ such that $|A|=|M|$ and $B=\rho(A)$. Then
+
+\begin{align}
+    \prob{P}_C^{\RV{Y}_A|\RV{D}_A} \overset{\prob{P}_C}{\cong} \text{swap}_{\rho^{-1}(\RV{D})} \prob{P}_C^{\RV{Y}_A|\RV{D}_A} \text{swap}_{\rho(\RV{Y})} 
+\end{align}
+
+So $\prob{P}_C$ is commutes with exchange.
+
+Only if:
+For any $A,B\subset M$, let $\text{s}_{BA}:D^M\kto D^M$ be the swap map that sends the $B$ indices to $A$ indices and $\text{s}_{AB}:Y^M\kto Y^M$ be the swap map that sends $A$ indices to $B$ indices.
+\begin{align}
+    \tikzfig{consequence_locality} &= \tikzfig{contractibility_from_exchange_1}\\
+    &= \tikzfig{contractibility_from_exchange_2}\\
+    &= \tikzfig{contractibility_from_exchange_3}
+\end{align}
 \end{proof}
+
+\begin{corollary}\label{corr:ccontract}
+A causally contractible probability set $\prob{P}_S$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ has the property
+\begin{align}
+    \prob{P}_C^{\RV{Y}_A|\RV{D}_A} \overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_B|\RV{D}_B}
+\end{align}
+for all $A,B\subset M$.
+\end{corollary}
+
+\todo[inline]{I think this condition doesn't imply consequence locality, but haven't thought of a counterexample yet}
+
 
 % \begin{proposition}[Representation of do-models that commute with exchange]
 % Suppose we have a fundamental probability set $\Omega$ and a do model $(\prob{P},\RV{D},\RV{Y},R)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$ where $\prob{P}$ commutes with exchange and there is some $\alpha^*\in R$ such that $\prob{P}^{\alpha^*}\gg\prob{P}_\beta$ for all $\beta in R$. Then there exists a symmetric function $\RV{H}:(Y\times D)^\mathbb{N}\to H$ such that  $\prob{P}^{\RV{Y}|\RV{DH}}$ exists and $\RV{Y}_i\CI_{\prob{P}}(\RV{D}_j,\RV{Y}_j)_{j\in \mathbb{N}}\setminus \{i\}|\RV{H}\RV{D}_i$, or equivalently 
@@ -258,16 +292,16 @@ A probability set $\prob{P}_S$ with uniform conditional $\prob{P}_S^{\RV{Y}|\RV{
 % The proof that the limit exists and the above equality holds can again be found int \citep{kallenberg_basic_2005}.
 % \end{proof}
 
-\subsection{Repeatable response conditionals exist iff a model is consequence contractible}
+\subsection{Existence of response conditionals}
 
-The main result in this section is Theorem \ref{th:iid_rep} which shows that a conditional probability model $\prob{P}_\square$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical conditional probabilities $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$. Note the hypothesis $\RV{H}$ that appears in this conditional; it can be given the interpretation of a random variable that expresses the ``true but initially unknown'' $\RV{Y}_1|\RV{D}_1$ conditional probability.
+The main result in this section is Theorem \ref{th:iid_rep} which shows that a probability set $\prob{P}_C$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical uniform conditionals $\prob{P}_C^{\RV{Y}_1|\RV{D}_1\RV{H}}$. Note the hypothesis $\RV{H}$ that appears in this conditional; it can be given the interpretation of a random variable that expresses the ``true but initially unknown'' $\RV{Y}_1|\RV{D}_1$ conditional probability.
 
-\begin{lemma}[Exchangeable randomness pushback]\label{th:table_rep}
-Given a conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}},A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$, $\prob{P}_\square$ is consequence contractible if and only if there exists a column exchangeable probability distribution $\mu^{\RV{Y}^D}\in \Delta(Y^{|D|\times \mathbb{N}})$ such that
+\begin{lemma}\label{th:table_rep}
+Given a probability set $\prob{P}_C^{\RV{Y}|\RV{D}}$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$, $\prob{P}_\square$ is consequence contractible if and only if there exists a column exchangeable probability distribution $\mu^{\RV{Y}^D}\in \Delta(Y^{|D|\times \mathbb{N}})$ such that
 \begin{align}
-    \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\label{eq:lup_rep}\\
+    \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\label{eq:lup_rep}\\
     &\iff\\
-    \prob{P}_\square^{\RV{Y}|\RV{D}}(y|(d_i)_{i\in \mathbb{N}}) &= \mu^{\RV{Y}^D} \Pi_{(d_i i)_{i\in\mathbb{N}}}(y)
+    \prob{P}_C^{\RV{Y}|\RV{D}}(y|(d_i)_{i\in \mathbb{N}}) &= \mu^{\RV{Y}^D} \Pi_{(d_i i)_{i\in\mathbb{N}}}(y)
 \end{align}
 Where $\Pi_{(d_i i)_{i\in\mathbb{N}}}:Y^{|D|\times \mathbb{N}}\to Y^{\mathbb{N}}$ is the function that projects the $(d_i,i)$ indices for all $i\in \mathbb{N}$ and $\prob{F}_{\text{ev}}$ is the Markov kernel associated with the evaluation map
 \begin{align}
@@ -278,19 +312,21 @@ Where $\Pi_{(d_i i)_{i\in\mathbb{N}}}:Y^{|D|\times \mathbb{N}}\to Y^{\mathbb{N}}
 
 \begin{proof}
 Only if:
-Consider the weaker conditional probability model $(\prob{P}_\square^{\RV{Y}|\RV{D}},A')$ where $A'\supset A$ contains all $\alpha$ such that $\prob{P}_\alpha^{\RV{D}}$ is deterministic. If the result holds for $A'$ then it holds also for $A$ which is a subset.
+Consider a probability set $\prob{P}_{C'}$ where $C'\supset C$ contains all $\alpha$ such that $\prob{P}_\alpha^{\RV{D}}$ is deterministic and $\prob{P}_{C'}^{\RV{Y}|\RV{D}}\overset{P_C}{\cong}\prob{P}_C^{\RV{Y}|\RV{D}}$. It can be constructed by adding to $\prob{P}_C$ probability sets with marginals $\delta_d\odot \prob{P}_{C'}^{\RV{Y}|\RV{D}}$ for all $d\in D$.
 
-For all $d\in D$, abuse notation to say taht $\prob{P}_d$ is a probability set in $A'$ such that $\prob{P}_d^{\RV{D}}=\delta_d$. For any $\alpha\in A'$, we have
+We will prove the result holds for $\prob{P}_{C'}$, and it will therefore also hold for $\prob{P}_C$.
+
+For all $d\in D$, abuse notation to say that $\prob{P}_d$ is a probability set in $C'$ such that $\prob{P}_d^{\RV{D}}=\delta_d$. For any $\alpha\in C'$, we have
 
 \begin{align}
-    \prob{P}_\alpha^{\RV{DY}}(B\times C) &= \int_B \prob{P}_\square^{\RV{Y}|\RV{D}}(C|d)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
-                                &= \int_B \int_D \prob{P}_\square^{\RV{Y}|\RV{D}}(C|d')\prob{P}_d^{\RV{D}}(\mathrm{d}d')\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
+    \prob{P}_\alpha^{\RV{DY}}(B\times C) &= \int_B \prob{P}_C^{\RV{Y}|\RV{D}}(C|d)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
+                                &= \int_B \int_D \prob{P}_C^{\RV{Y}|\RV{D}}(C|d')\prob{P}_d^{\RV{D}}(\mathrm{d}d')\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
                                 &= \int_B \prob{P}_d^{\RV{Y}}(C)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)
 \end{align}
 
-Thus $d\mapsto \prob{P}_d^{\RV{Y}}$ is a version of $\prob{P}_\square^{\RV{Y}|\RV{C}}$.
+Thus $d\mapsto \prob{P}_d^{\RV{Y}}$ is a version of $\prob{P}_C^{\RV{Y}|\RV{C}}$.
 
-Choose $e:=(e_i)_{i\in\mathbb{N}}$ such that $e_{|D|i+j}$ is the $i$th element of $D$ for all $i,j\in \mathbb{N}$. Abusing notation, write $e$ also for the decision function that chooses $e$ deterministically.
+Choose $e:=(e_i)_{i\in\mathbb{N}}$ such that $e_{|D|i+j}$ is the $i$th element of $D$ for all $i,j\in \mathbb{N}$.
 
 Define
 \begin{align}
@@ -311,7 +347,7 @@ and consider some ordered sequence $A\subset \mathbb{N}$ and $B:= ((|D|d_i+i))_{
     \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{Q}(y|d) &= \sum_{y\in \RV{Y}^{-1}(y_A)} \mu^{(\RV{Y}^{D}_{d_ii})_{A}}(y) \\
     &= \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{P}_e^{(\RV{Y}_{|D|d_i+i})_{A}}(y)\\
     &= \prob{P}_e^{\RV{Y}_{B}}(y_A)\\
-    &= \prob{P}_{d}^{\RV{Y}_A}(y_A)&\text{by consequence contractibility}
+    &= \prob{P}_{d}^{\RV{Y}_A}(y_A)&\text{by causal contractibility}
 \end{align}
 
 Because this holds for all $A\subset\mathbb{N}$, by the Kolmogorov extension theorem
@@ -326,7 +362,7 @@ Next we will show $\mu^{\RV{Y}^D}$ is exchangeable. Consider any subsequences $\
 
 \begin{align}
     \mu^{\RV{Y}^D}\Pi_S&= \prob{P}_e^{\RV{Y}_{\rho(S)}})\\
-    &= \prob{P}_e^{\RV{Y}_{\rho(T)}})&\text{by contractibility of }\prob{P}_\square\text{ and the equality } e_{\rho(S)}=e_{\rho(T)}\\
+    &= \prob{P}_e^{\RV{Y}_{\rho(T)}})&\text{by contractibility of }\prob{P}_C\text{ and the equality } e_{\rho(S)}=e_{\rho(T)}\\
     &= \mu^{\RV{Y}^D}\Pi_T
 \end{align}
 
@@ -334,7 +370,7 @@ Next we will show $\mu^{\RV{Y}^D}$ is exchangeable. Consider any subsequences $\
 If:
 Suppose 
 \begin{align}
-    \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
+    \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
 \end{align}
 
 and consider any two deterministic decision functions $d,d'\in D^{\mathbb{N}}$ such that some subsequences are equal $d_S=d'_T$.
@@ -344,36 +380,41 @@ Let $\RV{Y}^{d_S}=(\RV{Y}_{d_i i})_{i\in S}$.
 By definition,
 
 \begin{align}
-    \prob{P}_\square^{\RV{Y}_S|\RV{D}}(y_S|d) &= \sum_{y^D_S\in Y^{|D|\times |S|}}\mu^{\RV{Y}^D} \Pi_S(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)\\
-    &= \sum_{y^D_S\in Y^{|D|\times |T|}}\prob{P}_\square^{\RV{Y}^D_T}(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)&\text{ by contractibility of }\mu^{\RV{Y}^D}\Pi_T \\
-    &= \prob{P}_\square^{\RV{Y}_T|\RV{D}}(y_S|d)
+    \prob{P}_C^{\RV{Y}_S|\RV{D}}(y_S|d) &= \sum_{y^D_S\in Y^{|D|\times |S|}}\mu^{\RV{Y}^D} \Pi_S(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)\\
+    &= \sum_{y^D_S\in Y^{|D|\times |T|}}\prob{P}_C^{\RV{Y}^D_T}(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)&\text{ by contractibility of }\mu^{\RV{Y}^D}\Pi_T \\
+    &= \prob{P}_C^{\RV{Y}_T|\RV{D}}(y_S|d)
 \end{align}
 \end{proof}
 
-We have specialised notation for talking about marginals, conditionals, conditional independence and so forth. It is useful to use this notation to discuss properties of the representation in Equation \ref{eq:lup_rep}. Thus we adopt the convention that, given a consequence contractible model, the sample space $(\Omega,\sigalg{F})$ contains a variable $\RV{Y}^D:\Omega\to Y^{|D|\times\mathbb{N}}$ such that $\prob{P}_\square^{\RV{Y}^D}$ exists and is equal to $\mu^{\RV{Y}^D}$ in Lemma \ref{th:table_rep}.
+It is useful to apply conventions established for discussing variables to the tabular distribution $\mu^{\RV{Y}^D}$ and the representation of $\prob{P}_C^{\RV{Y}|\RV{D}}$in Equation \ref{eq:lup_rep}. Thus we define an augmented causally contractible model as follows:
 
-As we pointed out, there are similarities between $\RV{Y}^D$ in a standard consequence contractible model and the potential outcomes variables in potential outcomes models. However, the $\RV{Y}^D$ in our models usually can't be interpreted as potential outcomes. For example, consider a series of bets on fair coinflips. Model the consequence $\RV{Y}_i$ as uniform on $\{0,1\}$ for any decision $\RV{D}_i$, for all $i$. Specifically, $D=Y=\{0,1\}$ and $\prob{P}_\alpha^{\RV{Y}_n}(y)=\prod_{i\in [n]} 0.5$ for all $n$, $y\in Y^n$, $\alpha\in R$. Then the construction of $\prob{P}^{\RV{Y}^D}$ following the method in Lemma \ref{th:table_rep} yields $\prob{P}^{Y^D_i}(y^D_i)=\prod_{j\in D} 0.5$ for all $y^D_i\in Y^D$. In this model $\RV{Y}^0_i$ and $\RV{Y}^1_i$ are independent and uniformly distributed. However, if we wanted $\RV{Y}^0_i$ to be interpretable as ``what would happen if I bet on outcome 0 on turn $i$'' and $\RV{Y}^1$ to represent ``what would happen if I bet on outcome 1 on turn $i$'', then we ought to have $\RV{Y}^0_i = 1-\RV{Y}^1_i$. 
+\begin{definition}[Augmented causally contractible model]
+A $(\RV{D},\RV{Y})$-causally contractible probability set $\prob{P}_C$ on $(\Omega,\sigalg{F})$ is \emph{augmented} if there is an unobserved variable $\RV{Y}^D:\Omega\to Y^{|\mathbb{N}|\times |D|}$ such that $\prob{P}_C^{\RV{Y}^D}$ exists and
+\begin{align}
+    \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation_variablised}
+\end{align}
+\end{definition}
 
-Lemma \ref{th:table_rep} also does not establish that causal contractibility is necessary for the existence of a potential outcomes. A counterexample is a potential outcomes model with potential outcomes $\RV{Z}^D$ where the distribution $\prob{P}_\square^{\RV{Z}^D}$ exists and is not column exchangeable. Such a model is not consequence contractible.
+An augmented causally contractible model looks in some respects similar to a potential outcomes model - both have a distribution over an unobserved tabular variable ($\RV{Y}^D$ or the potential outcomes respectively), and the value of $\RV{Y}_i$ is deterministically equal to the entry in the table corresponding to $(i,\RV{D})$. However, the $\RV{Y}^D$ in an augmented causally contractible model usually can't be interpreted as potential outcomes. For example, consider a series of bets on fair coin flips. Model the consequence $\RV{Y}_i$ as uniform on $\{0,1\}$ for any decision $\RV{D}_i$, for all $i$. Specifically, $D=Y=\{0,1\}$ and $\prob{P}_\alpha^{\RV{Y}_n}(y)=\prod_{i\in [n]} 0.5$ for all $n$, $y\in Y^n$, $\alpha\in R$. Then the construction of $\prob{P}^{\RV{Y}^D}$ following the method in Lemma \ref{th:table_rep} yields $\prob{P}^{Y^D_i}(y^D_i)=\prod_{j\in D} 0.5$ for all $y^D_i\in Y^D$. In this model $\RV{Y}^0_i$ and $\RV{Y}^1_i$ are independent and uniformly distributed. However, if we wanted $\RV{Y}^0_i$ to be interpretable as ``what would happen if I bet on outcome 0 on turn $i$'' and $\RV{Y}^1$ to represent ``what would happen if I bet on outcome 1 on turn $i$'', then we ought to have $\RV{Y}^0_i = 1-\RV{Y}^1_i$.
 
-The tabular distribution $\prob{P}_\square^{\RV{Y}^D}$ along with the evaluation function $\kernel{F}_{\text{ev}}$ is a randomness pushback of the conditional probability $\prob{P}_\square^{\RV{Y}|\RV{D}}$. Because $\prob{P}_\square^{\RV{Y}^D}$ is a column exchangeable probability distribution we can apply De Finetti's theorem to show $\prob{P}_\square^{\RV{Y}^D}$ is representable as a product of identical parallel copies of $\prob{P}_\square^{\RV{Y}_1^D|\RV{H}}$ and a common prior $\prob{P}_\square^{\RV{H}}$. This in turn can be used to show that $\prob{P}_\square^{\RV{Y}|\RV{D}}$ can be represented as a product of identical parallel copies of $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$ and the same common prior $\prob{P}_\square^{\RV{H}}$. This is the main result: the copies of $\prob{P}_\square^{\RV{Y}_1|\RV{D}_1\RV{H}}$ are the repeatable response conditionals.
+The following is the main theorem of this section, that establishes the equivalence between causal contractibility and the existence of response conditionals. The argument in outline is: because $\prob{P}_C^{\RV{Y}^D}$ is a column exchangeable probability distribution we can apply De Finetti's theorem to show $\prob{P}_C^{\RV{Y}^D}$ is representable as a product of identical parallel copies of $\prob{P}_C^{\RV{Y}_1^D|\RV{H}}$ and a common prior $\prob{P}_C^{\RV{H}}$. This in turn can be used to show that $\prob{P}_C^{\RV{Y}|\RV{D}}$ can be represented as a product of identical parallel copies of $\prob{P}_C^{\RV{Y}_1|\RV{D}_1\RV{H}}$ and the same common prior $\prob{P}_C^{\RV{H}}$.
 
 \begin{theorem}\label{th:iid_rep}
-Suppose we have a sample space $(\Omega,\sigalg{F})$ and a conditional probability model $(\prob{P}^{\RV{Y}|\RV{D}}_\square,A)$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_\square$ is causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{H}}_\square$ and $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exist for all $i\in \mathbb{N}$ and
+Suppose we have a sample space $(\Omega,\sigalg{F})$ and a probability set $\prob{P}_C$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ where $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_C$ is augmented $(\RV{D};\RV{Y})$-causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{H}}_C$ and $\prob{P}_C^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exist for all $i\in \mathbb{N}$ and
 \begin{align}
-    \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{do_model_representation}\\
+    \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{do_model_representation}\\
     &\iff\\
-    \RV{Y}_i&\CI_{\prob{P}_\square} \RV{Y}_{\mathbb{N}\setminus i},\RV{D}_{\mathbb{N}\setminus i}|\RV{H}\RV{D}_i&\forall i\in \mathbb{N}\\
-    \land \RV{H} \CI_{\prob{P}_\square} \RV{D}\\
-    \land \prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{D}_i} &= \prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0} & \forall i\in \mathbb{N}
+    \RV{Y}_i&\CI^e_{\prob{P}_C} \RV{Y}_{\mathbb{N}\setminus i},\RV{D}_{\mathbb{N}\setminus i}C|\RV{H}\RV{D}_i&\forall i\in \mathbb{N}\\
+    \land \RV{H} \CI^e_{\prob{P}_C} \RV{D} C\\
+    \land \prob{P}_C^{\RV{Y}_i|\RV{H}\RV{D}_i} &= \prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0} & \forall i\in \mathbb{N}
 \end{align}
 Where $\Pi_{D,i}:D^\mathbb{N}\kto D$ is the $i$th projection map.
 \end{theorem}
 
 \begin{proof}
-We make use of Lemma \ref{th:table_rep} to show that we can represent the conditional probability $\prob{P}_\square^{\RV{Y}|\RV{D}}$ as
+We make use of Lemma \ref{th:table_rep} to show that we can represent the conditional probability $\prob{P}_C^{\RV{Y}|\RV{D}}$ as
 \begin{align}
-        \prob{P}_\square^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
+        \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
 \end{align}
 
 As a preliminary, we will show
@@ -403,17 +444,17 @@ By definition, for any $\{A_i\in\sigalg{Y}|i\in \mathbb{N}\}$
 Which is what we wanted to show.
 
 Only if:
-With $\prob{P}^{\RV{Y}^D}_\square$ column exchangeable. That is, noting that $\RV{Y}^D=(\RV{Y}^D_i)_{i\in \mathbb{N}}$, the $\RV{Y}^D_i$ are exchangeable with respect to $\prob{P}^{\RV{Y}^D}_\square$. From \citet{kallenberg_basic_2005} we have a directing random measure $\RV{H}$ such that
+As we have an augmented causally contractible model, we have a variable $\RV{Y}^D=(\RV{Y}^D_i)_{i\in \mathbb{N}}$ exchangeable with respect to $\prob{P}^{\RV{Y}^D}_C$ (Lemma \ref{th:table_rep}). From \citet{kallenberg_basic_2005} we have a directing random measure $\RV{H}$ such that
 \begin{align}
-    \prob{P}_\square^{\RV{Y}^D|\RV{H}} &= \tikzfig{de_finetti_representation}\\
+    \prob{P}_C^{\RV{Y}^D|\RV{H}} &= \tikzfig{de_finetti_representation}\\
     &\iff\\
-    \prob{P}_\square^{\RV{Y}^D|\RV{H}}(\prod_{i\in \mathbb{N}} A_i|h) &= \prod_{i\in \mathbb{N}} \prob{P}_\square^{\RV{Y}_0^D|\RV{H}}(A_i|h)
+    \prob{P}_C^{\RV{Y}^D|\RV{H}}(\prod_{i\in \mathbb{N}} A_i|h) &= \prod_{i\in \mathbb{N}} \prob{P}_C^{\RV{Y}_0^D|\RV{H}}(A_i|h)
 \end{align}
 
-Furthermore, because $\RV{Y}$ is a deterministic function of $\RV{D}$ and $\RV{Y}^D$, $\RV{Y}\CI_{\prob{P}_\square} \RV{H}|(\RV{D},\RV{Y}^D)$ and by definition of $\RV{Y}^D$, $\RV{Y}^D\CI_{\prob{P}_\square}\RV{D}$ and so
+Furthermore, because $\RV{Y}$ is a deterministic function of $\RV{D}$ and $\RV{Y}^D$, $\RV{Y}\CI_{\prob{P}_C} \RV{H}|(\RV{D},\RV{Y}^D)$ and by definition of $\RV{Y}^D$, $\RV{Y}^D\CI_{\prob{P}_C}\RV{D}$ and so
 
 \begin{align}
-    \prob{P}_\square^{\RV{Y}|\RV{HD}} &= \prob{P}_\square^{\RV{Y}^D|\RV{HD}}\odot \prob{P}_\square^{\RV{Y}|\RV{Y}^D\RV{HD}}\\
+    \prob{P}_C^{\RV{Y}|\RV{HD}} &= \prob{P}_C^{\RV{Y}^D|\RV{HD}}\odot \prob{P}_C^{\RV{Y}|\RV{Y}^D\RV{HD}}\\
                                       &= \tikzfig{Y_pushback_factorisation}
                                       &= \tikzfig{do_model_representation}
 \end{align}
@@ -421,17 +462,17 @@ Furthermore, because $\RV{Y}$ is a deterministic function of $\RV{D}$ and $\RV{Y
 If:
 By assumption
 \begin{align}
-    \prob{P}_\square^{\RV{Y}|\RV{D}}(\prod_{i\in \mathbb{N}} A_i|h,(d_i)_{i\in \mathbb{N}}) &= \int_H \prod_{i\in \mathbb{N}}\prob{P}_\square^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_\square^{\RV{H}}(\mathrm{d}h)
+    \prob{P}_C^{\RV{Y}|\RV{D}}(\prod_{i\in \mathbb{N}} A_i|h,(d_i)_{i\in \mathbb{N}}) &= \int_H \prod_{i\in \mathbb{N}}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_C^{\RV{H}}(\mathrm{d}h)
 \end{align}
 
 Consider $\alpha,\alpha'$ such that $\prob{P}^{\RV{D}_M}_\alpha = \prob{P}^{\RV{D}_L}_{\alpha'}$ for $L,M\subset \mathbb{N}$ with $|M|=|L|$, both finite. Then
 
 \begin{align}
     \prob{P}_\alpha^{\RV{Y}_M}(A) &= \int_{D^{\mathbb{N}}} \prob{P}_\alpha^{\RV{Y}_M|\RV{D}}(A|d)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
-                                  &= \int_H\int_{D^{\mathbb{N}}} \prod_{i\in M}\prob{P}_\square^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\prob{P}_\square^{\RV{H}}(\mathrm{d}h)\\
-                                  &= \int_H\int_{D^{|M|}} \prod_{i\in M}\prob{P}_\square^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_\alpha^{\RV{D}_M}(\mathrm{d}d_M)\prob{P}_\square^{\RV{H}}(\mathrm{d}h)\\
-                                  &= \int_H\int_{D^{|M|}} \prod_{i\in M}\prob{P}_\square^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_{\alpha'}^{\RV{D}_N}(\mathrm{d}d_N)\prob{P}_\square^{\RV{H}}(\mathrm{d}h)\\
-                                  &= \int_H\int_{D^{\mathbb{N}}} \prod_{i\in M}\prob{P}_\square^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_{\alpha'}^{\RV{D}}(\mathrm{d}d)\prob{P}_\square^{\RV{H}}(\mathrm{d}h)\\
+                                  &= \int_H\int_{D^{\mathbb{N}}} \prod_{i\in M}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\prob{P}_C^{\RV{H}}(\mathrm{d}h)\\
+                                  &= \int_H\int_{D^{|M|}} \prod_{i\in M}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_\alpha^{\RV{D}_M}(\mathrm{d}d_M)\prob{P}_C^{\RV{H}}(\mathrm{d}h)\\
+                                  &= \int_H\int_{D^{|M|}} \prod_{i\in M}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_{\alpha'}^{\RV{D}_N}(\mathrm{d}d_N)\prob{P}_C^{\RV{H}}(\mathrm{d}h)\\
+                                  &= \int_H\int_{D^{\mathbb{N}}} \prod_{i\in M}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_{\alpha'}^{\RV{D}}(\mathrm{d}d)\prob{P}_C^{\RV{H}}(\mathrm{d}h)\\
                                   &= \prob{P}_{\alpha'}^{\RV{Y}_M}(A)
 \end{align}
 
@@ -439,9 +480,27 @@ Consider $\alpha,\alpha'$ such that $\prob{P}^{\RV{D}_M}_\alpha = \prob{P}^{\RV{
 
 \subsection{Modelling different decision procedures}
 
-We have a formal condition -- consequence contractibility -- that is equivalent to the existence of repeatable response conditionals. A conditional probability model of an experiment for which there is some ``fixed, unknown probabilistic causal effect'' of $\RV{X}_i$ on $\RV{Y}_i$ for all $i$ must be consequence contractible. This means that any subsequence of $\RV{X}_i$s and corresponding $\RV{Y}_i$s for which the $\RV{X}_i$s are matched must share exactly the same model. 
+We have a formal condition -- causal contractibility -- equivalent to the existence of response conditionals. However, a key challenge is to evaluate when a decision procedure is appropriately modeled with a probability set causally contractible with respect to some pair of variables. This is an opaque problem, and we don't expect that this can be avoided entirely. 
 
-To understand whether such an assumption is justified, we can't look only at the model -- we have to consider the measurement procedure. It's not a mathematical fact that a conditional probability model should exhibit the independence $\RV{X}_i\CI_{\prob{P}_\square} \RV{Y}_i$. On the other hand, if the description of the measurement procedure supports the judgement that what the model says regarding $\proc{Y}_i$ should be the same before and after one learns the value yielded by $\proc{X}_i$, then it is appropriate to adopt a model in which $\RV{X}_i\CI_{\prob{P}_\square} \RV{Y}_i$.
+Judgements of exchangeability (a more basic notion than causal contractibility) are justified on the basis of ``symmetric ignorance'' \citet[chap. ~5]{gelman_bayesian_2013}. More specifically, if we are committed to modelling uncertainty with a single probability distribution and we cannot identify any knowledge that would lead us to construct a different model for:
+\begin{itemize}
+    \item The original measurement procedure
+    \item The original measurement procedure, composed with a function permuting the labels
+\end{itemize}
+then we should use an exchangeable probability distribution to model the original measurement procedure.
+
+Causal contractibility judgements can appeal to similar considerations, but in practice there seem to be a greater number of subtle considerations that rule out judgements of causal contractibility. 
+
+Causal contractibility is a very strong assumption. Suppose we have a decision procedure in which $M$ observations are made $(\proc{X}_M,\proc{Y}_M)$ that are unaffected by the choice $\alpha$, followed by $M$ repetitions $(\proc{X}_{(M,2M]},\proc{Y}_{(M,2M]})$ which are responsive to the choice $\alpha$. We model this with a probability set $\prob{P}_C$ where $\RV{X}_M$ corresponds to $\proc{X}_M$ and so forth.
+
+If an $(\RV{X}_{2M},\RV{Y}_{2M})$-causally contractible model $\prob{P}_C$ is chosen, then the following holds (see corollary \ref{corr:ccontract}):
+\begin{align}
+    \prob{P}^{\RV{Y}_{[2,M+1]}|\RV{X}_{[2,M+1]}}_C &= \prob{P}^{\RV{Y}_{(M,2M]}|\RV{X}_{(M,2M]}}\\
+    \implies \prob{P}^{\RV{Y}_{M+1}|\RV{X}_{[2,M+1]}\RV{Y}_{[2,M]}}_C &= \prob{P}^{\RV{Y}_{M+1}|\RV{X}_{(M,2M]}\RV{Y}_{(M+1,2M]}}
+\end{align}
+That is, causal contractibility in this implies that there is no difference between conditioning on observational results or on the results of active choices with respect to predicting the result of a particular choice. We could not ``reject the hypothesis of causal contractibility'' by observing that one subsequence appears to differ from the other, as the model treats both subsequences identically.
+
+
 
 We will reason about decision procedures in the following way:
 
@@ -612,7 +671,7 @@ Permutation of patients and treatment order now yields
     \EndProcedure
 \end{algorithmic}
 
-While paired permuation of decisions and outcomes yields
+While paired permutation of decisions and outcomes yields
 
 \begin{algorithmic}
     \Procedure{$\proc{T}''$}{}
@@ -648,26 +707,72 @@ The determinism assumption rules out choosing decisions randomly. However, if we
 We also show that proxy control is necessary for the existence of additional response conditionals if $\RV{D}$ is deterministically controllable; that is, if it can be forced to take on any deterministic probability distribution. If the judgements underpinning the existence of response conditionals ultimately rest on decision variables that are deterministic for each choice that can be made, and we claim that a response conditional for $\RV{Y}$ given $\RV{X}$ exists where $\RV{X}$ is just some not-necessarily-deterministic variable, then $\RV{X}$ must be a proxy for controlling $\RV{Y}$ given $\RV{D}$.
 
 \begin{definition}[Deterministically controllable]
-Given a probabilty gap model $(\prob{P}_\square,\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ on $(\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to X$, if for any $x\in X$ there exists $\alpha\in A$ such that $\prob{P}_\alpha^{\RV{X}}=\delta_x$ then $\RV{X}$ is determinstically controllable.
+Given a probability gap model $(\prob{P}_\square,\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ on $(\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to X$, if for any $x\in X$ there exists $\alpha\in A$ such that $\prob{P}_\alpha^{\RV{X}}=\delta_x$ then $\RV{X}$ is deterministically controllable.
 \end{definition}
 
+
+As an example of this, suppose $\RV{X}:\Omega\to X$ is a source of random numbers, the set of decisions $D$ is a set of functions $X\to T$ for treatments $\RV{T}:\Omega\to T$ and $\RV{W}:\Omega\to W$ are the ultimate patient outcomes, with $\RV{Y}_i=(\RV{W}_i,\RV{T}_i)$. Then it may be reasonable to assume that $\RV{W}_i\CI(\RV{D}_i,\RV{X}_i)|\RV{T}_i\RV{H}$ (where conditioning on $\RV{H}$ can be thought of as saying that this independence holds under infinite sample size). In this case, $\RV{T}_i$ is a proxy for controlling $\RV{Y}_i$, and there exists a causal consequence $\prob{P}_\square^{\RV{Y}_0|\RV{T}_0\RV{H}}$.
+
+A ``causal consequence of body mass index'' is unlikely to exist on the basis of symmetric information and deterministic decisions because there are no actions available to set body mass index deterministically. However, given an underlying problem where we have symmetric information over a collection of patients and some kind of decision that can be made deterministically, causal consequences of body mass index may exist if body mass index is a proxy for controlling the outcomes of interest.
+
+\subsection{Body mass index revisited}
+
+We return briefly to consider the question: given some collection of people indexed by $M$, with body mass index $\RV{B}_i$ and health outcomes of interest $\RV{Y}_i$ and some choices $\RV{D}_i$ a decision maker is contemplating relevant to these characteristics, suppose we have a conditional probability model $(\prob{P}_\square^{\RV{BY}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ causally contractible with respect to $(\RV{D},\RV{Y})$ (for example, perhaps decision maker is contemplating a treatment plan to apply to every individual).
+
+Do response conditionals $\prob{P}_\square^{\RV{Y}_i|\RV{B}_i}$ exist? We have by Lemma \ref{lem:proxy_control} that this exists if and only if $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{B}_i$. Thus we have reduced the question of the existence of response conditionals for BMI (or ``causal effects'' of BMI) to an empirical question. We might guess this is unlikely to hold; not only are there multiple ways we could imagine affecting a person's BMI with possibly different health implications, but it seems unlikely that the ultimate health outcome someone experiences can be predicted from BMI alone.
+
+However, there might be something to be said for a ``causal effect of BMI''. In particular, while it seems unlikely that BMI is a precise proxy for controlling health outcomes, it seems to at least be a reasonable empirical question to ask if BMI is an \emph{approximate} proxy for health outcomes.
+
+\subsection{Response conditionals}
+
+If a decision problem model $\prob{P}_\square$ has a uniform conditional probability $\prob{P}_\square^{\RV{Y}|\RV{X}}$ but no uniform marginal $\prob{P}_\square^{\RV{X}}$, we could think of it a situation where $\RV{X}$ is directly controllable and $\RV{Y}$ is controllable via choosing the distribution of $\RV{X}$. Most statistical inference, including statistical causal inference, is done in a setting where we don't just have a probability model and data, but where the probability model is in some sense repeatable. This includes settings where the data model is assumed to be independent and identically distributed, or exchangeable.
+
+
+
+The motivating question we introduced at the beginning of this paper was ``when are potential outcomes well-defined?''. This is not written using the potential outcomes framework, so we cannot directly address this question. However, we can ask ``when do probability gap models feature response conditionals?''.
+
+\subsection{Response conditionals and potential outcomes}\label{sec:curry}
+
+There is a connection between the question of when a particular conditional probability exists and when potential outcomes are wel-defined. Given any Markov kernel there is an operation akin to function currying termed ``randomness pushback'' that represents the kernel as the product of a probability measure and a deterministic Markov kernel. We observe that potential outcomes models share a number of features in common with a Markov kernel represented using a randomness pushback.
+
+Unlike function currying, there are many different randomness pushbacks that represent the same Markov kernel. The interpretation of potential outcomes models seems to require that exactly one of these possible pushbacks is a genuine potential outcomes model. Several works including \citet{dawid_causal_2000} and \citet{richardson2013single} have expressed the view that some of the degrees of freedom in potential outcomes models are superfluous; both propose that the degrees of freedom that can be tested using some idealised experiment are the degrees that should be kept.
+
+Notably, the single world intervention graphs of \citet{richardson2013single} feature an operation that splits an ``intervenable'' variable $\RV{X}$ into two versions, $\RV{X}$ and $\RV{X}'$, representing ``the actual $\RV{X}$'' and ``the unobseved value $\RV{X}$ would have taken absent intervention'' respectively (this interpretation is ours, not theirs). Thus Richardson and Robins might argue that they are interested in the existence of response conditionals of the form $\prob{P}_\square^{\RV{Y}|\RV{X}\RV{X}'}$ rather than $\prob{P}_{\square}^{\RV{Y}|\RV{X}}$. 
+
+We do not take a position on which degrees of freedom are good or bad in a typical potential outcomes model, nor do we explore conditionals of the form $\prob{P}^{\RV{Y}|\RV{X}\RV{X}'}$. We can, however, distinguish two different questions:
+
+\begin{itemize}
+    \item How are response conditionals represented?
+    \item Which response conditionals are of interest?
+\end{itemize}
+
+The first question seems to be an inconsequential stylistic matter, while the second question may determine the direction of one's analysis.
+
+Equation \ref{eq:curry_identity_po} is clearly a version of \ref{eq:curry_identity}. As we have established, provided $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ exists, we can always introduce some variable $\RV{Y}^X$ and corresponding $\prob{P}_{\{\}}^{\RV{Y}^X}$ such that Equation \ref{eq:curry_identity_po} holds.
+
+\subsection{Inferred causal contractibility}
+
+
+Perhaps the simplest case can be made for \emph{derived causal contractibility}. If we have a prior judgement of causal contractibility with respect to the pair of variables $(\RV{D},\RV{Y})$, and we can collect data in a regime in which $\RV{D}$ has full support, then we can derive additional causal contractibility properties from conditional independences observed in the data. 
+
+
 \begin{theorem}\label{lem:proxy_control}
-Given $(\prob{P}_\square^{\RV{XY}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ with decisions $\RV{D}_M$ and consequences $\RV{Y}_M$, $\RV{X}_M$, if $\prob{P}_\square^{\RV{Y}_M\RV{X}_M|\RV{D}_M}$ is causally contractible with response conditional $\prob{P}_\square^{\RV{Y}_0\RV{X}_0|\RV{D}_0\RV{H}}$ such that $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then a causally contractible conditional probability $\prob{P}_\square^{\RV{Y}_M|\RV{X}_M}$ exists. If $\RV{D}_M$ is deterministically controllable and $D$ countable, then $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{HX}_i$ is also necessary for the existence of $\prob{P}_\square^{\RV{Y}_M|\RV{X}_M}$.
+Given $\prob{P}_C$ with decisions $\RV{D}$ and consequences $(\RV{Y},\RV{X})$, if $\prob{P}_C$ is $(\RV{D};\RV{X},\RV{Y})$-causally contractible with response conditional $\prob{P}_C^{\RV{X}_1\RV{Y}_1|\RV{D}_1\RV{H}}$ and there exists $\alpha\in C$ with $\prob{P}_\alpha^{\RV{D}}\gg \{\prob{P}_\beta^{\RV{D}}|\beta\in C\}$ and $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then $\prob{P}_C$ is also $(\RV{Y};\RV{X})$-causally contractible.
 \end{theorem}
 
 \begin{proof}
 \textbf{Sufficiency:}
-We want to show that $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{X}_{\{i\}^C} |\RV{H}\RV{X}_i$ for all $i\in M$, that $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}$ exists for all $i\in M$ and that $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{X}_j}$.
+We want to show that $\RV{Y}_i\CI_{\prob{P}_\alpha} \(RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C},\RV{D}) |(\RV{H},\RV{X}_i)$ for all $i\in M$. Then the result follows by noting that $\prob{P}_C^{\RV{Y}|\RV{XHD}}$ exists by taking a higher order conditional with respect to $\prob{P}_C^{\RV{XYH}|\RV{D}}$ and $\prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}}$ therefore exists by application of Corollary \ref{cor:ci_cp_exist}.
 
 From causal contractibility we have
 \begin{align}
-(\RV{X}_i,\RV{Y}_i)\CI_{\prob{P}_\square} (\RV{X}_{\{i\}^C},\RV{Y}_{\{i\}^C},\RV{D}_{\{i\}^C}) |\RV{H}\RV{D}_i\label{eq:cc}\\
-\RV{Y}_i\CI_{\prob{P}_\square} (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C}) |\RV{H}\RV{D}_i\RV{X}_i\label{eq:wu}
+(\RV{X}_i,\RV{Y}_i)\CI_{\prob{P}_\alpha} (\RV{X}_{\{i\}^C},\RV{Y}_{\{i\}^C},\RV{D}_{\{i\}^C}) |\RV{H}\RV{D}_i\label{eq:cc}\\
+\RV{Y}_i\CI_{\prob{P}_\alpha} (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C}) |\RV{H}\RV{D}_i\RV{X}_i\label{eq:wu}
 \end{align}
 
 Where Eq. \ref{eq:wu} follows from \ref{eq:cc} by weak union.
 
-Thus by contraction, $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{D}_{M} |\RV{H}\RV{X}_i$.
+Thus by contraction, $\RV{Y}_i\CI_{\prob{P}_\alpha} (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C},\RV{D}) |\RV{H}\RV{X}_i$.
 
 By Corollary \ref{cor:ci_cp_exist} and the existence of $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}$ for all $i\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}$ exists for all $i$. Furthermore, because $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}=\prob{P}^{\RV{Y}_j\RV{X}_j|\RV{H}\RV{D}_j}$ for all $i,j\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{X}_j}$ for all $i,j\in M$.
 \textbf{Necessity:}
@@ -699,87 +804,3 @@ Thus for each $d\in D$ the set $\{d\}\times C\subset D\times X\times H$ is of un
 \end{align}
 as desired.
 \end{proof}
-
-As an example of this, suppose $\RV{X}:\Omega\to X$ is a source of random numbers, the set of decisions $D$ is a set of functions $X\to T$ for treatments $\RV{T}:\Omega\to T$ and $\RV{W}:\Omega\to W$ are the ultimate patient outcomes, with $\RV{Y}_i=(\RV{W}_i,\RV{T}_i)$. Then it may be reasonable to assume that $\RV{W}_i\CI(\RV{D}_i,\RV{X}_i)|\RV{T}_i\RV{H}$ (where conditioning on $\RV{H}$ can be thought of as saying that this independence holds under infinite sample size). In this case, $\RV{T}_i$ is a proxy for controlling $\RV{Y}_i$, and there exists a causal consequence $\prob{P}_\square^{\RV{Y}_0|\RV{T}_0\RV{H}}$.
-
-A ``causal consequence of body mass index'' is unlikely to exist on the basis of symmetric information and deterministic decisions because there are no actions available to set body mass index deterministically. However, given an underlying problem where we have symmetric information over a collection of patients and some kind of decision that can be made deterministically, causal consequences of body mass index may exist if body mass index is a proxy for controlling the outcomes of interest.
-
-\subsection{Body mass index revisited}
-
-We return briefly to consider the question: given some collection of people indexed by $M$, with body mass index $\RV{B}_i$ and health outcomes of interest $\RV{Y}_i$ and some choices $\RV{D}_i$ a decision maker is contemplating relevant to these characteristics, suppose we have a conditional probability model $(\prob{P}_\square^{\RV{BY}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ causally contractible with respect to $(\RV{D},\RV{Y})$ (for example, perhaps decision maker is contemplating a treatment plan to apply to every individual).
-
-Do response conditionals $\prob{P}_\square^{\RV{Y}_i|\RV{B}_i}$ exist? We have by Lemma \ref{lem:proxy_control} that this exists if and only if $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{B}_i$. Thus we have reduced the question of the existence of response conditionals for BMI (or ``causal effects'' of BMI) to an empirical question. We might guess this is unlikely to hold; not only are there multiple ways we could imagine affecting a person's BMI with possibly different health implications, but it seems unlikely that the ultimate health outcome someone experiences can be predicted from BMI alone.
-
-However, there might be something to be said for a ``causal effect of BMI''. In particular, while it seems unlikely that BMI is a precise proxy for controlling health outcomes, it seems to at least be a reasonable empirical question to ask if BMI is an \emph{approximate} proxy for health outcomes.
-
-\todo[inline]{Do I prove a theorem about approximate proxy control?}
-
-\subsection{Response consitionals}
-
-If a decision problem model $\prob{P}_\square$ has a uniform conditional probability $\prob{P}_\square^{\RV{Y}|\RV{X}}$ but no uniform marginal $\prob{P}_\square^{\RV{X}}$, we could think of it a situation where $\RV{X}$ is directly controllable and $\RV{Y}$ is controllable via choosing the distribution of $\RV{X}$. Most statistical inference, including statistical causal inference, is done in a setting where we don't just have a probability model and data, but where the probability model is in some sense repeatable. This includes settings where the data model is assumed to be independent and identically distributed, or exchangeable.
-
-
-
-The motivating question we introduced at the beginning of this paper was ``when are potential outcomes well-defined?''. This is not written using the potential outcomes framework, so we cannot directly address this question. However, we can ask ``when do probability gap models feature response conditionals?''.
-
-\subsection{Response conditionals and potential outcomes}\label{sec:curry}
-
-There is a connection between the question of when a particular conditional probability exists and when potential outcomes are wel-defined. Given any Markov kernel there is an operation akin to function currying termed ``randomness pushback'' that represents the kernel as the product of a probability measure and a deterministic Markov kernel. We observe that potential outcomes models share a number of features in common with a Markov kernel represented using a randomness pushback.
-
-Unlike function currying, there are many different randomness pushbacks that represent the same Markov kernel. The interpretation of potential outcomes models seems to require that exactly one of these possible pushbacks is a genuine potential outcomes model. Several works including \citet{dawid_causal_2000} and \citet{richardson2013single} have expressed the view that some of the degrees of freedom in potential outcomes models are superfluous; both propose that the degrees of freedom that can be tested using some idealised experiment are the degrees that should be kept.
-
-Notably, the single world intervention graphs of \citet{richardson2013single} feature an operation that splits an ``intervenable'' variable $\RV{X}$ into two versions, $\RV{X}$ and $\RV{X}'$, representing ``the actual $\RV{X}$'' and ``the unobseved value $\RV{X}$ would have taken absent intervention'' respectively (this interpretation is ours, not theirs). Thus Richardson and Robins might argue that they are interested in the existence of response conditionals of the form $\prob{P}_\square^{\RV{Y}|\RV{X}\RV{X}'}$ rather than $\prob{P}_{\square}^{\RV{Y}|\RV{X}}$. 
-
-We do not take a position on which degrees of freedom are good or bad in a typical potential outcomes model, nor do we explore conditionals of the form $\prob{P}^{\RV{Y}|\RV{X}\RV{X}'}$. We can, however, distinguish two different questions:
-
-\begin{itemize}
-    \item How are response conditionals represented?
-    \item Which response conditionals are of interest?
-\end{itemize}
-
-The first question seems to be an inconsequential stylistic matter, while the second question may determine the direction of one's analysis.
-
-\subsection{Randomness pushbacks}
-
-Given a function $f:X\times Y\to Z$, we can obtain a curried version $\lambda f:Y\to Z^X$. In particular, if $Y=\{*\}$ then $\lambda f:\{*\}\to Z^X$. At least for countable $X$, we can apply this construction to Markov kernels: given a kernel $\kernel{K}:X\kto Y$, define $\kernel{L}: \{*\}\kto Y^X$ by 
-\begin{align}
-    \kernel{L} ((y_i)_{i\in X}) &= \prod_{i\in X} \kernel{K}(y_i|i)
-\end{align}
-
-We can then define an evaluation map $\text{ev}:Y^X\times X\to Y$ by $\text{ev}((y_i)_{i\in X},x)=y_x$. Then
-
-\begin{align}
-    \kernel{K} &= \tikzfig{curry_kernel_definition} \label{eq:curry_identity}\\
-    &\iff\\
-    \kernel{K}(A|x) &= \int_{Y^X} \delta_{\text{ev}(y^X,x)}(A) \kernel{L}(\mathrm{d}y^X|x)
-\end{align}
-
-Unlike the case of function currying, $\kernel{L}$ is not the unique Markov kernel for which \ref{eq:curry_identity} holds. In fact, we can substitute any $\kernel{M}$ such that, for any $i\in X$
-
-\begin{align}
-    \sum_{y_{\{i\}^C}\in Y^{|X|-1}} \kernel{M}((y_i)_{i\in X}) = \kernel{K}(y_i|i)
-\end{align}
-
-This representation of a Markov kernel is called a \emph{randomness pushback} by \citet{fritz_synthetic_2020}. The idea is that the randomness in the orignal Markov kernel $\kernel{L}$ has been ``pushed back'' to $\kernel{L}$, which now passes through the deterministic Markov kernel $\kernel{F}_{\mathrm{ev}}$.
-
-Randomness pushbacks have a few features in common with potential outcomes causal models. For our purposes, we will say a potential outcomes model is a probability set $(\Omega,\sigalg{F},\prob{P}_{\{\}})$ along with variables $\RV{X}$, $\RV{Y}$, $\RV{Y}^X$ such that 
-
-\begin{align}
-    \prob{P}_{\{\}}^{\RV{Y}|\RV{XY}^X} &= \kernel{F}_{\text{ev}}
-\end{align}
-
-More commonly, this property is expressed as
-
-\begin{align}
-    \RV{Y}\overset{a.s.}{=}\text{ev}(\RV{X},\RV{Y}^X)
-\end{align}
-
-We consider a potential outcomes model to be a probability set here, but we can formally recover a ``traditional'' potential outcomes model by considering probability sets of size $1$.
-
-If we additionally have the existence of $\prob{P}_{\{\}}^{\RV{Y}^X|\RV{X}}$ and $\RV{Y}^\RV{X}\CI_{\prob{P}_{\{\}}} \RV{X}$ then 
-
-\begin{align}
-    \prob{P}_{\{\}}^{\RV{Y}|\RV{X}} &= \tikzfig{curry_kernel_copied}\label{eq:curry_identity_po}
-\end{align}
-
-Equation \ref{eq:curry_identity_po} is clearly a version of \ref{eq:curry_identity}. As we have established, provided $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ exists, we can always introduce some variable $\RV{Y}^X$ and corresponding $\prob{P}_{\{\}}^{\RV{Y}^X}$ such that Equation \ref{eq:curry_identity_po} holds.

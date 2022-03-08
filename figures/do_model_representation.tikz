@@ -13,7 +13,7 @@
 		\node [style=copymap tikzit] (12) at (-0.75, 0) {};
 		\node [style=small kernel tikzit] (13) at (0.5, 0) {$\Pi_{D,i}$};
 		\node [style=RLabel tikzit] (14) at (-3, 0) {$\RV{D}$};
-		\node [style=small dist tikzit] (15) at (-3.25, 1.75) {$\prob{P}_\square^{\RV{H}}$};
+		\node [style=small dist tikzit] (15) at (-3.25, 1.75) {$\mu^{\RV{H}}$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (0) to (2);

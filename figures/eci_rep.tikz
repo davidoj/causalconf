@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (-0.25, 2.25) {$\prob{P}_C^{\RV{Y}|\RV{Z}}$};
+		\node [style=small kernel tikzit] (1) at (-0.25, 0.25) {$\prob{P}_C^{\RV{X}|\RV{Z}}$};
+		\node [style=copymap tikzit] (2) at (-1.75, 1.25) {};
+		\node [style=RLabel tikzit] (3) at (1.75, 2.25) {$\RV{Y}$};
+		\node [style=RLabel tikzit] (4) at (1.75, 0.25) {$\RV{X}$};
+		\node [style=Llabel tikzit] (5) at (-3, 1.25) {$\RV{Z}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (5) to (2);
+		\draw [in=-180, out=75, looseness=1.25] (2) to (0);
+		\draw [in=-180, out=-75, looseness=1.25] (2) to (1);
+		\draw (1) to (4);
+		\draw (0) to (3);
+	\end{pgfonlayer}
+\end{tikzpicture}

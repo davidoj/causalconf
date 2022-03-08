@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (0.5, 1.25) {$\prob{P}_C^{\RV{Y}|\RV{Z}}$};
+		\node [style=Llabel tikzit] (1) at (-1.75, 1.25) {$\RV{Z}$};
+		\node [style=Llabel tikzit] (2) at (-1.75, 0) {$\RV{X}$};
+		\node [style=RLabel tikzit] (3) at (2.5, 1.25) {$\RV{Y}$};
+		\node [style=none] (4) at (0.5, 0) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=delmap] (2) to (4.center);
+		\draw (1) to (0);
+		\draw (0) to (3);
+	\end{pgfonlayer}
+\end{tikzpicture}

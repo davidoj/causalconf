@@ -1,0 +1,15 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (4, -0.25) {$\prob{F}_{\mathrm{ev}}$};
+		\node [style=small dist tikzit] (1) at (0.5, 1) {$\prob{P}_C^{\RV{Y}^D}$};
+		\node [style=Llabel tikzit] (2) at (0.75, -0.5) {$\RV{D}$};
+		\node [style=RLabel tikzit] (3) at (7, -0.25) {$\RV{Y}$};
+		\node [style=none] (4) at (3.25, 0) {};
+		\node [style=none] (5) at (3.25, -0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=0] (1) to (4.center);
+		\draw (2) to (5.center);
+		\draw (0) to (3);
+	\end{pgfonlayer}
+\end{tikzpicture}

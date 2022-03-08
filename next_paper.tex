@@ -677,3 +677,97 @@ Decomposition: By assumption $\RV{A}\CI_{\prob{P}} (\RV{B},\RV{C})|\RV{W}$. By w
 
 Contraction: By assumption $\RV{A}\CI_{\prob{P}}\RV{B}|(\RV{C},\RV{W})$, we have the existence of $\prob{P}_{\{\}}^{\RV{A}|\RV{BCW}}$, and this is also the uniform conditional probability required by the statement $\RV{A}\CI_{\prob{P}}(\RV{B},\RV{C})|\RV{W}$.
 \end{proof}
+
+
+
+
+
+
+\subsection{Junk}
+
+\begin{proof}
+\textbf{Sufficiency:}
+We want to show that $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{X}_{\{i\}^C} |\RV{H}\RV{X}_i$ for all $i\in M$, that $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}$ exists for all $i\in M$ and that $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{X}_j}$.
+
+From causal contractibility we have
+\begin{align}
+(\RV{X}_i,\RV{Y}_i)\CI_{\prob{P}_\square} (\RV{X}_{\{i\}^C},\RV{Y}_{\{i\}^C},\RV{D}_{\{i\}^C}) |\RV{H}\RV{D}_i\label{eq:cc}\\
+\RV{Y}_i\CI_{\prob{P}_\square} (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C}) |\RV{H}\RV{D}_i\RV{X}_i\label{eq:wu}
+\end{align}
+
+Where Eq. \ref{eq:wu} follows from \ref{eq:cc} by weak union.
+
+Thus by contraction, $\RV{Y}_i\CI_{\prob{P}_\square} \RV{Y}_{\{i\}^C}\RV{D}_{M} |\RV{H}\RV{X}_i$.
+
+By Corollary \ref{cor:ci_cp_exist} and the existence of $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}$ for all $i\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}$ exists for all $i$. Furthermore, because $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}=\prob{P}^{\RV{Y}_j\RV{X}_j|\RV{H}\RV{D}_j}$ for all $i,j\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{X}_j}$ for all $i,j\in M$.
+\textbf{Necessity:}
+We will show for all $\alpha\in A$, $B\in \sigalg{Y}$, $(x,d,h)\in X\times D\times H$ that 
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}_0|\RV{X}_0\RV{D}_0\RV{H}}(B|x,d,h)=\prob{P}_\alpha^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,h)
+\end{align}
+
+By assumption, we have the conditionals $\prob{P}_\square^{\RV{Y}_i\RV{X}_i|\RV{D}_i\RV{H}}$ and $\prob{P}_\square^{\RV{X}_i|\RV{H}\RV{D}_i}$ for all $i\in M$. We can conclude that $\prob{P}_\square^{\RV{Y}_i|\RV{X}_i\RV{D}_0i\RV{H}}$ also exists, as it is a higher order conditional with respect to $\prob{P}_\square^{\RV{Y}_i\RV{X}_i|\RV{D}_i\RV{H}}$.
+
+For arbitrary $d\in D$, let $\alpha_d\in A$ be such that $\prob{P}_{\alpha_d}^{\RV{D}_i}=\delta_{d}$. For every version of $\prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{D}_i\RV{H}}$ and $\prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{D}_i\RV{H}}$
+\begin{align}
+    \prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{H}}(B|x,h) &= \int_{D}\prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{D}_i\RV{H}}(B|x,d',h)\delta_d(\mathrm{d}d')\\
+                                                         &= \prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{D}_i\RV{H}}(B|x,d,h)
+\end{align}
+For all $x\in X$, $h\in H$ $B\subset\sigalg{Y}$ except on a set of points $C\subset X\times H$ of uniform $\prob{P}_{\alpha_d}$ measure 0.
+\todo[inline]{Need to add independence of hypothesis to representation theorem}
+However, note that for any $\alpha$
+\begin{align}
+    \prob{P}_\alpha^{\RV{X}_i\RV{H}\RV{D}_i}(E\times F\times G) &= \sum_{d\in G} \prob{P}_\alpha^{\RV{D}_i}(d)\prob{P}_\square^{\RV{X}_i\RV{H}|\RV{D}_i}(E\times F|d)\\
+                                                                  &= \sum_{d\in G} \prob{P}_\alpha^{\RV{D}_i}(d)\sum_{d'\in D}\prob{P}_\square^{\RV{X}_i\RV{H}|\RV{D}_i}(E\times F|d')\prob{P}_{\alpha_d}^{\RV{D}_i}(\{d'\}\\
+                                                                  &= \sum_{d\in G} \prob{P}_\alpha^{\RV{D}_i}(d)\prob{P}_{\alpha_d}^{\RV{X}_i\RV{H}\RV{D}_i}(E\times F\times\{d\})
+\end{align}
+
+Thus for each $d\in D$ the set $\{d\}\times C\subset D\times X\times H$ is of uniform $\prob{P}_\alpha$ measure 0 for any $\alpha\in A$. Because $\prob{P}_\square=\cup_{\alpha\in A}\prob{P}_\alpha$, it is also of uniform $\prob{P}_\square$ measure 0. Thus 
+
+\begin{align}
+    \prob{P}_{\square}^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,h) &= \prob{P}_{\square}^{\RV{Y}_0|\RV{X}_0\RV{D}_0\RV{H}}(B|x,d,h)
+\end{align}
+as desired.
+
+\subsection{Randomness pushbacks}
+
+Given a function $f:X\times Y\to Z$, we can obtain a curried version $\lambda f:Y\to Z^X$. In particular, if $Y=\{*\}$ then $\lambda f:\{*\}\to Z^X$. At least for countable $X$, we can apply this construction to Markov kernels: given a kernel $\kernel{K}:X\kto Y$, define $\kernel{L}: \{*\}\kto Y^X$ by 
+\begin{align}
+    \kernel{L} ((y_i)_{i\in X}) &= \prod_{i\in X} \kernel{K}(y_i|i)
+\end{align}
+
+We can then define an evaluation map $\text{ev}:Y^X\times X\to Y$ by $\text{ev}((y_i)_{i\in X},x)=y_x$. Then
+
+\begin{align}
+    \kernel{K} &= \tikzfig{curry_kernel_definition} \label{eq:curry_identity}\\
+    &\iff\\
+    \kernel{K}(A|x) &= \int_{Y^X} \delta_{\text{ev}(y^X,x)}(A) \kernel{L}(\mathrm{d}y^X|x)
+\end{align}
+
+Unlike the case of function currying, $\kernel{L}$ is not the unique Markov kernel for which \ref{eq:curry_identity} holds. In fact, we can substitute any $\kernel{M}$ such that, for any $i\in X$
+
+\begin{align}
+    \sum_{y_{\{i\}^C}\in Y^{|X|-1}} \kernel{M}((y_i)_{i\in X}) = \kernel{K}(y_i|i)
+\end{align}
+
+This representation of a Markov kernel is called a \emph{randomness pushback} by \citet{fritz_synthetic_2020}. The idea is that the randomness in the orignal Markov kernel $\kernel{L}$ has been ``pushed back'' to $\kernel{L}$, which now passes through the deterministic Markov kernel $\kernel{F}_{\mathrm{ev}}$.
+
+Randomness pushbacks have a few features in common with potential outcomes causal models. For our purposes, we will say a potential outcomes model is a probability set $(\Omega,\sigalg{F},\prob{P}_{\{\}})$ along with variables $\RV{X}$, $\RV{Y}$, $\RV{Y}^X$ such that 
+
+\begin{align}
+    \prob{P}_{\{\}}^{\RV{Y}|\RV{XY}^X} &= \kernel{F}_{\text{ev}}
+\end{align}
+
+More commonly, this property is expressed as
+
+\begin{align}
+    \RV{Y}\overset{a.s.}{=}\text{ev}(\RV{X},\RV{Y}^X)
+\end{align}
+
+We consider a potential outcomes model to be a probability set here, but we can formally recover a ``traditional'' potential outcomes model by considering probability sets of size $1$.
+
+If we additionally have the existence of $\prob{P}_{\{\}}^{\RV{Y}^X|\RV{X}}$ and $\RV{Y}^\RV{X}\CI_{\prob{P}_{\{\}}} \RV{X}$ then 
+
+\begin{align}
+    \prob{P}_{\{\}}^{\RV{Y}|\RV{X}} &= \tikzfig{curry_kernel_copied}\label{eq:curry_identity_po}
+\end{align}
