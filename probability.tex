@@ -289,6 +289,8 @@ Given standard measurable $(\Omega,\sigalg{F})$, a probability model $\prob{P}$ 
 See \citet{cho_disintegration_2019}.
 \end{proof}
 
+Theorem \ref{th:cons_ci} shows how, under some circumstances, it is possible to infer an extended conditional independence in a probability set $\prob{P}_C$ from a regular conditional independence that holds in one element of the set $\prob{P}_\alpha$. We ultimately carry out the procedure associated with on only one element of $C$, so usually we cannot test whether some property holds for the whole set $\prob{P}_C$. However, regular conditional independences with respect to a particular element of $\prob{P}_C$ can be tested for (again, subject to some assumptions \citep{shah_hardness_2020}).
+
 \begin{theorem}\label{th:cons_ci}
 Given standard measurable $(\Omega,\sigalg{F})$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{C}$ with uniform conditional probability $\prob{P}_{C}^{\RV{Y}|\RV{WX}}$ and $\alpha\in C$ such that $\prob{P}_\alpha^{\RV{WX}}\gg \{\prob{P}_\beta^{\RV{WX}}|\beta\in C\}$, $\RV{Y}\CI_{\prob{P}_{\alpha}}\RV{X}|\RV{W}$ if and only if there is a version of $\prob{P}_{C}^{\RV{Y}|\RV{WX}}$ and $\kernel{K}:W\kto Y$ such that
 \begin{align}
@@ -381,7 +383,7 @@ Suppose
 \begin{align}
 	\prob{P}^{\RV{XY}|\RV{Z}}_C &\overset{\prob{P}_C}{\cong} \tikzfig{eci_rep}
 \end{align}
-and suppose for some $\alpha\in C$, $A\times C\in \sigalg{X}\otimes\sigalg{Z}$, $B\in \sigal{Y}$ $\prob{P}_\alpha^{\RV{XZ}}(A\times C)>0$ and
+and suppose for some $\alpha\in C$, $A\times C\in \sigalg{X}\otimes\sigalg{Z}$, $B\in \sigalg{Y}$ $\prob{P}_\alpha^{\RV{XZ}}(A\times C)>0$ and
 \begin{align}
 	\prob{P}_C^{\RV{Y}|\RV{XZ}}(B|x,z) &> \prob{P}_C^{\RV{Y}|\RV{Z}}(B|z)& \forall (x,z)\in A\times C \label{eq:assume_ieq}
 \end{align}

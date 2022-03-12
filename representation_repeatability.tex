@@ -212,34 +212,18 @@ Note that this example would not satisfy exchange commutativity.
 We call the conjunction of exchange commutativity and consequence locality \emph{causal contractibility}.
 
 \begin{definition}[Causal contractibility]
-A probability set $\prob{P}_S$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ is $(\RV{D};\RV{Y})$ causally contractible if it is both exchange commutative and exhibits consequence locality.
+A probability set $\prob{P}_C$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ is $(\RV{D};\RV{Y})$ causally contractible if it is both exchange commutative and exhibits consequence locality.
 \end{definition}
 
-\begin{theorem}[Causal contractibility]\label{th:causal_contractibility}
-A probability set $\prob{P}_S$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ is $(\RV{D},\RV{Y})$-causally contractible if and only if for any $A,B\subset M$ with $|A|=|B|$
-\begin{align}
-    \prob{P}_C^{\RV{Y}_A|\RV{D}_A\RV{D}_{M\setminus A}} &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_B|\RV{D}_B\RV{D}_{M\setminus B}}\\
-    &\overset{\prob{P}_C}{\cong} \tikzfig{consequence_locality}\label{eq:cons_local}
-\end{align}
-\end{theorem}
-
-\begin{proof}
-If:
-Choosing $A=B$ yields consequence locality immediately from Eq. \ref{eq:cons_local}.
-
-Also from Eq. \ref{eq:cons_local}, we have
+\begin{theorem}[Equality of conditionals]\label{th:equal_of_condits}
+A probability set $\prob{P}_C$ that is $(\RV{D},\RV{Y})$-causally contractible has, for any $A,B\subset M$ with $|A|=|B|$
 \begin{align}
     \prob{P}_C^{\RV{Y}_A|\RV{D}_A} \overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_B|\RV{D}_B}
 \end{align}
 
-For any permutation $\rho:M\to M$, take $A$ such that $|A|=|M|$ and $B=\rho(A)$. Then
+\end{theorem}
 
-\begin{align}
-    \prob{P}_C^{\RV{Y}_A|\RV{D}_A} \overset{\prob{P}_C}{\cong} \text{swap}_{\rho^{-1}(\RV{D})} \prob{P}_C^{\RV{Y}_A|\RV{D}_A} \text{swap}_{\rho(\RV{Y})} 
-\end{align}
-
-So $\prob{P}_C$ is commutes with exchange.
-
+\begin{proof}
 Only if:
 For any $A,B\subset M$, let $\text{s}_{BA}:D^M\kto D^M$ be the swap map that sends the $B$ indices to $A$ indices and $\text{s}_{AB}:Y^M\kto Y^M$ be the swap map that sends $A$ indices to $B$ indices.
 \begin{align}
@@ -247,17 +231,14 @@ For any $A,B\subset M$, let $\text{s}_{BA}:D^M\kto D^M$ be the swap map that sen
     &= \tikzfig{contractibility_from_exchange_2}\\
     &= \tikzfig{contractibility_from_exchange_3}
 \end{align}
+Thus
+\begin{align}
+    \prob{P}_C^{\RV{Y}_A|\RV{D}_A\RV{D}_{M\setminus A}} &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_B|\RV{D}_B\RV{D}_{M\setminus B}}\\
+    &\overset{\prob{P}_C}{\cong} \tikzfig{consequence_locality}\label{eq:cons_local}\\
+    \implies \prob{P}_C^{\RV{Y}_A|\RV{D}_A} \overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_B|\RV{D}_B}
+\end{align}
 \end{proof}
 
-\begin{corollary}\label{corr:ccontract}
-A causally contractible probability set $\prob{P}_S$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ has the property
-\begin{align}
-    \prob{P}_C^{\RV{Y}_A|\RV{D}_A} \overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_B|\RV{D}_B}
-\end{align}
-for all $A,B\subset M$.
-\end{corollary}
-
-\todo[inline]{I think this condition doesn't imply consequence locality, but haven't thought of a counterexample yet}
 
 
 % \begin{proposition}[Representation of do-models that commute with exchange]
@@ -478,283 +459,91 @@ Consider $\alpha,\alpha'$ such that $\prob{P}^{\RV{D}_M}_\alpha = \prob{P}^{\RV{
 
 \end{proof}
 
-\subsection{Modelling different decision procedures}
+
+\subsection{Example: backdoor adjustment}
+
+Suppose a probability set $\prob{P}_C$ is $(\RV{D},\RV{X};\RV{Y})$-causally contractible and $\RV{X}_{i}\CI^e_{\prob{P}_C}\RV{D}_{i}C|\RV{H}$. Then
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}_{i}|\RV{D}_{i}\RV{H}}(A|d,h) &= \int_X \prob{P}_\alpha^{\RV{Y}_{i}|\RV{X}_{i}\RV{D}_{i}\RV{H}}(A|d,x,h)\prob{P}_\alpha^{\RV{X}_{i}|\RV{D}_{i}\RV{H}}(\mathrm{d}x|d,h)\\
+    &= \int_X \prob{P}_C^{\RV{Y}_{1}|\RV{X}_{1}\RV{D}_{1}\RV{H}}(A|d,x,h)\prob{P}_C^{\RV{X}_{i}|\RV{H}}(\mathrm{d}x|h)
+\end{align}
+
+If we additionally assume $\prob{P}_C^{\RV{X}_{i}|\RV{H}}\cong \prob{P}_C^{\RV{X}_{1}|\RV{H}}$ then 
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}_{i}|\RV{D}_{i}\RV{H}}(A|d,h) &= \int_X \prob{P}_C^{\RV{Y}_{1}|\RV{X}_{1}\RV{D}_{1}\RV{H}}(A|d,x,h)\prob{P}_C^{\RV{X}_{1}|\RV{H}}(\mathrm{d}x|h)\label{eq:backdoor}
+\end{align}
+
+Equation \ref{eq:backdoor} is structurally identical to the backdoor adjustment formula for an intervention on $\RV{D}_1$ targeting $\RV{Y}_1$ where $\RV{X}_1$ is a common cause of both. Note that we have not assumed that $\prob{P}_C^{\RV{D}_i}$ exists for any $i$; the only assumptions are the extended independence $\RV{X}_{i}\CI^e_{\prob{P}_C}\RV{D}_{i}C|\RV{H}$ and the equality in distribution between the first and $i$th ``$\RV{X}$''.
+
+\subsection{Assessing causal contractibility}
 
 We have a formal condition -- causal contractibility -- equivalent to the existence of response conditionals. However, a key challenge is to evaluate when a decision procedure is appropriately modeled with a probability set causally contractible with respect to some pair of variables. This is an opaque problem, and we don't expect that this can be avoided entirely. 
 
-Judgements of exchangeability (a more basic notion than causal contractibility) are justified on the basis of ``symmetric ignorance'' \citet[chap. ~5]{gelman_bayesian_2013}. More specifically, if we are committed to modelling uncertainty with a single probability distribution and we cannot identify any knowledge that would lead us to construct a different model for:
+Causal contractibility is a very strong assumption. Suppose we have a decision procedure in which $M$ observations are made $(\proc{X}_M,\proc{Y}_M)$ that are unaffected by the choice $\alpha$, followed by $M$ repetitions $(\proc{X}_{(M,2M]},\proc{Y}_{(M,2M]})$ which are responsive to the choice $\alpha$. We model this with a probability set $\prob{P}_C$ where $\RV{X}_M$ corresponds to $\proc{X}_M$ and so forth. If $\prob{P}_C$ is $(\RV{X}_{2M},\RV{Y}_{2M})$-causally contractible model then the following holds (see corollary \ref{th:equal_of_condits}):
+\begin{align}
+    \prob{P}^{\RV{Y}_{[2,M+1]}|\RV{X}_{[2,M+1]}}_C &= \prob{P}^{\RV{Y}_{(M,2M]}|\RV{X}_{(M,2M]}}\\
+    \implies \prob{P}^{\RV{Y}_{M+1}|\RV{X}_{[2,M+1]}\RV{Y}_{[2,M]}}_C &= \prob{P}^{\RV{Y}_{M+1}|\RV{X}_{(M,2M]}\RV{Y}_{(M+1,2M]}}
+\end{align}
+That is, causal contractibility implies that there is no difference between conditioning on observational results or on the results of active choices; active choices are as good for predicting observations as vise-versa.
+
+When can such a strong assumption be accepted? Like exchangeability, one option for justifying judgements of causal contractibility is to compare different measurement procedures and argue that they should be \emph{indistinguishable} -- that is, they should be modeled with exactly the same model. In the case of exchangeability, this is sometimes called ``symmetric ignorance'' \citet[chap. ~5]{gelman_bayesian_2013}. More specifically, if we are committed to modelling uncertainty with a single probability distribution and we consider the following two measurement procedures indistinguishable:
 \begin{itemize}
     \item The original measurement procedure
     \item The original measurement procedure, composed with a function permuting the labels
 \end{itemize}
 then we should use an exchangeable probability distribution to model the original measurement procedure.
 
-Causal contractibility judgements can appeal to similar considerations, but in practice there seem to be a greater number of subtle considerations that rule out judgements of causal contractibility. 
+We can make a similar argument for causal contractibility, although it is a substantially more complicated one. We will focus only on commutativity of exchange here. There is some discussion in literature of procedural assumptions that imply properties similar to commutativity of exchange. For example, \citet{greenland_identifiability_1986} explain
 
-Causal contractibility is a very strong assumption. Suppose we have a decision procedure in which $M$ observations are made $(\proc{X}_M,\proc{Y}_M)$ that are unaffected by the choice $\alpha$, followed by $M$ repetitions $(\proc{X}_{(M,2M]},\proc{Y}_{(M,2M]})$ which are responsive to the choice $\alpha$. We model this with a probability set $\prob{P}_C$ where $\RV{X}_M$ corresponds to $\proc{X}_M$ and so forth.
+\begin{quote}
+    Equivalence of response type may be thought of in terms of exchangeability of individuals: if the exposure states of the two individuals had been exchanged, the same data distribution would have resulted.
+\end{quote}
 
-If an $(\RV{X}_{2M},\RV{Y}_{2M})$-causally contractible model $\prob{P}_C$ is chosen, then the following holds (see corollary \ref{corr:ccontract}):
-\begin{align}
-    \prob{P}^{\RV{Y}_{[2,M+1]}|\RV{X}_{[2,M+1]}}_C &= \prob{P}^{\RV{Y}_{(M,2M]}|\RV{X}_{(M,2M]}}\\
-    \implies \prob{P}^{\RV{Y}_{M+1}|\RV{X}_{[2,M+1]}\RV{Y}_{[2,M]}}_C &= \prob{P}^{\RV{Y}_{M+1}|\RV{X}_{(M,2M]}\RV{Y}_{(M+1,2M]}}
-\end{align}
-That is, causal contractibility in this implies that there is no difference between conditioning on observational results or on the results of active choices with respect to predicting the result of a particular choice. We could not ``reject the hypothesis of causal contractibility'' by observing that one subsequence appears to differ from the other, as the model treats both subsequences identically.
+Along similar lines, \citet{dawid_decision-theoretic_2020} explains exchangeability of responses to headache treatment in terms of
 
+\begin{quote}
+    A group of individuals whom I can regard, in an intuitive sense, as similar to myself, with headaches similar to my own.
+\end{quote}
 
+In Appendix \ref{sec:exchange_commutativity} we offer a more detailed argument for accepting exchange commutativity for an example decision procedure. Suppose we are in the position of a doctor who will be seeing patients in the future, and resolves to follow a procedure of the form
 
-We will reason about decision procedures in the following way:
+\begin{algorithmic}
+    \Procedure{$\proc{S}_\alpha$}{}
+    \State $(d_1,d_2) \gets c(\alpha)$
+    \State $y_1\gets \mathrm{apply}(d_1,\mathrm{patient\;A})$
+    \State $y_2\gets \mathrm{apply}(d_2,\mathrm{patient\;B})$
+    \State \Return $(d_1,d_2,y_1,y_2)$
+    \EndProcedure
+\end{algorithmic}
 
-\begin{itemize}
-    \item Propose a decision procedure $\proc{S}$ and assume a conditional probability model $\prob{P}_\square$ associated with it
-    \item Consider an alternative decision procedure $\proc{S}'$ and argue that a conditional probability model $\prob{P}_\square'$, related somehow to $\prob{P}_\square$, is appropriate to model it
-    \item If, in addition, we accept that \emph{the same model} is appropriate for both $\proc{S}$ and $\proc{S}'$, then we have $\prob{P}_\square=\prob{P}_\square'$
-\end{itemize}
+for some treatment policy $\alpha\in A$. Define $\RV{D}:=(\RV{D}_1,\RV{D}_2)$ where $\RV{D}:(d_1,d_2,y_1,y_2)\mapsto (d_1,d_2)$ and $\RV{Y}:=(\RV{Y}_1,\RV{Y}_2)$ with $\RV{Y}:(d_1,d_2,y_1,y_2)\mapsto (y_1,y_2)$. $\proc{D}$ is the procedure associated with $\RV{D}$.
 
-An example of this reasoning is found in discussions of exchangeability, outside the setting of decision problems. Suppose we have a measurement procedure $\proc{S}$ and an observed variable $(\RV{Y}\circ\proc{S},\RV{Y})$ where $\RV{Y}=(\RV{Y}_i)_{i\in \mathbb{N}}$ for $\RV{Y}_i:\Omega\to Y$ -- i.e. $\proc{S}$ yields a countably infinite sequence of values from the set $Y$. Consider an alternative observed variable $(\RV{Y}'\circ\proc{S},\RV{Y}')$ where $\RV{Y}'=\text{swap}\circ\RV{Y}$. $\proc{Y}'$ is the procedure ``do whatever is done to measure $\proc{Y}$, then shuffle the results according to $\text{swap}$''.
-
-$\proc{S}$ is modeled by some ordinary probability model $(\mu,\Omega,\sigalg{F})$, with marginal distribution $\mu^{\RV{Y}}$ of $\RV{Y}$. It may be the case that we think that the additional shuffle operation involved in $\proc{Y}'$ does not in any way alter the appropriate probability model associated with the variable. Thus $\mu^{\RV{Y}}=\mu^{\RV{Y}'}$, and the model $\mu$ is exchangeable with respect to $\RV{Y}$.
-
-In the following section, we will apply this approach to considering whether the assumption of exchange commutativity is justified for a given decision procedure. The approach outlined can be used to assess whether measurement procedures support exchange commutativity or consequence locality. However, we will focus on exchange commutativity because, out of the two assumptions, we have more to say about it.
-
-% As an aside, consequence contractibility means that a model $\prob{P}_\square$ must say precisely the same thing about any subsequence of (choice, outcome) pairs, provided both subsequences have a matching distribution over choices. Suppose there is some experiment in which some pairs arise from passive observations and others from active interventions. If we are to suppose that the whole sample supports ``fixed but unknown probabilistic causal effects'' -- that is, it is consequence contractible -- then we are equivalently claiming that a subsequence of $m+1$ $(\RV{X}_i,\RV{Y}_i)$ pairs generated only by active interventions is modeled identically to a sequence of $m$ pairs generated by passive observation and $1$ pair generated by active intervention. This suggests -- loosely speaking -- that assuming ``fixed but unknown probabilistic causal effects'' are identified from observations is the same as assuming that observational evidence is precisely as good as experimental evidence for learning said causal effects. This is an idle observation and not a rigorous argument.
-
-\subsection{Decision procedures with response conditionals}
-
-Suppose we have a decision procedure $\proc{S}_A$. We consider an exchange commutative model appropriate if we think that the experiment given by
-\begin{itemize}
-    \item Suppose $\alpha$ has been decided on
-    \item Obtain a sequence of choices according to $\proc{D}$ (which depends on $\alpha$) and enact them
-    \item Measure the consequences according to $\proc{Y}$
-\end{itemize}
-is equivalent to $\proc{S}'$ (in the sense of requiring the same model):
-\begin{itemize}
-    \item Decide on $\alpha'$ such that $\prob{P}_\alpha^{\RV{D}}\text{swap}=\prob{P}_{\alpha'}^{\RV{D}}$
-    \item Obtain a sequence of choices according to $\proc{D}$ (which depends on $\alpha'$) and enact them
-    \item Measure preliminary consequences according to $\proc{Y}$
-    \item Apply the inverse shuffle $\text{swap}^{-1}$ to the preliminary consequences to get the consequences of interest $\proc{Y}'$
-\end{itemize}
-
-Unlike in the case of ordinary exchangeability, we need to consider two measurement procedures in which different decisions are made. Conditional probability models of decision problems express judgements that hold whatever decision is made. Under this interpretation, a conditional probability model $\prob{P}_\square^{\RV{Y}|\RV{D}}$ can tell us about the comparison of $\proc{S}$ and $\proc{S}'$ (see Section \ref{sec:cp_model}). In particular, it expresses the following attitude:
-
-\begin{itemize}
-    \item If we decide on $\alpha$, then the consequences are described by $\prob{P}_\alpha^{\RV{D}} \prob{P}_\square^{\RV{Y}|\RV{D}}$
-    \item If we decide on $\alpha'$ such that $\prob{P}_{\alpha'}^{\RV{D}}=\prob{P}_\alpha^{\RV{D}}\text{swap}$ then then the consequences are described by $\prob{P}_\alpha^{\RV{D}}\text{swap}\prob{P}_\square^{\RV{Y}|\RV{D}}$
-\end{itemize}
-
-Thus if we hold that $\proc{S}$ is equivalent to $\proc{S}'$ for all $\alpha\in A$, we conclude that $\prob{P}_\square$ commutes with exchange.
-
-
-There is a related kind of symmetry that involves shuffling ``experimental units''. This is not an operation that can be described purely mathematically, but there may be a more intuitively appealing case available that this kind of shuffle yields an equivalent experiment. For example, if an ``experimental unit'' is a patient who receives a treatment and whose recovery is then followed up on as a consequences, we might be willing to regard an experiment equivalent if the order of patients in the experiment is shuffled. We think it is sometimes reasonable to deduce exchange commutativity from this kind of symmetry, but as we will see care is needed when doing so.
-
-\subsection{Example: exchange commutativity in the context of treatment choices}
-
-Consider the following two scenarios:
+We argue that the following conditions are sufficient to support a judgement of $(\RV{D};\RV{Y})$-exchange commutativity:
 
 \begin{enumerate}
-    \item Dr Alice is going to see two patients who are both complaining of lower back pain. Prior to seeing either, she decides deterministically on $(\proc{D}_1,\proc{D}_2)$ for treatment decisions $\proc{D}_1$ and $\proc{D}_2$
-    \item As before, but $\proc{D}_1$ is chosen after examining patient 1, and $\proc{D}_2$ after examining patient 2
+    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are indistinguishable if the description of one can be obtained by permuting patients in the description of the other (\emph{patient indistinguishability})
+    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are indistinguishable if the description of one can be obtained by permuting the order of treatment administration in the description of the other (\emph{order indistinguishability})
+    \item $c:A\to D^2$ is an invertible function
 \end{enumerate}
 
-Alice could model either situation with a conditional probability model $(\prob{P}_\square^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2},A)$. In either situation, might the model be exchange commutative?
+A typical condition given for the identifiability of treatment effects or interventional conditionals is that the treatment subprocedures $(\proc{D}_1,\proc{D}_2)$) are random \citep{rubin_causal_2005}. Our third condition -- that $\proc{D}$ is a deterministic and invertible function of $\alpha$ -- is somewhat different to this. A rough explanation of this condition is: the model represents the doctor's knowledge at the time they choose $\alpha$, and assumptions 1 and 2 imply that given their knowledge at the time, the two treatment episodes are indistinguishable. A deterministic choice of $\proc{D}$ ensures that the result of $\proc{D}$ cannot reflect anything new that is learned after the fact.
 
-For each scenario, we want to consider two measurement procedures: first, the ``original'' measurement procedure, and then the measurement procedure with a swapped choices and consequences of interest. The question we want to consider is whether both procedures should be considered equivalent.
+This rough story can be extended to a randomised $\proc{D}$. We could say that $\proc{D}$ is ``randomised'' if it is chosen according to $c'(\alpha,\proc{R})$ for some function $c':A\times R\to D^2$ and some ``random'' $\proc{R}$. Then $\proc{D}$ again cannot reflect anything not known when $\alpha$ was chosen, because we assume that the results of random procedures carry no useful information.
 
-We will make two assumptions about measurement procedure equivalence: first, a measurement procedure is equivalent to an identical procedure in which patients are interchanged. Second, a measurement procedure is equivalent to an identical procedure in which the order of treatment and measurement of outcomes is interchanged.
+This story depends crucially on the state of knowledge of the decision maker when they make their choice. It seems difficult to state the assumption of deterministic $\proc{D}$ without the decision theoretic approach we adopt here.
 
-We will describe measurement procedures using pseudocode, because this offers the opportunity to be precise about operations like swaps. Note that descriptions of measurement procedures, in pseudocode or otherwise, are incomplete descriptions.
-
-Suppose the first scenario corresponds to the following procedure $\proc{S}$.
-\begin{algorithmic}
-    \Procedure{$\proc{S}$}{}
-    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{choose\_treatments}$
-    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;A})$
-    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;B})$
-    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
-    \EndProcedure
-\end{algorithmic}
-
-Our assumption of patient interchangeability means that the following procedure is equivalent
-
-\begin{algorithmic}
-    \Procedure{$\proc{S}$}{}
-    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{choose\_treatments}$
-    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;B})$
-    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;A})$
-    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
-    \EndProcedure
-\end{algorithmic}
-
-Consider the swapped procedure
-
-\begin{algorithmic}
-    \Procedure{$\proc{S}$}{}
-    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{choose\_treatments}$
-    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;A})$
-    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;B})$
-    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
-    \EndProcedure
-\end{algorithmic}
-
-
-Make the assumption that, on the basis that the patients are indistinguishable to Alice at the time of model construction, the same model is appropriate for the original measurement procedure and a modified measurement procedure in which the patients are swapped (we say the measurement procedures are ``equivalent''). Assume also that swapping the order of treatment and swapping the order in which outcomes are recorded yields an equivalent measurment procedure (in \citet{walley_statistical_1991}'s language, the first assumption is based on ``symmetry of evidence'' and the second on ``evidence of symmetry''). Putting these two assumptions together, the following procedure $\proc{S}'$ is equivalent to the original:
-
-\begin{algorithmic}
-    \Procedure{$\proc{S}'$}{}
-    \Assert{patient A knowledge=patient B knowledge}
-    \State $\alpha \gets \mathrm{choose\_alpha}$
-    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{decisions}(\alpha)$
-    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;A})$
-    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;B})$
-    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
-    \EndProcedure
-\end{algorithmic}
-
-Consider another measurement procedure $\proc{S}''$, which is a modified version of $\proc{S}$ where steps are added to swap decisions after they are chosen, then outcomes are swapped back once they have been observed:
-
-\begin{algorithmic}
-    \Procedure{$\proc{S}''$}{}
-    \Assert{patient A knowledge=patient B knowledge}
-    \State $\alpha \gets \mathrm{choose\_alpha}$
-    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{decisions}(\alpha)$
-    \State $(\proc{D}_1^{\mathrm{swap}},\proc{D}_2^{\mathrm{swap}}) \gets (\proc{D}_2,\proc{D}_1)$
-    \State $\proc{Y}^{\mathrm{swap}}_1\gets \mathrm{apply}(\proc{D}_1^{\mathrm{swap}},\mathrm{patient A})$
-    \State $\proc{Y}_2^{\mathrm{swap}}\gets \mathrm{apply}(\proc{D}_2^{\text{swap}},\text{patient B})$
-    \State $(\proc{Y}_1,\proc{Y}_2)\gets (\proc{Y}^{\mathrm{swap}}_2,\proc{Y}^{\mathrm{swap}}_1)$
-    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
-    \EndProcedure
-\end{algorithmic}
-
-Instead of explicitly performing the swaps, we can substitute $\proc{D}_2$ for $\proc{D}_1^{\text{swap}}$, $\proc{Y}_2$ for $\proc{Y}_1^{\text{swap}}$ and so on. The result is a procedure identical to $\proc{S}'$
-
-\begin{algorithmic}
-    \Procedure{$\proc{S}''$}{}
-    \Assert{patient A knowledge=patient B knowledge}
-    \State $\alpha \gets \mathrm{choose\_alpha}$
-    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{decisions}(\alpha)$
-    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;A})$
-    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;B})$
-    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
-    \EndProcedure
-\end{algorithmic}
-
-Thus $\proc{S}''$ is exactly the same as $\proc{S}'$, which by assumption is equivalent to the original $\proc{S}$, and so the assumptions of interchangeable patients and reversible order of treatment application imply the model should commute with exchange. Thus, if we could extend this example to an infinite sequence of patients, there would exist a Markov kernel $\prob{P}_\square^{\RV{Y}|\RV{DH}}:D\times H\kto Y$ representing a ``definite but unknown causal consequence'' shared by all experimental units.
-
-This argument does \emph{not} hold for scenario 2. In the absence of a deterministic function $\text{decisions}(\alpha)$ which defines the procedure for obtaining $\proc{D}_1$ and $\proc{D}_2$, there is some flexibility for how exactly these variables are measured (or chosen). In particular, we can posit measurement procedures such that permuting patients is not equivalent to permuting decisions and then appying the reverse permutation to outcomes.
-
-For example, procedure $\proc{T}$ is compatible with scenario 2 (note that there are many procedures compatible with the given description)
-
-\begin{algorithmic}
-    \Procedure{$\proc{T}$}{}
-    \Assert{patient A knowledge=patient B knowledge}
-    \State $\alpha \gets \mathrm{choose\_alpha}$
-    \State patient A knowledge$\gets \mathrm{inspect}$(patient A)
-    \State patient B knowledge$\gets \mathrm{inspect}$(patient B)
-    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{vagueDecisions}(\alpha$, patient A knowledge, patient B knowledge)
-    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;A})$
-    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;B})$
-    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
-    \EndProcedure
-\end{algorithmic}
-
-Permutation of patients and treatment order now yields
-
-\begin{algorithmic}
-    \Procedure{$\proc{T}'$}{}
-    \Assert{patient A knowledge=patient B knowledge}
-    \State $\alpha \gets \mathrm{choose\_alpha}$
-    \State patient B knowledge$\gets \mathrm{inspect}$(patient B)
-    \State patient A knowledge$\gets \mathrm{inspect}$(patient A)
-    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{vagueDecisions}(\alpha$, patient B knowledge, patient A knowledge)
-    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;A})$
-    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;B})$
-    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
-    \EndProcedure
-\end{algorithmic}
-
-While paired permutation of decisions and outcomes yields
-
-\begin{algorithmic}
-    \Procedure{$\proc{T}''$}{}
-    \Assert{patient A knowledge=patient B knowledge}
-    \State $\alpha \gets \mathrm{choose\_alpha}$
-    \State patient A knowledge$\gets \mathrm{inspect}$(patient A)
-    \State patient B knowledge$\gets \mathrm{inspect}$(patient B)
-    \State $(\proc{D}_1,\proc{D}_2) \gets \mathrm{vagueDecisions}(\alpha$, patient A knowledge, patient B knowledge)
-    \State $\proc{Y}_2\gets \mathrm{apply}(\proc{D}_2,\mathrm{patient\;A})$
-    \State $\proc{Y}_1\gets \mathrm{apply}(\proc{D}_1,\mathrm{patient\;B})$
-    \State \Return $(\alpha,\proc{D}_1,\proc{D}_2,\proc{Y}_1,\proc{Y}_2)$
-    \EndProcedure
-\end{algorithmic}
-
-$\proc{T}'$ is not the same as $\proc{T}''$. In scenario 1, because decisions were deterministic on $\alpha$, there was no room to pick anything different once $\alpha$ was chosen, so it doesn't matter if we add patient inspection steps or not. In scenario 2, decisions are not deterministic and there is vagueness in the procedure, so it is possible to describe compatible procedures where decisions depend on patient characteristics, and this dependence is not ``undone'' by swapping decisions.
-
-\todo[inline]{I've started but not finished revising the previous}
-
-\subsection{Causal consequences of non-deterministic variables}
-
-In the previous section we gave an example of how commutativity of exchange can hold when we have a sequence of decisions such that we accept the follwing:
-
-\begin{itemize}
-    \item Reordering the time at which decisions are made is held to be of no consequence
-    \item The available information relevant to each decision is symmetric at the time the decision function is adopted
-    \item The decision function deterministically prescribes which decisions are taken
-\end{itemize}
-
-We also discussed how the absence of determinism undermines the argument for exchange commutativity.
-
-The determinism assumption rules out choosing decisions randomly. However, if we have response conditionals with a particular conditioning variable, response conditionals for other conditioning variables may exist if a certain conditional independence that we refer to as \emph{proxy control} holds. That is, if we have a response conditional for $(\RV{X},\RV{Y})$ given $\RV{D}$, $\RV{D}$ is deterministic for all choices and $\RV{Y}$ is independent of $\RV{D}$ given $\RV{X}$, then we also have a response conditional for $\RV{Y}$ given $\RV{X}$ and $\RV{X}$ may not be deterministic.
-
-We also show that proxy control is necessary for the existence of additional response conditionals if $\RV{D}$ is deterministically controllable; that is, if it can be forced to take on any deterministic probability distribution. If the judgements underpinning the existence of response conditionals ultimately rest on decision variables that are deterministic for each choice that can be made, and we claim that a response conditional for $\RV{Y}$ given $\RV{X}$ exists where $\RV{X}$ is just some not-necessarily-deterministic variable, then $\RV{X}$ must be a proxy for controlling $\RV{Y}$ given $\RV{D}$.
-
-\begin{definition}[Deterministically controllable]
-Given a probability gap model $(\prob{P}_\square,\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ on $(\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to X$, if for any $x\in X$ there exists $\alpha\in A$ such that $\prob{P}_\alpha^{\RV{X}}=\delta_x$ then $\RV{X}$ is deterministically controllable.
-\end{definition}
-
-
-As an example of this, suppose $\RV{X}:\Omega\to X$ is a source of random numbers, the set of decisions $D$ is a set of functions $X\to T$ for treatments $\RV{T}:\Omega\to T$ and $\RV{W}:\Omega\to W$ are the ultimate patient outcomes, with $\RV{Y}_i=(\RV{W}_i,\RV{T}_i)$. Then it may be reasonable to assume that $\RV{W}_i\CI(\RV{D}_i,\RV{X}_i)|\RV{T}_i\RV{H}$ (where conditioning on $\RV{H}$ can be thought of as saying that this independence holds under infinite sample size). In this case, $\RV{T}_i$ is a proxy for controlling $\RV{Y}_i$, and there exists a causal consequence $\prob{P}_\square^{\RV{Y}_0|\RV{T}_0\RV{H}}$.
-
-A ``causal consequence of body mass index'' is unlikely to exist on the basis of symmetric information and deterministic decisions because there are no actions available to set body mass index deterministically. However, given an underlying problem where we have symmetric information over a collection of patients and some kind of decision that can be made deterministically, causal consequences of body mass index may exist if body mass index is a proxy for controlling the outcomes of interest.
 
 \subsection{Body mass index revisited}
 
-We return briefly to consider the question: given some collection of people indexed by $M$, with body mass index $\RV{B}_i$ and health outcomes of interest $\RV{Y}_i$ and some choices $\RV{D}_i$ a decision maker is contemplating relevant to these characteristics, suppose we have a conditional probability model $(\prob{P}_\square^{\RV{BY}|\RV{D}[M]},\{\prob{P}_{\tilde{\alpha}}^{\RV{D}}\}_A,f)$ causally contractible with respect to $(\RV{D},\RV{Y})$ (for example, perhaps decision maker is contemplating a treatment plan to apply to every individual).
+If we have a probability set $\prob{P}_C$ with $\RV{B}:=(\RV{B}_i)_{i\in M}$ representing body mass index and $\RV{Y}:=(\RV{Y}_i)_{i\in M}$ representing health outcomes of interest, the justifications for causal effects in the previous section do not apply. The reason is that we are interested in evaluating actions that do not set body mass deterministically, whether directly or on the basis of a random signal.
 
-Do response conditionals $\prob{P}_\square^{\RV{Y}_i|\RV{B}_i}$ exist? We have by Lemma \ref{lem:proxy_control} that this exists if and only if $\RV{Y}_i\CI_{\prob{P}_\square} \RV{D}_i|\RV{B}_i$. Thus we have reduced the question of the existence of response conditionals for BMI (or ``causal effects'' of BMI) to an empirical question. We might guess this is unlikely to hold; not only are there multiple ways we could imagine affecting a person's BMI with possibly different health implications, but it seems unlikely that the ultimate health outcome someone experiences can be predicted from BMI alone.
-
-However, there might be something to be said for a ``causal effect of BMI''. In particular, while it seems unlikely that BMI is a precise proxy for controlling health outcomes, it seems to at least be a reasonable empirical question to ask if BMI is an \emph{approximate} proxy for health outcomes.
-
-\subsection{Response conditionals}
-
-If a decision problem model $\prob{P}_\square$ has a uniform conditional probability $\prob{P}_\square^{\RV{Y}|\RV{X}}$ but no uniform marginal $\prob{P}_\square^{\RV{X}}$, we could think of it a situation where $\RV{X}$ is directly controllable and $\RV{Y}$ is controllable via choosing the distribution of $\RV{X}$. Most statistical inference, including statistical causal inference, is done in a setting where we don't just have a probability model and data, but where the probability model is in some sense repeatable. This includes settings where the data model is assumed to be independent and identically distributed, or exchangeable.
-
-
-
-The motivating question we introduced at the beginning of this paper was ``when are potential outcomes well-defined?''. This is not written using the potential outcomes framework, so we cannot directly address this question. However, we can ask ``when do probability gap models feature response conditionals?''.
-
-\subsection{Response conditionals and potential outcomes}\label{sec:curry}
-
-There is a connection between the question of when a particular conditional probability exists and when potential outcomes are wel-defined. Given any Markov kernel there is an operation akin to function currying termed ``randomness pushback'' that represents the kernel as the product of a probability measure and a deterministic Markov kernel. We observe that potential outcomes models share a number of features in common with a Markov kernel represented using a randomness pushback.
-
-Unlike function currying, there are many different randomness pushbacks that represent the same Markov kernel. The interpretation of potential outcomes models seems to require that exactly one of these possible pushbacks is a genuine potential outcomes model. Several works including \citet{dawid_causal_2000} and \citet{richardson2013single} have expressed the view that some of the degrees of freedom in potential outcomes models are superfluous; both propose that the degrees of freedom that can be tested using some idealised experiment are the degrees that should be kept.
-
-Notably, the single world intervention graphs of \citet{richardson2013single} feature an operation that splits an ``intervenable'' variable $\RV{X}$ into two versions, $\RV{X}$ and $\RV{X}'$, representing ``the actual $\RV{X}$'' and ``the unobseved value $\RV{X}$ would have taken absent intervention'' respectively (this interpretation is ours, not theirs). Thus Richardson and Robins might argue that they are interested in the existence of response conditionals of the form $\prob{P}_\square^{\RV{Y}|\RV{X}\RV{X}'}$ rather than $\prob{P}_{\square}^{\RV{Y}|\RV{X}}$. 
-
-We do not take a position on which degrees of freedom are good or bad in a typical potential outcomes model, nor do we explore conditionals of the form $\prob{P}^{\RV{Y}|\RV{X}\RV{X}'}$. We can, however, distinguish two different questions:
+However, it is still possible that $\prob{P}_C$ could be $(\RV{B};\RV{Y})$-causally contractible. The key is Theorem \ref{th:cons_ci} -- if we start with $\prob{P}_C$ that is $(\RV{D};\RV{Y})$-causally contractible, and we find for a suitable $\alpha$ that $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i |\RV{H}\RV{B}_i$ for all $i$, then we can conclude that $\RV{Y}_i\CI_{\prob{P}_C}^e \RV{D}_i C|\RV{H}\RV{B}_i$ for all $i$, and that $\prob{P}_C$ is $(\RV{B};\RV{Y})$-causally contractible (Theorem \ref{lem:proxy_control}). There are two important things to bear in mind:
 
 \begin{itemize}
-    \item How are response conditionals represented?
-    \item Which response conditionals are of interest?
+    \item Causal contractibility is always relative to a set of choices $C$; our theory provides no way to assess the existence of ``causal effects'' independent of such a set
+    \item Whether or not $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i |\RV{H}\RV{B}_i$ holds for a suitable choice $\alpha$ is a testable question, so it may be inappropriate to assume it does by asking at the outset about ``the causal effect of $\RV{B}$''
 \end{itemize}
-
-The first question seems to be an inconsequential stylistic matter, while the second question may determine the direction of one's analysis.
-
-Equation \ref{eq:curry_identity_po} is clearly a version of \ref{eq:curry_identity}. As we have established, provided $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ exists, we can always introduce some variable $\RV{Y}^X$ and corresponding $\prob{P}_{\{\}}^{\RV{Y}^X}$ such that Equation \ref{eq:curry_identity_po} holds.
-
-\subsection{Inferred causal contractibility}
-
-
-Perhaps the simplest case can be made for \emph{derived causal contractibility}. If we have a prior judgement of causal contractibility with respect to the pair of variables $(\RV{D},\RV{Y})$, and we can collect data in a regime in which $\RV{D}$ has full support, then we can derive additional causal contractibility properties from conditional independences observed in the data. 
-
 
 \begin{theorem}\label{lem:proxy_control}
 Given $\prob{P}_C$ with decisions $\RV{D}$ and consequences $(\RV{Y},\RV{X})$, if $\prob{P}_C$ is $(\RV{D};\RV{X},\RV{Y})$-causally contractible with response conditional $\prob{P}_C^{\RV{X}_1\RV{Y}_1|\RV{D}_1\RV{H}}$ and there exists $\alpha\in C$ with $\prob{P}_\alpha^{\RV{D}}\gg \{\prob{P}_\beta^{\RV{D}}|\beta\in C\}$ and $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then $\prob{P}_C$ is also $(\RV{Y};\RV{X})$-causally contractible.
@@ -762,7 +551,7 @@ Given $\prob{P}_C$ with decisions $\RV{D}$ and consequences $(\RV{Y},\RV{X})$, i
 
 \begin{proof}
 \textbf{Sufficiency:}
-We want to show that $\RV{Y}_i\CI_{\prob{P}_\alpha} \(RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C},\RV{D}) |(\RV{H},\RV{X}_i)$ for all $i\in M$. Then the result follows by noting that $\prob{P}_C^{\RV{Y}|\RV{XHD}}$ exists by taking a higher order conditional with respect to $\prob{P}_C^{\RV{XYH}|\RV{D}}$ and $\prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}}$ therefore exists by application of Corollary \ref{cor:ci_cp_exist}.
+We want to show that $\RV{Y}_i\CI_{\prob{P}_\alpha} (RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C},\RV{D}) |(\RV{H},\RV{X}_i)$ for all $i\in M$. Then the result follows by noting that $\prob{P}_C^{\RV{Y}|\RV{XHD}}$ exists by taking a higher order conditional with respect to $\prob{P}_C^{\RV{XYH}|\RV{D}}$ and $\prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}}$ therefore exists by application of Corollary \ref{cor:ci_cp_exist}.
 
 From causal contractibility we have
 \begin{align}

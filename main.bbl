@@ -79,8 +79,8 @@ Kenta Cho and Bart Jacobs.
 
 \bibitem[Constantinou and Dawid(2017)]{constantinou_extended_2017}
 Panayiota Constantinou and A.~Philip Dawid.
-\newblock {EXTENDED} {CONDITIONAL} {INDEPENDENCE} {AND} {APPLICATIONS} {IN}
-  {CAUSAL} {INFERENCE}.
+\newblock Extended conditional independence and applications in causal
+  inference.
 \newblock \emph{The Annals of Statistics}, 45\penalty0 (6):\penalty0
   2618--2653, 2017.
 \newblock ISSN 0090-5364.
@@ -106,12 +106,16 @@ A.~Philip Dawid.
   February 2010.
 \newblock URL \url{http://proceedings.mlr.press/v6/dawid10a.html}.
 
-\bibitem[Dawid(2020)]{dawid_decision-theoretic_2020}
-A.~Philip Dawid.
+\bibitem[Dawid(2021)]{dawid_decision-theoretic_2020}
+Philip Dawid.
 \newblock Decision-theoretic foundations for statistical causality.
-\newblock \emph{arXiv:2004.12493 [math, stat]}, April 2020.
-\newblock URL \url{http://arxiv.org/abs/2004.12493}.
-\newblock arXiv: 2004.12493.
+\newblock \emph{Journal of Causal Inference}, 9\penalty0 (1):\penalty0 39--77,
+  January 2021.
+\newblock ISSN 2193-3685.
+\newblock \doi{10.1515/jci-2020-0008}.
+\newblock URL
+  \url{https://www.degruyter.com/document/doi/10.1515/jci-2020-0008/html}.
+\newblock Publisher: De Gruyter.
 
 \bibitem[de~Finetti({[1937] 1992})]{de_finetti_foresight_1992}
 Bruno de~Finetti.
@@ -292,13 +296,14 @@ Leonard~J. Savage.
 \newblock \emph{The {Foundations} of {Statistics}}.
 \newblock Wiley Publications in Statistics, 1954.
 
-\bibitem[Selinger(2010)]{selinger_survey_2010}
-Peter Selinger.
-\newblock A survey of graphical languages for monoidal categories.
-\newblock \emph{arXiv:0908.3347 [math]}, 813:\penalty0 289--355, 2010.
+\bibitem[Selinger(2011)]{selinger_survey_2011}
+P.~Selinger.
+\newblock A {Survey} of {Graphical} {Languages} for {Monoidal} {Categories}.
+\newblock In Bob Coecke, editor, \emph{New {Structures} for {Physics}}, Lecture
+  {Notes} in {Physics}, pages 289--355. Springer, Berlin, Heidelberg, 2011.
+\newblock ISBN 978-3-642-12821-9.
 \newblock \doi{10.1007/978-3-642-12821-9_4}.
-\newblock URL \url{http://arxiv.org/abs/0908.3347}.
-\newblock arXiv: 0908.3347.
+\newblock URL \url{https://doi.org/10.1007/978-3-642-12821-9_4}.
 
 \bibitem[Shahar(2009)]{shahar_association_2009}
 Eyal Shahar.

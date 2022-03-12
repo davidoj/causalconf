@@ -1,6 +1,6 @@
 %!TEX root = main.tex
 
-\subsection{Conclusion}
+\section{Conclusion}
 
 Given a set of choices and the ability to compare the desirability of different outcomes, if we want to to compare the desirability of different choices then we need a function from choices to outcomes. If outcomes are to be represented probabilistically, we have proposed that we can represent the relevant kinds of functions using probability gap models, which are themselves defined using probability sets. Probability sets give us natural generalisations of well-established ideas of probabilistic variables, conditional probability and conditional independence, which we can make use of to reason about probabilistic models of choices and consequences.
 
@@ -16,7 +16,7 @@ A property of conditional probability models that may help bridge this gap is wh
 
 The principle of proxy control is likely to be useful to analyse decision problems beyond idealised randomised experiments. For example, \emph{causal inference by invariant prediction} \citep{peters_causal_2016} is a method of causal inference in which data is divided according to a number of different environments, characterised as ``distributions observed under different interventions'', and sets of variables that predict an outcome in the same manner in all environments are taken to be a sufficient set of causal ancestors fo the outcome. We speculate that, where causal inference by invariant prediction is possible, the situation can be modeled with a conditional probability model causally contractible with respect to $(\RV{E},\RV{Y})$ where $\RV{E}$ is a variable representing the environment. Then, if we have $\RV{Y}\CI\RV{E}|\RV{X}$, we also have causal contractibility with respect to $(\RV{X},\RV{Y})$.
 
-\subsubsection{Choices aren't always known}
+\subsection{Choices aren't always known}
 
 One area of potential difficulty with our approach to formalising causal inference from the starting point of modelling decision problems is related to the issue of unknown choice sets. While causal investigations are often concerned with helping someone to make better decisions, the kind of ``decision making process'' associated with them is not necessarily well modeled by the setup above. Often the identity of the decision maker and the exact choices at hand are vague. Consider \citet{banerjee_mainstreaming_2016}: a large scale experiment was conducted trialing a number of different strategies all aiming to increase the amount of learning level appropriate instruction available to students in four Indian states. It is not clear who, exactly, is going to make a decision on the basis of this information, but one can guess:
 
