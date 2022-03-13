@@ -545,51 +545,24 @@ However, it is still possible that $\prob{P}_C$ could be $(\RV{B};\RV{Y})$-causa
     \item Whether or not $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i |\RV{H}\RV{B}_i$ holds for a suitable choice $\alpha$ is a testable question, so it may be inappropriate to assume it does by asking at the outset about ``the causal effect of $\RV{B}$''
 \end{itemize}
 
+Thus it is possible in principle to have a ``causal effect of body mass index'', but our analysis suggests that it should be demonstrated rather than assumed.
+
 \begin{theorem}\label{lem:proxy_control}
-Given $\prob{P}_C$ with decisions $\RV{D}$ and consequences $(\RV{Y},\RV{X})$, if $\prob{P}_C$ is $(\RV{D};\RV{X},\RV{Y})$-causally contractible with response conditional $\prob{P}_C^{\RV{X}_1\RV{Y}_1|\RV{D}_1\RV{H}}$ and there exists $\alpha\in C$ with $\prob{P}_\alpha^{\RV{D}}\gg \{\prob{P}_\beta^{\RV{D}}|\beta\in C\}$ and $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then $\prob{P}_C$ is also $(\RV{Y};\RV{X})$-causally contractible.
+Suppose we have a probability set $\prob{P}_C$ that is $(\RV{D};\RV{X},\RV{Y})$-causally contractible, where $\RV{D}:=(\RV{D}_i)_{i\in M}$ and likewise for $\RV{X}$ and $\RV{Y}$. If there exists $\alpha\in C$ such that $\prob{P}_\alpha^{\RV{D}}\gg \{\prob{P}_\beta^{\RV{D}}|\beta\in C\}$ and $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then $\prob{P}_C$ is also $(\RV{Y};\RV{X})$-causally contractible.
 \end{theorem}
 
 \begin{proof}
-\textbf{Sufficiency:}
-We want to show that $\RV{Y}_i\CI_{\prob{P}_\alpha} (RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C},\RV{D}) |(\RV{H},\RV{X}_i)$ for all $i\in M$. Then the result follows by noting that $\prob{P}_C^{\RV{Y}|\RV{XHD}}$ exists by taking a higher order conditional with respect to $\prob{P}_C^{\RV{XYH}|\RV{D}}$ and $\prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}}$ therefore exists by application of Corollary \ref{cor:ci_cp_exist}.
-
-From causal contractibility we have
-\begin{align}
-(\RV{X}_i,\RV{Y}_i)\CI_{\prob{P}_\alpha} (\RV{X}_{\{i\}^C},\RV{Y}_{\{i\}^C},\RV{D}_{\{i\}^C}) |\RV{H}\RV{D}_i\label{eq:cc}\\
-\RV{Y}_i\CI_{\prob{P}_\alpha} (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C}) |\RV{H}\RV{D}_i\RV{X}_i\label{eq:wu}
-\end{align}
-
-Where Eq. \ref{eq:wu} follows from \ref{eq:cc} by weak union.
-
-Thus by contraction, $\RV{Y}_i\CI_{\prob{P}_\alpha} (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C},\RV{D}) |\RV{H}\RV{X}_i$.
-
-By Corollary \ref{cor:ci_cp_exist} and the existence of $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}$ for all $i\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}$ exists for all $i$. Furthermore, because $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}=\prob{P}^{\RV{Y}_j\RV{X}_j|\RV{H}\RV{D}_j}$ for all $i,j\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{X}_j}$ for all $i,j\in M$.
-\textbf{Necessity:}
-We will show for all $\alpha\in A$, $B\in \sigalg{Y}$, $(x,d,h)\in X\times D\times H$ that 
-\begin{align}
-    \prob{P}_\alpha^{\RV{Y}_0|\RV{X}_0\RV{D}_0\RV{H}}(B|x,d,h)=\prob{P}_\alpha^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,h)
-\end{align}
-
-By assumption, we have the conditionals $\prob{P}_\square^{\RV{Y}_i\RV{X}_i|\RV{D}_i\RV{H}}$ and $\prob{P}_\square^{\RV{X}_i|\RV{H}\RV{D}_i}$ for all $i\in M$. We can conclude that $\prob{P}_\square^{\RV{Y}_i|\RV{X}_i\RV{D}_0i\RV{H}}$ also exists, as it is a higher order conditional with respect to $\prob{P}_\square^{\RV{Y}_i\RV{X}_i|\RV{D}_i\RV{H}}$.
-
-For arbitrary $d\in D$, let $\alpha_d\in A$ be such that $\prob{P}_{\alpha_d}^{\RV{D}_i}=\delta_{d}$. For every version of $\prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{D}_i\RV{H}}$ and $\prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{D}_i\RV{H}}$
-\begin{align}
-    \prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{H}}(B|x,h) &= \int_{D}\prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{D}_i\RV{H}}(B|x,d',h)\delta_d(\mathrm{d}d')\\
-                                                         &= \prob{P}_{\alpha_d}^{\RV{Y}_i|\RV{X}_i\RV{D}_i\RV{H}}(B|x,d,h)
-\end{align}
-For all $x\in X$, $h\in H$ $B\subset\sigalg{Y}$ except on a set of points $C\subset X\times H$ of uniform $\prob{P}_{\alpha_d}$ measure 0.
-\todo[inline]{Need to add independence of hypothesis to representation theorem}
-However, note that for any $\alpha$
-\begin{align}
-    \prob{P}_\alpha^{\RV{X}_i\RV{H}\RV{D}_i}(E\times F\times G) &= \sum_{d\in G} \prob{P}_\alpha^{\RV{D}_i}(d)\prob{P}_\square^{\RV{X}_i\RV{H}|\RV{D}_i}(E\times F|d)\\
-                                                                  &= \sum_{d\in G} \prob{P}_\alpha^{\RV{D}_i}(d)\sum_{d'\in D}\prob{P}_\square^{\RV{X}_i\RV{H}|\RV{D}_i}(E\times F|d')\prob{P}_{\alpha_d}^{\RV{D}_i}(\{d'\}\\
-                                                                  &= \sum_{d\in G} \prob{P}_\alpha^{\RV{D}_i}(d)\prob{P}_{\alpha_d}^{\RV{X}_i\RV{H}\RV{D}_i}(E\times F\times\{d\})
-\end{align}
-
-Thus for each $d\in D$ the set $\{d\}\times C\subset D\times X\times H$ is of uniform $\prob{P}_\alpha$ measure 0 for any $\alpha\in A$. Because $\prob{P}_\square=\cup_{\alpha\in A}\prob{P}_\alpha$, it is also of uniform $\prob{P}_\square$ measure 0. Thus 
-
-\begin{align}
-    \prob{P}_{\square}^{\RV{Y}_0|\RV{X}_0\RV{H}}(B|x,h) &= \prob{P}_{\square}^{\RV{Y}_0|\RV{X}_0\RV{D}_0\RV{H}}(B|x,d,h)
-\end{align}
-as desired.
+See Appendix \ref{sec:bmi_revis}
 \end{proof}
+
+\subsection{Weakening causal contractibility}
+
+We have pointed out that causal contractibility is a very strong assumption, and will usually be unacceptable. We proposed three assumptions that could justify causal contractibility for some decision procedures:
+
+\begin{enumerate}
+    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are indistinguishable if the description of one can be obtained by permuting patients in the description of the other (\emph{patient indistinguishability})
+    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are indistinguishable if the description of one can be obtained by permuting the order of treatment administration in the description of the other (\emph{order indistinguishability})
+    \item $c:A\to D^2$ is an invertible function
+\end{enumerate}
+
+We can imagine that many decision procedures involving patient treatment might satisfy the first two properties, but not the third. A question to explore is: is there a representation theorem relevant to a decision procedure in which the third assumption is removed or weakened? A common assumption in other causal frameworks for procedures like this is to assume that there is some variable $(\RV{X},\RV{Z})$ that is ``causally sufficent'' for $\RV{Y}$, but $\RV{Z}$ is not observed. In our framework, this would amount to $\prob{P}_C$ being $((\RV{X},\RV{Z});\RV{Y})$-causally contractible, with $\RV{Z}$ unobserved. However, at this point we do not know of a relevant representation theorem for unobservable causal contractibility like this, nor of an argument that connects the representation with a particular family of decision procedures.
