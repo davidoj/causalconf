@@ -414,46 +414,7 @@ Equation \ref{eq:extn_definition1} can be broken down to the product of four Mar
         \draw (L) -- (W);\end{tikzpicture}\right]\\
 \end{align}
 
-\section{Markov variable maps and variables form a Markov category}\label{sec:app_mcat}
 
-\citet{fritz_synthetic_2020} defines Markov categories in the following way:
-
-\begin{definition}
-A Markov category $C$ is a symmetric monoidal category in which every object $X \in C$ is equipped with a commutative comonoid structure given by a comultiplication $\text{copy}_X : X\to X\otimes X$ and a counit $\text{del}_X : X \to I$, depicted in string diagrams as
-\begin{align}
-    \text{del}_X&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-    \path (0,0) ++ (1,0) node (B) {};
-    \draw[-{Rays[n=8]}] (A) -- (B);
-\end{tikzpicture}
-    \text{copy}_X&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-    \path (0,0) node (A) {} 
-    ++ (0.5,0) node[copymap] (copy0) {}
-    ++ (0.5,0.15) node (B) {}
-    + (0,-0.3) node (C) {};
-    \draw (A) -- (copy0) to [out=45,in=180] (B) (copy0) to [out=-45, in=180] (C);
-\end{tikzpicture}
-\end{align}
-and satisfying the commutative comonoid equations
-\begin{align}
-    \tikzfig{ccom_lhs} = \tikzfig{ccom_rhs}\label{eq:ccom_1}
-\end{align}
-\begin{align}
-    \tikzfig{ccom2_lhs} = \tikzfig{ccom2_mhs} = \tikzfig{ccom2_rhs}
-\end{align}
-\begin{align}
-    \tikzfig{ccom3_lhs} = \tikzfig{ccom3_rhs}
-\end{align}
-as well as compatibility with the monoidal structure
-\begin{align}
-    \tikzfig{mstruct1_lhs} &= \tikzfig{mstruct1_rhs}\\
-    \tikzfig{mstruct2_lhs} &= \tikzfig{mstruct2_rhs}
-\end{align}
-and the naturality of \emph{del}, which means that
-\begin{align}
-    \tikzfig{naturality_lhs} &= \tikzfig{naturality_rhs}\label{eq:nat}
-\end{align}
-for every morphism $f$.
-\end{definition}
 
 The category of labeled Markov kernels is the category consisting of labeled measurable sets as objects and labeled Markov kernels as morphisms. Given $\kernel{K}:\RV{X}\to \Delta(\RV{Y})$ and $\kernel{L}:\RV{Y}\to \Delta(\RV{Z})$, sequential composition is given by
 

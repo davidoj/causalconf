@@ -2,6 +2,48 @@
 
 \section{Appendix, needs to be organised}
 
+
+\subsection{Markov categories}\label{sec:app_mcat}
+
+\citet{fritz_synthetic_2020} defines Markov categories in the following way:
+
+\begin{definition}\label{def:mcat}
+A Markov category $C$ is a symmetric monoidal category in which every object $X \in C$ is equipped with a commutative comonoid structure given by a comultiplication $\text{copy}_X : X\to X\otimes X$ and a counit $\text{del}_X : X \to I$, depicted in string diagrams as
+\begin{align}
+    \text{del}_X&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+    \path (0,0) ++ (1,0) node (B) {};
+    \draw[-{Rays[n=8]}] (A) -- (B);
+\end{tikzpicture}
+    \text{copy}_X&:=\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+    \path (0,0) node (A) {} 
+    ++ (0.5,0) node[copymap] (copy0) {}
+    ++ (0.5,0.15) node (B) {}
+    + (0,-0.3) node (C) {};
+    \draw (A) -- (copy0) to [out=45,in=180] (B) (copy0) to [out=-45, in=180] (C);
+\end{tikzpicture}
+\end{align}
+and satisfying the commutative comonoid equations
+\begin{align}
+    \tikzfig{ccom_lhs} = \tikzfig{ccom_rhs}
+\end{align}
+\begin{align}
+    \tikzfig{ccom2_lhs} = \tikzfig{ccom2_mhs} = \tikzfig{ccom2_rhs}
+\end{align}
+\begin{align}
+    \tikzfig{ccom3_lhs} = \tikzfig{ccom3_rhs}
+\end{align}
+as well as compatibility with the monoidal structure
+\begin{align}
+    \tikzfig{mstruct1_lhs} &= \tikzfig{mstruct1_rhs}\\
+    \tikzfig{mstruct2_lhs} &= \tikzfig{mstruct2_rhs}
+\end{align}
+and the naturality of \emph{del}, which means that
+\begin{align}
+    \tikzfig{naturality_lhs} &= \tikzfig{naturality_rhs}
+\end{align}
+for every morphism $f$.
+\end{definition}
+
 \subsection{Existence of conditional probabilities}
 
 
@@ -320,7 +362,7 @@ Hence $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is invalid.
 \begin{reptheorem}{th:cons_ci}
 Given standard measurable $(\Omega,\sigalg{F})$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{C}$ with uniform conditional probability $\prob{P}_{C}^{\RV{Y}|\RV{WX}}$ and $\alpha\in C$ such that $\prob{P}_\alpha^{\RV{WX}}\gg \{\prob{P}_\beta^{\RV{WX}}|\beta\in C\}$, $\RV{Y}\CI_{\prob{P}_{\alpha}}\RV{X}|\RV{W}$ if and only if there is a version of $\prob{P}_{C}^{\RV{Y}|\RV{WX}}$ and $\kernel{K}:W\kto Y$ such that
 \begin{align}
-  \prob{P}_C^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase} \label{eq:higherorder_ci_erase}
+  \prob{P}_C^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase}
 \end{align}
 \end{reptheorem}
 
@@ -409,25 +451,6 @@ This result can fail to hold in the absence of the domination condition. Conside
 
 Note that in the absence of the assumption of the existence of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$, $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ does \emph{not} imply the existence of $\prob{P}_\square^{\RV{Y}|\RV{W}}$. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{XY}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{XY}}$ is two flips of a biased coin, then $\RV{Y}\CI_{\prob{P}}\RV{X}$ but $\prob{P}^{\RV{Y}}$ does not exist.
 
-\begin{reptheorem}{lem:distribute_quantifier}
-$[\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]$
-\end{reptheorem}
-
-\begin{proof}
-\begin{align}
-    \forall x: f(x) \implies g(x)&&\text{premise}\label{eq:premise1}\\
-    \forall x: f(x)&& \text{premise}\label{eq:premise2}\\
-    f(a) && \text{UI on }\ref{eq:premise2}\text{ sub }a/x\label{eq:ui1}\\
-    f(a)\implies g(a) && \text{UI on }\ref{eq:premise1}\text{ sub }a/x\label{eq:ui2}\\
-    g(a)&&\text{ MP }\ref{eq:ui1}\text{ and }\ref{eq:ui2}\label{eq:mp1}\\
-    \forall x: g(x)&&\text{UG on }\ref{eq:mp1}\label{eq:ug1}\\
-    (\forall x: f(x))\implies(\forall x: g(x))&& \text{CP }\ref{eq:premise2}-\ref{eq:ug1}\label{eq:cp1}\\
-    [\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]&& \text{CP }\ref{eq:premise1}\text{--}\ref{eq:cp1}
-\end{align}
-
-Where UI: universal instantiation, UG: universal generalisation, MP: modus ponens and CP: conditoinal proof. With thanks to \citet{1377555} for the proof.
-\end{proof}
-
 \subsection{Maximal probability sets and valid conditionals}
 
 We have defined probability sets and uniform conditional probabilities. Thus, if we start with a probability set, we know how to check if certain uniform conditional probabilities exist or not. However, there is a particular line of reasoning that comes up most often in the graphical models tradition of causal inference where we start with collections of conditional probabilities and assemble them into probability models as needed. A simple example of this is the causal Bayesian network given by the graph $\RV{X}\longrightarrowRHD \RV{Y}$ and some observational probability distribution $\prob{P}^{\RV{XY}}\in\Delta(X\times Y)$. Using the standard notion of ``hard interventions on $\RV{X}$'', this model induces a probability set which we could informally describe as the set $\prob{P}_\square:=\{\prob{P}_a^{\RV{XY}}|a\in X\cup\{*\}\}$ where $*$ is a special element corresponding to the observational setting. The graph $\RV{X}\longrightarrowRHD \RV{Y}$ implies the existence of the uniform conditional probability $\prob{P}_\square^{\RV{Y}|\RV{X}}$ under the nominated set of interventions, while the usual rules of hard interventions imply that $\prob{P}_a^{\RV{X}} = \delta_a$ for $a\in X$.
@@ -479,6 +502,229 @@ so $\prob{P}_\square^{\RV{B}|\RV{WHC}}$ is invalid. Thus there is some valid $\m
 
 Validity rules out conditional probabilities like \ref{eq:bmi_example}. We conjecture that in many cases this condition is implicitly taken into account -- it is obviously silly to posit a model in which body mass index can be controlled independently of height and weight. We note, however, that presuming the authors intended their model to be interpreted according to the usual semantics of causal Bayesian networks, the invalid conditional probability \ref{eq:bmi_example} would be used to evaluate the causal effect of body mass index in the causal diagram found in \citet{shahar_association_2009}.
 \end{example}
+
+\subsection{Causal contractibility}\label{sec:ccontract_appendix}
+
+\begin{reptheorem}{th:no_implication}
+Exchange commutativity does not imply locality of consequences or vise versa.
+\end{reptheorem}
+
+\begin{proof}
+A conditional probability model that exhibits exchange commutativity but some choices have non-local consequences:
+
+Suppose $D=Y=\{0,1\}$ and we have a probability set $\prob{P}_C$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$, where $\RV{D}=(\RV{D}_1,\RV{D}_2)$, $\RV{Y}=(\RV{Y}_1,\RV{Y}_2)$.
+
+Suppose the unique version of $\prob{P}_C^{\RV{Y}|\RV{D}}$ is
+\begin{align}
+    \prob{P}_C^{\RV{Y}|\RV{D}}(y_1,y_2|d_1,d_2) &= \llbracket (y_1,y_2)= (d_1+d_2,d_1+d_2) \rrbracket
+\end{align}
+then 
+\begin{align}
+    \prob{P}_C^{\RV{Y}_1|\RV{D}}(y_1|d_1,d_2) &= \llbracket y_1 = d_1+d_2 \rrbracket
+\end{align}
+and there is no function depending on $y_1$ and $d_1$ only that is equal to this. Thus $\prob{P}_C$ exhibits non-local consequences. 
+
+However, taking $\rho$ to be the unique nontrivial swap $\{0,1\}\to \{0,1\}$
+\begin{align}
+    \text{swap}_{\rho(\RV{D})}\prob{P}_{C}^{\RV{Y}|\RV{D}}(y_1,y_2|d_1,d_2) &= \prob{P}_{C}^{\RV{Y}|\RV{D}}(y_1,y_2|d_2,d_1)\\
+    &= \llbracket (y_1,y_2)= (d_2+d_1,d_2+d_1) \rrbracket\\
+    &= \llbracket (y_1,y_2)= (d_1+d_2,d_1+d_2) \rrbracket\\
+    &= \llbracket (y_2,y_1)= (d_1+d_2,d_1+d_2) \rrbracket\\
+    &= \prob{P}_{C}^{\RV{Y}|\RV{D}}\text{swap}_{\rho(\RV{Y})}(y_1,y_2|d_1,d_2)
+\end{align}
+so $\prob{P}_\square$ commutes with exchange.
+
+A conditional probability model that exhibits locality of consequences but does not commute with exchange follows. Suppose again $D=Y=\{0,1\}$ and we have a probability set $\prob{P}_C$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$, where $\RV{D}=(\RV{D}_1,\RV{D}_2)$, $\RV{Y}=(\RV{Y}_1,\RV{Y}_2)$. This time, suppose the unique version of $\prob{P}_C^{\RV{Y}|\RV{D}}$ is
+\begin{align}
+    \prob{P}_C{\RV{Y}|\RV{D}}(y_1,y_2|d_1,d_2) &= \llbracket (y_1,y_2)= (0,1) \rrbracket
+\end{align}
+
+Then  If $\prob{P}_\alpha^{\RV{D}_S}=\prob{P}_\beta^{\RV{D}_S}$ for $S\subset\{0,1\}$ then:
+\begin{align}
+    \prob{P}_C^{\RV{Y}_1|\RV{D}}(y_1|d_1,d_2) &= \llbracket y_1= 0 \rrbracket\\
+    &= \prob{P}_C^{\RV{Y}_1|\RV{D}_1}(y_1|d_1)\\
+    \prob{P}_C^{\RV{Y}_2|\RV{D}}(y_2|d_1,d_2)&= \llbracket y_2= 1 \rrbracket\\
+    &= \prob{P}_C^{\RV{Y}_2|\RV{D}_2}(y_2|d_2)
+\end{align}
+so $\prob{P}_C^{\RV{Y}|\RV{D}}$ exhibits consequence locality.
+
+However, $\prob{P}_C$ does not commute with exchange.
+\begin{align}
+    \text{swap}_{\rho(\RV{D})} \prob{P}_C^{\RV{Y}|\RV{D}}(y_1,y_2|d_1,d_2) &= \prob{P}_C^{\RV{Y}|\RV{D}}(y_1,y_2|d_2,d_1)\\
+    &=\llbracket (y_1,y_2)= (0,1) \rrbracket\\
+    &\neq \llbracket (y_2,y_1)= (0,1) \rrbracket\\
+    &= \prob{P}_C^{\RV{Y}|\RV{D}}\text{swap}_{\rho(\RV{D})}(y_1,y_2|d_1,d_2)
+\end{align}
+\end{proof}
+
+\begin{reptheorem}{th:table_rep}
+Given a probability set $\prob{P}_C$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$, $\prob{P}_C$ is  $(\RV{D};\RV{Y})$-causally contractible if and only if there exists a column exchangeable probability distribution $\mu^{\RV{Y}^D}\in \Delta(Y^{|D|\times \mathbb{N}})$ such that
+\begin{align}
+    \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
+    &\iff\\
+    \prob{P}_C^{\RV{Y}|\RV{D}}(y|(d_i)_{i\in \mathbb{N}}) &= \mu^{\RV{Y}^D} \Pi_{(d_i i)_{i\in\mathbb{N}}}(y)
+\end{align}
+Where $\Pi_{(d_i i)_{i\in\mathbb{N}}}:Y^{|D|\times \mathbb{N}}\to Y^{\mathbb{N}}$ is the function that projects the $(d_i,i)$ indices for all $i\in \mathbb{N}$ and $\prob{F}_{\text{ev}}$ is the Markov kernel associated with the evaluation map
+\begin{align}
+    \text{ev}:D^\mathbb{N}\times Y^{D\times \mathbb{N}}&\to Y\\
+    ((d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}})&\mapsto (y_{d_i i})_{i\in \mathbb{N}}
+\end{align}
+\end{reptheorem}
+
+\begin{proof}
+Only if:
+Consider a probability set $\prob{P}_{C'}$ where $C'\supset C$ contains all $\alpha$ such that $\prob{P}_\alpha^{\RV{D}}$ is deterministic and $\prob{P}_{C'}^{\RV{Y}|\RV{D}}\overset{P_C}{\cong}\prob{P}_C^{\RV{Y}|\RV{D}}$. It can be constructed by adding to $\prob{P}_C$ probability sets with marginals $\delta_d\odot \prob{P}_{C'}^{\RV{Y}|\RV{D}}$ for all $d\in D$.
+
+We will prove the result holds for $\prob{P}_{C'}$, and it will therefore also hold for $\prob{P}_C$.
+
+For all $d\in D$, abuse notation to say that $\prob{P}_d$ is a probability set in $C'$ such that $\prob{P}_d^{\RV{D}}=\delta_d$. For any $\alpha\in C'$, we have
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{DY}}(B\times C) &= \int_B \prob{P}_C^{\RV{Y}|\RV{D}}(C|d)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
+                                &= \int_B \int_D \prob{P}_C^{\RV{Y}|\RV{D}}(C|d')\prob{P}_d^{\RV{D}}(\mathrm{d}d')\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
+                                &= \int_B \prob{P}_d^{\RV{Y}}(C)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)
+\end{align}
+
+Thus $d\mapsto \prob{P}_d^{\RV{Y}}$ is a version of $\prob{P}_C^{\RV{Y}|\RV{C}}$.
+
+Choose $e:=(e_i)_{i\in\mathbb{N}}$ such that $e_{|D|i+j}$ is the $i$th element of $D$ for all $i,j\in \mathbb{N}$.
+
+Define
+\begin{align}
+    \mu^{\RV{Y}^D}((y_{ij})_{D\times \mathbb{N}}):=\prob{P}_e^{\RV{Y}}((y_{|D|i+j})_{i\in D, j\in \mathbb{N}})
+\end{align}
+
+Now consider any $d:=(d_i)_{i\in \mathbb{N}}\in D^{\mathbb{N}}$. By definition of $e$, $e_{|D|d_i + i}=d_i$ for any $i,j\in \mathbb{N}$.
+
+Define
+\begin{align}
+    \prob{Q}:D\kto Y\\
+    \prob{Q}:= \tikzfig{lookup_representation}
+\end{align}
+
+and consider some ordered sequence $A\subset \mathbb{N}$ and $B:= ((|D|d_i+i))_{i\in A}$. Note that $e_B:=(e_{|D|d_i +i})_{i\in B}=d_A=(d_i)_{i\in A}$. Then 
+
+\begin{align}
+    \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{Q}(y|d) &= \sum_{y\in \RV{Y}^{-1}(y_A)} \mu^{(\RV{Y}^{D}_{d_ii})_{A}}(y) \\
+    &= \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{P}_e^{(\RV{Y}_{|D|d_i+i})_{A}}(y)\\
+    &= \prob{P}_e^{\RV{Y}_{B}}(y_A)\\
+    &= \prob{P}_{d}^{\RV{Y}_A}(y_A)&\text{by causal contractibility}
+\end{align}
+
+Because this holds for all $A\subset\mathbb{N}$, by the Kolmogorov extension theorem
+
+\begin{align}
+    \prob{Q}(y|d) &= \prob{P}_d^{\RV{Y}}(y)
+\end{align}
+
+And so $\prob{Q}$ is also a version of $\prob{P}_\square^{\RV{Y}|\RV{C}}$.
+
+Next we will show $\mu^{\RV{Y}^D}$ is exchangeable. Consider any subsequences $\RV{Y}^D_S$ and $\RV{Y}^D_T$ of $\RV{Y}^D$ with $|S|=|T|$. Let $\rho(S)$ be the ``expansion'' of the indices $S$, i.e. $\rho(S)=(|D|i+j)_{i\in S,j\in D}$. Then by construction of $e$, $e_{\rho(S)}=e_{\rho(T)}$ and therefore
+
+\begin{align}
+    \mu^{\RV{Y}^D}\Pi_S&= \prob{P}_e^{\RV{Y}_{\rho(S)}})\\
+    &= \prob{P}_e^{\RV{Y}_{\rho(T)}})&\text{by contractibility of }\prob{P}_C\text{ and the equality } e_{\rho(S)}=e_{\rho(T)}\\
+    &= \mu^{\RV{Y}^D}\Pi_T
+\end{align}
+
+
+If:
+Suppose 
+\begin{align}
+    \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
+\end{align}
+
+and consider any two deterministic decision functions $d,d'\in D^{\mathbb{N}}$ such that some subsequences are equal $d_S=d'_T$.
+
+Let $\RV{Y}^{d_S}=(\RV{Y}_{d_i i})_{i\in S}$.
+
+By definition,
+
+\begin{align}
+    \prob{P}_C^{\RV{Y}_S|\RV{D}}(y_S|d) &= \sum_{y^D_S\in Y^{|D|\times |S|}}\mu^{\RV{Y}^D} \Pi_S(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)\\
+    &= \sum_{y^D_S\in Y^{|D|\times |T|}}\prob{P}_C^{\RV{Y}^D_T}(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)&\text{ by contractibility of }\mu^{\RV{Y}^D}\Pi_T \\
+    &= \prob{P}_C^{\RV{Y}_T|\RV{D}}(y_S|d)
+\end{align}
+\end{proof}
+
+\begin{reptheorem}{th:iid_rep}
+Suppose we have a sample space $(\Omega,\sigalg{F})$ and a probability set $\prob{P}_C$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ where $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_C$ is augmented $(\RV{D};\RV{Y})$-causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{H}}_C$ and $\prob{P}_C^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exist for all $i\in \mathbb{N}$ and
+\begin{align}
+    \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{do_model_representation}\\
+    &\iff\\
+    \RV{Y}_i&\CI^e_{\prob{P}_C} \RV{Y}_{\mathbb{N}\setminus i},\RV{D}_{\mathbb{N}\setminus i}C|\RV{H}\RV{D}_i&\forall i\in \mathbb{N}\\
+    \land \RV{H} \CI^e_{\prob{P}_C} \RV{D} C\\
+    \land \prob{P}_C^{\RV{Y}_i|\RV{H}\RV{D}_i} &= \prob{P}^{\RV{Y}_0|\RV{H}\RV{D}_0} & \forall i\in \mathbb{N}
+\end{align}
+Where $\Pi_{D,i}:D^\mathbb{N}\kto D$ is the $i$th projection map.
+\end{reptheorem}
+
+\begin{proof}
+We make use of Lemma \ref{th:table_rep} to show that we can represent the conditional probability $\prob{P}_C^{\RV{Y}|\RV{D}}$ as
+\begin{align}
+        \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
+\end{align}
+
+As a preliminary, we will show
+\begin{align}
+    \kernel{F}_{\mathrm{ev}} &= \tikzfig{lookup_rep_intermediate}\label{eq:ev_alternate_rep}
+\end{align}
+
+Where $\Pi_{Y^D,i}:Y^{D\times\mathbb{N}}\kto Y^D$ is the $i$th column projection map on $\RV{Y}^{D\times \mathbb{N}}$ and $\mathrm{ev}_{Y^D\times D}:Y^D\times D\to Y$ is the evaluation function
+\begin{align}
+    ((y_i)_{i\in D},d)\mapsto y_d
+\end{align}
+
+Recall that $\mathrm{ev}$ is the function
+
+\begin{align}
+    ((d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}})&\mapsto (y_{d_i i})_{i\in \mathbb{N}}
+\end{align}
+
+By definition, for any $\{A_i\in\sigalg{Y}|i\in \mathbb{N}\}$
+
+\begin{align}
+    \kernel{F}_{\mathrm{ev}}(\prod_{i\in \mathbb{N}}A_i|(d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}}) &= \delta_{(y_{d_i i})_{i\in \mathbb{N}}}(\prod_{i\in \mathbb{N}}A_i)\\
+        &= \prod_{i\in \mathbb{N}} \delta_{y_{d_i i}} (A_i)\\
+        &= \mathrm{copy}^{\mathbb{N}}\prod_{i\in \mathbb{N}}( \Pi_{D,i}\otimes \Pi_{Y,i})\kernel{F}_{\mathrm{ev}_{Y^D\times D}}
+\end{align}
+
+Which is what we wanted to show.
+
+Only if:
+As we have an augmented causally contractible model, we have a variable $\RV{Y}^D=(\RV{Y}^D_i)_{i\in \mathbb{N}}$ exchangeable with respect to $\prob{P}^{\RV{Y}^D}_C$ (Lemma \ref{th:table_rep}). From \citet{kallenberg_basic_2005} we have a directing random measure $\RV{H}$ such that
+\begin{align}
+    \prob{P}_C^{\RV{Y}^D|\RV{H}} &= \tikzfig{de_finetti_representation}\\
+    &\iff\\
+    \prob{P}_C^{\RV{Y}^D|\RV{H}}(\prod_{i\in \mathbb{N}} A_i|h) &= \prod_{i\in \mathbb{N}} \prob{P}_C^{\RV{Y}_0^D|\RV{H}}(A_i|h)
+\end{align}
+
+Furthermore, because $\RV{Y}$ is a deterministic function of $\RV{D}$ and $\RV{Y}^D$, $\RV{Y}\CI_{\prob{P}_C} \RV{H}|(\RV{D},\RV{Y}^D)$ and by definition of $\RV{Y}^D$, $\RV{Y}^D\CI_{\prob{P}_C}\RV{D}$ and so
+
+\begin{align}
+    \prob{P}_C^{\RV{Y}|\RV{HD}} &= \prob{P}_C^{\RV{Y}^D|\RV{HD}}\odot \prob{P}_C^{\RV{Y}|\RV{Y}^D\RV{HD}}\\
+                                      &= \tikzfig{Y_pushback_factorisation}
+                                      &= \tikzfig{do_model_representation}
+\end{align}
+
+If:
+By assumption
+\begin{align}
+    \prob{P}_C^{\RV{Y}|\RV{D}}(\prod_{i\in \mathbb{N}} A_i|h,(d_i)_{i\in \mathbb{N}}) &= \int_H \prod_{i\in \mathbb{N}}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_C^{\RV{H}}(\mathrm{d}h)
+\end{align}
+
+Consider $\alpha,\alpha'$ such that $\prob{P}^{\RV{D}_M}_\alpha = \prob{P}^{\RV{D}_L}_{\alpha'}$ for $L,M\subset \mathbb{N}$ with $|M|=|L|$, both finite. Then
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}_M}(A) &= \int_{D^{\mathbb{N}}} \prob{P}_\alpha^{\RV{Y}_M|\RV{D}}(A|d)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
+                                  &= \int_H\int_{D^{\mathbb{N}}} \prod_{i\in M}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\prob{P}_C^{\RV{H}}(\mathrm{d}h)\\
+                                  &= \int_H\int_{D^{|M|}} \prod_{i\in M}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_\alpha^{\RV{D}_M}(\mathrm{d}d_M)\prob{P}_C^{\RV{H}}(\mathrm{d}h)\\
+                                  &= \int_H\int_{D^{|M|}} \prod_{i\in M}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_{\alpha'}^{\RV{D}_N}(\mathrm{d}d_N)\prob{P}_C^{\RV{H}}(\mathrm{d}h)\\
+                                  &= \int_H\int_{D^{\mathbb{N}}} \prod_{i\in M}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_{\alpha'}^{\RV{D}}(\mathrm{d}d)\prob{P}_C^{\RV{H}}(\mathrm{d}h)\\
+                                  &= \prob{P}_{\alpha'}^{\RV{Y}_M}(A)
+\end{align}
+
+\end{proof}
 
 
 \subsection{Exchange commutativity}\label{sec:exchange_commutativity}
@@ -589,3 +835,23 @@ and as we have established by procedure interchangeability (noting that the bina
 Thus $\prob{P}_C$ is exchange commutative.
 
 \subsection{Body mass index revisited}\label{sec:bmi_revis}
+
+\begin{reptheorem}{lem:proxy_control}
+Suppose we have a probability set $\prob{P}_C$ that is $(\RV{D};\RV{X},\RV{Y})$-causally contractible, where $\RV{D}:=(\RV{D}_i)_{i\in M}$ and likewise for $\RV{X}$ and $\RV{Y}$. If there exists $\alpha\in C$ such that $\prob{P}_\alpha^{\RV{D}}\gg \{\prob{P}_\beta^{\RV{D}}|\beta\in C\}$ and $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then $\prob{P}_C$ is also $(\RV{Y};\RV{X})$-causally contractible.
+\end{reptheorem}
+
+\begin{proof}
+We want to show that $\RV{Y}_i\CI_{\prob{P}_\alpha} (RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C},\RV{D}) |(\RV{H},\RV{X}_i)$ for all $i\in M$. Then the result follows by noting that $\prob{P}_C^{\RV{Y}|\RV{XHD}}$ exists by taking a higher order conditional with respect to $\prob{P}_C^{\RV{XYH}|\RV{D}}$ and $\prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}}$ therefore exists by application of Corollary \ref{cor:ci_cp_exist}.
+
+From causal contractibility we have
+\begin{align}
+(\RV{X}_i,\RV{Y}_i)\CI_{\prob{P}_\alpha} (\RV{X}_{\{i\}^C},\RV{Y}_{\{i\}^C},\RV{D}_{\{i\}^C}) |\RV{H}\RV{D}_i\label{eq:cc}\\
+\RV{Y}_i\CI_{\prob{P}_\alpha} (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C}) |\RV{H}\RV{D}_i\RV{X}_i\label{eq:wu}
+\end{align}
+
+Where Eq. \ref{eq:wu} follows from \ref{eq:cc} by weak union.
+
+Thus by contraction, $\RV{Y}_i\CI_{\prob{P}_\alpha} (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C},\RV{D}) |\RV{H}\RV{X}_i$.
+
+By Corollary \ref{cor:ci_cp_exist} and the existence of $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}$ for all $i\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}$ exists for all $i$. Furthermore, because $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}=\prob{P}^{\RV{Y}_j\RV{X}_j|\RV{H}\RV{D}_j}$ for all $i,j\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{X}_j}$ for all $i,j\in M$.
+\end{proof}

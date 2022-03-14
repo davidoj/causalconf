@@ -1,0 +1,15 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (0.5, 0.75) {$\kernel{K}$};
+		\node [style=RLabel tikzit] (1) at (3, 1) {};
+		\node [style=RLabel tikzit] (2) at (3, 0.5) {};
+		\node [style=Llabel tikzit] (3) at (-1.5, 0.75) {};
+		\node [style=none] (5) at (1, 1) {};
+		\node [style=none] (6) at (1, 0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=-180, out=0] (5.center) to (2);
+		\draw [in=-180, out=0] (6.center) to (1);
+		\draw (3) to (0);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  9 MAR 2022 16:09
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.9.9)  14 MAR 2022 22:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -943,11 +943,7 @@ File: l3backend-xdvipdfmx.def 2020-02-03 L3 backend support: xdvipdfmx
 \g__pdf_backend_object_int=\count318
 \g__pdf_backend_annotation_int=\count319
 )
-(./main.aux
-
-LaTeX Warning: Label `eq:higherorder_ci_erase' multiply defined.
-
-)
+(./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 187.
@@ -1057,33 +1053,11 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmss' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [4]
+ [4] [5]
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
 ine 251.
- [5] (./markov_string_diagrams.tex [6]
-Overfull \hbox (10.88322pt too wide) in paragraph at lines 43--44
-\OML/cmm/m/it/10 Z$\T1/lmr/m/n/10 , given in the dis-crete case by the ma-trix 
-prod-uct $\U/msb/m/n/10 LM\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z\OMS/cmsy/m/n/10 j
-\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) = [][] \U/msb/m/n/10 M\OT1/cmr/m/n/10 (\OML
-/cmm/m/it/10 z\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 )\U/msb/m/n/1
-0 L\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 y\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 x\OT1/
-cmr/m/n/10 )$\T1/lmr/m/n/10 .
- []
-
-[7]
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 116.
-
-[8] (./figures/2_comb.tikz) (./figures/2_comb.tikz)
-(./figures/2comb_inserted_anon.tikz) (./figures/2comb_inserted_anon.tikz)
-[9]
-Overfull \hbox (0.46709pt too wide) detected at line 203
-[]
- []
-
-) (./variables.tex [10]
-LaTeX Font Info:    Trying to load font information for U+eus on input line 19.
+ (./variables.tex [6]
+LaTeX Font Info:    Trying to load font information for U+eus on input line 24.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueus.fd
@@ -1091,8 +1065,21 @@ File: ueus.fd 2013/01/14 v3.01 Euler Script
 )
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-eus.cfg
 File: mt-eus.cfg 2006/07/28 v1.2 microtype config. file: AMS Euler Script (RS)
-) [11] [12]
-[13] [14]) (./seedo.tex [15]
+) [7] [8]
+Overfull \hbox (10.92433pt too wide) in paragraph at lines 70--71
+[]\T1/lmr/m/n/10 One could also con-sider mea-sure-ment pro-ce-dures to pro-duc
+e re-sults in $\OT1/cmr/m/n/10 (\U/msb/m/n/10 R\OML/cmm/m/it/10 ; \OMS/cmsy/m/n
+/10 B\OT1/cmr/m/n/10 (\U/msb/m/n/10 R\OT1/cmr/m/n/10 ))$
+ []
+
+[9] [10]
+Overfull \hbox (11.09953pt too wide) in paragraph at lines 121--122
+[][]\T1/lmr/bx/n/10 Definition 2.8 \T1/lmr/m/n/10 (De-ci-sion pro-ce-dure)\T1/l
+mr/bx/n/10 . []\T1/lmr/m/n/10 A de-ci-sion pro-ce-dure is a col-lec-tion $\OMS/
+cmsy/m/n/10 f\U/eus/m/n/10 S[]\OMS/cmsy/m/n/10 g[]$
+ []
+
+) (./seedo.tex [11]
 Overfull \hbox (57.7418pt too wide) in paragraph at lines 16--17
 \T1/lmr/m/n/10 causal in-fer-ence. All share the fea-ture that there is a ba-si
 c set of choices/interventions/regimes
@@ -1104,21 +1091,40 @@ Overfull \hbox (0.85933pt too wide) in paragraph at lines 22--23
 nti-nou and Dawid[] ([]2017[]),
  []
 
-) (./probability.tex [16] [17] [18] (./figures/disint_def.tikz)
-(./figures/disint_def.tikz) [19]
-Overfull \hbox (2.82167pt too wide) in paragraph at lines 121--122
-[][]\T1/lmr/bx/n/10 Definition 5.14 \T1/lmr/m/n/10 (Higher or-der con-di-tion-a
+) (./probability.tex [12] [13] [14] (./figures/disint_def.tikz)
+(./figures/disint_def.tikz) [15]
+Overfull \hbox (2.82167pt too wide) in paragraph at lines 123--124
+[][]\T1/lmr/bx/n/10 Definition 4.14 \T1/lmr/m/n/10 (Higher or-der con-di-tion-a
 ls)\T1/lmr/bx/n/10 . []\T1/lmr/m/n/10 Given a prob-a-bil-ity space $\OT1/cmr/m/
 n/10 (\OML/cmm/m/it/10 ^^V; 
 ; \OMS/cmsy/m/n/10 F\OT1/cmr/m/n/10 )$
  []
 
 (./figures/disintegration_existence.tikz)
-(./figures/disintegration_existence.tikz) [20] [21]
-(./figures/copy_product.tikz) (./figures/copy_product.tikz)
+(./figures/disintegration_existence.tikz)) (./markov_string_diagrams.tex
+[16] [17] (./figures/ccom_lhs.tikz) (./figures/ccom_rhs.tikz)
+(./figures/ccom_lhs.tikz) (./figures/ccom_rhs.tikz) (./figures/ccom2_lhs.tikz)
+(./figures/ccom2_mhs.tikz) (./figures/ccom2_rhs.tikz) (./figures/ccom2_lhs.tikz
+) (./figures/ccom2_mhs.tikz) (./figures/ccom2_rhs.tikz) [18]
+(./figures/ccom3_lhs.tikz) (./figures/ccom3_rhs.tikz) (./figures/ccom3_lhs.tikz
+) (./figures/ccom3_rhs.tikz) (./figures/mstruct1_lhs.tikz)
+(./figures/mstruct1_rhs.tikz) (./figures/mstruct2_lhs.tikz)
+(./figures/mstruct2_rhs.tikz) (./figures/mstruct1_lhs.tikz)
+(./figures/mstruct1_rhs.tikz) (./figures/mstruct2_lhs.tikz)
+(./figures/mstruct2_rhs.tikz) (./figures/naturality_lhs.tikz)
+(./figures/naturality_rhs.tikz) (./figures/naturality_lhs.tikz)
+(./figures/naturality_rhs.tikz) (./figures/n_fold_copy.tikz)
+(./figures/n_fold_copy.tikz) [19] (./figures/plate_without_copymap.tikz)
+(./figures/plate_with_copymap.tikz) (./figures/plate_without_copymap.tikz)
+(./figures/plate_with_copymap.tikz) (./figures/identity_tensor_L.tikz)
+(./figures/identity_tensor_L.tikz) (./figures/identity_tensor_copy.tikz)
+(./figures/identity_tensor_copy.tikz) (./figures/swap_example.tikz)
+(./figures/swap_example.tikz) [20] (./figures/swap_example_2.tikz)
+(./figures/swap_example_2.tikz)) (./probability_sets.tex [21]
+(./figures/copy_product.tikz) (./figures/copy_product.tikz) [22]
 (./figures/odot_assoc_1.tikz) (./figures/odot_assoc_2.tikz)
-(./figures/odot_assoc_1.tikz) (./figures/odot_assoc_2.tikz) [22] [23]
-(./figures/cond_indep1.tikz) (./figures/cond_indep1.tikz)
+(./figures/odot_assoc_1.tikz) (./figures/odot_assoc_2.tikz) [23]
+(./figures/cond_indep1.tikz) (./figures/cond_indep1.tikz) [24]
 (./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz)
 (./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz)
 (./figures/conditional_independence_cprob_exist.tikz)
@@ -1126,67 +1132,119 @@ n/10 (\OML/cmm/m/it/10 ^^V;
 (./figures/conditional_independence_cprob_exist3.tikz)
 (./figures/conditional_independence_cprob_exist.tikz)
 (./figures/conditional_independence_cprob_exist2.tikz)
-(./figures/conditional_independence_cprob_exist3.tikz) [24]
-(./figures/eci_def.tikz) (./figures/eci_def.tikz) [25] (./figures/eci_rep.tikz)
-(./figures/eci_rep.tikz) [26] (./figures/eci_rep_1.tikz)
+(./figures/conditional_independence_cprob_exist3.tikz) [25]
+(./figures/eci_def.tikz) (./figures/eci_def.tikz) [26] (./figures/eci_rep.tikz)
+(./figures/eci_rep.tikz) [27] (./figures/eci_rep_1.tikz)
 (./figures/eci_rep_2.tikz) (./figures/eci_rep.tikz) (./figures/eci_rep_1.tikz)
 (./figures/eci_rep_2.tikz) (./figures/eci_rep.tikz) (./figures/eci_rep.tikz)
-(./figures/eci_rep.tikz)) (./representation_repeatability.tex [27] [28]
+(./figures/eci_rep.tikz)) (./representation_repeatability.tex [28] [29]
 (./figures/consequence_locality.tikz) (./figures/consequence_locality.tikz)
-[29] (./figures/exchangeability.tikz) (./figures/exchangeability.tikz)
+[30] (./figures/exchangeability.tikz) (./figures/exchangeability.tikz)
 (./figures/commutativity_of_exchange.tikz)
-(./figures/commutativity_of_exchange.tikz) [30]
+(./figures/commutativity_of_exchange.tikz) [31]
 (./figures/consequence_locality.tikz) (./figures/consequence_locality.tikz)
-[31] [32] (./figures/consequence_locality.tikz)
-(./figures/consequence_locality.tikz) (./figures/consequence_locality.tikz)
+[32] (./figures/consequence_locality.tikz)
 (./figures/contractibility_from_exchange_1.tikz)
 (./figures/contractibility_from_exchange_2.tikz)
 (./figures/contractibility_from_exchange_3.tikz)
 (./figures/consequence_locality.tikz)
 (./figures/contractibility_from_exchange_1.tikz)
 (./figures/contractibility_from_exchange_2.tikz)
-(./figures/contractibility_from_exchange_3.tikz) [33]
+(./figures/contractibility_from_exchange_3.tikz)
+(./figures/consequence_locality.tikz) (./figures/consequence_locality.tikz)
 (./figures/lookup_representation.tikz) (./figures/lookup_representation.tikz)
-[34] (./figures/lookup_representation.tikz)
-(./figures/lookup_representation.tikz) [35]
-(./figures/lookup_representation.tikz) (./figures/lookup_representation.tikz)
-Overfull \hbox (14.43228pt too wide) detected at line 386
-[]
- []
-
-(./figures/lookup_representation_variablised.tikz)
-(./figures/lookup_representation_variablised.tikz) [36]
+[33] (./figures/lookup_representation_variablised.tikz)
+(./figures/lookup_representation_variablised.tikz) [34]
 (./figures/do_model_representation.tikz)
-(./figures/do_model_representation.tikz) (./figures/lookup_representation.tikz)
-(./figures/lookup_representation.tikz) (./figures/lookup_rep_intermediate.tikz)
-(./figures/lookup_rep_intermediate.tikz) [37]
-(./figures/de_finetti_representation.tikz)
-(./figures/de_finetti_representation.tikz)
-(./figures/Y_pushback_factorisation.tikz)
-(./figures/do_model_representation.tikz)
-(./figures/Y_pushback_factorisation.tikz)
-(./figures/do_model_representation.tikz)
-Overfull \hbox (14.24658pt too wide) detected at line 460
-[]
- []
-
-[38]
-
-Package natbib Warning: Citation `gelman_bayesian_2013' on page 39 undefined on
- input line 485.
-
-[39] [40]
-
-LaTeX Warning: Reference `sec:cp_model' on page 41 undefined on input line 537.
-
-
-[41]
+(./figures/do_model_representation.tikz) [35] [36]
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/10'.
 (microtype)             Ignoring protrusion settings for this character.
- [42]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 6
-03.
+
+Overfull \hbox (21.25089pt too wide) in paragraph at lines 341--342
+[]\T1/lmr/m/n/10 for some treat-ment pol-icy $\OML/cmm/m/it/10 ^^K \OMS/cmsy/m/
+n/10 2 \OML/cmm/m/it/10 A$\T1/lmr/m/n/10 . De-fine $\OT1/cmss/m/n/10 D \OT1/cmr
+/m/n/10 := (\OT1/cmss/m/n/10 D[]\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 D[]\OT1/cmr
+/m/n/10 )$ \T1/lmr/m/n/10 where $\OT1/cmss/m/n/10 D \OT1/cmr/m/n/10 : (\OML/cmm
+/m/it/10 d[]; d[]; y[]; y[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 7!
+ []
+
+[37]) (./conclusion.tex [38] [39] [40]) (./appendix_bucket.tex
+(./figures/ccom_lhs.tikz) (./figures/ccom_rhs.tikz) (./figures/ccom_lhs.tikz)
+(./figures/ccom_rhs.tikz) (./figures/ccom2_lhs.tikz) (./figures/ccom2_mhs.tikz)
+(./figures/ccom2_rhs.tikz) (./figures/ccom2_lhs.tikz) (./figures/ccom2_mhs.tikz
+) (./figures/ccom2_rhs.tikz) (./figures/ccom3_lhs.tikz)
+(./figures/ccom3_rhs.tikz) (./figures/ccom3_lhs.tikz) (./figures/ccom3_rhs.tikz
+) [41] (./figures/mstruct1_lhs.tikz) (./figures/mstruct1_rhs.tikz)
+(./figures/mstruct2_lhs.tikz) (./figures/mstruct2_rhs.tikz)
+(./figures/mstruct1_lhs.tikz) (./figures/mstruct1_rhs.tikz)
+(./figures/mstruct2_lhs.tikz) (./figures/mstruct2_rhs.tikz)
+(./figures/naturality_lhs.tikz) (./figures/naturality_rhs.tikz)
+(./figures/naturality_lhs.tikz) (./figures/naturality_rhs.tikz)
+Overfull \hbox (2.33092pt too wide) in paragraph at lines 51--52
+[][]\T1/lmr/bx/n/10 Lemma 9.2 \T1/lmr/m/n/10 (Con-di-tional push-for-ward)\T1/l
+mr/bx/n/10 . []\T1/lmr/m/it/10 Sup-pose we have a sam-ple space $\OT1/cmr/m/n/1
+0 (\OML/cmm/m/it/10 
+; \OMS/cmsy/m/n/10 F\OT1/cmr/m/n/10 )$\T1/lmr/m/it/10 ,
+ []
+
+(./figures/conditional_pushforward.tikz)
+(./figures/conditional_pushforward.tikz) [42] [43]
+(./figures/higher_order_disint.tikz) (./figures/higher_order_disint_0.tikz)
+(./figures/higher_order_disint_1.tikz) (./figures/higher_order_disint_2.tikz)
+(./figures/higher_order_disint.tikz) (./figures/higher_order_disint_0.tikz)
+(./figures/higher_order_disint_1.tikz) (./figures/higher_order_disint_2.tikz)
+(./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz) [44]
+Overfull \hbox (55.24345pt too wide) detected at line 161
+[]
+ []
+
+(./figures/disint_def.tikz) (./figures/disint_def.tikz) [45] [46] [47]
+(./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz)
+(./figures/cond_indep_erase_beta.tikz) (./figures/cond_indep_erase_beta.tikz)
+(./figures/cond_indep_erase_alpha.tikz) (./figures/cond_indep_erase_alpha.tikz)
+[48] (./figures/cond_indep_erase_alpha.tikz)
+(./figures/cond_indep_erase_alpha.tikz)
+Missing character: There is no ’ in font ec-lmr10!
+ [49] [50]
+(./figures/invalid_BMI_model.tikz) (./figures/invalid_BMI_model.tikz) [51]
+(./figures/lookup_representation.tikz) (./figures/lookup_representation.tikz)
+[52] (./figures/lookup_representation.tikz)
+(./figures/lookup_representation.tikz) [53]
+(./figures/lookup_representation.tikz) (./figures/lookup_representation.tikz)
+Overfull \hbox (14.43228pt too wide) detected at line 647
+[]
+ []
+
+[54] (./figures/do_model_representation.tikz)
+(./figures/do_model_representation.tikz) (./figures/lookup_representation.tikz)
+(./figures/lookup_representation.tikz) (./figures/lookup_rep_intermediate.tikz)
+(./figures/lookup_rep_intermediate.tikz) [55]
+(./figures/de_finetti_representation.tikz)
+(./figures/de_finetti_representation.tikz)
+(./figures/Y_pushback_factorisation.tikz)
+(./figures/do_model_representation.tikz)
+(./figures/Y_pushback_factorisation.tikz)
+(./figures/do_model_representation.tikz)
+Overfull \hbox (14.24658pt too wide) detected at line 708
+[]
+ []
+
+[56] [57]
+Overfull \hbox (8.49422pt too wide) in paragraph at lines 767--768
+[]\T1/lmr/m/n/10 Take some $\OML/cmm/m/it/10 ^^K[]$ \T1/lmr/m/n/10 such that $[
+] \OT1/cmr/m/n/10 = [] \OMS/cmsy/m/n/10 ^^N []$\T1/lmr/m/n/10 . 
+ []
+
+Package microtype Info: Character `029' is missing
+(microtype)             in font `T1/lmr/m/sc/7'.
+(microtype)             Ignoring protrusion settings for this character.
+Package microtype Info: Character `029' is missing
+(microtype)             in font `T1/lmr/m/sc/5'.
+(microtype)             Ignoring protrusion settings for this character.
+[58]) (./main.bbl
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
+5.
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -1194,52 +1252,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [43] [44]
-Overfull \hbox (2.1111pt too wide) in paragraph at lines 700--701
-[]\T1/lmr/m/n/10 The de-ci-sion func-tion de-ter-min-is-ti-cally pre-scribes wh
-ich de-ci-sions are taken 
- []
-
-[45]
-Overfull \hbox (2.44875pt too wide) in paragraph at lines 710--711
-[][]\T1/lmr/bx/n/10 Definition 6.11 \T1/lmr/m/n/10 (De-ter-min-is-ti-cally con-
-trol-lable)\T1/lmr/bx/n/10 . []\T1/lmr/m/n/10 Given a prob-a-bil-ity gap model
- []
-
-[46] [47]) (./conclusion.tex [48] [49]) (./appendix_bucket.tex
-Overfull \hbox (2.33092pt too wide) in paragraph at lines 9--10
-[][]\T1/lmr/bx/n/10 Lemma 8.1 \T1/lmr/m/n/10 (Con-di-tional push-for-ward)\T1/l
-mr/bx/n/10 . []\T1/lmr/m/it/10 Sup-pose we have a sam-ple space $\OT1/cmr/m/n/1
-0 (\OML/cmm/m/it/10 
-; \OMS/cmsy/m/n/10 F\OT1/cmr/m/n/10 )$\T1/lmr/m/it/10 ,
- []
-
-[50] (./figures/conditional_pushforward.tikz)
-(./figures/conditional_pushforward.tikz) [51]
-(./figures/higher_order_disint.tikz) (./figures/higher_order_disint_0.tikz)
-(./figures/higher_order_disint_1.tikz) (./figures/higher_order_disint_2.tikz)
-(./figures/higher_order_disint.tikz) (./figures/higher_order_disint_0.tikz)
-(./figures/higher_order_disint_1.tikz) (./figures/higher_order_disint_2.tikz)
-[52] (./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz)
-[53]
-Overfull \hbox (55.24345pt too wide) detected at line 119
-[]
- []
-
-(./figures/disint_def.tikz) (./figures/disint_def.tikz) [54] [55] [56]
-(./figures/cond_indep_erase.tikz) (./figures/cond_indep_erase.tikz)
-(./figures/cond_indep_erase_beta.tikz) (./figures/cond_indep_erase_beta.tikz)
-(./figures/cond_indep_erase_alpha.tikz) (./figures/cond_indep_erase_alpha.tikz)
-[57] (./figures/cond_indep_erase_alpha.tikz)
-(./figures/cond_indep_erase_alpha.tikz)
-
-LaTeX Warning: Reference `lem:distribute_quantifier' on page 58 undefined on in
-put line 413.
-
-[58]
-Missing character: There is no ’ in font ec-lmr10!
- [59] (./figures/invalid_BMI_model.tikz) (./figures/invalid_BMI_model.tikz) [60
-]) (./main.bbl [61]
+ [59]
 Underfull \hbox (badness 6284) in paragraph at lines 91--101
 []\T1/lmr/m/n/10 A. P. Dawid.  Causal In-fer-ence with-out Coun-ter-fac-tu-als.
   \T1/lmr/m/it/10 Jour-
@@ -1269,45 +1282,64 @@ Underfull \hbox (badness 5893) in paragraph at lines 91--101
 lor & Fran-cis _eprint:
  []
 
-[62] [63]
+[60] [61] [62]
+Underfull \hbox (badness 2020) in paragraph at lines 317--327
+\T1/lmr/m/n/10 dence test-ing and the gen-er-alised co-vari-ance mea-sure.  \T1
+/lmr/m/it/10 The An-nals
+ []
+
+
+Underfull \hbox (badness 3724) in paragraph at lines 317--327
+\T1/lmr/m/it/10 of Statis-tics\T1/lmr/m/n/10 , 48(3):1514--1538, June 2020.  IS
+SN 0090-5364, 2168-
+ []
+
+
+Underfull \hbox (badness 4120) in paragraph at lines 317--327
+\T1/lmr/m/n/10 8966.  doi: $10 . 1214 / 19-[]AOS1857$.  URL []$\T1/lmtt/m/n/10 
+https : / / projecteuclid .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 317--327
+\T1/lmtt/m/n/10 org / journals / annals-[]of-[]statistics / volume-[]48 / issue
+-[]3 /
+ []
+
+
+Overfull \hbox (88.18628pt too wide) in paragraph at lines 317--327
+\T1/lmtt/m/n/10 The-[]hardness-[]of-[]conditional-[]independence-[]testing-[]an
+d-[]the-[]generalised-[]covariance /
+ []
+
 Missing character: There is no ’ in font ec-lmr10!
 
-Underfull \hbox (badness 3000) in paragraph at lines 325--332
+Underfull \hbox (badness 3000) in paragraph at lines 338--345
 []\T1/lmr/m/n/10 N. N. Vorobev.  Con-sis-tent Fam-i-lies of Mea-sures and Their
  Ex-ten-
  []
 
-) [64]
-
-Package natbib Warning: There were undefined citations.
-
-[65]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 274.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 274.
+) [63] [64]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 275.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 275.
  (./main.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 274.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 274.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 275.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 275.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: D5E96A87527FC7FF7909F3708134219D;3244.
+(rerunfilecheck)             Checksum: 3FB65EB4331ED7F84CFED1E907E0140D;3354.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 274.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 275.
  ) 
 Here is how much of TeX's memory you used:
- 29881 strings out of 479819
- 566848 string characters out of 5895847
- 884420 words of memory out of 5000000
- 46146 multiletter control sequences out of 15000+600000
- 591865 words of font info for 103 fonts, out of 8000000 for 9000
+ 30092 strings out of 479819
+ 572137 string characters out of 5895847
+ 893313 words of memory out of 5000000
+ 46205 multiletter control sequences out of 15000+600000
+ 597455 words of font info for 105 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 68i,17n,83p,1308b,948s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 68i,17n,83p,1308b,941s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.xdv (65 pages, 629312 bytes).
+Output written on main.xdv (64 pages, 717952 bytes).

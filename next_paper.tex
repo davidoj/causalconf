@@ -771,3 +771,68 @@ If we additionally have the existence of $\prob{P}_{\{\}}^{\RV{Y}^X|\RV{X}}$ and
 \begin{align}
     \prob{P}_{\{\}}^{\RV{Y}|\RV{X}} &= \tikzfig{curry_kernel_copied}\label{eq:curry_identity_po}
 \end{align}
+
+\subsubsection{Example: comb insertion}
+
+The following examples illustrate 2-combs and the insertion operation, both of which we will define later. As an example in translating diagrams, we show how the diagrams for a 2-comb and 2-comb with an inserted Markov kernel can be translated to integral notation.
+
+Consider the Markov kernels $\kernel{K}:W\kto X$, $\kernel{L}:X\times W\times Y\kto Z$ and the 2-comb $\kernel{M}:W\times Y\kto X\times Z$ defined as
+
+\begin{align}
+    \kernel{M} = \tikzfig{2_comb}\label{eq:2comb_M}
+\end{align}
+
+Following the rules above, we can translate this to ordinary notation by first breaking it down into products and tensor products, and then evaluating these products
+
+\begin{align}
+    \kernel{M}(A\times B|w,y) = [&(\text{copy}_W\otimes \text{id}_Y)(\kernel{K}\otimes \text{id}_{W\times Y})\\
+    &(\text{copy}_X\otimes \text{id}_{W\times Y})(\text{id}_X\otimes\kernel{L})](A\times B|w,y)\\
+                        = [&(\kernel{K}\otimes \text{id}_{W\times Y})(\text{copy}_X\otimes \text{id}_{W\times Y})\\
+                        &(\text{id}_X\otimes\kernel{L})](A\times B|w,w,y)\\
+                        = \;&\int_{X}  (\text{id}_X\otimes\kernel{L})(A\times B|x',w,y) \kernel{K} (dx'|w)
+                        ](y,z|y',x)\\
+                        = \;&\int_X \text{id}_X(A|x') \kernel{L}(B|x',w,y)\kernel{K}(dx'|w)\\
+                        = \;&\int_A \kernel{L}(B|x',w,y)\kernel{K}(dx'|w)
+\end{align}
+
+If we are given additionally $\kernel{J}:X\times W\kto Y$, we can define a new Markov kernel $\kernel{N}:W\kto Z$ given by ``inserting'' $\kernel{J}$ into $\kernel{M}$:
+
+\begin{align}
+    \kernel{N} = \tikzfig{2comb_inserted_anon}\label{eq:2comb_winsert}
+\end{align}
+
+
+We can translate Equation \ref{eq:2comb_winsert} to
+
+\begin{align}
+    \kernel{N}(A\times B\times C|w) = &[\text{copy}_W(\kernel{K}\text{copy}^3_Y\otimes \text{id}_W)\\
+    &(\text{id}_Y\otimes\kernel{J}\otimes \text{id}_Y)(\text{id}_Y \otimes \text{copy}_X\otimes \text{id}_Y)\\
+    &(\kernel{L}\otimes \text{id}_X\otimes \text{id}_Y)] (A\times B\times C|w)\\
+                    = &[(\kernel{K}\text{copy}^3_Y\otimes \text{id}_W)(\text{id}_Y\otimes\kernel{J}\otimes \text{id}_Y)\\
+                    &(\text{id}_Y \otimes \text{copy}_X\otimes \text{id}_Y)\\
+                    &(\kernel{L}\otimes \text{id}_X\otimes \text{id}_Y)] (A\times B\times C|w,w)\\
+                    = &\int_X\int_Y\kernel{L}(C|x',w,y') \text{id}_X(A|x') \text{id}_Y(B|y') \kernel{J}(dy'|x',w)\kernel{K}(dx'|w)\\
+                    = &\int_A\int_B\kernel{L}(C|x',w,y') \kernel{J}(dy'|x',w)\kernel{K}(dx'|w)
+\end{align}
+
+
+\subsection{Global conditional independence}
+
+\begin{reptheorem}{lem:distribute_quantifier}
+$[\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]$
+\end{reptheorem}
+
+\begin{proof}
+\begin{align}
+    \forall x: f(x) \implies g(x)&&\text{premise}\label{eq:premise1}\\
+    \forall x: f(x)&& \text{premise}\label{eq:premise2}\\
+    f(a) && \text{UI on }\ref{eq:premise2}\text{ sub }a/x\label{eq:ui1}\\
+    f(a)\implies g(a) && \text{UI on }\ref{eq:premise1}\text{ sub }a/x\label{eq:ui2}\\
+    g(a)&&\text{ MP }\ref{eq:ui1}\text{ and }\ref{eq:ui2}\label{eq:mp1}\\
+    \forall x: g(x)&&\text{UG on }\ref{eq:mp1}\label{eq:ug1}\\
+    (\forall x: f(x))\implies(\forall x: g(x))&& \text{CP }\ref{eq:premise2}-\ref{eq:ug1}\label{eq:cp1}\\
+    [\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g(x))]&& \text{CP }\ref{eq:premise1}\text{--}\ref{eq:cp1}
+\end{align}
+
+Where UI: universal instantiation, UG: universal generalisation, MP: modus ponens and CP: conditoinal proof. With thanks to \citet{1377555} for the proof.
+\end{proof}

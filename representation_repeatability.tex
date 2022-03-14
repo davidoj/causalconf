@@ -127,73 +127,29 @@ Suppose we have a sample space $(\Omega,\sigalg{F})$ and a probability set $\pro
 \begin{align}
     \text{swap}_{\rho(\RV{D})} \prob{P}_{C}^{\RV{Y}|\RV{D}} &\overset{\prob{P}_C}{\cong} \prob{P}_{C}^{\RV{Y}|\RV{D}}\text{swap}_{\rho(\RV{Y})}
 \end{align}
-Then $\prob{P}_C^{\RV{Y}|\RV{D}}$ \emph{commutes with exchange}.
+Then $\prob{P}_C^{\RV{Y}|\RV{D}}$ is $(\RV{D};\RV{Y})$-\emph{exchange commutative}.
 \end{definition}
 
-If $\prob{P}_C^{\RV{Y}|\RV{D}}$ commutes with exchange and we have $\alpha,\alpha'\in C$ such that $\prob{P}_\alpha^{\RV{C}} = \prob{P}_{\alpha'}^{\RV{C}}\text{swap}_{\rho(\RV{D})}$, then $\prob{P}_\alpha^{\RV{Y}} = \prob{P}_{\alpha'}^{\RV{Y}}\text{swap}_{\rho(\RV{Y})}$. However, $\prob{P}_C^{\RV{Y}|\RV{D}}$ may commute with exchange even if there are no such $\alpha$ and $\alpha'\in C$.
+If $\prob{P}_C$ is $(\RV{D};\RV{Y})$-exchange commutative and we have $\alpha,\alpha'\in C$ such that $\prob{P}_\alpha^{\RV{C}} = \prob{P}_{\alpha'}^{\RV{C}}\text{swap}_{\rho(\RV{D})}$, then $\prob{P}_\alpha^{\RV{Y}} = \prob{P}_{\alpha'}^{\RV{Y}}\text{swap}_{\rho(\RV{Y})}$. However, $\prob{P}_C$ may commute with exchange even if there are no such $\alpha$ and $\alpha'\in C$.
 
 \begin{definition}[Locality of consequences]\label{def:caus_cont}
 Suppose we have a sample space $(\Omega,\sigalg{F})$ and a probability set $\prob{P}_C$ with uniform conditional probability $\prob{P}_C^{\RV{Y}|\RV{D}}$ where $\RV{Y}:=\RV{Y}:=(\RV{Y}_i)_{M}$, $\RV{D}:=\RV{D}_M:=(\RV{D}_i)_M$, $M\subseteq \mathbb{N}$. If for any $A\subset M$
 \begin{align}
     \prob{P}_S^{\RV{Y}_A|\RV{D}_M} &\overset{\prob{P}_C}{\cong} \tikzfig{consequence_locality}
 \end{align}
-then $\prob{P}_C^{\RV{Y}|\RV{D}}$ exhibits \emph{consequence locality}.
+then $\prob{P}_C^{\RV{Y}|\RV{D}}$ exhibits $(\RV{D};\RV{Y})$-\emph{local consequences}.
 \end{definition}
 
-If $\prob{P}_C^{\RV{Y}|\RV{D}}$ exhibits consequence locality then,given two different choices $\alpha$ and $\alpha'$ such that $\prob{P}_\alpha^{\RV{D}_A}=\prob{P}_{\alpha'}^{\RV{D}_A}$ then $\prob{P}_\alpha^{\RV{Y}_A}=\prob{P}_{\alpha'}^{\RV{Y}_A}$. However, once again, $\prob{P}_C^{\RV{Y}|\RV{D}}$ may exhibit consequence locality even if no such pair of choices exists.
+If $\prob{P}_C$ exhibits $(\RV{D};\RV{Y})$-local consequences then, given two different choices $\alpha$ and $\alpha'$ such that $\prob{P}_\alpha^{\RV{D}_A}=\prob{P}_{\alpha'}^{\RV{D}_A}$ then $\prob{P}_\alpha^{\RV{Y}_A}=\prob{P}_{\alpha'}^{\RV{Y}_A}$. However, $\prob{P}_C$ may exhibit consequence locality even if no such pair of choices exists.
 
-Neither condition implies the other. 
+Theorem \ref{th:no_implication} shows that neither condition implies the other. 
 
-\begin{theorem}
+\begin{theorem}\label{th:no_implication}
 Exchange commutativity does not imply locality of consequences or vise versa.
 \end{theorem}
 
 \begin{proof}
-A conditional probability model that exhibits exchange commutativity but some choices have non-local consequences:
-
-Suppose $D=Y=\{0,1\}$ and we have a probability set $\prob{P}_C$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$, where $\RV{D}=(\RV{D}_1,\RV{D}_2)$, $\RV{Y}=(\RV{Y}_1,\RV{Y}_2)$.
-
-Suppose the unique version of $\prob{P}_C^{\RV{Y}|\RV{D}}$ is
-\begin{align}
-    \prob{P}_C^{\RV{Y}|\RV{D}}(y_1,y_2|d_1,d_2) &= \llbracket (y_1,y_2)= (d_1+d_2,d_1+d_2) \rrbracket
-\end{align}
-then 
-\begin{align}
-    \prob{P}_C^{\RV{Y}_1|\RV{D}}(y_1|d_1,d_2) &= \llbracket y_1 = d_1+d_2 \rrbracket
-\end{align}
-and there is no function depending on $y_1$ and $d_1$ only that is equal to this. Thus $\prob{P}_C$ exhibits non-local consequences. 
-
-However, taking $\rho$ to be the unique nontrivial swap $\{0,1\}\to \{0,1\}$
-\begin{align}
-    \text{swap}_{\rho(\RV{D})}\prob{P}_{C}^{\RV{Y}|\RV{D}}(y_1,y_2|d_1,d_2) &= \prob{P}_{C}^{\RV{Y}|\RV{D}}(y_1,y_2|d_2,d_1)\\
-    &= \llbracket (y_1,y_2)= (d_2+d_1,d_2+d_1) \rrbracket\\
-    &= \llbracket (y_1,y_2)= (d_1+d_2,d_1+d_2) \rrbracket\\
-    &= \llbracket (y_2,y_1)= (d_1+d_2,d_1+d_2) \rrbracket\\
-    &= \prob{P}_{C}^{\RV{Y}|\RV{D}}\text{swap}_{\rho(\RV{Y})}(y_1,y_2|d_1,d_2)
-\end{align}
-so $\prob{P}_\square$ commutes with exchange.
-
-A conditional probability model that exhibits locality of consequences but does not commute with exchange follows. Suppose again $D=Y=\{0,1\}$ and we have a probability set $\prob{P}_C$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$, where $\RV{D}=(\RV{D}_1,\RV{D}_2)$, $\RV{Y}=(\RV{Y}_1,\RV{Y}_2)$. This time, suppose the unique version of $\prob{P}_C^{\RV{Y}|\RV{D}}$ is
-\begin{align}
-    \prob{P}_C{\RV{Y}|\RV{D}}(y_1,y_2|d_1,d_2) &= \llbracket (y_1,y_2)= (0,1) \rrbracket
-\end{align}
-
-Then  If $\prob{P}_\alpha^{\RV{D}_S}=\prob{P}_\beta^{\RV{D}_S}$ for $S\subset\{0,1\}$ then:
-\begin{align}
-    \prob{P}_C^{\RV{Y}_1|\RV{D}}(y_1|d_1,d_2) &= \llbracket y_1= 0 \rrbracket\\
-    &= \prob{P}_C^{\RV{Y}_1|\RV{D}_1}(y_1|d_1)\\
-    \prob{P}_C^{\RV{Y}_2|\RV{D}}(y_2|d_1,d_2)&= \llbracket y_2= 1 \rrbracket\\
-    &= \prob{P}_C^{\RV{Y}_2|\RV{D}_2}(y_2|d_2)
-\end{align}
-so $\prob{P}_C^{\RV{Y}|\RV{D}}$ exhibits consequence locality.
-
-However, $\prob{P}_C$ does not commute with exchange.
-\begin{align}
-    \text{swap}_{\rho(\RV{D})} \prob{P}_C^{\RV{Y}|\RV{D}}(y_1,y_2|d_1,d_2) &= \prob{P}_C^{\RV{Y}|\RV{D}}(y_1,y_2|d_2,d_1)\\
-    &=\llbracket (y_1,y_2)= (0,1) \rrbracket\\
-    &\neq \llbracket (y_2,y_1)= (0,1) \rrbracket\\
-    &= \prob{P}_C^{\RV{Y}|\RV{D}}\text{swap}_{\rho(\RV{D})}(y_1,y_2|d_1,d_2)
-\end{align}
+Appendix \ref{sec:ccontract_appendix}.
 \end{proof}
 
 Although locality of consequences has a lot in common with an assumption non-interference, it still allows for some models in which exhibit certain kinds of interference between actions and outcomes of different indices. For example: I have an experiment where I first flip a coin and record the results of this flip as the outcome of the first step of the experiment, but I can choose either to record this same outcome as the provisional result of the second step (this is the choice $\RV{D}_1=0$), or choose to flip a second coin and record the result of that as the provisional result of the second step of the experiment (this is the choice $\RV{D}_1=1$). At the second step, I may further choose to copy the provisional results ($\RV{D}_2=0$) or invert them ($\RV{D}_2=1$). Then
@@ -207,16 +163,14 @@ Although locality of consequences has a lot in common with an assumption non-int
     \item Nevertheless, the choice for the first experiment affects the result of the second experiment
 \end{itemize}
 
-Note that this example would not satisfy exchange commutativity.
-
 We call the conjunction of exchange commutativity and consequence locality \emph{causal contractibility}.
 
 \begin{definition}[Causal contractibility]
-A probability set $\prob{P}_C$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ is $(\RV{D};\RV{Y})$ causally contractible if it is both exchange commutative and exhibits consequence locality.
+A probability set $\prob{P}_C$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ is $(\RV{D};\RV{Y})$-\emph{causally contractible} if it is both exchange commutative and exhibits consequence locality.
 \end{definition}
 
 \begin{theorem}[Equality of conditionals]\label{th:equal_of_condits}
-A probability set $\prob{P}_C$ that is $(\RV{D},\RV{Y})$-causally contractible has, for any $A,B\subset M$ with $|A|=|B|$
+A probability set $\prob{P}_C$ that is $(\RV{D};\RV{Y})$-causally contractible has, for any $A,B\subset M$ with $|A|=|B|$
 \begin{align}
     \prob{P}_C^{\RV{Y}_A|\RV{D}_A} \overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_B|\RV{D}_B}
 \end{align}
@@ -277,8 +231,8 @@ Thus
 
 The main result in this section is Theorem \ref{th:iid_rep} which shows that a probability set $\prob{P}_C$ is causally contractible if and only if it can be represented as the product of a distribution over hypotheses $\prob{P}_\square^{\RV{H}}$ and a collection of identical uniform conditionals $\prob{P}_C^{\RV{Y}_1|\RV{D}_1\RV{H}}$. Note the hypothesis $\RV{H}$ that appears in this conditional; it can be given the interpretation of a random variable that expresses the ``true but initially unknown'' $\RV{Y}_1|\RV{D}_1$ conditional probability.
 
-\begin{lemma}\label{th:table_rep}
-Given a probability set $\prob{P}_C^{\RV{Y}|\RV{D}}$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$, $\prob{P}_\square$ is consequence contractible if and only if there exists a column exchangeable probability distribution $\mu^{\RV{Y}^D}\in \Delta(Y^{|D|\times \mathbb{N}})$ such that
+\begin{theorem}\label{th:table_rep}
+Given a probability set $\prob{P}_C$ such that $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$, $\prob{P}_C$ is  $(\RV{D};\RV{Y})$-causally contractible if and only if there exists a column exchangeable probability distribution $\mu^{\RV{Y}^D}\in \Delta(Y^{|D|\times \mathbb{N}})$ such that
 \begin{align}
     \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\label{eq:lup_rep}\\
     &\iff\\
@@ -289,88 +243,18 @@ Where $\Pi_{(d_i i)_{i\in\mathbb{N}}}:Y^{|D|\times \mathbb{N}}\to Y^{\mathbb{N}}
     \text{ev}:D^\mathbb{N}\times Y^{D\times \mathbb{N}}&\to Y\\
     ((d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}})&\mapsto (y_{d_i i})_{i\in \mathbb{N}}
 \end{align}
-\end{lemma}
+\end{theorem}
 
 \begin{proof}
-Only if:
-Consider a probability set $\prob{P}_{C'}$ where $C'\supset C$ contains all $\alpha$ such that $\prob{P}_\alpha^{\RV{D}}$ is deterministic and $\prob{P}_{C'}^{\RV{Y}|\RV{D}}\overset{P_C}{\cong}\prob{P}_C^{\RV{Y}|\RV{D}}$. It can be constructed by adding to $\prob{P}_C$ probability sets with marginals $\delta_d\odot \prob{P}_{C'}^{\RV{Y}|\RV{D}}$ for all $d\in D$.
-
-We will prove the result holds for $\prob{P}_{C'}$, and it will therefore also hold for $\prob{P}_C$.
-
-For all $d\in D$, abuse notation to say that $\prob{P}_d$ is a probability set in $C'$ such that $\prob{P}_d^{\RV{D}}=\delta_d$. For any $\alpha\in C'$, we have
-
-\begin{align}
-    \prob{P}_\alpha^{\RV{DY}}(B\times C) &= \int_B \prob{P}_C^{\RV{Y}|\RV{D}}(C|d)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
-                                &= \int_B \int_D \prob{P}_C^{\RV{Y}|\RV{D}}(C|d')\prob{P}_d^{\RV{D}}(\mathrm{d}d')\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
-                                &= \int_B \prob{P}_d^{\RV{Y}}(C)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)
-\end{align}
-
-Thus $d\mapsto \prob{P}_d^{\RV{Y}}$ is a version of $\prob{P}_C^{\RV{Y}|\RV{C}}$.
-
-Choose $e:=(e_i)_{i\in\mathbb{N}}$ such that $e_{|D|i+j}$ is the $i$th element of $D$ for all $i,j\in \mathbb{N}$.
-
-Define
-\begin{align}
-    \mu^{\RV{Y}^D}((y_{ij})_{D\times \mathbb{N}}):=\prob{P}_e^{\RV{Y}}((y_{|D|i+j})_{i\in D, j\in \mathbb{N}})
-\end{align}
-
-Now consider any $d:=(d_i)_{i\in \mathbb{N}}\in D^{\mathbb{N}}$. By definition of $e$, $e_{|D|d_i + i}=d_i$ for any $i,j\in \mathbb{N}$.
-
-Define
-\begin{align}
-    \prob{Q}:D\kto Y\\
-    \prob{Q}:= \tikzfig{lookup_representation}
-\end{align}
-
-and consider some ordered sequence $A\subset \mathbb{N}$ and $B:= ((|D|d_i+i))_{i\in A}$. Note that $e_B:=(e_{|D|d_i +i})_{i\in B}=d_A=(d_i)_{i\in A}$. Then 
-
-\begin{align}
-    \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{Q}(y|d) &= \sum_{y\in \RV{Y}^{-1}(y_A)} \mu^{(\RV{Y}^{D}_{d_ii})_{A}}(y) \\
-    &= \sum_{y\in \RV{Y}^{-1}(y_A)} \prob{P}_e^{(\RV{Y}_{|D|d_i+i})_{A}}(y)\\
-    &= \prob{P}_e^{\RV{Y}_{B}}(y_A)\\
-    &= \prob{P}_{d}^{\RV{Y}_A}(y_A)&\text{by causal contractibility}
-\end{align}
-
-Because this holds for all $A\subset\mathbb{N}$, by the Kolmogorov extension theorem
-
-\begin{align}
-    \prob{Q}(y|d) &= \prob{P}_d^{\RV{Y}}(y)
-\end{align}
-
-And so $\prob{Q}$ is also a version of $\prob{P}_\square^{\RV{Y}|\RV{C}}$.
-
-Next we will show $\mu^{\RV{Y}^D}$ is exchangeable. Consider any subsequences $\RV{Y}^D_S$ and $\RV{Y}^D_T$ of $\RV{Y}^D$ with $|S|=|T|$. Let $\rho(S)$ be the ``expansion'' of the indices $S$, i.e. $\rho(S)=(|D|i+j)_{i\in S,j\in D}$. Then by construction of $e$, $e_{\rho(S)}=e_{\rho(T)}$ and therefore
-
-\begin{align}
-    \mu^{\RV{Y}^D}\Pi_S&= \prob{P}_e^{\RV{Y}_{\rho(S)}})\\
-    &= \prob{P}_e^{\RV{Y}_{\rho(T)}})&\text{by contractibility of }\prob{P}_C\text{ and the equality } e_{\rho(S)}=e_{\rho(T)}\\
-    &= \mu^{\RV{Y}^D}\Pi_T
-\end{align}
-
-
-If:
-Suppose 
-\begin{align}
-    \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
-\end{align}
-
-and consider any two deterministic decision functions $d,d'\in D^{\mathbb{N}}$ such that some subsequences are equal $d_S=d'_T$.
-
-Let $\RV{Y}^{d_S}=(\RV{Y}_{d_i i})_{i\in S}$.
-
-By definition,
-
-\begin{align}
-    \prob{P}_C^{\RV{Y}_S|\RV{D}}(y_S|d) &= \sum_{y^D_S\in Y^{|D|\times |S|}}\mu^{\RV{Y}^D} \Pi_S(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)\\
-    &= \sum_{y^D_S\in Y^{|D|\times |T|}}\prob{P}_C^{\RV{Y}^D_T}(y^D_S)\prob{F}_{\text{ev}}(y_S|d,y^D_S)&\text{ by contractibility of }\mu^{\RV{Y}^D}\Pi_T \\
-    &= \prob{P}_C^{\RV{Y}_T|\RV{D}}(y_S|d)
-\end{align}
+Appendix \ref{sec:ccontract_appendix}.
 \end{proof}
 
 It is useful to apply conventions established for discussing variables to the tabular distribution $\mu^{\RV{Y}^D}$ and the representation of $\prob{P}_C^{\RV{Y}|\RV{D}}$in Equation \ref{eq:lup_rep}. Thus we define an augmented causally contractible model as follows:
 
+\todo[inline]{this feels really kludgey, but not having it is also a pain}
+
 \begin{definition}[Augmented causally contractible model]
-A $(\RV{D},\RV{Y})$-causally contractible probability set $\prob{P}_C$ on $(\Omega,\sigalg{F})$ is \emph{augmented} if there is an unobserved variable $\RV{Y}^D:\Omega\to Y^{|\mathbb{N}|\times |D|}$ such that $\prob{P}_C^{\RV{Y}^D}$ exists and
+A $(\RV{D};\RV{Y})$-causally contractible probability set $\prob{P}_C$ on $(\Omega,\sigalg{F})$ is \emph{augmented} if there is an unobserved variable $\RV{Y}^D:\Omega\to Y^{|\mathbb{N}|\times |D|}$ such that $\prob{P}_C^{\RV{Y}^D}$ exists and
 \begin{align}
     \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation_variablised}
 \end{align}
@@ -393,70 +277,7 @@ Where $\Pi_{D,i}:D^\mathbb{N}\kto D$ is the $i$th projection map.
 \end{theorem}
 
 \begin{proof}
-We make use of Lemma \ref{th:table_rep} to show that we can represent the conditional probability $\prob{P}_C^{\RV{Y}|\RV{D}}$ as
-\begin{align}
-        \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
-\end{align}
-
-As a preliminary, we will show
-\begin{align}
-    \kernel{F}_{\mathrm{ev}} &= \tikzfig{lookup_rep_intermediate}\label{eq:ev_alternate_rep}
-\end{align}
-
-Where $\Pi_{Y^D,i}:Y^{D\times\mathbb{N}}\kto Y^D$ is the $i$th column projection map on $\RV{Y}^{D\times \mathbb{N}}$ and $\mathrm{ev}_{Y^D\times D}:Y^D\times D\to Y$ is the evaluation function
-\begin{align}
-    ((y_i)_{i\in D},d)\mapsto y_d
-\end{align}
-
-Recall that $\mathrm{ev}$ is the function
-
-\begin{align}
-    ((d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}})&\mapsto (y_{d_i i})_{i\in \mathbb{N}}
-\end{align}
-
-By definition, for any $\{A_i\in\sigalg{Y}|i\in \mathbb{N}\}$
-
-\begin{align}
-    \kernel{F}_{\mathrm{ev}}(\prod_{i\in \mathbb{N}}A_i|(d_i)_\mathbb{N},(y_{ij})_{i\in D,j\in \mathbb{N}}) &= \delta_{(y_{d_i i})_{i\in \mathbb{N}}}(\prod_{i\in \mathbb{N}}A_i)\\
-        &= \prod_{i\in \mathbb{N}} \delta_{y_{d_i i}} (A_i)\\
-        &= \mathrm{copy}^{\mathbb{N}}\prod_{i\in \mathbb{N}}( \Pi_{D,i}\otimes \Pi_{Y,i})\kernel{F}_{\mathrm{ev}_{Y^D\times D}}
-\end{align}
-
-Which is what we wanted to show.
-
-Only if:
-As we have an augmented causally contractible model, we have a variable $\RV{Y}^D=(\RV{Y}^D_i)_{i\in \mathbb{N}}$ exchangeable with respect to $\prob{P}^{\RV{Y}^D}_C$ (Lemma \ref{th:table_rep}). From \citet{kallenberg_basic_2005} we have a directing random measure $\RV{H}$ such that
-\begin{align}
-    \prob{P}_C^{\RV{Y}^D|\RV{H}} &= \tikzfig{de_finetti_representation}\\
-    &\iff\\
-    \prob{P}_C^{\RV{Y}^D|\RV{H}}(\prod_{i\in \mathbb{N}} A_i|h) &= \prod_{i\in \mathbb{N}} \prob{P}_C^{\RV{Y}_0^D|\RV{H}}(A_i|h)
-\end{align}
-
-Furthermore, because $\RV{Y}$ is a deterministic function of $\RV{D}$ and $\RV{Y}^D$, $\RV{Y}\CI_{\prob{P}_C} \RV{H}|(\RV{D},\RV{Y}^D)$ and by definition of $\RV{Y}^D$, $\RV{Y}^D\CI_{\prob{P}_C}\RV{D}$ and so
-
-\begin{align}
-    \prob{P}_C^{\RV{Y}|\RV{HD}} &= \prob{P}_C^{\RV{Y}^D|\RV{HD}}\odot \prob{P}_C^{\RV{Y}|\RV{Y}^D\RV{HD}}\\
-                                      &= \tikzfig{Y_pushback_factorisation}
-                                      &= \tikzfig{do_model_representation}
-\end{align}
-
-If:
-By assumption
-\begin{align}
-    \prob{P}_C^{\RV{Y}|\RV{D}}(\prod_{i\in \mathbb{N}} A_i|h,(d_i)_{i\in \mathbb{N}}) &= \int_H \prod_{i\in \mathbb{N}}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_C^{\RV{H}}(\mathrm{d}h)
-\end{align}
-
-Consider $\alpha,\alpha'$ such that $\prob{P}^{\RV{D}_M}_\alpha = \prob{P}^{\RV{D}_L}_{\alpha'}$ for $L,M\subset \mathbb{N}$ with $|M|=|L|$, both finite. Then
-
-\begin{align}
-    \prob{P}_\alpha^{\RV{Y}_M}(A) &= \int_{D^{\mathbb{N}}} \prob{P}_\alpha^{\RV{Y}_M|\RV{D}}(A|d)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\\
-                                  &= \int_H\int_{D^{\mathbb{N}}} \prod_{i\in M}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_\alpha^{\RV{D}}(\mathrm{d}d)\prob{P}_C^{\RV{H}}(\mathrm{d}h)\\
-                                  &= \int_H\int_{D^{|M|}} \prod_{i\in M}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_\alpha^{\RV{D}_M}(\mathrm{d}d_M)\prob{P}_C^{\RV{H}}(\mathrm{d}h)\\
-                                  &= \int_H\int_{D^{|M|}} \prod_{i\in M}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_{\alpha'}^{\RV{D}_N}(\mathrm{d}d_N)\prob{P}_C^{\RV{H}}(\mathrm{d}h)\\
-                                  &= \int_H\int_{D^{\mathbb{N}}} \prod_{i\in M}\prob{P}_C^{\RV{Y}_1|\RV{HD}_1}(A_i|h,d_i)\prob{P}_{\alpha'}^{\RV{D}}(\mathrm{d}d)\prob{P}_C^{\RV{H}}(\mathrm{d}h)\\
-                                  &= \prob{P}_{\alpha'}^{\RV{Y}_M}(A)
-\end{align}
-
+Appendix \ref{sec:ccontract_appendix}.
 \end{proof}
 
 
@@ -487,7 +308,7 @@ Causal contractibility is a very strong assumption. Suppose we have a decision p
 \end{align}
 That is, causal contractibility implies that there is no difference between conditioning on observational results or on the results of active choices; active choices are as good for predicting observations as vise-versa.
 
-When can such a strong assumption be accepted? Like exchangeability, one option for justifying judgements of causal contractibility is to compare different measurement procedures and argue that they should be \emph{indistinguishable} -- that is, they should be modeled with exactly the same model. In the case of exchangeability, this is sometimes called ``symmetric ignorance'' \citet[chap. ~5]{gelman_bayesian_2013}. More specifically, if we are committed to modelling uncertainty with a single probability distribution and we consider the following two measurement procedures indistinguishable:
+When can such a strong assumption be accepted? Like exchangeability, one option for justifying judgements of causal contractibility is to compare different measurement procedures and argue that they should be \emph{indistinguishable} -- that is, they should be modeled with exactly the same model. In the case of exchangeability, this is sometimes called ``symmetric ignorance'' \citet[chap. ~5]{gelman_bayesian_2021}. More specifically, if we are committed to modelling uncertainty with a single probability distribution and we consider the following two measurement procedures indistinguishable:
 \begin{itemize}
     \item The original measurement procedure
     \item The original measurement procedure, composed with a function permuting the labels

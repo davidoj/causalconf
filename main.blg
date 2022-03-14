@@ -7,49 +7,47 @@ Repeated entry---line 1979 of file references.bib
  : @article{fong_causal_2013
  :                          ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "gelman_bayesian_2013"
 Warning--to sort, need author or key in kallenberg_basic_2005
 Warning--empty author in kallenberg_basic_2005
-Warning--empty year in 1377555
-You've used 38 entries,
+You've used 39 entries,
             2773 wiz_defined-function locations,
-            911 strings with 13766 characters,
-and the built_in function-call counts, 16688 in all, are:
-= -- 1660
-> -- 637
+            918 strings with 14132 characters,
+and the built_in function-call counts, 17477 in all, are:
+= -- 1731
+> -- 705
 < -- 41
-+ -- 227
-- -- 188
-* -- 1267
-:= -- 2608
-add.period$ -- 200
-call.type$ -- 38
-change.case$ -- 167
-chr.to.int$ -- 37
-cite$ -- 80
-duplicate$ -- 823
-empty$ -- 1458
-format.name$ -- 245
-if$ -- 3558
++ -- 249
+- -- 209
+* -- 1354
+:= -- 2737
+add.period$ -- 206
+call.type$ -- 39
+change.case$ -- 177
+chr.to.int$ -- 38
+cite$ -- 81
+duplicate$ -- 849
+empty$ -- 1501
+format.name$ -- 269
+if$ -- 3716
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 43
-newline$ -- 278
-num.names$ -- 158
-pop$ -- 278
+missing$ -- 46
+newline$ -- 286
+num.names$ -- 162
+pop$ -- 286
 preamble$ -- 1
-purify$ -- 134
+purify$ -- 143
 quote$ -- 0
-skip$ -- 568
+skip$ -- 591
 stack$ -- 0
-substring$ -- 651
-swap$ -- 114
+substring$ -- 684
+swap$ -- 116
 text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 383
-warning$ -- 3
-while$ -- 165
+type$ -- 389
+warning$ -- 2
+while$ -- 170
 width$ -- 0
-write$ -- 667
+write$ -- 688
 (There was 1 error message)

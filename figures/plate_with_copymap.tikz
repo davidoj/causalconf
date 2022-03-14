@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-1.75, 1) {};
+		\node [style=none] (1) at (3, 1) {};
+		\node [style=none] (2) at (-1.75, -2) {};
+		\node [style=none] (3) at (3, -2) {};
+		\node [style=copymap tikzit] (4) at (-1.75, -0.25) {};
+		\node [style=small kernel tikzit] (5) at (0.25, -0.25) {$\kernel{K}_i$};
+		\node [style=RLabel tikzit] (6) at (2, -0.25) {};
+		\node [style=Llabel tikzit] (7) at (-3.5, -0.25) {};
+		\node [style=none] (8) at (0.25, -1.25) {$i\in A$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (2.center) to (3.center);
+		\draw (3.center) to (1.center);
+		\draw (1.center) to (0.center);
+		\draw (0.center) to (4);
+		\draw (4) to (2.center);
+		\draw (7) to (4);
+		\draw (4) to (5);
+		\draw (5) to (6);
+	\end{pgfonlayer}
+\end{tikzpicture}
