@@ -358,7 +358,7 @@ Hence $\prob{V}^{\RV{X}}\odot \prob{T}^{\RV{Y}|\RV{X}}$ is invalid.
 % We also need to check that $\prob{P}_\square^{\RV{Y}|\RV{WX}}$ can be chosen so that it is valid. By validity of $\model{K}^{\RV{W,Y}|\RV{X}}$, $w\in \RV{W}(\Omega)$ and $(\RV{X},\RV{W},\RV{Y})\yields(x,w,y)=\emptyset \implies \model{P}_\square^{\RV{W,Y}|\RV{X}}=0$, so we only need to check for $(w,x,y)$ such that $\model{P}_\square^{\RV{W,Y}|\RV{X}}(w,y|x)=0$. For all $x,y$ such that $\kernel{K}^{\RV{Y}|\RV{X}}(y|x)$ is positive, we have $\model{P}^{\RV{W,Y}|\RV{X}}(w,y|x)=0\implies \prob{P}_\square^{\RV{Y}|\RV{WX}}(y|w,x)=0$. Furthermore, where $\model{K}^{\RV{W}|\RV{X}}(w|x)=0$, we either have $(\RV{W},\RV{X})\yields(w,x)=\emptyset$ or we can choose some $\omega\in (\RV{W},\RV{X})\yields(w,x)$ and let $\prob{P}^{\RV{Y}|\RV{WX}}(\RV{Y}(\omega)|w,x) = 1$.
 % \end{proof}
 
-\subsection{Conditional independence}
+\subsection{Conditional independence}\label{sec:cond_ind_app}
 \begin{reptheorem}{th:cons_ci}
 Given standard measurable $(\Omega,\sigalg{F})$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{C}$ with uniform conditional probability $\prob{P}_{C}^{\RV{Y}|\RV{WX}}$ and $\alpha\in C$ such that $\prob{P}_\alpha^{\RV{WX}}\gg \{\prob{P}_\beta^{\RV{WX}}|\beta\in C\}$, $\RV{Y}\CI_{\prob{P}_{\alpha}}\RV{X}|\RV{W}$ if and only if there is a version of $\prob{P}_{C}^{\RV{Y}|\RV{WX}}$ and $\kernel{K}:W\kto Y$ such that
 \begin{align}
