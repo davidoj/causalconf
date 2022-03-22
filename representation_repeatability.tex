@@ -319,7 +319,7 @@ Similar questions have been examined before, and a variety of answers have been 
     indexing of the units is, by definition, a random permutation of $1,..., N$, and thus any distribution on the science must be row-exchangeable [...] The second critical fact is that if the treatment assignment mechanism is ignorable (e.g., randomized), then when the expression for the assignment mechanism (2) is evaluated at the observed data, it is free of dependence on $Y_{mis}$
 \end{quote}
 
-Theorem \ref{th:cc_ind_treat} formalises these ideas. As an example of its application, consider an experiment where $N$ patients are treated, each with an individual identifier $\RV{I}_i$, who receives treatment $\RV{X}_i$ and experiences outcome $\RV{Y}_i$. We assume a $(\RV{X},\RV{I};\RV{Y})$-causally contractible model is appropriate. This reflects two judgments; firstly, that treatments and identifiers only affect their local consequences (Definition \ref{def:caus_cont}), and secondly for the same individual receiving treatments, we are indifferent the order in which the treatments are received (Theorem \ref{th:cc_mut_exc}). We also assume that at the outset we are ignorant about any differences between each individual; specifically, permuting the individuals involved in the experiment leaves us with the same model.
+Theorem \ref{th:cc_ind_treat} formalises these ideas. As an example of its application, consider an experiment where $N$ patients are treated, each with an individual identifier $\RV{I}_i$, who receives treatment $\RV{X}_i$ and experiences outcome $\RV{Y}_i$. We assume a $(\RV{X},\RV{I};\RV{Y})$-causally contractible model is appropriate. This reflects two judgments; firstly, that treatments and identifiers only affect their local consequences (Definition \ref{def:caus_cont}), and secondly we are indifferent the order in which the individuals appear and the treatments are received. We also assume that at the outset we are ignorant about any differences between each individual; specifically, permuting the individuals involved in the experiment leaves us with the same model.
 
 Under these conditions, additionally assuming that treatments are independent of identifiers condtional on the hypothesis $\RV{H}$ implies that the model is also $(\RV{X};\RV{Y})$-causally contractible. This last assumption is somewhat difficult to interpret. To understand its meaning, consider that each identifier $a\in I$ is associated, in the large sample limit $h\in H$, with a stochastic ``individual response function'' $\kernel{K}: X\kto Y$ defined by
 
@@ -342,7 +342,7 @@ Suppose for any $\rho$
 \end{align}
 and for all $i\in \mathbb{N}$, $\RV{I}_i\CI^e_{\prob{P}_C} \RV{X}_i C|\RV{H}$. 
 
-Then $\pron{P}_C$ is $(\RV{X};\RV{Y})$-causally contractible.
+Then $\prob{P}_C$ is $(\RV{X};\RV{Y})$-causally contractible.
 \end{theorem}
 
 \begin{proof}
@@ -356,13 +356,20 @@ Furthermore, by assumption, for arbitrary permuation $\rho:I\to I$
     \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_i}(A|x,h,n) &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}}(A|x,h,n,m) & \forall m\in I\\
      &\overset{\prob{P}_C}{\cong} (\kernel{F}_{\rho_I}\prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_{|I|}})(A|x,h,n,m)\\
     &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_{|I|}}(A|x,h,\rho(n,m))\\
-    &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_1|\RV{X}_1\RV{H}\RV{I}_1}(A|x,h,\rho(n,m))
+    &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_1|\RV{X}_1\RV{H}\RV{I}_1}(A|x,h,\Pi_i(\rho(n,m)))
 \end{align}
+
+Where $\Pi_i$ projects the $i$-th coordinate of $\rho(n,m)$. Because $m$ and $\rho$ are arbitrary, this implies for any $p\in I$
+\begin{align}
+    \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_i}(A|x,h,n) &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_1|\RV{X}_1\RV{H}\RV{I}_1}(A|x,h,p))\\
+    \implies \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_i} &\overset{\prob{P}_C}{\cong} \kernel{K}\otimes \text{erase}_I
+\end{align}
+
+where $\kernel{K}:(A|x,h)\mapsto \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_i}(A|x,h,q)$ for some $q\in I$. Therefore $\RV{Y}_i\CI^e_{\prob{P}_C}\RV{I}_iC|\RV{X}_i\RV{H}$.
+
+Furthermore, by assumption, $\RV{I}_i\CI^e_{\prob{P}_C} \RV{X}_i C|\RV{H}$, and so by weak union $\RV{Y}_i\CI_{\prob{P}_C}^e \RV{I}_i C|\RV{X}_i\RV{H}$ and $\prob{P}_C$ is therefore $(\RV{X};\RV{Y})$-causally contractible by Lemma \ref{lem:eci_cc_extend}.
 \end{proof}
 
-\begin{theorem}[Commutativity of exchange and order indifference]\label{th:cc_mut_exc}
-
-\end{theorem}
 
 Causal contractibility is a very strong assumption. Suppose we have a decision procedure in which $M$ observations are made $(\proc{X}_M,\proc{Y}_M)$ that are unaffected by the choice $\alpha$, followed by $M$ repetitions $(\proc{X}_{(M,2M]},\proc{Y}_{(M,2M]})$ which are responsive to the choice $\alpha$. We model this with a probability set $\prob{P}_C$ where $\RV{X}_M$ corresponds to $\proc{X}_M$ and so forth. If $\prob{P}_C$ is $(\RV{X}_{2M},\RV{Y}_{2M})$-causally contractible model then the following holds (see corollary \ref{th:equal_of_condits}):
 \begin{align}
@@ -381,33 +388,6 @@ then we should use an exchangeable probability distribution to model the origina
 We can make a similar argument for causal contractibility, although it is a substantially more complicated one. We will focus only on commutativity of exchange here. There is some discussion in literature of procedural assumptions that imply properties similar to commutativity of exchange. For example, 
 
 
-
-In Appendix \ref{sec:exchange_commutativity} we offer a more detailed argument for accepting exchange commutativity for an example decision procedure. Suppose we are in the position of a doctor who will be seeing patients in the future, and resolves to follow a procedure of the form
-
-\begin{algorithmic}
-    \Procedure{$\proc{S}_\alpha$}{}
-    \State $(d_1,d_2) \gets c(\alpha)$
-    \State $y_1\gets \mathrm{apply}(d_1,\mathrm{patient\;A})$
-    \State $y_2\gets \mathrm{apply}(d_2,\mathrm{patient\;B})$
-    \State \Return $(d_1,d_2,y_1,y_2)$
-    \EndProcedure
-\end{algorithmic}
-
-for some treatment policy $\alpha\in A$. Define $\RV{D}:=(\RV{D}_1,\RV{D}_2)$ where $\RV{D}:(d_1,d_2,y_1,y_2)\mapsto (d_1,d_2)$ and $\RV{Y}:=(\RV{Y}_1,\RV{Y}_2)$ with $\RV{Y}:(d_1,d_2,y_1,y_2)\mapsto (y_1,y_2)$. $\proc{D}$ is the procedure associated with $\RV{D}$.
-
-We argue that the following conditions are sufficient to support a judgement of $(\RV{D};\RV{Y})$-exchange commutativity:
-
-\begin{enumerate}
-    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are indistinguishable if the description of one can be obtained by permuting patients in the description of the other (\emph{patient indistinguishability})
-    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are indistinguishable if the description of one can be obtained by permuting the order of treatment administration in the description of the other (\emph{order indistinguishability})
-    \item $c:A\to D^2$ is an invertible function
-\end{enumerate}
-
-A typical condition given for the identifiability of treatment effects or interventional conditionals is that the treatment subprocedures $(\proc{D}_1,\proc{D}_2)$) are random \citep{rubin_causal_2005}. Our third condition -- that $\proc{D}$ is a deterministic and invertible function of $\alpha$ -- is somewhat different to this. A rough explanation of this condition is: the model represents the doctor's knowledge at the time they choose $\alpha$, and assumptions 1 and 2 imply that given their knowledge at the time, the two treatment episodes are indistinguishable. A deterministic choice of $\proc{D}$ ensures that the result of $\proc{D}$ cannot reflect anything new that is learned after the fact.
-
-This rough story can be extended to a randomised $\proc{D}$. We could say that $\proc{D}$ is ``randomised'' if it is chosen according to $c'(\alpha,\proc{R})$ for some function $c':A\times R\to D^2$ and some ``random'' $\proc{R}$. Then $\proc{D}$ again cannot reflect anything not known when $\alpha$ was chosen, because we assume that the results of random procedures carry no useful information.
-
-This story depends crucially on the state of knowledge of the decision maker when they make their choice. It seems difficult to state the assumption of deterministic $\proc{D}$ without the decision theoretic approach we adopt here.
 
 
 \subsection{Body mass index revisited}

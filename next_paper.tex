@@ -836,3 +836,139 @@ $[\forall x: (f(x)\implies g(x))]\implies[(\forall x: f(x))\implies(\forall x: g
 
 Where UI: universal instantiation, UG: universal generalisation, MP: modus ponens and CP: conditoinal proof. With thanks to \citet{1377555} for the proof.
 \end{proof}
+
+\subsection{Exchange commutativity}\label{sec:exchange_commutativity}
+
+Suppose there's a doctor, Dr Alice, who is examining patients and offering them treatment. We make a number of assumptions about measurement procedures that are \emph{interchangeable}, meaning that the same probability distribution should be used to model them. First, some general assumptions:
+\begin{enumerate}
+    \item If a procedure $\proc{T}$ is equivalent (Definition \ref{def:equality}) to $f\circ \proc{S}_\alpha$, then $\proc{T}$ is distributed according to $\prob{P}_\alpha\kernel{F}_f$
+    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are interchangeable if their descriptions are identical up to ``variable'' names
+\end{enumerate}
+
+And some assumptions specific to this example:
+\begin{enumerate}
+    \setcounter{enumi}{2}
+    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are interchangeable if the description of one can be obtained by permuting patients in the description of the other (\emph{patient indistinguishability})
+    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are interchangeable if the description of one can be obtained by permuting the order of treatment administration in the description of the other (\emph{order irrelevance})
+\end{enumerate}
+
+Consider first the decision procedure $\proc{S}_C$ that, for each $\alpha$, starts with deterministically choosing treatments according to the invertible function $c:A\to D^2$, assigns treatments to patients and returns the results:
+
+\begin{algorithmic}
+    \Procedure{$\proc{S}_\alpha$}{}
+    \State $(d_1,d_2) \gets c(\alpha)$
+    \State $y_1\gets \mathrm{apply}(d_1,\mathrm{patient\;A})$
+    \State $y_2\gets \mathrm{apply}(d_2,\mathrm{patient\;B})$
+    \State \Return $(d_1,d_2,y_1,y_2)$
+    \EndProcedure
+\end{algorithmic}
+
+By the assumptions of patient indistinguishability and order irrelevance, this is interchangeable with
+
+\begin{algorithmic}
+    \Procedure{$\proc{S}_\alpha$}{}
+    \State $(d_1,d_2) \gets c(\alpha)$
+    \State $y_2\gets \mathrm{apply}(d_2,\mathrm{patient\;A})$
+    \State $y_1\gets \mathrm{apply}(d_1,\mathrm{patient\;B})$
+    \State \Return $(d_1,d_2,y_1,y_2)$
+    \EndProcedure
+\end{algorithmic}
+
+Take some $\alpha'$ such that $\mathrm{choose\_treatments(\alpha)} = \mathrm{swap}\circ \mathrm{choose\_treatments(\alpha')}$.
+
+\begin{algorithmic}
+    \Procedure{$\text{swap}_{\RV{DY}}\circ \proc{S}_{\alpha'}$}{}
+    \State $(d_1,d_2) \gets c(\alpha')$
+    \State $y_1\gets \mathrm{apply}(d_1,\mathrm{patient\;A})$
+    \State $y_2\gets \mathrm{apply}(d_2,\mathrm{patient\;B})$
+    \State \Return $(d_1,d_2,y_1,y_2)$
+    \EndProcedure
+\end{algorithmic}
+
+Using interchangeability of equivalent procedures, we express $\proc{S}_{\alpha'}$ as
+
+\begin{algorithmic}
+    \Procedure{$\text{swap}_{\RV{DY}}\circ \proc{S}_{\alpha'}$}{}
+    \State $(d_2,d_1) \gets c(\alpha)$
+    \State $y_1\gets \mathrm{apply}(d_1,\mathrm{patient\;A})$
+    \State $y_2\gets \mathrm{apply}(d_2,\mathrm{patient\;B})$
+    \State \Return $(d_1,d_2,y_1,y_2)$
+    \EndProcedure
+\end{algorithmic}
+
+Let $d_1'=d_2$, $d_2'=d_1$, $y_1'=y_2$, $y_2'=y_1$
+
+\begin{algorithmic}
+    \Procedure{$\proc{S}_{\alpha'}$}{}
+    \State $(d'_1,d'_2) \gets c(\alpha)$
+    \State $y'_2\gets \mathrm{apply}(d'_2,\mathrm{patient\;A})$
+    \State $y'_1\gets \mathrm{apply}(d'_1,\mathrm{patient\;B})$
+    \State \Return $(d'_2,d'_1,y'_2,y'_1)$
+    \EndProcedure
+\end{algorithmic}
+
+Composing $\text{swap}_{\RV{DY}}$ with $\proc{S}_{\alpha'}$:
+
+\begin{algorithmic}
+    \Procedure{$\text{swap}_{\RV{DY}}\circ \proc{S}_{\alpha'}$}{}
+    \State $(d'_1,d'_2) \gets c(\alpha)$
+    \State $y'_2\gets \mathrm{apply}(d'_2,\mathrm{patient\;A})$
+    \State $y'_1\gets \mathrm{apply}(d'_1,\mathrm{patient\;B})$
+    \State \Return $(d'_1,d'_2,y'_1,y'_2)$
+    \EndProcedure
+\end{algorithmic}
+
+This is interchangeable with $\proc{S}_{\alpha}$ by interchangeability of descriptions up to variable names. Thus
+
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2} &= \prob{P}_{\alpha'}^{\RV{Y}_1\RV{Y}_2}\text{swap}_{\RV{Y}}
+\end{align}
+
+Because $(\RV{D}_1,\RV{D}_2)$ is deterministic for each $\alpha$,
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(A\times B|d_1,d_2) &= \begin{cases}
+        \prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2}(A\times B) &(d_1,d_2)=c(\alpha)\\ 
+        \mathrm{arbitrary}&\mathrm{otherwise}
+    \end{cases} \\
+    \implies \prob{P}_C^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(A\times B|d_1,d_2) &= \prob{P}_{c^{-1}(d_1,d_2)}(A\times B)
+\end{align}
+
+and as we have established by procedure interchangeability (noting that the binary $\text{swap}$ is its own inverse)
+
+\begin{align}
+    \text{swap}_{\RV{D}}\prob{P}_C^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}\text{swap}_{\RV{Y}}(A\times B|c(\alpha)) &= \prob{P}_{C}^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}\text{swap}_{\RV{Y}}(A\times B|c(\alpha'))\\
+    &= \prob{P}_{\alpha'}^{\RV{Y}_1\RV{Y}_2}\text{swap}_{\RV{Y}}(A\times B)\\
+    &= \prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2}(A\times B)\\
+    &= \prob{P}_C^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(A\times B|c(\alpha))
+\end{align}
+
+Thus $\prob{P}_C$ is exchange commutative.
+
+
+
+In Appendix \ref{sec:exchange_commutativity} we offer a more detailed argument for accepting exchange commutativity for an example decision procedure. Suppose we are in the position of a doctor who will be seeing patients in the future, and resolves to follow a procedure of the form
+
+\begin{algorithmic}
+    \Procedure{$\proc{S}_\alpha$}{}
+    \State $(d_1,d_2) \gets c(\alpha)$
+    \State $y_1\gets \mathrm{apply}(d_1,\mathrm{patient\;A})$
+    \State $y_2\gets \mathrm{apply}(d_2,\mathrm{patient\;B})$
+    \State \Return $(d_1,d_2,y_1,y_2)$
+    \EndProcedure
+\end{algorithmic}
+
+for some treatment policy $\alpha\in A$. Define $\RV{D}:=(\RV{D}_1,\RV{D}_2)$ where $\RV{D}:(d_1,d_2,y_1,y_2)\mapsto (d_1,d_2)$ and $\RV{Y}:=(\RV{Y}_1,\RV{Y}_2)$ with $\RV{Y}:(d_1,d_2,y_1,y_2)\mapsto (y_1,y_2)$. $\proc{D}$ is the procedure associated with $\RV{D}$.
+
+We argue that the following conditions are sufficient to support a judgement of $(\RV{D};\RV{Y})$-exchange commutativity:
+
+\begin{enumerate}
+    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are indistinguishable if the description of one can be obtained by permuting patients in the description of the other (\emph{patient indistinguishability})
+    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are indistinguishable if the description of one can be obtained by permuting the order of treatment administration in the description of the other (\emph{order indistinguishability})
+    \item $c:A\to D^2$ is an invertible function
+\end{enumerate}
+
+A typical condition given for the identifiability of treatment effects or interventional conditionals is that the treatment subprocedures $(\proc{D}_1,\proc{D}_2)$) are random \citep{rubin_causal_2005}. Our third condition -- that $\proc{D}$ is a deterministic and invertible function of $\alpha$ -- is somewhat different to this. A rough explanation of this condition is: the model represents the doctor's knowledge at the time they choose $\alpha$, and assumptions 1 and 2 imply that given their knowledge at the time, the two treatment episodes are indistinguishable. A deterministic choice of $\proc{D}$ ensures that the result of $\proc{D}$ cannot reflect anything new that is learned after the fact.
+
+This rough story can be extended to a randomised $\proc{D}$. We could say that $\proc{D}$ is ``randomised'' if it is chosen according to $c'(\alpha,\proc{R})$ for some function $c':A\times R\to D^2$ and some ``random'' $\proc{R}$. Then $\proc{D}$ again cannot reflect anything not known when $\alpha$ was chosen, because we assume that the results of random procedures carry no useful information.
+
+This story depends crucially on the state of knowledge of the decision maker when they make their choice. It seems difficult to state the assumption of deterministic $\proc{D}$ without the decision theoretic approach we adopt here.

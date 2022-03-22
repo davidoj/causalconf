@@ -1,4 +1,4 @@
-\begin{thebibliography}{39}
+\begin{thebibliography}{42}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -69,6 +69,16 @@ Erhan \c{C}inlar.
 \newblock \emph{Probability and Stochastics}.
 \newblock Springer, 2011.
 
+\bibitem[Chalupka et~al.(2017)Chalupka, Eberhardt, and
+  Perona]{chalupka_causal_2017}
+Krzysztof Chalupka, Frederick Eberhardt, and Pietro Perona.
+\newblock Causal feature learning: an overview.
+\newblock \emph{Behaviormetrika}, 44\penalty0 (1):\penalty0 137--164, January
+  2017.
+\newblock ISSN 1349-6964.
+\newblock \doi{10.1007/s41237-016-0008-2}.
+\newblock URL \url{https://doi.org/10.1007/s41237-016-0008-2}.
+
 \bibitem[Cho and Jacobs(2019)]{cho_disintegration_2019}
 Kenta Cho and Bart Jacobs.
 \newblock Disintegration and {Bayesian} inversion via string diagrams.
@@ -126,6 +136,14 @@ Bruno de~Finetti.
 \newblock ISBN 978-1-4612-0919-5.
 \newblock \doi{10.1007/978-1-4612-0919-5_10}.
 \newblock URL \url{https://doi.org/10.1007/978-1-4612-0919-5_10}.
+
+\bibitem[Eberhardt(2022)]{eberhardt_contemporary_2022}
+Frederick Eberhardt.
+\newblock A contemporary example of {Reichenbachian} coordination.
+\newblock \emph{Synthese}, 200\penalty0 (2):\penalty0 90, March 2022.
+\newblock ISSN 1573-0964.
+\newblock \doi{10.1007/s11229-022-03571-8}.
+\newblock URL \url{https://doi.org/10.1007/s11229-022-03571-8}.
 
 \bibitem[Ershov(1975)]{ershov_extension_1975}
 M.~P. Ershov.
@@ -224,6 +242,16 @@ Alan Hájek.
 \newblock \doi{10.1023/B:SYNT.0000004904.91112.16}.
 \newblock URL \url{https://doi.org/10.1023/B:SYNT.0000004904.91112.16}.
 
+\bibitem[Imbens and Rubin(2015)]{imbens_causal_2015}
+Guido~W. Imbens and Donald~B. Rubin.
+\newblock \emph{Causal {Inference} for {Statistics}, {Social}, and {Biomedical}
+  {Sciences}: {An} {Introduction}}.
+\newblock Cambridge University Press, Cambridge, 2015.
+\newblock ISBN 978-0-521-88588-1.
+\newblock \doi{10.1017/CBO9781139025751}.
+\newblock URL
+  \url{https://www.cambridge.org/core/books/causal-inference-for-statistics-social-and-biomedical-sciences/71126BE90C58F1A431FE9B2DD07938AB}.
+
 \bibitem[Lattimore and Rohde(2019{\natexlab{a}})]{lattimore_causal_2019}
 Finnian Lattimore and David Rohde.
 \newblock Causal inference with {Bayes} rule.
@@ -254,22 +282,6 @@ Karl Menger.
 Judea Pearl.
 \newblock \emph{Causality: {Models}, {Reasoning} and {Inference}}.
 \newblock Cambridge University Press, 2 edition, 2009.
-
-\bibitem[Pearl(2018)]{pearl_does_2018}
-Judea Pearl.
-\newblock Does {Obesity} {Shorten} {Life}? {Or} is it the {Soda}? {On}
-  {Non}-manipulable {Causes}.
-\newblock \emph{Journal of Causal Inference}, 6\penalty0 (2), 2018.
-\newblock \doi{10.1515/jci-2018-2001}.
-\newblock URL
-  \url{https://www.degruyter.com/view/j/jci.2018.6.issue-2/jci-2018-2001/jci-2018-2001.xml}.
-
-\bibitem[Pearl and Mackenzie(2018)]{pearl_book_2018}
-Judea Pearl and Dana Mackenzie.
-\newblock \emph{The {Book} of {Why}: {The} {New} {Science} of {Cause} and
-  {Effect}}.
-\newblock Basic Books, New York, 1 edition edition, May 2018.
-\newblock ISBN 978-0-465-09760-9.
 
 \bibitem[Peters et~al.(2016)Peters, Bühlmann, and
   Meinshausen]{peters_causal_2016}
@@ -334,6 +346,17 @@ Eyal Shahar.
 \newblock ISSN 1476-6256.
 \newblock \doi{10.1093/aje/kwp292}.
 
+\bibitem[Spirtes and Scheines(2004)]{spirtes_causal_2004}
+Peter Spirtes and Richard Scheines.
+\newblock Causal {Inference} of {Ambiguous} {Manipulations}.
+\newblock \emph{Philosophy of Science}, 71\penalty0 (5):\penalty0 833--845,
+  December 2004.
+\newblock ISSN 0031-8248, 1539-767X.
+\newblock \doi{10.1086/425058}.
+\newblock URL
+  \url{https://www.cambridge.org/core/journals/philosophy-of-science/article/abs/causal-inference-of-ambiguous-manipulations/2A605BCFFC1A879A157966473AC2A6D2}.
+\newblock Publisher: Cambridge University Press.
+
 \bibitem[Vorob’ev(1962)]{vorobev_consistent_1962}
 N.~N. Vorob’ev.
 \newblock Consistent {Families} of {Measures} and {Their} {Extensions}.
@@ -347,5 +370,14 @@ N.~N. Vorob’ev.
 Peter Walley.
 \newblock \emph{Statistical {Reasoning} with {Imprecise} {Probabilities}}.
 \newblock Chapman \& Hall, 1991.
+
+\bibitem[Woodward(2016)]{woodward_causation_2016}
+James Woodward.
+\newblock Causation and {Manipulability}.
+\newblock In Edward~N. Zalta, editor, \emph{The {Stanford} {Encyclopedia} of
+  {Philosophy}}. Metaphysics Research Lab, Stanford University, winter 2016
+  edition, 2016.
+\newblock URL
+  \url{https://plato.stanford.edu/archives/win2016/entries/causation-mani/}.
 
 \end{thebibliography}

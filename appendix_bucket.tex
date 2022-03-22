@@ -727,121 +727,35 @@ Consider $\alpha,\alpha'$ such that $\prob{P}^{\RV{D}_M}_\alpha = \prob{P}^{\RV{
 \end{proof}
 
 
-\subsection{Exchange commutativity}\label{sec:exchange_commutativity}
-
-Suppose there's a doctor, Dr Alice, who is examining patients and offering them treatment. We make a number of assumptions about measurement procedures that are \emph{interchangeable}, meaning that the same probability distribution should be used to model them. First, some general assumptions:
-\begin{enumerate}
-    \item If a procedure $\proc{T}$ is equivalent (Definition \ref{def:equality}) to $f\circ \proc{S}_\alpha$, then $\proc{T}$ is distributed according to $\prob{P}_\alpha\kernel{F}_f$
-    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are interchangeable if their descriptions are identical up to ``variable'' names
-\end{enumerate}
-
-And some assumptions specific to this example:
-\begin{enumerate}
-    \setcounter{enumi}{2}
-    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are interchangeable if the description of one can be obtained by permuting patients in the description of the other (\emph{patient indistinguishability})
-    \item Two procedures $\proc{S}_\alpha$ and $\proc{S}_{\alpha'}$ are interchangeable if the description of one can be obtained by permuting the order of treatment administration in the description of the other (\emph{order irrelevance})
-\end{enumerate}
-
-Consider first the decision procedure $\proc{S}_C$ that, for each $\alpha$, starts with deterministically choosing treatments according to the invertible function $c:A\to D^2$, assigns treatments to patients and returns the results:
-
-\begin{algorithmic}
-    \Procedure{$\proc{S}_\alpha$}{}
-    \State $(d_1,d_2) \gets c(\alpha)$
-    \State $y_1\gets \mathrm{apply}(d_1,\mathrm{patient\;A})$
-    \State $y_2\gets \mathrm{apply}(d_2,\mathrm{patient\;B})$
-    \State \Return $(d_1,d_2,y_1,y_2)$
-    \EndProcedure
-\end{algorithmic}
-
-By the assumptions of patient indistinguishability and order irrelevance, this is interchangeable with
-
-\begin{algorithmic}
-    \Procedure{$\proc{S}_\alpha$}{}
-    \State $(d_1,d_2) \gets c(\alpha)$
-    \State $y_2\gets \mathrm{apply}(d_2,\mathrm{patient\;A})$
-    \State $y_1\gets \mathrm{apply}(d_1,\mathrm{patient\;B})$
-    \State \Return $(d_1,d_2,y_1,y_2)$
-    \EndProcedure
-\end{algorithmic}
-
-Take some $\alpha'$ such that $\mathrm{choose\_treatments(\alpha)} = \mathrm{swap}\circ \mathrm{choose\_treatments(\alpha')}$.
-
-\begin{algorithmic}
-    \Procedure{$\text{swap}_{\RV{DY}}\circ \proc{S}_{\alpha'}$}{}
-    \State $(d_1,d_2) \gets c(\alpha')$
-    \State $y_1\gets \mathrm{apply}(d_1,\mathrm{patient\;A})$
-    \State $y_2\gets \mathrm{apply}(d_2,\mathrm{patient\;B})$
-    \State \Return $(d_1,d_2,y_1,y_2)$
-    \EndProcedure
-\end{algorithmic}
-
-Using interchangeability of equivalent procedures, we express $\proc{S}_{\alpha'}$ as
-
-\begin{algorithmic}
-    \Procedure{$\text{swap}_{\RV{DY}}\circ \proc{S}_{\alpha'}$}{}
-    \State $(d_2,d_1) \gets c(\alpha)$
-    \State $y_1\gets \mathrm{apply}(d_1,\mathrm{patient\;A})$
-    \State $y_2\gets \mathrm{apply}(d_2,\mathrm{patient\;B})$
-    \State \Return $(d_1,d_2,y_1,y_2)$
-    \EndProcedure
-\end{algorithmic}
-
-Let $d_1'=d_2$, $d_2'=d_1$, $y_1'=y_2$, $y_2'=y_1$
-
-\begin{algorithmic}
-    \Procedure{$\proc{S}_{\alpha'}$}{}
-    \State $(d'_1,d'_2) \gets c(\alpha)$
-    \State $y'_2\gets \mathrm{apply}(d'_2,\mathrm{patient\;A})$
-    \State $y'_1\gets \mathrm{apply}(d'_1,\mathrm{patient\;B})$
-    \State \Return $(d'_2,d'_1,y'_2,y'_1)$
-    \EndProcedure
-\end{algorithmic}
-
-Composing $\text{swap}_{\RV{DY}}$ with $\proc{S}_{\alpha'}$:
-
-\begin{algorithmic}
-    \Procedure{$\text{swap}_{\RV{DY}}\circ \proc{S}_{\alpha'}$}{}
-    \State $(d'_1,d'_2) \gets c(\alpha)$
-    \State $y'_2\gets \mathrm{apply}(d'_2,\mathrm{patient\;A})$
-    \State $y'_1\gets \mathrm{apply}(d'_1,\mathrm{patient\;B})$
-    \State \Return $(d'_1,d'_2,y'_1,y'_2)$
-    \EndProcedure
-\end{algorithmic}
-
-This is interchangeable with $\proc{S}_{\alpha}$ by interchangeability of descriptions up to variable names. Thus
-
-\begin{align}
-    \prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2} &= \prob{P}_{\alpha'}^{\RV{Y}_1\RV{Y}_2}\text{swap}_{\RV{Y}}
-\end{align}
-
-Because $(\RV{D}_1,\RV{D}_2)$ is deterministic for each $\alpha$,
-\begin{align}
-    \prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(A\times B|d_1,d_2) &= \begin{cases}
-        \prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2}(A\times B) &(d_1,d_2)=c(\alpha)\\ 
-        \mathrm{arbitrary}&\mathrm{otherwise}
-    \end{cases} \\
-    \implies \prob{P}_C^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(A\times B|d_1,d_2) &= \prob{P}_{c^{-1}(d_1,d_2)}(A\times B)
-\end{align}
-
-and as we have established by procedure interchangeability (noting that the binary $\text{swap}$ is its own inverse)
-
-\begin{align}
-    \text{swap}_{\RV{D}}\prob{P}_C^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}\text{swap}_{\RV{Y}}(A\times B|c(\alpha)) &= \prob{P}_{C}^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}\text{swap}_{\RV{Y}}(A\times B|c(\alpha'))\\
-    &= \prob{P}_{\alpha'}^{\RV{Y}_1\RV{Y}_2}\text{swap}_{\RV{Y}}(A\times B)\\
-    &= \prob{P}_\alpha^{\RV{Y}_1\RV{Y}_2}(A\times B)\\
-    &= \prob{P}_C^{\RV{Y}_1\RV{Y}_2|\RV{D}_1\RV{D}_2}(A\times B|c(\alpha))
-\end{align}
-
-Thus $\prob{P}_C$ is exchange commutative.
-
 \subsection{Body mass index revisited}\label{sec:bmi_revis}
 
+\begin{lemma}\label{lem:eci_cc_extend}
+Suppose we have a probability set $\prob{P}_C$ that is $(\RV{D},\RV{X};\RV{Y})$-causally contractible where $\RV{D}:=(\RV{D}_i)_{i\in M}$ and similarly for $\RV{X}$ and $\RV{Y}$. If $\RV{Y}_i\CI^e_{\prob{P}_C} \RV{D}_i C|\RV{X}_i\RV{H}$, then $\prob{P}_C$ is also $(\RV{X};\RV{Y})$-causally contractible.
+\end{lemma}
+
+\begin{proof}
+From causal contractibility we have
+\begin{align}
+\RV{Y}_i\CI_{\prob{P}_C}^e (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C},\RV{D}_{\{i\}^C}) C |\RV{H}\RV{D}_i\RV{X}_i
+\end{align}
+Combining this with the assumption $\RV{Y}_i\CI^e_{\prob{P}_C} \RV{D}_i C|\RV{X}_i\RV{H}$ we have, by contraction,
+\begin{align}
+    \RV{Y}_i\CI_{\prob{P}_C}^e (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C}) C |\RV{H}\RV{X}_i
+\end{align}
+
+Furthermore, also from causal contractibility, for all $i,j\in M$
+\begin{align}
+    \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{D}_iH} &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_j|\RV{X}_j\RV{D}_jH}\\
+    \implies \prob{P}_C^{\RV{Y}_i|\RV{X}_iH} &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_j|\RV{X}_jH}
+\end{align}
+\end{proof}
+
 \begin{reptheorem}{lem:proxy_control}
-Suppose we have a probability set $\prob{P}_C$ that is $(\RV{D};\RV{X},\RV{Y})$-causally contractible, where $\RV{D}:=(\RV{D}_i)_{i\in M}$ and likewise for $\RV{X}$ and $\RV{Y}$. If there exists $\alpha\in C$ such that $\prob{P}_\alpha^{\RV{D}}\gg \{\prob{P}_\beta^{\RV{D}}|\beta\in C\}$ and $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then $\prob{P}_C$ is also $(\RV{Y};\RV{X})$-causally contractible.
+Suppose we have a probability set $\prob{P}_C$ that is $(\RV{D};\RV{X},\RV{Y})$-causally contractible, where $\RV{D}:=(\RV{D}_i)_{i\in M}$ and similarly for $\RV{X}$ and $\RV{Y}$. If there exists $\alpha\in C$ such that $\prob{P}_\alpha^{\RV{D}}\gg \{\prob{P}_\beta^{\RV{D}}|\beta\in C\}$ and $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then $\prob{P}_C$ is also $(\RV{Y};\RV{X})$-causally contractible.
 \end{reptheorem}
 
 \begin{proof}
-We want to show that $\RV{Y}_i\CI_{\prob{P}_\alpha} (RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C},\RV{D}) |(\RV{H},\RV{X}_i)$ for all $i\in M$. Then the result follows by noting that $\prob{P}_C^{\RV{Y}|\RV{XHD}}$ exists by taking a higher order conditional with respect to $\prob{P}_C^{\RV{XYH}|\RV{D}}$ and $\prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}}$ therefore exists by application of Corollary \ref{cor:ci_cp_exist}.
+By Corollary \ref{cor:ci_cp_exist} and the existence of $\prob{P}_C^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}$ for all $i\in M$, $\prob{P}_C^{\RV{Y}_i|\RV{H}\RV{X}_i\RV{D}_i}$ also exists for all $i$. Furthermore, because $\prob{P}_C^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}=\prob{P}_C^{\RV{Y}_j\RV{X}_j|\RV{H}\RV{D}_j}$ for all $i,j\in M$, $\prob{P}_C^{\RV{Y}_i|\RV{H}\RV{X}_i\RV{D}_i}=\prob{P}_C^{\RV{Y}_j|\RV{H}\RV{X}_j\RV{D}_j}$ for all $i,j\in M$.
 
 From causal contractibility we have
 \begin{align}
@@ -849,9 +763,7 @@ From causal contractibility we have
 \RV{Y}_i\CI_{\prob{P}_\alpha} (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C}) |\RV{H}\RV{D}_i\RV{X}_i\label{eq:wu}
 \end{align}
 
-Where Eq. \ref{eq:wu} follows from \ref{eq:cc} by weak union.
+Where Eq. \ref{eq:wu} follows from \ref{eq:cc} by weak union. By Theorem \ref{th:cons_ci}, $\RV{Y}_i\CI_{\prob{P}_\alpha} (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C}) |\RV{H}\RV{D}_i\RV{X}_i$ also, and so $\prob{P}_C$ is $(\RV{D},\RV{X};\RV{Y})$-causally contractibile. 
 
-Thus by contraction, $\RV{Y}_i\CI_{\prob{P}_\alpha} (\RV{Y}_{\{i\}^C},\RV{X}_{\{i\}^C},\RV{D}) |\RV{H}\RV{X}_i$.
-
-By Corollary \ref{cor:ci_cp_exist} and the existence of $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}$ for all $i\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}$ exists for all $i$. Furthermore, because $\prob{P}^{\RV{Y}_i\RV{X}_i|\RV{H}\RV{D}_i}=\prob{P}^{\RV{Y}_j\RV{X}_j|\RV{H}\RV{D}_j}$ for all $i,j\in M$, $\prob{P}_\square^{\RV{Y}_i|\RV{H}\RV{X}_i}=\prob{P}_\square^{\RV{Y}_j|\RV{H}\RV{X}_j}$ for all $i,j\in M$.
+$\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i |(\RV{H},\RV{X}_i)$ for all $i\in M$ implies $\RV{Y}_i\CI_{\prob{P}_C}^e \RV{D}_i C|(\RV{H},\RV{X}_i)$ for all $i\in M$ by Theorem \ref{th:cons_ci}. The result follows by noting that $\prob{P}_C$ is also $(\RV{D},\RV{X};\RV{Y})$-causally contractible by higher order conditionals, and therefore $(\RV{X};\RV{Y})$-causally contractible by Lemma \ref{lem:eci_cc_extend}.
 \end{proof}
