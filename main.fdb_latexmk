@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex main"] 1647928234 "main.aux" "main.bbl" "main" 1647928240
+["bibtex main"] 1647929112 "main.aux" "main.bbl" "main" 1647929119
   "/usr/local/texlive/2021/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "main.aux" 1647928240 18947 a7a645cac03dd371185e21161f2156a1 "lualatex"
+  "main.aux" 1647929118 18947 cf269b33f24f9af395a5e53cbf0a3cc9 "lualatex"
   "references.bib" 1647926513 224661 a4c37d9ad7f06579d83850d6d6bdc6f1 ""
   (generated)
   "main.blg"
   "main.bbl"
-["lualatex"] 1647928234 "main.tex" "main.pdf" "main" 1647928240
+["lualatex"] 1647929112 "main.tex" "main.pdf" "main" 1647929119
   "/Users/davidjohnston/Library/texlive/2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc" 1627009929 123160 fbe1a84f1f7fa0f7b674538f719d266f ""
   "/Users/davidjohnston/Library/texlive/2021/texmf-var/luatex-cache/generic/names/luaotfload-names.luc" 1627009929 1575827 360718b03b1f1227f3b1afff93259046 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -400,11 +400,11 @@
   "figures/plate_without_copymap.tikz" 1647559965 712 a843f4b04744eeaf15f57d47bcbad215 ""
   "figures/swap_example.tikz" 1647559965 553 1ecdd38dfab1613056725ab746518393 ""
   "figures/swap_example_2.tikz" 1647559965 547 d2ef0ab9aef12b616ab922520a5f9b98 ""
-  "main.aux" 1647928240 18947 a7a645cac03dd371185e21161f2156a1 "lualatex"
-  "main.bbl" 1647928234 16603 9c1c89275bcba4348a0bd79d840b9a26 "bibtex main"
-  "main.out" 1647928240 7811 1c4770aef5ecfe64e47b50dcb2b6824d "lualatex"
-  "main.tex" 1647928221 25515 72695baf08f4a635e58c0fe52d3a24cc ""
-  "main.toc" 1647928240 3778 4a4347f03a9bd54c318408f8d7ad4afc "lualatex"
+  "main.aux" 1647929118 18947 cf269b33f24f9af395a5e53cbf0a3cc9 "lualatex"
+  "main.bbl" 1647929112 16603 9c1c89275bcba4348a0bd79d840b9a26 "bibtex main"
+  "main.out" 1647929118 7811 1c4770aef5ecfe64e47b50dcb2b6824d "lualatex"
+  "main.tex" 1647929105 25772 0e077df007ae0c523dc894b6169d28f6 ""
+  "main.toc" 1647929118 3778 3aaf8448af8128acb21785a1b29f3a54 "lualatex"
   "markov_string_diagrams.tex" 1647559965 10595 7e147b5da7770fab2c093e217aea3454 ""
   "probability.tex" 1647559965 10278 ee8d600831641ab9b0ce9af95e2bc45e ""
   "probability_sets.tex" 1647830006 22194 1a5616a9ad253b8dc66182b26f802edd ""
@@ -413,8 +413,8 @@
   "tikzit.sty" 1634537622 1248 43e1a5fcf14fc024e289b1463d1206ce ""
   "variables.tex" 1647559965 17028 8a32dde7841edf0a8a687b68304e6b61 ""
   (generated)
-  "main.pdf"
   "main.aux"
   "main.toc"
-  "main.log"
+  "main.pdf"
   "main.out"
+  "main.log"

@@ -1,13 +1,13 @@
 \contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Our approach}{4}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Contributions}{6}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.2}Contributions}{7}{subsection.1.2}%
 \contentsline {section}{\numberline {2}Variables in probabilistic models}{7}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Measurement procedures}{9}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Observable variables}{10}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.2}Observable variables}{11}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Model variables}{11}{subsection.2.3}%
 \contentsline {subsection}{\numberline {2.4}Variable sequences}{12}{subsection.2.4}%
 \contentsline {subsection}{\numberline {2.5}Decision procedures}{12}{subsection.2.5}%
-\contentsline {section}{\numberline {3}Decision problems}{12}{section.3}%
+\contentsline {section}{\numberline {3}Decision problems}{13}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Other decision theoretic causal models}{13}{subsection.3.1}%
 \contentsline {section}{\numberline {4}Probability prerequisites}{14}{section.4}%
 \contentsline {subsection}{\numberline {4.1}The roles of variables and probabilistic models}{14}{subsection.4.1}%

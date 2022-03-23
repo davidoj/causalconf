@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.13.0 (TeX Live 2021)  (format=lualatex 2021.7.16)  22 MAR 2022 16:50
+This is LuaHBTeX, Version 1.13.0 (TeX Live 2021)  (format=lualatex 2021.7.16)  22 MAR 2022 17:05
  restricted system commands enabled.
 **main.tex
 (./main.tex
@@ -1398,12 +1398,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 
 Here is how much of LuaTeX's memory you used:
  33628 strings out of 478531
- 125009,1144653 words of node,token memory allocated
+ 125003,1144653 words of node,token memory allocated
  1334 words of node memory still in use:
    23 hlist, 2 vlist, 10 rule, 2 glue, 4 kern, 1 glyph, 83 attribute, 60 glue_sp
 ec, 83 attribute_list, 2 write, 16 pdf_literal, 27 pdf_action, 16 pdf_colorstack
  nodes
-   avail lists: 2:4897,3:2454,4:162,5:535,6:61,7:8631,8:184,9:1573,10:23,11:734
+   avail lists: 1:1,2:4897,3:2454,4:162,5:535,6:61,7:8629,8:184,9:1573,10:23,11:
+734
  49367 multiletter control sequences out of 65536+600000
  112 fonts using 8461855 bytes
  128i,17n,123p,1305b,988s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1440,10 +1441,10 @@ onts/type1/public/amsfonts/symbols/msbm5.pfb></usr/local/texlive/2021/texmf-dist
 /fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2021/texmf-di
 st/fonts/type1/public/stmaryrd/stmary10.pfb></usr/local/texlive/2021/texmf-dist/
 fonts/type1/public/wasy-type1/wasy10.pfb>
-Output written on main.pdf (65 pages, 784090 bytes).
+Output written on main.pdf (65 pages, 784414 bytes).
 
-PDF statistics: 1416 PDF objects out of 1440 (max. 8388607)
- 1287 compressed objects within 13 object streams
+PDF statistics: 1418 PDF objects out of 1440 (max. 8388607)
+ 1289 compressed objects within 13 object streams
  501 named destinations out of 1000 (max. 131072)
  512 words of extra memory for PDF output out of 10000 (max. 100000000)
 

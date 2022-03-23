@@ -216,21 +216,24 @@ At least three responses to this problem can be found: \citet{spirtes_causal_200
 
 \subsection{Our approach}
 
-An observation previously made by \citet{dawid_decision-theoretic_2020} and \citet{heckerman_decision-theoretic_1995} is that, when we are faced with a decision problem, the difficult question of finding ``a fundamental set of well-defined interventions'' is automatically resolved. In short: if we are facing a decision problem, then there must be a number of different choices that we want to compare. We need to compare every choice available, and there is no comparison that we need to make involving anything but the choices available. Thus, given a decision problem, the ``fundamental set of interventions'' is precisely the set of choices that require comparison.
+We tackle the problem of when ``causal effects'' exist. Our approach differs from one or both of the popular approaches discussed above in a number of ways:
 
-We assume that the reason to construct causal models is to help solve decision problems, and that we therefore have a fundamental set of choices $C$ to be compared. For each choice $c\in C$, we assume that some measurement procedure is carried out yielding results in a sample space $(\Omega,\sigalg{F})$, and we represent uncertain knowledge about the result of this procedure with a probability distribution on $(\Omega,\sigalg{F})$. The model postulated is a ``probability function''; a map from $C$ to probability distributions on a sample space $\Omega$. Probability functions are also the kind of model used in many interventional causal models \citet{pearl_causality:_2009,richardson2013single}, as well as the kind of model used in less widespread decision theoretic or Bayesian causal models \citet{dawid_decision-theoretic_2020,lattimore_causal_2019}.
+\begin{enumerate}
+  \item We assume that the objective analysis is to compare different choices available in a decision problem
+  \item Variables are associated with measurement procedures, not generic ``kinds'' of measurement procedures
+  \item Probability distributions represent uncertain knowledge about the results of measurement procedures
+\end{enumerate}
 
-Both decision theoretic causal models and interventional causal models are represented by probability functions, so the diffrence between them is ``only'' is a difference of interpretation. However, the difference in interpretation does lead to differences in the way that we construct models for a given problem.
+Regarding the first: an observation previously made by \citet{dawid_decision-theoretic_2020} and \citet{heckerman_decision-theoretic_1995} is that, when we are faced with a decision problem, the difficult question of finding ``a fundamental set of well-defined interventions'' is automatically resolved. In short: if we are facing a decision problem, then there must be a number of different choices that we want to compare. We need to compare every choice available, and there is no comparison that we need to make involving anything but the choices available. Thus, given a decision problem, the ``fundamental set of interventions'' is precisely the set of choices that require comparison. This is unlike the potential outcomes approach, which doesn't feature sets of interventions, and unlike causal graphical models in which the set of interventions is derived from the set of variables in the model.
 
-For example, interventional causal models are typically models of what \citet{dawid_decision-theoretic_2020} calls ``generic variables''. If we have a sequence of independent and identically distributed variables $(\RV{X}_1,\RV{Y}_1),(\RV{X}_2,\RV{Y}_2),...$ that are associated with a concrete measurement procedure, sometimes the individual variables are replaced by a generic ``$\RV{X}$'' and ``$\RV{Y}$''.
+Regarding the second: interventional causal models are typically model relationships between what \citet{dawid_decision-theoretic_2020} calls ``generic variables''. Generic variables represent ``types'' of things we can measure, not the results of particular measurements. In standard statistical analysis, generic variables ``$\RV{X}$'' and ``$\RV{Y}$'' might be used to refer to a model of an independent and identically distributed sequence of variables $(\RV{X}_1,\RV{Y}_1),(\RV{X}_2,\RV{Y}_2),...$. As we are interested in when such ``generic causal relationships'' exist, we take as a starting point variables that represent the results of particular measuremnts, not the results of ``types'' of measurement.
 
-Our approach, on the other hand: if the measurement procedure we want to model is associated with the variables $(\RV{X}_1,\RV{Y}_1),(\RV{X}_2,\RV{Y}_2),...$, then we construct a model of those variables. The assumption that the sequence is independent and identically distributed doesn't even make sense when the model is a probability function instead of a single probability distribution.
+Regarding the third: our approach is similar to De Finetti's approach to standard statistical inference; we understand ``probabilistic causal relationships'' between variables to be features of the probabilistic model we use to represent uncertain knowledge about the results of the corresponding measurements. This is in contrast to approaches in which probabilstic causal relationships are taken to be objective properties of the world that we are trying to uncover. 
 
-When we construct a model like this, then it makes sense to ask the question: when \emph{could} we represent the model of the whole sequence with a model of generic variables?
+\subsection{Paper Outline}
 
-
-
-While the difference is ``merely'' on the level of interpretation, it informs the way we use probability functions to construct causal models. 
+\todo[inline]{finish motivation here}
+\todo[inline]{send to Sarita}
 
 However, this is not enough on its own to resolve the question of when causal effects exist. The ``causal effect of $\RV{X}$ on $\RV{Y}$'' is not just some probabilistic function from the range of $\RV{X}$ to the range of $\RV{Y}$. Rather, as typically understood, it has a few properties:
 
