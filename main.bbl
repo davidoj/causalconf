@@ -1,4 +1,4 @@
-\begin{thebibliography}{42}
+\begin{thebibliography}{38}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -54,15 +54,6 @@ Stephan Bongers, Jonas Peters, Bernhard Schölkopf, and Joris~M. Mooij.
 \newblock \emph{arXiv:1611.06221 [cs, stat]}, November 2016.
 \newblock URL \url{http://arxiv.org/abs/1611.06221}.
 \newblock arXiv: 1611.06221.
-
-\bibitem[Boole(1862)]{boole_theory_1862}
-George Boole.
-\newblock On the {Theory} of {Probabilities}.
-\newblock \emph{Philosophical Transactions of the Royal Society of London},
-  152:\penalty0 225--252, 1862.
-\newblock ISSN 0261-0523.
-\newblock URL \url{https://www.jstor.org/stable/108830}.
-\newblock Publisher: The Royal Society.
 
 \bibitem[\c{C}inlar(2011)]{cinlar_probability_2011}
 Erhan \c{C}inlar.
@@ -127,16 +118,6 @@ Philip Dawid.
   \url{https://www.degruyter.com/document/doi/10.1515/jci-2020-0008/html}.
 \newblock Publisher: De Gruyter.
 
-\bibitem[de~Finetti({[1937] 1992})]{de_finetti_foresight_1992}
-Bruno de~Finetti.
-\newblock Foresight: {Its} {Logical} {Laws}, {Its} {Subjective} {Sources}.
-\newblock In Samuel Kotz and Norman~L. Johnson, editors, \emph{Breakthroughs in
-  {Statistics}: {Foundations} and {Basic} {Theory}}, Springer {Series} in
-  {Statistics}, pages 134--174. Springer, New York, NY, {[1937] 1992}.
-\newblock ISBN 978-1-4612-0919-5.
-\newblock \doi{10.1007/978-1-4612-0919-5_10}.
-\newblock URL \url{https://doi.org/10.1007/978-1-4612-0919-5_10}.
-
 \bibitem[Eberhardt(2022)]{eberhardt_contemporary_2022}
 Frederick Eberhardt.
 \newblock A contemporary example of {Reichenbachian} coordination.
@@ -154,12 +135,6 @@ M.~P. Ershov.
 \newblock \doi{10.1137/1119053}.
 \newblock URL \url{https://epubs.siam.org/doi/abs/10.1137/1119053}.
 \newblock Publisher: Society for Industrial and Applied Mathematics.
-
-\bibitem[Feller(1968)]{feller_introduction_1968}
-William Feller.
-\newblock \emph{An {Introduction} to {Probability} {Theory} and its
-  {Applications}, {Volume} 1}.
-\newblock J. Wiley \& Sons: New York, 1968.
 
 \bibitem[Feynman(1979)]{feynman_feynman_1979}
 R.P. Feynman.
@@ -185,14 +160,6 @@ Tobias Fritz.
 \newblock \doi{10.1016/j.aim.2020.107239}.
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S0001870820302656}.
-
-\bibitem[Gelman et~al.(2021)Gelman, Carlin, Stern, Dunson, Vehtari, and
-  Rubin]{gelman_bayesian_2021}
-Andrew Gelman, John~B. Carlin, Hal~S. Stern, David~B. Dunson, Aki Vehtari, and
-  Donald~B. Rubin.
-\newblock \emph{Bayesian {Data} {Analysis}}.
-\newblock Electronic edition, 3rd edition edition, 2021.
-\newblock URL \url{http://www.stat.columbia.edu/~gelman/book/BDA3.pdf}.
 
 \bibitem[Greenland and Robins(1986)]{greenland_identifiability_1986}
 Sander Greenland and James~M Robins.
@@ -283,6 +250,15 @@ Judea Pearl.
 \newblock \emph{Causality: {Models}, {Reasoning} and {Inference}}.
 \newblock Cambridge University Press, 2 edition, 2009.
 
+\bibitem[Pearl(2018)]{pearl_does_2018}
+Judea Pearl.
+\newblock Does {Obesity} {Shorten} {Life}? {Or} is it the {Soda}? {On}
+  {Non}-manipulable {Causes}.
+\newblock \emph{Journal of Causal Inference}, 6\penalty0 (2), 2018.
+\newblock \doi{10.1515/jci-2018-2001}.
+\newblock URL
+  \url{https://www.degruyter.com/view/j/jci.2018.6.issue-2/jci-2018-2001/jci-2018-2001.xml}.
+
 \bibitem[Peters et~al.(2016)Peters, Bühlmann, and
   Meinshausen]{peters_causal_2016}
 Jonas Peters, Peter Bühlmann, and Nicolai Meinshausen.
@@ -365,11 +341,6 @@ N.~N. Vorob’ev.
 \newblock \doi{10.1137/1107014}.
 \newblock URL
   \url{http://www.mathnet.ru/php/archive.phtml?wshow=paper&jrnid=tvp&paperid=4710&option_lang=eng}.
-
-\bibitem[Walley(1991)]{walley_statistical_1991}
-Peter Walley.
-\newblock \emph{Statistical {Reasoning} with {Imprecise} {Probabilities}}.
-\newblock Chapman \& Hall, 1991.
 
 \bibitem[Woodward(2016)]{woodward_causation_2016}
 James Woodward.

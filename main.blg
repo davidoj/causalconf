@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2021)
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
@@ -9,45 +9,45 @@ Repeated entry---line 2053 of file references.bib
 I'm skipping whatever remains of this entry
 Warning--to sort, need author or key in kallenberg_basic_2005
 Warning--empty author in kallenberg_basic_2005
-You've used 42 entries,
+You've used 38 entries,
             2773 wiz_defined-function locations,
-            950 strings with 15110 characters,
-and the built_in function-call counts, 18982 in all, are:
-= -- 1886
-> -- 770
-< -- 43
-+ -- 271
-- -- 228
-* -- 1484
-:= -- 2977
-add.period$ -- 227
-call.type$ -- 42
-change.case$ -- 192
-chr.to.int$ -- 41
-cite$ -- 87
-duplicate$ -- 915
-empty$ -- 1627
-format.name$ -- 293
-if$ -- 4034
+            918 strings with 14270 characters,
+and the built_in function-call counts, 17119 in all, are:
+= -- 1718
+> -- 675
+< -- 39
++ -- 238
+- -- 199
+* -- 1352
+:= -- 2683
+add.period$ -- 209
+call.type$ -- 38
+change.case$ -- 173
+chr.to.int$ -- 37
+cite$ -- 79
+duplicate$ -- 820
+empty$ -- 1468
+format.name$ -- 260
+if$ -- 3636
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 49
-newline$ -- 312
-num.names$ -- 176
-pop$ -- 306
+missing$ -- 42
+newline$ -- 287
+num.names$ -- 158
+pop$ -- 258
 preamble$ -- 1
-purify$ -- 155
+purify$ -- 138
 quote$ -- 0
-skip$ -- 630
+skip$ -- 564
 stack$ -- 0
-substring$ -- 746
-swap$ -- 121
-text.length$ -- 8
+substring$ -- 681
+swap$ -- 108
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 422
+type$ -- 393
 warning$ -- 2
-while$ -- 185
+while$ -- 167
 width$ -- 0
-write$ -- 749
+write$ -- 686
 (There was 1 error message)

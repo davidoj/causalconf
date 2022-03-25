@@ -1,4 +1,4 @@
-\section{Probability sets}
+\section{Probability sets}\label{sec:probability_sets}
 
 A probability set is a set of probability measures. This section establishes a number of useful properties of conditional probability with respect to probability sets. Unlike conditional probability with respect to a probability space, conditional probabilities don't always exist for probability sets. Where they do, however, they are almost surely unique and we can marginalise and disintegrate them to obtain other conditional probabilities with respect to the same probability set.
 
@@ -12,11 +12,11 @@ Given a probability set $\prob{P}_{\{\}}$, we define marginal and conditional pr
 Given a sample space $(\Omega,\sigalg{F})$, a variable $\RV{X}:\Omega\to X$ and a probability set $\prob{P}_{\{\}}$, the marginal distribution $\prob{P}_{\{\}}^{\RV{X}}=\prob{P}_\alpha^{\RV{X}}$ for any $\prob{P}_\alpha\in\prob{P}_{\{\}}$ if a distribution satisfying this condition exists. Otherwise, it is undefined.
 \end{definition}
 
-\begin{definition}[Uniform conditional distribution with respect to a probability set]\label{def:cprob_pset}
+\begin{definition}[Uniform conditional distribution]\label{def:cprob_pset}
 Given a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}$, a uniform conditional distribution $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is an $\RV{Y}|\RV{X}$ conditional probability of $\prob{P}_\alpha$ for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. If no such Markov kernel exists, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is undefined.
 \end{definition}
 
-\begin{definition}[Uniform higher order conditional distribution with respect to a probability set]\label{def:ho_cprob_pset}
+\begin{definition}[Uniform higher order conditional]\label{def:ho_cprob_pset}
 Given a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$, if $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists then a uniform higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is any Markov kernel $X\times Y\kto Z$ that is a higher order conditional of some version of $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$. If no $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists, $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is undefined.
 \end{definition}
 
@@ -183,7 +183,7 @@ By Theorem \ref{th:cons_ci}, there is $\kernel{K}:W\kto Y$ such that for all $\b
 Thus $\kernel{K}$ is a version of $\prob{P}_{C}^{\RV{Y}|\RV{W}}$.
 \end{proof}
 
-\subsection{Uniform conditional independence}\label{sec:eci}
+\subsection{Extended conditional independence}\label{sec:eci}
 
 There are different notions of conditional independence that could be applied to a probability set $\prob{P}_C$. We can say $\RV{X}$ is ``globally independent'' of $\RV{Y}$ given $\RV{Z}$ if for every $\prob{P}_\alpha\in \prob{P}_C$, $\RV{X}\CI_{\prob{P}_\alpha}\RV{Y}|\RV{Z}$. Alternatively, we can say $\RV{X}$ is ``uniformly independent'' of $\RV{Y}$ given $\RV{Z}$ if $\prob{P}_C^{\RV{X}|\RV{YZ}}$ exists and does not depend on $\RV{Y}$. We are particularly interested in the second kind, as this is the kind of conditional independence that enables simplified representations of uniform conditional distributions.
 

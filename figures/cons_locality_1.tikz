@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=medium kernel tikzit] (0) at (-4.75, 0) {$\prob{P}_C^{\RV{Y}_{1,2}|\RV{X}_{1,2}}$};
+		\node [style=medium kernel tikzit] (1) at (4.25, 0.75) {$\prob{P}_C^{\RV{Y}_1|\RV{X}_1}$};
+		\node [style=RLabel tikzit] (2) at (6, 0.75) {$\RV{Y}_1$};
+		\node [style=none] (3) at (6, -0.5) {};
+		\node [style=none] (4) at (-2.25, -0.5) {};
+		\node [style=RLabel tikzit] (5) at (-2.25, 0.5) {$\RV{Y}_1$};
+		\node [style=Llabel tikzit] (6) at (2.5, 0.75) {$\RV{X}_1$};
+		\node [style=Llabel tikzit] (7) at (2.5, -0.5) {$\RV{X}_2$};
+		\node [style=Llabel tikzit] (8) at (-7, 0.5) {$\RV{X}_1$};
+		\node [style=Llabel tikzit] (9) at (-7, -0.5) {$\RV{X}_2$};
+		\node [style=none] (10) at (0, 0.25) {$=$};
+		\node [style=none] (11) at (-5.25, 0.5) {};
+		\node [style=none] (12) at (-5.25, -0.5) {};
+		\node [style=none] (13) at (-4.25, 0.5) {};
+		\node [style=none] (14) at (-4.25, -0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=delmap] (7) to (3.center);
+		\draw [style=delmap] (14.center) to (4.center);
+		\draw (13.center) to (5);
+		\draw (6) to (1);
+		\draw (1) to (2);
+		\draw (11.center) to (8);
+		\draw (9) to (12.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

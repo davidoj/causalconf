@@ -647,8 +647,30 @@ By definition,
 \end{align}
 \end{proof}
 
+\begin{replemma}{lem:aug_cc}
+Given a $(\RV{D};\RV{Y})$-causally contractible model $\prob{P}_C'$ on $(\Omega',\sigalg{F}')$, there exists an \emph{augmented} model $\prob{P}_C$ on $(\Omega,\sigalg{F}):=((\Omega'\times Y^D,\sigalg{F}'\otimes\sigalg{Y}^D)$ such that $\prob{P}_C\Pi_{\Omega'}=\prob{P}_C'$ and, defining $\RV{Y}^D:\Omega\times Y^D\to Y^D$ as the projection onto $Y^D$
+\begin{align}
+    \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation_variablised}
+\end{align}
+\end{replemma}
+
+\begin{proof}
+Set $\prob{P}_C^{\RV{Y}|\RV{Y}^D\RV{D}}=\kernel{F}_{\mathrm{ev}}$ and $\prob{P}_C^{\RV{Y}^D|\RV{D}}=\mu^{\RV{Y}^D}\mathrm{erase}_{D^{\mathbb{N}}}\otimes \mathrm{erase}_D$ as in Theorem \ref{th:table_rep}. Then Equation \ref{eq:lup_rep_varb} follows Theorem \ref{th:table_rep}.
+
+Let $\RV{W}=\Pi_{\Omega'}$ and for each $\alpha\in C$, set 
+\begin{align}
+    \prob{P}_\alpha^{\RV{W}|\RV{Y}^D\RV{D}} &= \tikzfig{augmented_ccontracible}
+\end{align}
+Then
+\begin{align}
+    \prob{P}_\alpha^{\RV{W}} &= \tikzfig{augmented_ccon2}\\
+    &= \tikzfig{augmented_ccon3}\\
+    &= \prob{P}_\alpha'
+\end{align}
+\end{proof}
+
 \begin{reptheorem}{th:iid_rep}
-Suppose we have a sample space $(\Omega,\sigalg{F})$ and a probability set $\prob{P}_C$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ where $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_C$ is augmented $(\RV{D};\RV{Y})$-causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{H}}_C$ and $\prob{P}_C^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exist for all $i\in \mathbb{N}$ and
+Suppose we have a sample space $(\Omega,\sigalg{F})$ and a probability set $\prob{P}_C$ with uniform conditional $\prob{P}_C^{\RV{Y}|\RV{D}}$ where $\RV{D}:=(\RV{D}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in \mathbb{N}}$. $\prob{P}_C$ is $(\RV{D};\RV{Y})$-causally contractible if and only if there exists some $\RV{H}:\Omega\to H$ such that $\prob{P}^{\RV{H}}_C$ and $\prob{P}_C^{\RV{Y}_i|\RV{H}\RV{D}_i}$ exist for all $i\in \mathbb{N}$ and
 \begin{align}
     \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{do_model_representation}\\
     &\iff\\
@@ -662,7 +684,7 @@ Where $\Pi_{D,i}:D^\mathbb{N}\kto D$ is the $i$th projection map.
 \begin{proof}
 We make use of Lemma \ref{th:table_rep} to show that we can represent the conditional probability $\prob{P}_C^{\RV{Y}|\RV{D}}$ as
 \begin{align}
-        \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}\\
+        \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{lookup_representation}
 \end{align}
 
 As a preliminary, we will show
@@ -692,7 +714,7 @@ By definition, for any $\{A_i\in\sigalg{Y}|i\in \mathbb{N}\}$
 Which is what we wanted to show.
 
 Only if:
-As we have an augmented causally contractible model, we have a variable $\RV{Y}^D=(\RV{Y}^D_i)_{i\in \mathbb{N}}$ exchangeable with respect to $\prob{P}^{\RV{Y}^D}_C$ (Lemma \ref{th:table_rep}). From \citet{kallenberg_basic_2005} we have a directing random measure $\RV{H}$ such that
+We will assume without loss of generality that we are dealing with an augmented causally contractible model (Lemma \ref{lem:aug_cc}). Because we have an augmented causally contractible model, we have a variable $\RV{Y}^D=(\RV{Y}^D_i)_{i\in \mathbb{N}}$ exchangeable with respect to $\prob{P}^{\RV{Y}^D}_C$ (Lemma \ref{th:table_rep}). From \citet{kallenberg_basic_2005} we have a directing random measure $\RV{H}$ such that
 \begin{align}
     \prob{P}_C^{\RV{Y}^D|\RV{H}} &= \tikzfig{de_finetti_representation}\\
     &\iff\\
