@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (1.5, 1.75) {$\prob{P}_C^{\RV{Y}|\RV{IX}}$};
+		\node [style=small dist tikzit] (1) at (-3.25, 2.5) {$\prob{P}_C^{\RV{I}}$};
+		\node [style=Llabel tikzit] (2) at (-3.25, 1.25) {$\RV{X}$};
+		\node [style=RLabel tikzit] (3) at (5.25, 1.75) {$\RV{Y}$};
+		\node [style=none] (4) at (-1.5, 2.5) {};
+		\node [style=none] (5) at (-1.5, 1.25) {};
+		\node [style=small kernel tikzit] (6) at (-1, 2.5) {$\rho_I$};
+		\node [style=small kernel tikzit] (7) at (3.75, 1.75) {$\rho^{-1}_Y$};
+		\node [style=none] (8) at (0.5, 2) {};
+		\node [style=none] (9) at (0.5, 1.5) {};
+		\node [style=small kernel tikzit] (11) at (-1, 1.25) {$\rho_X$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [in=180, out=0] (1) to (4.center);
+		\draw [in=-180, out=0] (2) to (5.center);
+		\draw (0) to (7);
+		\draw (7) to (3);
+		\draw [in=180, out=0] (6) to (8.center);
+		\draw [in=180, out=0] (11) to (9.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -294,10 +294,10 @@ If we additionally assume $\prob{P}_C^{\RV{X}_{i}|\RV{H}}\cong \prob{P}_C^{\RV{X
 
 Equation \ref{eq:backdoor} is identical to the backdoor adjustment formula for an intervention on $\RV{D}_1$ targeting $\RV{Y}_1$ where $\RV{X}_1$ is a common cause of both.
 
-While it is formally possible to use a causally contractible model for a decision procedure that involves both passive observations and active choices, causal contractibility is a very strong assumption. Suppose we have a decision procedure in which $M$ passive observations are made $(\RV{X}_M,\RV{Y}_M)$, followed by $M$ active choices $(\RV{X}_{(M,2M]},\RV{Y}_{(M,2M]})$. If a model $\prob{P}_C$ of this procedure is $(\RV{X}_{2M},\RV{Y}_{2M})$-causally contractible model then the following holds (see corollary \ref{th:equal_of_condits}):
+While it is formally possible to use a causally contractible model for a decision procedure that involves both passive observations and active choices, causal contractibility is a very strong assumption. Suppose we have a decision procedure in which $M$ passive observations are made $(\RV{D}_M,\RV{Y}_M)$, followed by $M$ active choices $(\RV{D}_{(M,2M]},\RV{Y}_{(M,2M]})$. If a model $\prob{P}_C$ of this procedure is $(\RV{D}_{2M},\RV{Y}_{2M})$-causally contractible model then the following holds (see corollary \ref{th:equal_of_condits}):
 \begin{align}
-    \prob{P}^{\RV{Y}_{[2,M+1]}|\RV{X}_{[2,M+1]}}_C &= \prob{P}^{\RV{Y}_{(M,2M]}|\RV{X}_{(M,2M]}}\\
-    \implies \prob{P}^{\RV{Y}_{M+1}|\RV{X}_{[2,M+1]}\RV{Y}_{[2,M]}}_C &= \prob{P}^{\RV{Y}_{M+1}|\RV{X}_{(M,2M]}\RV{Y}_{(M+1,2M]}}
+    \prob{P}^{\RV{Y}_{[2,M+1]}|\RV{D}_{[2,M+1]}}_C &= \prob{P}^{\RV{Y}_{(M,2M]}|\RV{D}_{(M,2M]}}\\
+    \implies \prob{P}^{\RV{Y}_{M+1}|\RV{D}_{[2,M+1]}\RV{Y}_{[2,M]}}_C &= \prob{P}^{\RV{Y}_{M+1}|\RV{D}_{(M,2M]}\RV{Y}_{(M+1,2M]}}
 \end{align}
 That is, causal contractibility implies that there is no difference between conditioning on observational results or on the results of active choices; active choices are as good for predicting observations as vise-versa. Normally one might consider randomised experimental results to be ``better'' than passive observations, but this is not compatible with the assumption of causal contractibility.
 
@@ -323,59 +323,82 @@ Similar questions have been examined before, and a variety of answers have been 
     indexing of the units is, by definition, a random permutation of $1,..., N$, and thus any distribution on the science must be row-exchangeable [...] The second critical fact is that if the treatment assignment mechanism is ignorable (e.g., randomized), then when the expression for the assignment mechanism (2) is evaluated at the observed data, it is free of dependence on $Y_{mis}$
 \end{quote}
 
-Theorem \ref{th:cc_ind_treat} formalises these ideas. As an example of its application, consider an experiment where $N$ patients are treated, each with an individual identifier $\RV{I}_i$, who receives treatment $\RV{X}_i$ and experiences outcome $\RV{Y}_i$. We assume a $(\RV{X},\RV{I};\RV{Y})$-causally contractible model is appropriate. This reflects two judgments; firstly, that treatments and identifiers only affect their local consequences (Definition \ref{def:caus_cont}), and secondly we are indifferent the order in which the individuals appear and the treatments are received. We also assume that at the outset we are ignorant about any differences between each individual; specifically, permuting the individuals involved in the experiment leaves us with the same model.
+Theorem \ref{th:cc_ind_treat} formalises these ideas. As an example of its application, consider an experiment where $N$ patients are treated, each with an individual identifier $\RV{I}_i$, who receives treatment $\RV{X}_i$ and experiences outcome $\RV{Y}_i$. We assume a $((\RV{D},\RV{I});\RV{Y})$-causally contractible model is appropriate. This reflects two judgments; firstly, that treatments and identifiers only affect their local consequences (Definition \ref{def:caus_cont}), and secondly we are indifferent the order in which the individuals appear and the treatments are received. We also assume that at the outset we are ignorant about any differences between each individual; specifically, permuting the individuals involved in the experiment leaves us with the same model.
 
-Under these conditions, additionally assuming that treatments are independent of identifiers conditional on the hypothesis $\RV{H}$ implies that the model is also $(\RV{X};\RV{Y})$-causally contractible. To understand the meaning of this last assumption, consider that each identifier $a\in I$ is associated, in the large sample limit $h\in H$, with a stochastic ``individual response function'' $\kernel{K}: X\kto Y$ defined by
+\begin{lemma}
+If $\prob{P}_C$ is $((\RV{D},\RV{I});\RV{Y})$-causally contractible and $\RV{Y}\CI_{\prob{P}_C}^e \RV{I}C|\RV{D}$, then $\prob{P}_C$ is also $(\RV{D};\RV{Y})$-causally contractible.
+\end{lemma}
 
+\begin{proof}
+For arbitrary $\nu\in \Delta(I^{\mathbb{N}})$, by assumption of $((\RV{D},\RV{I});\RV{Y})$-causal contractibility and Theorem \ref{th:iid_rep}
 \begin{align}
-    \kernel{K}_{a,h}(A|x) := \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{I}_i\RV{H}}(A|x,a,h)
+    \prob{P}_C^{\RV{Y}|\RV{DI}} &= \tikzfig{index_independence_1}\\
+    &= \tikzfig{index_independence_2}\\
+    &= \tikzfig{index_independence_3}\\
+    \implies \prob{P}_C^{\RV{Y}|\RV{D}} &= \tikzfig{index_independence_4}
 \end{align}
+Applying Theorem \ref{th:iid_rep} in reverse, we get $\prob{P}_C$ is $(\RV{D};\RV{Y})$-causally contractible.
+\end{proof}
 
-Then the assumption $\RV{I}_i\CI^e_{\prob{P}_C} \RV{X}_iC|\RV{H}$ means that $\RV{X}_i$ is uninformative about the individual response function $\kernel{K}_{\RV{I}_i,\RV{H}}$ (abusing notation). This is strongly reminiscent of the ``ignorability'' assumption found in the Potential Outcomes literature \citep{rubin_causal_2005}.
-
-\begin{definition}[Reindexability]\label{def:ident_permutability}
-Suppose we have a probability set $\prob{P}_C$, and variables $\RV{X}:=(\RV{X}_i)_{i\in \mathbb{N}}$, $\RV{I}:=(\RV{I}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$. For an arbitrary finite permutation $\rho:I\to I$, let $\kernel{F}_{\rho_I}:X^\mathbb{N}\times I^{\mathbb{N}}\kto X^\mathbb{N}\times I^{\mathbb{N}}$ be the Markov kernel associated with the function 
-\begin{align}
-    \rho_I:(x_i,n_i)_{i\in\mathbb{N}}\mapsto (x_i,\rho(n_i))_{i\in \mathbb{N}}
-\end{align}
-If for any $\rho$
-\begin{align}
-    \prob{P}_C^{\RV{Y}|\RV{XI}}&\overset{\prob{P}_C}{\cong} \kernel{F}_{\rho_I}\prob{P}_C^{\RV{Y}|\RV{XI}}
-\end{align}
-then $\prob{P}_C$ is $\RV{I}$-reindexable.
+\begin{definition}[Index variable]
+Suppose we have a probability set $\prob{P}_C$ and a variable $\RV{I}:\Omega\to \mathbb{N}^{\mathbb{N}}$, such that, defining $A\subset\mathscr{P}(\mathbb{N})$ to be the set of all permutations of $\mathbb{N}$, $\prob{P}_\alpha^{\RV{I}}(A)=1$. Then $\RV{I}$ is an \emph{index variable}.
 \end{definition}
 
-\begin{theorem}[Causal contractibility with independent treatments]\label{th:cc_ind_treat}
-Suppose we have a probability set $\prob{P}_C$, $(\RV{X},\RV{I};\RV{Y})$-causally contractible for $\RV{X}:=(\RV{X}_i)_{i\in \mathbb{N}}$, $\RV{I}:=(\RV{I}_i)_{i\in \mathbb{N}}$ and $\RV{Y}:=(\RV{Y}_i)_{i\in\mathbb{N}}$, $\RV{I}_i:\Omega\to I$ countable and $\RV{X}_i:\Omega\to X$, $\RV{Y}_i:\Omega\to Y$ standard measurable.
-
-Suppose $\prob{P}_C$ is $\RV{I}$-reindexable and for all $i\in \mathbb{N}$, $\RV{I}_i\CI^e_{\prob{P}_C} \RV{X}_i C|\RV{H}$. 
-
-Then $\prob{P}_C$ is $(\RV{X};\RV{Y})$-causally contractible.
+\begin{theorem}\label{th:cc_ind_treat}
+Suppose we have a probability set $\prob{P}_C$ where $\RV{Y}\CI_{\prob{P}_C}^e C|(\RV{D},\RV{I})$ and $\RV{I}$ is an index variable. If for each permutation $\rho:\mathbb{N}\to \mathbb{N}$
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}|\RV{ID}} &= (\text{swap}_{\rho(I)}\otimes \text{Id}_X )\prob{P}_\alpha^{\RV{Y}|\RV{ID}}
+\end{align}
+then $\RV{Y}\CI_{\prob{P}_C}^e \RV{I}C|\RV{D}$.
 \end{theorem}
 
 \begin{proof}
-By causal contractibility, we have for all $i\in |I|$
+Taking $A\subset \mathbb{N}^{\mathbb{N}}$ to be the set of permutations of $\mathbb{N}$, note that for every $i\in A$, $B\in\sigalg{Y}^{\mathbb{N}}$, $d\in D^{\mathbb{N}}$ we can take $\rho_i:\mathbb{N}\to \mathbb{N}$ such that the image of $i$ under $\rho$ is $\mathbb{N}$; that is, $\rho_i(i)=\text{id}_{\mathbb{N}}$. Then
 \begin{align}
-    \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_{|I|}} &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_1|\RV{X}_1\RV{H}\RV{I}_1}\otimes \text{erase}_{I^{|I|-1}}
+    \prob{P}_C^{\RV{Y}|\RV{ID}}(B|i,d) &= (\text{swap}_{\rho_i(I)}\otimes \text{Id}_X )\prob{P}_C^{\RV{Y}|\RV{ID}}(B|i,d)\\
+    &= \prob{P}_C^{\RV{Y}|\RV{ID}}(B|\text{id}_{\mathbb{N}},d)
 \end{align}
-
-Furthermore, by assumption, for arbitrary permutation $\rho:I\to I$
+Therefore
 \begin{align}
-    \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_i}(A|x,h,n) &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}}(A|x,h,n,m) & \forall m\in I\\
-     &\overset{\prob{P}_C}{\cong} (\kernel{F}_{\rho_I}\prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_{|I|}})(A|x,h,n,m)\\
-    &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_{|I|}}(A|x,h,\rho(n,m))\\
-    &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_1|\RV{X}_1\RV{H}\RV{I}_1}(A|x,h,\Pi_i(\rho(n,m)))
+    \prob{P}_C^{\RV{Y}|\RV{ID}} &\overset{\prob{P}_C}{\cong} \text{erase}_{\mathbb{N}^{\mathbb{N}}}\otimes \kernel{K} 
 \end{align}
-
-Where $\Pi_i$ projects the $i$-th coordinate of $\rho(n,m)$. Because $m$ and $\rho$ are arbitrary, this implies for any $p\in I$
+where $\kernel{K}:D^{\mathbb{N}}\kto Y^{\mathbb{N}}$ is the kernel
 \begin{align}
-    \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_i}(A|x,h,n) &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}_1|\RV{X}_1\RV{H}\RV{I}_1}(A|x,h,p))\\
-    \implies \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_i} &\overset{\prob{P}_C}{\cong} \kernel{K}\otimes \text{erase}_I
+    (B|d)\mapsto \prob{P}_C^{\RV{Y}|\RV{ID}}(B|\text{id}_{\mathbb{N}},d)
 \end{align}
+\end{proof}
 
-where $\kernel{K}:(A|x,h)\mapsto \prob{P}_C^{\RV{Y}_i|\RV{X}_i\RV{H}\RV{I}_i}(A|x,h,q)$ for some $q\in I$. Therefore $\RV{Y}_i\CI^e_{\prob{P}_C}\RV{I}_iC|\RV{X}_i\RV{H}$.
 
-Furthermore, by assumption, $\RV{I}_i\CI^e_{\prob{P}_C} \RV{X}_i C|\RV{H}$, and so by weak union $\RV{Y}_i\CI_{\prob{P}_C}^e \RV{I}_i C|\RV{X}_i\RV{H}$ and $\prob{P}_C$ is therefore $(\RV{X};\RV{Y})$-causally contractible by Lemma \ref{lem:eci_cc_extend}.
+\begin{theorem}
+Suppose we have a probability set $\prob{P}_C$, $C$ countable, and variables $\RV{Y}:\Omega\to Y^{\mathbb{N}}$, $\RV{I}:\Omega\to \mathbb{N}^{\mathbb{N}}$ and $D:\Omega\to D^{\mathbb{N}}$ such that for each $\alpha\in C$, $\rho:\mathbb{N}\to \mathbb{N}$
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}|\RV{I}} &= \text{swap}_{\rho(I)}\prob{P}_\alpha^{\RV{Y}|\RV{I}}
+\end{align}
+and there is an invertible function $f:C\to D$ such that
+\begin{align}
+    \prob{P}_\alpha^{\RV{D}} = \kernel{F}_f
+\end{align}
+then for all $\rho:\mathbb{N}\to\mathbb{N}$
+\begin{align}
+    \prob{P}_\alpha^{\RV{Y}|\RV{ID}} &= (\text{swap}_{\rho(I)}\otimes \text{Id}_{D^{\mathbb{N}}} )\prob{P}_\alpha^{\RV{Y}|\RV{ID}}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+The map $\kernel{Q}:(B|i,\alpha)\mapsto \prob{P}_\alpha^{\RV{Y}|\RV{I}}(B|i)$ is itself a Markov kernel. By assumption, for any $\alpha$,
+\begin{align}
+    \kernel{Q} \overset{\prob{P}_\alpha}{\cong} (\text{id}_{\mathbb{N}^\mathbb{N}}\otimes\kernel{F}_f) \prob{P}_\alpha^{\RV{Y}|\RV{ID}}
+\end{align}
+Furthermore, by assumption
+\begin{align}
+    (\text{swap}_{\rho(I)}\otimes \text{Id}_{C} )\kernel{Q} = \kernel{Q}
+\end{align}
+Therefore
+\begin{align}
+    (\text{swap}_{\rho(I)}\otimes \text{Id}_{C} ) \prob{P}_\alpha^{\RV{Y}|\RV{ID}}&= (\text{id}_{\mathbb{N}^\mathbb{N}}\otimes\kernel{F}_{f})(\text{id}_{\mathbb{N}^\mathbb{N}}\otimes\kernel{F}_{f^-1})(\text{swap}_{\rho(I)}\otimes \text{Id}_{C} ) \prob{Q}\\
+     &= (\text{id}_{\mathbb{N}^\mathbb{N}}\otimes\kernel{F}_{f^{-1}}) \prob{Q}\\
+     &= \prob{P}_\alpha^{\RV{Y}|\RV{ID}}
+\end{align}
 \end{proof}
 
 It is possible that we can accept $\RV{I}_i\CI^e_{\prob{P}_C} \RV{X}_i C|\RV{H}$ after examining the data, but in some cases we may have exactly one observation for each possible value of $I$. In this case, there are situations in which we might be inclined to accept $\RV{I}_i\CI^e_{\prob{P}_C} \RV{X}_i C|\RV{H}$ a priori:

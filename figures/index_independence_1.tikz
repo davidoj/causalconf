@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small kernel tikzit] (0) at (3.75, 0.5) {$\prob{P}_C^{\RV{Y}_1|\RV{HD}_1\RV{I}_1}$};
+		\node [style=RLabel tikzit] (2) at (5.5, 0.5) {$\RV{Y}_i$};
+		\node [style=none] (3) at (-0.75, 1.75) {};
+		\node [style=none] (4) at (-0.75, -2.25) {};
+		\node [style=none] (5) at (6.5, -2.25) {};
+		\node [style=none] (6) at (6.5, 1.75) {};
+		\node [style=copymap tikzit] (7) at (-0.75, 1) {};
+		\node [style=none] (8) at (4.5, -1.75) {$i\in\mathbb{N}$};
+		\node [style=none] (10) at (2.25, 1) {};
+		\node [style=none] (11) at (2.25, 0.5) {};
+		\node [style=copymap tikzit] (12) at (-0.75, -0.25) {};
+		\node [style=small kernel tikzit] (13) at (0.5, -0.25) {$\Pi_{D,i}$};
+		\node [style=small dist tikzit] (15) at (-3.25, 1.75) {$\prob{P}_C^{\RV{H}}$};
+		\node [style=copymap tikzit] (16) at (-0.75, -1.5) {};
+		\node [style=none] (17) at (2.25, 0) {};
+		\node [style=small kernel tikzit] (19) at (0.5, -1.5) {$\Pi_{I,i}$};
+		\node [style=Llabel tikzit] (20) at (-3.25, -1.5) {$\RV{I}$};
+		\node [style=Llabel tikzit] (21) at (-3.25, -0.25) {$\RV{D}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0) to (2);
+		\draw (3.center) to (6.center);
+		\draw (4.center) to (5.center);
+		\draw (5.center) to (6.center);
+		\draw (3.center) to (7);
+		\draw (7) to (10.center);
+		\draw (7) to (12);
+		\draw (12) to (13);
+		\draw [in=180, out=0] (13) to (11.center);
+		\draw [in=180, out=0] (15) to (7);
+		\draw (12) to (16);
+		\draw (16) to (4.center);
+		\draw (16) to (19);
+		\draw [in=-180, out=0] (19) to (17.center);
+		\draw (21) to (12);
+		\draw (20) to (16);
+	\end{pgfonlayer}
+\end{tikzpicture}
