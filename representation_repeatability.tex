@@ -303,29 +303,37 @@ That is, causal contractibility implies that there is no difference between cond
 
 \subsection{Assessing causal contractibility}\label{ssec:assessing}
 
-We have a formal condition -- causal contractibility -- equivalent to the existence of response conditionals. A challenge we still need to face is to evaluate when a decision procedure is appropriately modeled with a probability set causally contractible with respect to some pair of variables.
+Assessing when a particular sequence of experiments should be modeled with a causally contractible model can be difficult. One way to justify the assumption is in two steps: first, all the repetitions of the experiment that yield the values of each of the $(\RV{D}_i,\RV{Y}_i)$ pairs are indistinguishable ``at the time of model construction'', and and they are still indistinguishable after learning the value of $\RV{D}$ -- because, for example, $\RV{D}$ is deterministic for each choice $\alpha\in C$. 
 
-Similar questions have been examined before, and a variety of answers have been given. These answers all say something like: the experiment consists of a sequence of similar or interchangeable ``individuals'' or ``units'', and that ``treatment assignments'' must be independent of the individual's identities, or may be swapped without swapping the individuals. For example, \citet{greenland_identifiability_1986} explain
+Two step justifications of this form are common in literature on causal identifiability. For example, \citet{greenland_identifiability_1986} explain
 
 \begin{quote}
     Equivalence of response type may be thought of in terms of exchangeability of individuals: if the exposure states of the two individuals had been exchanged, the same data distribution would have resulted.
 \end{quote}
 
-\citet{dawid_decision-theoretic_2020}:
+Note that exchanging individuals involved in an experiment and exchanging the individuals' exposure states are two different things, and the former doesn't imply the latter. We may consider a model that is symmetric to permutations of individual identifiers but is not symmetric to permuting individual identifiers and leaving exposure states fixed.
+
+\citet{dawid_decision-theoretic_2020} suggests (with many qualifications) that ``post-treatment exchangeability'' for a decision problem regarding taking aspirin to treat a headache may be acceptable if the data are from
 
 \begin{quote}
-    A group of individuals whom I can regard, in an intuitive sense, as similar to myself, with headaches similar to my own. [...] Whether or not the exchangeability assumption can be regarded as reasonable will be highly dependent on the background information informing my personal probability assessments
+    A group of individuals whom I can regard, in an intuitive sense, as similar to myself, with headaches similar to my own.
 \end{quote}
 
-\citet{rubin_causal_2005}:
+Dawid points to the ``first step'' in our two step justification for causal contractibility: that the people involved are ``similar'' in an appropriate sense. However, under Dawid's approach there is a background assumption here that whether or not I take the aspirin is deterministic given the choice I end up making, which is the second step in our two step justification.
+
+Finally, \citet{rubin_causal_2005} explicitly discusses two separate assumptions to justify causal identifiability:
 
 \begin{quote}
     indexing of the units is, by definition, a random permutation of $1,..., N$, and thus any distribution on the science must be row-exchangeable [...] The second critical fact is that if the treatment assignment mechanism is ignorable (e.g., randomized), then when the expression for the assignment mechanism (2) is evaluated at the observed data, it is free of dependence on $Y_{mis}$
 \end{quote}
 
-Theorem \ref{th:cc_ind_treat} formalises these ideas. As an example of its application, consider an experiment where $N$ patients are treated, each with an individual identifier $\RV{I}_i$, who receives treatment $\RV{X}_i$ and experiences outcome $\RV{Y}_i$. We assume a $((\RV{D},\RV{I});\RV{Y})$-causally contractible model is appropriate. This reflects two judgments; firstly, that treatments and identifiers only affect their local consequences (Definition \ref{def:caus_cont}), and secondly we are indifferent the order in which the individuals appear and the treatments are received. We also assume that at the outset we are ignorant about any differences between each individual; specifically, permuting the individuals involved in the experiment leaves us with the same model.
+Here we have a more abstract statement about the row-exchangeability of ``the science'', rather than individual people involved in an experiment, but we regard it as similar in spirit to assumptions that people involved in the experiment are ``similar''. Rubin explicitly mentions a second condition: that the treatment assignment is randomized.
 
-\begin{lemma}
+Theorem \ref{th:cc_ind_treat} formalises these ideas. As an example of its application, consider an experiment where $N$ patients, each with an individual identifier $\RV{I}_i$, receive treatment $\RV{D}_i$ and experience outcome $\RV{Y}_i$. We assume a $((\RV{D},\RV{I});\RV{Y})$-causally contractible model $\prob{P}_C$ is appropriate. This reflects two judgments; firstly, that treatment $\RV{D}_i$ and identifiers $\RV{I}_i$ screen off all other variables from $\RV{Y}_i$ (Definition \ref{def:caus_cont}), and secondly that the order in which the individuals appear and the treatments are received does not alter the consequences we expect to see (Definition \ref{def:caus_exch}). The fact that we need a preliminary assumption of causal contractibility is similar to how, in the potential outcomes framework, a preliminary assumption of SUTVA is required in order to justify the use of potential outcomes.
+
+Next, we assume that, no matter which choice $\alpha\in C$ is decided on, all identifiers can be swapped without altering the distribution over consequences, and finally that for each choice $\alpha\in C$ the treatment vector $\RV{D}$ is deterministic. Then, according to Theorem \ref{th:cc_ind_treat}, $\prob{P}_C$ is also $(\RV{D};\RV{Y})$-causally contractible. This can be extended to the case where $\RV{D}$ is a function of a ``random signal'' $\RV{R}$.
+
+\begin{lemma}\label{lem:ind_to_cc}
 If $\prob{P}_C$ is $((\RV{D},\RV{I});\RV{Y})$-causally contractible and $\RV{Y}\CI_{\prob{P}_C}^e \RV{I}C|\RV{D}$, then $\prob{P}_C$ is also $(\RV{D};\RV{Y})$-causally contractible.
 \end{lemma}
 
@@ -344,13 +352,13 @@ Applying Theorem \ref{th:iid_rep} in reverse, we get $\prob{P}_C$ is $(\RV{D};\R
 Suppose we have a probability set $\prob{P}_C$ and a variable $\RV{I}:\Omega\to \mathbb{N}^{\mathbb{N}}$, such that, defining $A\subset\mathscr{P}(\mathbb{N})$ to be the set of all permutations of $\mathbb{N}$, $\prob{P}_\alpha^{\RV{I}}(A)=1$. Then $\RV{I}$ is an \emph{index variable}.
 \end{definition}
 
-\begin{theorem}\label{th:cc_ind_treat}
+\begin{lemma}\label{lem:ind}
 Suppose we have a probability set $\prob{P}_C$ where $\RV{Y}\CI_{\prob{P}_C}^e C|(\RV{D},\RV{I})$ and $\RV{I}$ is an index variable. If for each permutation $\rho:\mathbb{N}\to \mathbb{N}$
 \begin{align}
     \prob{P}_\alpha^{\RV{Y}|\RV{ID}} &= (\text{swap}_{\rho(I)}\otimes \text{Id}_X )\prob{P}_\alpha^{\RV{Y}|\RV{ID}}
 \end{align}
 then $\RV{Y}\CI_{\prob{P}_C}^e \RV{I}C|\RV{D}$.
-\end{theorem}
+\end{lemma}
 
 \begin{proof}
 Taking $A\subset \mathbb{N}^{\mathbb{N}}$ to be the set of permutations of $\mathbb{N}$, note that for every $i\in A$, $B\in\sigalg{Y}^{\mathbb{N}}$, $d\in D^{\mathbb{N}}$ we can take $\rho_i:\mathbb{N}\to \mathbb{N}$ such that the image of $i$ under $\rho$ is $\mathbb{N}$; that is, $\rho_i(i)=\text{id}_{\mathbb{N}}$. Then
@@ -369,8 +377,8 @@ where $\kernel{K}:D^{\mathbb{N}}\kto Y^{\mathbb{N}}$ is the kernel
 \end{proof}
 
 
-\begin{theorem}
-Suppose we have a probability set $\prob{P}_C$, $C$ countable, and variables $\RV{Y}:\Omega\to Y^{\mathbb{N}}$, $\RV{I}:\Omega\to \mathbb{N}^{\mathbb{N}}$ and $D:\Omega\to D^{\mathbb{N}}$ such that for each $\alpha\in C$, $\rho:\mathbb{N}\to \mathbb{N}$
+\begin{theorem}\label{th:cc_ind_treat}
+Suppose we have a probability set $\prob{P}_C$, $C$ countable, that $((\RV{D},\RV{I});\RV{Y})$-causally contractible for variables $\RV{Y}:\Omega\to Y^{\mathbb{N}}$, $D:\Omega\to D^{\mathbb{N}}$ and index variable $\RV{I}:\Omega\to \mathbb{N}^{\mathbb{N}}$. If for each $\alpha\in C$, $\rho:\mathbb{N}\to \mathbb{N}$
 \begin{align}
     \prob{P}_\alpha^{\RV{Y}|\RV{I}} &= \text{swap}_{\rho(I)}\prob{P}_\alpha^{\RV{Y}|\RV{I}}
 \end{align}
@@ -378,10 +386,7 @@ and there is an invertible function $f:C\to D$ such that
 \begin{align}
     \prob{P}_\alpha^{\RV{D}} = \kernel{F}_f
 \end{align}
-then for all $\rho:\mathbb{N}\to\mathbb{N}$
-\begin{align}
-    \prob{P}_\alpha^{\RV{Y}|\RV{ID}} &= (\text{swap}_{\rho(I)}\otimes \text{Id}_{D^{\mathbb{N}}} )\prob{P}_\alpha^{\RV{Y}|\RV{ID}}
-\end{align}
+then $\prob{P}_C$ is $(\RV{D};\RV{Y})$-causally contractible.
 \end{theorem}
 
 \begin{proof}
@@ -399,39 +404,34 @@ Therefore
      &= (\text{id}_{\mathbb{N}^\mathbb{N}}\otimes\kernel{F}_{f^{-1}}) \prob{Q}\\
      &= \prob{P}_\alpha^{\RV{Y}|\RV{ID}}
 \end{align}
+Then by Lemma \ref{lem:ind} we have $\RV{Y}\CI_{\prob{P}_C}^e \RV{I}C|\RV{D}$ and by Lemma \ref{lem:ind_to_cc} we have $(\RV{D};\RV{Y})$-causal contractibility.
 \end{proof}
 
-It is possible that we can accept $\RV{I}_i\CI^e_{\prob{P}_C} \RV{X}_i C|\RV{H}$ after examining the data, but in some cases we may have exactly one observation for each possible value of $I$. In this case, there are situations in which we might be inclined to accept $\RV{I}_i\CI^e_{\prob{P}_C} \RV{X}_i C|\RV{H}$ a priori:
-\begin{itemize}
-    \item For any choice $\alpha\in C$, $\RV{X}_i$ is deterministic
-    \item For any choice $\alpha\in C$, $\RV{X}_i$ is determined by some function of a known random source fixed ahead of time
-\end{itemize}
+If we suppose Theorem \ref{th:cc_ind_treat} applies to $C'\subset C$ such that $\RV{D}$ is deterministic for all $\alpha\in C'$, while $C$ consists of $C'$ and all ``random choices between elements of $C'$''; that is for all $\beta\in C$
+\begin{align}
+    \prob{P}_\beta &= \sum_{c\in C} k_c \prob{P}_c 
+\end{align} 
+
+Then it follows that
+\begin{align}
+    \prob{P}_\beta^{\RV{Y}|\RV{D}} &= \sum_{c\in C} k_c \prob{P}_c^{\RV{Y}|\RV{D}}
+\end{align}
+and hence $\prob{P}_C$ is still $(\RV{D};\RV{Y})$-causally contractible. Note that in order to actually implemented a random choice, we would typically consult a known random source $\RV{R}$ and set $\RV{D}$ deterministically on the basis of the value of $\RV{R}$.
 
 \subsection{Body mass index revisited}
 
-If we have a probability set $\prob{P}_C$ with $\RV{B}:=(\RV{B}_i)_{i\in M}$ representing body mass index and $\RV{Y}:=(\RV{Y}_i)_{i\in M}$ representing health outcomes of interest, we probably should assume causal contractibility a priori, not matter what kind of experimental setup is available:
+If we have a probability set $\prob{P}_C$ with $\RV{B}:=(\RV{B}_i)_{i\in M}$ representing body mass index and $\RV{Y}:=(\RV{Y}_i)_{i\in M}$ representing health outcomes of interest, the previous considerations don't support a judgement of causal contractibility for $(\RV{B};\RV{Y})$, because the choices we imagine we might have available do not allow $\RV{B}$ to be a deterministic invertible function of the choice. Note that we haven't established that causal contractibility cannot be appropriate, merely that we have no reason to accept it on the basis of arguments so far.
 
-\begin{itemize}
-    \item There are multiple different actions that can affect body mass index in roughly the same way, so $\RV{Y}\CI_{\prob{P}_C}^e C|\RV{B}$ is doubtful
-    \item Body mass index can neither be set deterministically, nor determined by a function of a random source, so Theorem \ref{th:cc_ind_treat} does not apply
-\end{itemize} 
+Causal contractibility is the a priori assumption that there is a response function relating each pair from a sequence of pairs of variables. However, we could also consider the possibility that we conclude that there is such a response function after reviewing the data.
 
-However, it is still possible that $\prob{P}_C$ could be $(\RV{B};\RV{Y})$-causally contractible. The key is Theorem \ref{th:cons_ci} -- if we start with $\prob{P}_C$ that is $(\RV{D};\RV{Y})$-causally contractible, and we find for a suitable $\alpha$ that $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i |\RV{H}\RV{B}_i$ for all $i$, then we can conclude that $\RV{Y}_i\CI_{\prob{P}_C}^e \RV{D}_i C|\RV{H}\RV{B}_i$ for all $i$, and that $\prob{P}_C$ is $(\RV{B};\RV{Y})$-causally contractible (Theorem \ref{lem:proxy_control}). There are two important things to bear in mind:
+Suppose we are in possession of a $(\RV{D};(\RV{B},\RV{Y}))$-causally contractible probability set $\prob{P}_C$, such that each $(\RV{D}_i,\RV{B}_i,\RV{Y}_i)$ is related by the response conditional $\prob{P}_C^{\RV{Y}_1\RV{B}_1|\RV{D}_1\RV{H}}$. Suppose that we also have an ``oracle'' available that performs an infinite number of samples under appropriate conditions and reveals the value $h\in H$ yielded by the variable $\RV{H}$. Then we can consider the new probability set $\prob{P}_{C,h}$ where for arbitrary $\RV{Z}:\Omega\to Z$, $A\in \sigalg{Z}$
+\begin{align}
+    \prob{P}_{C,h}^{\RV{Z}}(A) &= \prob{P}_C^{\RV{Z}|\RV{H}}(A|h)
+\end{align}
 
-\begin{itemize}
-    \item Causal contractibility is always relative to a set of choices $C$; our theory provides no way to assess the existence of ``causal effects'' independent of such a set
-    \item Whether or not $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i |\RV{H}\RV{B}_i$ holds for a suitable choice $\alpha$ is a testable question, so it may be inappropriate to assume it does by asking at the outset about ``the causal effect of $\RV{B}$''
-\end{itemize}
+Note that $\prob{P}_{C,h}$ remains $(\RV{D};(\RV{B},\RV{Y}))$-causally contractible with response conditionals $\prob{P}_{C,h}^{\RV{Y}_1\RV{B}_1|\RV{D}_1}$. Furthermore that by Theorem \ref{th:higher_order_conditionals}, we have $((\RV{D},\RV{B});\RV{Y})$-causal contractibility with response conditionals $\prob{P}_{C,h}^{\RV{Y}_1|\RV{D}_1\RV{B}_1}$. In this case, we could find that $\RV{Y}_i\CI_{\prob{P}_{C,h}}^e \RV{D}_i|\RV{B}_i$, and so by Lemma \ref{lem:ind_to_cc} $\prob{P}_{C,h}$ is also $(\RV{B};\RV{Y})$-causally contractible.
 
-Thus it is possible in principle to have a ``causal effect of body mass index'', but our analysis suggests that it should be demonstrated rather than assumed.
-
-\begin{theorem}\label{lem:proxy_control}
-Suppose we have a probability set $\prob{P}_C$ that is $(\RV{D};\RV{X},\RV{Y})$-causally contractible, where $\RV{D}:=(\RV{D}_i)_{i\in M}$ and likewise for $\RV{X}$ and $\RV{Y}$. If there exists $\alpha\in C$ such that $\prob{P}_\alpha^{\RV{D}}\gg \{\prob{P}_\beta^{\RV{D}}|\beta\in C\}$ and $\RV{Y}_i\CI_{\prob{P}_\alpha} \RV{D}_i|\RV{HX}_i$ for all $i\in M$, then $\prob{P}_C$ is also $(\RV{Y};\RV{X})$-causally contractible.
-\end{theorem}
-
-\begin{proof}
-See Appendix \ref{sec:bmi_revis}
-\end{proof}
+In this case, it seems much more reasonable to describe the fact that $\RV{B}$ has a causal effect on $\RV{Y}$ as a \emph{finding}, rather than an \emph{assumption}. 
 
 % \subsection{Weakening causal contractibility}
 

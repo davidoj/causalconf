@@ -48,11 +48,11 @@ for every morphism $f$.
 
 
 \begin{lemma}[Conditional pushforward]\label{th:recurs_pushf}
-Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with conditional $\prob{P}_{\{\}}^{\RV{X}|\RV{Y}}$ such that $\RV{Z}=f\circ \RV{Y}$ for some $f:Y\to Z$. Then there exists a conditional probability $\prob{P}_{\{\}}^{\RV{Z}|\RV{X}}=\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\kernel{F}_{f}$.
+Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_C$ with conditional $\prob{P}_C^{\RV{X}|\RV{Y}}$ such that $\RV{Z}=f\circ \RV{Y}$ for some $f:Y\to Z$. Then there exists a conditional probability $\prob{P}_C^{\RV{Z}|\RV{X}}=\prob{P}_C^{\RV{Y}|\RV{X}}\kernel{F}_{f}$.
 \end{lemma}
 
 \begin{proof}
-Note that $(\RV{X},\RV{Z})=(\text{id}_X\otimes f)\circ (\RV{X},\RV{Y})$. Thus, by Lemma \ref{lem:pushf_kprod}, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
+Note that $(\RV{X},\RV{Z})=(\text{id}_X\otimes f)\circ (\RV{X},\RV{Y})$. Thus, by Lemma \ref{lem:pushf_kprod}, for any $\prob{P}_\alpha\in \prob{P}_C$
 
 \begin{align}
     \prob{P}_\alpha^{\RV{XZ}} = \prob{P}_\alpha^{\RV{XY}}\kernel{F}_{\text{id}_X\otimes f}
@@ -69,11 +69,11 @@ Note also that for all $A\in\sigalg{X}$, $B\in \sigalg{Z}$, $x\in X$, $y\in Y$:
 Thus
 
 \begin{align}
-    \prob{P}_\alpha^{\RV{XZ}} &= (\prob{P}_\alpha^{\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Y}|\RV{X}})\kernel{F}_{\text{id}_X}\otimes \kernel{F}_f\\
+    \prob{P}_\alpha^{\RV{XZ}} &= (\prob{P}_\alpha^{\RV{X}}\odot \prob{P}_C^{\RV{Y}|\RV{X}})\kernel{F}_{\text{id}_X}\otimes \kernel{F}_f\\
     &= \tikzfig{conditional_pushforward}
 \end{align}
 
-Which implies $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\kernel{F}_{f}$ is a version of $\prob{P}_{\alpha}^{\RV{Z}|\RV{X}}$. Because this holds for all $\alpha$, it is therefore also a version of $\prob{P}_{\{\}}^{\RV{Z}|\RV{X}}$.
+Which implies $\prob{P}_C^{\RV{Y}|\RV{X}}\kernel{F}_{f}$ is a version of $\prob{P}_{\alpha}^{\RV{Z}|\RV{X}}$. Because this holds for all $\alpha$, it is therefore also a version of $\prob{P}_C^{\RV{Z}|\RV{X}}$.
 \end{proof}
 
 \begin{theorem}[Existence of regular conditionals]\label{th:reg_cond}
@@ -85,7 +85,7 @@ This is a standard result, see for example \cite{cinlar_probability_2011} Theore
 \end{proof}
 
 \begin{theorem}[Existence of higher order valid conditionals with respect to probability sets]\label{th:ho_cond_psets}
-Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with regular conditional $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ and $Y$ and $Z$ standard measurable. Then there exists a regular $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$.
+Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_C$ with regular conditional $\prob{P}_C^{\RV{YZ}|\RV{X}}$ and $Y$ and $Z$ standard measurable. Then there exists a regular $\prob{P}_C^{\RV{Z}|(\RV{Y}|\RV{X})}$.
 \end{theorem}
 
 \begin{proof}
@@ -94,22 +94,22 @@ Given a Borel measurable map $m:X\kto Y\times Z$ let $f:Y\times Z\to Y$ be the p
     n(f^{-1}(y)|x,y) = 1\label{eq:proper}\\
     m(\RV{Y}^{-1}(A)\cap B|x) = \int_A n(B|x,y) m\kernel{F}_{f}(dy|x)&\forall A\in \sigalg{Y},B\in\sigalg{Y\times Z}\label{eq:conditional1}
 \end{align}
-In particular, $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ is a Borel measurable map $X\kto Y\times Z$. Thus equation \ref{eq:conditional1} implies for all $A\in \sigalg{Y},B\in\sigalg{Y\times Z}$
+In particular, $\prob{P}_C^{\RV{YZ}|\RV{X}}$ is a Borel measurable map $X\kto Y\times Z$. Thus equation \ref{eq:conditional1} implies for all $A\in \sigalg{Y},B\in\sigalg{Y\times Z}$
 
 \begin{align}
-    \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}(\RV{Y}^{-1}(A)\cap B|x) &= \int_A n(B|x,y) \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}\kernel{F}_{f}(dy|x)\\
-    &=\int_A n(B|x,y) \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}(dy|x)\label{eq:rec_push}
+    \prob{P}_C^{\RV{YZ}|\RV{X}}(\RV{Y}^{-1}(A)\cap B|x) &= \int_A n(B|x,y) \prob{P}_C^{\RV{YZ}|\RV{X}}\kernel{F}_{f}(dy|x)\\
+    &=\int_A n(B|x,y) \prob{P}_C^{\RV{Y}|\RV{X}}(dy|x)\label{eq:rec_push}
 \end{align}
 
 Where Equation \ref{eq:rec_push} follows from Lemma \ref{th:recurs_pushf}.
 
-Then, for any $\prob{P}_\alpha\in\prob{P}_{\{\}}$
+Then, for any $\prob{P}_\alpha\in\prob{P}_C$
 
 \begin{align}
-    \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}(\RV{Y}^{-1}(A)\cap B|x) &= \int_A n(B|x,y) \prob{P}_{\alpha}^{\RV{Y}|\RV{X}}(dy|x)
+    \prob{P}_C^{\RV{YZ}|\RV{X}}(\RV{Y}^{-1}(A)\cap B|x) &= \int_A n(B|x,y) \prob{P}_{\alpha}^{\RV{Y}|\RV{X}}(dy|x)
 \end{align}
 
-which implies $n$ is a version of $\prob{P}_{\{\}}^{\RV{YZ}|(\RV{Y}|\RV{X})}$. By Lemma \ref{th:recurs_pushf}, $n\kernel{F}_{f}$ is a version of $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$.
+which implies $n$ is a version of $\prob{P}_C^{\RV{YZ}|(\RV{Y}|\RV{X})}$. By Lemma \ref{th:recurs_pushf}, $n\kernel{F}_{f}$ is a version of $\prob{P}_C^{\RV{Z}|(\RV{Y}|\RV{X})}$.
 \end{proof}
 
 We might be motivated to ask whether the higher order conditionals in Theorem \ref{th:ho_cond_psets} can be chosen to be valid. Despite Lemma \ref{lem:proper_implies_valid} showing that the existence of proper conditional probabilities implies the existence of valid ones, we cannot make use of this in the above theorem because Equation \ref{eq:proper} makes $n$ proper with respect to the ``wrong'' sample space $(Y\times Z, \sigalg{Y}\otimes\sigalg{Z})$ while what we would need is a proper conditional probability with respect to $(\Omega,\sigalg{F})$.
@@ -117,28 +117,28 @@ We might be motivated to ask whether the higher order conditionals in Theorem \r
 We can choose higher order conditionals to be valid in the case of discrete sets, and whether we can choose them to be valid in more general measurable spaces is an open question.
 
 \begin{theorem}[Higher order conditionals]\label{th:higher_order_conditionals}
-Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with conditional $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$. Then $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is a version of $\prob{P}_{\{\}}^{\RV{Z}|\RV{Y}\RV{X}}$ 
+Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_C$ with conditional $\prob{P}_C^{\RV{YZ}|\RV{X}}$. Then $\prob{P}_C^{\RV{Z}|(\RV{Y}|\RV{X})}$ is a version of $\prob{P}_C^{\RV{Z}|\RV{Y}\RV{X}}$ 
 \end{theorem}
 
 \begin{proof}
-For arbitrary $\prob{P}_{\alpha}\in \prob{P}_{\{\}}$
+For arbitrary $\prob{P}_{\alpha}\in \prob{P}_C$
 \begin{align}
     \prob{P}_\alpha^{\RV{YZ}|\RV{X}} &= \tikzfig{higher_order_disint}\\
     \implies \prob{P}_\alpha^{\RV{XYZ}} &= \tikzfig{higher_order_disint_0}\\
     &= \tikzfig{higher_order_disint_1}\\
     &= \tikzfig{higher_order_disint_2}
 \end{align}
-Thus $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is a version of $\prob{P}_{\alpha}^{\RV{Z}|\RV{Y}\RV{X}}$ for all $\alpha$ and hence also a version of $\prob{P}_{\{\}}^{\RV{Z}|\RV{Y}\RV{X}}$.
+Thus $\prob{P}_C^{\RV{Z}|(\RV{Y}|\RV{X})}$ is a version of $\prob{P}_{\alpha}^{\RV{Z}|\RV{Y}\RV{X}}$ for all $\alpha$ and hence also a version of $\prob{P}_C^{\RV{Z}|\RV{Y}\RV{X}}$.
 \end{proof}
 
 
 \begin{theorem}
-Given probability gap model $\prob{P}_{\{\}}$, $\RV{X}$, $\RV{Y}$, $\RV{Z}$ such that $\prob{P}_{\{\}}^{\RV{Z}|\RV{YX}}$ exists, $\prob{P}_{\{\}}^{\RV{Z}|\RV{Y}}$ exists iff $\RV{Z}\CI_{\prob{P}_{\{\}}} \RV{X}|\RV{Y}$.
+Given probability gap model $\prob{P}_C$, $\RV{X}$, $\RV{Y}$, $\RV{Z}$ such that $\prob{P}_C^{\RV{Z}|\RV{YX}}$ exists, $\prob{P}_C^{\RV{Z}|\RV{Y}}$ exists iff $\RV{Z}\CI_{\prob{P}_C} \RV{X}|\RV{Y}$.
 \end{theorem}
 
 \begin{proof}
 If:
-If $\RV{Z}\CI_{\prob{P}_{\{\}}} \RV{X}|\RV{Y}$ then by Theorem \ref{th:cho_ci_equiv}, for each $\prob{P}_\alpha\in \prob{P}_{\{\}}$ there exists $\prob{P}_{\alpha}^{\RV{Z}|\RV{Y}}$ such that
+If $\RV{Z}\CI_{\prob{P}_C} \RV{X}|\RV{Y}$ then by Theorem \ref{th:cho_ci_equiv}, for each $\prob{P}_\alpha\in \prob{P}_C$ there exists $\prob{P}_{\alpha}^{\RV{Z}|\RV{Y}}$ such that
 \begin{align}
     \prob{P}_\alpha^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase}
 \end{align}
@@ -146,23 +146,23 @@ If $\RV{Z}\CI_{\prob{P}_{\{\}}} \RV{X}|\RV{Y}$ then by Theorem \ref{th:cho_ci_eq
 
 
 \begin{theorem}[Valid higher order conditionals]
-Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ with regular conditional $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$, $Y$ discrete and $Z$ standard measurable. Then there exists a valid regular $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$.
+Suppose we have a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_C$ with regular conditional $\prob{P}_C^{\RV{YZ}|\RV{X}}$, $Y$ discrete and $Z$ standard measurable. Then there exists a valid regular $\prob{P}_C^{\RV{Z}|\RV{XY}}$.
 \end{theorem}
 
 \begin{proof}
-By Theorem \ref{th:ho_cond_psets}, we have a higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ which, by Theorem \ref{th:higher_order_conditionals} is also a version of $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$.
+By Theorem \ref{th:ho_cond_psets}, we have a higher order conditional $\prob{P}_C^{\RV{Z}|(\RV{Y}|\RV{X})}$ which, by Theorem \ref{th:higher_order_conditionals} is also a version of $\prob{P}_C^{\RV{Z}|\RV{XY}}$.
 
-We will show that there is a Markov kernel $\kernel{Q}$ almost surely equal to $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$ which is also valid. For all $x,y\in X\times Y$, $A\in\sigalg{Z}$ such that $(\RV{X},\RV{Y},\RV{Z})\yields\{(x,y)\}\times A=\emptyset$, let $\kernel{Q}(A|x,y)=\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}(A|x,y)$.
+We will show that there is a Markov kernel $\kernel{Q}$ almost surely equal to $\prob{P}_C^{\RV{Z}|\RV{XY}}$ which is also valid. For all $x,y\in X\times Y$, $A\in\sigalg{Z}$ such that $(\RV{X},\RV{Y},\RV{Z})\yields\{(x,y)\}\times A=\emptyset$, let $\kernel{Q}(A|x,y)=\prob{P}_C^{\RV{Z}|\RV{XY}}(A|x,y)$.
 
-By validity of $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$, $x\in \RV{X}(\Omega)$ and $(\RV{X},\RV{Y},\RV{Z})\yields\{(x,y)\}\times A=\emptyset$ implies $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}(\{y\}\times A|x)=0$. Thus we need to show
+By validity of $\prob{P}_C^{\RV{YZ}|\RV{X}}$, $x\in \RV{X}(\Omega)$ and $(\RV{X},\RV{Y},\RV{Z})\yields\{(x,y)\}\times A=\emptyset$ implies $\prob{P}_C^{\RV{YZ}|\RV{X}}(\{y\}\times A|x)=0$. Thus we need to show
 
 \begin{align}
-    \forall A\in \sigalg{Z}, x\in X, y\in Y: \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}(\{y\}\times A|x)=0 \implies \left(\prob{Q}(A|x,y) = 0\right) \lor \left((\RV{X},\RV{Y})\yields \{(x,y)\} = \emptyset\right)
+    \forall A\in \sigalg{Z}, x\in X, y\in Y: \prob{P}_C^{\RV{YZ}|\RV{X}}(\{y\}\times A|x)=0 \implies \left(\prob{Q}(A|x,y) = 0\right) \lor \left((\RV{X},\RV{Y})\yields \{(x,y)\} = \emptyset\right)
 \end{align}
 
 For all $x,y$ such that $\kernel{P}_{\{\}}^{\RV{Y}|\RV{X}}(\{y\}|x)$ is positive, we have $\model{P}^{\RV{YZ}|\RV{X}}(\{y\}\times A|x)=0\implies \prob{P}_\square^{\RV{Z}|\RV{XY}}(A|x,y)=0=:\kernel{Q}(A|x,y)$.
 
-Furthermore, where $\kernel{P}_{\{\}}^{\RV{Y}|\RV{X}}(\{y\}|x)=0$, we either have $(\RV{X},\RV{Y},\RV{Z})\yields\{(x,y)\}\times A= \emptyset$ or can choose some $\omega\in (\RV{X},\RV{Y},\RV{Z})\yields\{(x,y)\}\times A$ and let $\kernel{Q}(\RV{Z}(\omega)|x,y) = 1$. This is an arbitrary choice, and may differ from the original $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$. However, because $Y$ is discrete the union of all points $y$ where $\kernel{P}_{\{\}}^{\RV{Y}|\RV{X}}(\{y\}|x)=0$ is a measure zero set, and so $\kernel{Q}$ differs from $\kernel{P}_{\{\}}^{\RV{Y}|\RV{X}}$ on a measure zero set.
+Furthermore, where $\kernel{P}_{\{\}}^{\RV{Y}|\RV{X}}(\{y\}|x)=0$, we either have $(\RV{X},\RV{Y},\RV{Z})\yields\{(x,y)\}\times A= \emptyset$ or can choose some $\omega\in (\RV{X},\RV{Y},\RV{Z})\yields\{(x,y)\}\times A$ and let $\kernel{Q}(\RV{Z}(\omega)|x,y) = 1$. This is an arbitrary choice, and may differ from the original $\prob{P}_C^{\RV{Z}|\RV{XY}}$. However, because $Y$ is discrete the union of all points $y$ where $\kernel{P}_{\{\}}^{\RV{Y}|\RV{X}}(\{y\}|x)=0$ is a measure zero set, and so $\kernel{Q}$ differs from $\kernel{P}_{\{\}}^{\RV{Y}|\RV{X}}$ on a measure zero set.
 \end{proof}
 
 
@@ -221,13 +221,13 @@ This is also found in \citet{ershov_extension_1975}, but is simple enough to rep
 
 
 \begin{lemma}[Semidirect product defines an intersection of probability sets]\label{th:intersection}
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to (X,\sigalg{X})$, $\RV{Y}:\Omega\to (Y,\sigalg{Y})$, $\RV{Z}:\Omega\to (Z,\sigalg{Z})$ all standard measurable and maximal probability sets $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}[M]}$ and $\prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}[M]}$ then defining
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to (X,\sigalg{X})$, $\RV{Y}:\Omega\to (Y,\sigalg{Y})$, $\RV{Z}:\Omega\to (Z,\sigalg{Z})$ all standard measurable and maximal probability sets $\prob{P}_C^{\RV{Y}|\RV{X}[M]}$ and $\prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}[M]}$ then defining
 \begin{align}
-    \prob{R}_{\{\}}^{\RV{YZ}|\RV{X}} := \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}
+    \prob{R}_{\{\}}^{\RV{YZ}|\RV{X}} := \prob{P}_C^{\RV{Y}|\RV{X}}\odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}
 \end{align}
 we have
 \begin{align}
-    \prob{R}_{\{\}}^{\RV{YZ}|\RV{X}[M]} &= \prob{P}_{\{\}}^{\RV{Y}|\RV{X}[M]}\cap \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}[M]}
+    \prob{R}_{\{\}}^{\RV{YZ}|\RV{X}[M]} &= \prob{P}_C^{\RV{Y}|\RV{X}[M]}\cap \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}[M]}
 \end{align}
 \end{lemma}
 
@@ -235,14 +235,14 @@ we have
 For any $\prob{R}_a\in\prob{R}_{\{\}}$
 
 \begin{align}
-    \prob{R}_{a}^{\RV{XYZ}} &= \prob{R}_a^{\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}\\
-    \implies \prob{R}_{a}^{\RV{XY}} &= \prob{R}_a^{\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\\
+    \prob{R}_{a}^{\RV{XYZ}} &= \prob{R}_a^{\RV{X}}\odot \prob{P}_C^{\RV{Y}|\RV{X}}\odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}\\
+    \implies \prob{R}_{a}^{\RV{XY}} &= \prob{R}_a^{\RV{X}}\odot \prob{P}_C^{\RV{Y}|\RV{X}}\\
     \land \prob{R}_{a}^{\RV{XYZ}} &= \prob{R}_{a}^{\RV{XY}}\odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}
 \end{align}
 
-Thus $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is a version of $\prob{R}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{Q}^{\RV{Z}|\RV{YX}}$ is a version of $\prob{R}_{\{\}}^{\RV{Z}|\RV{YX}}$ so $\prob{R}_{\{\}}\subset \prob{P}_{\{\}}\cap\prob{Q}_{\{\}}$.
+Thus $\prob{P}_C^{\RV{Y}|\RV{X}}$ is a version of $\prob{R}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{Q}^{\RV{Z}|\RV{YX}}$ is a version of $\prob{R}_{\{\}}^{\RV{Z}|\RV{YX}}$ so $\prob{R}_{\{\}}\subset \prob{P}_C\cap\prob{Q}_{\{\}}$.
 
-Suppose there's an element $\prob{S}$ of $\prob{P}_{\{\}}\cap\prob{Q}_{\{\}}$ not in $\prob{R}_{\{\}}$. Then by definition of $\prob{R}_{\{\}}$, $\prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}$ is not a version of $\prob{S}_{\{\}}^{\RV{YZ}|\RV{X}}$. But by construction of $\prob{S}$, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$  is a version of $\prob{S}^{\RV{Y}|\RV{X}}$ and  $\prob{Q}^{\RV{Z}|\RV{YX}}$ is a version of $\prob{S}^{\RV{Z}|\RV{YX}}$. But then by the definition of disintegration, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}} \odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}$ is a version of $\prob{S}_{\{\}}^{\RV{YZ}|\RV{X}}$ and so $\prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}$ is a version of $\prob{S}_{\{\}}^{\RV{YZ}|\RV{X}}$, a contradiction.
+Suppose there's an element $\prob{S}$ of $\prob{P}_C\cap\prob{Q}_{\{\}}$ not in $\prob{R}_{\{\}}$. Then by definition of $\prob{R}_{\{\}}$, $\prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}$ is not a version of $\prob{S}_{\{\}}^{\RV{YZ}|\RV{X}}$. But by construction of $\prob{S}$, $\prob{P}_C^{\RV{Y}|\RV{X}}$  is a version of $\prob{S}^{\RV{Y}|\RV{X}}$ and  $\prob{Q}^{\RV{Z}|\RV{YX}}$ is a version of $\prob{S}^{\RV{Z}|\RV{YX}}$. But then by the definition of disintegration, $\prob{P}_C^{\RV{Y}|\RV{X}} \odot \prob{Q}_{\{\}}^{\RV{Z}|\RV{YX}}$ is a version of $\prob{S}_{\{\}}^{\RV{YZ}|\RV{X}}$ and so $\prob{R}_{\{\}}^{\RV{YZ}|\RV{X}}$ is a version of $\prob{S}_{\{\}}^{\RV{YZ}|\RV{X}}$, a contradiction.
 \end{proof}
 
 
@@ -475,10 +475,10 @@ Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{
 \end{definition}
 
 \begin{definition}[Maximal probability set]
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a $\RV{Y}|\RV{X}$-valid conditional probability $\prob{L}:X\kto Y$ the maximal probability set $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}[M]}$ associated with $\prob{L}$ is the probability set such that for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$, $\prob{L}$ is a version of $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
+Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a $\RV{Y}|\RV{X}$-valid conditional probability $\prob{L}:X\kto Y$ the maximal probability set $\prob{P}_C^{\RV{Y}|\RV{X}[M]}$ associated with $\prob{L}$ is the probability set such that for all $\prob{P}_\alpha\in \prob{P}_C$, $\prob{L}$ is a version of $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
 \end{definition}
 
-We use the notation $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}[M]}$ as shorthand to refer to the probability set $\prob{P}_{\{\}}$ maximal with respect to $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$.
+We use the notation $\prob{P}_C^{\RV{Y}|\RV{X}[M]}$ as shorthand to refer to the probability set $\prob{P}_C$ maximal with respect to $\prob{P}_C^{\RV{Y}|\RV{X}}$.
 
 Lemma \ref{lem:valid_extendability} shows that the semidirect product of any pair of valid conditoinal probabilities is itself a valid conditional. Suppose we have some collection of $\RV{X}_i|\RV{X}_{[i-1]}$-valid conditionals $\{\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}|i\in [n]\}$; then recursively taking the semidirect product $\kernel{M}:=\prob{P}_1^{\RV{X}_1}\odot (\prob{P}_2^{\RV{X}_2|\RV{X}_{1}}\odot ...)$ yields a $\RV{X}_{[n]}$ valid distribution. Furthermore, the maximal probability set associated with $\kernel{M}$ is nonempty.
 

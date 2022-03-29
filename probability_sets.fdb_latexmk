@@ -1,0 +1,15 @@
+# Fdb version 3
+["xdvipdfmx"] 1648526070 "probability_sets.xdv" "probability_sets.pdf" "probability_sets" 1648526070
+  "probability_sets.xdv" 1648526069 3428 fc40a1105ad9e236a5b894f8df7ad1a2 "xelatex"
+  (generated)
+  "probability_sets.pdf"
+["xelatex"] 1648526069 "probability_sets.tex" "probability_sets.xdv" "probability_sets" 1648526070
+  "/etc/texmf/web2c/texmf.cnf" 1590547021 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
+  "/usr/share/texmf/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
+  "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1599613219 4648586 d2b7c7b61735336533540bc8faab0630 ""
+  "probability_sets.aux" 1648526069 8 a94a2480d3289e625eea47cd1b285758 ""
+  "probability_sets.tex" 1648526069 22578 bbf8c78a2bff40b181d704abd4b956eb ""
+  (generated)
+  "probability_sets.xdv"
+  "probability_sets.log"

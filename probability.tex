@@ -5,21 +5,30 @@
 
 \todo[inline]{Notation table, including iverson bracket}
 
-\subsection{The roles of variables and probabilistic models}
+\subsection{Variables}
 
-The sample space $(\Omega,\sigalg{F})$ along with the measurement procedure(s) $\proc{S}$ and the associated model variable $\RV{S}$ is a ``model skeleton''. The criterion of \emph{compatibility with observation} establishes a relation between the results of measurements and elements of $\sigalg{F}$.
+Our definition of variables is very similar to the standard definition given in many statistics textbooks. Suppose we have a measurement procedure where we interact with the real world somehow, and from this interaction we end up with a vector of numbers. Once we have this vector, we can apply functions to it -- project the first element, add the first to the second and so forth. We say that the set of elements that the measurement process can give, along with a $\sigma$-algebra of events, $(\Omega,\sigalg{F})$ is the \emph{sample space} associated with the measurement procedure, and each measurable function $f:\Omega\to Y$ for some measurable $(Y,\sigalg{Y})$ is a \emph{variable}. The measurement procedure plays the crucial role of translating the real world into numbers that we can operate on mathematically, and a \emph{model} is a probability measure on $(\Omega,\sigalg{F})$ that represents in the world of mathematics our understanding of the real world things addressed by the measurement process.
 
-The basic kind of problem we want to consider is one in which we wish to decide upon an action that we expect will yield good consequences. We suppose that whether a consequence is good or not can somehow be deduced from the result of $\proc{S}$. However, we do not know the result of $\proc{S}$, so we need to say something about the result we expect to see for each action we could choose.
+However, we assume here that we're actually interested in constructing models to help us make decisions. We consider this means we have a set of available choices $C$, and with each $\alpha\in C$ we may have a \emph{different} measurement procedure, though we hold that they all yield values in the same sample space $(\Omega,\sigalg{F})$. With each measurement procedure, we suppose we have a probability measure $\prob{P}_\alpha$ on $(\Omega,\sigalg{F})$, so all together we have a probability function $\alpha\mapsto \prob{P}_\alpha$. We are particularly interested in the set of all of the probability measures $\prob{P}_C:\{\prob{P}_\alpha|\alpha\in C\}$ -- anything that is true of every element of this set is true regardless of what we ultimately decide.
 
-It is common to to represent uncertain knowledge about the outcomes of not-yet-performed measurements using probabilistic models, and we follow this well-trodden path. However, we do need to generalise common practice somewhat, because we need a model that tells us that different consequences may arise from deciding on different actions.
+With probability sets we can define \emph{uniform conditional distributions} (Definition \ref{def:cprob_pset}) and \emph{extended conditional independence} (Definition \ref{def:eci}; see also \citet{constantinou_extended_2017}) which are similar but not identical to standard notions of conditional distributions and conditional independence.
 
-We use probability sets and probability gap models to represent decision problems. A probability set is a set of probability measures on a common sample space $(\Omega,\sigalg{F})$, and a probability gap model is a probability set along with a collection of subsets (the terminology comes from \citet{hajek_what_2003}). A decision problem presents us with a set of choices, and we assume that each choice is associated with a probability set representing uncertain knowledge (or best guesses) about the outcome of this choice. A probability gap model is the collection of all probability sets associated with a choice, along with the union of all of these sets. The union of all of the individual choice sets represents what we know about the outcome regardless of which choice is decided on.
+Section \ref{sec:standard_prob} introduces standard probability theory, Section \ref{sec:string_diagrams} introduces the string diagram notation that we use to represent Markov kernels (or probabilistic functions) and Section \ref{sec:probability_sets} introduces additional theory specific to probability sets.
 
-Our use of probability sets to represent uncertain knowledge about the outcome of each choice is not the result of a strong opinion that probability sets are the best way to do this. We've already had to introduce probability sets to handle different choices in the first place and we don't see any harm in continuing to use them for this additional purpose. A model in which a unique probability distribution is associated with each choice is simply a special case of this setup, where the probability set associated with each choice is of size 1.
+\subsection{Other decision theoretic causal models}
 
-A great deal of standard probability theory is applicable to reasoning with probability sets, and readers may be quite familiar with much of this. In particular, our notions of uniform conditional probability and uniform conditional independence are similar in many ways to the familiar notions of conditional probability and conditional independence, with the different being that -- even in finite sets -- the former do not always exist. We also make use of a diagrammatic notation for Markov kernels (or stochastic functions) taken from the categorical study of probability theory, which may be less familiar.
+There have been a number of formalisations of decision theoretic foundations of causal inference. All share the feature that there is a basic set of choices/interventions/regimes that may be chosen from, and a probability distribution is associated with each element of this set, so they all induce probability sets. 
 
-\subsection{Standard probability theory}
+\citet{lattimore_causal_2019} and \citet{lattimore_replacing_2019} describe a method for reformulating causal Bayesian networks as a set of probability distributions indexed by an intervention set $T$. Their algorithm \emph{CausalBayesConstruct} is a method for translating directly from causal Bayesian networks with a specification of interventions to probability sets.
+
+A key feature of the \emph{CausalBayesConstruct} algorithm is that every probability distribution in the set can be represented as a product of the same set of conditional probabilities - clearly, these must be uniform conditional probabilities. We posit, therefore, that d-separation in probabilistic graphical models corresponds to \emph{uniform conditional independence} given in Definition \ref{def:eci}, on the basis of Theorem \ref{th:uci_rep}.
+
+An alternative decision theoretic foundation has been developed in \citet{dawid_decision-theoretic_2020,dawid_beware_2010,dawid_causal_2000}. A key contribution of this literature is the notion of extended conditional independence (formally described in \citet{constantinou_extended_2017}, see Section \ref{sec:eci}), and its application to probability sets. Many common causal models have been described as probability sets in which certain extended conditional independence statements hold. A second contribution of \citet{dawid_decision-theoretic_2020} is to develop a lower level justification for the use of probability sets modelling ``generic variables'' that appears in earlier work. Our work is an extension of this latter investigation.
+
+\citet{heckerman_decision-theoretic_1995} also explore a decision theoretic approach to causal inference. Their approach differs from the previous two in two ways: first, they posit a set of choices and a set of unobserved states, and consider models that map $\mathrm{States}\times\mathrm{Choices}\to \mathrm{Outcomes}$, instead of mapping choices only to outcomes. Secondly, they consider only deterministic maps rather than general probability distribution valued maps. This approach is based on the decision theory of \citet{savage_foundations_1954}. They consider an alternative ``conditional independence-like'' property of these models that they call \emph{limited unresponsiveness}.
+
+
+\subsection{Standard probability theory}\label{sec:standard_prob}
 
 \begin{definition}[Measurable space]
 A measurable space $(X,\sigalg{X})$ is a set $X$ along with a $\sigma$-algebra of subsets $\sigalg{X}$.
@@ -96,39 +105,26 @@ Consider any $A\in \sigalg{X}$.
 \end{align}
 \end{proof}
 
-\subsection{Not quite standard probability theory}
+% \subsection{Not quite standard probability theory}
 
-Instead of having probability distributions and Markov kernels as two different kinds of thing, we can identify probability distributions with Markov kernels whose domain is a one element set $\{*\}$. This will prove useful in further developments, as it means that we can treat probability distributions and Markov kernels as different varieties of the same kind of thing.
+% Instead of having probability distributions and Markov kernels as two different kinds of thing, we can identify probability distributions with Markov kernels whose domain is a one element set $\{*\}$. This will prove useful in further developments, as it means that we can treat probability distributions and Markov kernels as different varieties of the same kind of thing.
 
-\begin{definition}[Probability measures as Markov kernels]
-Given a measurable space $(X,\sigalg{X})$ and $\mu\in \Delta(X)$, the Markov kernel $\kernel{K}:\{*\}\kto X$ associated with $\mu$ is given by $\kernel{K}(A|*)=\mu(A)$ for all $A\in \sigalg{X}$.
-\end{definition}
+% \begin{definition}[Probability measures as Markov kernels]
+% Given a measurable space $(X,\sigalg{X})$ and $\mu\in \Delta(X)$, the Markov kernel $\kernel{K}:\{*\}\kto X$ associated with $\mu$ is given by $\kernel{K}(A|*)=\mu(A)$ for all $A\in \sigalg{X}$.
+% \end{definition}
 
-We will use probability measures and their associated Markov kernels interchangeably, as it is transparent how to get from one to another.
+% We will use probability measures and their associated Markov kernels interchangeably, as it is transparent how to get from one to another.
 
-Conditional probability distributions are ``Markov kernel annotated with variables''.
+% Conditional probability distributions are ``Markov kernel annotated with variables''.
 
-\begin{definition}[Conditional distribution]\label{def:disint}
-Given a probability space $(\mu,\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, the probability of $\RV{Y}$ given $\RV{X}$ is any Markov kernel $\mu^{\RV{Y}|\RV{X}}:X\kto Y$ such that
-\begin{align}
-	\mu^{\RV{XY}}(A\times B)&=\int_{A} \mu^{\RV{Y}|\RV{X}}(B|x) \mathrm{d}\mu^{\RV{X}}(x) &\forall A\in \sigalg{X}, B\in \sigalg{Y}\\
-	&\iff\\
-	\mu^{\RV{XY}}&= \tikzfig{disint_def}\label{eq:conditional} 
-\end{align}
-\end{definition}
+% \begin{definition}[Conditional distribution]\label{def:disint}
+% Given a probability space $(\mu,\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, the probability of $\RV{Y}$ given $\RV{X}$ is any Markov kernel $\mu^{\RV{Y}|\RV{X}}:X\kto Y$ such that
+% \begin{align}
+% 	\mu^{\RV{XY}}(A\times B)&=\int_{A} \mu^{\RV{Y}|\RV{X}}(B|x) \mathrm{d}\mu^{\RV{X}}(x) &\forall A\in \sigalg{X}, B\in \sigalg{Y}\\
+% 	&\iff\\
+% 	\mu^{\RV{XY}}&= \tikzfig{disint_def}\label{eq:conditional} 
+% \end{align}
+% \end{definition}
 
-We define higher order conditionals as ``conditionals of conditionals''.
-
-\begin{definition}[Higher order conditionals]
-Given a probability space $(\mu,\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$, a higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}:X\times Y\to Z$ is any Markov kernel such that, for some $\mu^{\RV{Y}|\RV{X}}$, 
-\begin{align}
-	\mu^{\RV{ZY}|\RV{X}}(B\times C|x) &=\int_B \mu^{\RV{Z}|(\RV{Y}|\RV{X})}(C|x,y)\mu^{\RV{Y}|\RV{X}}(dy|x)\\ 
-	&\iff\\
-	\mu^{\RV{ZY}|\RV{X}} &= \tikzfig{disintegration_existence}\label{eq:disint_def}
-\end{align}
-\end{definition}
-
-Higher order conditionals are useful because $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ is a version of $\mu^{\RV{Z}|\RV{YX}}$, so if we're given $\mu^{\RV{ZY}|\RV{X}}$ but not $\mu$ itself, we use the higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ as a version of $\mu^{\RV{X}|\RV{YX}}$. This also hold for conditional with respect to probability sets, which we will introduce later (Theorem \ref{th:higher_order_conditionals}).
-
-Furthermore, given $\mu^{\RV{XY}|\RV{Z}}$ and $\RV{X}$, $\RV{Y}$ standard measurable, it has recently been proven that a higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ exists \citet{bogachev_kantorovich_2020}, Theorem 3.5. See also Theorem \ref{th:ho_cond_psets} for the extension of this theorem to probability sets.
+% We define higher order conditionals as ``conditionals of conditionals''.
 

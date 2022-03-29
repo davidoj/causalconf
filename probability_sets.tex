@@ -1,26 +1,39 @@
-\section{Probability sets}\label{sec:probability_sets}
+%!TEX root = main.tex
+
+
+\subsection{Probability sets}\label{sec:probability_sets}
 
 A probability set is a set of probability measures. This section establishes a number of useful properties of conditional probability with respect to probability sets. Unlike conditional probability with respect to a probability space, conditional probabilities don't always exist for probability sets. Where they do, however, they are almost surely unique and we can marginalise and disintegrate them to obtain other conditional probabilities with respect to the same probability set.
 
 \begin{definition}[Probability set]
-A probability set $\prob{P}_{\{\}}$ on $(\Omega,\sigalg{F})$ is a collection of probability measures on $(\Omega,\sigalg{F})$. In other words it is a subset of $\mathscr{P}(\Delta(\Omega))$, where $\mathscr{P}$ indicates the power set.
+A probability set $\prob{P}_C$ on $(\Omega,\sigalg{F})$ is a collection of probability measures on $(\Omega,\sigalg{F})$. In other words it is a subset of $\mathscr{P}(\Delta(\Omega))$, where $\mathscr{P}$ indicates the power set.
 \end{definition}
 
-Given a probability set $\prob{P}_{\{\}}$, we define marginal and conditional probabilities as probability measures and Markov kernels that satisfy Definitions \ref{def:pushforward} and \ref{def:disint} respectively for \emph{all} base measures in $\prob{P}_{\{\}}$. There are generally multiple Markov kernels that satisfy the properties of a conditional probability with respect to a probability set, and this definition ensures that marginal and conditional probabilities are ``almost surely'' unique (Definition \ref{def:asequal}) with respect to probability sets.
+Given a probability set $\prob{P}_C$, we define marginal and conditional probabilities as probability measures and Markov kernels that satisfy Definitions \ref{def:pushforward} and \ref{def:disint} respectively for \emph{all} base measures in $\prob{P}_C$. There are generally multiple Markov kernels that satisfy the properties of a conditional probability with respect to a probability set, and this definition ensures that marginal and conditional probabilities are ``almost surely'' unique (Definition \ref{def:asequal}) with respect to probability sets.
 
 \begin{definition}[Marginal probability with respect to a probability set]
-Given a sample space $(\Omega,\sigalg{F})$, a variable $\RV{X}:\Omega\to X$ and a probability set $\prob{P}_{\{\}}$, the marginal distribution $\prob{P}_{\{\}}^{\RV{X}}=\prob{P}_\alpha^{\RV{X}}$ for any $\prob{P}_\alpha\in\prob{P}_{\{\}}$ if a distribution satisfying this condition exists. Otherwise, it is undefined.
+Given a sample space $(\Omega,\sigalg{F})$, a variable $\RV{X}:\Omega\to X$ and a probability set $\prob{P}_C$, the marginal distribution $\prob{P}_C^{\RV{X}}=\prob{P}_\alpha^{\RV{X}}$ for any $\prob{P}_\alpha\in\prob{P}_C$ if a distribution satisfying this condition exists. Otherwise, it is undefined.
 \end{definition}
 
 \begin{definition}[Uniform conditional distribution]\label{def:cprob_pset}
-Given a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{\{\}}$, a uniform conditional distribution $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is an $\RV{Y}|\RV{X}$ conditional probability of $\prob{P}_\alpha$ for all $\prob{P}_\alpha\in \prob{P}_{\{\}}$. If no such Markov kernel exists, $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ is undefined.
+Given a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_C$, a uniform conditional distribution $\prob{P}_C^{\RV{Y}|\RV{X}}$ is any Markov kernel $X\kto Y$ such that $\prob{P}_C^{\RV{Y}|\RV{X}}$ is an $\RV{Y}|\RV{X}$ conditional probability of $\prob{P}_\alpha$ for all $\prob{P}_\alpha\in \prob{P}_C$. If no such Markov kernel exists, $\prob{P}_C^{\RV{Y}|\RV{X}}$ is undefined.
+\end{definition}
+
+Given a conditional distribution $\mu^{\RV{ZY}|\RV{X}}$ we can define a higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$, which is a version of $\mu^{\RV{Z}|\RV{XY}}$. This is useful because uniform conditionals don't always exist, but we can use higher order conditionals to show that if a probability set $\prob{P}_C$ has a uniform conditional $\prob{P}_C^{\RV{ZY}|\RV{X}}$ then it also has a uniform conditional $\prob{P}_C^{\RV{Z}|\RV{XY}}$ (Theorems \ref{th:ho_cond_psets} and \ref{th:higher_order_conditionals}). Given $\mu^{\RV{XY}|\RV{Z}}$ and $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ standard measurable, it has recently been proven that a higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}$ exists \citet{bogachev_kantorovich_2020}, Theorem 3.5.
+
+\begin{definition}[Higher order conditionals]
+Given a probability space $(\mu,\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$, a higher order conditional $\mu^{\RV{Z}|(\RV{Y}|\RV{X})}:X\times Y\to Z$ is any Markov kernel such that, for some $\mu^{\RV{Y}|\RV{X}}$, 
+\begin{align}
+    \mu^{\RV{ZY}|\RV{X}}(B\times C|x) &=\int_B \mu^{\RV{Z}|(\RV{Y}|\RV{X})}(C|x,y)\mu^{\RV{Y}|\RV{X}}(dy|x)\\ 
+    &\iff\\
+    \mu^{\RV{ZY}|\RV{X}} &= \tikzfig{disintegration_existence}\label{eq:disint_def}
+\end{align}
 \end{definition}
 
 \begin{definition}[Uniform higher order conditional]\label{def:ho_cprob_pset}
-Given a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$, if $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists then a uniform higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is any Markov kernel $X\times Y\kto Z$ that is a higher order conditional of some version of $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$. If no $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ exists, $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is undefined.
+Given a sample space $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_C$, if $\prob{P}_C^{\RV{ZY}|\RV{X}}$ exists then a uniform higher order conditional $\prob{P}_C^{\RV{Z}|(\RV{Y}|\RV{X})}$ is any Markov kernel $X\times Y\kto Z$ that is a higher order conditional of some version of $\prob{P}_C^{\RV{ZY}|\RV{X}}$. If no $\prob{P}_C^{\RV{ZY}|\RV{X}}$ exists, $\prob{P}_C^{\RV{Z}|(\RV{Y}|\RV{X})}$ is undefined.
 \end{definition}
 
-Under the assumption of standard measurable spaces, the existence of a uniform conditional distribution $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ implies the existence of a higher order conditional $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ with respect to the same probability set (Theorem \ref{th:ho_cond_psets}). $\prob{P}_{\{\}}^{\RV{Z}|(\RV{Y}|\RV{X})}$ is in turn a version of the uniform conditional distribution $\prob{P}_{\{\}}^{\RV{Z}|\RV{YX}}$ (Theorem \ref{th:higher_order_conditionals}). Thus, from the existence of $\prob{P}_{\{\}}^{\RV{ZY}|\RV{X}}$ we can derive the existence of $\prob{P}_{\{\}}^{\RV{Z}|\RV{YX}}$.
 
 % \begin{lemma}[Equivalence of pushforward definitions]\label{lem:prod_pushf}
 % Given a probability space $\kernel{M}:W\to \Omega$ and $\RV{X}:\Omega\to X$, define $\kernel{K}^{\RV{X}|\RV{W}}:W\kto X$ by $\kernel{K}^{\RV{X}|\RV{W}}(x|w):=\kernel{M}(\RV{X}\yields x|w)$ for any $x\in X$m $w\in W$ and $\kernel{L}^{\RV{X}}:W\kto X$ by
@@ -43,111 +56,39 @@ Under the assumption of standard measurable spaces, the existence of a uniform c
 % \end{align}
 % \end{proof}
 
-\subsection{Semidirect product and almost sure equality}
-
-The operation used in Equation \ref{eq:conditional} that combines $\mu^{\RV{X}}$ and $\mu^{\RV{Y}|\RV{X}}$ is something we will use repeatedly, so we call it the \emph{semidirect product} and give it the symbol $\odot$. We also define a notion of almost sure equality with using $\odot$: $\kernel{K}\overset{\mu^{\RV{X}}}{\cong} \kernel{L}$ if $\mu^{\RV{X}}\odot \kernel{K}=\mu^{\RV{X}}\odot\kernel{L}$ (note that this latter equality is strict; both semidirect products must assign the same measure to the same measurable sets). Thus if two terms are almost surely equal, they are substitutable when they both appear in a semidirect product.
-
-\begin{definition}[Semidirect product]\label{def:copyproduct}
-Given $\prob{K}:X\kto Y$ and $\prob{L}:Y\times X\kto Z$, define the copy-product $\prob{K}\odot\prob{L}:X\to Y\times Z$ as
+\begin{definition}[Almost sure equality]
+Two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are $\prob{P}_C,\RV{X},\RV{Y}$-almost surely equal if for all $A\in\sigalg{X}$, $B\in \sigalg{Y}$, $\alpha\in C$
 \begin{align}
-    \prob{K}\odot\prob{L}:&= \text{copy}_X(\prob{K}\otimes \text{id}_X)(\text{copy}_Y\otimes\text{id}_X )(\text{id}_Y \otimes \prob{L})\\
-                            &= \tikzfig{copy_product}\\
-                            &\iff\\
-    (\prob{K}\odot\prob{L})(A\times B|x) &= \int_A \prob{L}(B|y,x)\prob{K}(dy|x)&A\in \sigalg{Y},B\in\sigalg{Z}
+    \int_A \kernel{K}(B|x)\prob{P}_\alpha^{\RV{X}}(\mathrm{d}x) = \int_A\kernel{L}(B|x)\prob{P}_\alpha^{\RV{X}}(\mathrm{d}x)
 \end{align}
+we write this as $\kernel{K}\overset{\prob{P}_C}{\cong}\kernel{L}$, as the variables $\RV{X}$ and $\RV{Y}$ are clear from the context.
 \end{definition}
 
-\begin{lemma}[Semidirect product is associative]
-Given $\prob{K}:X\kto Y$, $\prob{L}:Y\times X\kto Z$ and $\prob{M}:Z\times Y\times X\kto W$
-\begin{align}
-    (\prob{K}\odot \prob{L})\odot \prob{Z} &= \prob{K}\odot(\prob{L}\odot\prob{Z})\\
-\end{align}
-\end{lemma}
+Equivalently, $\kernel{K}$ and $\kernel{L}$ are almost surely equal if the set $C:\{x|\exists B\in\sigalg{Y}:\kernel{K}(B|x)\neq\kernel{L}(B|x)\}$ has measure 0 with respect to $\prob{P}_\alpha^{\RV{X}}$ for all $\alpha\in C$.
 
-\begin{proof}
-\begin{align}
-    (\prob{K}\odot \prob{L})\odot \prob{M} &= \tikzfig{odot_assoc_1}\\
-                                            &=  \tikzfig{odot_assoc_2}\\
-                                            &= \prob{K}\odot (\prob{L}\odot \prob{M})
-\end{align}
-\end{proof}
+\subsection{Extended conditional independence}
 
-Two Markov kernels are almost surely equal with respect to a probability set $\prob{P}_{\{\}}$ if the semidirect product $\odot$ of all marginal probabilities of $\prob{P}_\alpha^\RV{X}$ with each Markov kernel is identical.
+Just like we defined uniform conditional probability as a version of ``conditional probability'' appropriate for probability sets, we need some version of ``conditional independence'' for probability sets. One such has already been given in some detail: it is the idea of \emph{extended conditional independence} defined in \citet{constantinou_extended_2017}.
 
-\begin{definition}[Almost sure equality]\label{def:asequal}
-Two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are almost surely equal $\overset{\prob{P}_{\{\}}}{\cong}$ with respect to a probability set $\prob{P}_{\{\}}$ and variable $\RV{X}:\Omega\to X$ if for all $\prob{P}_\alpha \in \prob{P}_{\{\}}$,
-\begin{align}
-    \prob{P}^{\RV{X}}_\alpha\odot \kernel{K}=\prob{P}^{\RV{X}}_\alpha\odot \kernel{L}
-\end{align}
-\end{definition}
-
-\begin{lemma}[Uniform conditional distributions are almost surely equal]
-If $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are both versions of $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ then $\kernel{K}\overset{\prob{P}_{\{\}}}{\cong}\kernel{L}$
-\end{lemma}
-
-\begin{proof}
-For all $\prob{P}_\alpha \in \prob{P}_{\{\}}$
-\begin{align}
-    \prob{P}^{\RV{X}}_\alpha\odot \kernel{K} &= \prob{P}^{\RV{XY}}_\alpha\\
-    &= \prob{P}^{\RV{X}}_\alpha\odot \kernel{L}
-\end{align}
-\end{proof}
-
-\begin{lemma}[Substitution of almost surely equal Markov kernels]\label{lem:sub_asequal}
-Given $\prob{P}_{\{\}}$, if $\kernel{K}:X\times Y \kto Z$ and $\kernel{L}:X\times Y \kto Z$ are almost surely equal $\kernel{K}\overset{\prob{P}_{\{\}}}{\cong}\kernel{L}$, then for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
-\begin{align}
-    \prob{P}_\alpha^{\RV{Y}|\RV{X}}\odot \kernel{K} &\overset{\prob{P}_{\{\}}}{\cong} \prob{P}_\alpha^{\RV{Y}|\RV{X}}\odot \kernel{L}
-\end{align}
-\end{lemma}
-
-\begin{proof}
-For any $\prob{P}_\alpha\in\prob{P}_{\{\}}$
-\begin{align}
-    \prob{P}_\alpha^{\RV{XY}}\odot \kernel{K} &= (\prob{P}_\alpha^{\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Y}|\RV{X}})\odot \kernel{K}\\
-                                              &= \prob{P}_\alpha^{\RV{X}}\odot (\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \kernel{K})\\
-                                              &= \prob{P}_\alpha^{\RV{X}}\odot (\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \kernel{L})
-\end{align}
-\end{proof}
-
-\begin{theorem}[Semidirect product of uniform conditional distributions is a joint uniform conditional distribution]\label{lem:joint_conditional}
-Given a probability set $\prob{P}_{\{\}}$ on $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and uniform conditional distributions $\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$ and $\prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}$, then $\prob{P}_{\{\}}^{\RV{YZ}|\RV{X}}$ exists and is equal to
-\begin{align}
-    \prob{P}_{\{\}}^{\RV{YZ}|\RV{X}} &= \prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Z}|\RV{XY}}
-\end{align}
-\end{theorem}
-
-\begin{proof}
-By definition, for any $\prob{P}_\alpha\in \prob{P}_{\{\}}$
-\begin{align}
-    \prob{P}_\alpha^{\RV{XYZ}} &= \prob{P}_\alpha^{\RV{X}}\odot \prob{P}_\alpha^{\RV{YZ}|\RV{X}}\\
-                               &= \prob{P}_\alpha^{\RV{X}}\odot(\prob{P}_\alpha^{\RV{Y}|\RV{X}}\odot \prob{P}_\alpha^{\RV{Z}|\RV{YX}})\\
-                               &= \prob{P}_\alpha^{\RV{X}}\odot(\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}\odot \prob{P}_{\{\}}^{\RV{Z}|\RV{YX}})
-\end{align}
-\end{proof}
-
-\subsection{Conditional independence}
-
-Conditional independence has a familiar definition in probability models. It is sometimes possible to infer the existence of a uniform conditional probability from a conditional independence statement. Conditional independence can be equivalently defined either in terms of a factorisation of a joint probability distribution (Definition \ref{def:ci}) or in terms of the existence of a conditional distribution that ignores one of its inputs (Theorem \ref{th:cho_ci_equiv}). 
-
-The latter formulation allows us, in some cases, to conclude from a the combination of a uniform conditional probability and a conditional independence statement the existence of a further uniform conditional probability (Corollary \ref{cor:ci_cp_exist}). We will discuss in Section \ref{sec:dec_probs} how uniform conditional probabilities can be thought of as causal relationships. Thus this means: from a fundamental assumed causal relationship and a conditional independence observed under the right conditions, we can conclude the existence of an additional causal relationship. 
+We will first define regular conditional independence. We define it in terms of a having a conditional that ``ignores one of its inputs'', which, provided conditional probabilities exists, is equivalent to other common definitions (Theorem \ref{th:cho_ci_equiv}).
 
 \begin{definition}[Conditional independence]\label{def:ci}
 For a \emph{probability model} $\model{P}_{\alpha}$ and variables $\RV{A},\RV{B},\RV{Z}$, we say $\RV{B}$ is conditionally independent of $\RV{A}$ given $\RV{C}$, written $\RV{B}\CI_{\model{P}_{\alpha}}\RV{A}|\RV{C}$, if
 \begin{align}
-    \kernel{P}_{\alpha}^{\RV{ABC}} &= \tikzfig{cond_indep1} \label{eq:cond_indep}
+    \prob{P}^{\RV{Y}|\RV{WX}} &\overset{\prob{P}}{\cong} \tikzfig{cond_indep_erase}\\
+    \iff
+    \prob{P}^{\RV{Y}|\RV{WX}}(A|w,x) &\overset{\prob{P}}{\cong} \prob{K}(A|w)&\forall A\in \sigalg{Y}
 \end{align}
 \end{definition}
-
-\citet{cho_disintegration_2019} have shown that this definition coincides with the standard notion of conditional independence for a particular probability model (Theorem \ref{th:cho_ci_equiv}). 
 
 Conditional independence can equivalently be stated in terms of the existence of a conditional probability that ``ignores'' one of its inputs.
 
 \begin{theorem}\label{th:cho_ci_equiv}
 Given standard measurable $(\Omega,\sigalg{F})$, a probability model $\prob{P}$ and variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, $\RV{Y}\CI_{\prob{P}}\RV{X}|\RV{W}$ if and only if there exists some version of $\prob{P}^{\RV{Y}|\RV{WX}}$ and $\kernel{K}:W\kto Y$ such that
 \begin{align}
-    \prob{P}^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase}\\
+    \prob{P}^{\RV{Y}|\RV{WX}} &\overset{\prob{P}}{\cong} \tikzfig{cond_indep_erase}\\
     \iff
-    \prob{P}^{\RV{Y}|\RV{WX}}(A|w,x) &= \prob{K}(A|w)&\forall A\in \sigalg{Y}
+    \prob{P}^{\RV{Y}|\RV{WX}}(A|w,x) &\overset{\prob{P}}{\cong} \prob{K}(A|w)&\forall A\in \sigalg{Y}
 \end{align}
 \end{theorem}
 
@@ -155,41 +96,7 @@ Given standard measurable $(\Omega,\sigalg{F})$, a probability model $\prob{P}$ 
 See \citet{cho_disintegration_2019}.
 \end{proof}
 
-Theorem \ref{th:cons_ci} shows how, under some circumstances, it is possible to infer an extended conditional independence in a probability set $\prob{P}_C$ from a regular conditional independence that holds in one element of the set $\prob{P}_\alpha$. We ultimately carry out the procedure associated with on only one element of $C$, so usually we cannot test whether some property holds for the whole set $\prob{P}_C$. However, regular conditional independences with respect to a particular element of $\prob{P}_C$ can be tested for (again, subject to some assumptions \citep{shah_hardness_2020}).
-
-\begin{theorem}\label{th:cons_ci}
-Given standard measurable $(\Omega,\sigalg{F})$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{C}$ with uniform conditional probability $\prob{P}_{C}^{\RV{Y}|\RV{WX}}$ and $\alpha\in C$ such that $\prob{P}_\alpha^{\RV{WX}}\gg \{\prob{P}_\beta^{\RV{WX}}|\beta\in C\}$, $\RV{Y}\CI_{\prob{P}_{\alpha}}\RV{X}|\RV{W}$ if and only if there is a version of $\prob{P}_{C}^{\RV{Y}|\RV{WX}}$ and $\kernel{K}:W\kto Y$ such that
-\begin{align}
-  \prob{P}_C^{\RV{Y}|\RV{WX}} &= \tikzfig{cond_indep_erase} \label{eq:higherorder_ci_erase}
-\end{align}
-\end{theorem}
-
-\begin{proof}
-See Appendix \ref{sec:cond_ind_app}
-\end{proof}
-
-\begin{corollary}\label{cor:ci_cp_exist}
-Given standard measurable $(\Omega,\sigalg{F})$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a probability set $\prob{P}_{C}$ with uniform conditional $\prob{P}_{C}^{\RV{Y}|\RV{WX}}$ and $\alpha\in C$ such that $\prob{P}_\alpha^{\RV{WX}}\gg \{\prob{P}_\beta^{\RV{WX}}|\beta\in C\}$, $\prob{P}_{C}^{\RV{Y}|\RV{W}}$ exists if $\RV{Y}\CI_{\prob{P}_{\alpha}}\RV{X}|\RV{W}$.
-\end{corollary}
-
-\begin{proof}
-By Theorem \ref{th:cons_ci}, there is $\kernel{K}:W\kto Y$ such that for all $\beta$
-\begin{align}
-    \prob{P}_{\beta}^{\RV{WY}} &= \tikzfig{conditional_independence_cprob_exist}\\
-    &= \tikzfig{conditional_independence_cprob_exist2}\\
-    &= \tikzfig{conditional_independence_cprob_exist3}
-\end{align}
-
-Thus $\kernel{K}$ is a version of $\prob{P}_{C}^{\RV{Y}|\RV{W}}$.
-\end{proof}
-
-\subsection{Extended conditional independence}\label{sec:eci}
-
-There are different notions of conditional independence that could be applied to a probability set $\prob{P}_C$. We can say $\RV{X}$ is ``globally independent'' of $\RV{Y}$ given $\RV{Z}$ if for every $\prob{P}_\alpha\in \prob{P}_C$, $\RV{X}\CI_{\prob{P}_\alpha}\RV{Y}|\RV{Z}$. Alternatively, we can say $\RV{X}$ is ``uniformly independent'' of $\RV{Y}$ given $\RV{Z}$ if $\prob{P}_C^{\RV{X}|\RV{YZ}}$ exists and does not depend on $\RV{Y}$. We are particularly interested in the second kind, as this is the kind of conditional independence that enables simplified representations of uniform conditional distributions.
-
-Both of these kinds of conditional independence are special cases of \emph{extended conditional independence}, introduced by \citet{constantinou_extended_2017}. Extended conditional independence is a generalisation of conditional independence that is applicable to probability sets. In full generality, extended conditional independence makes use of the notion of ``nonstochastic variables'', which are analogous to our notion of observed variables but applied to the set of choices $C$.
-
-Extended conditional independence provides a unified way to express global conditional independence, uniform conditional independence and forms of conditional independence intermediate between the two. However, we only make use of uniform conditional independence in this work.
+Extended conditional independence as introduced by \citet{constantinou_extended_2017} allows us to define ``nonstochastic variables'' on the choice set C. We don't make use of this feature here, and we limit ourselves to a special case of extended conditional independence. 
 
 \begin{definition}[Uniform conditional independence]\label{def:eci}
 Given a probability set $\prob{P}_C$ and variables $\RV{X}$, $\RV{Y}$ and $\RV{Z}$, the uniform conditional independence $\RV{Y}\CI^e_{\prob{P}_C} \RV{X} C|\RV{Z}$ holds if $\prob{P}_C^{\RV{Y}|\RV{XZ}}$ and $\prob{P}_C^{\RV{Y}|\RV{X}}$ exist and
@@ -200,7 +107,24 @@ Given a probability set $\prob{P}_C$ and variables $\RV{X}$, $\RV{Y}$ and $\RV{Z
 \end{align}
 \end{definition}
 
-The notation $\RV{Y}\CI^e_{\prob{P}_C} \RV{X} C|\RV{Z}$ is intentionally similar to a statement of extended conditional independence as defined by \citet{constantinou_extended_2017}. However, uniform conditional independence is a stronger assumption than extended conditional independence as the latter allows for arbitrary functions satisfy an equation like Eq. \ref{eq:eci}, while we require that these functions are Markov kernels (the are measurable and probability distribution-value, as in Definition \ref{def:mkern}).
+Unlike the general definition of extended conditional independence, uniform conditional independence requires that the functions on the right hand side of Equation \ref{eq:eci} are Markov kernels (Definition \ref{def:mkern}). Otherwise, $\RV{Y}\CI^e_{\prob{P}_C} \RV{X} C|\RV{Z}$ is equivalent to the definition provided by \citet{constantinou_extended_2017}, given an appropriate choice of nonstochastic variables.
+
+% Global conditional independence is a weaker condition: we require conditional independence for each $\alpha\in C$, but not the existence of the corresponding uniform conditionals.
+
+% \begin{definition}[Global conditional independence]
+% Given a probability set $\prob{P}_C$ and variables $\RV{X}$, $\RV{Y}$ and $\RV{Z}$, the global conditional independence $\RV{Y}\CI^e_{\prob{P}_C} \RV{X} |(\RV{Z},C)$ holds if for all $\alpha\in C$ $\RV{Y}\CI_{\prob{P}_\alpha} \RV{X}|\RV{Z}$.
+% \end{definition}
+
+Extended conditional independence requires nonstochastic variables (here, the set ``$C$'') to appear on the right hand side of the $\CI^e$ symbol. Otherwise, for countable sets $C$, we can reason with collections of extended conditional independence statements as if they were regular conditional independence statements. In particular, the following rules hold:
+
+\begin{enumerate}
+    \item Symmetry: $\RV{X}\CI_{\prob{P}_C}^e \RV{Y} C|\RV{Z}$ iff $\RV{Y}\CI_{\prob{P}} \RV{X} C|\RV{Z}$
+    \item Decomposition: $\RV{X}\CI_{\prob{P}_C}^e (\RV{Y},\RV{Z})C|\RV{W}$ implies $\RV{X}\CI_{\prob{P}}\RV{Y}C|\RV{W}$ and $\RV{X}\CI_{\prob{P}}\RV{Z}C|\RV{W}$
+    \item Weak union: $\RV{X}\CI_{\prob{P}_C}^e(\RV{Y},\RV{Z})C|\RV{W}$ implies $\RV{X}\CI_{\prob{P}_C}^e\RV{Y}C|(\RV{Z},\RV{W})$
+    \item Contraction: $\RV{X}\CI_{\prob{P}_C}^e\RV{Z}C|\RV{W}$ and $\RV{X}\CI_{\prob{P}_C}^e\RV{Y}C|(\RV{Z},\RV{W})$ implies $\RV{X}\CI_{\prob{P}_C}^e(\RV{Y},\RV{Z})C|\RV{W}$
+\end{enumerate} 
+
+\subsection{Examples}
 
 \begin{example}[Choice variable]\label{ex:choice_var}
 Suppose we have a decision procedure $\proc{S}_C:=\{\proc{S}_\alpha|\alpha\in C\}$ that consists of a measurement procedure for each element of a denumerable set of choices $C$. Each measurement procedure $\proc{S}_\alpha$ is modeled by a probability distribution $\prob{P}_\alpha$ on a shared sample space $(\Omega,\sigalg{F})$ such that we have an observable ``choice'' variable $(\RV{D},\RV{D}\circ\proc{S}_\alpha)$ where $\RV{D}\circ\proc{S}_\alpha$ always yields $\alpha$.
@@ -264,17 +188,17 @@ a contradiction. An analogous argument follows if we replace ``$>$'' with ``$<$'
 \end{proof}
 
 % \begin{theorem}[Disintegrations are conditional probabilities]
-% Suppose we have a fundamental probability set $\Omega$ variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ such that $\prob{P}_{\{\}}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability and there is some $\kernel{K}^{\RV{$
+% Suppose we have a fundamental probability set $\Omega$ variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_C$ such that $\prob{P}_C^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability and there is some $\kernel{K}^{\RV{$
 % \end{theorem}
 
 % Given a conditional probability with respect to a probability gap model, we can also find additional conditional probabilities by disintegrating the original conditional probability.
 
 % \begin{lemma}[Recursive disintegration]
-% Suppose we have a fundamental probability set $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_{\{\}}$ such that $\prob{P}_{\{\}}^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability. Define $\prob{Q}_{\{\}}$ as the largest probability set such that $\prob{Q}_{\{\}}^{\RV{Y}|\RV{X}}=\prob{P}_{\{\}}^{\RV{Y}|\RV{X}}$. Then if $\prob{Q}_{\{\}}^{\RV{Z}|\RV{W}}$ is a $\RV{Z}|\RV{W}$ conditional probability of $\prob{Q}_{\{\}}$, it is also a $\RV{Z}|\RV{W}$ conditional probability of $\prob{P}_{\{\}}$.
+% Suppose we have a fundamental probability set $\Omega$, variables $\RV{W}:\Omega\to W$, $\RV{X}:\Omega\to X$ and $\RV{Y}:\Omega\to Y$, $\RV{Z}:\Omega\to Z$ and a probability set $\prob{P}_C$ such that $\prob{P}_C^{\RV{X}|\RV{Y}}$ is a $\RV{Y}|\RV{X}$ conditional probability. Define $\prob{Q}_C$ as the largest probability set such that $\prob{Q}_C^{\RV{Y}|\RV{X}}=\prob{P}_C^{\RV{Y}|\RV{X}}$. Then if $\prob{Q}_C^{\RV{Z}|\RV{W}}$ is a $\RV{Z}|\RV{W}$ conditional probability of $\prob{Q}_C$, it is also a $\RV{Z}|\RV{W}$ conditional probability of $\prob{P}_C$.
 % \end{lemma}
 
 % \begin{proof}
-% $\prob{Q}_{\{\}}\supset \prob{P}_{\{\}}$, so any conditional probability of $\prob{Q}_{\{\}}$ is also a conditional probability of $\prob{P}_{\{\}}$.
+% $\prob{Q}_C\supset \prob{P}_C$, so any conditional probability of $\prob{Q}_C$ is also a conditional probability of $\prob{P}_C$.
 % \end{proof}
 
 

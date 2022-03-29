@@ -1,4 +1,4 @@
-\begin{thebibliography}{38}
+\begin{thebibliography}{33}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -136,13 +136,6 @@ M.~P. Ershov.
 \newblock URL \url{https://epubs.siam.org/doi/abs/10.1137/1119053}.
 \newblock Publisher: Society for Industrial and Applied Mathematics.
 
-\bibitem[Feynman(1979)]{feynman_feynman_1979}
-R.P. Feynman.
-\newblock \emph{The {Feynman} lectures on physics}.
-\newblock Le cours de physique de {Feynman}. Intereditions, France, 1979.
-\newblock ISBN 978-2-7296-0030-3.
-\newblock INIS Reference Number: 13648743.
-
 \bibitem[Fong(2013)]{fong_causal_2013}
 Brendan Fong.
 \newblock Causal {Theories}: {A} {Categorical} {Perspective} on {Bayesian}
@@ -201,14 +194,6 @@ Miguel~A. Hernán.
   \url{http://www.sciencedirect.com/science/article/pii/S1047279716302800}.
 \newblock Publisher: Elsevier.
 
-\bibitem[Hájek(2003)]{hajek_what_2003}
-Alan Hájek.
-\newblock What {Conditional} {Probability} {Could} {Not} {Be}.
-\newblock \emph{Synthese}, 137\penalty0 (3):\penalty0 273--323, December 2003.
-\newblock ISSN 1573-0964.
-\newblock \doi{10.1023/B:SYNT.0000004904.91112.16}.
-\newblock URL \url{https://doi.org/10.1023/B:SYNT.0000004904.91112.16}.
-
 \bibitem[Imbens and Rubin(2015)]{imbens_causal_2015}
 Guido~W. Imbens and Donald~B. Rubin.
 \newblock \emph{Causal {Inference} for {Statistics}, {Social}, and {Biomedical}
@@ -233,31 +218,10 @@ Finnian Lattimore and David Rohde.
 \newblock URL \url{http://arxiv.org/abs/1906.07125}.
 \newblock arXiv: 1906.07125.
 
-\bibitem[Menger(2003)]{menger_random_2003}
-Karl Menger.
-\newblock Random {Variables} from the {Point} of {View} of a {General} {Theory}
-  of {Variables}.
-\newblock In Karl Menger, Bert Schweizer, Abe Sklar, Karl Sigmund, Peter
-  Gruber, Edmund Hlawka, Ludwig Reich, and Leopold Schmetterer, editors,
-  \emph{Selecta {Mathematica}: {Volume} 2}, pages 367--381. Springer, Vienna,
-  2003.
-\newblock ISBN 978-3-7091-6045-9.
-\newblock \doi{10.1007/978-3-7091-6045-9_31}.
-\newblock URL \url{https://doi.org/10.1007/978-3-7091-6045-9_31}.
-
 \bibitem[Pearl(2009)]{pearl_causality:_2009}
 Judea Pearl.
 \newblock \emph{Causality: {Models}, {Reasoning} and {Inference}}.
 \newblock Cambridge University Press, 2 edition, 2009.
-
-\bibitem[Pearl(2018)]{pearl_does_2018}
-Judea Pearl.
-\newblock Does {Obesity} {Shorten} {Life}? {Or} is it the {Soda}? {On}
-  {Non}-manipulable {Causes}.
-\newblock \emph{Journal of Causal Inference}, 6\penalty0 (2), 2018.
-\newblock \doi{10.1515/jci-2018-2001}.
-\newblock URL
-  \url{https://www.degruyter.com/view/j/jci.2018.6.issue-2/jci-2018-2001/jci-2018-2001.xml}.
 
 \bibitem[Peters et~al.(2016)Peters, Bühlmann, and
   Meinshausen]{peters_causal_2016}
@@ -300,18 +264,6 @@ P.~Selinger.
 \newblock ISBN 978-3-642-12821-9.
 \newblock \doi{10.1007/978-3-642-12821-9_4}.
 \newblock URL \url{https://doi.org/10.1007/978-3-642-12821-9_4}.
-
-\bibitem[Shah and Peters(2020)]{shah_hardness_2020}
-Rajen~D. Shah and Jonas Peters.
-\newblock The hardness of conditional independence testing and the generalised
-  covariance measure.
-\newblock \emph{The Annals of Statistics}, 48\penalty0 (3):\penalty0
-  1514--1538, June 2020.
-\newblock ISSN 0090-5364, 2168-8966.
-\newblock \doi{10.1214/19-AOS1857}.
-\newblock URL
-  \url{https://projecteuclid.org/journals/annals-of-statistics/volume-48/issue-3/The-hardness-of-conditional-independence-testing-and-the-generalised-covariance/10.1214/19-AOS1857.full}.
-\newblock Publisher: Institute of Mathematical Statistics.
 
 \bibitem[Shahar(2009)]{shahar_association_2009}
 Eyal Shahar.
