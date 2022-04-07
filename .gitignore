@@ -1,0 +1,17 @@
+# LaTeX
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.vscode
+*.zip
+*.pyc
+*.webm
+*.snm
+*.nav
