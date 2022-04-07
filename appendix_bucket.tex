@@ -451,58 +451,6 @@ This result can fail to hold in the absence of the domination condition. Conside
 
 Note that in the absence of the assumption of the existence of $\prob{P}_\square^{\RV{Y}|\RV{WX}}$, $\RV{Y}\CI_{\prob{P}_\square}\RV{X}|\RV{W}$ does \emph{not} imply the existence of $\prob{P}_\square^{\RV{Y}|\RV{W}}$. If we have, for example, $A=\{\alpha,\beta\}$ and $\prob{P}_\alpha^{\RV{XY}}$ is two flips of a fair coin while $\prob{P}_\beta^{\RV{XY}}$ is two flips of a biased coin, then $\RV{Y}\CI_{\prob{P}}\RV{X}$ but $\prob{P}^{\RV{Y}}$ does not exist.
 
-\subsection{Maximal probability sets and valid conditionals}
-
-We have defined probability sets and uniform conditional probabilities. Thus, if we start with a probability set, we know how to check if certain uniform conditional probabilities exist or not. However, there is a particular line of reasoning that comes up most often in the graphical models tradition of causal inference where we start with collections of conditional probabilities and assemble them into probability models as needed. A simple example of this is the causal Bayesian network given by the graph $\RV{X}\longrightarrowRHD \RV{Y}$ and some observational probability distribution $\prob{P}^{\RV{XY}}\in\Delta(X\times Y)$. Using the standard notion of ``hard interventions on $\RV{X}$'', this model induces a probability set which we could informally describe as the set $\prob{P}_\square:=\{\prob{P}_a^{\RV{XY}}|a\in X\cup\{*\}\}$ where $*$ is a special element corresponding to the observational setting. The graph $\RV{X}\longrightarrowRHD \RV{Y}$ implies the existence of the uniform conditional probability $\prob{P}_\square^{\RV{Y}|\RV{X}}$ under the nominated set of interventions, while the usual rules of hard interventions imply that $\prob{P}_a^{\RV{X}} = \delta_a$ for $a\in X$.
-
-Reasoning ``backwards'' like this -- from uniform conditionals and marginals back to probability sets -- must be done with care. The probability set associated with a collection of conditionals and marginals may be empty or nonunique. Uniqueness may not always be required, but an empty probability set is clearly not a useful model.
-
-Consider, for example, $\Omega=\{0,1\}$ with $\RV{X}=(\RV{Z},\RV{Z})$ for $\RV{Z}:=\text{id}_{\Omega}$ and any measure $\kappa\in \Delta(\{0,1\}^2)$ such that $\kappa(\{1\}\times \{0\})>0$. Note that $\RV{X}^{-1}(\{1\}\times \{0\})=\RV{Z}^{-1}(\{1\})\cap \RV{Z}^{-1}(\{0\})=\emptyset$. Thus for any probability measure $\mu\in \Delta(\{0,1\})$, $\mu^{\RV{X}}(\{1\}\times \{0\}) = \mu(\emptyset)=0 $ and so $\kappa$ cannot be the marginal distribution of $\RV{X}$ for any base measure at all.
-
-We introduce the notion of \emph{valid distributions} and \emph{valid conditionals}. The key result here is: probability sets defined by collections of recursive valid conditionals and distributions are nonempty. While we suspect this condition is often satisfied by causal models in practice, we offer one example in the literature where it apparently is not. The problem of whether a probability set is valid is analogous to the problem of whether a probability distribution satisfying a collection of constraints exists discussed in \citet{vorobev_consistent_1962}. As that work shows, there are many questions of this nature that can be asked and that are not addressed by the criterion of validity.
-
-There is also a connection between the notion of validity and the notion of \emph{unique solvability} in \citet{bongers_theoretical_2016}. We ask ``when can a set of conditional probabilities together with equations be jointly satisfied by a probability model?'' while Bongers et. al. ask when a set of equations can be jointly satisfied by a probability model.
-
-\begin{definition}[Valid distribution]\label{def:valid_dist}
-Given $(\Omega,\sigalg{F})$ and a variable $\RV{X}:\Omega\to X$, an $\RV{X}$-valid probability distribution is any probability measure $\prob{K}\in \Delta(X)$ such that $\RV{X}^{-1}(A)=\emptyset\implies \prob{K}(A) = 0$ for all $A\in\sigalg{X}$.
-\end{definition}
-
-\begin{definition}[Valid conditional]\label{def:valid_conditional_prob}
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ a \emph{$\RV{Y}|\RV{X}$-valid conditional probability} is a Markov kernel $\prob{L}:X\kto Y$ that assigns probability 0 to impossible events, unless the argument itself corresponds to an impossible event:
-\begin{align}
-    \forall B\in \sigalg{Y}, x\in X: (\RV{X},\RV{Y})\yields \{x\}\times B = \emptyset \implies \left(\prob{L}(B|x) = 0\right) \lor \left(\RV{X}\yields \{x\} = \emptyset\right)
-\end{align}
-\end{definition}
-
-\begin{definition}[Maximal probability set]
-Given $(\Omega,\sigalg{F})$, $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and a $\RV{Y}|\RV{X}$-valid conditional probability $\prob{L}:X\kto Y$ the maximal probability set $\prob{P}_C^{\RV{Y}|\RV{X}[M]}$ associated with $\prob{L}$ is the probability set such that for all $\prob{P}_\alpha\in \prob{P}_C$, $\prob{L}$ is a version of $\prob{P}_\alpha^{\RV{Y}|\RV{X}}$.
-\end{definition}
-
-We use the notation $\prob{P}_C^{\RV{Y}|\RV{X}[M]}$ as shorthand to refer to the probability set $\prob{P}_C$ maximal with respect to $\prob{P}_C^{\RV{Y}|\RV{X}}$.
-
-Lemma \ref{lem:valid_extendability} shows that the semidirect product of any pair of valid conditoinal probabilities is itself a valid conditional. Suppose we have some collection of $\RV{X}_i|\RV{X}_{[i-1]}$-valid conditionals $\{\prob{P}_i^{\RV{X}_i|\RV{X}_{[i-1]}}|i\in [n]\}$; then recursively taking the semidirect product $\kernel{M}:=\prob{P}_1^{\RV{X}_1}\odot (\prob{P}_2^{\RV{X}_2|\RV{X}_{1}}\odot ...)$ yields a $\RV{X}_{[n]}$ valid distribution. Furthermore, the maximal probability set associated with $\kernel{M}$ is nonempty.
-
-Collections of recursive conditional probabilities often arise in causal modelling -- in particular, they are the foundation of the structural equation modelling approach \citet{richardson2013single,pearl_causality:_2009}.
-
-Note that validity is not a necessary condition for a conditional to define a non-empty probability set. The intuition for this is: if we have some $\kernel{K}:X\kto Y$, $\kernel{K}$ might be an invalid $\RV{Y}|\RV{X}$ conditional on all of $X$, but might be valid on some subset of $X$, and so we might have some probability model $\prob{P}$ that assigns measure 0 to the bad parts of $X$ such that $\kernel{K}$ is a version of $\prob{P}^{\RV{Y}|\RV{X}}$. On the other hand, if we want to take the product of $\kernel{K}$ with arbitrary valid $\RV{X}$ probabilities, then the validity of $\kernel{K}$ is necessary (Theorem \ref{th:valid_conditional_probability}).
-
-\begin{example}
-Body mass index is defined as a person's weight divided by the square of their height. Suppose we have a measurement process $\proc{S}=(\proc{W},\proc{H})$ and $\proc{B}=\frac{\proc{W}}{\proc{H}^2}$ - i.e. we figure out someone's body mass index first by measuring both their height and weight, and then passing the result through a function that divides the second by the square of the first. Thus, given the random variables $\RV{W},\RV{H}$ modelling $\proc{W},\proc{H}$, $\proc{B}$ is the function given by $\RV{B}=\frac{\RV{W}}{\RV{H}^2}$.
-
-With this background, suppose we postulate a decision model in which body mass index can be directly controlled by a variable $\RV{C}$, while height and weight are not. Specifically, we have a probability set $\prob{P}_\square$ with
-\begin{align}
-    \prob{P}_\square^{\RV{B}|\RV{WHC}} &= \tikzfig{invalid_BMI_model} \label{eq:bmi_example}
-\end{align}
-Then pick some $w,h,x\in\mathbb{R}$ such that $\frac{w}{h^2}\neq x$ and $(\RV{W},\RV{H})\yields (w,h)\neq \emptyset$ (which is to say, our measurement procedure could potentially yield $(w,h)$ for a person's height and weight). We have $\prob{P}_\square^{\RV{B}|\RV{WHC}}(\{x\}|w,h,x)=1$, but 
-\begin{align}
-    (\RV{B},\RV{W},\RV{H})\yields \{(x,w,h)\} &= \{\omega|(\RV{W},\RV{H})(\omega) = (w,h),\RV{B}(\omega) = \frac{w}{h^2}\}\\
-    &=\emptyset
-\end{align}
-so $\prob{P}_\square^{\RV{B}|\RV{WHC}}$ is invalid. Thus there is some valid $\mu^{\RV{WHC}}$ such that the probability set $\prob{P}_{\square}^{\RV{BWHC}} = \mu^{\RV{WHC}}\odot \prob{P}_\square^{\RV{Y}|\RV{X}}$ is empty.
-
-Validity rules out conditional probabilities like \ref{eq:bmi_example}. We conjecture that in many cases this condition is implicitly taken into account -- it is obviously silly to posit a model in which body mass index can be controlled independently of height and weight. We note, however, that presuming the authors intended their model to be interpreted according to the usual semantics of causal Bayesian networks, the invalid conditional probability \ref{eq:bmi_example} would be used to evaluate the causal effect of body mass index in the causal diagram found in \citet{shahar_association_2009}.
-\end{example}
-
 \subsection{Causal contractibility}\label{sec:ccontract_appendix}
 
 \begin{reptheorem}{th:no_implication}
