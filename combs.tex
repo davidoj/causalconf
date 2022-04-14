@@ -10,8 +10,8 @@ Given sample space $(\Omega,\sigalg{F})$ and a collection of $|D|$ variables $\R
 
 To define the assembled form, it is helpful to define a new operation $\combprod$. Note that consecutive conditional probabilities in a disassembled probability comb have the form $\prob{P}_\square^{\RV{X}_i|\RV{X}_{[i-1]}},\prob{P}_\square^{\RV{X}_{i+2}|\RV{X}_{[i+1]}}$, and so they are not correctly typed to take the $\cprod$ product. However, we can take the $\cprod$ product of $\prob{P}_\square^{\RV{X}_i|\RV{X}_{[i-1]}}\otimes\mathrm{id}_{X_{i+1}}$ and $\prob{P}_\square^{\RV{X}_{i+2}|\RV{X}_{[i+1]}}$. The operation $\combprod$ is just this -- it takes the first Markov kernel tensored with the identity, then computes the $\cprod$ product of the resulting Markov kernels.
 
-\begin{definition}[Bypass semidirect product]
-Given two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\times Y\times Z\kto W$, $\kernel{K}\combprod \kernel{L}:X\times Z\kto X\times Y\times Z\times W$ is the Markov kernel equal to
+\begin{definition}[Semidirect product]
+Given two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\times Y\times Z\kto W$, the semidirect product $\kernel{K}\combprod \kernel{L}:X\times Z\kto X\times Y\times Z\times W$ is the Markov kernel equal to
 \begin{align}
     \kernel{K}\combprod \kernel{L} := \tikzfig{bypass_copy_product}
 \end{align}

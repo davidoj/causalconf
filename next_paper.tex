@@ -402,7 +402,7 @@ Consider arbitrary $\prob{P}_\alpha\in \prob{P}_\square$, $A\subset X_l$, $C\sub
 \begin{reptheorem}{th:comb_conditional_correspondence}[Comb-conditional correspondence]
 Given a probability comb $\{\prob{P}_\square^{\RV{X}_{i}|\RV{X}_{[i-1]}}|i\in \RV{X}_{D_{\text{odd}}}\}$ and a blind choice $\alpha$
 \begin{align}
-\prob{P}_\square^{\RV{X}_{D_{\text{odd}}}\combbreak \RV{X}_{D_{\text{even}}}}\cong{\prob{P}_\alpha}{=}\prob{P}_\alpha^{\RV{X}_{D_{\text{odd}}}| \RV{X}_{D_{\text{even}}}}
+\prob{P}_\square^{\RV{X}_{D_{\text{odd}}}\combbreak \RV{X}_{D_{\text{even}}}}\overset{\prob{P}_\alpha}{\cong}\prob{P}_\alpha^{\RV{X}_{D_{\text{odd}}}| \RV{X}_{D_{\text{even}}}}
 \end{align}
 \end{reptheorem}
 
@@ -1004,7 +1004,7 @@ Given $\prob{K}:X\kto Y$, $\prob{L}:Y\times X\kto Z$ and $\prob{M}:Z\times Y\tim
 
 Two Markov kernels are almost surely equal with respect to a probability set $\prob{P}_C$ if the semidirect product $\odot$ of all marginal probabilities of $\prob{P}_\alpha^\RV{X}$ with each Markov kernel is identical.
 
-\begin{definition}[Almost sure equality]\label{def:asequal}
+\begin{definition}[Almost sure equality]\label{def:asequal_pspace}
 Two Markov kernels $\kernel{K}:X\kto Y$ and $\kernel{L}:X\kto Y$ are almost surely equal $\overset{\prob{P}_C}{\cong}$ with respect to a probability set $\prob{P}_C$ and variable $\RV{X}:\Omega\to X$ if for all $\prob{P}_\alpha \in \prob{P}_C$,
 \begin{align}
     \prob{P}^{\RV{X}}_\alpha\odot \kernel{K}=\prob{P}^{\RV{X}}_\alpha\odot \kernel{L}
@@ -1033,16 +1033,16 @@ Given $\prob{P}_C$, if $\kernel{K}:X\times Y \kto Z$ and $\kernel{L}:X\times Y \
 \begin{proof}
 For any $\prob{P}_\alpha\in\prob{P}_C$
 \begin{align}
-    \prob{P}_\alpha^{\RV{XY}}\odot \kernel{K} &= (\prob{P}_\alpha^{\RV{X}}\odot \prob{P}_C^{\RV{Y}|\RV{X}})\odot \kernel{K}\\
-                                              &= \prob{P}_\alpha^{\RV{X}}\odot (\prob{P}_C^{\RV{Y}|\RV{X}}\odot \kernel{K})\\
-                                              &= \prob{P}_\alpha^{\RV{X}}\odot (\prob{P}_C^{\RV{Y}|\RV{X}}\odot \kernel{L})
+    \prob{P}_\alpha^{\RV{XY}}\odot \kernel{K} &\overset{\prob{P}_C}{\cong} (\prob{P}_\alpha^{\RV{X}}\odot \prob{P}_C^{\RV{Y}|\RV{X}})\odot \kernel{K}\\
+                                              &\overset{\prob{P}_C}{\cong} \prob{P}_\alpha^{\RV{X}}\odot (\prob{P}_C^{\RV{Y}|\RV{X}}\odot \kernel{K})\\
+                                              &\overset{\prob{P}_C}{\cong} \prob{P}_\alpha^{\RV{X}}\odot (\prob{P}_C^{\RV{Y}|\RV{X}}\odot \kernel{L})
 \end{align}
 \end{proof}
 
 \begin{theorem}[Semidirect product of uniform conditional distributions is a joint uniform conditional distribution]\label{lem:joint_conditional}
 Given a probability set $\prob{P}_C$ on $(\Omega,\sigalg{F})$, variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$ and uniform conditional distributions $\prob{P}_C^{\RV{Y}|\RV{X}}$ and $\prob{P}_C^{\RV{Z}|\RV{XY}}$, then $\prob{P}_C^{\RV{YZ}|\RV{X}}$ exists and is equal to
 \begin{align}
-    \prob{P}_C^{\RV{YZ}|\RV{X}} &= \prob{P}_C^{\RV{Y}|\RV{X}}\odot \prob{P}_C^{\RV{Z}|\RV{XY}}
+    \prob{P}_C^{\RV{YZ}|\RV{X}} &\overset{\prob{P}_C}{\cong} \prob{P}_C^{\RV{Y}|\RV{X}}\odot \prob{P}_C^{\RV{Z}|\RV{XY}}
 \end{align}
 \end{theorem}
 
@@ -1054,9 +1054,6 @@ By definition, for any $\prob{P}_\alpha\in \prob{P}_C$
                                &= \prob{P}_\alpha^{\RV{X}}\odot(\prob{P}_C^{\RV{Y}|\RV{X}}\odot \prob{P}_C^{\RV{Z}|\RV{YX}})
 \end{align}
 \end{proof}
-
-
-The latter formulation allows us, in some cases, . We will discuss in Section \ref{sec:dec_probs} how uniform conditional probabilities can be thought of as causal relationships. Thus this means: from a fundamental assumed causal relationship and a conditional independence observed under the right conditions, we can conclude the existence of an additional causal relationship. 
 
 We can't test for extended conditional independence by checking $\prob{P}_\alpha$ for every $\alpha\in C$ cannot be directly observed, because we only ever carry out the measurement procedure associated with one $\alpha\in C$. Theorem \ref{th:cons_ci} shows how, under some circumstances, it is possible to infer an extended conditional independence in a probability set $\prob{P}_C$ from a regular conditional independence that holds in one element of the set $\prob{P}_\alpha$. We ultimately carry out the procedure associated with on only one element of $C$, so usually we cannot test whether some property holds for the whole set $\prob{P}_C$. However, regular conditional independences with respect to a particular element of $\prob{P}_C$ can be tested for (again, subject to some assumptions \citep{shah_hardness_2020}). We can also conclude from a the combination of a uniform conditional probability and a conditional independence statement the existence of a further uniform conditional probability (Corollary \ref{cor:ci_cp_exist})
 

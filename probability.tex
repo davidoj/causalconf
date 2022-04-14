@@ -54,7 +54,7 @@ Given measurable spaces $(X,\sigalg{X})$ and $(Y,\sigalg{Y})$, a Markov kernel $
 \end{definition}
 
 \begin{definition}[Delta measure]
-Given a measureable space $(X,\sigalg{X})$ and $x\in X$, $\delta_x\in \Delta(X)$ is the measure defined by $\delta_x(A):=\llbracket x\in A \rrbracket$ for all $A\in \sigalg{X}$
+Given a measurable space $(X,\sigalg{X})$ and $x\in X$, $\delta_x\in \Delta(X)$ is the measure defined by $\delta_x(A):=\llbracket x\in A \rrbracket$ for all $A\in \sigalg{X}$
 \end{definition}
 
 \begin{definition}[Probability space]
@@ -62,11 +62,11 @@ A probability space is a triple $(\mu,\Omega,\sigalg{F})$, where $\mu$ is a base
 \end{definition}
 
 \begin{definition}[Variable]
-Given a measureable space $(\Omega,\sigalg{F})$ and a measurable space of values $(X,\sigalg{X})$, an \emph{$X$-valued variable} is a measurable function $\RV{X}:(\Omega,\sigalg{F})\to (X,\sigalg{X})$.
+Given a measurable space $(\Omega,\sigalg{F})$ and a measurable space of values $(X,\sigalg{X})$, an \emph{$X$-valued variable} is a measurable function $\RV{X}:(\Omega,\sigalg{F})\to (X,\sigalg{X})$.
 \end{definition}
 
 \begin{definition}[Sequence of variables]
-Given a measureable space $(\Omega,\sigalg{F})$ and two variables $\RV{X}:(\Omega,\sigalg{F})\to (X,\sigalg{X})$, $\RV{Y}:(\Omega,\sigalg{F})\to (Y,\sigalg{Y})$, $(\RV{X},\RV{Y}):\Omega\to X\times Y$ is the variable $\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega))$.
+Given a measurable space $(\Omega,\sigalg{F})$ and two variables $\RV{X}:(\Omega,\sigalg{F})\to (X,\sigalg{X})$, $\RV{Y}:(\Omega,\sigalg{F})\to (Y,\sigalg{Y})$, $(\RV{X},\RV{Y}):\Omega\to X\times Y$ is the variable $\omega\mapsto (\RV{X}(\omega),\RV{Y}(\omega))$.
 \end{definition}
 
 \begin{definition}[Marginal distribution with respect to a probability space]\label{def:pushforward}
@@ -105,6 +105,16 @@ Consider any $A\in \sigalg{X}$.
 \end{align}
 \end{proof}
 
+\begin{definition}[Conditional distribution]\label{def:disint}
+Given a probability space $(\mu,\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, the conditional distribution of $\RV{Y}$ given $\RV{X}$ is any Markov kernel $\mu^{\RV{Y}|\RV{X}}:X\kto Y$ such that
+\begin{align}
+	\mu^{\RV{XY}}(A\times B)&=\int_{A} \mu^{\RV{Y}|\RV{X}}(B|x) \mathrm{d}\mu^{\RV{X}}(x) &\forall A\in \sigalg{X}, B\in \sigalg{Y}\\
+	&\iff\\
+	\mu^{\RV{XY}}&= \tikzfig{disint_def}\label{eq:conditional} 
+\end{align}
+\end{definition}
+
+
 % \subsection{Not quite standard probability theory}
 
 % Instead of having probability distributions and Markov kernels as two different kinds of thing, we can identify probability distributions with Markov kernels whose domain is a one element set $\{*\}$. This will prove useful in further developments, as it means that we can treat probability distributions and Markov kernels as different varieties of the same kind of thing.
@@ -117,14 +127,6 @@ Consider any $A\in \sigalg{X}$.
 
 % Conditional probability distributions are ``Markov kernel annotated with variables''.
 
-% \begin{definition}[Conditional distribution]\label{def:disint}
-% Given a probability space $(\mu,\Omega,\sigalg{F})$ and variables $\RV{X}:\Omega\to X$, $\RV{Y}:\Omega\to Y$, the probability of $\RV{Y}$ given $\RV{X}$ is any Markov kernel $\mu^{\RV{Y}|\RV{X}}:X\kto Y$ such that
-% \begin{align}
-% 	\mu^{\RV{XY}}(A\times B)&=\int_{A} \mu^{\RV{Y}|\RV{X}}(B|x) \mathrm{d}\mu^{\RV{X}}(x) &\forall A\in \sigalg{X}, B\in \sigalg{Y}\\
-% 	&\iff\\
-% 	\mu^{\RV{XY}}&= \tikzfig{disint_def}\label{eq:conditional} 
-% \end{align}
-% \end{definition}
 
 % We define higher order conditionals as ``conditionals of conditionals''.
 
